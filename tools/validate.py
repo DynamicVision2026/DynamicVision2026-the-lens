@@ -419,6 +419,62 @@ def validate(path: Path, with_variants: bool) -> bool:
     return ok_all, card, vs
 
 
+def annotate_enclose_steps(pts, steps):
+    """Add a verified `detail` to the box and corner steps of a standard Enclose route.
+
+    Study-pace scenes show each corner's base and height and colour it on its own,
+    so those numbers must come from the bundle, never from app code.
+      start: {"kind": "box", "width": w, "height": h}
+      sub:   {"kind": "corner", "n": 1.., "edge": "AB", "corner": [x, y], "base": dx, "height": dy}
+    Returns None (and leaves steps untouched) unless the figure is a clean Enclose
+    and the sub steps match the corners in edge order.
+    """
+    bd = enclose_breakdown(pts)
+    if not bd:
+        return None
+    x0, y0, x1, y1 = bbox(pts)
+    n, labels = len(pts), "ABCDEFGHIJ"
+    corners = []
+    for i in range(n):
+        a, b = pts[i], pts[(i + 1) % n]
+        if a[0] == b[0] or a[1] == b[1]:
+            continue
+        # right-angle corner of the gap: the candidate outside the polygon (right of a->b for CCW)
+        c1, c2 = (b[0], a[1]), (a[0], b[1])
+        c = c1 if _orient(a, b, c1) < 0 else c2
+        corners.append({"kind": "corner", "edge": labels[i] + labels[(i + 1) % n], "corner": list(c),
+                        "base": abs(b[0] - a[0]), "height": abs(b[1] - a[1]),
+                        "value": S(abs(b[0] - a[0])) * abs(b[1] - a[1]) / 2})
+    subs = [k for k, st in enumerate(steps) if st.get("op") == "sub"]
+    if len(subs) != len(corners) or any(sympify(steps[k]["value"]) != c["value"] for k, c in zip(subs, corners)):
+        return None
+    out = [dict(st) for st in steps]
+    for k, st in enumerate(out):
+        if st.get("op") == "start":
+            st["detail"] = {"kind": "box", "width": x1 - x0, "height": y1 - y0}
+    for num, (k, c) in enumerate(zip(subs, corners), start=1):
+        c = {key: val for key, val in c.items() if key != "value"}
+        out[k]["detail"] = {**c, "n": num}
+    return out
+
+
+def _annotate(card, vs):
+    if card["lens"] != "enclose" or card["kind"] != "standard":
+        return card, vs
+    pts = [tuple(p) for p in card["problem"]["figure"]["points"]]
+    steps = annotate_enclose_steps(pts, card["lens_route"]["steps"])
+    if steps is None:
+        raise SystemExit(f"bundle: cannot annotate {card['id']} (corners do not match steps)")
+    card = {**card, "lens_route": {**card["lens_route"], "steps": steps}}
+    new_vs = []
+    for v in vs:
+        vsteps = annotate_enclose_steps([tuple(p) for p in v["points"]], v["lens_route"]["steps"])
+        if vsteps is None:
+            raise SystemExit(f"bundle: cannot annotate {v['id']}")
+        new_vs.append({**v, "lens_route": {**v["lens_route"], "steps": vsteps}})
+    return card, new_vs
+
+
 PUBLISHABLE = {"verified", "reviewed", "published"}
 
 
@@ -429,9 +485,13 @@ def write_bundle(entries) -> Path:
     each with its variants, plus the tokens. Sorted by lens, then id.
     """
     tokens = json.loads((ROOT / "tokens" / "tokens.json").read_text(encoding="utf-8"))
-    cards = [{**card, "variants": vs} for ok, card, vs in entries if ok and card["status"] in PUBLISHABLE]
+    cards = []
+    for ok, card, vs in entries:
+        if ok and card["status"] in PUBLISHABLE:
+            card, vs = _annotate(card, vs)
+            cards.append({**card, "variants": vs})
     cards.sort(key=lambda c: (c["lens"], c["id"]))
-    bundle = {"bundle_version": "1.0", "schema_version": "1.0", "tokens": tokens, "cards": cards}
+    bundle = {"bundle_version": "1.1", "schema_version": "1.0", "tokens": tokens, "cards": cards}
     out = ROOT / "build" / "bundle.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(bundle, ensure_ascii=False, indent=2), encoding="utf-8")
