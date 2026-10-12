@@ -1,0 +1,85 @@
+schema_version: "1.0"
+id: enclose-002
+kind: standard
+lens: enclose
+best_move: enclose
+stage: shogakko
+grades: [小5, 小6]
+status: verified
+
+provenance:
+  original: true
+  built_from: "Archetype: tilted square on a lattice whose four corners each touch one side of the bounding box (box minus four congruent right triangles)."
+  not_derived_from: "Coordinates, wording and figure are original. Not adapted from any 入試, textbook or 塾 problem."
+  author: "The Lens content team"
+
+grounding:
+  principle_ja: "面積の加法性：外側の正方形から、合同な4つの直角三角形を引くと、ななめの正方形の面積が残る。"
+  principle_en: "Additivity of area: the outer square minus four congruent right triangles leaves the tilted square."
+
+problem:
+  text_ja: "方眼の1目もりは1cmです。ななめに置かれた正方形ABCDの面積は何cm²ですか。"
+  unit: "cm²"
+  figure:
+    type: grid_polygon
+    grid: {width: 7, height: 7, cell_cm: 1}
+    points: [[2, 0], [7, 2], [5, 7], [0, 5]]   # A, B, C, D (counter-clockwise)
+
+answer:
+  value: "29"
+  display_ja: "29cm²"
+  expr: polygon_area
+
+trap_route:
+  time_cost_sec: 210
+  time_source: estimate
+  steps:
+    - {ja: "正方形だから「1辺×1辺」で求めようとする", op: note}
+    - {ja: "1辺ABがななめで、方眼で長さが読めない", op: note}
+    - {ja: "定規で測ると約5.4cm。5.4×5.4 = 29.16で合わない", op: note}
+    - {ja: "ここで約3分半。答えが決まらない", op: note}
+
+lens_route:
+  time_cost_sec: 25
+  time_source: estimate
+  steps:
+    - {ja: "7×7の正方形で囲む", value: "49", op: start}
+    - {ja: "下の三角形 5×2÷2", value: "5", op: sub}
+    - {ja: "右の三角形 2×5÷2", value: "5", op: sub}
+    - {ja: "上の三角形 5×2÷2", value: "5", op: sub}
+    - {ja: "左の三角形 2×5÷2", value: "5", op: sub}
+    - {ja: "49 − 20 = 29", value: "29", op: result}
+
+trigger:
+  ja: "ななめの正方形は、1辺を測らずに外側の正方形で囲む。"
+  en: "A tilted square: don't measure its side, enclose it in an upright square."
+  tags: [grid, tilted_polygon, vertices_on_box]
+
+fails_when: enclose-f01
+
+picker:
+  options: [enclose, slide, mirror, direct]
+  correct: enclose
+  feedback_ja:
+    enclose: "そのとおり。4つの頂点が外側の正方形の4辺に1つずつ乗っている。"
+    slide: "平行な線はあるが、動かしても底辺と高さが方眼に乗らない。"
+    mirror: "最短の道すじを求める問題ではない。"
+    direct: "1辺がななめなので、1辺×1辺は方眼では計算できない。"
+
+animation:
+  keyframes: [show_shape, draw_box, shade_corners, label_corners, subtract, show_answer]
+
+checks:
+  - {type: lattice_only}
+  - {type: simple_polygon}
+  - {type: area_equals_answer}
+  - {type: enclose_clean}
+  - {type: tilted_square}
+  - {type: route_steps_sum, route: lens_route}
+  - {type: lens_faster}
+
+variants:
+  generator: enclose_tilted_square
+  count: 3
+  seed: 1002
+  constraints: {min: 4, max: 8}

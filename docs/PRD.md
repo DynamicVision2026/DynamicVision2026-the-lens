@@ -154,16 +154,38 @@ A card is publishable only when `tools/validate.py` passes it. Status flow: `dra
 | Generator | Construction | Guarantee |
 | --- | --- | --- |
 | `enclose_standard` | Box 4–8; one vertex strictly inside each side | Convex; every gap a right triangle |
-| `enclose_failure_notch` | Box 5–8; two vertices inside the box form a notch | Gap is not a right triangle |
+| `enclose_tilted_square` | Side vector (b, a), a ≠ b, a + b in 4–8 | A true square (`tilted_square` check), four congruent corners |
+| `enclose_triangle` | One vertex on a box corner, one on the left side, one on the top | No side on a grid line; three right-triangle gaps |
+| `enclose_failure_notch` | Box 5–8; notch of two inside vertices, the deeper one at x = m | Enclose stalls; a cut at x = m leaves pieces with grid-line bases |
 | `no_lens_flat_base` | Base on a grid line; apex strictly above the base | Base × height ÷ 2 wins |
 
-Each variant re-runs its parent's structural checks and is dropped if any fails. Standard variants carry their box/corner breakdown; failure and No-lens step generators are an S1 task.
+Each variant re-runs its parent's structural checks (so it matches the card's wording and still needs the same move), and carries its own `lens_route.steps`. A variant is dropped unless those steps sum exactly to its own answer. Generators assume `cell_cm = 1`.
+
+**Bundle contract (what the Builder imports).** `python3 tools/validate.py cards/**/*.yaml --bundle` writes `build/bundle.json` only if every card passes:
+
+```jsonc
+{
+  "bundle_version": "1.0",
+  "schema_version": "1.0",
+  "tokens": { /* tokens/tokens.json, verbatim */ },
+  "cards": [            // status verified or later, sorted by lens then id
+    { /* every Lens Card field, as in the YAML */,
+      "variants": [
+        { "id": "enclose-001-v1", "points": [[1,0],[4,4],[1,5],[0,4]],
+          "grid": {"width": 4, "height": 5, "cell_cm": 1}, "answer": "10",
+          "lens_route": { "steps": [ {"ja": "…", "value": "20", "op": "start"}, … ] } } ] } ]
+}
+```
+
+Numbers in `answer` and step `value` are exact SymPy strings (`"39/2"`); display them with `display_ja` or format the fraction, never re-compute. The front end treats the bundle as read-only and never does math.
 
 **Golden reference cards**
 
 | Card | Figure | Answer | Lesson | Lens route |
 | --- | --- | --- | --- | --- |
 | `enclose-001` | Tilted quadrilateral, one vertex per side of a 6×6 box | 19.5 cm² | Enclose collapses it | 36 − (1.5 + 5 + 4 + 6) |
+| `enclose-002` | Tilted square, side vector (5, 2), in a 7×7 box | 29 cm² | Don't measure a slanted side | 49 − 4 × 5 |
+| `enclose-003` | Triangle with no side on a grid line, in a 6×5 box | 14 cm² | Don't hunt for a base | 30 − (3 + 5 + 8) |
 | `enclose-f01` | Hexagon with a two-vertex notch | 26 cm² | Gap isn't a right triangle; cut at x = 3 | 18 + 3 + 2 + 3 |
 | `enclose-no-lens` | Triangle, base 7, height 5 | 17.5 cm² | Enclose works but is the long way | 7 × 5 ÷ 2 |
 
@@ -205,8 +227,8 @@ gantt
 | --- | --- | --- | --- | --- |
 | Repo | Initial commit, CI validation workflow, `/docs` | S1 | Architect | ✅ Done |
 | Repo | Branch protection on `main`: require the "Validate Lens Cards" check | S1 | Founder | Failing card blocks merge |
-| Content | enclose-002, enclose-003 standard cards | S1 | Architect | 5 Enclose cards verified |
-| Content | Step generators for failure and No-lens variants | S1 | Architect | Every variant has lens steps |
+| Content | enclose-002, enclose-003 standard cards | S1 | Architect | ✅ PR open |
+| Content | Step generators for all variants; `build/bundle.json` | S1 | Architect | ✅ PR open |
 | Frontend | pnpm workspace; Vite + React scaffold; tokens → CSS variables | S1 | Builder | Deploys to Cloudflare Pages |
 | Frontend | `LensScene` for grid polygons with Enclose keyframes | S1 | Builder | enclose-001 animates end to end |
 | Frontend | Picker, clue step, feedback, hints | S2 | Builder | All 3 reference cards playable |
