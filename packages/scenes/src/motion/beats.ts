@@ -1,0 +1,185 @@
+// Study-pace beats as reducers over one state, like the keyframes: the frame at (beat k, t) is every
+// earlier beat at t = 1, then beat k at t. Each beat turns t into elapsed ms of its own window, so
+// springs, staggers and the glow pulse are pure functions of t.
+import { clamp01, type Easing } from '../easing';
+import { springAt } from '../spring';
+import type { SpringToken, Tokens } from '../types';
+import type { Beat } from './timeline';
+
+/** Which calculation step is on screen: the box (step 0) or corner i. */
+export type Focus = { kind: 'box' } | { kind: 'corner'; index: number };
+
+export interface MotionState {
+  grid: number;
+  /** Figure drawn in chalk (trap ink), then crossfaded to ink by `inked`. */
+  chalk: number;
+  inked: number;
+  /** Trap lines: how many have appeared (0–1 across them) and their opacity. */
+  trapReveal: number;
+  trapOpacity: number;
+  /** Lens chip (icon + label) pop. */
+  chip: number;
+  box: number;
+  boxFade: number;
+  glow: number;
+  focus: Focus | null;
+  /** Progress of the focused step's parts: enter (title, piece), legs/brackets, formula card. */
+  enter: number;
+  legs: number;
+  formula: number;
+  /** 0–1 per corner: has had its step (stays tinted at low opacity afterwards). */
+  done: number[];
+  /** 0–1 per corner during subtract: lights up, then slides out and fades. */
+  lit: number[];
+  removed: number[];
+  /** Per equation term (start value, then one per corner): joined, and lit up in subtract. */
+  terms: number[];
+  termLit: number[];
+  core: number;
+  coreGlow: number;
+  pulseMs: number;
+  result: number;
+  display: number;
+  trigger: number;
+}
+
+export interface MotionContext {
+  corners: number;
+  trapLines: number;
+  tokens: Tokens;
+  ease: Easing;
+  spring: SpringToken;
+}
+
+export function initialMotionState(corners: number): MotionState {
+  const zeros = (n: number) => Array.from({ length: n }, () => 0);
+  return {
+    grid: 0,
+    chalk: 0,
+    inked: 0,
+    trapReveal: 0,
+    trapOpacity: 0,
+    chip: 0,
+    box: 0,
+    boxFade: 1,
+    glow: 0,
+    focus: null,
+    enter: 0,
+    legs: 0,
+    formula: 0,
+    done: zeros(corners),
+    lit: zeros(corners),
+    removed: zeros(corners),
+    terms: zeros(corners + 1),
+    termLit: zeros(corners + 1),
+    core: 0,
+    coreGlow: 0,
+    pulseMs: 0,
+    result: 0,
+    display: 0,
+    trigger: 0,
+  };
+}
+
+/** Progress of a part that starts `start` ms into the beat and lasts `dur` ms. */
+const span = (ms: number, start: number, dur: number) => clamp01((ms - start) / Math.max(1, dur));
+/** Spring that settles at exactly 1 once its beat ends. */
+const pop = (t: number, ms: number, start: number, cfg: SpringToken) => (t >= 1 ? 1 : springAt(ms - start, cfg));
+const set = (arr: number[], i: number, v: number) => arr.map((x, j) => (j === i ? v : x));
+
+/** Readable trap text (≥ 70%), dimmed when the lens activates. */
+const TRAP_READABLE = 0.85;
+const TRAP_DIM = 0.15;
+const FADE_MS = 300;
+
+type BeatReducer = (s: MotionState, t: number, ms: number, beat: Beat, ctx: MotionContext) => MotionState;
+
+const REDUCERS: Record<Beat['name'], BeatReducer> = {
+  trap: (s, _t, ms, beat, { ease }) => ({
+    ...s,
+    grid: ease(span(ms, 0, 600)),
+    chalk: ease(span(ms, 0, 800)),
+    trapReveal: span(ms, 800, beat.durationMs - 1200),
+    trapOpacity: TRAP_READABLE,
+  }),
+
+  lens_activate: (s, t, ms, beat, { ease, spring }) => ({
+    ...s,
+    trapOpacity: TRAP_READABLE + (TRAP_DIM - TRAP_READABLE) * ease(span(ms, 0, 600)),
+    chip: pop(t, ms, 300, spring),
+    inked: ease(span(ms, 0, beat.durationMs * 0.6)),
+  }),
+
+  box_step: (s, _t, ms, beat, { ease, tokens }) => {
+    const { laser_wipe: laser } = tokens.motion.duration_ms;
+    const { legs_draw_ms: legs, formula_ms: formula, equation_term_ms: term } = tokens.motion.study;
+    const box = ease(span(ms, 0, laser));
+    return {
+      ...s,
+      trapOpacity: TRAP_DIM * (1 - span(ms, 0, FADE_MS)),
+      focus: { kind: 'box' },
+      enter: ease(span(ms, 0, FADE_MS)),
+      box,
+      glow: clamp01((box - 0.85) / 0.15),
+      legs: ease(span(ms, laser, legs)),
+      formula: ease(span(ms, laser + legs, formula)),
+      terms: set(s.terms, 0, ease(span(ms, beat.durationMs - term, term))),
+    };
+  },
+
+  corner_step: (s, _t, ms, beat, { ease, tokens }) => {
+    const i = beat.index ?? 0;
+    const { step_focus_ms: focus, legs_draw_ms: legs, formula_ms: formula, equation_term_ms: term } = tokens.motion.study;
+    return {
+      ...s,
+      focus: { kind: 'corner', index: i },
+      enter: ease(span(ms, 0, focus)),
+      legs: ease(span(ms, focus, legs)),
+      formula: ease(span(ms, focus + legs, formula)),
+      done: set(s.done, i, 1),
+      terms: set(s.terms, i + 1, ease(span(ms, beat.durationMs - term, term))),
+    };
+  },
+
+  subtract: (s, _t, ms, beat, { corners, ease, tokens }) => {
+    const remove = tokens.motion.duration_ms.corner_remove;
+    const lightUp = tokens.motion.study.equation_term_ms / 2;
+    const spacing = corners > 0 ? (beat.durationMs - remove - lightUp) / corners : 0;
+    const startOf = (i: number) => i * spacing;
+    return {
+      ...s,
+      focus: null,
+      lit: s.lit.map((_, i) => ease(span(ms, startOf(i), lightUp))),
+      removed: s.removed.map((_, i) => ease(span(ms, startOf(i) + lightUp, remove))),
+      termLit: s.termLit.map((_, i) => (i === 0 ? ease(span(ms, 0, lightUp)) : ease(span(ms, startOf(i - 1), lightUp)))),
+      boxFade: 1 - ease(span(ms, startOf(corners - 1) + lightUp, remove)),
+    };
+  },
+
+  answer: (s, t, ms, _beat, { ease, spring, tokens }) => {
+    const reveal = ease(span(ms, 0, tokens.motion.duration_ms.core_reveal));
+    return {
+      ...s,
+      core: reveal,
+      coreGlow: reveal,
+      pulseMs: ms,
+      result: ease(span(ms, 200, FADE_MS)),
+      display: pop(t, ms, 500, spring),
+      trigger: ease(span(ms, 500, tokens.motion.duration_ms.shade)),
+    };
+  },
+};
+
+/** The motion state at beat index `k` and raw (un-eased) progress `t`. */
+export function motionState(beats: Beat[], k: number, t: number, ctx: MotionContext): MotionState {
+  let state = initialMotionState(ctx.corners);
+  const last = Math.min(Math.max(0, k), beats.length - 1);
+  for (let i = 0; i <= last; i++) {
+    const beat = beats[i]!;
+    const p = i === last ? clamp01(t) : 1;
+    // A new step replaces the previous step's marks.
+    if (beat.name === 'corner_step' || beat.name === 'subtract') state = { ...state, enter: 0, legs: 0, formula: 0 };
+    state = REDUCERS[beat.name](state, p, p * beat.durationMs, beat, ctx);
+  }
+  return state;
+}

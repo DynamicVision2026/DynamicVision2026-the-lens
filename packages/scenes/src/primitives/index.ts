@@ -7,3 +7,4 @@ export { RegionShade } from './RegionShade';
 export { StepLabel } from './StepLabel';
 export { TimeStrip } from './TimeStrip';
 export { LensIcon } from './LensIcon';
+export { Bracket, BRACKET_OFFSET } from './Bracket';

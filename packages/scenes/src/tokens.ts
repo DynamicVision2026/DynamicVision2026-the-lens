@@ -1,11 +1,34 @@
 // Token adapter: the only style source for scenes and apps (tokens/tokens.json).
 import raw from '../../../tokens/tokens.json';
-import type { ColorToken, LensId, Tokens, TypeScaleToken } from './types';
+import type { ColorToken, GlowToken, LensId, Tokens, TypeScaleToken } from './types';
 
 export const tokens = raw as unknown as Tokens;
 
 /** 'print' is a Phase 2 stub: it currently resolves to the screen values. */
 export type RenderMode = 'screen' | 'print';
+
+/** 'base' is the light theme (trainer, book); others come from `tokens.themes`. */
+export type ThemeName = 'base' | 'short_dark';
+
+function isObject(v: unknown): v is Record<string, unknown> {
+  return typeof v === 'object' && v !== null && !Array.isArray(v);
+}
+
+function deepMerge<T>(base: T, over: unknown): T {
+  if (!isObject(base) || !isObject(over)) return (over === undefined ? base : over) as T;
+  const out: Record<string, unknown> = { ...base };
+  for (const [k, v] of Object.entries(over)) out[k] = deepMerge((base as Record<string, unknown>)[k], v);
+  return out as T;
+}
+
+/** Tokens with a theme layered over the base, plus that theme's glow (none for 'base'). */
+export function themed(t: Tokens, theme: ThemeName = 'base'): { tokens: Tokens; glow: GlowToken | null } {
+  const override = theme === 'base' ? undefined : t.themes?.[theme];
+  if (!override) return { tokens: t, glow: null };
+  const color = deepMerge(t.color, override.color);
+  if (override.lens_tint_opacity !== undefined) color.lens_tint_opacity = override.lens_tint_opacity;
+  return { tokens: { ...t, color }, glow: override.glow ?? null };
+}
 
 export type TypeScaleName = keyof Tokens['type']['scale'];
 export type LensOrDirect = LensId | 'direct';
