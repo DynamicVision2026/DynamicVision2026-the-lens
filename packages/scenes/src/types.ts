@@ -86,6 +86,21 @@ export interface MirrorPathFigure {
 }
 
 /**
+ * A cuboid ABCD-EFGH (E above A, F above B, G above C): AB = a, BC = b, AE = h. A string on the
+ * surface runs A → P (on edge BF) → G. P is drawn at the card's answer (BP), never computed;
+ * `net_width` (a + b) comes from the validator.
+ */
+export interface BoxUnfoldFigure {
+  type: 'box_unfold';
+  a: number;
+  b: number;
+  h: number;
+  unit: string;
+  point_labels: { A: string; B: string; C: string; D: string; E: string; F: string; G: string; H: string; P: string };
+  net_width: string;
+}
+
+/**
  * A word problem: the figure is a diagram the lens draws. `kind` picks the diagram; `params` holds
  * the problem's numbers and `names` its nouns. Printed numbers come only from params or the steps.
  */
@@ -97,7 +112,7 @@ export interface WordProblemFigure {
 }
 
 /** Figures with a scene. Other types in the bundle (later lenses' drafts) have none yet. */
-export type Figure = GridPolygonFigure | ParallelBandFigure | MirrorPathFigure | WordProblemFigure;
+export type Figure = GridPolygonFigure | ParallelBandFigure | MirrorPathFigure | WordProblemFigure | BoxUnfoldFigure;
 
 export interface Picker {
   /** Exactly four move ids, e.g. "enclose" or "direct". */

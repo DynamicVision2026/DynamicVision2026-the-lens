@@ -10,11 +10,13 @@ import { color, fontFamily, fontSize, lensColor, themed, tokens as defaultTokens
 import { bandLayout } from './band';
 import { bandState } from './keyframes/band';
 import { mirrorState } from './keyframes/mirror';
+import { unfoldState } from './keyframes/unfold';
 import { wordState } from './keyframes/word';
 import { mirrorLayout, touchX } from './mirror';
+import { unfoldLayout } from './unfold';
 import { hasScene } from './variant';
-import { BAND_END_ROOM, BandFigure, MirrorFigure, StoryText, storyHeight, WordDiagram } from './primitives';
-import type { GlowToken, GridPolygonFigure, LensCard, MirrorPathFigure, ParallelBandFigure, Point, Tokens, WordProblemFigure } from './types';
+import { BAND_END_ROOM, BandFigure, MirrorFigure, StoryText, storyHeight, UnfoldFigure, WordDiagram } from './primitives';
+import type { BoxUnfoldFigure, GlowToken, GridPolygonFigure, LensCard, MirrorPathFigure, ParallelBandFigure, Point, Tokens, WordProblemFigure } from './types';
 
 /** Scene viewBox in px at 1x. Video renders it at 2x (1080 px wide frame ≈ 2.25x). */
 export const SCENE_WIDTH = 480;
@@ -112,6 +114,13 @@ export function LensScene({
     return (
       <svg {...svgProps}>
         <MirrorKeyframeScene card={card} fig={figure} keyframes={keyframes} keyframe={keyframe} t={progress} tokens={tokens} glow={glow} mode={mode} />
+      </svg>
+    );
+  }
+  if (figure.type === 'box_unfold') {
+    return (
+      <svg {...svgProps}>
+        <UnfoldKeyframeScene card={card} fig={figure} keyframes={keyframes} keyframe={keyframe} t={progress} tokens={tokens} glow={glow} mode={mode} />
       </svg>
     );
   }
@@ -369,6 +378,68 @@ function MirrorKeyframeScene({ card, fig, keyframes, keyframe, t, tokens, glow, 
         reflect={state.reflect}
         straight={state.straight}
         similar={state.similar}
+        tint={tokens.color.step.tint_opacity}
+        idPrefix={`lens-${card.id}`}
+        glowFilter={glow ? `url(#${glowId})` : undefined}
+        glowOpacity={glow?.opacity}
+      />
+      <TextBand
+        card={card}
+        tokens={tokens}
+        mode={mode}
+        caption={state.caption ? { text: state.caption.step.ja, t: state.caption.t, size: 'step' } : null}
+        answer={state.answer}
+        ink={color(tokens.color.ink, mode)}
+        accent={accent}
+      />
+    </g>
+  );
+}
+
+interface UnfoldKeyframeSceneProps extends Omit<MirrorKeyframeSceneProps, 'fig'> {
+  fig: BoxUnfoldFigure;
+}
+
+/** The Unfold lens on a box-net figure, keyframe by keyframe (trainer and /dev/scenes). */
+function UnfoldKeyframeScene({ card, fig, keyframes, keyframe, t, tokens, glow, mode }: UnfoldKeyframeSceneProps) {
+  const state = unfoldState(keyframes, keyframe, t, card);
+  const label = fontSize(tokens, 'label', mode);
+  const layout = unfoldLayout(fig, PAD, PAD, SCENE_WIDTH - 2 * PAD, FIGURE_HEIGHT - 2 * PAD, label * 2.2, label * 5.8);
+  const accent = lensColor(tokens, card.lens, mode);
+  const glowId = `lens-glow-${card.id}`;
+  return (
+    <g>
+      {glow && (
+        <defs>
+          <filter id={glowId} x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation={glow.blur_px / 2} />
+          </filter>
+        </defs>
+      )}
+      <UnfoldFigure
+        fig={fig}
+        layout={layout}
+        crossY={touchX(card)}
+        answerText={answerText(card)}
+        tokens={tokens}
+        ink={color(tokens.color.ink, mode)}
+        chalk={color(tokens.color.trap.ink, mode)}
+        accent={accent}
+        palette={tokens.color.step.palette.map((c) => color(c, mode))}
+        font={fontFamily(tokens, undefined, 'family_num')}
+        weight={tokens.type.scale.label.weight}
+        labelSize={label}
+        figureStroke={tokens.stroke.figure.width}
+        lensStroke={tokens.stroke.lens.width}
+        dash={tokens.stroke.trap.dash}
+        bracket={{ offset: label * 0.6, tick: 5, numberSize: label, strokeWidth: tokens.stroke.lens_construction.width }}
+        show={state.show}
+        tryPath={state.tryPath}
+        tryDim={state.tryDim}
+        unfold={state.unfold}
+        straight={state.straight}
+        similar={state.similar}
+        answer={state.answer}
         tint={tokens.color.step.tint_opacity}
         idPrefix={`lens-${card.id}`}
         glowFilter={glow ? `url(#${glowId})` : undefined}

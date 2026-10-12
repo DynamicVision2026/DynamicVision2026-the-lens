@@ -49,8 +49,9 @@ export interface MotionState {
   trapDemoDim: number;
   /** Progress per figure keyframe played by figure_step beats (word-problem diagrams). */
   figureProg: Record<string, number>;
-  /** Shortest path: Q′ reflected, the straight line drawn, the similar triangles. */
+  /** Shortest path: Q′ reflected (Mirror) or face BCGF opened flat (Unfold), the straight line drawn, the similar triangles. */
   reflect: number;
+  unfold: number;
   straight: number;
   similar: number;
   /** Parallel band: the ∥ highlight, how far each apex has slid, the merged outline, the focused triangle. */
@@ -109,6 +110,7 @@ export function initialMotionState(corners: number, apexes = 0): MotionState {
     endCard: 0,
     figureProg: {},
     trapDemo: 0,
+    unfold: 0,
     trapDemoDim: 1,
     reflect: 0,
     straight: 0,
@@ -262,6 +264,16 @@ const REDUCERS: Record<Beat['name'], BeatReducer> = {
     buttonsOut: ease(span(ms, 0, FADE_MS * 2)),
     freezeTitle: s.freezeTitle * (1 - ease(span(ms, 0, FADE_MS))),
     reflect: ease(span(ms, 0, FADE_MS * 3)),
+    captionStep: 0,
+    caption: ease(span(ms, 0, FADE_MS)),
+  }),
+
+  unfold_faces: (s, _t, ms, beat, { ease, tokens }) => ({
+    ...s,
+    trapOpacity: Math.min(s.trapOpacity, TRAP_DIM) * (1 - span(ms, 0, FADE_MS)),
+    buttonsOut: ease(span(ms, 0, FADE_MS * 2)),
+    freezeTitle: s.freezeTitle * (1 - ease(span(ms, 0, FADE_MS))),
+    unfold: ease(span(ms, 0, beat.durationMs - tokens.motion.study.step_hold_ms)),
     captionStep: 0,
     caption: ease(span(ms, 0, FADE_MS)),
   }),
