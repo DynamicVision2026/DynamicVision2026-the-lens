@@ -19,7 +19,7 @@ Composition `EncloseShort`, 1080×1920, 30 fps, 900 frames, input prop `cardId` 
 | 25–30 s | Trigger card + end frame | `trigger.ja`, series end card |
 
 - Captions are burned in; all card text comes from the bundle. The only fixed copy is the series end card: 「視点レンズ ― 無料で1レンズ試せます」 with a placeholder URL `lens.beyondculture.ai` (final domain from the founder).
-- Lens button labels: 囲む / 等積変形 / 折り返す / そのまま計算 for `enclose`, `slide`, `mirror`, `direct`. Put this map in `packages/scenes/src/labels.ts` and flag it in the PR; the Architect will move it into the schema.
+- Lens button labels come from the bundle: `bundle.labels.lenses[option].ja` (囲む / 等積変形 / 折り返す / そのまま計算 …). Do not keep a labels map in code.
 - No voice-over or music in this WO (audio is a later decision).
 - Script `pnpm render:short enclose-001` writes `out/enclose-001.mp4` (git-ignored).
 
@@ -37,7 +37,7 @@ reveal ──next──▶ variant      (enclose-001-v1, timed, same picker, no 
 variant ──done──▶ report      (Time-Saved report)
 ```
 
-- **Clue step:** show the card's `trigger.tags` as chips plus 2 distractor chips from a fixed list in `labels.ts` (`parallel_lines`, `3d_solid`). Correct = the child taps at least one real tag and no distractor. A right lens with a wrong clue shows the hint and does not count as a clean solve. Chip labels need Japanese text; add them to `labels.ts` and flag in the PR (Architect follow-up).
+- **Clue step:** chips = the card's `trigger.tags` that are not `generic` in `bundle.labels.tags`, plus `picker.clue_distractors`, shuffled. Chip text = `bundle.labels.tags[tag].ja`. Correct = the child taps at least one real tag and no distractor. A right lens with a wrong clue shows the hint and does not count as a clean solve. The validator guarantees every chip has a label and that decoys differ from the real clues.
 - **Timing:** record seconds from first render to correct pick, for the card and for the variant.
 - **Storage:** a `safeStorage` wrapper (`get`, `set`, both in try/catch) stores `{cardId, attempts, misses, seconds, clueCorrect}` under one key `lens.v1`. The page must work in a private window with storage disabled.
 - **Report:** first-attempt time vs variant time, the 目安/実測 badge from `time_source`, the wording 「同じ型の問題」, and one button 「先行予約（¥6,800）」 linking to a placeholder URL. No exam-score claims.
@@ -51,6 +51,10 @@ variant ──done──▶ report      (Time-Saved report)
 - [ ] Works in a private window; progress survives a reload in a normal window.
 - [ ] `prefers-reduced-motion` shows end states with 200 ms fades.
 - [ ] PR includes the MP4 and a screen recording of one full picker run.
+
+## Bundle 1.2 type update (Builder)
+
+Update `packages/scenes/src/types.ts` to the current contract: `schema_version: '1.1'`, `picker.clue_distractors: string[]`, `Bundle.labels: { lenses: Record<string, { ja: string; hint_ja: string }>; tags: Record<string, { ja: string; generic?: boolean }> }`, and the optional `Step.detail` (box / corner) from bundle 1.1.
 
 ## Architect notes from the WO-002 review
 

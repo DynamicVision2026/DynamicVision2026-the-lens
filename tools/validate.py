@@ -29,6 +29,36 @@ ROOT = Path(__file__).resolve().parent.parent
 SCHEMA = json.loads((ROOT / "schema" / "lens-card.schema.json").read_text(encoding="utf-8"))
 
 
+def _load_labels():
+    out = {}
+    for name in ("lenses", "tags"):
+        path = ROOT / "labels" / f"{name}.yaml"
+        out[name] = yaml.safe_load(path.read_text(encoding="utf-8")) if path.exists() else {}
+    return out
+
+
+LABELS = _load_labels()
+
+
+def label_check(card):
+    """Every picker option and clue chip must have a Japanese label; decoys must be real decoys."""
+    errs = []
+    lenses, tags = LABELS["lenses"], LABELS["tags"]
+    for opt in card["picker"]["options"]:
+        if opt not in lenses:
+            errs.append(f"picker option '{opt}' has no label in labels/lenses.yaml")
+    real = card["trigger"]["tags"]
+    decoys = card["picker"]["clue_distractors"]
+    for tg in real + decoys:
+        if tg not in tags:
+            errs.append(f"tag '{tg}' has no label in labels/tags.yaml")
+    if set(real) & set(decoys):
+        errs.append(f"clue_distractors overlap trigger.tags: {sorted(set(real) & set(decoys))}")
+    if not [tg for tg in real if not tags.get(tg, {}).get("generic")]:
+        errs.append("trigger.tags has no specific (non-generic) clue for the child to find")
+    return errs
+
+
 # ---------------------------------------------------------------- geometry ---
 
 def shoelace(pts) -> Rational:
@@ -400,6 +430,12 @@ def validate(path: Path, with_variants: bool) -> bool:
         ok, msg = run_check(card, ch, pts)
         ok_all &= ok
         print(f"  {'PASS' if ok else 'FAIL'}    {ch['type']}{'(' + ch['route'] + ')' if 'route' in ch else ''}: {msg}")
+    lerrs = label_check(card)
+    for e in lerrs:
+        print(f"  FAIL    labels: {e}")
+    if not lerrs:
+        print("  PASS    labels: every option and clue chip has a label; decoys differ from real clues")
+    ok_all &= not lerrs
     applies, ok, msg = step_order_check(card, pts)
     if applies:
         ok_all &= ok
@@ -491,7 +527,7 @@ def write_bundle(entries) -> Path:
             card, vs = _annotate(card, vs)
             cards.append({**card, "variants": vs})
     cards.sort(key=lambda c: (c["lens"], c["id"]))
-    bundle = {"bundle_version": "1.1", "schema_version": "1.0", "tokens": tokens, "cards": cards}
+    bundle = {"bundle_version": "1.2", "schema_version": "1.1", "tokens": tokens, "labels": LABELS, "cards": cards}
     out = ROOT / "build" / "bundle.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(bundle, ensure_ascii=False, indent=2), encoding="utf-8")

@@ -1,4 +1,4 @@
-schema_version: "1.0"
+schema_version: "1.1"
 id: enclose-no-lens
 kind: no_lens
 lens: enclose
@@ -55,6 +55,7 @@ trigger:
 picker:
   options: [enclose, slide, mirror, direct]
   correct: direct
+  clue_distractors: [no_side_on_grid_line, tilted_polygon]
   feedback_ja:
     enclose: "囲んでも答えは出るが、3回計算が必要。ここではいちばん遠回り。"
     slide: "動かさなくても、底辺と高さがもう見えている。"

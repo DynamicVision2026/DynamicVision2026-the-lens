@@ -1,0 +1,11 @@
+# Japanese labels for picker buttons and lens icons. Content, not code: the apps read these from the bundle.
+# Every value used in any card's picker.options must have an entry here (the validator checks).
+enclose:  {ja: 囲む,         hint_ja: 外側の長方形で囲んで、まわりを引く}
+slide:    {ja: 等積変形,     hint_ja: 平行な線にそって頂点を動かす}
+unfold:   {ja: 展開,         hint_ja: 立体を開いて平面にする}
+freeze:   {ja: 止める,       hint_ja: 片方を止めて、相対的な動きで考える}
+balance:  {ja: てんびん,     hint_ja: 混ぜる問題を、てんびんのつり合いで考える}
+area:     {ja: 面積図,       hint_ja: 2種類の数量を長方形の面積で表す}
+mirror:   {ja: 折り返す,     hint_ja: 線で折り返して、まっすぐな道にする}
+constant: {ja: 差一定,       hint_ja: 変わらないものに目をつける}
+direct:   {ja: そのまま計算, hint_ja: レンズを使わず、公式でそのまま求める}

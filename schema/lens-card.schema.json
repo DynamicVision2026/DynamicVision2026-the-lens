@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://beyondculture.ai/the-lens/lens-card.schema.json",
   "title": "Lens Card",
-  "description": "One problem in 視点レンズ (The Lens). Single source for the web trainer, Shorts renderer and Typst book. Schema version 1.0.",
+  "description": "One problem in 視点レンズ (The Lens). Single source for the web trainer, Shorts renderer and Typst book. Schema version 1.1.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -11,7 +11,7 @@
     "checks", "variants", "status"
   ],
   "properties": {
-    "schema_version": { "const": "1.0" },
+    "schema_version": { "const": "1.1" },
     "id": { "type": "string", "pattern": "^[a-z]+-(\\d{3}|f\\d{2}|no-lens(-\\d{2})?)$" },
     "kind": {
       "description": "standard = the lens is the best route; failure = the lens stalls and another move wins; no_lens = direct calculation is fastest.",
@@ -101,10 +101,14 @@
       "description": "The four choices shown in the Perspective Picker.",
       "type": "object",
       "additionalProperties": false,
-      "required": ["options", "correct", "feedback_ja"],
+      "required": ["options", "correct", "clue_distractors", "feedback_ja"],
       "properties": {
         "options": { "type": "array", "items": { "type": "string" }, "minItems": 4, "maxItems": 4, "uniqueItems": true },
         "correct": { "type": "string" },
+        "clue_distractors": {
+          "description": "2-3 decoy clue tags shown beside the real trigger tags. Each must have a label in labels/tags.yaml and must not be one of this card's trigger.tags. Pick clues that point to a different move, so a wrong tap is informative.",
+          "type": "array", "items": { "type": "string" }, "minItems": 2, "maxItems": 3, "uniqueItems": true
+        },
         "feedback_ja": { "description": "One line per option explaining why it does or does not fit.", "type": "object", "additionalProperties": { "type": "string" } }
       }
     },

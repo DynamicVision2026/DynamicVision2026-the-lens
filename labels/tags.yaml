@@ -1,0 +1,15 @@
+# Japanese labels for clue chips (trigger.tags and picker.clue_distractors).
+# generic: true = true of almost every card in its lens; shown as context, never offered as a clue chip.
+grid:                 {ja: 方眼の上の図形,               generic: true}
+tilted_polygon:       {ja: ななめにかたむいた図形}
+vertices_on_box:      {ja: 頂点が外わくの上にある}
+vertices_inside_box:  {ja: 頂点が外わくの内側にある}
+concave_polygon:      {ja: へこんだ図形}
+triangle:             {ja: 三角形,                       generic: true}
+base_on_grid_line:    {ja: 底辺が方眼の線の上にある}
+no_side_on_grid_line: {ja: どの辺も方眼の線に乗っていない}
+parallel_lines:       {ja: 平行な線がある}
+solid_3d:             {ja: 立体の図}
+shortest_path:        {ja: いちばん短い道すじ}
+moving_points:        {ja: 動く点がある}
+mixing:               {ja: 2つのものを混ぜる}
