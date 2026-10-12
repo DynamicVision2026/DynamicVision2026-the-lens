@@ -165,7 +165,7 @@ Each variant re-runs its parent's structural checks (so it matches the card's wo
 
 ```jsonc
 {
-  "bundle_version": "1.0",
+  "bundle_version": "1.1",
   "schema_version": "1.0",
   "tokens": { /* tokens/tokens.json, verbatim */ },
   "cards": [            // status verified or later, sorted by lens then id
@@ -176,6 +176,8 @@ Each variant re-runs its parent's structural checks (so it matches the card's wo
           "lens_route": { "steps": [ {"ja": "…", "value": "20", "op": "start"}, … ] } } ] } ]
 }
 ```
+
+**Step details (bundle 1.1).** For standard Enclose cards and their variants, the bundle adds a verified `detail` to the box step (`{kind: "box", width, height}`) and to each corner step (`{kind: "corner", n, edge, corner: [x, y], base, height}`). Scenes draw base/height marks and formula cards from these numbers only; the validator guarantees `base × height ÷ 2` equals the step value.
 
 **Step order is part of the contract.** Scenes put each piece's label on the piece by the order of the steps. For standard Enclose cards, the `sub` steps list the corner gaps in edge order starting at edge AB (A→B, B→C, …). For notch failure cards, the `start`/`add` steps are: right rectangle, bottom triangle, side triangle, top triangle. The validator's `step_order` check enforces both, so a card whose labels would land on the wrong piece cannot reach the bundle.
 
