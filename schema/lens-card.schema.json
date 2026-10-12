@@ -116,7 +116,7 @@
           "required": ["type", "kind", "params"],
           "properties": {
             "type": { "const": "word_problem" },
-            "kind": { "enum": ["two_kinds_total", "age_ratio"] },
+            "kind": { "enum": ["two_kinds_total", "age_ratio", "mixture", "meeting"] },
             "params": { "type": "object", "additionalProperties": { "type": "integer" } },
             "names": { "type": "object", "additionalProperties": { "type": "string" } }
           }
@@ -189,7 +189,7 @@
       "additionalProperties": false,
       "required": ["generator", "count", "seed"],
       "properties": {
-        "generator": { "enum": ["enclose_standard", "enclose_tilted_square", "enclose_triangle", "slide_band", "mirror_path", "wp_two_kinds", "wp_age_ratio", "enclose_failure_notch", "no_lens_flat_base"] },
+        "generator": { "enum": ["enclose_standard", "enclose_tilted_square", "enclose_triangle", "slide_band", "mirror_path", "wp_two_kinds", "wp_age_ratio", "wp_mixture", "wp_meeting", "enclose_failure_notch", "no_lens_flat_base"] },
         "count": { "type": "integer", "minimum": 0, "maximum": 50 },
         "seed": { "type": "integer" },
         "constraints": { "type": "object" }

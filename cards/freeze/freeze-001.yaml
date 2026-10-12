@@ -1,0 +1,79 @@
+schema_version: "1.1"
+id: freeze-001
+kind: standard
+lens: freeze
+best_move: freeze
+stage: shogakko
+grades: [小5, 小6]
+status: draft            # flips to verified when the word-problem scenes for this lens merge; validator checks it fully either way
+
+provenance:
+  original: true
+  built_from: "Archetype: two walkers start at both ends of a road toward each other (旅人算); freeze one and use the closing speed."
+  not_derived_from: "Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem."
+  author: "The Lens content team"
+
+grounding:
+  principle_ja: "相手を止めて見ると、自分は2人の速さの和で近づいて見える（相対速度）。動くものが1つになると、わり算1回で出会う時間が分かる。"
+  principle_en: "Freezing one walker, the other approaches at the sum of the speeds (relative motion); one mover means one division."
+
+problem:
+  text_ja: "1800mはなれた道の両はしから、兄は分速80m、弟は分速70mで、向かい合って同時に歩き始めます。2人が出会うのは何分後ですか。"
+  unit: "分後"
+  figure:
+    type: word_problem
+    kind: meeting
+    params: {d: 1800, u: 80, v: 70}
+    names: {a: 兄, b: 弟}
+
+answer:
+  value: "12"
+  display_ja: "12分後"
+  expr: word_problem
+
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+    - {ja: "1分後、2分後…と、2人がいる場所を表に書いていく", op: note}
+    - {ja: "まん中の900mで出会う、と考えてしまうこともある（速さがちがうので、まちがい）", op: note}
+    - {ja: "ここで約3分。表が長くなる", op: note}
+
+lens_route:
+  time_cost_sec: 20
+  time_source: estimate
+  steps:
+    - {ja: "弟を止めて考えると、兄は1分に 80+70 = 150m ずつ近づく", op: note}
+    - {ja: "はじめのきょりは1800m", op: note}
+    - {ja: "1800÷150 = 12（分後）", value: "12", op: result}
+
+trigger:
+  ja: "2つのものが同時に動くときは、片方を止めて、2人の速さをまとめる。"
+  en: "Two things moving at once: freeze one and combine the speeds."
+  tags: [moving_points, toward_each_other]
+
+picker:
+  options: [freeze, constant, mirror, direct]
+  correct: freeze
+  clue_distractors: [ages_both_increase, shortest_path]
+  feedback_ja:
+    freeze: "そのとおり。弟を止めると、兄が分速150mで近づくだけになる。"
+    constant: "年れいの差のように、変わらない差を使う問題ではない。"
+    mirror: "最短の道すじを求める問題ではない。"
+    direct: "1分ずつ表にすると何行も書くことになる。まん中で出会うとも限らない。"
+
+animation:
+  keyframes: [show_story, draw_road, both_walk, freeze_one, combine_speeds, show_answer]
+
+checks:
+  - {type: wp_formula}
+  - {type: wp_unique}
+  - {type: wp_nontrivial}
+  - {type: wp_text_matches}
+  - {type: route_steps_sum, route: lens_route}
+  - {type: lens_faster}
+
+variants:
+  generator: wp_meeting
+  count: 3
+  seed: 2601

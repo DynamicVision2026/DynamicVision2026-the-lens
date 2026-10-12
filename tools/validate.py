@@ -193,6 +193,10 @@ def wp_solve(fig):
         return S(q["t"] - q["b"] * q["n"]) / (q["a"] - q["b"])
     if k == "age_ratio":             # older p, younger c now: years until older = r x younger
         return S(q["p"] - q["r"] * q["c"]) / (q["r"] - 1)
+    if k == "mixture":               # w1 g at p1 %, add ? g at p2 %, get pt %: lever arms (pt-p1):(p2-pt)
+        return S(q["w1"]) * (q["pt"] - q["p1"]) / (q["p2"] - q["pt"])
+    if k == "meeting":               # d apart, speeds u and v toward each other: freeze one, closing speed u+v
+        return S(q["d"]) / (q["u"] + q["v"])
     raise ValueError(k)
 
 
@@ -202,6 +206,11 @@ def wp_text(fig, names):
     if fig["kind"] == "two_kinds_total":
         A, B = names["a"], names["b"]
         return f"{A}と{B}が合わせて{q['n']}{names['counter']}あり、合計{names['measure']}は{q['t']}円です。{A}は何{names['counter']}ありますか。"
+    if fig["kind"] == "mixture":
+        return f"{q['p1']}%の食塩水{q['w1']}gに、{q['p2']}%の食塩水を何g混ぜると、{q['pt']}%の食塩水になりますか。"
+    if fig["kind"] == "meeting":
+        A, B = names["a"], names["b"]
+        return f"{q['d']}mはなれた道の両はしから、{A}は分速{q['u']}m、{B}は分速{q['v']}mで、向かい合って同時に歩き始めます。2人が出会うのは何分後ですか。"
     o, y = names["older"], names["younger"]
     return f"いま、{o}は{q['p']}才、{y}は{q['c']}才です。{o}の年れいが{y}の年れいの{q['r']}倍になるのは何年後ですか。"
 
@@ -213,6 +222,10 @@ def wp_brute(fig):
         return [x for x in range(q["n"] + 1) if q["a"] * x + q["b"] * (q["n"] - x) == q["t"]]
     if k == "age_ratio":
         return [y for y in range(0, 120) if q["p"] + y == q["r"] * (q["c"] + y)]
+    if k == "mixture":   # salt balance, exact: (w1*p1 + x*p2) / (w1 + x) == pt
+        return [x for x in range(1, 5000) if S(q["w1"] * q["p1"] + x * q["p2"]) / (q["w1"] + x) == q["pt"]]
+    if k == "meeting":   # minute by minute: distance walked by both == d
+        return [t for t in range(0, 600) if (q["u"] + q["v"]) * t == q["d"]]
     raise ValueError(k)
 
 
@@ -257,6 +270,12 @@ def run_check(card, check, pts) -> tuple[bool, str]:
         if fig["kind"] == "two_kinds_total":
             ok = 0 < ans < q["n"] and q["a"] != q["b"] and 2 * ans != q["n"]
             return ok, "both kinds appear and the answer is not simply half"
+        if fig["kind"] == "mixture":
+            ok = q["p1"] < q["pt"] < q["p2"] and ans > 0 and (q["pt"] - q["p1"]) != (q["p2"] - q["pt"])
+            return ok, "target strength lies between the two, and the arms are unequal (not simply equal amounts)"
+        if fig["kind"] == "meeting":
+            ok = ans > 1 and q["u"] != q["v"]
+            return ok, "different speeds, so meeting at the halfway point is a wrong guess"
         ok = ans > 0 and q["p"] > q["c"] and q["r"] >= 2
         return ok, "the moment is in the future and the ratio is at least 2"
     if t == "mirror_touch_point":
@@ -525,6 +544,16 @@ def make_wp_variants(card):
             n = rng.randint(12, 30); x = rng.randint(1, n - 1)
             q = {"n": n, "a": a, "b": b, "t": a * x + b * (n - x)}
             vnames.update({"a": f"{a}円玉", "b": f"{b}円玉"})
+        elif fig0["kind"] == "mixture":
+            p1 = rng.randint(2, 8); p2 = rng.randint(p1 + 4, 20); pt = rng.randint(p1 + 1, p2 - 1)
+            w1 = rng.choice([100, 150, 200, 240, 300, 400])
+            q = {"w1": w1, "p1": p1, "p2": p2, "pt": pt}
+            # whole grams, and a believable amount: between half and twice the first solution
+            if (w1 * (pt - p1)) % (p2 - pt) or not (w1 // 2 <= w1 * (pt - p1) // (p2 - pt) <= 2 * w1):
+                continue
+        elif fig0["kind"] == "meeting":
+            su = rng.randint(5, 10) * 10; sv = rng.randint(4, 9) * 10; tt = rng.randint(6, 20)
+            q = {"d": (su + sv) * tt, "u": su, "v": sv}
         else:
             c = rng.randint(3, 12); r = rng.randint(2, 4); y = rng.randint(2, 15)
             q = {"p": r * (c + y) - y, "c": c, "r": r}
@@ -562,6 +591,25 @@ def wp_steps(fig, names):
             {"ja": f"その長方形のたては {q['a']}−{q['b']} = {q['a'] - q['b']}", "op": "note"},
             {"ja": f"{A}の数 = {q['t'] - allb}÷{q['a'] - q['b']} = {_fmt(x)}", "value": str(x), "op": "result"},
         ]
+    if fig["kind"] == "mixture":
+        a1, a2 = q["pt"] - q["p1"], q["p2"] - q["pt"]
+        from math import gcd
+        g = gcd(a1, a2)
+        w2 = wp_solve(fig)
+        return [
+            {"ja": f"てんびんの左はしに{q['p1']}%、右はしに{q['p2']}%、支点に{q['pt']}%をおく", "op": "note"},
+            {"ja": f"うでの長さは {q['pt']}−{q['p1']} = {a1} と {q['p2']}−{q['pt']} = {a2}", "op": "note"},
+            {"ja": f"{q['w1']}g と □g の比は、うでの長さの逆の比 {a2 // g}:{a1 // g}", "op": "note"},
+            {"ja": f"{q['w1']}×{a1 // g}" + (f"÷{a2 // g}" if a2 // g > 1 else "") + f" = {_fmt(w2)}（g）", "value": str(w2), "op": "result"},
+        ]
+    if fig["kind"] == "meeting":
+        A, B = names.get("a", "A"), names.get("b", "B")
+        t = wp_solve(fig)
+        return [
+            {"ja": f"{B}を止めて考えると、{A}は1分に {q['u']}+{q['v']} = {q['u'] + q['v']}m ずつ近づく", "op": "note"},
+            {"ja": f"はじめのきょりは{q['d']}m", "op": "note"},
+            {"ja": f"{q['d']}÷{q['u'] + q['v']} = {_fmt(t)}（分後）", "value": str(t), "op": "result"},
+        ]
     older, younger = names.get("older", "親"), names.get("younger", "子")
     d = q["p"] - q["c"]
     child_then = S(d) / (q["r"] - 1)
@@ -575,7 +623,7 @@ def wp_steps(fig, names):
 
 
 def make_variants(card):
-    if card["variants"]["generator"] in ("wp_two_kinds", "wp_age_ratio"):
+    if card["variants"]["generator"] in ("wp_two_kinds", "wp_age_ratio", "wp_mixture", "wp_meeting"):
         return make_wp_variants(card)
     if card["variants"]["generator"] == "slide_band":
         return make_band_variants(card)
