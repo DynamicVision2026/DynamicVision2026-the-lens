@@ -30,9 +30,9 @@ The schema, the validator and the 3 Enclose reference cards are built and pass e
 | Role | Owns |
 | --- | --- |
 | Product Architect (Claude) | Schema evolution, validation standards, card authoring and math review, this spec, code review of PRs |
-| Builder | Remotion components, Web Trainer / Free Lens front end, pipeline scripts |
+| Builder | Remotion components, Web Trainer / Free Lens front end, pipeline scripts; merges PRs once approved |
 | Coordinator | Sprint sync, Shopify preorder and email setup, milestone tracking |
-| Founder (Brian) | Approvals, publishing Shorts, outside reviewer, test children |
+| Founder (Brian) | Approves every PR before merge, publishes Shorts, outside reviewer, test children |
 
 ## 2. Core technical architecture
 
