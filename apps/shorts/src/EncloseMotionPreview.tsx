@@ -41,7 +41,7 @@ export function EncloseMotionPreview({ cardId }: EncloseMotionPreviewProps) {
   return (
     <AbsoluteFill style={{ backgroundColor: paper, alignItems: 'center' }}>
       <div style={{ position: 'absolute', top: area.y, left: area.x, width: area.width, height: area.height }}>
-        <LensScene card={card} keyframe={index} t={t} motion={beats} theme={THEME} lensLabel={loadBundle().labels?.lenses[card.lens]?.ja} />
+        <LensScene card={card} keyframe={index} t={t} motion={beats} theme={THEME} lensLabel={loadBundle().labels.lenses[card.lens]?.ja} />
       </div>
     </AbsoluteFill>
   );

@@ -111,6 +111,8 @@ export function LensScene({
   const apex = base ? apexFor(points, base) : null;
   const labelAt = (pts: Point[]) => toSvg(frame, centroid(pts));
   const irregular = ctx.gaps.find((g) => g.length > 3);
+  const strikeLen = Math.min(box.x1 - box.x0, box.y1 - box.y0) * 0.25;
+  const ghostStrike: Point[] = [[box.x1 - strikeLen, box.y1], [box.x1, box.y1 - strikeLen]];
 
   return (
     <svg {...svgProps}>
@@ -175,9 +177,10 @@ export function LensScene({
       {state.ghostBox > 0 && (
         <g opacity={state.ghostBox}>
           <ConstructionLine frame={frame} path={boxPath} lens={lens} tokens={tokens} mode={mode} color={color(tokens.color.trap.ink, mode)} stroke={tokens.stroke.trap} opacity={0.5} />
+          {/* A short strike across the box's top-right corner only: the triangle stays untouched. */}
           <ConstructionLine
             frame={frame}
-            path={[[box.x0, box.y0], [box.x1, box.y1]]}
+            path={ghostStrike}
             lens={lens}
             tokens={tokens}
             mode={mode}

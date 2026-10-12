@@ -99,6 +99,30 @@ describe('geometry matches the bundle steps', () => {
   );
 });
 
+describe('No-lens ghost box', () => {
+  const inside = (p: [number, number], poly: [number, number][]) => {
+    let hit = false;
+    for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+      const [xi, yi] = poly[i]!;
+      const [xj, yj] = poly[j]!;
+      if (yi > p[1] !== yj > p[1] && p[0] < ((xj - xi) * (p[1] - yi)) / (yj - yi) + xi) hit = !hit;
+    }
+    return hit;
+  };
+
+  it.each(cards.filter((c) => c.kind === 'no_lens').map((c) => [c.id, c] as const))('%s: the strike never crosses the triangle', (_id, card) => {
+    const pts = card.problem.figure.points;
+    const xs = pts.map((p) => p[0]);
+    const ys = pts.map((p) => p[1]);
+    const [x1, y1] = [Math.max(...xs), Math.max(...ys)];
+    const len = Math.min(x1 - Math.min(...xs), y1 - Math.min(...ys)) * 0.25;
+    for (let k = 0; k <= 10; k++) {
+      const p: [number, number] = [x1 - len + (len * k) / 10, y1 - (len * k) / 10];
+      expect(inside(p, pts)).toBe(false);
+    }
+  });
+});
+
 describe('format', () => {
   it('formats exact values without changing them', () => {
     expect(formatExact('39/2')).toBe('19.5');

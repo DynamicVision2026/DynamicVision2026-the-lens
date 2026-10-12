@@ -62,6 +62,8 @@ export interface Picker {
   /** Exactly four move ids, e.g. "enclose" or "direct". */
   options: string[];
   correct: string;
+  /** Decoy clue tags that point to a different move (schema 1.1). */
+  clue_distractors: string[];
   feedback_ja: Record<string, string>;
 }
 
@@ -322,8 +324,8 @@ export interface Bundle {
   bundle_version: string;
   schema_version: string;
   tokens: Tokens;
-  /** Picker and clue labels (bundle 1.2). Optional until the labels PR is on main. */
-  labels?: {
+  /** Picker and clue labels (bundle 1.2). */
+  labels: {
     lenses: Record<string, LensLabel>;
     tags: Record<string, TagLabel>;
   };
