@@ -177,6 +177,8 @@ Each variant re-runs its parent's structural checks (so it matches the card's wo
 }
 ```
 
+**Step order is part of the contract.** Scenes put each piece's label on the piece by the order of the steps. For standard Enclose cards, the `sub` steps list the corner gaps in edge order starting at edge AB (A→B, B→C, …). For notch failure cards, the `start`/`add` steps are: right rectangle, bottom triangle, side triangle, top triangle. The validator's `step_order` check enforces both, so a card whose labels would land on the wrong piece cannot reach the bundle.
+
 Numbers in `answer` and step `value` are exact SymPy strings (`"39/2"`); display them with `display_ja` or format the fraction, never re-compute. The front end treats the bundle as read-only and never does math.
 
 **Golden reference cards**
