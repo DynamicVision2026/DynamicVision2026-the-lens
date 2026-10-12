@@ -9,4 +9,5 @@ export { withVariant, allSceneCards } from './variant';
 export { enclosureGaps, notchPieces, boundingBox } from './geometry';
 export { KEYFRAMES, sceneState } from './keyframes';
 export * from './primitives';
+export { motionViewBox } from './motion/MotionScene';
 export { LensScene, SCENE_WIDTH, SCENE_HEIGHT, type LensSceneProps } from './LensScene';

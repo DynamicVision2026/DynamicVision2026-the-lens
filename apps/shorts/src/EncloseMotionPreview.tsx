@@ -1,4 +1,4 @@
-import { beatAt, getCard, LensScene, loadBundle, motionPreviewTimeline, SCENE_HEIGHT, SCENE_WIDTH, themed, timelineDuration, tokens } from '@lens/scenes';
+import { beatAt, getCard, LensScene, loadBundle, motionPreviewTimeline, motionViewBox, themed, timelineDuration, tokens } from '@lens/scenes';
 import type { CalculateMetadataFunction } from 'remotion';
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
 import { useFonts } from './useFonts';
@@ -24,7 +24,7 @@ export const calculatePreviewMetadata: CalculateMetadataFunction<EncloseMotionPr
 export function EncloseMotionPreview({ cardId }: EncloseMotionPreviewProps) {
   useFonts();
   const frame = useCurrentFrame();
-  const { fps, height } = useVideoConfig();
+  const { fps } = useVideoConfig();
   const card = getCard(cardId);
   const beats = card ? motionPreviewTimeline(card, tokens) : null;
   const { short } = tokens.layout;
@@ -35,13 +35,12 @@ export function EncloseMotionPreview({ cardId }: EncloseMotionPreviewProps) {
   }
 
   const { index, t } = beatAt(beats, (frame / fps) * 1000);
-  // Fit the scene between the safe zones, centred horizontally.
-  const sceneHeight = height - short.safe_top_px - short.safe_bottom_px;
-  const sceneWidth = (sceneHeight * SCENE_WIDTH) / SCENE_HEIGHT;
+  // The scene's viewBox is the safe area in frame px, so it is placed 1:1 at safe_top.
+  const area = motionViewBox(short);
 
   return (
     <AbsoluteFill style={{ backgroundColor: paper, alignItems: 'center' }}>
-      <div style={{ position: 'absolute', top: short.safe_top_px, width: sceneWidth, height: sceneHeight }}>
+      <div style={{ position: 'absolute', top: area.y, left: area.x, width: area.width, height: area.height }}>
         <LensScene card={card} keyframe={index} t={t} motion={beats} theme={THEME} lensLabel={loadBundle().labels?.lenses[card.lens]?.ja} />
       </div>
     </AbsoluteFill>

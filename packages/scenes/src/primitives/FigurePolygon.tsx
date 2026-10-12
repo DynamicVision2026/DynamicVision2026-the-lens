@@ -16,12 +16,14 @@ interface Props {
   ink?: string;
   /** Stroke dash override, e.g. the trap dash for chalk. Defaults to `stroke.figure.dash`. */
   dash?: string;
+  /** Draw the vertex letters (default true). The Short layout places its own. */
+  showLabels?: boolean;
 }
 
 const LABELS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 /** The problem figure with vertex labels A, B, C… in point order. */
-export function FigurePolygon({ frame, points, tokens, mode, t = 1, tint, ink: inkOverride, dash }: Props) {
+export function FigurePolygon({ frame, points, tokens, mode, t = 1, tint, ink: inkOverride, dash, showLabels = true }: Props) {
   const ink = inkOverride ?? color(tokens.color.ink, mode);
   const size = fontSize(tokens, 'label', mode);
   return (
@@ -36,7 +38,7 @@ export function FigurePolygon({ frame, points, tokens, mode, t = 1, tint, ink: i
         strokeLinejoin={tokens.stroke.join}
         strokeLinecap={tokens.stroke.cap}
       />
-      {points.map((p, i) => {
+      {showLabels && points.map((p, i) => {
         const [x, y] = toSvg(frame, p);
         const [dx, dy] = outwardDirection(points, i);
         const off = size * 0.95;

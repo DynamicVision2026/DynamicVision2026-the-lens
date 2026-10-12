@@ -4,7 +4,7 @@ import { apexFor, boundingBox, boxCorners, centroid, cutX, enclosureGaps, horizo
 import { sceneState, type SceneContext } from './keyframes';
 import { ConstructionLine, FigurePolygon, GridLayer, makeFrame, RegionShade, StepLabel, toSvg } from './primitives';
 import { wrapText } from './text';
-import { MotionScene } from './motion/MotionScene';
+import { motionViewBox, MotionScene } from './motion/MotionScene';
 import type { Beat } from './motion/timeline';
 import { color, fontFamily, fontSize, lensColor, themed, tokens as defaultTokens, type RenderMode, type ThemeName } from './tokens';
 import type { LensCard, Point, Tokens } from './types';
@@ -68,8 +68,9 @@ export function LensScene({
   };
 
   if (motion && motion.length > 0) {
+    const vb = motionViewBox(tokens.layout.short);
     return (
-      <svg {...svgProps}>
+      <svg {...svgProps} viewBox={`${vb.x} ${vb.y} ${vb.width} ${vb.height}`}>
         <MotionScene
           card={card}
           beats={motion}
@@ -78,7 +79,6 @@ export function LensScene({
           tokens={tokens}
           glow={glow}
           mode={mode}
-          width={SCENE_WIDTH}
           lensLabel={lensLabel}
         />
       </svg>

@@ -122,7 +122,8 @@ describe('study-pace motion preview', () => {
   it('builds the equation from step values in step colours, never running totals', () => {
     const beats = preview(card001);
     const html = render(card001, beats, beats.findIndex((b) => b.name === 'subtract'), 1, 'short_dark');
-    const terms = [...html.matchAll(/<tspan fill="([^"]+)" opacity="[^"]*">([^<]*)<\/tspan>/g)];
+    // The last equation text is the visible one (a glow copy may sit behind it).
+    const terms = [...html.matchAll(/<tspan fill="([^"]+)" opacity="[^"]*">([^<]*)<\/tspan>/g)].slice(-5);
     expect(terms.map((m) => m[2]).join('')).toBe('36 − 5 − 4 − 6 − 1.5');
     const palette = tokens.themes!.short_dark!.color!.step!.palette!;
     expect(terms.slice(1).map((m) => m[1])).toEqual(palette.map((p) => p?.value));
@@ -137,6 +138,50 @@ describe('study-pace motion preview', () => {
     expect(html).toContain(card001.answer.display_ja!);
     expect(html).toContain(card001.trigger.ja);
     expect(formatExact(result.value!)).toBe('19.5');
+  });
+
+  it('shows the full equation with ? placeholders for future terms at every step', () => {
+    const beats = preview(card001);
+    const k = beats.findIndex((b) => b.name === 'corner_step' && b.index === 1);
+    const html = render(card001, beats, k, 0.5);
+    const terms = [...html.matchAll(/<tspan fill="[^"]+" opacity="([^"]*)">([^<]*)<\/tspan>/g)].slice(-5);
+    expect(terms.map((m) => m[2]).join('')).toBe('36 − 5 − ? − ? − ?');
+    const future = tokens.layout.short.equation_terms.future_opacity;
+    expect(terms.slice(2).every((m) => Number(m[1]) === future)).toBe(true);
+  });
+
+  it('draws done pieces as outlines only (no fill), the current one filled', () => {
+    const beats = preview(card001);
+    const k = beats.findIndex((b) => b.name === 'corner_step' && b.index === 2);
+    const html = render(card001, beats, k, 1, 'short_dark');
+    const { pieces } = tokens.layout.short;
+    const palette = tokens.themes!.short_dark!.color!.step!.palette!;
+    const polygonOf = (c: string) => html.match(new RegExp(`<polygon[^>]*fill="${c}"[^>]*>`))?.[0] ?? '';
+    expect(polygonOf(palette[0]!.value!)).toContain(`fill-opacity="${pieces.done.fill_opacity}"`);
+    expect(polygonOf(palette[2]!.value!)).toContain(`fill-opacity="${pieces.current.fill_opacity}"`);
+  });
+
+  it('keeps every text inside the safe area (y 220–1540)', () => {
+    const { safe_top_px: top, safe_bottom_px: bottom, size_px } = tokens.layout.short;
+    for (const card of standard) {
+      const beats = preview(card);
+      for (let k = 0; k < beats.length; k++) {
+        const html = render(card, beats, k, 1);
+        for (const m of html.matchAll(/<text[^>]* y="([-\d.]+)"/g)) {
+          const y = Number(m[1]);
+          expect(y).toBeGreaterThanOrEqual(top);
+          expect(y).toBeLessThanOrEqual(size_px[1] - bottom);
+        }
+      }
+    }
+  });
+
+  it('meets the phone-size minimums (390 px wide phone)', () => {
+    const { type_px: T, size_px } = tokens.layout.short;
+    const phone = 390 / size_px[0];
+    expect(T.formula * phone).toBeGreaterThanOrEqual(26);
+    expect(T.equation * phone).toBeGreaterThanOrEqual(23);
+    expect(T.vertex_label * phone).toBeGreaterThanOrEqual(16);
   });
 
   it('shows the lens label beside the icon when given', () => {

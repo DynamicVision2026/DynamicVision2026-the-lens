@@ -216,12 +216,7 @@ export interface Tokens {
       tap_target_px: number;
       gutter_px: number;
     };
-    short: {
-      size_px: [number, number];
-      fps: number;
-      safe_top_px: number;
-      safe_bottom_px: number;
-    };
+    short: ShortLayout;
   };
   motion: {
     duration_ms: {
@@ -250,6 +245,40 @@ export interface Tokens {
     reduce_motion: string;
   };
   themes?: Record<string, ThemeOverride>;
+}
+
+/** Study-pace Short layout, in px on the 1080×1920 frame (tokens 1.3). */
+export interface ShortLayout {
+  size_px: [number, number];
+  fps: number;
+  safe_top_px: number;
+  safe_bottom_px: number;
+  regions: {
+    title_band: { y: number; height: number };
+    figure: { y: number; max_width: number; max_height: number; centre_x: number; min_margin_px: number };
+    formula_card: { centre_y: number; width: number; height: number };
+    equation: { baseline_y: number; align: string };
+  };
+  type_px: {
+    step_title: number;
+    badge: number;
+    lens_chip: number;
+    vertex_label: number;
+    bracket_number: number;
+    formula: number;
+    equation: number;
+    answer: number;
+    trigger: number;
+    trap_text: number;
+  };
+  pieces: {
+    current: { fill_opacity: number; stroke_width: number };
+    done: { fill_opacity: number; stroke_opacity: number; stroke_width: number; draw_above_box: boolean };
+    upcoming: { stroke_opacity: number; stroke_width: number };
+  };
+  brackets: { offset_px: number; tick_px: number };
+  equation_terms: { future_placeholder: string; future_opacity: number };
+  trap_text_min_opacity: number;
 }
 
 export interface SpringToken {
