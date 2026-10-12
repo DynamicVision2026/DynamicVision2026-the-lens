@@ -5,6 +5,7 @@ Usage:
     python3 tools/validate.py cards/*.yaml            # validate cards
     python3 tools/validate.py cards/*.yaml --variants # also generate + check variants
     python3 tools/validate.py cards/**/*.yaml --bundle  # all of the above + build/bundle.json
+    python3 tools/validate.py cards/**/*.yaml --bundle --include-drafts  # local dev only: also bundle draft cards
 
 A card is 'verified' only if:
   1. it matches schema/lens-card.schema.json,
@@ -169,6 +170,12 @@ def is_tilted_square(pts) -> bool:
     return len(sides) == 1 and d2(pts[0], pts[2]) == d2(pts[1], pts[3]) and tilted
 
 
+def band_triangles(fig):
+    """Triangles of a parallel_band figure: base on y=0, apex on y=band_height."""
+    b, a, h = fig["bottom_x"], fig["apex_x"], fig["band_height"]
+    return [[(S(b[i]), S(0)), (S(b[i + 1]), S(0)), (S(a[i]), S(h))] for i in range(len(a))]
+
+
 # ------------------------------------------------------------------ checks ---
 
 def route_total(route) -> Rational | None:
@@ -194,7 +201,21 @@ def route_total(route) -> Rational | None:
 def run_check(card, check, pts) -> tuple[bool, str]:
     t = check["type"]
     ans = sympify(card["answer"]["value"])
-    g = card["problem"]["figure"]["grid"]
+    fig = card["problem"]["figure"]
+    g = fig.get("grid")
+    if t == "band_triangles_disjoint":
+        b, a = fig["bottom_x"], fig["apex_x"]
+        ok = len(a) == len(b) - 1 and all(x < y for x, y in zip(b, b[1:])) and all(x < y for x, y in zip(a, a[1:]))
+        return ok, "one apex per base, bases and apexes both in increasing order (triangles do not overlap)"
+    if t == "band_total_only":
+        sh = fig["shown"]
+        ok = sh["total_base"] and sh["band_height"] and not sh["each_base"]
+        return ok, "only the total base and the band height are given; the individual bases are not"
+    if t == "band_area_equals_answer":
+        tris = band_triangles(fig)
+        total = sum((abs(shoelace(tr)) for tr in tris), S(0))
+        merged = S(fig["bottom_x"][-1] - fig["bottom_x"][0]) * fig["band_height"] / 2
+        return total == ans == merged, f"sum of triangles={total}, one merged triangle={merged}, answer={ans}"
     if t == "lattice_only":
         ok = all(0 <= x <= g["width"] and 0 <= y <= g["height"] for x, y in pts)
         return ok, "all vertices are grid points inside the drawn grid"
@@ -344,7 +365,47 @@ STEP_BUILDERS = {
 VARIANT_CHECKS = {"lattice_only", "simple_polygon", "enclose_clean", "enclose_not_clean", "has_horizontal_base", "tilted_square"}
 
 
+def make_band_variants(card):
+    """slide_band: new total base, band height and splits; apexes stay in order. Answer = total × height ÷ 2."""
+    v = card["variants"]
+    rng = random.Random(v["seed"])
+    c = v.get("constraints", {})
+    fig0 = card["problem"]["figure"]
+    k = len(fig0["apex_x"])
+    seen = {(tuple(fig0["bottom_x"]), tuple(fig0["apex_x"]), fig0["band_height"])}
+    out, tries = [], 0
+    while len(out) < v["count"] and tries < 2000:
+        tries += 1
+        L = rng.randint(c.get("min_base", 8), c.get("max_base", 14))
+        h = rng.randint(c.get("min_height", 3), c.get("max_height", 8))
+        if L < k + 1:
+            continue
+        bottom = [0] + sorted(rng.sample(range(1, L), k - 1)) + [L]
+        apex = sorted(rng.sample(range(0, L + 1), k))
+        key = (tuple(bottom), tuple(apex), h)
+        if key in seen:
+            continue
+        fig = {**fig0, "bottom_x": bottom, "apex_x": apex, "band_height": h}
+        area = S(L) * h / 2
+        vcard = {**card, "answer": {**card["answer"], "value": str(area)}, "problem": {**card["problem"], "figure": fig}}
+        if not all(run_check(vcard, ch, None)[0] for ch in card["checks"] if ch["type"].startswith("band_")):
+            continue
+        steps = [
+            {"ja": "頂点を直線ℓにそって1点に集める（面積は変わらない）", "op": "note"},
+            {"ja": f"底辺{L}、高さ{h}の1つの三角形になる", "op": "note"},
+            {"ja": f"{L}×{h}÷2 = {_fmt(area)}", "value": str(area), "op": "result"},
+        ]
+        if route_total({"steps": steps}) != area:
+            continue
+        seen.add(key)
+        out.append({"id": f"{card['id']}-v{len(out) + 1}", "figure": {"bottom_x": bottom, "apex_x": apex, "band_height": h},
+                    "answer": str(area), "lens_route": {"steps": steps}})
+    return out
+
+
 def make_variants(card):
+    if card["variants"]["generator"] == "slide_band":
+        return make_band_variants(card)
     v = card["variants"]
     rng = random.Random(v["seed"])
     gen = GENERATORS[v["generator"]]
@@ -389,7 +450,7 @@ def step_order_check(card, pts):
     (right rectangle, bottom triangle, side triangle, top triangle).
     Returns (applies, ok, message).
     """
-    if card["lens"] != "enclose":
+    if card["lens"] != "enclose" or pts is None:
         return False, True, ""
     steps = card["lens_route"]["steps"]
     if card["kind"] == "standard":
@@ -425,7 +486,8 @@ def validate(path: Path, with_variants: bool) -> bool:
         print("  FAIL    picker.correct is not one of the options"); ok_all = False
     if card["kind"] != "standard" and not card.get("best_move"):
         print("  FAIL    failure/no_lens cards need best_move"); ok_all = False
-    pts = [tuple(p) for p in card["problem"]["figure"]["points"]]
+    fig = card["problem"]["figure"]
+    pts = [tuple(p) for p in fig["points"]] if fig["type"] == "grid_polygon" else None
     for ch in card["checks"]:
         ok, msg = run_check(card, ch, pts)
         ok_all &= ok
@@ -442,7 +504,7 @@ def validate(path: Path, with_variants: bool) -> bool:
         print(f"  {'PASS' if ok else 'FAIL'}    step_order (labels land on the right pieces): {msg}")
     vs = []
     if with_variants:
-        if card["problem"]["figure"]["grid"]["cell_cm"] != 1:
+        if fig["type"] == "grid_polygon" and fig["grid"]["cell_cm"] != 1:
             print("  FAIL    variant generators assume cell_cm = 1"); ok_all = False
         vs = make_variants(card)
         enough = len(vs) == card["variants"]["count"]
@@ -494,7 +556,18 @@ def annotate_enclose_steps(pts, steps):
     return out
 
 
+def _annotate_band(fig):
+    """Lengths a band scene prints come from the bundle: total_base = last - first bottom point."""
+    b = fig["bottom_x"]
+    return {**fig, "total_base": str(S(b[-1]) - S(b[0]))}
+
+
 def _annotate(card, vs):
+    if card["problem"]["figure"]["type"] == "parallel_band":
+        fig = _annotate_band(card["problem"]["figure"])
+        card = {**card, "problem": {**card["problem"], "figure": fig}}
+        vs = [{**v, "figure": _annotate_band({**fig, **v["figure"]})} for v in vs]
+        return card, vs
     if card["lens"] != "enclose" or card["kind"] != "standard":
         return card, vs
     pts = [tuple(p) for p in card["problem"]["figure"]["points"]]
@@ -514,7 +587,7 @@ def _annotate(card, vs):
 PUBLISHABLE = {"verified", "reviewed", "published"}
 
 
-def write_bundle(entries) -> Path:
+def write_bundle(entries, include_drafts=False) -> Path:
     """build/bundle.json — the only file the trainer and the Shorts renderer import.
 
     Contains every card that passed this run and whose status is verified or later,
@@ -523,7 +596,7 @@ def write_bundle(entries) -> Path:
     tokens = json.loads((ROOT / "tokens" / "tokens.json").read_text(encoding="utf-8"))
     cards = []
     for ok, card, vs in entries:
-        if ok and card["status"] in PUBLISHABLE:
+        if ok and (card["status"] in PUBLISHABLE or (include_drafts and card["status"] == "draft")):
             card, vs = _annotate(card, vs)
             cards.append({**card, "variants": vs})
     cards.sort(key=lambda c: (c["lens"], c["id"]))
@@ -541,7 +614,9 @@ if __name__ == "__main__":
     all_ok = bool(entries) and all(ok for ok, _, _ in entries)
     if want_bundle:
         if all_ok:
-            print(f"\nbundle: {write_bundle(entries).relative_to(ROOT)} ({len(entries)} cards)")
+            out = write_bundle(entries, include_drafts="--include-drafts" in sys.argv)
+            n = len(json.loads(out.read_text(encoding="utf-8"))["cards"])
+            print(f"\nbundle: {out.relative_to(ROOT)} ({n} cards{', drafts included' if '--include-drafts' in sys.argv else ''})")
         else:
             print("\nbundle: NOT written, fix the failing cards first")
     sys.exit(0 if all_ok else 1)

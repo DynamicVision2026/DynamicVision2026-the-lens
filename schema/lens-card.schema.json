@@ -49,7 +49,8 @@
       "properties": {
         "text_ja": { "type": "string" },
         "unit": { "type": "string" },
-        "figure": {
+        "figure": { "oneOf": [
+        {
           "type": "object",
           "additionalProperties": false,
           "required": ["type", "grid", "points"],
@@ -71,7 +72,30 @@
               "items": { "type": "array", "items": { "type": "integer", "minimum": 0 }, "minItems": 2, "maxItems": 2 }
             }
           }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Two horizontal parallel lines band_height apart. Triangle i has its base bottom_x[i]..bottom_x[i+1] on the lower line and its apex at apex_x[i] on the upper line.",
+          "required": ["type", "band_height", "bottom_x", "apex_x", "shown"],
+          "properties": {
+            "type": { "const": "parallel_band" },
+            "band_height": { "type": "integer", "minimum": 1, "maximum": 20 },
+            "bottom_x": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 6 },
+            "apex_x": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 5 },
+            "point_labels": {
+              "type": "object", "additionalProperties": false,
+              "properties": { "bottom": { "type": "array", "items": { "type": "string" } }, "apex": { "type": "array", "items": { "type": "string" } } }
+            },
+            "shown": {
+              "description": "Which lengths the problem states. The individual bases are deliberately not shown: that is the trap.",
+              "type": "object", "additionalProperties": false,
+              "required": ["total_base", "band_height", "each_base"],
+              "properties": { "total_base": { "type": "boolean" }, "band_height": { "type": "boolean" }, "each_base": { "type": "boolean" } }
+            }
+          }
         }
+        ] }
       }
     },
     "answer": {
@@ -81,7 +105,7 @@
       "properties": {
         "value": { "description": "Exact answer as a SymPy-parsable string, e.g. '39/2'.", "type": "string" },
         "display_ja": { "type": "string" },
-        "expr": { "description": "Which check produces the answer.", "enum": ["polygon_area"] }
+        "expr": { "description": "Which check produces the answer.", "enum": ["polygon_area", "band_area"] }
       }
     },
     "trap_route": { "$ref": "#/$defs/route" },
@@ -128,7 +152,7 @@
         "additionalProperties": false,
         "required": ["type"],
         "properties": {
-          "type": { "enum": ["area_equals_answer", "route_steps_sum", "enclose_clean", "enclose_not_clean", "has_horizontal_base", "tilted_square", "lattice_only", "simple_polygon", "lens_faster"] },
+          "type": { "enum": ["area_equals_answer", "route_steps_sum", "enclose_clean", "enclose_not_clean", "has_horizontal_base", "tilted_square", "band_triangles_disjoint", "band_total_only", "band_area_equals_answer", "lattice_only", "simple_polygon", "lens_faster"] },
           "route": { "enum": ["trap_route", "lens_route"] },
           "note": { "type": "string" }
         }
@@ -139,7 +163,7 @@
       "additionalProperties": false,
       "required": ["generator", "count", "seed"],
       "properties": {
-        "generator": { "enum": ["enclose_standard", "enclose_tilted_square", "enclose_triangle", "enclose_failure_notch", "no_lens_flat_base"] },
+        "generator": { "enum": ["enclose_standard", "enclose_tilted_square", "enclose_triangle", "slide_band", "enclose_failure_notch", "no_lens_flat_base"] },
         "count": { "type": "integer", "minimum": 0, "maximum": 50 },
         "seed": { "type": "integer" },
         "constraints": { "type": "object" }
