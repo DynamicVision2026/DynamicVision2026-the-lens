@@ -556,7 +556,18 @@ def annotate_enclose_steps(pts, steps):
     return out
 
 
+def _annotate_band(fig):
+    """Lengths a band scene prints come from the bundle: total_base = last - first bottom point."""
+    b = fig["bottom_x"]
+    return {**fig, "total_base": str(S(b[-1]) - S(b[0]))}
+
+
 def _annotate(card, vs):
+    if card["problem"]["figure"]["type"] == "parallel_band":
+        fig = _annotate_band(card["problem"]["figure"])
+        card = {**card, "problem": {**card["problem"], "figure": fig}}
+        vs = [{**v, "figure": _annotate_band({**fig, **v["figure"]})} for v in vs]
+        return card, vs
     if card["lens"] != "enclose" or card["kind"] != "standard":
         return card, vs
     pts = [tuple(p) for p in card["problem"]["figure"]["points"]]

@@ -183,6 +183,8 @@ Each variant re-runs its parent's structural checks (so it matches the card's wo
 
 **Labels (bundle 1.2).** All Japanese UI words that belong to content live in `labels/` and ship in `bundle.labels`: lens button names (`labels/lenses.yaml`) and clue-chip texts (`labels/tags.yaml`). Each card's `picker.clue_distractors` lists 2–3 decoy clues. The validator fails a card if any option or chip lacks a label, if a decoy is also a real clue, or if the card has no specific (non-generic) clue.
 
+**Band figures (Slide lens).** `parallel_band` figures (and their variants' `figure`) carry `total_base` in the bundle, so scenes print lengths without subtracting coordinates.
+
 **Step order is part of the contract.** Scenes put each piece's label on the piece by the order of the steps. For standard Enclose cards, the `sub` steps list the corner gaps in edge order starting at edge AB (A→B, B→C, …). For notch failure cards, the `start`/`add` steps are: right rectangle, bottom triangle, side triangle, top triangle. The validator's `step_order` check enforces both, so a card whose labels would land on the wrong piece cannot reach the bundle.
 
 Numbers in `answer` and step `value` are exact SymPy strings (`"39/2"`); display them with `display_ja` or format the fraction, never re-compute. The front end treats the bundle as read-only and never does math.

@@ -25,7 +25,7 @@ The Architect flips it to `verified` in a one-line PR right after this WO merges
 **New figure renderer** `parallel_band` in `packages/scenes` (beside `grid_polygon`):
 - Lines ℓ and m drawn full width, with a small "∥" mark (tokens: `stroke.figure`, `color.ink`). Point labels from `figure.point_labels`.
 - Triangles in their `color.step.palette` colours (one colour per triangle), so each piece is followable.
-- Length marks only where `shown` is true: the AD bracket below m (from `bottom_x[0]` to `bottom_x[-1]`) and the gap bracket between the lines (`band_height`). Numbers come from the figure data; no individual base marks.
+- Length marks only where `shown` is true: the AD bracket below m, labelled with `figure.total_base` (added to the bundle by the validator), and the gap bracket labelled with `figure.band_height`. Never subtract coordinates to get a length; no individual base marks.
 
 **Keyframes** (`card.animation.keyframes`):
 
