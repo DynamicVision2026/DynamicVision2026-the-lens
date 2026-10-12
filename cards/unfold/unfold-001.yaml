@@ -5,7 +5,7 @@ lens: unfold
 best_move: unfold
 stage: shogakko
 grades: [小6]
-status: draft            # flips to verified when the box-unfold scenes merge (WO-008); validator checks it fully either way
+status: verified
 
 provenance:
   original: true

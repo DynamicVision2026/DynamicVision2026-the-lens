@@ -5,7 +5,7 @@ lens: freeze
 best_move: freeze
 stage: shogakko
 grades: [小5, 小6]
-status: draft            # flips to verified when the word-problem scenes for this lens merge; validator checks it fully either way
+status: verified
 
 provenance:
   original: true
