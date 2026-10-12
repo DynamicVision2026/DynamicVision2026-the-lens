@@ -64,6 +64,9 @@ importers:
       vite:
         specifier: ^8.0.0
         version: 8.3.4(@types/node@26.6.5)(esbuild@0.28.1)(terser@5.51.2)
+      vitest:
+        specifier: 4.1.11
+        version: 4.1.11(@types/node@26.6.5)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.1)(terser@5.51.2))
 
   packages/scenes:
     dependencies:
@@ -2082,13 +2085,13 @@ snapshots:
       '@remotion/timeline-utils': 4.0.535(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@rspack/core': 1.7.11
       '@rspack/plugin-react-refresh': 1.6.1(react-refresh@0.18.0)
-      css-loader: 7.1.4(@rspack/core@1.7.11)(webpack@5.105.0(postcss@8.5.29))
+      css-loader: 7.1.4(@rspack/core@1.7.11)(webpack@5.105.0(esbuild@0.28.1)(postcss@8.5.29))
       esbuild: 0.28.1
       react: 19.3.0
       react-dom: 19.3.0(react@19.3.0)
       react-refresh: 0.18.0
       remotion: 4.0.535(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
-      style-loader: 4.0.0(webpack@5.105.0(postcss@8.5.29))
+      style-loader: 4.0.0(webpack@5.105.0(esbuild@0.28.1)(postcss@8.5.29))
       webpack: 5.105.0(esbuild@0.28.1)(postcss@8.5.29)
     transitivePeerDependencies:
       - '@minify-html/node'
@@ -2797,7 +2800,7 @@ snapshots:
       shebang-command: 2.0.0
       which: 2.0.2
 
-  css-loader@7.1.4(@rspack/core@1.7.11)(webpack@5.105.0(postcss@8.5.29)):
+  css-loader@7.1.4(@rspack/core@1.7.11)(webpack@5.105.0(esbuild@0.28.1)(postcss@8.5.29)):
     dependencies:
       icss-utils: 5.1.0(postcss@8.5.29)
       postcss: 8.5.29
@@ -3268,7 +3271,7 @@ snapshots:
 
   strip-final-newline@2.0.0: {}
 
-  style-loader@4.0.0(webpack@5.105.0(postcss@8.5.29)):
+  style-loader@4.0.0(webpack@5.105.0(esbuild@0.28.1)(postcss@8.5.29)):
     dependencies:
       webpack: 5.105.0(esbuild@0.28.1)(postcss@8.5.29)
 

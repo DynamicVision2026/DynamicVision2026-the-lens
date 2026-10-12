@@ -23,3 +23,139 @@ input {
   font: inherit;
   min-height: var(--tap-target);
 }
+
+/* ---- Perspective Picker (/play/:cardId). iPad landscape first; stacks on a phone. ---- */
+.play {
+  display: grid;
+  grid-template-columns: minmax(var(--figure-min, 320px), 1fr) 1fr;
+  gap: var(--gutter);
+  align-items: start;
+}
+.play .figure svg {
+  border-radius: var(--gutter);
+}
+.play .panel h2 {
+  font-size: var(--type-title-size);
+  margin: var(--gutter) 0;
+}
+.play .problem {
+  font-size: var(--type-problem-size);
+  font-weight: var(--type-problem-weight);
+}
+.play .options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gutter);
+}
+.play button,
+.play .primary {
+  min-height: var(--tap-target);
+  border-radius: var(--tap-target);
+  border: var(--stroke-figure) solid var(--ink-quiet);
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: var(--type-title-weight);
+  padding: 0 var(--gutter);
+  cursor: pointer;
+}
+.play .option {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--gutter) / 2);
+  font-size: var(--type-trigger-size);
+}
+.play .option:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.play .primary {
+  display: inline-flex;
+  align-items: center;
+  margin-top: var(--gutter);
+  border-color: var(--lens-enclose);
+  color: var(--lens-enclose);
+  text-decoration: none;
+}
+.play .primary:disabled {
+  opacity: 0.35;
+}
+.play .hint,
+.play .feedback p,
+.play .praise {
+  font-size: var(--type-trigger-size);
+  border-left: var(--stroke-lens) solid var(--lens-enclose);
+  padding-left: var(--gutter);
+}
+.play .chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--gutter) / 2);
+}
+.play .chip.on {
+  border-color: var(--lens-enclose);
+  color: var(--lens-enclose);
+  background: var(--trap-tint);
+}
+.play .steps {
+  font-size: var(--type-trigger-size);
+  padding-left: var(--gutter);
+}
+.play .steps .value {
+  margin-left: calc(var(--gutter) / 2);
+  font-family: var(--font-num);
+  color: var(--lens-enclose);
+}
+.play .previous,
+.play .badge {
+  color: var(--ink-quiet);
+}
+.play .bars {
+  display: grid;
+  gap: var(--gutter);
+}
+.play .bar {
+  display: grid;
+  grid-template-columns: 7em 1fr 4em;
+  align-items: center;
+  gap: calc(var(--gutter) / 2);
+}
+.play .bar-track {
+  height: calc(var(--gutter) * 0.75);
+  background: var(--trap-tint);
+  border-radius: var(--gutter);
+  overflow: hidden;
+}
+.play .bar-fill {
+  display: block;
+  height: 100%;
+  background: var(--trap-flag);
+}
+.play .bar.variant .bar-fill {
+  background: var(--lens-enclose);
+}
+.play .trigger {
+  font-size: var(--type-trigger-size);
+  font-weight: var(--type-trigger-weight);
+}
+
+/* Entrances fade in; with reduced motion, end states appear with the 200 ms fade from motion.reduce_motion. */
+.play .fade {
+  animation: play-fade var(--duration-shade) var(--easing) both;
+}
+.play.reduced .fade {
+  animation-duration: 200ms;
+}
+@keyframes play-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 700px) {
+  .play {
+    grid-template-columns: 1fr;
+  }
+}
