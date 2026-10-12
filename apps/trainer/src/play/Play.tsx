@@ -14,6 +14,8 @@ import { useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { initialPickerState, isCleanSolve, pickerReducer, showsHint, shuffle } from './picker';
 import { loadRecord, saveRecord } from './storage';
 import { useBeatClock } from './useBeatClock';
+import { navigate } from '../launch/navigate';
+import { Signup } from '../launch/Signup';
 
 /** Fixed app copy (the card text itself always comes from the bundle). */
 const COPY = {
@@ -31,7 +33,8 @@ const COPY = {
   previous: '前回の記録',
   notFound: 'この問題は見つかりません',
 } as const;
-const PREORDER_URL = 'https://lens.beyondculture.ai/preorder';
+/** Forwards to the store's preorder product (and counts the click); see launch/Landing.tsx. */
+const PREORDER_PATH = '/go/preorder';
 
 /** Whole seconds, with tenths under 10 s. */
 const secondsText = (s: number) => (s < 10 ? s.toFixed(1) : String(Math.round(s)));
@@ -40,13 +43,13 @@ function prefersReducedMotion(): boolean {
   return typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
-export function Play({ cardId }: { cardId: string }) {
+export function Play({ cardId, short = null }: { cardId: string; short?: string | null }) {
   const card = getCard(cardId);
   if (!card) return <main className="play">{COPY.notFound}</main>;
-  return <PlayCard card={card} />;
+  return <PlayCard card={card} short={short} />;
 }
 
-function PlayCard({ card }: { card: LensCard }) {
+function PlayCard({ card, short }: { card: LensCard; short: string | null }) {
   const { labels } = loadBundle();
   const variant = useMemo(() => (card.variants[0] ? withVariant(card, card.variants[0]) : card), [card]);
   const reducedMotion = prefersReducedMotion();
@@ -79,6 +82,11 @@ function PlayCard({ card }: { card: LensCard }) {
     const id = window.setTimeout(() => setStepsShown((n) => n + 1), tokens.motion.study.equation_term_ms);
     return () => window.clearTimeout(id);
   }, [state.phase, clock.done, stepsShown, card, reducedMotion]);
+
+  // The report has its own path, so analytics counts it as a page view.
+  useEffect(() => {
+    if (state.phase === 'report') navigate(`/play/${card.id}/report`);
+  }, [state.phase, card.id]);
 
   useEffect(() => {
     if (state.phase !== 'report' || state.seconds === null) return;
@@ -196,14 +204,14 @@ function PlayCard({ card }: { card: LensCard }) {
         )}
 
         {state.phase === 'report' && state.seconds !== null && state.variantSeconds !== null && (
-          <Report card={card} first={state.seconds} variant={state.variantSeconds} />
+          <Report card={card} first={state.seconds} variant={state.variantSeconds} short={short} />
         )}
       </section>
     </main>
   );
 }
 
-function Report({ card, first, variant }: { card: LensCard; first: number; variant: number }) {
+function Report({ card, first, variant, short }: { card: LensCard; first: number; variant: number; short: string | null }) {
   const badge = tokens.time_cost.source_badge[card.lens_route.time_source];
   const max = Math.max(first, variant, 1);
   return (
@@ -216,7 +224,8 @@ function Report({ card, first, variant }: { card: LensCard; first: number; varia
         <Bar label={COPY.variantTitle} seconds={variant} max={max} kind="variant" />
       </div>
       <p className="trigger">{card.trigger.ja}</p>
-      <a className="primary preorder" href={PREORDER_URL}>
+      <Signup short={short} />
+      <a className="primary preorder" href={PREORDER_PATH}>
         {COPY.preorder}
       </a>
     </div>
