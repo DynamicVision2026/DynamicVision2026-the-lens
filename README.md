@@ -28,6 +28,21 @@ The trainer and the Shorts renderer import only `build/bundle.json` (contract in
 
 Exit code is non-zero if any card fails. Renderers only read cards whose status is `verified` or later, and CI runs this on every push.
 
+## Apps (pnpm workspace)
+
+Node 20 (`.nvmrc`) and pnpm 9 (`corepack enable`). From a fresh clone:
+
+```
+pnpm install
+pnpm bundle        # validate cards and write build/bundle.json
+pnpm build         # trainer -> apps/trainer/dist
+pnpm dev:trainer   # Vite dev server (apps/trainer)
+pnpm dev:shorts    # Remotion Studio (apps/shorts)
+pnpm typecheck     # tsc --noEmit across the workspace
+```
+
+`packages/scenes` holds the bundle types, the only bundle loader (`loadBundle`, `getCard`, `getVariants`) and, from WO-002, the shared SVG scenes.
+
 ## Card rules
 
 1. `provenance.original` is always `true`. Coordinates, wording and figures are written from an archetype, never adapted from an exam, textbook or 塾 problem.
