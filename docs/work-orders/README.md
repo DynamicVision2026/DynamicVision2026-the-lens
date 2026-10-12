@@ -14,7 +14,12 @@ Each work order (WO) is one PR. Read `docs/PRD.md` first; this folder only adds 
 2. **Architect-owned paths:** `cards/`, `schema/`, `tools/`, `tokens/`. Do not edit them. If you need a field, a token or a bundle change, open an issue labelled `architect` and keep going with a clearly marked stub.
 3. **The bundle is the only data source.** Apps import `build/bundle.json` (contract: `docs/PRD.md` §5). Never read YAML in the apps, never hard-code a card's numbers or Japanese text, never re-compute an answer.
 4. **Tokens are the only style source.** No hex colours, font names or stroke widths in components; read them from `tokens/tokens.json`.
-5. **Merge rule:** green **Validate Lens Cards** check, plus a screen recording (or rendered MP4) attached to the PR. The founder merges.
+5. **Merge rule:** the founder approves, the Builder merges. Merge a PR only when all three hold:
+   - the **Validate Lens Cards** check is green;
+   - a screen recording (or rendered MP4) is attached, for app work;
+   - the founder has approved it (a GitHub review approval, or a PR comment "Approved" from the founder). PRs touching `cards/`, `schema/`, `tools/` or `tokens/` also need the Architect's sign-off.
+
+   Use **Squash and merge**, then delete the branch. If the PR shows a conflict, update the branch from `main`, wait for the check to go green again, then merge.
 6. **Keep it small.** No state libraries, no UI kits, no backend. React state, plain SVG, Vite, Remotion. Ask before adding any dependency not named in a WO.
 
 ## Glossary
