@@ -1,4 +1,4 @@
-schema_version: "1.0"
+schema_version: "1.1"
 id: enclose-f01
 kind: failure
 lens: enclose
@@ -59,6 +59,7 @@ trigger:
 picker:
   options: [enclose, slide, mirror, direct]
   correct: direct
+  clue_distractors: [vertices_on_box, parallel_lines]
   feedback_ja:
     enclose: "囲むと、すき間が直角三角形にならない。もう一度囲むはめになる。"
     slide: "平行な線がないので、等積変形の手がかりがない。"

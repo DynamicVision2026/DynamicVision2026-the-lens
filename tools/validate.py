@@ -5,6 +5,7 @@ Usage:
     python3 tools/validate.py cards/*.yaml            # validate cards
     python3 tools/validate.py cards/*.yaml --variants # also generate + check variants
     python3 tools/validate.py cards/**/*.yaml --bundle  # all of the above + build/bundle.json
+    python3 tools/validate.py cards/**/*.yaml --bundle --include-drafts  # local dev only: also bundle draft cards
 
 A card is 'verified' only if:
   1. it matches schema/lens-card.schema.json,
@@ -27,6 +28,36 @@ from sympy.geometry import Point, Polygon
 
 ROOT = Path(__file__).resolve().parent.parent
 SCHEMA = json.loads((ROOT / "schema" / "lens-card.schema.json").read_text(encoding="utf-8"))
+
+
+def _load_labels():
+    out = {}
+    for name in ("lenses", "tags"):
+        path = ROOT / "labels" / f"{name}.yaml"
+        out[name] = yaml.safe_load(path.read_text(encoding="utf-8")) if path.exists() else {}
+    return out
+
+
+LABELS = _load_labels()
+
+
+def label_check(card):
+    """Every picker option and clue chip must have a Japanese label; decoys must be real decoys."""
+    errs = []
+    lenses, tags = LABELS["lenses"], LABELS["tags"]
+    for opt in card["picker"]["options"]:
+        if opt not in lenses:
+            errs.append(f"picker option '{opt}' has no label in labels/lenses.yaml")
+    real = card["trigger"]["tags"]
+    decoys = card["picker"]["clue_distractors"]
+    for tg in real + decoys:
+        if tg not in tags:
+            errs.append(f"tag '{tg}' has no label in labels/tags.yaml")
+    if set(real) & set(decoys):
+        errs.append(f"clue_distractors overlap trigger.tags: {sorted(set(real) & set(decoys))}")
+    if not [tg for tg in real if not tags.get(tg, {}).get("generic")]:
+        errs.append("trigger.tags has no specific (non-generic) clue for the child to find")
+    return errs
 
 
 # ---------------------------------------------------------------- geometry ---
@@ -139,6 +170,65 @@ def is_tilted_square(pts) -> bool:
     return len(sides) == 1 and d2(pts[0], pts[2]) == d2(pts[1], pts[3]) and tilted
 
 
+def band_triangles(fig):
+    """Triangles of a parallel_band figure: base on y=0, apex on y=band_height."""
+    b, a, h = fig["bottom_x"], fig["apex_x"], fig["band_height"]
+    return [[(S(b[i]), S(0)), (S(b[i + 1]), S(0)), (S(a[i]), S(h))] for i in range(len(a))]
+
+
+def mirror_touch(fig):
+    """Reflect Q across the line; the straight line P->Q' meets the line at AX = ab*pa/(pa+qb)."""
+    return S(fig["ab"]) * fig["pa"] / (fig["pa"] + fig["qb"])
+
+
+def mirror_length(fig, x):
+    from sympy import sqrt
+    return sqrt(S(x) ** 2 + fig["pa"] ** 2) + sqrt((fig["ab"] - S(x)) ** 2 + fig["qb"] ** 2)
+
+
+def wp_solve(fig):
+    """Closed-form answer for a word problem (the lens route's result)."""
+    k, q = fig["kind"], fig["params"]
+    if k == "two_kinds_total":       # n items worth a or b each, total t: how many worth a?
+        return S(q["t"] - q["b"] * q["n"]) / (q["a"] - q["b"])
+    if k == "age_ratio":             # older p, younger c now: years until older = r x younger
+        return S(q["p"] - q["r"] * q["c"]) / (q["r"] - 1)
+    if k == "mixture":               # w1 g at p1 %, add ? g at p2 %, get pt %: lever arms (pt-p1):(p2-pt)
+        return S(q["w1"]) * (q["pt"] - q["p1"]) / (q["p2"] - q["pt"])
+    if k == "meeting":               # d apart, speeds u and v toward each other: freeze one, closing speed u+v
+        return S(q["d"]) / (q["u"] + q["v"])
+    raise ValueError(k)
+
+
+def wp_text(fig, names):
+    """The problem sentence for a word problem, generated from its numbers, so text and numbers can never disagree."""
+    q = fig["params"]
+    if fig["kind"] == "two_kinds_total":
+        A, B = names["a"], names["b"]
+        return f"{A}と{B}が合わせて{q['n']}{names['counter']}あり、合計{names['measure']}は{q['t']}円です。{A}は何{names['counter']}ありますか。"
+    if fig["kind"] == "mixture":
+        return f"{q['p1']}%の食塩水{q['w1']}gに、{q['p2']}%の食塩水を何g混ぜると、{q['pt']}%の食塩水になりますか。"
+    if fig["kind"] == "meeting":
+        A, B = names["a"], names["b"]
+        return f"{q['d']}mはなれた道の両はしから、{A}は分速{q['u']}m、{B}は分速{q['v']}mで、向かい合って同時に歩き始めます。2人が出会うのは何分後ですか。"
+    o, y = names["older"], names["younger"]
+    return f"いま、{o}は{q['p']}才、{y}は{q['c']}才です。{o}の年れいが{y}の年れいの{q['r']}倍になるのは何年後ですか。"
+
+
+def wp_brute(fig):
+    """Every whole-number answer found by trying all cases (the trap route, done by machine)."""
+    k, q = fig["kind"], fig["params"]
+    if k == "two_kinds_total":
+        return [x for x in range(q["n"] + 1) if q["a"] * x + q["b"] * (q["n"] - x) == q["t"]]
+    if k == "age_ratio":
+        return [y for y in range(0, 120) if q["p"] + y == q["r"] * (q["c"] + y)]
+    if k == "mixture":   # salt balance, exact: (w1*p1 + x*p2) / (w1 + x) == pt
+        return [x for x in range(1, 5000) if S(q["w1"] * q["p1"] + x * q["p2"]) / (q["w1"] + x) == q["pt"]]
+    if k == "meeting":   # minute by minute: distance walked by both == d
+        return [t for t in range(0, 600) if (q["u"] + q["v"]) * t == q["d"]]
+    raise ValueError(k)
+
+
 # ------------------------------------------------------------------ checks ---
 
 def route_total(route) -> Rational | None:
@@ -164,7 +254,55 @@ def route_total(route) -> Rational | None:
 def run_check(card, check, pts) -> tuple[bool, str]:
     t = check["type"]
     ans = sympify(card["answer"]["value"])
-    g = card["problem"]["figure"]["grid"]
+    fig = card["problem"]["figure"]
+    g = fig.get("grid")
+    if t == "wp_formula":
+        x = wp_solve(fig)
+        return x == ans, f"lens formula gives {x}, answer = {ans}"
+    if t == "wp_unique":
+        sols = wp_brute(fig)
+        return sols == [ans], f"trying every case finds exactly {sols}"
+    if t == "wp_text_matches":
+        want = wp_text(fig, fig.get("names", {}))
+        return card["problem"]["text_ja"] == want, "problem text matches its numbers" if card["problem"]["text_ja"] == want else f"text should be: {want}"
+    if t == "wp_nontrivial":
+        q = fig["params"]
+        if fig["kind"] == "two_kinds_total":
+            ok = 0 < ans < q["n"] and q["a"] != q["b"] and 2 * ans != q["n"]
+            return ok, "both kinds appear and the answer is not simply half"
+        if fig["kind"] == "mixture":
+            ok = q["p1"] < q["pt"] < q["p2"] and ans > 0 and (q["pt"] - q["p1"]) != (q["p2"] - q["pt"])
+            return ok, "target strength lies between the two, and the arms are unequal (not simply equal amounts)"
+        if fig["kind"] == "meeting":
+            ok = ans > 1 and q["u"] != q["v"]
+            return ok, "different speeds, so meeting at the halfway point is a wrong guess"
+        ok = ans > 0 and q["p"] > q["c"] and q["r"] >= 2
+        return ok, "the moment is in the future and the ratio is at least 2"
+    if t == "mirror_touch_point":
+        x = mirror_touch(fig)
+        return x == ans, f"reflection gives AX = {x}, answer = {ans}"
+    if t == "mirror_shortest":
+        x = mirror_touch(fig)
+        best = mirror_length(fig, x)
+        probes = [x + d for d in (S(-1), S(-1) / 2, S(1) / 2, S(1))] + [S(0), S(fig["ab"])]
+        ok = all((mirror_length(fig, q) - best).evalf(30) > 0 for q in probes if q != x)
+        return ok, f"path through AX = {x} is shorter than through nearby points and both ends"
+    if t == "mirror_not_midpoint":
+        ok = fig["pa"] != fig["qb"]
+        return ok, "P and Q are at different distances, so the halfway guess is wrong"
+    if t == "band_triangles_disjoint":
+        b, a = fig["bottom_x"], fig["apex_x"]
+        ok = len(a) == len(b) - 1 and all(x < y for x, y in zip(b, b[1:])) and all(x < y for x, y in zip(a, a[1:]))
+        return ok, "one apex per base, bases and apexes both in increasing order (triangles do not overlap)"
+    if t == "band_total_only":
+        sh = fig["shown"]
+        ok = sh["total_base"] and sh["band_height"] and not sh["each_base"]
+        return ok, "only the total base and the band height are given; the individual bases are not"
+    if t == "band_area_equals_answer":
+        tris = band_triangles(fig)
+        total = sum((abs(shoelace(tr)) for tr in tris), S(0))
+        merged = S(fig["bottom_x"][-1] - fig["bottom_x"][0]) * fig["band_height"] / 2
+        return total == ans == merged, f"sum of triangles={total}, one merged triangle={merged}, answer={ans}"
     if t == "lattice_only":
         ok = all(0 <= x <= g["width"] and 0 <= y <= g["height"] for x, y in pts)
         return ok, "all vertices are grid points inside the drawn grid"
@@ -314,7 +452,183 @@ STEP_BUILDERS = {
 VARIANT_CHECKS = {"lattice_only", "simple_polygon", "enclose_clean", "enclose_not_clean", "has_horizontal_base", "tilted_square"}
 
 
+def make_band_variants(card):
+    """slide_band: new total base, band height and splits; apexes stay in order. Answer = total × height ÷ 2."""
+    v = card["variants"]
+    rng = random.Random(v["seed"])
+    c = v.get("constraints", {})
+    fig0 = card["problem"]["figure"]
+    k = len(fig0["apex_x"])
+    seen = {(tuple(fig0["bottom_x"]), tuple(fig0["apex_x"]), fig0["band_height"])}
+    used_h, used_L = {fig0["band_height"]}, {fig0["bottom_x"][-1] - fig0["bottom_x"][0]}  # each variant gets a fresh height and base
+    out, tries = [], 0
+    while len(out) < v["count"] and tries < 2000:
+        tries += 1
+        L = rng.randint(c.get("min_base", 8), c.get("max_base", 14))
+        h = rng.randint(c.get("min_height", 3), c.get("max_height", 8))
+        if L < k + 1 or h in used_h or L in used_L:
+            continue
+        bottom = [0] + sorted(rng.sample(range(1, L), k - 1)) + [L]
+        apex = sorted(rng.sample(range(0, L + 1), k))
+        key = (tuple(bottom), tuple(apex), h)
+        if key in seen:
+            continue
+        fig = {**fig0, "bottom_x": bottom, "apex_x": apex, "band_height": h}
+        area = S(L) * h / 2
+        vcard = {**card, "answer": {**card["answer"], "value": str(area)}, "problem": {**card["problem"], "figure": fig}}
+        if not all(run_check(vcard, ch, None)[0] for ch in card["checks"] if ch["type"].startswith("band_")):
+            continue
+        steps = [
+            {"ja": "頂点を直線ℓにそって1点に集める（面積は変わらない）", "op": "note"},
+            {"ja": f"底辺{L}、高さ{h}の1つの三角形になる", "op": "note"},
+            {"ja": f"{L}×{h}÷2 = {_fmt(area)}", "value": str(area), "op": "result"},
+        ]
+        if route_total({"steps": steps}) != area:
+            continue
+        seen.add(key); used_h.add(h); used_L.add(L)
+        out.append({"id": f"{card['id']}-v{len(out) + 1}", "figure": {"bottom_x": bottom, "apex_x": apex, "band_height": h},
+                    "answer": str(area), "lens_route": {"steps": steps}})
+    return out
+
+
+def make_mirror_variants(card):
+    """mirror_path: new ab, pa, qb with an exact, simple touch point (AX a whole number)."""
+    v = card["variants"]
+    rng = random.Random(v["seed"])
+    c = v.get("constraints", {})
+    fig0 = card["problem"]["figure"]
+    from math import gcd as _g
+    ratio = lambda a, b: (a // _g(a, b), b // _g(a, b))
+    used_ratios, used_ab = {ratio(fig0["pa"], fig0["qb"])}, {fig0["ab"]}
+    seen = {(fig0["ab"], fig0["pa"], fig0["qb"])}
+    out, tries = [], 0
+    while len(out) < v["count"] and tries < 20000:
+        tries += 1
+        pa, qb = rng.randint(c.get("min_side", 2), c.get("max_side", 10)), rng.randint(c.get("min_side", 2), c.get("max_side", 10))
+        ab = rng.randint(c.get("min_ab", 6), c.get("max_ab", 20))
+        # each variant teaches something new: a fresh ratio and a fresh length
+        if pa == qb or (ab * pa) % (pa + qb) or ratio(pa, qb) in used_ratios or ab in used_ab:
+            continue
+        fig = {**fig0, "ab": ab, "pa": pa, "qb": qb}
+        x = mirror_touch(fig)
+        vcard = {**card, "answer": {**card["answer"], "value": str(x)}, "problem": {**card["problem"], "figure": fig}}
+        if not all(run_check(vcard, ch, None)[0] for ch in card["checks"] if ch["type"].startswith("mirror_")):
+            continue
+        from math import gcd
+        g = gcd(pa, qb)
+        steps = [
+            {"ja": "Qを川で折り返した点Q'をとる（XQ＝XQ'）", "op": "note"},
+            {"ja": "PからQ'へまっすぐ線を引く。川と交わる点がX", "op": "note"},
+            {"ja": f"三角形PAXとQ'BXは同じ形なので AX:XB = {pa}:{qb}" + (f" = {pa // g}:{qb // g}" if g > 1 else ""), "op": "note"},
+            {"ja": f"AX = {ab}×{pa // g}/{(pa + qb) // g} = {_fmt(x)}", "value": str(x), "op": "result"},
+        ]
+        seen.add((ab, pa, qb)); used_ratios.add(ratio(pa, qb)); used_ab.add(ab)
+        out.append({"id": f"{card['id']}-v{len(out) + 1}", "figure": {"ab": ab, "pa": pa, "qb": qb},
+                    "answer": str(x), "lens_route": {"steps": steps}})
+    return out
+
+
+def make_wp_variants(card):
+    """Word-problem variants: fresh numbers, same model, same lens steps template."""
+    v = card["variants"]
+    rng = random.Random(v["seed"])
+    fig0 = card["problem"]["figure"]
+    names = fig0.get("names", {})
+    seen, out, tries = {tuple(sorted(fig0["params"].items()))}, [], 0
+    used_answers = {sympify(card["answer"]["value"])}
+    while len(out) < v["count"] and tries < 20000:
+        tries += 1
+        vnames = dict(names)
+        if fig0["kind"] == "two_kinds_total":
+            a, b = rng.choice([(50, 10), (100, 10), (100, 50), (10, 5), (50, 5)])
+            n = rng.randint(12, 30); x = rng.randint(1, n - 1)
+            q = {"n": n, "a": a, "b": b, "t": a * x + b * (n - x)}
+            vnames.update({"a": f"{a}円玉", "b": f"{b}円玉"})
+        elif fig0["kind"] == "mixture":
+            p1 = rng.randint(2, 8); p2 = rng.randint(p1 + 4, 20); pt = rng.randint(p1 + 1, p2 - 1)
+            w1 = rng.choice([100, 150, 200, 240, 300, 400])
+            q = {"w1": w1, "p1": p1, "p2": p2, "pt": pt}
+            # whole grams, and a believable amount: between half and twice the first solution
+            if (w1 * (pt - p1)) % (p2 - pt) or not (w1 // 2 <= w1 * (pt - p1) // (p2 - pt) <= 2 * w1):
+                continue
+        elif fig0["kind"] == "meeting":
+            su = rng.randint(5, 10) * 10; sv = rng.randint(4, 9) * 10; tt = rng.randint(6, 20)
+            q = {"d": (su + sv) * tt, "u": su, "v": sv}
+        else:
+            c = rng.randint(3, 12); r = rng.randint(2, 4); y = rng.randint(2, 15)
+            q = {"p": r * (c + y) - y, "c": c, "r": r}
+            if q["p"] > 50 or q["p"] - c < 20:
+                continue
+        fig = {**fig0, "params": q, "names": vnames}
+        x = wp_solve(fig)
+        key = tuple(sorted(q.items()))
+        if key in seen or x in used_answers:
+            continue
+        text = wp_text(fig, vnames)
+        vcard = {**card, "answer": {**card["answer"], "value": str(x)}, "problem": {**card["problem"], "figure": fig, "text_ja": text}}
+        if not all(run_check(vcard, ch, None)[0] for ch in card["checks"] if ch["type"].startswith("wp_")):
+            continue
+        steps = wp_steps(fig, vnames)
+        if route_total({"steps": steps}) != x:
+            continue
+        seen.add(key); used_answers.add(x)
+        out.append({"id": f"{card['id']}-v{len(out) + 1}", "text_ja": text, "figure": {"params": q, "names": vnames},
+                    "answer": str(x), "lens_route": {"steps": steps}})
+    return out
+
+
+def wp_steps(fig, names):
+    q = fig["params"]
+    if fig["kind"] == "two_kinds_total":
+        A, B = names.get("a", "A"), names.get("b", "B")
+        counter, measure = names.get("counter", "個"), names.get("measure", "金額")
+        allb = q["b"] * q["n"]
+        x = wp_solve(fig)
+        return [
+            {"ja": f"たて＝1{counter}あたりの{measure}、横＝{counter}数の長方形2つで表す（面積＝{measure}）", "op": "note"},
+            {"ja": f"全部{B}だとすると {q['b']}×{q['n']} = {allb}", "op": "note"},
+            {"ja": f"本当の{measure}との差 {q['t']}−{allb} = {q['t'] - allb} が、上にはみ出した長方形の面積", "op": "note"},
+            {"ja": f"その長方形のたては {q['a']}−{q['b']} = {q['a'] - q['b']}", "op": "note"},
+            {"ja": f"{A}の数 = {q['t'] - allb}÷{q['a'] - q['b']} = {_fmt(x)}", "value": str(x), "op": "result"},
+        ]
+    if fig["kind"] == "mixture":
+        a1, a2 = q["pt"] - q["p1"], q["p2"] - q["pt"]
+        from math import gcd
+        g = gcd(a1, a2)
+        w2 = wp_solve(fig)
+        return [
+            {"ja": f"てんびんの左はしに{q['p1']}%、右はしに{q['p2']}%、支点に{q['pt']}%をおく", "op": "note"},
+            {"ja": f"うでの長さは {q['pt']}−{q['p1']} = {a1} と {q['p2']}−{q['pt']} = {a2}", "op": "note"},
+            {"ja": f"{q['w1']}g と □g の比は、うでの長さの逆の比 {a2 // g}:{a1 // g}", "op": "note"},
+            {"ja": f"{q['w1']}×{a1 // g}" + (f"÷{a2 // g}" if a2 // g > 1 else "") + f" = {_fmt(w2)}（g）", "value": str(w2), "op": "result"},
+        ]
+    if fig["kind"] == "meeting":
+        A, B = names.get("a", "A"), names.get("b", "B")
+        t = wp_solve(fig)
+        return [
+            {"ja": f"{B}を止めて考えると、{A}は1分に {q['u']}+{q['v']} = {q['u'] + q['v']}m ずつ近づく", "op": "note"},
+            {"ja": f"はじめのきょりは{q['d']}m", "op": "note"},
+            {"ja": f"{q['d']}÷{q['u'] + q['v']} = {_fmt(t)}（分後）", "value": str(t), "op": "result"},
+        ]
+    older, younger = names.get("older", "親"), names.get("younger", "子")
+    d = q["p"] - q["c"]
+    child_then = S(d) / (q["r"] - 1)
+    y = wp_solve(fig)
+    return [
+        {"ja": f"年れいの差は {q['p']}−{q['c']} = {d} で、何年たっても変わらない", "op": "note"},
+        {"ja": f"{older}が{younger}の{q['r']}倍のとき、差の{d}は{younger}の {q['r']}−1 = {q['r'] - 1} つ分", "op": "note"},
+        {"ja": f"そのときの{younger}は {d}÷{q['r'] - 1} = {_fmt(child_then)} 才", "op": "note"},
+        {"ja": f"{_fmt(child_then)}−{q['c']} = {_fmt(y)}（年後）", "value": str(y), "op": "result"},
+    ]
+
+
 def make_variants(card):
+    if card["variants"]["generator"] in ("wp_two_kinds", "wp_age_ratio", "wp_mixture", "wp_meeting"):
+        return make_wp_variants(card)
+    if card["variants"]["generator"] == "slide_band":
+        return make_band_variants(card)
+    if card["variants"]["generator"] == "mirror_path":
+        return make_mirror_variants(card)
     v = card["variants"]
     rng = random.Random(v["seed"])
     gen = GENERATORS[v["generator"]]
@@ -359,7 +673,7 @@ def step_order_check(card, pts):
     (right rectangle, bottom triangle, side triangle, top triangle).
     Returns (applies, ok, message).
     """
-    if card["lens"] != "enclose":
+    if card["lens"] != "enclose" or pts is None:
         return False, True, ""
     steps = card["lens_route"]["steps"]
     if card["kind"] == "standard":
@@ -395,18 +709,25 @@ def validate(path: Path, with_variants: bool) -> bool:
         print("  FAIL    picker.correct is not one of the options"); ok_all = False
     if card["kind"] != "standard" and not card.get("best_move"):
         print("  FAIL    failure/no_lens cards need best_move"); ok_all = False
-    pts = [tuple(p) for p in card["problem"]["figure"]["points"]]
+    fig = card["problem"]["figure"]
+    pts = [tuple(p) for p in fig["points"]] if fig["type"] == "grid_polygon" else None
     for ch in card["checks"]:
         ok, msg = run_check(card, ch, pts)
         ok_all &= ok
         print(f"  {'PASS' if ok else 'FAIL'}    {ch['type']}{'(' + ch['route'] + ')' if 'route' in ch else ''}: {msg}")
+    lerrs = label_check(card)
+    for e in lerrs:
+        print(f"  FAIL    labels: {e}")
+    if not lerrs:
+        print("  PASS    labels: every option and clue chip has a label; decoys differ from real clues")
+    ok_all &= not lerrs
     applies, ok, msg = step_order_check(card, pts)
     if applies:
         ok_all &= ok
         print(f"  {'PASS' if ok else 'FAIL'}    step_order (labels land on the right pieces): {msg}")
     vs = []
     if with_variants:
-        if card["problem"]["figure"]["grid"]["cell_cm"] != 1:
+        if fig["type"] == "grid_polygon" and fig["grid"]["cell_cm"] != 1:
             print("  FAIL    variant generators assume cell_cm = 1"); ok_all = False
         vs = make_variants(card)
         enough = len(vs) == card["variants"]["count"]
@@ -458,7 +779,18 @@ def annotate_enclose_steps(pts, steps):
     return out
 
 
+def _annotate_band(fig):
+    """Lengths a band scene prints come from the bundle: total_base = last - first bottom point."""
+    b = fig["bottom_x"]
+    return {**fig, "total_base": str(S(b[-1]) - S(b[0]))}
+
+
 def _annotate(card, vs):
+    if card["problem"]["figure"]["type"] == "parallel_band":
+        fig = _annotate_band(card["problem"]["figure"])
+        card = {**card, "problem": {**card["problem"], "figure": fig}}
+        vs = [{**v, "figure": _annotate_band({**fig, **v["figure"]})} for v in vs]
+        return card, vs
     if card["lens"] != "enclose" or card["kind"] != "standard":
         return card, vs
     pts = [tuple(p) for p in card["problem"]["figure"]["points"]]
@@ -478,7 +810,7 @@ def _annotate(card, vs):
 PUBLISHABLE = {"verified", "reviewed", "published"}
 
 
-def write_bundle(entries) -> Path:
+def write_bundle(entries, include_drafts=False) -> Path:
     """build/bundle.json — the only file the trainer and the Shorts renderer import.
 
     Contains every card that passed this run and whose status is verified or later,
@@ -487,11 +819,11 @@ def write_bundle(entries) -> Path:
     tokens = json.loads((ROOT / "tokens" / "tokens.json").read_text(encoding="utf-8"))
     cards = []
     for ok, card, vs in entries:
-        if ok and card["status"] in PUBLISHABLE:
+        if ok and (card["status"] in PUBLISHABLE or (include_drafts and card["status"] == "draft")):
             card, vs = _annotate(card, vs)
             cards.append({**card, "variants": vs})
     cards.sort(key=lambda c: (c["lens"], c["id"]))
-    bundle = {"bundle_version": "1.1", "schema_version": "1.0", "tokens": tokens, "cards": cards}
+    bundle = {"bundle_version": "1.2", "schema_version": "1.1", "tokens": tokens, "labels": LABELS, "cards": cards}
     out = ROOT / "build" / "bundle.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(bundle, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -505,7 +837,9 @@ if __name__ == "__main__":
     all_ok = bool(entries) and all(ok for ok, _, _ in entries)
     if want_bundle:
         if all_ok:
-            print(f"\nbundle: {write_bundle(entries).relative_to(ROOT)} ({len(entries)} cards)")
+            out = write_bundle(entries, include_drafts="--include-drafts" in sys.argv)
+            n = len(json.loads(out.read_text(encoding="utf-8"))["cards"])
+            print(f"\nbundle: {out.relative_to(ROOT)} ({n} cards{', drafts included' if '--include-drafts' in sys.argv else ''})")
         else:
             print("\nbundle: NOT written, fix the failing cards first")
     sys.exit(0 if all_ok else 1)

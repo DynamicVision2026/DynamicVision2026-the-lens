@@ -1,4 +1,4 @@
-schema_version: "1.0"
+schema_version: "1.1"
 id: enclose-002
 kind: standard
 lens: enclose
@@ -60,6 +60,7 @@ fails_when: enclose-f01
 picker:
   options: [enclose, slide, mirror, direct]
   correct: enclose
+  clue_distractors: [parallel_lines, shortest_path]
   feedback_ja:
     enclose: "そのとおり。4つの頂点が外側の正方形の4辺に1つずつ乗っている。"
     slide: "平行な線はあるが、動かしても底辺と高さが方眼に乗らない。"

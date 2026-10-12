@@ -1,0 +1,26 @@
+# Japanese labels for clue chips (trigger.tags and picker.clue_distractors).
+# generic: true = true of almost every card in its lens; shown as context, never offered as a clue chip.
+grid:                 {ja: 方眼の上の図形,               generic: true}
+tilted_polygon:       {ja: ななめにかたむいた図形}
+vertices_on_box:      {ja: 頂点が外わくの上にある}
+vertices_inside_box:  {ja: 頂点が外わくの内側にある}
+concave_polygon:      {ja: へこんだ図形}
+triangle:             {ja: 三角形,                       generic: true}
+base_on_grid_line:    {ja: 底辺が方眼の線の上にある}
+no_side_on_grid_line: {ja: どの辺も方眼の線に乗っていない}
+parallel_lines:       {ja: 平行な線がある}
+solid_3d:             {ja: 立体の図}
+shortest_path:        {ja: いちばん短い道すじ}
+moving_points:        {ja: 動く点がある}
+mixing:               {ja: 2つのものを混ぜる}
+triangles_between_parallels: {ja: 平行な2本の線の間に三角形がならぶ}
+apexes_on_one_line:   {ja: 頂点が同じ直線の上にある}
+only_total_given:     {ja: 1つ1つの長さは分からず、合計だけ分かる}
+touch_a_line:         {ja: とちゅうで直線に1回ふれる}
+two_points_same_side: {ja: 2つの点が直線の同じ側にある}
+two_kinds_mixed:      {ja: 2種類のものがまざっている}
+total_count_and_total: {ja: 全部の数と、全部の合計が分かる}
+ages_both_increase:   {ja: 2人とも同じだけ年をとる}
+times_relation:       {ja: 「何倍」になるときを聞いている}
+three_strengths_known: {ja: 2つのこさと、混ぜたあとのこさが分かる}
+toward_each_other:    {ja: 2人が向かい合って進む}

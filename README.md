@@ -9,8 +9,9 @@ Single source of truth for The Lens. Every problem is one Lens Card (YAML). The 
 ```
 docs/PRD.md                    Phase 1 PRD & architecture spec
 .github/workflows/             CI: validates every card on push and PR
-schema/lens-card.schema.json   card schema v1.0
+schema/lens-card.schema.json   card schema v1.1
 cards/enclose/*.yaml           Enclose (囲む) reference cards
+labels/*.yaml                  Japanese lens names and clue-chip texts
 tokens/tokens.json             visual tokens for web, video and print
 tools/validate.py              schema + SymPy checks + variant generation
 build/                         generated: variants/*.json and bundle.json (git-ignored)
