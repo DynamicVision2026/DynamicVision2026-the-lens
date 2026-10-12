@@ -1,6 +1,6 @@
-import { getCard, loadBundle, motionPreviewTimeline, timelineDuration, tokens } from '@lens/scenes';
+import { loadBundle } from '@lens/scenes';
 import { Composition } from 'remotion';
-import { EncloseMotionPreview, type EncloseMotionPreviewProps } from './EncloseMotionPreview';
+import { calculatePreviewMetadata, EncloseMotionPreview, type EncloseMotionPreviewProps } from './EncloseMotionPreview';
 import { EncloseShort } from './EncloseShort';
 
 const SHORT_SECONDS = 30;
@@ -9,8 +9,6 @@ const PREVIEW_CARD = 'enclose-001';
 export function RemotionRoot() {
   const { short } = loadBundle().tokens.layout;
   const [width, height] = short.size_px;
-  const previewBeats = motionPreviewTimeline(getCard(PREVIEW_CARD)!, tokens)!;
-  const previewFrames = Math.round((timelineDuration(previewBeats) / 1000) * short.fps);
 
   return (
     <>
@@ -28,8 +26,9 @@ export function RemotionRoot() {
         width={width}
         height={height}
         fps={short.fps}
-        durationInFrames={previewFrames}
+        durationInFrames={SHORT_SECONDS * short.fps}
         defaultProps={{ cardId: PREVIEW_CARD } satisfies EncloseMotionPreviewProps}
+        calculateMetadata={calculatePreviewMetadata}
       />
     </>
   );

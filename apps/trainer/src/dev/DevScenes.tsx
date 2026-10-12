@@ -1,6 +1,7 @@
 import {
   allSceneCards,
   LensIcon,
+  beatLabel,
   LensScene,
   loadBundle,
   motionPreviewTimeline,
@@ -13,7 +14,8 @@ import {
 } from '@lens/scenes';
 import { useEffect, useMemo, useState } from 'react';
 
-const cards = allSceneCards(loadBundle());
+const bundle = loadBundle();
+const cards = allSceneCards(bundle);
 
 function prefersReducedMotion(): boolean {
   return typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -33,7 +35,7 @@ export function DevScenes() {
   const card = useMemo(() => cards.find((c) => c.id === cardId) ?? cards[0]!, [cardId]);
   const beats = useMemo(() => (motionOn ? motionPreviewTimeline(card, tokens) : null), [card, motionOn]);
   // In motion-preview mode the selector steps through beats; otherwise through the card's keyframes.
-  const keyframes = beats ? beats.map((b) => b.name) : (card.animation?.keyframes ?? ['show_shape']);
+  const keyframes = beats ? beats.map(beatLabel) : (card.animation?.keyframes ?? ['show_shape']);
 
   // Play: drive t with requestAnimationFrame, one keyframe after another.
   useEffect(() => {
@@ -129,7 +131,15 @@ export function DevScenes() {
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--gutter)', marginTop: 'var(--gutter)' }}>
         <div style={{ width: SCENE_WIDTH, maxWidth: '100%' }} data-testid="scene">
-          <LensScene card={card} keyframe={keyframe} t={t} reducedMotion={reducedMotion} theme={theme} motion={beats} />
+          <LensScene
+            card={card}
+            keyframe={keyframe}
+            t={t}
+            reducedMotion={reducedMotion}
+            theme={theme}
+            motion={beats}
+            lensLabel={bundle.labels?.lenses[card.lens]?.ja}
+          />
         </div>
         <svg viewBox={`0 0 ${SCENE_WIDTH} 420`} style={{ width: SCENE_WIDTH, maxWidth: '100%', background: 'var(--paper)' }}>
           <TrapScratch steps={card.trap_route.steps} x={16} y={16} width={SCENE_WIDTH - 32} tokens={tokens} t={t} />

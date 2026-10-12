@@ -20,10 +20,16 @@ export type Grade = '小4' | '小5' | '小6' | '中1' | '中2' | '中3' | '高1'
 
 export type StepOp = 'start' | 'add' | 'sub' | 'result' | 'note';
 
+/** Verified geometry for an Enclose step (bundle 1.1). Scenes draw marks from these numbers. */
+export type StepDetail =
+  | { kind: 'box'; width: number; height: number }
+  | { kind: 'corner'; n: number; edge: string; corner: Point; base: number; height: number };
+
 export interface Step {
   ja: string;
   value?: ExactNumber;
   op?: StepOp;
+  detail?: StepDetail;
 }
 
 export interface Route {
@@ -83,7 +89,7 @@ export interface Check {
 }
 
 export interface LensCard {
-  schema_version: '1.0';
+  schema_version: string;
   id: string;
   kind: CardKind;
   lens: LensId;
@@ -167,6 +173,11 @@ export interface Tokens {
     lens_tint_opacity: number;
     correct: ColorToken;
     miss: ColorToken;
+    step: {
+      /** One colour per calculation step (corner 1, 2, 3, 4…), always paired with a numbered badge. */
+      palette: ColorToken[];
+      tint_opacity: number;
+    };
   };
   stroke: {
     unit: string;
@@ -227,6 +238,15 @@ export interface Tokens {
     };
     easing: string;
     spring: SpringToken;
+    study: {
+      step_focus_ms: number;
+      legs_draw_ms: number;
+      formula_ms: number;
+      step_hold_ms: number;
+      dim_others_opacity: number;
+      equation_term_ms: number;
+      final_hold_ms: number;
+    };
     reduce_motion: string;
   };
   themes?: Record<string, ThemeOverride>;
@@ -254,10 +274,25 @@ export interface ThemeOverride {
   glow?: GlowToken;
 }
 
+export interface LensLabel {
+  ja: string;
+  hint_ja: string;
+}
+
+export interface TagLabel {
+  ja: string;
+  generic?: boolean;
+}
+
 export interface Bundle {
   bundle_version: string;
   schema_version: string;
   tokens: Tokens;
+  /** Picker and clue labels (bundle 1.2). Optional until the labels PR is on main. */
+  labels?: {
+    lenses: Record<string, LensLabel>;
+    tags: Record<string, TagLabel>;
+  };
   /** Status verified or later, sorted by lens then id. */
   cards: LensCard[];
 }

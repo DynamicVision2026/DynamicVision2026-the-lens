@@ -34,6 +34,8 @@ export interface LensSceneProps {
    * instead of `card.animation.keyframes`, and `t` is the raw progress within the beat.
    */
   motion?: Beat[] | null;
+  /** Lens name for the motion preview's lens chip (from bundle.labels). */
+  lensLabel?: string;
   className?: string;
 }
 
@@ -52,6 +54,7 @@ export function LensScene({
   tokens: baseTokens = defaultTokens,
   theme = 'base',
   motion,
+  lensLabel,
   className,
 }: LensSceneProps) {
   const { tokens, glow } = themed(baseTokens, theme);
@@ -76,9 +79,7 @@ export function LensScene({
           glow={glow}
           mode={mode}
           width={SCENE_WIDTH}
-          height={SCENE_HEIGHT}
-          pad={PAD}
-          figureHeight={FIGURE_HEIGHT}
+          lensLabel={lensLabel}
         />
       </svg>
     );

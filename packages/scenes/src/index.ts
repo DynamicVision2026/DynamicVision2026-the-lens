@@ -2,7 +2,7 @@ export * from './types';
 export { loadBundle, getCard, getVariants } from './bundle';
 export { tokens, cssVars, color, lensColor, fontFamily, fontSize, themed, type RenderMode, type LensOrDirect, type ThemeName } from './tokens';
 export { springAt } from './spring';
-export { motionPreviewTimeline, timelineDuration, beatAt, type Beat, type BeatName } from './motion/timeline';
+export { motionPreviewTimeline, timelineDuration, beatAt, beatLabel, studyStepMs, type Beat, type BeatName } from './motion/timeline';
 export { formatExact, countUp, answerText, timeLabel } from './format';
 export { clamp01, parseEasing, stagger } from './easing';
 export { withVariant, allSceneCards } from './variant';
