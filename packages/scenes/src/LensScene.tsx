@@ -4,7 +4,9 @@ import { apexFor, boundingBox, boxCorners, centroid, cutX, enclosureGaps, horizo
 import { sceneState, type SceneContext } from './keyframes';
 import { ConstructionLine, FigurePolygon, GridLayer, makeFrame, RegionShade, StepLabel, toSvg } from './primitives';
 import { wrapText } from './text';
-import { color, fontFamily, fontSize, lensColor, tokens as defaultTokens, type RenderMode } from './tokens';
+import { MotionScene } from './motion/MotionScene';
+import type { Beat } from './motion/timeline';
+import { color, fontFamily, fontSize, lensColor, themed, tokens as defaultTokens, type RenderMode, type ThemeName } from './tokens';
 import type { LensCard, Point, Tokens } from './types';
 
 /** Scene viewBox in px at 1x. Video renders it at 2x (1080 px wide frame ≈ 2.25x). */
@@ -25,6 +27,13 @@ export interface LensSceneProps {
   reducedMotion?: boolean;
   /** Defaults to tokens/tokens.json. */
   tokens?: Tokens;
+  /** 'base' (light, trainer and book) or a theme from `tokens.themes`, e.g. 'short_dark'. */
+  theme?: ThemeName;
+  /**
+   * Motion preview beats (see motionPreviewTimeline). When set, `keyframe` indexes these beats
+   * instead of `card.animation.keyframes`, and `t` is the raw progress within the beat.
+   */
+  motion?: Beat[] | null;
   className?: string;
 }
 
@@ -34,7 +43,47 @@ const DEFAULT_KEYFRAMES = ['show_shape'];
  * Draws a card at one animation moment. A pure function of its props: no timers, state or effects,
  * so the trainer (t from requestAnimationFrame) and Remotion (t from the frame) render the same SVG.
  */
-export function LensScene({ card, keyframe, t, mode = 'screen', reducedMotion = false, tokens = defaultTokens, className }: LensSceneProps) {
+export function LensScene({
+  card,
+  keyframe,
+  t,
+  mode = 'screen',
+  reducedMotion = false,
+  tokens: baseTokens = defaultTokens,
+  theme = 'base',
+  motion,
+  className,
+}: LensSceneProps) {
+  const { tokens, glow } = themed(baseTokens, theme);
+  const svgProps = {
+    className,
+    viewBox: `0 0 ${SCENE_WIDTH} ${SCENE_HEIGHT}`,
+    xmlns: 'http://www.w3.org/2000/svg',
+    role: 'img',
+    'aria-label': card.problem.text_ja,
+    style: { background: color(tokens.color.paper, mode), display: 'block', width: '100%', height: 'auto' },
+  };
+
+  if (motion && motion.length > 0) {
+    return (
+      <svg {...svgProps}>
+        <MotionScene
+          card={card}
+          beats={motion}
+          beat={keyframe}
+          t={reducedMotion ? 1 : t}
+          tokens={tokens}
+          glow={glow}
+          mode={mode}
+          width={SCENE_WIDTH}
+          height={SCENE_HEIGHT}
+          pad={PAD}
+          figureHeight={FIGURE_HEIGHT}
+        />
+      </svg>
+    );
+  }
+
   const keyframes = card.animation?.keyframes ?? DEFAULT_KEYFRAMES;
   const ease = parseEasing(tokens.motion.easing);
   const progress = reducedMotion ? 1 : ease(clamp01(t));
@@ -63,14 +112,14 @@ export function LensScene({ card, keyframe, t, mode = 'screen', reducedMotion = 
   const irregular = ctx.gaps.find((g) => g.length > 3);
 
   return (
-    <svg
-      className={className}
-      viewBox={`0 0 ${SCENE_WIDTH} ${SCENE_HEIGHT}`}
-      xmlns="http://www.w3.org/2000/svg"
-      role="img"
-      aria-label={card.problem.text_ja}
-      style={{ background: color(tokens.color.paper, mode), display: 'block', width: '100%', height: 'auto' }}
-    >
+    <svg {...svgProps}>
+      {glow && (
+        <defs>
+          <filter id={`lens-glow-${card.id}`} x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation={glow.blur_px / 2} />
+          </filter>
+        </defs>
+      )}
       <GridLayer frame={frame} tokens={tokens} mode={mode} />
 
       {ctx.gaps.map((gap, i) => (
@@ -101,6 +150,11 @@ export function LensScene({ card, keyframe, t, mode = 'screen', reducedMotion = 
         tint={state.answerTint > 0 ? { color: accent, opacity: tokens.color.lens_tint_opacity * 2 * state.answerTint } : undefined}
       />
 
+      {glow && state.box > 0 && state.boxFade > 0 && (
+        <g filter={`url(#lens-glow-${card.id})`} opacity={glow.opacity * state.boxFade}>
+          <ConstructionLine frame={frame} path={boxPath} lens={lens} tokens={tokens} mode={mode} t={state.box} stroke={tokens.stroke.lens} />
+        </g>
+      )}
       <ConstructionLine frame={frame} path={boxPath} lens={lens} tokens={tokens} mode={mode} t={state.box} opacity={state.boxFade} />
       <ConstructionLine
         frame={frame}

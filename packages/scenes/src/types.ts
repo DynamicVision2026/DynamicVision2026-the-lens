@@ -218,10 +218,40 @@ export interface Tokens {
       shade: number;
       count_up: number;
       pause_after_reveal: number;
+      laser_wipe: number;
+      corner_fill: number;
+      corner_stagger: number;
+      corner_remove: number;
+      core_reveal: number;
+      hold_answer: number;
     };
     easing: string;
+    spring: SpringToken;
     reduce_motion: string;
   };
+  themes?: Record<string, ThemeOverride>;
+}
+
+export interface SpringToken {
+  damping: number;
+  stiffness: number;
+  mass: number;
+}
+
+export interface GlowToken {
+  blur_px: number;
+  opacity: number;
+  pulse_period_ms: number;
+  pulse_min_opacity: number;
+}
+
+type DeepPartial<T> = { [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K] };
+
+/** A theme lists only what it changes; everything else falls back to the base tokens. */
+export interface ThemeOverride {
+  color?: DeepPartial<Tokens['color']>;
+  lens_tint_opacity?: number;
+  glow?: GlowToken;
 }
 
 export interface Bundle {

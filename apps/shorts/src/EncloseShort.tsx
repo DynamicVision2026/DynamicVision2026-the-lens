@@ -1,18 +1,11 @@
 import { getCard, LensScene, tokens } from '@lens/scenes';
-import { useEffect, useState } from 'react';
-import { AbsoluteFill, continueRender, delayRender } from 'remotion';
-
-const FAMILIES = [tokens.type.family_ja, tokens.type.family_num, tokens.type.family_hand];
+import { AbsoluteFill } from 'remotion';
+import { useFonts } from './useFonts';
 
 // WO-002: a still LensScene proves the shared scene and fonts render in Remotion.
-// The 30 s timeline arrives in WO-003.
+// The 30 s timeline comes in WO-003 step 2, after the motion preview is approved.
 export function EncloseShort() {
-  const [handle] = useState(() => delayRender('Loading fonts'));
-  useEffect(() => {
-    Promise.all(FAMILIES.map((f) => document.fonts.load(`16px "${f}"`, 'あA1')))
-      .then(() => document.fonts.ready)
-      .finally(() => continueRender(handle));
-  }, [handle]);
+  useFonts();
   const card = getCard('enclose-001');
   return (
     <AbsoluteFill style={{ backgroundColor: tokens.color.paper.value, justifyContent: 'center' }}>

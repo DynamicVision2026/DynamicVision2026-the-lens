@@ -3,11 +3,13 @@ import {
   LensIcon,
   LensScene,
   loadBundle,
+  motionPreviewTimeline,
   SCENE_WIDTH,
   TimeStrip,
   tokens,
   TrapScratch,
   type LensOrDirect,
+  type ThemeName,
 } from '@lens/scenes';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -25,19 +27,24 @@ export function DevScenes() {
   const [playing, setPlaying] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(prefersReducedMotion);
   const [matrixT, setMatrixT] = useState<0 | 1 | null>(null);
+  const [theme, setTheme] = useState<ThemeName>('base');
+  const [motionOn, setMotionOn] = useState(false);
 
   const card = useMemo(() => cards.find((c) => c.id === cardId) ?? cards[0]!, [cardId]);
-  const keyframes = card.animation?.keyframes ?? ['show_shape'];
+  const beats = useMemo(() => (motionOn ? motionPreviewTimeline(card, tokens) : null), [card, motionOn]);
+  // In motion-preview mode the selector steps through beats; otherwise through the card's keyframes.
+  const keyframes = beats ? beats.map((b) => b.name) : (card.animation?.keyframes ?? ['show_shape']);
 
   // Play: drive t with requestAnimationFrame, one keyframe after another.
   useEffect(() => {
     if (!playing) return;
-    const perKeyframe = tokens.motion.duration_ms.draw_line + tokens.motion.duration_ms.pause_after_reveal;
+    const fallback = tokens.motion.duration_ms.draw_line + tokens.motion.duration_ms.pause_after_reveal;
+    const durationOf = (i: number) => beats?.[i]?.durationMs ?? fallback;
     let k = keyframe;
     let start = performance.now();
     let raf = 0;
     const tick = (now: number) => {
-      const p = (now - start) / perKeyframe;
+      const p = (now - start) / durationOf(k);
       if (p >= 1) {
         if (k >= keyframes.length - 1) {
           setT(1);
@@ -98,11 +105,31 @@ export function DevScenes() {
         <label>
           <input type="checkbox" checked={reducedMotion} onChange={(e) => setReducedMotion(e.target.checked)} /> reducedMotion
         </label>
+        <label>
+          theme{' '}
+          <select value={theme} onChange={(e) => setTheme(e.target.value as ThemeName)}>
+            <option value="base">base</option>
+            <option value="short_dark">short_dark</option>
+          </select>
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={motionOn}
+            onChange={(e) => {
+              setMotionOn(e.target.checked);
+              setKeyframe(0);
+              setT(1);
+              setPlaying(false);
+            }}
+          />{' '}
+          motion preview{motionOn && !beats ? ' (standard Enclose cards only)' : ''}
+        </label>
       </div>
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--gutter)', marginTop: 'var(--gutter)' }}>
         <div style={{ width: SCENE_WIDTH, maxWidth: '100%' }} data-testid="scene">
-          <LensScene card={card} keyframe={keyframe} t={t} reducedMotion={reducedMotion} />
+          <LensScene card={card} keyframe={keyframe} t={t} reducedMotion={reducedMotion} theme={theme} motion={beats} />
         </div>
         <svg viewBox={`0 0 ${SCENE_WIDTH} 420`} style={{ width: SCENE_WIDTH, maxWidth: '100%', background: 'var(--paper)' }}>
           <TrapScratch steps={card.trap_route.steps} x={16} y={16} width={SCENE_WIDTH - 32} tokens={tokens} t={t} />
