@@ -621,7 +621,8 @@ function WordLayer({ card, fig, state, layout: L, tokens, ink, chalk, accent, pa
   const width = W - 2 * margin;
   const top = storyHeight(card.problem.text_ja, width, T.trigger);
   const jaFont = fontFamily(tokens, tokens.type.scale.title);
-  const storyOpacity = state.chalk * (1 - state.question);
+  // The story steps aside while the title band holds the question (hook) or the trigger (answer).
+  const storyOpacity = state.chalk * (1 - state.question) * (1 - state.trigger);
   const anyStep = Object.values(state.figureProg).some((v) => v > 0);
   return (
     <g>
