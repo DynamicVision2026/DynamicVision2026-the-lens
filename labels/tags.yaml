@@ -18,3 +18,7 @@ apexes_on_one_line:   {ja: 頂点が同じ直線の上にある}
 only_total_given:     {ja: 1つ1つの長さは分からず、合計だけ分かる}
 touch_a_line:         {ja: とちゅうで直線に1回ふれる}
 two_points_same_side: {ja: 2つの点が直線の同じ側にある}
+two_kinds_mixed:      {ja: 2種類のものがまざっている}
+total_count_and_total: {ja: 全部の数と、全部の合計が分かる}
+ages_both_increase:   {ja: 2人とも同じだけ年をとる}
+times_relation:       {ja: 「何倍」になるときを聞いている}

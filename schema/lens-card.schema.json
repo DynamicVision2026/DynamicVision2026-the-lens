@@ -108,6 +108,18 @@
             "unit": { "type": "string" },
             "point_labels": { "type": "object", "additionalProperties": { "type": "string" } }
           }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Word problem with no geometry. `kind` selects the model; `params` holds its numbers (checked by the validator per kind).",
+          "required": ["type", "kind", "params"],
+          "properties": {
+            "type": { "const": "word_problem" },
+            "kind": { "enum": ["two_kinds_total", "age_ratio"] },
+            "params": { "type": "object", "additionalProperties": { "type": "integer" } },
+            "names": { "type": "object", "additionalProperties": { "type": "string" } }
+          }
         }
         ] }
       }
@@ -119,7 +131,7 @@
       "properties": {
         "value": { "description": "Exact answer as a SymPy-parsable string, e.g. '39/2'.", "type": "string" },
         "display_ja": { "type": "string" },
-        "expr": { "description": "Which check produces the answer.", "enum": ["polygon_area", "band_area", "mirror_touch"] }
+        "expr": { "description": "Which check produces the answer.", "enum": ["polygon_area", "band_area", "mirror_touch", "word_problem"] }
       }
     },
     "trap_route": { "$ref": "#/$defs/route" },
@@ -166,7 +178,7 @@
         "additionalProperties": false,
         "required": ["type"],
         "properties": {
-          "type": { "enum": ["area_equals_answer", "route_steps_sum", "enclose_clean", "enclose_not_clean", "has_horizontal_base", "tilted_square", "band_triangles_disjoint", "band_total_only", "band_area_equals_answer", "mirror_touch_point", "mirror_shortest", "mirror_not_midpoint", "lattice_only", "simple_polygon", "lens_faster"] },
+          "type": { "enum": ["area_equals_answer", "route_steps_sum", "enclose_clean", "enclose_not_clean", "has_horizontal_base", "tilted_square", "band_triangles_disjoint", "band_total_only", "band_area_equals_answer", "mirror_touch_point", "mirror_shortest", "mirror_not_midpoint", "wp_formula", "wp_unique", "wp_nontrivial", "wp_text_matches", "lattice_only", "simple_polygon", "lens_faster"] },
           "route": { "enum": ["trap_route", "lens_route"] },
           "note": { "type": "string" }
         }
@@ -177,7 +189,7 @@
       "additionalProperties": false,
       "required": ["generator", "count", "seed"],
       "properties": {
-        "generator": { "enum": ["enclose_standard", "enclose_tilted_square", "enclose_triangle", "slide_band", "mirror_path", "enclose_failure_notch", "no_lens_flat_base"] },
+        "generator": { "enum": ["enclose_standard", "enclose_tilted_square", "enclose_triangle", "slide_band", "mirror_path", "wp_two_kinds", "wp_age_ratio", "enclose_failure_notch", "no_lens_flat_base"] },
         "count": { "type": "integer", "minimum": 0, "maximum": 50 },
         "seed": { "type": "integer" },
         "constraints": { "type": "object" }
