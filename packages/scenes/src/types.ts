@@ -272,7 +272,12 @@ export interface ShortLayout {
     trap_text: number;
   };
   pieces: {
-    current: { fill_opacity: number; stroke_width: number };
+    current: {
+      fill_opacity: number;
+      stroke_width: number;
+      /** Diagonal stripes in the full step colour over the faint tint (tokens 1.4). */
+      stripes?: { angle_deg: number; stripe_px: number; period_px: number; opacity: number };
+    };
     done: { fill_opacity: number; stroke_opacity: number; stroke_width: number; draw_above_box: boolean };
     upcoming: { stroke_opacity: number; stroke_width: number };
   };

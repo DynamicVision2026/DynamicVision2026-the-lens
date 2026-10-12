@@ -146,6 +146,7 @@ export function MotionScene({ card, beats, beat, t, tokens: baseTokens, glow, mo
         layout={L}
         font={numFont}
         weight={bold}
+        patternPrefix={`lens-${card.id}`}
       />
     ));
 
@@ -331,13 +332,15 @@ interface CornerPieceProps {
   layout: ShortLayout;
   font: string;
   weight: number;
+  /** Prefix for this scene's SVG ids (pattern per piece). */
+  patternPrefix: string;
 }
 
 /**
- * One corner gap. Current: filled in its colour. Done: outline only, above the box line, with its
+ * One corner gap. Current: a faint tint with diagonal stripes in its full colour (keeps the hue true on navy). Done: outline only, above the box line, with its
  * value. Upcoming: a faint outline. In subtract, done pieces slide outward and fade in order.
  */
-function CornerPiece({ layer, i, gap, frame, center, state, visible, focusIndex, stroke, value, layout, font, weight }: CornerPieceProps) {
+function CornerPiece({ layer, i, gap, frame, center, state, visible, focusIndex, stroke, value, layout, font, weight, patternPrefix }: CornerPieceProps) {
   if (!visible) return null;
   const { current, done, upcoming } = layout.pieces;
   const isCurrent = focusIndex === i;
@@ -356,8 +359,21 @@ function CornerPiece({ layer, i, gap, frame, center, state, visible, focusIndex,
   const pts = svgPoints(frame, gap);
 
   if (kind === 'current') {
+    const stripes = current.stripes;
+    const patternId = `${patternPrefix}-stripes-${i}`;
     return (
-      <polygon points={pts} fill={stroke} fillOpacity={current.fill_opacity * state.enter} stroke={stroke} strokeOpacity={state.enter} strokeWidth={current.stroke_width} strokeLinejoin="round" />
+      <g>
+        {stripes && (
+          <defs>
+            <pattern id={patternId} patternUnits="userSpaceOnUse" width={stripes.period_px} height={stripes.period_px} patternTransform={`rotate(${stripes.angle_deg})`}>
+              <rect x={0} y={0} width={stripes.stripe_px} height={stripes.period_px} fill={stroke} />
+            </pattern>
+          </defs>
+        )}
+        <polygon points={pts} fill={stroke} fillOpacity={current.fill_opacity * state.enter} stroke="none" />
+        {stripes && <polygon points={pts} fill={`url(#${patternId})`} opacity={stripes.opacity * state.enter} stroke="none" />}
+        <polygon points={pts} fill="none" stroke={stroke} strokeOpacity={state.enter} strokeWidth={current.stroke_width} strokeLinejoin="round" />
+      </g>
     );
   }
   if (kind === 'upcoming') {

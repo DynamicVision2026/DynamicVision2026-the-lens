@@ -161,6 +161,22 @@ describe('study-pace motion preview', () => {
     expect(polygonOf(palette[2]!.value!)).toContain(`fill-opacity="${pieces.current.fill_opacity}"`);
   });
 
+  it('stripes the current piece in its full step colour, from layout.short.pieces.current', () => {
+    const beats = preview(card001);
+    const k = beats.findIndex((b) => b.name === 'corner_step' && b.index === 1);
+    const html = render(card001, beats, k, 1, 'short_dark');
+    const stripes = tokens.layout.short.pieces.current.stripes;
+    if (!stripes) return; // tokens before 1.4: plain tint only
+    const pink = tokens.themes!.short_dark!.color!.step!.palette![1]!.value!;
+    const pattern = html.match(/<pattern[^>]*>.*?<\/pattern>/s)?.[0] ?? '';
+    expect(pattern).toContain(`width="${stripes.period_px}"`);
+    expect(pattern).toContain(`rotate(${stripes.angle_deg})`);
+    expect(pattern).toContain(`<rect x="0" y="0" width="${stripes.stripe_px}" height="${stripes.period_px}" fill="${pink}"`);
+    expect(html).toMatch(new RegExp(`fill="url\\(#lens-enclose-001-stripes-1\\)" opacity="${stripes.opacity}"`));
+    // Only the current piece is striped.
+    expect(html.match(/<pattern/g)).toHaveLength(1);
+  });
+
   it('keeps every text inside the safe area (y 220–1540)', () => {
     const { safe_top_px: top, safe_bottom_px: bottom, size_px } = tokens.layout.short;
     for (const card of standard) {
