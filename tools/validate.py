@@ -186,6 +186,57 @@ def mirror_length(fig, x):
     return sqrt(S(x) ** 2 + fig["pa"] ** 2) + sqrt((fig["ab"] - S(x)) ** 2 + fig["qb"] ** 2)
 
 
+def fig_text(fig):
+    """Problem sentence for a figure card, generated from its numbers (used for variants, and checked
+    against the card's own text_ja by `text_matches`), so text and figure can never disagree."""
+    t = fig["type"]
+    if t == "mirror_path":
+        u = fig["unit"]
+        return (f"点Pと点Qは、まっすぐな川（直線ℓ）の同じ側にあります。PとQから川に垂直に下ろした点をA、Bとすると、"
+                f"PA＝{fig['pa']}{u}、QB＝{fig['qb']}{u}、AB＝{fig['ab']}{u}です。PからQまで、とちゅうで川の点Xに1回よって水をくんでいきます。"
+                f"道のりがいちばん短くなるとき、AXは何{u}ですか。")
+    if t == "parallel_band":
+        lb = fig.get("point_labels", {})
+        bot = lb.get("bottom") or list("ABCDEF")[:len(fig["bottom_x"])]
+        top = lb.get("apex") or list("PQRSTU")[:len(fig["apex_x"])]
+        L = S(fig["bottom_x"][-1]) - fig["bottom_x"][0]
+        tris = "、".join(bot[i] + bot[i + 1] + top[i] for i in range(len(top)))
+        return (f"直線ℓと直線mは平行で、その間は{fig['band_height']}cmです。直線m上の{bot[0]}{bot[-1]}の長さは{_fmt(L)}cmで、"
+                f"{'、'.join(bot[1:-1])}は{bot[0]}と{bot[-1]}の間の点です。{'、'.join(top)}は直線ℓ上の点です。"
+                f"かげをつけた三角形{tris}の面積の合計は何cm²ですか。")
+    if t == "box_unfold":
+        u = fig["unit"]
+        return (f"直方体ABCD-EFGHがあり、AB＝{fig['a']}{u}、BC＝{fig['b']}{u}、AE＝{fig['h']}{u}です。"
+                f"頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。"
+                f"糸の長さがいちばん短くなるとき、BPは何{u}ですか。")
+    return None
+
+
+def unfold_cross(fig):
+    """Open faces ABFE and BCGF flat along BF; the straight line A->G crosses BF at BP = h*a/(a+b)."""
+    return S(fig["h"]) * fig["a"] / (fig["a"] + fig["b"])
+
+
+def unfold_length(fig, p):
+    from sympy import sqrt
+    return sqrt(S(fig["a"]) ** 2 + S(p) ** 2) + sqrt(S(fig["b"]) ** 2 + (fig["h"] - S(p)) ** 2)
+
+
+def unfold_steps(fig):
+    """Lens steps for box_unfold, generated from the numbers so card, variants and scenes agree."""
+    from math import gcd
+    a, b, h = fig["a"], fig["b"], fig["h"]
+    g = gcd(a, a + b)
+    bp = unfold_cross(fig)
+    ratio = f"{a}:{a + b}" + (f" = {a // g}:{(a + b) // g}" if g > 1 else "")
+    return [
+        {"ja": f"辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 {a}+{b} = {a + b}、たて {h}）", "op": "note"},
+        {"ja": "開いた図でAとGをまっすぐ結ぶ。辺BFと交わる点がP", "op": "note"},
+        {"ja": f"三角形ABPとACGは同じ形なので BP:CG = AB:AC = {ratio}", "op": "note"},
+        {"ja": f"BP = {h}×{a // g}/{(a + b) // g} = {_fmt(bp)}", "value": str(bp), "op": "result"},
+    ]
+
+
 def wp_solve(fig):
     """Closed-form answer for a word problem (the lens route's result)."""
     k, q = fig["kind"], fig["params"]
@@ -290,6 +341,22 @@ def run_check(card, check, pts) -> tuple[bool, str]:
     if t == "mirror_not_midpoint":
         ok = fig["pa"] != fig["qb"]
         return ok, "P and Q are at different distances, so the halfway guess is wrong"
+    if t == "text_matches":
+        want = fig_text(fig)
+        ok = want is not None and card["problem"]["text_ja"] == want
+        return ok, "problem text matches its figure numbers" if ok else f"text should be: {want}"
+    if t == "unfold_cross_point":
+        x = unfold_cross(fig)
+        return x == ans, f"straight line on the net gives BP = {x}, answer = {ans}"
+    if t == "unfold_shortest":
+        x = unfold_cross(fig)
+        best = unfold_length(fig, x)
+        probes = [x + d for d in (S(-1), S(-1) / 2, S(1) / 2, S(1))] + [S(0), S(fig["h"])]
+        ok = 0 < x < fig["h"] and all((unfold_length(fig, q) - best).evalf(30) > 0 for q in probes if q != x)
+        return ok, f"path through BP = {x} is shorter than through nearby points and both ends of BF"
+    if t == "unfold_not_midpoint":
+        ok = fig["a"] != fig["b"]
+        return ok, "AB and BC differ, so the halfway guess on BF is wrong"
     if t == "band_triangles_disjoint":
         b, a = fig["bottom_x"], fig["apex_x"]
         ok = len(a) == len(b) - 1 and all(x < y for x, y in zip(b, b[1:])) and all(x < y for x, y in zip(a, a[1:]))
@@ -486,7 +553,7 @@ def make_band_variants(card):
         if route_total({"steps": steps}) != area:
             continue
         seen.add(key); used_h.add(h); used_L.add(L)
-        out.append({"id": f"{card['id']}-v{len(out) + 1}", "figure": {"bottom_x": bottom, "apex_x": apex, "band_height": h},
+        out.append({"id": f"{card['id']}-v{len(out) + 1}", "text_ja": fig_text(fig), "figure": {"bottom_x": bottom, "apex_x": apex, "band_height": h},
                     "answer": str(area), "lens_route": {"steps": steps}})
     return out
 
@@ -523,7 +590,38 @@ def make_mirror_variants(card):
             {"ja": f"AX = {ab}×{pa // g}/{(pa + qb) // g} = {_fmt(x)}", "value": str(x), "op": "result"},
         ]
         seen.add((ab, pa, qb)); used_ratios.add(ratio(pa, qb)); used_ab.add(ab)
-        out.append({"id": f"{card['id']}-v{len(out) + 1}", "figure": {"ab": ab, "pa": pa, "qb": qb},
+        out.append({"id": f"{card['id']}-v{len(out) + 1}", "text_ja": fig_text(fig), "figure": {"ab": ab, "pa": pa, "qb": qb},
+                    "answer": str(x), "lens_route": {"steps": steps}})
+    return out
+
+
+def make_unfold_variants(card):
+    """box_unfold: new a, b, h with a whole-number BP, a fresh ratio and a fresh height."""
+    v = card["variants"]
+    rng = random.Random(v["seed"])
+    c = v.get("constraints", {})
+    fig0 = card["problem"]["figure"]
+    from math import gcd as _g
+    ratio = lambda a, b: (a // _g(a, b), b // _g(a, b))
+    used_ratios, used_h = {ratio(fig0["a"], fig0["b"])}, {fig0["h"]}
+    used_ans = {sympify(card["answer"]["value"])}
+    out, tries = [], 0
+    while len(out) < v["count"] and tries < 20000:
+        tries += 1
+        a, b = rng.randint(c.get("min_side", 2), c.get("max_side", 12)), rng.randint(c.get("min_side", 2), c.get("max_side", 12))
+        h = rng.randint(c.get("min_h", 3), c.get("max_h", 15))
+        if a == b or (h * a) % (a + b) or ratio(a, b) in used_ratios or h in used_h or S(h * a) / (a + b) in used_ans:
+            continue
+        fig = {**fig0, "a": a, "b": b, "h": h}
+        x = unfold_cross(fig)
+        vcard = {**card, "answer": {**card["answer"], "value": str(x)}, "problem": {**card["problem"], "figure": fig}}
+        if not all(run_check(vcard, ch, None)[0] for ch in card["checks"] if ch["type"].startswith("unfold_")):
+            continue
+        steps = unfold_steps(fig)
+        if route_total({"steps": steps}) != x:
+            continue
+        used_ratios.add(ratio(a, b)); used_h.add(h); used_ans.add(x)
+        out.append({"id": f"{card['id']}-v{len(out) + 1}", "text_ja": fig_text(fig), "figure": {"a": a, "b": b, "h": h},
                     "answer": str(x), "lens_route": {"steps": steps}})
     return out
 
@@ -629,6 +727,8 @@ def make_variants(card):
         return make_band_variants(card)
     if card["variants"]["generator"] == "mirror_path":
         return make_mirror_variants(card)
+    if card["variants"]["generator"] == "box_unfold":
+        return make_unfold_variants(card)
     v = card["variants"]
     rng = random.Random(v["seed"])
     gen = GENERATORS[v["generator"]]
@@ -785,7 +885,17 @@ def _annotate_band(fig):
     return {**fig, "total_base": str(S(b[-1]) - S(b[0]))}
 
 
+def _annotate_unfold(fig):
+    """The net's total width a+b is printed on screen, so it comes from the bundle."""
+    return {**fig, "net_width": str(S(fig["a"]) + fig["b"])}
+
+
 def _annotate(card, vs):
+    if card["problem"]["figure"]["type"] == "box_unfold":
+        fig = _annotate_unfold(card["problem"]["figure"])
+        card = {**card, "problem": {**card["problem"], "figure": fig}}
+        vs = [{**v, "figure": _annotate_unfold({**fig, **v["figure"]})} for v in vs]
+        return card, vs
     if card["problem"]["figure"]["type"] == "parallel_band":
         fig = _annotate_band(card["problem"]["figure"])
         card = {**card, "problem": {**card["problem"], "figure": fig}}

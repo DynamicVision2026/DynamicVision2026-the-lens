@@ -39,7 +39,7 @@ A straight river (line ℓ, horizontal). P and Q sit on the same side. A and B a
 
 **Study pace:** trap beat (the midpoint guess) → lens activates (折り返す label from `bundle.labels`) → `reflect_point` → `draw_straight` → `mark_similar` (hold long enough to read the ratio) → result and answer. Same `motion.study` timings.
 
-**Variants:** mirror variants carry `figure: {ab, pa, qb}`. Merge it over the card's figure.
+**Variants:** variants carry their own `text_ja` (show it, never the card's sentence; the numbers differ). mirror variants carry `figure: {ab, pa, qb}`. Merge it over the card's figure.
 
 ## Acceptance
 

@@ -69,6 +69,7 @@ animation:
   keyframes: [show_band, mark_parallel, slide_apexes, merge_triangle, show_answer]
 
 checks:
+  - {type: text_matches}
   - {type: band_triangles_disjoint}
   - {type: band_total_only}
   - {type: band_area_equals_answer}
