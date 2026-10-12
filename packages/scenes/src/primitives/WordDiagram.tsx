@@ -92,8 +92,9 @@ function AreaDiagram(p: WordDiagramProps) {
           <rect x={xMid} y={yB} width={(n - xa) * sx} height={b * sy} fill={palette[1]} fillOpacity={p.tint} stroke={palette[1]} strokeWidth={p.figureStroke} />
           {label(x0 + (xa * sx) / 2, (yB + base) / 2, fig.names.a ?? '', size, palette[0]!, jaFont, weight)}
           {label(xMid + ((n - xa) * sx) / 2, (yB + base) / 2, fig.names.b ?? '', size, palette[1]!, jaFont, weight)}
-          {label(x0 + (xa * sx) / 2, base - size * 0.9, COPY.unknown, num, ink, font, weight, 1 - divide)}
-          {label(xMid + ((n - xa) * sx) / 2, base - size * 0.9, COPY.unknown, num, ink, font, weight)}
+          {/* The unknown counts: inside the tall rectangle above its name (until the strip fills it), above the short one. */}
+          {label(x0 + (xa * sx) / 2, (yA + yB) / 2, COPY.unknown, num, ink, font, weight, (1 - divide) * (1 - strip))}
+          {label(xMid + ((n - xa) * sx) / 2, yB - num * 0.8, COPY.unknown, num, ink, font, weight)}
           {label(x0 - num * 0.3, yA, `${a}${unit}`, num * 0.8, palette[0]!, font, weight, 1, 'end')}
           {label(xEnd + num * 0.3, yB, `${b}${unit}`, num * 0.8, palette[1]!, font, weight, 1, 'start')}
           <Bracket from={[x0, base]} to={[xEnd, base]} normal={[0, 1]} label={`${n}${fig.names.counter ?? ''}`} color={ink} {...bk} />

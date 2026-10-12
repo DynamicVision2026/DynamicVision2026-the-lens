@@ -138,7 +138,8 @@ describe('study-pace motion preview', () => {
     const result = card001.lens_route.steps.find((s) => s.op === 'result')!;
     expect(html).toContain(result.ja);
     expect(html).toContain(card001.answer.display_ja!);
-    expect(html).toContain(card001.trigger.ja);
+    // The trigger may wrap in the title band: compare the joined visible text.
+    expect([...html.matchAll(/>([^<]+)</g)].map((m) => m[1]).join('')).toContain(card001.trigger.ja);
     expect(formatExact(result.value!)).toBe('19.5');
   });
 

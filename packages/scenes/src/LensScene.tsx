@@ -421,6 +421,7 @@ function UnfoldKeyframeScene({ card, fig, keyframes, keyframe, t, tokens, glow, 
         layout={layout}
         crossY={touchX(card)}
         answerText={answerText(card)}
+        halo={color(tokens.color.paper, mode)}
         tokens={tokens}
         ink={color(tokens.color.ink, mode)}
         chalk={color(tokens.color.trap.ink, mode)}
