@@ -11,6 +11,7 @@ Each work order (WO) is one PR. Read `docs/PRD.md` first; this folder only adds 
 | [WO-005](WO-005-mirror-scenes.md) | Mirror lens (折り返す): shortest-path figure and its scenes | WO-004 | Oct 30 |
 | [WO-006](WO-006-word-problem-scenes.md) | Area (面積図) and Constant (差一定): word-problem diagrams | WO-004 | Nov 2 |
 | [WO-007](WO-007-balance-freeze-scenes.md) | Balance (てんびん) and Freeze (止める): lever and road diagrams | WO-006 | Nov 4 |
+| [WO-008](WO-008-unfold-scenes.md) | Unfold (展開): cuboid and net figure | WO-005 | Nov 6 |
 
 ## Rules for every WO
 
@@ -21,9 +22,13 @@ Each work order (WO) is one PR. Read `docs/PRD.md` first; this folder only adds 
 5. **Merge rule:** the founder approves, the Builder merges. Merge a PR only when all three hold:
    - every check is green (**validate** and **apps**);
    - for app work, the Architect has posted a **visual check** on the PR (the Architect runs the build headless and sends the founder screenshots; AI sessions can't upload video, so no screen recording is required);
-   - the founder has approved it. The founder approves verbally to the Architect or Coordinator, who records it as a PR comment starting **"✅ Approved by Brian"**. That comment is the approval; no GitHub review button is needed. PRs touching `cards/`, `schema/`, `tools/` or `tokens/` also need the Architect's sign-off.
+   - the founder has approved it.
 
-   Use **Squash and merge**. Leave the merged branch in place: AI sessions can't delete branches, and leftover branches are harmless. If the PR shows a conflict, update the branch from `main`, wait for the checks to go green again, then merge.
+   The founder approves verbally to the Architect or Coordinator, who records it as a PR comment starting **"✅ Approved by Brian"**. That comment is the approval; no GitHub review button is needed. PRs touching `cards/`, `schema/`, `tools/` or `tokens/` also need the Architect's sign-off.
+
+   **Standing approval (Brian, Oct 12):** for WO-003 step 2 through WO-008, the founder has approved in advance. Merge as soon as both checks are green and the Architect's visual check says **Pass**; no per-PR approval comment is needed. A visual check that requests changes blocks the merge. Brian reviews milestone drops and can stop any PR by saying so. Then start the next WO straight away.
+
+   Use **Squash and merge**, except for a stack of PRs built on each other: merge those with **Create a merge commit**, bottom first, so the ones above don't conflict. Leave the merged branch in place: AI sessions can't delete branches, and leftover branches are harmless. If the PR shows a conflict, update the branch from `main`, wait for the checks to go green again, then merge.
 6. **Keep it small.** No state libraries, no UI kits, no backend. React state, plain SVG, Vite, Remotion. Ask before adding any dependency not named in a WO. Approved so far: Vitest 4 (dev-only test runner, Node 20 compatible).
 
 ## Glossary

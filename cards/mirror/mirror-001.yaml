@@ -37,7 +37,7 @@ trap_route:
   time_cost_sec: 150
   time_source: estimate
   steps:
-    - {ja: "AとBのまん中（AX＝6m）によればいい、と考える", op: note}
+    - {ja: "AとBのまん中によればいい、と考える", op: note}
     - {ja: "PA と QB の長さがちがうので、まん中では最短にならない", op: note}
     - {ja: "Xを少しずつずらして道のりを比べようとするが、長さが計算できない", op: note}
     - {ja: "ここで約2分半。決め手がない", op: note}
@@ -70,6 +70,7 @@ animation:
   keyframes: [show_river, try_midpoint, reflect_point, draw_straight, mark_similar, show_answer]
 
 checks:
+  - {type: text_matches}
   - {type: mirror_touch_point}
   - {type: mirror_shortest}
   - {type: mirror_not_midpoint}

@@ -39,7 +39,7 @@ The Architect flips it to `verified` in a one-line PR right after this WO merges
 
 **Study pace:** reuse the WO-003 v2 beat engine. Trap beat (the trap steps, readable) → lens activates (等積変形 label from `bundle.labels`) → `mark_parallel` → `slide_apexes` (about 1.5 s per apex, at `motion.study` pacing) → `merge_triangle` → result and answer. Driven by the number of apexes, never hard-coded to 3.
 
-**Variants:** slide variants carry `figure: {bottom_x, apex_x, band_height}` instead of `points` (see `build/bundle.json`). Merge it over the card's figure the same way you merge `points` today.
+**Variants:** variants carry their own `text_ja` (show it, never the card's sentence; the numbers differ). slide variants carry `figure: {bottom_x, apex_x, band_height}` instead of `points` (see `build/bundle.json`). Merge it over the card's figure the same way you merge `points` today.
 
 ## Acceptance
 
