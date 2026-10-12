@@ -165,9 +165,11 @@ Each variant re-runs its parent's structural checks (so it matches the card's wo
 
 ```jsonc
 {
-  "bundle_version": "1.1",
-  "schema_version": "1.0",
+  "bundle_version": "1.2",
+  "schema_version": "1.1",
   "tokens": { /* tokens/tokens.json, verbatim */ },
+  "labels": { "lenses": { "enclose": { "ja": "囲む", "hint_ja": "…" }, … },   // labels/lenses.yaml
+              "tags":   { "vertices_on_box": { "ja": "…" }, "grid": { "ja": "…", "generic": true }, … } },  // labels/tags.yaml
   "cards": [            // status verified or later, sorted by lens then id
     { /* every Lens Card field, as in the YAML */,
       "variants": [
@@ -178,6 +180,8 @@ Each variant re-runs its parent's structural checks (so it matches the card's wo
 ```
 
 **Step details (bundle 1.1).** For standard Enclose cards and their variants, the bundle adds a verified `detail` to the box step (`{kind: "box", width, height}`) and to each corner step (`{kind: "corner", n, edge, corner: [x, y], base, height}`). Scenes draw base/height marks and formula cards from these numbers only; the validator guarantees `base × height ÷ 2` equals the step value.
+
+**Labels (bundle 1.2).** All Japanese UI words that belong to content live in `labels/` and ship in `bundle.labels`: lens button names (`labels/lenses.yaml`) and clue-chip texts (`labels/tags.yaml`). Each card's `picker.clue_distractors` lists 2–3 decoy clues. The validator fails a card if any option or chip lacks a label, if a decoy is also a real clue, or if the card has no specific (non-generic) clue.
 
 **Step order is part of the contract.** Scenes put each piece's label on the piece by the order of the steps. For standard Enclose cards, the `sub` steps list the corner gaps in edge order starting at edge AB (A→B, B→C, …). For notch failure cards, the `start`/`add` steps are: right rectangle, bottom triangle, side triangle, top triangle. The validator's `step_order` check enforces both, so a card whose labels would land on the wrong piece cannot reach the bundle.
 
