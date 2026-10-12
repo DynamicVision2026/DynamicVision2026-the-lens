@@ -4,6 +4,8 @@ Single source of truth for The Lens. Every problem is one Lens Card (YAML). The 
 
 **Start here:** [`docs/PRD.md`](docs/PRD.md) — Phase 1 PRD & architecture spec (roles, data flow, trainer specs, card rules, sprint plan, Gate 1 checklist).
 
+**Builders:** your current tasks are in [`docs/work-orders/`](docs/work-orders/README.md).
+
 ```
 docs/PRD.md                    Phase 1 PRD & architecture spec
 .github/workflows/             CI: validates every card on push and PR
