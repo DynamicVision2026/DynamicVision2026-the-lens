@@ -186,6 +186,36 @@ def mirror_length(fig, x):
     return sqrt(S(x) ** 2 + fig["pa"] ** 2) + sqrt((fig["ab"] - S(x)) ** 2 + fig["qb"] ** 2)
 
 
+def wp_solve(fig):
+    """Closed-form answer for a word problem (the lens route's result)."""
+    k, q = fig["kind"], fig["params"]
+    if k == "two_kinds_total":       # n items worth a or b each, total t: how many worth a?
+        return S(q["t"] - q["b"] * q["n"]) / (q["a"] - q["b"])
+    if k == "age_ratio":             # older p, younger c now: years until older = r x younger
+        return S(q["p"] - q["r"] * q["c"]) / (q["r"] - 1)
+    raise ValueError(k)
+
+
+def wp_text(fig, names):
+    """The problem sentence for a word problem, generated from its numbers, so text and numbers can never disagree."""
+    q = fig["params"]
+    if fig["kind"] == "two_kinds_total":
+        A, B = names["a"], names["b"]
+        return f"{A}と{B}が合わせて{q['n']}{names['counter']}あり、合計{names['measure']}は{q['t']}円です。{A}は何{names['counter']}ありますか。"
+    o, y = names["older"], names["younger"]
+    return f"いま、{o}は{q['p']}才、{y}は{q['c']}才です。{o}の年れいが{y}の年れいの{q['r']}倍になるのは何年後ですか。"
+
+
+def wp_brute(fig):
+    """Every whole-number answer found by trying all cases (the trap route, done by machine)."""
+    k, q = fig["kind"], fig["params"]
+    if k == "two_kinds_total":
+        return [x for x in range(q["n"] + 1) if q["a"] * x + q["b"] * (q["n"] - x) == q["t"]]
+    if k == "age_ratio":
+        return [y for y in range(0, 120) if q["p"] + y == q["r"] * (q["c"] + y)]
+    raise ValueError(k)
+
+
 # ------------------------------------------------------------------ checks ---
 
 def route_total(route) -> Rational | None:
@@ -213,6 +243,22 @@ def run_check(card, check, pts) -> tuple[bool, str]:
     ans = sympify(card["answer"]["value"])
     fig = card["problem"]["figure"]
     g = fig.get("grid")
+    if t == "wp_formula":
+        x = wp_solve(fig)
+        return x == ans, f"lens formula gives {x}, answer = {ans}"
+    if t == "wp_unique":
+        sols = wp_brute(fig)
+        return sols == [ans], f"trying every case finds exactly {sols}"
+    if t == "wp_text_matches":
+        want = wp_text(fig, fig.get("names", {}))
+        return card["problem"]["text_ja"] == want, "problem text matches its numbers" if card["problem"]["text_ja"] == want else f"text should be: {want}"
+    if t == "wp_nontrivial":
+        q = fig["params"]
+        if fig["kind"] == "two_kinds_total":
+            ok = 0 < ans < q["n"] and q["a"] != q["b"] and 2 * ans != q["n"]
+            return ok, "both kinds appear and the answer is not simply half"
+        ok = ans > 0 and q["p"] > q["c"] and q["r"] >= 2
+        return ok, "the moment is in the future and the ratio is at least 2"
     if t == "mirror_touch_point":
         x = mirror_touch(fig)
         return x == ans, f"reflection gives AX = {x}, answer = {ans}"
@@ -463,7 +509,74 @@ def make_mirror_variants(card):
     return out
 
 
+def make_wp_variants(card):
+    """Word-problem variants: fresh numbers, same model, same lens steps template."""
+    v = card["variants"]
+    rng = random.Random(v["seed"])
+    fig0 = card["problem"]["figure"]
+    names = fig0.get("names", {})
+    seen, out, tries = {tuple(sorted(fig0["params"].items()))}, [], 0
+    used_answers = {sympify(card["answer"]["value"])}
+    while len(out) < v["count"] and tries < 20000:
+        tries += 1
+        vnames = dict(names)
+        if fig0["kind"] == "two_kinds_total":
+            a, b = rng.choice([(50, 10), (100, 10), (100, 50), (10, 5), (50, 5)])
+            n = rng.randint(12, 30); x = rng.randint(1, n - 1)
+            q = {"n": n, "a": a, "b": b, "t": a * x + b * (n - x)}
+            vnames.update({"a": f"{a}円玉", "b": f"{b}円玉"})
+        else:
+            c = rng.randint(3, 12); r = rng.randint(2, 4); y = rng.randint(2, 15)
+            q = {"p": r * (c + y) - y, "c": c, "r": r}
+            if q["p"] > 50 or q["p"] - c < 20:
+                continue
+        fig = {**fig0, "params": q, "names": vnames}
+        x = wp_solve(fig)
+        key = tuple(sorted(q.items()))
+        if key in seen or x in used_answers:
+            continue
+        text = wp_text(fig, vnames)
+        vcard = {**card, "answer": {**card["answer"], "value": str(x)}, "problem": {**card["problem"], "figure": fig, "text_ja": text}}
+        if not all(run_check(vcard, ch, None)[0] for ch in card["checks"] if ch["type"].startswith("wp_")):
+            continue
+        steps = wp_steps(fig, vnames)
+        if route_total({"steps": steps}) != x:
+            continue
+        seen.add(key); used_answers.add(x)
+        out.append({"id": f"{card['id']}-v{len(out) + 1}", "text_ja": text, "figure": {"params": q, "names": vnames},
+                    "answer": str(x), "lens_route": {"steps": steps}})
+    return out
+
+
+def wp_steps(fig, names):
+    q = fig["params"]
+    if fig["kind"] == "two_kinds_total":
+        A, B = names.get("a", "A"), names.get("b", "B")
+        counter, measure = names.get("counter", "個"), names.get("measure", "金額")
+        allb = q["b"] * q["n"]
+        x = wp_solve(fig)
+        return [
+            {"ja": f"たて＝1{counter}あたりの{measure}、横＝{counter}数の長方形2つで表す（面積＝{measure}）", "op": "note"},
+            {"ja": f"全部{B}だとすると {q['b']}×{q['n']} = {allb}", "op": "note"},
+            {"ja": f"本当の{measure}との差 {q['t']}−{allb} = {q['t'] - allb} が、上にはみ出した長方形の面積", "op": "note"},
+            {"ja": f"その長方形のたては {q['a']}−{q['b']} = {q['a'] - q['b']}", "op": "note"},
+            {"ja": f"{A}の数 = {q['t'] - allb}÷{q['a'] - q['b']} = {_fmt(x)}", "value": str(x), "op": "result"},
+        ]
+    older, younger = names.get("older", "親"), names.get("younger", "子")
+    d = q["p"] - q["c"]
+    child_then = S(d) / (q["r"] - 1)
+    y = wp_solve(fig)
+    return [
+        {"ja": f"年れいの差は {q['p']}−{q['c']} = {d} で、何年たっても変わらない", "op": "note"},
+        {"ja": f"{older}が{younger}の{q['r']}倍のとき、差の{d}は{younger}の {q['r']}−1 = {q['r'] - 1} つ分", "op": "note"},
+        {"ja": f"そのときの{younger}は {d}÷{q['r'] - 1} = {_fmt(child_then)} 才", "op": "note"},
+        {"ja": f"{_fmt(child_then)}−{q['c']} = {_fmt(y)}（年後）", "value": str(y), "op": "result"},
+    ]
+
+
 def make_variants(card):
+    if card["variants"]["generator"] in ("wp_two_kinds", "wp_age_ratio"):
+        return make_wp_variants(card)
     if card["variants"]["generator"] == "slide_band":
         return make_band_variants(card)
     if card["variants"]["generator"] == "mirror_path":
