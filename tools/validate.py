@@ -4,11 +4,13 @@
 Usage:
     python3 tools/validate.py cards/*.yaml            # validate cards
     python3 tools/validate.py cards/*.yaml --variants # also generate + check variants
+    python3 tools/validate.py cards/**/*.yaml --bundle  # all of the above + build/bundle.json
 
 A card is 'verified' only if:
   1. it matches schema/lens-card.schema.json,
   2. every check in its `checks` list passes (exact arithmetic with SymPy),
-  3. every generated variant passes the same structural checks and still needs the same move.
+  3. every generated variant passes the same structural checks, still needs the same move,
+     and carries lens-route steps that sum to its own answer.
 Exit code is non-zero on any failure, so this can gate CI and the renderers.
 """
 from __future__ import annotations
@@ -127,6 +129,16 @@ def flat_base_triangle(pts) -> bool:
     return False
 
 
+def is_tilted_square(pts) -> bool:
+    """Four equal sides, equal diagonals, and no side on a grid line."""
+    if len(pts) != 4:
+        return False
+    d2 = lambda a, b: (a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2
+    sides = {d2(pts[i], pts[(i + 1) % 4]) for i in range(4)}
+    tilted = all(pts[i][0] != pts[(i + 1) % 4][0] and pts[i][1] != pts[(i + 1) % 4][1] for i in range(4))
+    return len(sides) == 1 and d2(pts[0], pts[2]) == d2(pts[1], pts[3]) and tilted
+
+
 # ------------------------------------------------------------------ checks ---
 
 def route_total(route) -> Rational | None:
@@ -173,6 +185,8 @@ def run_check(card, check, pts) -> tuple[bool, str]:
         return enclose_breakdown(pts) is None, "Enclose leaves a gap that is not a right triangle"
     if t == "has_horizontal_base":
         return flat_base_triangle(pts), "triangle with a base on a grid line and apex above it"
+    if t == "tilted_square":
+        return is_tilted_square(pts), "four equal sides, equal diagonals, no side on a grid line"
     if t == "lens_faster":
         a, b = card["lens_route"]["time_cost_sec"], card["trap_route"]["time_cost_sec"]
         return a < b, f"lens {a}s vs trap {b}s"
@@ -187,13 +201,28 @@ def gen_enclose_standard(rng, c):
             (rng.randint(1, w - 1), h), (0, rng.randint(1, h - 1))]
 
 
+def gen_enclose_tilted_square(rng, c):
+    # side vector (b, a): box is (a + b) square, four congruent a×b corner triangles
+    while True:
+        a, b = rng.randint(1, c.get("max", 8) - 1), rng.randint(1, c.get("max", 8) - 1)
+        if a != b and c.get("min", 4) <= a + b <= c.get("max", 8):
+            return [(a, 0), (a + b, a), (b, a + b), (0, b)]
+
+
+def gen_enclose_triangle(rng, c):
+    # one vertex on a box corner, one on the left side, one on the top side
+    w, h = rng.randint(c.get("min", 4), c.get("max", 8)), rng.randint(c.get("min", 4), c.get("max", 8))
+    return [(0, rng.randint(1, h - 1)), (w, 0), (rng.randint(1, w - 1), h)]
+
+
 def gen_enclose_failure_notch(rng, c):
+    # Notch on the left side: (0,h) -> q1 -> q2 -> (0,0), two vertices inside the box.
+    # q2 is the deepest point (largest x), so a vertical cut at x = q2.x leaves pieces
+    # that all have a base on a grid line (see steps_failure_notch).
     w, h = rng.randint(c.get("min", 5), c.get("max", 8)), rng.randint(c.get("min", 5), c.get("max", 8))
-    y1 = rng.randint(2, h - 2)
-    y2 = rng.randint(1, y1 - 1) if y1 > 1 else 1
-    # notch on the left side: (0,h) -> q1 -> q2 -> (0,0), two interior vertices
-    q1 = (rng.randint(1, w - 2), rng.randint(y1, h - 1))
-    q2 = (rng.randint(1, w - 2), rng.randint(1, y1))
+    m = rng.randint(2, w - 2)
+    q2 = (m, rng.randint(1, h - 3))
+    q1 = (rng.randint(1, m - 1), rng.randint(q2[1] + 1, h - 1))
     return [(0, 0), (w, 0), (w, h), (0, h), q1, q2]
 
 
@@ -204,12 +233,85 @@ def gen_no_lens_flat_base(rng, c):
 
 GENERATORS = {
     "enclose_standard": gen_enclose_standard,
+    "enclose_tilted_square": gen_enclose_tilted_square,
+    "enclose_triangle": gen_enclose_triangle,
     "enclose_failure_notch": gen_enclose_failure_notch,
     "no_lens_flat_base": gen_no_lens_flat_base,
 }
 
+
+# ------------------------------------------------------- variant lens steps ---
+# Each builder returns lens-route steps in the card step format, or None if the
+# variant cannot be explained by that move (the variant is then dropped).
+
+def _fmt(v) -> str:
+    v = S(v)
+    return str(v) if v.is_integer else f"{float(v):g}"
+
+
+def steps_enclose(pts):
+    bd = enclose_breakdown(pts)
+    if not bd:
+        return None
+    box, corners = bd
+    x0, y0, x1, y1 = bbox(pts)
+    steps = [{"ja": f"{x1 - x0}×{y1 - y0}の長方形で囲む", "value": str(box), "op": "start"}]
+    n = len(pts)
+    for i in range(n):
+        (ax, ay), (bx, by) = pts[i], pts[(i + 1) % n]
+        if ax == bx or ay == by:
+            continue
+        dx, dy = abs(bx - ax), abs(by - ay)
+        steps.append({"ja": f"すみの三角形 {dx}×{dy}÷2", "value": str(S(dx) * dy / 2), "op": "sub"})
+    area = box - sum(corners, S(0))
+    steps.append({"ja": f"{_fmt(box)} − {_fmt(sum(corners, S(0)))} = {_fmt(area)}", "value": str(area), "op": "result"})
+    return steps
+
+
+def steps_failure_notch(pts):
+    (_, _), (w, _), (_, h), _, q1, q2 = pts
+    m = q2[0]
+    if not (q1[0] < m and q1[1] > q2[1]):
+        return None
+    rect = S(w - m) * h
+    bottom = S(m) * q2[1] / 2
+    side = S(h - q2[1]) * (m - q1[0]) / 2
+    top = S(m) * (h - q1[1]) / 2
+    total = rect + bottom + side + top
+    if total != shoelace(pts):
+        return None  # the cut does not split the shape into these pieces
+    return [
+        {"ja": f"縦の線 x={m} で切る。右側は{w - m}×{h}の長方形", "value": str(rect), "op": "start"},
+        {"ja": f"左下の三角形 {m}×{q2[1]}÷2", "value": str(bottom), "op": "add"},
+        {"ja": f"縦の辺を底辺とする三角形 {h - q2[1]}×{m - q1[0]}÷2", "value": str(side), "op": "add"},
+        {"ja": f"上の辺を底辺とする三角形 {m}×{h - q1[1]}÷2", "value": str(top), "op": "add"},
+        {"ja": f"合計 {_fmt(total)}", "value": str(total), "op": "result"},
+    ]
+
+
+def steps_no_lens(pts):
+    if not flat_base_triangle(pts):
+        return None
+    xs, ys = [p[0] for p in pts], [p[1] for p in pts]
+    base, height = max(xs) - min(xs), max(ys) - min(ys)
+    area = S(base) * height / 2
+    return [
+        {"ja": f"底辺は横の線に乗っている：{base}", "op": "note"},
+        {"ja": f"高さは方眼で読める：{height}", "op": "note"},
+        {"ja": f"{base}×{height}÷2 = {_fmt(area)}", "value": str(area), "op": "result"},
+    ]
+
+
+STEP_BUILDERS = {
+    "enclose_standard": steps_enclose,
+    "enclose_tilted_square": steps_enclose,
+    "enclose_triangle": steps_enclose,
+    "enclose_failure_notch": steps_failure_notch,
+    "no_lens_flat_base": steps_no_lens,
+}
+
 # Structural checks a variant must keep, so it still needs the same move.
-VARIANT_CHECKS = {"lattice_only", "simple_polygon", "enclose_clean", "enclose_not_clean", "has_horizontal_base"}
+VARIANT_CHECKS = {"lattice_only", "simple_polygon", "enclose_clean", "enclose_not_clean", "has_horizontal_base", "tilted_square"}
 
 
 def make_variants(card):
@@ -229,13 +331,22 @@ def make_variants(card):
         vcard = {**card, "answer": {**card["answer"], "value": str(area)},
                  "problem": {**card["problem"], "figure": {**card["problem"]["figure"], "grid": grid}}}
         results = [run_check(vcard, ch, pts) for ch in card["checks"] if ch["type"] in VARIANT_CHECKS]
-        if all(ok for ok, _ in results) and shoelace(pts) > 0:
-            seen.add(tuple(pts))
-            entry = {"points": [list(p) for p in pts], "grid": grid, "answer": str(area)}
-            bd = enclose_breakdown(pts)
-            if bd and card["kind"] == "standard":
-                entry["enclose"] = {"box": str(bd[0]), "corners": [str(x) for x in bd[1]]}
-            out.append(entry)
+        if not (all(ok for ok, _ in results) and shoelace(pts) > 0):
+            continue
+        steps = STEP_BUILDERS[v["generator"]](pts)
+        if steps is None:
+            continue
+        # the variant's own lens steps must reach its own answer
+        if route_total({"steps": steps}) != shoelace(pts):
+            continue
+        seen.add(tuple(pts))
+        out.append({
+            "id": f"{card['id']}-v{len(out) + 1}",
+            "points": [list(p) for p in pts],
+            "grid": grid,
+            "answer": str(area),
+            "lens_route": {"steps": steps},
+        })
     return out
 
 
@@ -259,19 +370,48 @@ def validate(path: Path, with_variants: bool) -> bool:
         ok, msg = run_check(card, ch, pts)
         ok_all &= ok
         print(f"  {'PASS' if ok else 'FAIL'}    {ch['type']}{'(' + ch['route'] + ')' if 'route' in ch else ''}: {msg}")
+    vs = []
     if with_variants:
+        if card["problem"]["figure"]["grid"]["cell_cm"] != 1:
+            print("  FAIL    variant generators assume cell_cm = 1"); ok_all = False
         vs = make_variants(card)
         enough = len(vs) == card["variants"]["count"]
         ok_all &= enough
-        print(f"  {'PASS' if enough else 'FAIL'}    variants: {len(vs)}/{card['variants']['count']} generated and re-checked")
+        print(f"  {'PASS' if enough else 'FAIL'}    variants: {len(vs)}/{card['variants']['count']} generated, re-checked, lens steps sum to answer")
         out = ROOT / "build" / "variants" / f"{card['id']}.json"
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(json.dumps(vs, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"  => {'VERIFIED' if ok_all else 'NOT VERIFIED'}")
-    return ok_all
+    return ok_all, card, vs
+
+
+PUBLISHABLE = {"verified", "reviewed", "published"}
+
+
+def write_bundle(entries) -> Path:
+    """build/bundle.json — the only file the trainer and the Shorts renderer import.
+
+    Contains every card that passed this run and whose status is verified or later,
+    each with its variants, plus the tokens. Sorted by lens, then id.
+    """
+    tokens = json.loads((ROOT / "tokens" / "tokens.json").read_text(encoding="utf-8"))
+    cards = [{**card, "variants": vs} for ok, card, vs in entries if ok and card["status"] in PUBLISHABLE]
+    cards.sort(key=lambda c: (c["lens"], c["id"]))
+    bundle = {"bundle_version": "1.0", "schema_version": "1.0", "tokens": tokens, "cards": cards}
+    out = ROOT / "build" / "bundle.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(bundle, ensure_ascii=False, indent=2), encoding="utf-8")
+    return out
 
 
 if __name__ == "__main__":
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
-    results = [validate(Path(a), "--variants" in sys.argv) for a in args]
-    sys.exit(0 if results and all(results) else 1)
+    want_bundle = "--bundle" in sys.argv
+    entries = [validate(Path(a), "--variants" in sys.argv or want_bundle) for a in args]
+    all_ok = bool(entries) and all(ok for ok, _, _ in entries)
+    if want_bundle:
+        if all_ok:
+            print(f"\nbundle: {write_bundle(entries).relative_to(ROOT)} ({len(entries)} cards)")
+        else:
+            print("\nbundle: NOT written, fix the failing cards first")
+    sys.exit(0 if all_ok else 1)

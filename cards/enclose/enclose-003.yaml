@@ -1,0 +1,83 @@
+schema_version: "1.0"
+id: enclose-003
+kind: standard
+lens: enclose
+best_move: enclose
+stage: shogakko
+grades: [小5, 小6]
+status: verified
+
+provenance:
+  original: true
+  built_from: "Archetype: lattice triangle with no side on a grid line, one vertex on a box corner and the others on two box sides (box minus three right triangles)."
+  not_derived_from: "Coordinates, wording and figure are original. Not adapted from any 入試, textbook or 塾 problem."
+  author: "The Lens content team"
+
+grounding:
+  principle_ja: "面積の加法性：三角形も、囲んだ長方形から、まわりの3つの直角三角形を引けば求まる。"
+  principle_en: "Additivity of area: a triangle is the enclosing rectangle minus the three right triangles around it."
+
+problem:
+  text_ja: "方眼の1目もりは1cmです。三角形ABCの面積は何cm²ですか。"
+  unit: "cm²"
+  figure:
+    type: grid_polygon
+    grid: {width: 6, height: 5, cell_cm: 1}
+    points: [[0, 1], [6, 0], [4, 5]]   # A, B, C (counter-clockwise); B is a box corner
+
+answer:
+  value: "14"
+  display_ja: "14cm²"
+  expr: polygon_area
+
+trap_route:
+  time_cost_sec: 150
+  time_source: estimate
+  steps:
+    - {ja: "三角形だから「底辺×高さ÷2」を使おうとする", op: note}
+    - {ja: "どの辺も方眼の線に乗っていない。底辺が読めない", op: note}
+    - {ja: "高さも、底辺に垂直な線を自分で引かないと分からない", op: note}
+    - {ja: "ここで約2分半。式が立たない", op: note}
+
+lens_route:
+  time_cost_sec: 25
+  time_source: estimate
+  steps:
+    - {ja: "6×5の長方形で囲む", value: "30", op: start}
+    - {ja: "下の三角形 6×1÷2", value: "3", op: sub}
+    - {ja: "右上の三角形 2×5÷2", value: "5", op: sub}
+    - {ja: "左上の三角形 4×4÷2", value: "8", op: sub}
+    - {ja: "30 − 16 = 14", value: "14", op: result}
+
+trigger:
+  ja: "どの辺も方眼の線に乗らない三角形は、底辺を探さずに囲む。"
+  en: "A triangle with no side on a grid line: stop hunting for a base, enclose it."
+  tags: [grid, triangle, no_side_on_grid_line, vertices_on_box]
+
+fails_when: enclose-f01
+
+picker:
+  options: [enclose, slide, mirror, direct]
+  correct: enclose
+  feedback_ja:
+    enclose: "そのとおり。3つの頂点がすべて外側の長方形の辺に乗っている。"
+    slide: "平行な線がないので、等積変形の手がかりがない。"
+    mirror: "最短の道すじを求める問題ではない。"
+    direct: "底辺×高さ÷2を使いたいが、どの辺も方眼の線に乗っていない。"
+
+animation:
+  keyframes: [show_shape, draw_box, shade_corners, label_corners, subtract, show_answer]
+
+checks:
+  - {type: lattice_only}
+  - {type: simple_polygon}
+  - {type: area_equals_answer}
+  - {type: enclose_clean}
+  - {type: route_steps_sum, route: lens_route}
+  - {type: lens_faster}
+
+variants:
+  generator: enclose_triangle
+  count: 3
+  seed: 1003
+  constraints: {min: 4, max: 8}

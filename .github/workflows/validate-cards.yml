@@ -25,17 +25,17 @@ jobs:
       - name: Validate tokens.json is well-formed
         run: python -c "import json; json.load(open('tokens/tokens.json', encoding='utf-8'))"
 
-      - name: Validate every Lens Card (schema + SymPy checks + variants)
+      - name: Validate every Lens Card and build the bundle
         run: |
           shopt -s globstar nullglob
           cards=(cards/**/*.yaml)
           if [ ${#cards[@]} -eq 0 ]; then echo "No cards found"; exit 1; fi
-          python tools/validate.py "${cards[@]}" --variants
+          python tools/validate.py "${cards[@]}" --bundle
 
-      - name: Upload generated variants
+      - name: Upload bundle and variants
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: variants
-          path: build/variants/
+          name: lens-bundle
+          path: build/
           if-no-files-found: ignore

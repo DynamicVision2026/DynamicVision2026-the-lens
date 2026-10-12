@@ -124,7 +124,7 @@
         "additionalProperties": false,
         "required": ["type"],
         "properties": {
-          "type": { "enum": ["area_equals_answer", "route_steps_sum", "enclose_clean", "enclose_not_clean", "has_horizontal_base", "lattice_only", "simple_polygon", "lens_faster"] },
+          "type": { "enum": ["area_equals_answer", "route_steps_sum", "enclose_clean", "enclose_not_clean", "has_horizontal_base", "tilted_square", "lattice_only", "simple_polygon", "lens_faster"] },
           "route": { "enum": ["trap_route", "lens_route"] },
           "note": { "type": "string" }
         }
@@ -135,7 +135,7 @@
       "additionalProperties": false,
       "required": ["generator", "count", "seed"],
       "properties": {
-        "generator": { "enum": ["enclose_standard", "enclose_failure_notch", "no_lens_flat_base"] },
+        "generator": { "enum": ["enclose_standard", "enclose_tilted_square", "enclose_triangle", "enclose_failure_notch", "no_lens_flat_base"] },
         "count": { "type": "integer", "minimum": 0, "maximum": 50 },
         "seed": { "type": "integer" },
         "constraints": { "type": "object" }
