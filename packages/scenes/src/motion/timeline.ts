@@ -19,6 +19,7 @@ export type BeatName =
   | 'reflect_point'
   | 'draw_straight'
   | 'mark_similar'
+  | 'unfold_faces'
   | 'figure_step'
   | 'answer'
   | 'end_card';
@@ -51,6 +52,7 @@ export function motionPreviewTimeline(card: LensCard, tokens: Tokens): Beat[] | 
   const figure = card.problem.figure;
   if (figure.type === 'parallel_band') return bandTimeline(card, tokens);
   if (figure.type === 'mirror_path') return mirrorTimeline(card, tokens);
+  if (figure.type === 'box_unfold') return unfoldTimeline(card, tokens);
   if (figure.type === 'word_problem') return wordTimeline(card, tokens);
   if (figure.type !== 'grid_polygon') return null;
   const steps = card.lens_route.steps;
@@ -120,6 +122,25 @@ function mirrorTimeline(card: LensCard, tokens: Tokens): Beat[] | null {
     { name: 'trap', durationMs: BEAT_MS.trap },
     { name: 'lens_activate', durationMs: BEAT_MS.lens_activate },
     { name: 'reflect_point', durationMs: step },
+    { name: 'draw_straight', durationMs: step },
+    { name: 'mark_similar', durationMs: step + study.step_hold_ms },
+    { name: 'answer', durationMs: 500 + study.final_hold_ms },
+  ];
+}
+
+/**
+ * Study pace on a box-net figure (WO-008), on the Mirror beats: trap (the midpoint of BF) → lens
+ * activates → face BCGF opens flat → the straight line A→G → the similar triangles, held long
+ * enough to read the ratio → answer.
+ */
+function unfoldTimeline(card: LensCard, tokens: Tokens): Beat[] | null {
+  if (!card.lens_route.steps.some((s) => s.op === 'result')) return null;
+  const study = tokens.motion.study;
+  const step = studyStepMs(tokens);
+  return [
+    { name: 'trap', durationMs: BEAT_MS.trap },
+    { name: 'lens_activate', durationMs: BEAT_MS.lens_activate },
+    { name: 'unfold_faces', durationMs: step },
     { name: 'draw_straight', durationMs: step },
     { name: 'mark_similar', durationMs: step + study.step_hold_ms },
     { name: 'answer', durationMs: 500 + study.final_hold_ms },
