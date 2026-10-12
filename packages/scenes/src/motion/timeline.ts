@@ -15,6 +15,9 @@ export type BeatName =
   | 'mark_parallel'
   | 'slide_apex'
   | 'merge_triangle'
+  | 'reflect_point'
+  | 'draw_straight'
+  | 'mark_similar'
   | 'answer'
   | 'end_card';
 
@@ -42,6 +45,7 @@ export function motionPreviewTimeline(card: LensCard, tokens: Tokens): Beat[] | 
   if (card.kind !== 'standard') return null;
   const figure = card.problem.figure;
   if (figure.type === 'parallel_band') return bandTimeline(card, tokens);
+  if (figure.type === 'mirror_path') return mirrorTimeline(card, tokens);
   if (figure.type !== 'grid_polygon') return null;
   const steps = card.lens_route.steps;
   const start = steps.find((s) => s.op === 'start');
@@ -93,6 +97,25 @@ function bandTimeline(card: LensCard, tokens: Tokens): Beat[] | null {
     { name: 'mark_parallel', durationMs: studyStepMs(tokens) },
     ...Array.from({ length: n }, (_, index): Beat => ({ name: 'slide_apex', durationMs: study.step_focus_ms + study.legs_draw_ms, index })),
     { name: 'merge_triangle', durationMs: study.formula_ms + study.step_hold_ms },
+    { name: 'answer', durationMs: 500 + study.final_hold_ms },
+  ];
+}
+
+/**
+ * Study pace on a shortest-path figure (WO-005): trap (the midpoint guess) → lens activates →
+ * reflect Q → the straight line P→Q′ → the similar triangles, held long enough to read the ratio →
+ * answer.
+ */
+function mirrorTimeline(card: LensCard, tokens: Tokens): Beat[] | null {
+  if (!card.lens_route.steps.some((s) => s.op === 'result')) return null;
+  const study = tokens.motion.study;
+  const step = studyStepMs(tokens);
+  return [
+    { name: 'trap', durationMs: BEAT_MS.trap },
+    { name: 'lens_activate', durationMs: BEAT_MS.lens_activate },
+    { name: 'reflect_point', durationMs: step },
+    { name: 'draw_straight', durationMs: step },
+    { name: 'mark_similar', durationMs: step + study.step_hold_ms },
     { name: 'answer', durationMs: 500 + study.final_hold_ms },
   ];
 }

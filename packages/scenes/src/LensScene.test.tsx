@@ -6,12 +6,11 @@ import { formatExact, timeLabel } from './format';
 import { LensScene } from './LensScene';
 import { tokens } from './tokens';
 import type { Tokens } from './types';
-import { allSceneCards } from './variant';
+import { allSceneCards, hasScene } from './variant';
 
 const bundle = loadBundle();
 /** Cards whose figure type has a scene (a drafts bundle also carries later lenses' figures). */
-const SCENE_FIGURES = ['grid_polygon', 'parallel_band'];
-const cards = allSceneCards(bundle).filter((c) => SCENE_FIGURES.includes(c.problem.figure.type));
+const cards = allSceneCards(bundle).filter(hasScene);
 const gridPoints = (c: (typeof cards)[number]) => (c.problem.figure.type === 'grid_polygon' ? c.problem.figure.points : []);
 
 afterEach(() => vi.restoreAllMocks());

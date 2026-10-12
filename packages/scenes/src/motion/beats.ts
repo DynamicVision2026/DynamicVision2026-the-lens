@@ -44,6 +44,13 @@ export interface MotionState {
   pick: number;
   buttonsOut: number;
   endCard: number;
+  /** The trap attempt drawn on the figure (e.g. the midpoint guess) and its dimming once the lens arrives. */
+  trapDemo: number;
+  trapDemoDim: number;
+  /** Shortest path: Q′ reflected, the straight line drawn, the similar triangles. */
+  reflect: number;
+  straight: number;
+  similar: number;
   /** Parallel band: the ∥ highlight, how far each apex has slid, the merged outline, the focused triangle. */
   parallel: number;
   slid: number[];
@@ -98,6 +105,11 @@ export function initialMotionState(corners: number, apexes = 0): MotionState {
     pick: 0,
     buttonsOut: 0,
     endCard: 0,
+    trapDemo: 0,
+    trapDemoDim: 1,
+    reflect: 0,
+    straight: 0,
+    similar: 0,
     parallel: 0,
     slid: zeros(apexes),
     merged: 0,
@@ -142,6 +154,7 @@ const REDUCERS: Record<Beat['name'], BeatReducer> = {
     trapReveal: span(ms, 800, beat.durationMs - 1200),
     trapOpacity: TRAP_READABLE,
     timeStrip: s.question > 0 ? ease(span(ms, 800, beat.durationMs - 1000)) : 0,
+    trapDemo: ease(span(ms, 800, beat.durationMs - 1200)),
   }),
 
   freeze: (s, t, ms, _beat, { ease, spring }) => ({
@@ -156,6 +169,7 @@ const REDUCERS: Record<Beat['name'], BeatReducer> = {
   lens_activate: (s, t, ms, beat, { ease, spring }) => ({
     ...s,
     pick: s.buttons > 0 ? ease(span(ms, 0, FADE_MS)) : 0,
+    trapDemoDim: 1 - 0.7 * ease(span(ms, 0, beat.durationMs * 0.6)),
     // Dims readable trap text; text the freeze already cleared stays cleared.
     trapOpacity: s.trapOpacity + (Math.min(s.trapOpacity, TRAP_DIM) - s.trapOpacity) * ease(span(ms, 0, 600)),
     chip: pop(t, ms, 300, spring),
@@ -236,6 +250,30 @@ const REDUCERS: Record<Beat['name'], BeatReducer> = {
     bandFocus: -1,
     merged: ease(span(ms, 0, FADE_MS * 2)),
     captionStep: 1,
+    caption: ease(span(ms, 0, FADE_MS)),
+  }),
+
+  reflect_point: (s, _t, ms, _beat, { ease }) => ({
+    ...s,
+    trapOpacity: Math.min(s.trapOpacity, TRAP_DIM) * (1 - span(ms, 0, FADE_MS)),
+    buttonsOut: ease(span(ms, 0, FADE_MS * 2)),
+    freezeTitle: s.freezeTitle * (1 - ease(span(ms, 0, FADE_MS))),
+    reflect: ease(span(ms, 0, FADE_MS * 3)),
+    captionStep: 0,
+    caption: ease(span(ms, 0, FADE_MS)),
+  }),
+
+  draw_straight: (s, _t, ms, beat, { ease, tokens }) => ({
+    ...s,
+    straight: ease(span(ms, 0, beat.durationMs - tokens.motion.study.step_hold_ms)),
+    captionStep: 1,
+    caption: ease(span(ms, 0, FADE_MS)),
+  }),
+
+  mark_similar: (s, _t, ms, _beat, { ease }) => ({
+    ...s,
+    similar: ease(span(ms, 0, FADE_MS * 3)),
+    captionStep: 2,
     caption: ease(span(ms, 0, FADE_MS)),
   }),
 

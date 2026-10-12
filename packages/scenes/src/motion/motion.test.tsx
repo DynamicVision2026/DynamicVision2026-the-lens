@@ -1,6 +1,7 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { getCard, loadBundle } from '../bundle';
+import { hasScene } from '../variant';
 import { formatExact, timeLabel } from '../format';
 import { LensScene } from '../LensScene';
 import { tokens } from '../tokens';
@@ -37,7 +38,7 @@ const texts = (html: string) => [...html.matchAll(/>([^<>]+)</g)].map((m) => m[1
 
 describe('theme', () => {
   it('short_dark changes only colours, not geometry', () => {
-    for (const card of bundle.cards.filter((c) => ['grid_polygon', 'parallel_band'].includes(c.problem.figure.type))) {
+    for (const card of bundle.cards.filter(hasScene)) {
       const keyframes = card.animation?.keyframes ?? [];
       for (let k = 0; k < keyframes.length; k++) {
         const base = renderToStaticMarkup(<LensScene card={card} keyframe={k} t={1} />);

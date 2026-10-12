@@ -1,12 +1,13 @@
 import { parseEasing } from '../easing';
 import { answerText, formatExact } from '../format';
 import { boundingBox, boxCorners, centroid, enclosureGaps, outwardDirection, partialPolyline, type Box } from '../geometry';
-import { BAND_END_ROOM, BandFigure, Bracket, ConstructionLine, FigurePolygon, GridLayer, LensIcon, makeFrame, svgPoints, toSvg, type Frame } from '../primitives';
+import { BAND_END_ROOM, BandFigure, Bracket, ConstructionLine, MirrorFigure, FigurePolygon, GridLayer, LensIcon, makeFrame, svgPoints, toSvg, type Frame } from '../primitives';
 import { wrapText } from '../text';
 import { color, fontFamily, lensColor, type LensOrDirect, type RenderMode } from '../tokens';
 import { timeLabel } from '../format';
-import type { GlowToken, GridPolygonFigure, LensCard, ParallelBandFigure, Point, ShortLayout, Step, StepDetail, Tokens } from '../types';
+import type { GlowToken, GridPolygonFigure, LensCard, MirrorPathFigure, ParallelBandFigure, Point, ShortLayout, Step, StepDetail, Tokens } from '../types';
 import { bandLayout, bandTriangles } from '../band';
+import { mirrorLayout, touchX } from '../mirror';
 import { motionState, type MotionState } from './beats';
 import type { Beat } from './timeline';
 
@@ -98,6 +99,7 @@ export function MotionScene({ card, beats, beat, t, tokens: baseTokens, glow, mo
   const figure = card.problem.figure;
   const gridFig = figure.type === 'grid_polygon' ? figure : null;
   const bandFig = figure.type === 'parallel_band' ? figure : null;
+  const mirrorFig = figure.type === 'mirror_path' ? figure : null;
   const { grid, points } = gridFig ?? NO_GRID;
   const gaps = enclosureGaps(points);
   const steps = card.lens_route.steps;
@@ -260,8 +262,27 @@ export function MotionScene({ card, beats, beat, t, tokens: baseTokens, glow, mo
           bottom={cardTop}
         />
       )}
-      {/* The lens step being shown, in the formula-card row (the band figure leaves it free). */}
-      {bandFig && state.captionStep >= 0 && state.caption > 0 && card.lens_route.steps[state.captionStep] && (
+      {mirrorFig && (
+        <MirrorLayer
+          card={card}
+          fig={mirrorFig}
+          state={state}
+          layout={L}
+          tokens={tokens}
+          ink={ink}
+          chalk={chalk}
+          accent={accent}
+          palette={palette.map((c) => color(c, mode))}
+          font={numFont}
+          weight={tokens.type.scale.label.weight}
+          idPrefix={`lens-${card.id}`}
+          glowFilter={glowFilter}
+          glowOpacity={glow?.opacity}
+          bottom={cardTop}
+        />
+      )}
+      {/* The lens step being shown, in the formula-card row (these figures leave it free). */}
+      {!gridFig && state.captionStep >= 0 && state.caption > 0 && card.lens_route.steps[state.captionStep] && (
         <CentredLines text={card.lens_route.steps[state.captionStep]!.ja} x={W / 2} y={R.formula_card.centre_y} width={W - 2 * margin} size={T.trigger} fill={accent} opacity={state.caption} font={jaFont} weight={bold} />
       )}
 
@@ -496,6 +517,54 @@ function BandLayer({ fig, state, layout: L, tokens, ink, chalk, accent, palette,
       </g>
       <g opacity={state.inked}>
         <BandFigure {...common} ink={ink} palette={palette} show={state.chalk} idPrefix={idPrefix} />
+      </g>
+    </g>
+  );
+}
+
+interface MirrorLayerProps extends Omit<BandLayerProps, 'fig'> {
+  card: LensCard;
+  fig: MirrorPathFigure;
+}
+
+/** The shortest-path figure at Short size: chalk while the trap plays (with the midpoint guess), then ink. */
+function MirrorLayer({ card, fig, state, layout: L, tokens, ink, chalk, accent, palette, font, weight, idPrefix, glowFilter, glowOpacity, bottom }: MirrorLayerProps) {
+  const { regions: R, type_px: T, pieces: P, brackets: BR } = L;
+  const [W] = L.size_px;
+  const margin = R.figure.min_margin_px;
+  const layout = mirrorLayout(fig, margin, R.figure.y + T.vertex_label, W - 2 * margin, bottom - R.figure.y - 2 * T.vertex_label - BR.offset_px - 1.5 * T.bracket_number, T.vertex_label * 3);
+  const common = {
+    fig,
+    layout,
+    touchX: touchX(card),
+    tokens,
+    chalk,
+    accent,
+    font,
+    weight,
+    labelSize: T.vertex_label,
+    figureStroke: tokens.stroke.figure.width,
+    lensStroke: P.current.stroke_width,
+    dash: tokens.stroke.trap.dash,
+    bracket: { offset: BR.offset_px, tick: BR.tick_px / 2, numberSize: T.bracket_number, strokeWidth: tokens.stroke.lens_construction.width },
+    show: state.chalk,
+    tryPath: state.trapDemo,
+    tryDim: state.trapDemoDim,
+    reflect: state.reflect,
+    straight: state.straight,
+    similar: state.similar,
+    tint: P.current.fill_opacity,
+    stripes: P.current.stripes,
+    glowFilter,
+    glowOpacity,
+  };
+  return (
+    <g>
+      <g opacity={1 - state.inked}>
+        <MirrorFigure {...common} ink={chalk} palette={palette.map(() => chalk)} idPrefix={`${idPrefix}-chalk`} />
+      </g>
+      <g opacity={state.inked}>
+        <MirrorFigure {...common} ink={ink} palette={palette} idPrefix={idPrefix} />
       </g>
     </g>
   );
