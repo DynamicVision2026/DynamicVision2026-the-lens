@@ -5,7 +5,7 @@ lens: constant
 best_move: constant
 stage: shogakko
 grades: [小4, 小5]
-status: draft            # flips to verified when the word-problem scenes merge; validator checks it fully either way
+status: verified
 
 provenance:
   original: true
