@@ -17,7 +17,7 @@ Each work order (WO) is one PR. Read `docs/PRD.md` first; this folder only adds 
 5. **Merge rule:** the founder approves, the Builder merges. Merge a PR only when all three hold:
    - the **Validate Lens Cards** check is green;
    - a screen recording (or rendered MP4) is attached, for app work;
-   - the founder has approved it (a GitHub review approval, or a PR comment "Approved" from the founder). PRs touching `cards/`, `schema/`, `tools/` or `tokens/` also need the Architect's sign-off.
+   - the founder has approved it. The founder approves verbally to the Architect or Coordinator, who records it as a PR comment starting **"✅ Approved by Brian"**. That comment is the approval; no GitHub review button is needed. PRs touching `cards/`, `schema/`, `tools/` or `tokens/` also need the Architect's sign-off.
 
    Use **Squash and merge**, then delete the branch. If the PR shows a conflict, update the branch from `main`, wait for the check to go green again, then merge.
 6. **Keep it small.** No state libraries, no UI kits, no backend. React state, plain SVG, Vite, Remotion. Ask before adding any dependency not named in a WO.
