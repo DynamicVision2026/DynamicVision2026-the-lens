@@ -7,7 +7,10 @@ import { wrapText } from './text';
 import { motionViewBox, MotionScene } from './motion/MotionScene';
 import type { Beat } from './motion/timeline';
 import { color, fontFamily, fontSize, lensColor, themed, tokens as defaultTokens, type RenderMode, type ThemeName } from './tokens';
-import type { LensCard, Point, Tokens } from './types';
+import { bandLayout } from './band';
+import { bandState } from './keyframes/band';
+import { BAND_END_ROOM, BandFigure } from './primitives';
+import type { GlowToken, GridPolygonFigure, LensCard, ParallelBandFigure, Point, Tokens } from './types';
 
 /** Scene viewBox in px at 1x. Video renders it at 2x (1080 px wide frame ≈ 2.25x). */
 export const SCENE_WIDTH = 480;
@@ -92,8 +95,21 @@ export function LensScene({
   const keyframes = card.animation?.keyframes ?? DEFAULT_KEYFRAMES;
   const ease = parseEasing(tokens.motion.easing);
   const progress = reducedMotion ? 1 : ease(clamp01(t));
+  const figure = card.problem.figure;
 
-  const { grid, points } = card.problem.figure;
+  if (figure.type === 'parallel_band') {
+    return (
+      <svg {...svgProps}>
+        <BandKeyframeScene card={card} fig={figure} keyframes={keyframes} keyframe={keyframe} t={progress} tokens={tokens} glow={glow} mode={mode} />
+      </svg>
+    );
+  }
+  if (figure.type !== 'grid_polygon') {
+    warnNoScene((figure as { type: string }).type);
+    return <svg {...svgProps} />;
+  }
+
+  const { grid, points } = figure as GridPolygonFigure;
   const ctx: SceneContext = {
     card,
     points,
@@ -210,6 +226,79 @@ export function LensScene({
 
       <TextBand card={card} tokens={tokens} mode={mode} caption={state.caption} answer={state.answer} ink={ink} accent={accent} />
     </svg>
+  );
+}
+
+const noScene = new Set<string>();
+
+/** Warns once per figure type that has no scene yet (later lenses' drafts). */
+function warnNoScene(type: string) {
+  if (noScene.has(type)) return;
+  noScene.add(type);
+  console.warn(`LensScene: no scene for figure type "${type}" yet.`);
+}
+
+interface BandKeyframeSceneProps {
+  card: LensCard;
+  fig: ParallelBandFigure;
+  keyframes: string[];
+  keyframe: number;
+  t: number;
+  tokens: Tokens;
+  glow: GlowToken | null;
+  mode: RenderMode;
+}
+
+/** The Slide lens on a parallel band, keyframe by keyframe (trainer and /dev/scenes). */
+function BandKeyframeScene({ card, fig, keyframes, keyframe, t, tokens, glow, mode }: BandKeyframeSceneProps) {
+  const state = bandState(keyframes, keyframe, t, card, fig);
+  const label = fontSize(tokens, 'label', mode);
+  const layout = bandLayout(fig, PAD, PAD, SCENE_WIDTH - 2 * PAD, FIGURE_HEIGHT - 2 * PAD - 30, Math.max(34, label * BAND_END_ROOM));
+  const accent = lensColor(tokens, card.lens, mode);
+  const glowId = `lens-glow-${card.id}`;
+  return (
+    <g>
+      {glow && (
+        <defs>
+          <filter id={glowId} x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation={glow.blur_px / 2} />
+          </filter>
+        </defs>
+      )}
+      <BandFigure
+        fig={fig}
+        layout={layout}
+        tokens={tokens}
+        ink={color(tokens.color.ink, mode)}
+        accent={accent}
+        palette={tokens.color.step.palette.map((c) => color(c, mode))}
+        font={fontFamily(tokens, undefined, 'family_num')}
+        weight={tokens.type.scale.label.weight}
+        labelSize={label}
+        figureStroke={tokens.stroke.figure.width}
+        lensStroke={tokens.stroke.lens.width}
+        bracket={{ offset: 22, tick: 5, numberSize: label, strokeWidth: tokens.stroke.lens_construction.width }}
+        show={state.show}
+        parallel={state.parallel}
+        slid={state.slid}
+        merged={state.merged}
+        focus={-1}
+        dim={1}
+        tint={tokens.color.step.tint_opacity}
+        idPrefix={`lens-${card.id}`}
+        glowFilter={glow ? `url(#${glowId})` : undefined}
+        glowOpacity={glow?.opacity}
+      />
+      <TextBand
+        card={card}
+        tokens={tokens}
+        mode={mode}
+        caption={state.caption ? { text: state.caption.step.ja, t: state.caption.t, size: 'step' } : null}
+        answer={state.answer}
+        ink={color(tokens.color.ink, mode)}
+        accent={accent}
+      />
+    </g>
   );
 }
 

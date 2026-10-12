@@ -5,7 +5,7 @@ export { springAt } from './spring';
 export { motionPreviewTimeline, shortTimeline, timelineDuration, beatAt, beatLabel, studyStepMs, type Beat, type BeatName } from './motion/timeline';
 export { formatExact, countUp, answerText, timeLabel } from './format';
 export { clamp01, parseEasing, stagger } from './easing';
-export { withVariant, allSceneCards } from './variant';
+export { withVariant, allSceneCards, hasScene, SCENE_FIGURE_TYPES } from './variant';
 export { enclosureGaps, notchPieces, boundingBox } from './geometry';
 export { KEYFRAMES, sceneState } from './keyframes';
 export * from './primitives';

@@ -13,7 +13,7 @@ const THEME = 'short_dark';
 export const calculatePreviewMetadata: CalculateMetadataFunction<EncloseMotionPreviewProps> = ({ props }) => {
   const card = getCard(props.cardId);
   const beats = card ? motionPreviewTimeline(card, tokens) : null;
-  if (!beats) throw new Error(`EncloseMotionPreview: "${props.cardId}" is not a standard Enclose card in the bundle`);
+  if (!beats) throw new Error(`EncloseMotionPreview: "${props.cardId}" has no study-pace timeline (standard card with a scene) in the bundle`);
   return { durationInFrames: Math.round((timelineDuration(beats) / 1000) * tokens.layout.short.fps) };
 };
 
@@ -31,7 +31,7 @@ export function EncloseMotionPreview({ cardId }: EncloseMotionPreviewProps) {
   const paper = themed(tokens, THEME).tokens.color.paper.value;
 
   if (!card || !beats) {
-    throw new Error(`EncloseMotionPreview: "${cardId}" is not a standard Enclose card in the bundle`);
+    throw new Error(`EncloseMotionPreview: "${cardId}" has no study-pace timeline (standard card with a scene) in the bundle`);
   }
 
   const { index, t } = beatAt(beats, (frame / fps) * 1000);

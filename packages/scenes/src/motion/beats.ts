@@ -44,6 +44,14 @@ export interface MotionState {
   pick: number;
   buttonsOut: number;
   endCard: number;
+  /** Parallel band: the ∥ highlight, how far each apex has slid, the merged outline, the focused triangle. */
+  parallel: number;
+  slid: number[];
+  merged: number;
+  bandFocus: number;
+  /** A lens step shown as a caption in the title band (index into lens_route.steps), with its fade. */
+  captionStep: number;
+  caption: number;
   core: number;
   coreGlow: number;
   pulseMs: number;
@@ -54,13 +62,15 @@ export interface MotionState {
 
 export interface MotionContext {
   corners: number;
+  /** Apexes on a parallel band (0 for other figures). */
+  apexes: number;
   trapLines: number;
   tokens: Tokens;
   ease: Easing;
   spring: SpringToken;
 }
 
-export function initialMotionState(corners: number): MotionState {
+export function initialMotionState(corners: number, apexes = 0): MotionState {
   const zeros = (n: number) => Array.from({ length: n }, () => 0);
   return {
     grid: 0,
@@ -88,6 +98,12 @@ export function initialMotionState(corners: number): MotionState {
     pick: 0,
     buttonsOut: 0,
     endCard: 0,
+    parallel: 0,
+    slid: zeros(apexes),
+    merged: 0,
+    bandFocus: -1,
+    captionStep: -1,
+    caption: 0,
     core: 0,
     coreGlow: 0,
     pulseMs: 0,
@@ -194,6 +210,35 @@ const REDUCERS: Record<Beat['name'], BeatReducer> = {
     };
   },
 
+  mark_parallel: (s, _t, ms, beat, { ease }) => ({
+    ...s,
+    trapOpacity: Math.min(s.trapOpacity, TRAP_DIM) * (1 - span(ms, 0, FADE_MS)),
+    buttonsOut: ease(span(ms, 0, FADE_MS * 2)),
+    freezeTitle: s.freezeTitle * (1 - ease(span(ms, 0, FADE_MS))),
+    // Pulse up, then settle at a visible highlight.
+    parallel: ms < beat.durationMs / 2 ? ease(span(ms, 0, beat.durationMs / 2)) : 1 - 0.4 * ease(span(ms, beat.durationMs / 2, beat.durationMs / 2)),
+  }),
+
+  slide_apex: (s, _t, ms, beat, { ease, tokens }) => {
+    const i = beat.index ?? 0;
+    const focus = tokens.motion.study.step_focus_ms;
+    return {
+      ...s,
+      bandFocus: i,
+      slid: set(s.slid, i, ease(span(ms, focus / 2, beat.durationMs - focus / 2))),
+      captionStep: 0,
+      caption: Math.max(s.captionStep === 0 ? s.caption : 0, ease(span(ms, 0, FADE_MS))),
+    };
+  },
+
+  merge_triangle: (s, _t, ms, _beat, { ease }) => ({
+    ...s,
+    bandFocus: -1,
+    merged: ease(span(ms, 0, FADE_MS * 2)),
+    captionStep: 1,
+    caption: ease(span(ms, 0, FADE_MS)),
+  }),
+
   answer: (s, t, ms, _beat, { ease, spring, tokens }) => {
     const reveal = ease(span(ms, 0, tokens.motion.duration_ms.core_reveal));
     return {
@@ -201,6 +246,7 @@ const REDUCERS: Record<Beat['name'], BeatReducer> = {
       core: reveal,
       coreGlow: reveal,
       pulseMs: ms,
+      caption: s.caption * (1 - ease(span(ms, 0, FADE_MS))),
       result: ease(span(ms, 200, FADE_MS)),
       display: pop(t, ms, 500, spring),
       trigger: ease(span(ms, 500, tokens.motion.duration_ms.shade)),
@@ -212,7 +258,7 @@ const REDUCERS: Record<Beat['name'], BeatReducer> = {
 
 /** The motion state at beat index `k` and raw (un-eased) progress `t`. */
 export function motionState(beats: Beat[], k: number, t: number, ctx: MotionContext): MotionState {
-  let state = initialMotionState(ctx.corners);
+  let state = initialMotionState(ctx.corners, ctx.apexes);
   const last = Math.min(Math.max(0, k), beats.length - 1);
   for (let i = 0; i <= last; i++) {
     const beat = beats[i]!;

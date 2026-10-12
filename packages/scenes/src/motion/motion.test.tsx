@@ -9,7 +9,7 @@ import { beatAt, motionPreviewTimeline, shortTimeline, studyStepMs, timelineDura
 import { SHORT_COPY } from './MotionScene';
 
 const bundle = loadBundle();
-const standard = bundle.cards.filter((c) => c.kind === 'standard');
+const standard = bundle.cards.filter((c) => c.kind === 'standard' && c.problem.figure.type === 'grid_polygon');
 const card001 = getCard('enclose-001')!;
 
 afterEach(() => vi.restoreAllMocks());
@@ -37,7 +37,7 @@ const texts = (html: string) => [...html.matchAll(/>([^<>]+)</g)].map((m) => m[1
 
 describe('theme', () => {
   it('short_dark changes only colours, not geometry', () => {
-    for (const card of bundle.cards) {
+    for (const card of bundle.cards.filter((c) => ['grid_polygon', 'parallel_band'].includes(c.problem.figure.type))) {
       const keyframes = card.animation?.keyframes ?? [];
       for (let k = 0; k < keyframes.length; k++) {
         const base = renderToStaticMarkup(<LensScene card={card} keyframe={k} t={1} />);

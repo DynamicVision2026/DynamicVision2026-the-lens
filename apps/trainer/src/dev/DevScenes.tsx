@@ -1,5 +1,6 @@
 import {
   allSceneCards,
+  hasScene,
   LensIcon,
   beatLabel,
   LensScene,
@@ -15,7 +16,7 @@ import {
 import { useEffect, useMemo, useState } from 'react';
 
 const bundle = loadBundle();
-const cards = allSceneCards(bundle);
+const cards = allSceneCards(bundle).filter(hasScene);
 
 function prefersReducedMotion(): boolean {
   return typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;

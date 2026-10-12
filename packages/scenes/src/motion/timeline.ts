@@ -1,5 +1,6 @@
 // The study-pace motion preview for a standard Enclose card (docs/work-orders/WO-003-motion.md v2).
 // One beat per calculation step; the number of corner beats follows the card's `sub` steps.
+import { bandTriangles } from '../band';
 import { enclosureGaps } from '../geometry';
 import type { LensCard, Tokens } from '../types';
 
@@ -11,13 +12,16 @@ export type BeatName =
   | 'box_step'
   | 'corner_step'
   | 'subtract'
+  | 'mark_parallel'
+  | 'slide_apex'
+  | 'merge_triangle'
   | 'answer'
   | 'end_card';
 
 export interface Beat {
   name: BeatName;
   durationMs: number;
-  /** For corner_step: index of the corner (0-based, in step order). */
+  /** For corner_step / slide_apex: index of the corner or apex (0-based, in order). */
   index?: number;
 }
 
@@ -35,12 +39,15 @@ export function studyStepMs(tokens: Tokens): number {
  * corner steps all carry their verified `detail` and match the figure's corner gaps.
  */
 export function motionPreviewTimeline(card: LensCard, tokens: Tokens): Beat[] | null {
-  if (card.kind !== 'standard' || card.lens !== 'enclose') return null;
+  if (card.kind !== 'standard') return null;
+  const figure = card.problem.figure;
+  if (figure.type === 'parallel_band') return bandTimeline(card, tokens);
+  if (figure.type !== 'grid_polygon') return null;
   const steps = card.lens_route.steps;
   const start = steps.find((s) => s.op === 'start');
   const subs = steps.filter((s) => s.op === 'sub');
   if (start?.detail?.kind !== 'box' || subs.length === 0 || subs.some((s) => s.detail?.kind !== 'corner')) return null;
-  if (enclosureGaps(card.problem.figure.points).length !== subs.length) return null;
+  if (enclosureGaps(figure.points).length !== subs.length) return null;
   const step = studyStepMs(tokens);
   return [
     { name: 'trap', durationMs: BEAT_MS.trap },
@@ -68,6 +75,25 @@ export function shortTimeline(card: LensCard, tokens: Tokens): Beat[] | null {
     { name: 'freeze', durationMs: BEAT_MS.freeze },
     ...rest,
     { name: 'end_card', durationMs: BEAT_MS.end_card },
+  ];
+}
+
+/**
+ * Study pace on a parallel band (WO-004): trap → lens activates → the parallel lines → one beat per
+ * apex sliding along ℓ → the merged triangle → answer. Driven by the number of apexes.
+ */
+function bandTimeline(card: LensCard, tokens: Tokens): Beat[] | null {
+  const figure = card.problem.figure;
+  if (figure.type !== 'parallel_band' || !card.lens_route.steps.some((s) => s.op === 'result')) return null;
+  const study = tokens.motion.study;
+  const n = bandTriangles(figure);
+  return [
+    { name: 'trap', durationMs: BEAT_MS.trap },
+    { name: 'lens_activate', durationMs: BEAT_MS.lens_activate },
+    { name: 'mark_parallel', durationMs: studyStepMs(tokens) },
+    ...Array.from({ length: n }, (_, index): Beat => ({ name: 'slide_apex', durationMs: study.step_focus_ms + study.legs_draw_ms, index })),
+    { name: 'merge_triangle', durationMs: study.formula_ms + study.step_hold_ms },
+    { name: 'answer', durationMs: 500 + study.final_hold_ms },
   ];
 }
 
