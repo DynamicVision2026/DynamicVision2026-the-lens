@@ -650,6 +650,8 @@ function WordLayer({ card, fig, state, layout: L, tokens, ink, chalk, accent, pa
         bracket={{ offset: BR.offset_px, tick: BR.tick_px / 2, strokeWidth: tokens.stroke.lens_construction.width }}
         tint={P.current.fill_opacity * 2}
         show={anyStep ? 1 : 0}
+        answer={state.core}
+        chalk={chalk}
       />
     </g>
   );

@@ -433,6 +433,8 @@ function WordKeyframeScene({ card, fig, keyframes, keyframe, t, tokens, mode }: 
         bracket={{ offset: label * 0.9, tick: 5, strokeWidth: tokens.stroke.lens_construction.width }}
         tint={tokens.color.step.tint_opacity}
         show={1}
+        answer={state.answer}
+        chalk={color(tokens.color.trap.ink, mode)}
       />
       <TextBand
         card={card}
