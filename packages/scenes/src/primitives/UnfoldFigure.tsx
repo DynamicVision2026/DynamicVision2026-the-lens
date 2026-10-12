@@ -34,6 +34,8 @@ export interface UnfoldFigureProps {
   similar: number;
   answer: number;
   tint: number;
+  /** Paper colour for the halo behind the P label (keeps it readable over the stripes). */
+  halo?: string;
   stripes?: { angle_deg: number; stripe_px: number; period_px: number; opacity: number };
   idPrefix: string;
   glowFilter?: string;
@@ -73,24 +75,27 @@ export function UnfoldFigure(p: UnfoldFigureProps) {
   // Brackets sit below the corner labels.
   const drop = p.bracket.offset + size * 1.2;
   const bk = { tokens: p.tokens, tick: p.bracket.tick, numberSize: p.bracket.numberSize, strokeWidth: p.bracket.strokeWidth };
-  const tri = (ps: XY[], i: number) => {
+  // ACG is the whole outer triangle (outline + light tint); ABP sits inside it, striped where stripes are on.
+  const tri = (ps: XY[], i: number, striped: boolean, tint: number) => {
     const c = p.palette[i % p.palette.length]!;
     const id = `${p.idPrefix}-unfold-${i}`;
     return (
       <g key={i} opacity={p.similar}>
-        {p.stripes && (
+        {striped && p.stripes && (
           <defs>
             <pattern id={id} patternUnits="userSpaceOnUse" width={p.stripes.period_px} height={p.stripes.period_px} patternTransform={`rotate(${p.stripes.angle_deg})`}>
               <rect x={0} y={0} width={p.stripes.stripe_px} height={p.stripes.period_px} fill={c} />
             </pattern>
           </defs>
         )}
-        <polygon points={pts(ps)} fill={c} fillOpacity={p.tint} stroke="none" />
-        {p.stripes && <polygon points={pts(ps)} fill={`url(#${id})`} opacity={p.stripes.opacity} stroke="none" />}
-        <polygon points={pts(ps)} fill="none" stroke={c} strokeWidth={p.figureStroke} strokeLinejoin="round" />
+        <polygon points={pts(ps)} fill={c} fillOpacity={tint} stroke="none" />
+        {striped && p.stripes && <polygon points={pts(ps)} fill={`url(#${id})`} opacity={p.stripes.opacity} stroke="none" />}
       </g>
     );
   };
+  const outline = (ps: XY[], i: number, width: number) => (
+    <polygon points={pts(ps)} fill="none" stroke={p.palette[i % p.palette.length]} strokeWidth={width} strokeLinejoin="round" opacity={p.similar} />
+  );
   const dot = (q: XY, c: string, o = 1) => <circle cx={q[0]} cy={q[1]} r={p.figureStroke * 2.2} fill={c} opacity={o} />;
   const label = (q: XY, text: string, dx: number, dy: number, o = 1, c = ink) =>
     o > 0 ? (
@@ -102,8 +107,8 @@ export function UnfoldFigure(p: UnfoldFigureProps) {
   return (
     <g opacity={p.show}>
       {/* Similar triangles first, under the lines: ACG, then ABP on top. */}
-      {tri([A, C, G], 1)}
-      {tri([A, B, P], 0)}
+      {tri([A, C, G], 1, false, p.tint * 0.5)}
+      {tri([A, B, P], 0, true, p.tint)}
 
       {/* The parts of the box that are not on the net fade as the face opens. */}
       {boxOnly > 0 && (
@@ -162,6 +167,10 @@ export function UnfoldFigure(p: UnfoldFigureProps) {
         </g>
       )}
 
+      {/* The two similar triangles' outlines, above the edges: ABP, then the whole of ACG. */}
+      {p.similar > 0 && outline([A, B, P], 0, p.lensStroke)}
+      {p.similar > 0 && outline([A, C, G], 1, p.lensStroke)}
+
       {/* CG (= AE) beside the similar triangles; BP once the answer is shown. */}
       {label([(C[0] + G[0]) / 2, (C[1] + G[1]) / 2], len(h), 1.6, 0, p.similar)}
       {label([(B[0] + P[0]) / 2, (B[1] + P[1]) / 2], p.answerText, -1.7, 0, p.answer, accent)}
@@ -176,9 +185,15 @@ export function UnfoldFigure(p: UnfoldFigureProps) {
       {label(F, labels.F, -0.6, -0.8)}
       {label(C, labels.C, 0.9, 0)}
       {label(G, labels.G, 0.8, -0.7)}
+      {/* P last, with a paper halo so the stripes never cover it. */}
       {pLit > 0 && (
         <g data-part="cross" data-y={P[1]}>
           {dot(P, accent, pLit)}
+          {p.halo && (
+            <text x={P[0] + 0.8 * size} y={P[1] + 0.6 * size} fill="none" stroke={p.halo} strokeWidth={size * 0.25} strokeLinejoin="round" opacity={pLit} fontFamily={p.font} fontSize={size} fontWeight={p.weight} textAnchor="middle" dominantBaseline="central">
+              {labels.P}
+            </text>
+          )}
           {label(P, labels.P, 0.8, 0.6, pLit, accent)}
         </g>
       )}
