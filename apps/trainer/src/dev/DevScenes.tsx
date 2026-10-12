@@ -138,7 +138,7 @@ export function DevScenes() {
             reducedMotion={reducedMotion}
             theme={theme}
             motion={beats}
-            lensLabel={bundle.labels?.lenses[card.lens]?.ja}
+            lensLabel={bundle.labels.lenses[card.lens]?.ja}
           />
         </div>
         <svg viewBox={`0 0 ${SCENE_WIDTH} 420`} style={{ width: SCENE_WIDTH, maxWidth: '100%', background: 'var(--paper)' }}>

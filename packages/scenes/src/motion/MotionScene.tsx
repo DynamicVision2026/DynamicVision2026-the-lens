@@ -3,7 +3,8 @@ import { answerText, formatExact } from '../format';
 import { boundingBox, boxCorners, centroid, enclosureGaps, outwardDirection, partialPolyline, type Box } from '../geometry';
 import { Bracket, ConstructionLine, FigurePolygon, GridLayer, LensIcon, makeFrame, svgPoints, toSvg, type Frame } from '../primitives';
 import { wrapText } from '../text';
-import { color, fontFamily, lensColor, type RenderMode } from '../tokens';
+import { color, fontFamily, lensColor, type LensOrDirect, type RenderMode } from '../tokens';
+import { timeLabel } from '../format';
 import type { GlowToken, LensCard, Point, ShortLayout, Step, StepDetail, Tokens } from '../types';
 import { motionState, type MotionState } from './beats';
 import type { Beat } from './timeline';
@@ -19,7 +20,16 @@ export interface MotionSceneProps {
   mode: RenderMode;
   /** Lens name for the chip in the title band (bundle.labels); icon only when absent. */
   lensLabel?: string;
+  /** Button text per picker option (bundle.labels.lenses[option].ja), for the freeze beat. */
+  optionLabels?: Record<string, string>;
 }
+
+/** Fixed copy of the Short (WO-003): the freeze question and the series end card. */
+export const SHORT_COPY = {
+  freeze: 'どのレンズ？',
+  series: '視点レンズ ― 無料で1レンズ試せます',
+  url: 'lens.beyondculture.ai',
+} as const;
 
 /**
  * The study-pace Short lays out in px on the 1080×1920 frame (`tokens.layout.short`); its viewBox is
@@ -73,7 +83,7 @@ function cornerLegs(d: CornerDetail, box: Box) {
 }
 
 /** The study-pace Enclose walkthrough: trap → lens → box step → one step per corner → subtract → answer. */
-export function MotionScene({ card, beats, beat, t, tokens: baseTokens, glow, mode, lensLabel }: MotionSceneProps) {
+export function MotionScene({ card, beats, beat, t, tokens: baseTokens, glow, mode, lensLabel, optionLabels }: MotionSceneProps) {
   const tokens = scaleStrokes(baseTokens, STROKE_SCALE);
   const L = tokens.layout.short;
   const { regions: R, type_px: T, pieces: P, brackets: BR } = L;
@@ -150,6 +160,7 @@ export function MotionScene({ card, beats, beat, t, tokens: baseTokens, glow, mo
       />
     ));
 
+  const content = 1 - state.endCard;
   return (
     <g>
       {glow && (
@@ -160,6 +171,7 @@ export function MotionScene({ card, beats, beat, t, tokens: baseTokens, glow, mo
         </defs>
       )}
 
+      <g opacity={content}>
       <g opacity={state.grid}>
         <GridLayer frame={frame} tokens={tokens} mode={mode} />
       </g>
@@ -246,7 +258,7 @@ export function MotionScene({ card, beats, beat, t, tokens: baseTokens, glow, mo
 
       {/* Trap text below the figure: newest lines stay, older ones scroll off. */}
       {state.trapOpacity > 0 && (
-        <TrapText steps={card.trap_route.steps} reveal={state.trapReveal} opacity={Math.max(state.trapOpacity, 0)} top={cardTop - T.trap_text * 0.4} bottom={safeBottom} left={margin} width={W - 2 * margin} size={T.trap_text} color={chalk} tokens={tokens} />
+        <TrapText steps={card.trap_route.steps} reveal={state.trapReveal} opacity={Math.max(state.trapOpacity, 0)} top={cardTop - T.trap_text * 0.4} bottom={state.timeStrip > 0 ? safeBottom - T.trigger * 2.4 : safeBottom} left={margin} width={W - 2 * margin} size={T.trap_text} color={chalk} tokens={tokens} />
       )}
 
       {/* Formula card for the step on screen. */}
@@ -314,6 +326,220 @@ export function MotionScene({ card, beats, beat, t, tokens: baseTokens, glow, mo
           </g>
         );
       })()}
+
+      {/* Short only: the question (hook, trap), the trap time strip, the four lens buttons (freeze). */}
+      {state.question > 0 && (
+        <CentredLines text={card.problem.text_ja} x={W / 2} y={bandMid} width={W - 2 * margin} size={T.trigger} fill={ink} opacity={state.question} font={jaFont} weight={bold} />
+      )}
+      {state.timeStrip > 0 && (
+        <TimeBar
+          y={safeBottom - T.trigger}
+          left={margin}
+          width={W - 2 * margin}
+          rows={[{ seconds: card.trap_route.time_cost_sec, fill: color(tokens.color.trap.flag, mode), template: tokens.time_cost.trap_label_ja, p: state.timeStrip }]}
+          max={card.trap_route.time_cost_sec}
+          badge={tokens.time_cost.source_badge[card.trap_route.time_source]}
+          size={T.trigger}
+          barHeight={tokens.time_cost.bar_height * STROKE_SCALE * 2}
+          ink={ink}
+          quiet={color(tokens.color.ink_quiet, mode)}
+          font={numFont}
+          jaFont={jaFont}
+          weight={bold}
+        />
+      )}
+      {state.freezeTitle > 0 && (
+        <text x={W / 2} y={bandMid} fill={ink} fontFamily={jaFont} fontSize={T.step_title} fontWeight={bold} textAnchor="middle" dominantBaseline="central" opacity={state.freezeTitle}>
+          {SHORT_COPY.freeze}
+        </text>
+      )}
+      {state.buttons > 0 && state.buttonsOut < 1 && (
+        <LensButtons
+          options={card.picker.options as LensOrDirect[]}
+          correct={card.picker.correct}
+          labels={optionLabels ?? {}}
+          appear={state.buttons}
+          pick={state.pick}
+          leave={state.buttonsOut}
+          layout={L}
+          accent={accent}
+          ink={ink}
+          paper={paper}
+          tokens={tokens}
+          mode={mode}
+          font={jaFont}
+          weight={bold}
+        />
+      )}
+      </g>
+
+      {state.endCard > 0 && (
+        <g opacity={state.endCard}>
+          <CentredLines text={card.trigger.ja} x={W / 2} y={R.figure.y + 160} width={W - 2 * margin} size={T.step_title} fill={accent} opacity={1} font={jaFont} weight={bold} />
+          <TimeBar
+            y={R.figure.y + 420}
+            left={margin}
+            width={W - 2 * margin}
+            rows={[
+              { seconds: card.trap_route.time_cost_sec, fill: color(tokens.color.trap.flag, mode), template: tokens.time_cost.trap_label_ja, p: 1 },
+              { seconds: card.lens_route.time_cost_sec, fill: accent, template: tokens.time_cost.lens_label_ja, p: 1 },
+            ]}
+            max={card.trap_route.time_cost_sec}
+            badge={tokens.time_cost.source_badge[card.lens_route.time_source]}
+            saved={timeLabel(tokens.time_cost.saved_label_ja, card.trap_route.time_cost_sec - card.lens_route.time_cost_sec)}
+            size={T.trigger}
+            barHeight={tokens.time_cost.bar_height * STROKE_SCALE * 2}
+            ink={ink}
+            quiet={color(tokens.color.ink_quiet, mode)}
+            font={numFont}
+            jaFont={jaFont}
+            weight={bold}
+          />
+          <text x={W / 2} y={R.formula_card.centre_y} fill={ink} fontFamily={jaFont} fontSize={T.step_title} fontWeight={bold} textAnchor="middle" dominantBaseline="central">
+            {SHORT_COPY.series}
+          </text>
+          <text x={W / 2} y={R.equation.baseline_y} fill={accent} fontFamily={numFont} fontSize={T.trigger} fontWeight={bold} textAnchor="middle">
+            {SHORT_COPY.url}
+          </text>
+        </g>
+      )}
+    </g>
+  );
+}
+
+interface CentredLinesProps {
+  text: string;
+  x: number;
+  y: number;
+  width: number;
+  size: number;
+  fill: string;
+  opacity: number;
+  font: string;
+  weight: number;
+}
+
+/** Wrapped text, centred horizontally and vertically on y. */
+function CentredLines({ text, x, y, width, size, fill, opacity, font, weight }: CentredLinesProps) {
+  const lines = wrapText(text, width, size);
+  const lh = size * 1.35;
+  return (
+    <g opacity={opacity} fill={fill} fontFamily={font} fontSize={size} fontWeight={weight} textAnchor="middle">
+      {lines.map((line, i) => (
+        <text key={i} x={x} y={y + (i - (lines.length - 1) / 2) * lh} dominantBaseline="central">
+          {line}
+        </text>
+      ))}
+    </g>
+  );
+}
+
+interface TimeBarRow {
+  seconds: number;
+  fill: string;
+  template: string;
+  /** 0–1 growth of the bar. */
+  p: number;
+}
+
+interface TimeBarProps {
+  y: number;
+  left: number;
+  width: number;
+  rows: TimeBarRow[];
+  max: number;
+  badge: string;
+  saved?: string;
+  size: number;
+  barHeight: number;
+  ink: string;
+  quiet: string;
+  font: string;
+  jaFont: string;
+  weight: number;
+}
+
+/** Time strip at Short size: bars grow to each route's time, labels from the time_cost templates. */
+function TimeBar({ y, left, width, rows, max, badge, saved, size, barHeight, ink, quiet, font, jaFont, weight }: TimeBarProps) {
+  const labelRoom = size * 4.2;
+  const barW = width - labelRoom;
+  const rowH = size * 1.5;
+  return (
+    <g>
+      {rows.map((row, i) => {
+        const cy = y + i * rowH;
+        const w = (barW * row.seconds * row.p) / Math.max(1, max);
+        return (
+          <g key={i}>
+            <rect x={left} y={cy - barHeight / 2} width={w} height={barHeight} rx={barHeight / 2} fill={row.fill} />
+            <text x={left + w + size * 0.3} y={cy} fill={ink} fontFamily={font} fontSize={size} dominantBaseline="central">
+              {timeLabel(row.template, row.seconds * row.p)}
+            </text>
+          </g>
+        );
+      })}
+      <text x={left + width} y={y - rowH * 0.8} fill={quiet} fontFamily={jaFont} fontSize={size * 0.8} textAnchor="end" dominantBaseline="central">
+        {badge}
+      </text>
+      {saved && (
+        <text x={left} y={y + rows.length * rowH + size * 0.2} fill={ink} fontFamily={jaFont} fontSize={size} fontWeight={weight} dominantBaseline="central">
+          {saved}
+        </text>
+      )}
+    </g>
+  );
+}
+
+interface LensButtonsProps {
+  options: LensOrDirect[];
+  correct: string;
+  labels: Record<string, string>;
+  appear: number;
+  pick: number;
+  leave: number;
+  layout: ShortLayout;
+  accent: string;
+  ink: string;
+  paper: string;
+  tokens: Tokens;
+  mode: RenderMode;
+  font: string;
+  weight: number;
+}
+
+/** The four lens buttons in a 2 × 2 grid below the figure; the correct one lights up on the pick. */
+function LensButtons({ options, correct, labels, appear, pick, leave, layout, accent, ink, paper, tokens, mode, font, weight }: LensButtonsProps) {
+  const W = layout.size_px[0];
+  const margin = layout.regions.figure.min_margin_px;
+  const gap = margin / 2;
+  const w = (W - 2 * margin - gap) / 2;
+  const h = layout.regions.formula_card.height * 0.85;
+  // Two rows that end inside the safe area, under the figure.
+  const safeBottom = layout.size_px[1] - layout.safe_bottom_px;
+  const top = safeBottom - 2 * h - gap - gap / 2;
+  const size = layout.type_px.trigger;
+  return (
+    <g opacity={Math.min(1, appear) * (1 - leave)}>
+      {options.map((opt, i) => {
+        const x = margin + (i % 2) * (w + gap);
+        const y = top + Math.floor(i / 2) * (h + gap);
+        const isCorrect = opt === correct;
+        const dim = isCorrect ? 1 : 1 - 0.65 * pick;
+        const stroke = isCorrect ? accent : ink;
+        const icon = size * 1.1;
+        const cx = x + w / 2;
+        const cy = y + h / 2;
+        return (
+          <g key={opt} opacity={dim} transform={`translate(${cx} ${cy}) scale(${Math.min(1, appear) + (isCorrect ? 0.06 * pick : 0)}) translate(${-cx} ${-cy})`}>
+            <rect x={x} y={y} width={w} height={h} rx={h / 2} fill={isCorrect && pick > 0 ? accent : paper} fillOpacity={isCorrect ? 0.18 * pick : 1} stroke={stroke} strokeOpacity={isCorrect ? 0.5 + 0.5 * pick : 0.5} strokeWidth={tokens.stroke.lens_construction.width * (isCorrect ? 1 + pick : 1)} />
+            {/* Icons in ink: a theme may not define every lens colour (only the correct one lights up). */}
+            <LensIcon lens={opt} tokens={tokens} mode={mode} x={x + h * 0.35} y={cy - icon / 2} size={icon} color={isCorrect && pick > 0 ? accent : ink} />
+            <text x={x + h * 0.35 + icon + size * 0.4} y={cy} fill={isCorrect && pick > 0 ? accent : ink} fontFamily={font} fontSize={size} fontWeight={weight} dominantBaseline="central">
+              {labels[opt] ?? opt}
+            </text>
+          </g>
+        );
+      })}
     </g>
   );
 }
@@ -570,9 +796,17 @@ function TrapText({ steps, reveal, opacity, top, bottom, left, width, size, colo
   const shown = Math.min(steps.length, Math.ceil(reveal * steps.length - 1e-9));
   if (shown <= 0) return null;
   const newest = reveal * steps.length - (shown - 1);
-  const lines = steps.slice(0, shown).flatMap((s, i) => wrapText(s.ja, width, size).map((text) => ({ text, step: i })));
+  // Keep whole steps only: the newest steps that fit, never half a sentence.
   const fit = Math.max(1, Math.floor((bottom - top) / lh));
-  const visible = lines.slice(-fit);
+  const blocks = steps.slice(0, shown).map((s, i) => wrapText(s.ja, width, size).map((text) => ({ text, step: i })));
+  const kept: typeof blocks = [];
+  let used = 0;
+  for (let b = blocks.length - 1; b >= 0; b--) {
+    if (used + blocks[b]!.length > fit && kept.length > 0) break;
+    kept.unshift(blocks[b]!);
+    used += blocks[b]!.length;
+  }
+  const visible = kept.flat();
   return (
     <g opacity={opacity} fill={c} fontFamily={fontFamily(tokens, tokens.type.scale.scratch)} fontSize={size}>
       {visible.map((line, i) => (

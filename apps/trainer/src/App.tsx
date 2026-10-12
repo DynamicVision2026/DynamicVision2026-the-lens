@@ -1,9 +1,13 @@
 import { loadBundle } from '@lens/scenes';
 import { DevScenes } from './dev/DevScenes';
+import { Play } from './play/Play';
 
 // Minimal path switch; no router library.
 export function App() {
-  if (window.location.pathname.startsWith('/dev/scenes')) return <DevScenes />;
+  const path = window.location.pathname;
+  if (path.startsWith('/dev/scenes')) return <DevScenes />;
+  const play = /^\/play\/([\w-]+)\/?$/.exec(path);
+  if (play) return <Play cardId={play[1]!} />;
   return <Home />;
 }
 
@@ -33,7 +37,7 @@ function Home() {
         </tbody>
       </table>
       <p>
-        <a href="/dev/scenes">/dev/scenes</a>
+        <a href="/play/enclose-001">/play/enclose-001</a> · <a href="/dev/scenes">/dev/scenes</a>
       </p>
     </main>
   );

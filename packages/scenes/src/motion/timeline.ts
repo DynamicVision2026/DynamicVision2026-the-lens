@@ -3,7 +3,16 @@
 import { enclosureGaps } from '../geometry';
 import type { LensCard, Tokens } from '../types';
 
-export type BeatName = 'trap' | 'lens_activate' | 'box_step' | 'corner_step' | 'subtract' | 'answer';
+export type BeatName =
+  | 'hook'
+  | 'trap'
+  | 'freeze'
+  | 'lens_activate'
+  | 'box_step'
+  | 'corner_step'
+  | 'subtract'
+  | 'answer'
+  | 'end_card';
 
 export interface Beat {
   name: BeatName;
@@ -13,7 +22,7 @@ export interface Beat {
 }
 
 /** Beat-sheet windows that have no token of their own. */
-const BEAT_MS = { trap: 4000, lens_activate: 1500, subtract: 3000 } as const;
+const BEAT_MS = { hook: 3000, trap: 4000, freeze: 3500, lens_activate: 1500, subtract: 3000, end_card: 3500 } as const;
 
 /** Length of one calculation step: focus + base/height + formula + hold. */
 export function studyStepMs(tokens: Tokens): number {
@@ -40,6 +49,25 @@ export function motionPreviewTimeline(card: LensCard, tokens: Tokens): Beat[] | 
     ...subs.map((_, index): Beat => ({ name: 'corner_step', durationMs: step, index })),
     { name: 'subtract', durationMs: BEAT_MS.subtract },
     { name: 'answer', durationMs: 500 + tokens.motion.study.final_hold_ms },
+  ];
+}
+
+/**
+ * The full Short (WO-003 step 2): the approved study-pace walkthrough, framed by the WO-003 beats.
+ * hook (question) → trap (+ time strip) → freeze (four lens buttons) → lens activates (correct
+ * button lights) → box → one beat per corner → subtract → answer → end card (trigger, time saved,
+ * series card). Null for cards the study walkthrough does not cover.
+ */
+export function shortTimeline(card: LensCard, tokens: Tokens): Beat[] | null {
+  const study = motionPreviewTimeline(card, tokens);
+  if (!study) return null;
+  const [trap, ...rest] = study;
+  return [
+    { name: 'hook', durationMs: BEAT_MS.hook },
+    trap!,
+    { name: 'freeze', durationMs: BEAT_MS.freeze },
+    ...rest,
+    { name: 'end_card', durationMs: BEAT_MS.end_card },
   ];
 }
 

@@ -1,7 +1,7 @@
 import { loadBundle } from '@lens/scenes';
 import { Composition } from 'remotion';
 import { calculatePreviewMetadata, EncloseMotionPreview, type EncloseMotionPreviewProps } from './EncloseMotionPreview';
-import { EncloseShort } from './EncloseShort';
+import { calculateShortMetadata, EncloseShort, type EncloseShortProps } from './EncloseShort';
 
 const SHORT_SECONDS = 30;
 const PREVIEW_CARD = 'enclose-001';
@@ -19,6 +19,8 @@ export function RemotionRoot() {
         height={height}
         fps={short.fps}
         durationInFrames={SHORT_SECONDS * short.fps}
+        defaultProps={{ cardId: PREVIEW_CARD } satisfies EncloseShortProps}
+        calculateMetadata={calculateShortMetadata}
       />
       <Composition
         id="EncloseMotionPreview"
