@@ -10,3 +10,4 @@ export { LensIcon } from './LensIcon';
 export { Bracket, BRACKET_OFFSET } from './Bracket';
 export { BAND_END_ROOM, BandFigure, type BandFigureProps } from './BandFigure';
 export { MirrorFigure, type MirrorFigureProps } from './MirrorFigure';
+export { StoryText, storyHeight, WordDiagram, type WordDiagramProps } from './WordDiagram';

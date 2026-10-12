@@ -47,6 +47,8 @@ export interface MotionState {
   /** The trap attempt drawn on the figure (e.g. the midpoint guess) and its dimming once the lens arrives. */
   trapDemo: number;
   trapDemoDim: number;
+  /** Progress per figure keyframe played by figure_step beats (word-problem diagrams). */
+  figureProg: Record<string, number>;
   /** Shortest path: Q′ reflected, the straight line drawn, the similar triangles. */
   reflect: number;
   straight: number;
@@ -105,6 +107,7 @@ export function initialMotionState(corners: number, apexes = 0): MotionState {
     pick: 0,
     buttonsOut: 0,
     endCard: 0,
+    figureProg: {},
     trapDemo: 0,
     trapDemoDim: 1,
     reflect: 0,
@@ -276,6 +279,19 @@ const REDUCERS: Record<Beat['name'], BeatReducer> = {
     captionStep: 2,
     caption: ease(span(ms, 0, FADE_MS)),
   }),
+
+  figure_step: (s, _t, ms, beat, { ease, tokens }) => {
+    const draw = ease(span(ms, 0, beat.durationMs - tokens.motion.study.step_hold_ms));
+    return {
+      ...s,
+      trapOpacity: Math.min(s.trapOpacity, TRAP_DIM) * (1 - span(ms, 0, FADE_MS)),
+      buttonsOut: Math.max(s.buttonsOut, ease(span(ms, 0, FADE_MS * 2))),
+      freezeTitle: s.freezeTitle * (1 - ease(span(ms, 0, FADE_MS))),
+      figureProg: beat.key ? { ...s.figureProg, [beat.key]: draw } : s.figureProg,
+      captionStep: beat.caption ?? s.captionStep,
+      caption: beat.caption === undefined ? s.caption : beat.caption === s.captionStep && s.caption > 0 ? 1 : ease(span(ms, 0, FADE_MS)),
+    };
+  },
 
   answer: (s, t, ms, _beat, { ease, spring, tokens }) => {
     const reveal = ease(span(ms, 0, tokens.motion.duration_ms.core_reveal));

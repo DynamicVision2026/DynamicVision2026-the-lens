@@ -10,9 +10,11 @@ import { color, fontFamily, fontSize, lensColor, themed, tokens as defaultTokens
 import { bandLayout } from './band';
 import { bandState } from './keyframes/band';
 import { mirrorState } from './keyframes/mirror';
+import { wordState } from './keyframes/word';
 import { mirrorLayout, touchX } from './mirror';
-import { BAND_END_ROOM, BandFigure, MirrorFigure } from './primitives';
-import type { GlowToken, GridPolygonFigure, LensCard, MirrorPathFigure, ParallelBandFigure, Point, Tokens } from './types';
+import { hasScene } from './variant';
+import { BAND_END_ROOM, BandFigure, MirrorFigure, StoryText, storyHeight, WordDiagram } from './primitives';
+import type { GlowToken, GridPolygonFigure, LensCard, MirrorPathFigure, ParallelBandFigure, Point, Tokens, WordProblemFigure } from './types';
 
 /** Scene viewBox in px at 1x. Video renders it at 2x (1080 px wide frame ≈ 2.25x). */
 export const SCENE_WIDTH = 480;
@@ -113,8 +115,15 @@ export function LensScene({
       </svg>
     );
   }
+  if (figure.type === 'word_problem' && hasScene(card)) {
+    return (
+      <svg {...svgProps}>
+        <WordKeyframeScene card={card} fig={figure} keyframes={keyframes} keyframe={keyframe} t={progress} tokens={tokens} mode={mode} />
+      </svg>
+    );
+  }
   if (figure.type !== 'grid_polygon') {
-    warnNoScene((figure as { type: string }).type);
+    warnNoScene(figure.type === 'word_problem' ? `word_problem/${figure.kind}` : (figure as { type: string }).type);
     return <svg {...svgProps} />;
   }
 
@@ -372,6 +381,66 @@ function MirrorKeyframeScene({ card, fig, keyframes, keyframe, t, tokens, glow, 
         caption={state.caption ? { text: state.caption.step.ja, t: state.caption.t, size: 'step' } : null}
         answer={state.answer}
         ink={color(tokens.color.ink, mode)}
+        accent={accent}
+      />
+    </g>
+  );
+}
+
+interface WordKeyframeSceneProps {
+  card: LensCard;
+  fig: WordProblemFigure;
+  keyframes: string[];
+  keyframe: number;
+  t: number;
+  tokens: Tokens;
+  mode: RenderMode;
+}
+
+/** A word problem: the story on top, the diagram the lens draws below (trainer and /dev/scenes). */
+function WordKeyframeScene({ card, fig, keyframes, keyframe, t, tokens, mode }: WordKeyframeSceneProps) {
+  const state = wordState(keyframes, keyframe, t, card, fig);
+  const ink = color(tokens.color.ink, mode);
+  const accent = lensColor(tokens, card.lens, mode);
+  const size = fontSize(tokens, 'problem', mode);
+  const label = fontSize(tokens, 'label', mode);
+  const width = SCENE_WIDTH - 2 * PAD;
+  const top = storyHeight(card.problem.text_ja, width, size);
+  const ja = fontFamily(tokens, tokens.type.scale.problem);
+  return (
+    <g>
+      <StoryText text={card.problem.text_ja} x={PAD} y={PAD / 2} width={width} size={size} ink={ink} accent={accent} font={ja} weight={tokens.type.scale.title.weight} highlight={state.story} opacity={Math.max(0.25, state.story)} />
+      <WordDiagram
+        card={card}
+        fig={fig}
+        x={PAD}
+        y={PAD / 2 + top}
+        w={width}
+        h={FIGURE_HEIGHT - PAD / 2 - top}
+        prog={state.prog}
+        tokens={tokens}
+        ink={ink}
+        accent={accent}
+        palette={tokens.color.step.palette.map((c) => color(c, mode))}
+        font={fontFamily(tokens, undefined, 'family_num')}
+        jaFont={ja}
+        weight={tokens.type.scale.title.weight}
+        labelSize={label}
+        numberSize={fontSize(tokens, 'step', mode)}
+        figureStroke={tokens.stroke.figure.width}
+        lensStroke={tokens.stroke.lens.width}
+        dash={tokens.stroke.trap.dash}
+        bracket={{ offset: label * 0.9, tick: 5, strokeWidth: tokens.stroke.lens_construction.width }}
+        tint={tokens.color.step.tint_opacity}
+        show={1}
+      />
+      <TextBand
+        card={card}
+        tokens={tokens}
+        mode={mode}
+        caption={state.caption ? { text: state.caption.step.ja, t: state.caption.t, size: 'step' } : null}
+        answer={state.answer}
+        ink={ink}
         accent={accent}
       />
     </g>

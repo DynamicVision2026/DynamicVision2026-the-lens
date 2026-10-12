@@ -1,11 +1,11 @@
 import { parseEasing } from '../easing';
 import { answerText, formatExact } from '../format';
 import { boundingBox, boxCorners, centroid, enclosureGaps, outwardDirection, partialPolyline, type Box } from '../geometry';
-import { BAND_END_ROOM, BandFigure, Bracket, ConstructionLine, MirrorFigure, FigurePolygon, GridLayer, LensIcon, makeFrame, svgPoints, toSvg, type Frame } from '../primitives';
+import { BAND_END_ROOM, BandFigure, Bracket, ConstructionLine, MirrorFigure, StoryText, storyHeight, WordDiagram, FigurePolygon, GridLayer, LensIcon, makeFrame, svgPoints, toSvg, type Frame } from '../primitives';
 import { wrapText } from '../text';
 import { color, fontFamily, lensColor, type LensOrDirect, type RenderMode } from '../tokens';
 import { timeLabel } from '../format';
-import type { GlowToken, GridPolygonFigure, LensCard, MirrorPathFigure, ParallelBandFigure, Point, ShortLayout, Step, StepDetail, Tokens } from '../types';
+import type { GlowToken, GridPolygonFigure, LensCard, MirrorPathFigure, ParallelBandFigure, WordProblemFigure, Point, ShortLayout, Step, StepDetail, Tokens } from '../types';
 import { bandLayout, bandTriangles } from '../band';
 import { mirrorLayout, touchX } from '../mirror';
 import { motionState, type MotionState } from './beats';
@@ -101,6 +101,7 @@ export function MotionScene({ card, beats, beat, t, tokens: baseTokens, glow, mo
   const gridFig = figure.type === 'grid_polygon' ? figure : null;
   const bandFig = figure.type === 'parallel_band' ? figure : null;
   const mirrorFig = figure.type === 'mirror_path' ? figure : null;
+  const wordFig = figure.type === 'word_problem' ? figure : null;
   const { grid, points } = gridFig ?? NO_GRID;
   const gaps = enclosureGaps(points);
   const steps = card.lens_route.steps;
@@ -279,6 +280,23 @@ export function MotionScene({ card, beats, beat, t, tokens: baseTokens, glow, mo
           idPrefix={`lens-${card.id}`}
           glowFilter={glowFilter}
           glowOpacity={glow?.opacity}
+          bottom={cardTop}
+        />
+      )}
+      {wordFig && (
+        <WordLayer
+          card={card}
+          fig={wordFig}
+          state={state}
+          layout={L}
+          tokens={tokens}
+          ink={ink}
+          chalk={chalk}
+          accent={accent}
+          palette={palette.map((c) => color(c, mode))}
+          font={numFont}
+          weight={tokens.type.scale.label.weight}
+          idPrefix={`lens-${card.id}`}
           bottom={cardTop}
         />
       )}
@@ -582,6 +600,56 @@ function TitleBandLines({ text, x, width, layout, fill, opacity, font, weight }:
           {line}
         </text>
       ))}
+    </g>
+  );
+}
+
+interface WordLayerProps extends Omit<BandLayerProps, 'fig' | 'glowFilter' | 'glowOpacity'> {
+  card: LensCard;
+  fig: WordProblemFigure;
+}
+
+/**
+ * A word problem at Short size: the story (numbers highlighted) on top of the figure region, the
+ * diagram below it. In the full Short the hook shows the question in the title band, so the story
+ * waits until that has gone.
+ */
+function WordLayer({ card, fig, state, layout: L, tokens, ink, chalk, accent, palette, font, weight, bottom }: WordLayerProps) {
+  const { regions: R, type_px: T, pieces: P, brackets: BR } = L;
+  const [W] = L.size_px;
+  const margin = R.figure.min_margin_px;
+  const width = W - 2 * margin;
+  const top = storyHeight(card.problem.text_ja, width, T.trigger);
+  const jaFont = fontFamily(tokens, tokens.type.scale.title);
+  const storyOpacity = state.chalk * (1 - state.question);
+  const anyStep = Object.values(state.figureProg).some((v) => v > 0);
+  return (
+    <g>
+      <StoryText text={card.problem.text_ja} x={margin} y={R.figure.y - T.trigger} width={width} size={T.trigger} ink={state.inked > 0.5 ? ink : chalk} accent={accent} font={jaFont} weight={tokens.type.scale.title.weight} highlight={state.inked} opacity={storyOpacity} />
+      <WordDiagram
+        card={card}
+        fig={fig}
+        x={margin}
+        y={R.figure.y - T.trigger + top}
+        w={width}
+        h={bottom - (R.figure.y - T.trigger + top) - BR.offset_px}
+        prog={state.figureProg}
+        tokens={tokens}
+        ink={ink}
+        accent={accent}
+        palette={palette}
+        font={font}
+        jaFont={jaFont}
+        weight={weight}
+        labelSize={T.vertex_label}
+        numberSize={T.bracket_number}
+        figureStroke={tokens.stroke.figure.width}
+        lensStroke={P.current.stroke_width}
+        dash={tokens.stroke.trap.dash}
+        bracket={{ offset: BR.offset_px, tick: BR.tick_px / 2, strokeWidth: tokens.stroke.lens_construction.width }}
+        tint={P.current.fill_opacity * 2}
+        show={anyStep ? 1 : 0}
+      />
     </g>
   );
 }
