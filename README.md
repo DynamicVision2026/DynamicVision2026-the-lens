@@ -11,15 +11,18 @@ schema/lens-card.schema.json   card schema v1.0
 cards/enclose/*.yaml           Enclose (囲む) reference cards
 tokens/tokens.json             visual tokens for web, video and print
 tools/validate.py              schema + SymPy checks + variant generation
-build/variants/*.json          generated variants (do not edit by hand)
+build/                         generated: variants/*.json and bundle.json (git-ignored)
 ```
 
 ## Validate
 
 ```
 pip install -r requirements.txt
-python3 tools/validate.py cards/enclose/*.yaml --variants
+python3 tools/validate.py cards/enclose/*.yaml --variants   # validate + variants
+python3 tools/validate.py cards/**/*.yaml --bundle           # + build/bundle.json for the apps
 ```
+
+The trainer and the Shorts renderer import only `build/bundle.json` (contract in `docs/PRD.md` §5).
 
 Exit code is non-zero if any card fails. Renderers only read cards whose status is `verified` or later, and CI runs this on every push.
 
