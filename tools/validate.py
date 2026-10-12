@@ -176,6 +176,16 @@ def band_triangles(fig):
     return [[(S(b[i]), S(0)), (S(b[i + 1]), S(0)), (S(a[i]), S(h))] for i in range(len(a))]
 
 
+def mirror_touch(fig):
+    """Reflect Q across the line; the straight line P->Q' meets the line at AX = ab*pa/(pa+qb)."""
+    return S(fig["ab"]) * fig["pa"] / (fig["pa"] + fig["qb"])
+
+
+def mirror_length(fig, x):
+    from sympy import sqrt
+    return sqrt(S(x) ** 2 + fig["pa"] ** 2) + sqrt((fig["ab"] - S(x)) ** 2 + fig["qb"] ** 2)
+
+
 # ------------------------------------------------------------------ checks ---
 
 def route_total(route) -> Rational | None:
@@ -203,6 +213,18 @@ def run_check(card, check, pts) -> tuple[bool, str]:
     ans = sympify(card["answer"]["value"])
     fig = card["problem"]["figure"]
     g = fig.get("grid")
+    if t == "mirror_touch_point":
+        x = mirror_touch(fig)
+        return x == ans, f"reflection gives AX = {x}, answer = {ans}"
+    if t == "mirror_shortest":
+        x = mirror_touch(fig)
+        best = mirror_length(fig, x)
+        probes = [x + d for d in (S(-1), S(-1) / 2, S(1) / 2, S(1))] + [S(0), S(fig["ab"])]
+        ok = all((mirror_length(fig, q) - best).evalf(30) > 0 for q in probes if q != x)
+        return ok, f"path through AX = {x} is shorter than through nearby points and both ends"
+    if t == "mirror_not_midpoint":
+        ok = fig["pa"] != fig["qb"]
+        return ok, "P and Q are at different distances, so the halfway guess is wrong"
     if t == "band_triangles_disjoint":
         b, a = fig["bottom_x"], fig["apex_x"]
         ok = len(a) == len(b) - 1 and all(x < y for x, y in zip(b, b[1:])) and all(x < y for x, y in zip(a, a[1:]))
@@ -373,12 +395,13 @@ def make_band_variants(card):
     fig0 = card["problem"]["figure"]
     k = len(fig0["apex_x"])
     seen = {(tuple(fig0["bottom_x"]), tuple(fig0["apex_x"]), fig0["band_height"])}
+    used_h, used_L = {fig0["band_height"]}, {fig0["bottom_x"][-1] - fig0["bottom_x"][0]}  # each variant gets a fresh height and base
     out, tries = [], 0
     while len(out) < v["count"] and tries < 2000:
         tries += 1
         L = rng.randint(c.get("min_base", 8), c.get("max_base", 14))
         h = rng.randint(c.get("min_height", 3), c.get("max_height", 8))
-        if L < k + 1:
+        if L < k + 1 or h in used_h or L in used_L:
             continue
         bottom = [0] + sorted(rng.sample(range(1, L), k - 1)) + [L]
         apex = sorted(rng.sample(range(0, L + 1), k))
@@ -397,15 +420,54 @@ def make_band_variants(card):
         ]
         if route_total({"steps": steps}) != area:
             continue
-        seen.add(key)
+        seen.add(key); used_h.add(h); used_L.add(L)
         out.append({"id": f"{card['id']}-v{len(out) + 1}", "figure": {"bottom_x": bottom, "apex_x": apex, "band_height": h},
                     "answer": str(area), "lens_route": {"steps": steps}})
+    return out
+
+
+def make_mirror_variants(card):
+    """mirror_path: new ab, pa, qb with an exact, simple touch point (AX a whole number)."""
+    v = card["variants"]
+    rng = random.Random(v["seed"])
+    c = v.get("constraints", {})
+    fig0 = card["problem"]["figure"]
+    from math import gcd as _g
+    ratio = lambda a, b: (a // _g(a, b), b // _g(a, b))
+    used_ratios, used_ab = {ratio(fig0["pa"], fig0["qb"])}, {fig0["ab"]}
+    seen = {(fig0["ab"], fig0["pa"], fig0["qb"])}
+    out, tries = [], 0
+    while len(out) < v["count"] and tries < 20000:
+        tries += 1
+        pa, qb = rng.randint(c.get("min_side", 2), c.get("max_side", 10)), rng.randint(c.get("min_side", 2), c.get("max_side", 10))
+        ab = rng.randint(c.get("min_ab", 6), c.get("max_ab", 20))
+        # each variant teaches something new: a fresh ratio and a fresh length
+        if pa == qb or (ab * pa) % (pa + qb) or ratio(pa, qb) in used_ratios or ab in used_ab:
+            continue
+        fig = {**fig0, "ab": ab, "pa": pa, "qb": qb}
+        x = mirror_touch(fig)
+        vcard = {**card, "answer": {**card["answer"], "value": str(x)}, "problem": {**card["problem"], "figure": fig}}
+        if not all(run_check(vcard, ch, None)[0] for ch in card["checks"] if ch["type"].startswith("mirror_")):
+            continue
+        from math import gcd
+        g = gcd(pa, qb)
+        steps = [
+            {"ja": "Qを川で折り返した点Q'をとる（XQ＝XQ'）", "op": "note"},
+            {"ja": "PからQ'へまっすぐ線を引く。川と交わる点がX", "op": "note"},
+            {"ja": f"三角形PAXとQ'BXは同じ形なので AX:XB = {pa}:{qb}" + (f" = {pa // g}:{qb // g}" if g > 1 else ""), "op": "note"},
+            {"ja": f"AX = {ab}×{pa // g}/{(pa + qb) // g} = {_fmt(x)}", "value": str(x), "op": "result"},
+        ]
+        seen.add((ab, pa, qb)); used_ratios.add(ratio(pa, qb)); used_ab.add(ab)
+        out.append({"id": f"{card['id']}-v{len(out) + 1}", "figure": {"ab": ab, "pa": pa, "qb": qb},
+                    "answer": str(x), "lens_route": {"steps": steps}})
     return out
 
 
 def make_variants(card):
     if card["variants"]["generator"] == "slide_band":
         return make_band_variants(card)
+    if card["variants"]["generator"] == "mirror_path":
+        return make_mirror_variants(card)
     v = card["variants"]
     rng = random.Random(v["seed"])
     gen = GENERATORS[v["generator"]]

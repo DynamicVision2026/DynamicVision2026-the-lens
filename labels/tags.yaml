@@ -16,3 +16,5 @@ mixing:               {ja: 2つのものを混ぜる}
 triangles_between_parallels: {ja: 平行な2本の線の間に三角形がならぶ}
 apexes_on_one_line:   {ja: 頂点が同じ直線の上にある}
 only_total_given:     {ja: 1つ1つの長さは分からず、合計だけ分かる}
+touch_a_line:         {ja: とちゅうで直線に1回ふれる}
+two_points_same_side: {ja: 2つの点が直線の同じ側にある}
