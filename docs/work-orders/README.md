@@ -2,11 +2,14 @@
 
 Each work order (WO) is one PR. Read `docs/PRD.md` first; this folder only adds what to build next and how it is accepted.
 
+**Build order (Brian, Oct 12: launch path first):** WO-003 step 2 → **WO-009** → WO-004 → WO-005 → WO-006 → WO-007 → WO-008. Start each one as soon as the previous PR is in review.
+
 | WO | Title | Depends on | Target |
 | --- | --- | --- | --- |
 | [WO-001](WO-001-monorepo-scaffold.md) | Monorepo and directory scaffolding | PR #1 merged (bundle) | Oct 16 |
 | [WO-002](WO-002-scenes-and-tokens.md) | Shared SVG scene components reading tokens | WO-001 | Oct 20 |
 | [WO-003](WO-003-enclose-prototype.md) | Enclose prototype: 30 s Short + Perspective Picker. **Start with the [motion preview](WO-003-motion.md).** | WO-002 | Preview first, then Oct 21 demo |
+| [WO-009](WO-009-launch-site.md) | **Launch site:** landing page → Free Lens → email signup → ¥6,800 preorder. **Next after WO-003 step 2** | WO-003 step 2 | Oct 27 |
 | [WO-004](WO-004-slide-scenes.md) | Slide lens (等積変形): parallel-band figure and its scenes | WO-003 step 2 | Oct 27 |
 | [WO-005](WO-005-mirror-scenes.md) | Mirror lens (折り返す): shortest-path figure and its scenes | WO-004 | Oct 30 |
 | [WO-006](WO-006-word-problem-scenes.md) | Area (面積図) and Constant (差一定): word-problem diagrams | WO-004 | Nov 2 |
@@ -19,14 +22,14 @@ Each work order (WO) is one PR. Read `docs/PRD.md` first; this folder only adds 
 2. **Architect-owned paths:** `cards/`, `labels/`, `schema/`, `tools/`, `tokens/`. Do not edit them. If you need a field, a token or a bundle change, open an issue labelled `architect` and keep going with a clearly marked stub.
 3. **The bundle is the only data source.** Apps import `build/bundle.json` (contract: `docs/PRD.md` §5). Never read YAML in the apps, never hard-code a card's numbers or Japanese text, never re-compute an answer.
 4. **Tokens are the only style source.** No hex colours, font names or stroke widths in components; read them from `tokens/tokens.json`.
-5. **Merge rule:** the founder approves, the Builder merges. Merge a PR only when all three hold:
+5. **Merge rule:** the founder approves, the **Architect merges** (Brian, Oct 12; before that the Builder merged). Merge a PR only when all three hold:
    - every check is green (**validate** and **apps**);
    - for app work, the Architect has posted a **visual check** on the PR (the Architect runs the build headless and sends the founder screenshots; AI sessions can't upload video, so no screen recording is required);
    - the founder has approved it.
 
    The founder approves verbally to the Architect or Coordinator, who records it as a PR comment starting **"✅ Approved by Brian"**. That comment is the approval; no GitHub review button is needed. PRs touching `cards/`, `schema/`, `tools/` or `tokens/` also need the Architect's sign-off.
 
-   **Standing approval (Brian, Oct 12):** for WO-003 step 2 through WO-008, the founder has approved in advance. Merge as soon as both checks are green and the Architect's visual check says **Pass**; no per-PR approval comment is needed. A visual check that requests changes blocks the merge. Brian reviews milestone drops and can stop any PR by saying so. Then start the next WO straight away.
+   **Standing approval (Brian, Oct 12):** for WO-003 step 2 through WO-009, the founder has approved in advance. The Architect merges as soon as both checks are green and the visual check says **Pass**; no per-PR approval comment is needed. The Builder does not wait for the merge: start the next WO from the PR branch or `main`, whichever is current. A visual check that requests changes blocks the merge. Brian reviews milestone drops and can stop any PR by saying so. Then start the next WO straight away.
 
    Use **Squash and merge**, except for a stack of PRs built on each other: merge those with **Create a merge commit**, bottom first, so the ones above don't conflict. Leave the merged branch in place: AI sessions can't delete branches, and leftover branches are harmless. If the PR shows a conflict, update the branch from `main`, wait for the checks to go green again, then merge.
 6. **Keep it small.** No state libraries, no UI kits, no backend. React state, plain SVG, Vite, Remotion. Ask before adding any dependency not named in a WO. Approved so far: Vitest 4 (dev-only test runner, Node 20 compatible).
