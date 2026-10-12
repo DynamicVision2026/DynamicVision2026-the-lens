@@ -239,6 +239,18 @@ describe('full Short (WO-003 step 2)', () => {
     for (const opt of card001.picker.options) expect(t).toContain(bundle.labels.lenses[opt]!.ja);
   });
 
+  it('clears the lens buttons before the first step brings in the equation row', () => {
+    const beats = beatsOf(card001);
+    const k = beats.findIndex((b) => b.name === 'lens_activate');
+    // Still there while the correct one lights up…
+    // (The other lenses' labels appear only on the buttons; the correct one is also on the lens chip.)
+    const others = card001.picker.options.filter((o) => o !== card001.lens).map((o) => bundle.labels.lenses[o]!.ja);
+    for (const label of others) expect(texts(renderShort(card001, k, 0.2))).toContain(label);
+    // …and gone by the start of the next beat.
+    const next = texts(renderShort(card001, k + 1, 0));
+    for (const label of others) expect(next).not.toContain(label);
+  });
+
   it('ends on the trigger, the time saved and the series card', () => {
     const beats = beatsOf(card001);
     const t = texts(renderShort(card001, beats.length - 1, 1));

@@ -212,7 +212,8 @@ function PlayCard({ card, short }: { card: LensCard; short: string | null }) {
 }
 
 function Report({ card, first, variant, short }: { card: LensCard; first: number; variant: number; short: string | null }) {
-  const badge = tokens.time_cost.source_badge[card.lens_route.time_source];
+  // The bars are this child's own measured times, so they are 実測 (目安/実測 from time_source is for the card's estimates).
+  const badge = tokens.time_cost.source_badge.tester_median;
   const max = Math.max(first, variant, 1);
   return (
     <div className="report fade">

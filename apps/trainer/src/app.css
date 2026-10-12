@@ -166,6 +166,7 @@ input {
   gap: calc(var(--gutter) * 2);
 }
 .launch h1 {
+  word-break: keep-all;
   font-size: var(--type-display-size);
   font-weight: var(--type-display-weight);
   line-height: 1.3;
