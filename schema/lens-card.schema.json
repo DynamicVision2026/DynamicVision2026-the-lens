@@ -1,0 +1,170 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://beyondculture.ai/the-lens/lens-card.schema.json",
+  "title": "Lens Card",
+  "description": "One problem in 視点レンズ (The Lens). Single source for the web trainer, Shorts renderer and Typst book. Schema version 1.0.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "id", "kind", "lens", "stage", "grades", "provenance",
+    "problem", "answer", "trap_route", "lens_route", "trigger", "picker",
+    "checks", "variants", "status"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "id": { "type": "string", "pattern": "^[a-z]+-(\\d{3}|f\\d{2}|no-lens(-\\d{2})?)$" },
+    "kind": {
+      "description": "standard = the lens is the best route; failure = the lens stalls and another move wins; no_lens = direct calculation is fastest.",
+      "enum": ["standard", "failure", "no_lens"]
+    },
+    "lens": { "description": "Lens this card is about (for no_lens: the lens a student is tempted to over-apply).", "enum": ["enclose", "slide", "unfold", "freeze", "balance", "area", "mirror", "constant"] },
+    "best_move": { "description": "The move that actually wins. Equals lens for standard cards; required for failure and no_lens cards.", "type": "string" },
+    "stage": { "enum": ["shogakko", "chugaku", "koko", "daigaku"] },
+    "grades": { "type": "array", "items": { "enum": ["小4", "小5", "小6", "中1", "中2", "中3", "高1", "高2", "高3", "大学"] }, "minItems": 1 },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["original", "built_from", "not_derived_from"],
+      "properties": {
+        "original": { "const": true },
+        "built_from": { "description": "The mathematical archetype or theorem the card is built from.", "type": "string" },
+        "not_derived_from": { "description": "Plain statement that no exam, textbook or 塾 problem was adapted.", "type": "string" },
+        "author": { "type": "string" },
+        "reviewed_by": { "type": "string" }
+      }
+    },
+    "grounding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["principle_ja", "principle_en"],
+      "properties": {
+        "principle_ja": { "type": "string" },
+        "principle_en": { "type": "string" }
+      }
+    },
+    "problem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text_ja", "figure", "unit"],
+      "properties": {
+        "text_ja": { "type": "string" },
+        "unit": { "type": "string" },
+        "figure": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "grid", "points"],
+          "properties": {
+            "type": { "enum": ["grid_polygon"] },
+            "grid": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["width", "height", "cell_cm"],
+              "properties": {
+                "width": { "type": "integer", "minimum": 2, "maximum": 12 },
+                "height": { "type": "integer", "minimum": 2, "maximum": 12 },
+                "cell_cm": { "type": "number", "exclusiveMinimum": 0 }
+              }
+            },
+            "points": {
+              "description": "Lattice points in drawing order, counter-clockwise. Labels A, B, C... are assigned in this order.",
+              "type": "array", "minItems": 3, "maxItems": 10,
+              "items": { "type": "array", "items": { "type": "integer", "minimum": 0 }, "minItems": 2, "maxItems": 2 }
+            }
+          }
+        }
+      }
+    },
+    "answer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "expr"],
+      "properties": {
+        "value": { "description": "Exact answer as a SymPy-parsable string, e.g. '39/2'.", "type": "string" },
+        "display_ja": { "type": "string" },
+        "expr": { "description": "Which check produces the answer.", "enum": ["polygon_area"] }
+      }
+    },
+    "trap_route": { "$ref": "#/$defs/route" },
+    "lens_route": { "$ref": "#/$defs/route" },
+    "trigger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ja", "tags"],
+      "properties": {
+        "ja": { "type": "string" },
+        "en": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+      }
+    },
+    "fails_when": { "description": "id of the linked failure card (standard cards only).", "type": "string" },
+    "picker": {
+      "description": "The four choices shown in the Perspective Picker.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["options", "correct", "feedback_ja"],
+      "properties": {
+        "options": { "type": "array", "items": { "type": "string" }, "minItems": 4, "maxItems": 4, "uniqueItems": true },
+        "correct": { "type": "string" },
+        "feedback_ja": { "description": "One line per option explaining why it does or does not fit.", "type": "object", "additionalProperties": { "type": "string" } }
+      }
+    },
+    "animation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["keyframes"],
+      "properties": {
+        "keyframes": { "type": "array", "items": { "type": "string" }, "minItems": 2 }
+      }
+    },
+    "checks": {
+      "description": "Assertions the validator runs with SymPy. All must pass for status 'verified'.",
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type"],
+        "properties": {
+          "type": { "enum": ["area_equals_answer", "route_steps_sum", "enclose_clean", "enclose_not_clean", "has_horizontal_base", "lattice_only", "simple_polygon", "lens_faster"] },
+          "route": { "enum": ["trap_route", "lens_route"] },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "variants": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["generator", "count", "seed"],
+      "properties": {
+        "generator": { "enum": ["enclose_standard", "enclose_failure_notch", "no_lens_flat_base"] },
+        "count": { "type": "integer", "minimum": 0, "maximum": 50 },
+        "seed": { "type": "integer" },
+        "constraints": { "type": "object" }
+      }
+    },
+    "status": { "enum": ["draft", "verified", "reviewed", "published"] }
+  },
+  "$defs": {
+    "route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["steps", "time_cost_sec", "time_source"],
+      "properties": {
+        "steps": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["ja"],
+            "properties": {
+              "ja": { "type": "string" },
+              "value": { "description": "Exact value this step produces (SymPy string).", "type": "string" },
+              "op": { "description": "How this step's value combines into the route total.", "enum": ["start", "add", "sub", "result", "note"] }
+            }
+          }
+        },
+        "time_cost_sec": { "type": "integer", "minimum": 1 },
+        "time_source": { "enum": ["estimate", "tester_median"] }
+      }
+    }
+  }
+}

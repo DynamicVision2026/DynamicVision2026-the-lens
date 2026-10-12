@@ -1,0 +1,84 @@
+schema_version: "1.0"
+id: enclose-001
+kind: standard
+lens: enclose
+best_move: enclose
+stage: shogakko
+grades: [小5, 小6]
+status: verified
+
+provenance:
+  original: true
+  built_from: "Archetype: area of a lattice quadrilateral with one vertex on each side of its bounding box (box minus four right-triangle corners)."
+  not_derived_from: "Coordinates, wording and figure are original. Not adapted from any 入試, textbook or 塾 problem."
+  author: "The Lens content team"
+
+grounding:
+  principle_ja: "面積の加法性：大きな長方形から、まわりの直角三角形を引けば、残りの面積が求まる。"
+  principle_en: "Additivity of area: the enclosing rectangle minus the corner right triangles leaves exactly the polygon."
+
+problem:
+  text_ja: "方眼の1目もりは1cmです。四角形ABCDの面積は何cm²ですか。"
+  unit: "cm²"
+  figure:
+    type: grid_polygon
+    grid: {width: 6, height: 6, cell_cm: 1}
+    points: [[1, 0], [6, 2], [4, 6], [0, 3]]   # A, B, C, D (counter-clockwise)
+
+answer:
+  value: "39/2"
+  display_ja: "19.5cm²"
+  expr: polygon_area
+
+trap_route:
+  time_cost_sec: 240
+  time_source: estimate
+  steps:
+    - {ja: "対角線ACで2つの三角形に分ける", op: note}
+    - {ja: "底辺ACが方眼の線に乗っていない", op: note}
+    - {ja: "高さが読み取れず、目分量で測って誤差が出る", op: note}
+    - {ja: "ここで約4分。答えが合わない", op: note}
+
+lens_route:
+  time_cost_sec: 30
+  time_source: estimate
+  steps:
+    - {ja: "6×6の正方形で囲む", value: "36", op: start}
+    - {ja: "左下の三角形 1×3÷2", value: "3/2", op: sub}
+    - {ja: "右下の三角形 5×2÷2", value: "5", op: sub}
+    - {ja: "右上の三角形 2×4÷2", value: "4", op: sub}
+    - {ja: "左上の三角形 4×3÷2", value: "6", op: sub}
+    - {ja: "36 − 16.5 = 19.5", value: "39/2", op: result}
+
+trigger:
+  ja: "方眼の上のななめの図形は、切らずに囲む。"
+  en: "A tilted shape on a grid: don't cut it, enclose it."
+  tags: [grid, tilted_polygon, vertices_on_box]
+
+fails_when: enclose-f01
+
+picker:
+  options: [enclose, slide, mirror, direct]
+  correct: enclose
+  feedback_ja:
+    enclose: "そのとおり。4つの頂点がすべて外側の長方形の辺に乗っている。"
+    slide: "平行な線がないので、等積変形の手がかりがない。"
+    mirror: "最短の道すじを求める問題ではない。"
+    direct: "底辺も高さも方眼の線に乗らないので、直接は計算しにくい。"
+
+animation:
+  keyframes: [show_shape, draw_box, shade_corners, label_corners, subtract, show_answer]
+
+checks:
+  - {type: lattice_only}
+  - {type: simple_polygon}
+  - {type: area_equals_answer}
+  - {type: enclose_clean}
+  - {type: route_steps_sum, route: lens_route}
+  - {type: lens_faster}
+
+variants:
+  generator: enclose_standard
+  count: 3
+  seed: 1001
+  constraints: {min: 4, max: 8}

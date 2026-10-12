@@ -1,0 +1,80 @@
+schema_version: "1.0"
+id: enclose-no-lens
+kind: no_lens
+lens: enclose
+best_move: "direct: base × height ÷ 2 (底辺×高さ÷2)"
+stage: shogakko
+grades: [小5, 小6]
+status: verified
+
+provenance:
+  original: true
+  built_from: "Archetype: lattice triangle with one side on a grid line and the apex above that side (negative control for Enclose)."
+  not_derived_from: "Coordinates, wording and figure are original. Not adapted from any 入試, textbook or 塾 problem."
+  author: "The Lens content team"
+
+grounding:
+  principle_ja: "三角形の面積 = 底辺×高さ÷2。底辺と高さが方眼の線に乗っていれば、レンズはいらない。"
+  principle_en: "Triangle area = base × height ÷ 2; when both lie on grid lines, no lens is needed."
+
+problem:
+  text_ja: "方眼の1目もりは1cmです。三角形ABCの面積は何cm²ですか。"
+  unit: "cm²"
+  figure:
+    type: grid_polygon
+    grid: {width: 7, height: 5, cell_cm: 1}
+    points: [[0, 0], [7, 0], [2, 5]]   # A, B, C
+
+answer:
+  value: "35/2"
+  display_ja: "17.5cm²"
+  expr: polygon_area
+
+trap_route:              # the trap is reaching for Enclose out of habit
+  time_cost_sec: 60
+  time_source: estimate
+  steps:
+    - {ja: "くせで7×5の長方形で囲む", value: "35", op: start}
+    - {ja: "右上の三角形 5×5÷2", value: "25/2", op: sub}
+    - {ja: "左上の三角形 2×5÷2", value: "5", op: sub}
+    - {ja: "35 − 17.5 = 17.5。合っているが遠回り", value: "35/2", op: result}
+
+lens_route:
+  time_cost_sec: 15
+  time_source: estimate
+  steps:
+    - {ja: "底辺ABは横の線に乗っている：7", op: note}
+    - {ja: "高さは方眼で読める：5", op: note}
+    - {ja: "7×5÷2 = 17.5", value: "35/2", op: result}
+
+trigger:
+  ja: "底辺と高さが方眼の線に乗っていたら、レンズは使わずにそのまま計算。"
+  en: "Base and height on grid lines: skip the lens and calculate directly."
+  tags: [grid, triangle, base_on_grid_line]
+
+picker:
+  options: [enclose, slide, mirror, direct]
+  correct: direct
+  feedback_ja:
+    enclose: "囲んでも答えは出るが、3回計算が必要。ここではいちばん遠回り。"
+    slide: "動かさなくても、底辺と高さがもう見えている。"
+    mirror: "最短の道すじを求める問題ではない。"
+    direct: "そのとおり。底辺7、高さ5が方眼で読める。レンズはいらない。"
+
+animation:
+  keyframes: [show_shape, highlight_base, drop_height, show_answer, ghost_box_struck_out]
+
+checks:
+  - {type: lattice_only}
+  - {type: simple_polygon}
+  - {type: area_equals_answer}
+  - {type: has_horizontal_base}
+  - {type: route_steps_sum, route: trap_route}
+  - {type: route_steps_sum, route: lens_route}
+  - {type: lens_faster}
+
+variants:
+  generator: no_lens_flat_base
+  count: 3
+  seed: 3001
+  constraints: {min: 5, max: 9}

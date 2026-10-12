@@ -1,0 +1,41 @@
+name: Validate Lens Cards
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install validator dependencies
+        run: pip install -r requirements.txt
+
+      - name: Validate tokens.json is well-formed
+        run: python -c "import json; json.load(open('tokens/tokens.json', encoding='utf-8'))"
+
+      - name: Validate every Lens Card (schema + SymPy checks + variants)
+        run: |
+          shopt -s globstar nullglob
+          cards=(cards/**/*.yaml)
+          if [ ${#cards[@]} -eq 0 ]; then echo "No cards found"; exit 1; fi
+          python tools/validate.py "${cards[@]}" --variants
+
+      - name: Upload generated variants
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: variants
+          path: build/variants/
+          if-no-files-found: ignore

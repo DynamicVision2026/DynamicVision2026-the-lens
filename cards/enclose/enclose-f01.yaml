@@ -1,0 +1,84 @@
+schema_version: "1.0"
+id: enclose-f01
+kind: failure
+lens: enclose
+best_move: "split along a grid line (方眼の線で分ける)"
+stage: shogakko
+grades: [小5, 小6]
+status: verified
+
+provenance:
+  original: true
+  built_from: "Archetype: lattice hexagon with a two-vertex notch, so the gap left by Enclose is a quadrilateral, not a right triangle."
+  not_derived_from: "Coordinates, wording and figure are original. Not adapted from any 入試, textbook or 塾 problem."
+  author: "The Lens content team"
+
+grounding:
+  principle_ja: "面積の加法性は、どう分けても成り立つ。直角三角形にならないすき間が出たら、分け方を変えるほうが速い。"
+  principle_en: "Area is additive under any decomposition; when a gap is not a right triangle, a different cut is faster than enclosing."
+
+problem:
+  text_ja: "方眼の1目もりは1cmです。六角形ABCDEFの面積は何cm²ですか。"
+  unit: "cm²"
+  figure:
+    type: grid_polygon
+    grid: {width: 6, height: 6, cell_cm: 1}
+    points: [[0, 0], [6, 0], [6, 6], [0, 6], [2, 4], [3, 2]]   # A..F; E and F are inside the box
+
+answer:
+  value: "26"
+  display_ja: "26cm²"
+  expr: polygon_area
+
+trap_route:              # the trap here IS over-applying Enclose
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+    - {ja: "6×6の正方形で囲む", value: "36", op: start}
+    - {ja: "すき間は四角形DEFA。直角三角形ではない", op: note}
+    - {ja: "すき間を三角形AFDに分ける 6×3÷2", value: "9", op: sub}
+    - {ja: "残りの細い三角形FEDはななめ。もう一度囲む必要がある", value: "1", op: sub}
+    - {ja: "囲む→分ける→また囲む。約3分", op: note}
+    - {ja: "36 − 9 − 1 = 26", value: "26", op: result}
+
+lens_route:
+  time_cost_sec: 50
+  time_source: estimate
+  steps:
+    - {ja: "縦の線 x=3 で切る。右側は3×6の長方形", value: "18", op: start}
+    - {ja: "左下の三角形 3×2÷2", value: "3", op: add}
+    - {ja: "縦の辺を底辺とする三角形 4×1÷2", value: "2", op: add}
+    - {ja: "上の辺を底辺とする三角形 3×2÷2", value: "3", op: add}
+    - {ja: "18 + 3 + 2 + 3 = 26", value: "26", op: result}
+
+trigger:
+  ja: "頂点が囲みの内側に2つ以上あったら、囲まずに方眼の線で分ける。"
+  en: "Two or more vertices inside the box: cut along a grid line instead of enclosing."
+  tags: [grid, concave_polygon, vertices_inside_box]
+
+picker:
+  options: [enclose, slide, mirror, direct]
+  correct: direct
+  feedback_ja:
+    enclose: "囲むと、すき間が直角三角形にならない。もう一度囲むはめになる。"
+    slide: "平行な線がないので、等積変形の手がかりがない。"
+    mirror: "最短の道すじを求める問題ではない。"
+    direct: "そのとおり。x=3で切ると、どの部分も底辺が方眼の線に乗る。"
+
+animation:
+  keyframes: [show_shape, draw_box, flash_irregular_gap, undo_box, draw_cut_line, shade_pieces, show_answer]
+
+checks:
+  - {type: lattice_only}
+  - {type: simple_polygon}
+  - {type: area_equals_answer}
+  - {type: enclose_not_clean}
+  - {type: route_steps_sum, route: trap_route}
+  - {type: route_steps_sum, route: lens_route}
+  - {type: lens_faster}
+
+variants:
+  generator: enclose_failure_notch
+  count: 3
+  seed: 2001
+  constraints: {min: 5, max: 8}
