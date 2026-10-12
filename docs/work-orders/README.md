@@ -6,7 +6,7 @@ Each work order (WO) is one PR. Read `docs/PRD.md` first; this folder only adds 
 | --- | --- | --- | --- |
 | [WO-001](WO-001-monorepo-scaffold.md) | Monorepo and directory scaffolding | PR #1 merged (bundle) | Oct 16 |
 | [WO-002](WO-002-scenes-and-tokens.md) | Shared SVG scene components reading tokens | WO-001 | Oct 20 |
-| [WO-003](WO-003-enclose-prototype.md) | Enclose prototype: 30 s Short + Perspective Picker | WO-002 | Oct 21 demo |
+| [WO-003](WO-003-enclose-prototype.md) | Enclose prototype: 30 s Short + Perspective Picker. **Start with the [motion preview](WO-003-motion.md).** | WO-002 | Preview first, then Oct 21 demo |
 
 ## Rules for every WO
 
