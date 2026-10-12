@@ -1,13 +1,14 @@
 import { parseEasing } from '../easing';
 import { answerText, formatExact } from '../format';
 import { boundingBox, boxCorners, centroid, enclosureGaps, outwardDirection, partialPolyline, type Box } from '../geometry';
-import { BAND_END_ROOM, BandFigure, Bracket, ConstructionLine, MirrorFigure, StoryText, storyHeight, WordDiagram, FigurePolygon, GridLayer, LensIcon, makeFrame, svgPoints, toSvg, type Frame } from '../primitives';
+import { BAND_END_ROOM, BandFigure, Bracket, ConstructionLine, MirrorFigure, StoryText, storyHeight, UnfoldFigure, WordDiagram, FigurePolygon, GridLayer, LensIcon, makeFrame, svgPoints, toSvg, type Frame } from '../primitives';
 import { wrapText } from '../text';
 import { color, fontFamily, lensColor, type LensOrDirect, type RenderMode } from '../tokens';
 import { timeLabel } from '../format';
-import type { GlowToken, GridPolygonFigure, LensCard, MirrorPathFigure, ParallelBandFigure, WordProblemFigure, Point, ShortLayout, Step, StepDetail, Tokens } from '../types';
+import type { BoxUnfoldFigure, GlowToken, GridPolygonFigure, LensCard, MirrorPathFigure, ParallelBandFigure, WordProblemFigure, Point, ShortLayout, Step, StepDetail, Tokens } from '../types';
 import { bandLayout, bandTriangles } from '../band';
 import { mirrorLayout, touchX } from '../mirror';
+import { unfoldLayout } from '../unfold';
 import { motionState, type MotionState } from './beats';
 import { titleBandText } from './titleBand';
 import type { Beat } from './timeline';
@@ -101,6 +102,7 @@ export function MotionScene({ card, beats, beat, t, tokens: baseTokens, glow, mo
   const gridFig = figure.type === 'grid_polygon' ? figure : null;
   const bandFig = figure.type === 'parallel_band' ? figure : null;
   const mirrorFig = figure.type === 'mirror_path' ? figure : null;
+  const unfoldFig = figure.type === 'box_unfold' ? figure : null;
   const wordFig = figure.type === 'word_problem' ? figure : null;
   const { grid, points } = gridFig ?? NO_GRID;
   const gaps = enclosureGaps(points);
@@ -268,6 +270,25 @@ export function MotionScene({ card, beats, beat, t, tokens: baseTokens, glow, mo
         <MirrorLayer
           card={card}
           fig={mirrorFig}
+          state={state}
+          layout={L}
+          tokens={tokens}
+          ink={ink}
+          chalk={chalk}
+          accent={accent}
+          palette={palette.map((c) => color(c, mode))}
+          font={numFont}
+          weight={tokens.type.scale.label.weight}
+          idPrefix={`lens-${card.id}`}
+          glowFilter={glowFilter}
+          glowOpacity={glow?.opacity}
+          bottom={cardTop}
+        />
+      )}
+      {unfoldFig && (
+        <UnfoldLayer
+          card={card}
+          fig={unfoldFig}
           state={state}
           layout={L}
           tokens={tokens}
@@ -600,6 +621,56 @@ function TitleBandLines({ text, x, width, layout, fill, opacity, font, weight }:
           {line}
         </text>
       ))}
+    </g>
+  );
+}
+
+interface UnfoldLayerProps extends Omit<BandLayerProps, 'fig'> {
+  card: LensCard;
+  fig: BoxUnfoldFigure;
+}
+
+/** The box-net figure at Short size: chalk while the trap plays (with the midpoint guess), then ink. */
+function UnfoldLayer({ card, fig, state, layout: L, tokens, ink, chalk, accent, palette, font, weight, idPrefix, glowFilter, glowOpacity, bottom }: UnfoldLayerProps) {
+  const { regions: R, type_px: T, pieces: P, brackets: BR } = L;
+  const [W] = L.size_px;
+  const margin = R.figure.min_margin_px;
+  const layout = unfoldLayout(fig, margin, R.figure.y, W - 2 * margin, bottom - R.figure.y, T.vertex_label * 2.2, BR.offset_px + T.vertex_label * 1.2 + T.bracket_number * 4);
+  const common = {
+    fig,
+    layout,
+    crossY: touchX(card),
+    answerText: answerText(card),
+    tokens,
+    chalk,
+    accent,
+    font,
+    weight,
+    labelSize: T.vertex_label,
+    figureStroke: tokens.stroke.figure.width,
+    lensStroke: P.current.stroke_width,
+    dash: tokens.stroke.trap.dash,
+    bracket: { offset: BR.offset_px, tick: BR.tick_px / 2, numberSize: T.bracket_number, strokeWidth: tokens.stroke.lens_construction.width },
+    show: state.chalk,
+    tryPath: state.trapDemo,
+    tryDim: state.trapDemoDim,
+    unfold: state.unfold,
+    straight: state.straight,
+    similar: state.similar,
+    answer: state.core,
+    tint: P.current.fill_opacity,
+    stripes: P.current.stripes,
+    glowFilter,
+    glowOpacity,
+  };
+  return (
+    <g>
+      <g opacity={1 - state.inked}>
+        <UnfoldFigure {...common} ink={chalk} palette={palette.map(() => chalk)} idPrefix={`${idPrefix}-chalk`} />
+      </g>
+      <g opacity={state.inked}>
+        <UnfoldFigure {...common} ink={ink} palette={palette} idPrefix={idPrefix} />
+      </g>
     </g>
   );
 }
