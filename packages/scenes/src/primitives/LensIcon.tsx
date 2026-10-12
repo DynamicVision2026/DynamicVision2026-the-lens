@@ -8,6 +8,8 @@ interface Props {
   x?: number;
   y?: number;
   size?: number;
+  /** Stroke colour override (defaults to the lens colour). */
+  color?: string;
 }
 
 /** Simple 24×24 line drawings keyed by the icon name in `color.lens.<lens>.icon`. */
@@ -23,10 +25,10 @@ const ICONS: Record<string, string[]> = {
   pencil: ['M4 20l1-5L16 4l4 4L9 19z', 'M14 6l4 4'],
 };
 
-export function LensIcon({ lens, tokens, mode, x = 0, y = 0, size = 24 }: Props) {
+export function LensIcon({ lens, tokens, mode, x = 0, y = 0, size = 24, color }: Props) {
   const paths = ICONS[tokens.color.lens[lens].icon] ?? ICONS['square-dashed']!;
   return (
-    <g transform={`translate(${x} ${y}) scale(${size / 24})`} fill="none" stroke={lensColor(tokens, lens, mode)} strokeWidth={(tokens.stroke.lens.width * 24) / size} strokeLinecap={tokens.stroke.cap} strokeLinejoin={tokens.stroke.join}>
+    <g transform={`translate(${x} ${y}) scale(${size / 24})`} fill="none" stroke={color ?? lensColor(tokens, lens, mode)} strokeWidth={(tokens.stroke.lens.width * 24) / size} strokeLinecap={tokens.stroke.cap} strokeLinejoin={tokens.stroke.join}>
       {paths.map((d, i) => (
         <path key={i} d={d} />
       ))}

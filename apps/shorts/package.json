@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "remotion studio src/index.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "render": "node scripts/render-short.mjs"
   },
   "dependencies": {
     "@lens/scenes": "workspace:*",

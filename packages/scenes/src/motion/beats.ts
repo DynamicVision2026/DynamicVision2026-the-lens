@@ -35,6 +35,15 @@ export interface MotionState {
   /** Per equation term (start value, then one per corner): joined, and lit up in subtract. */
   terms: number[];
   termLit: number[];
+  /** Question text (hook), the time strip (trap), the lens buttons (freeze) and the end card. */
+  question: number;
+  timeStrip: number;
+  buttons: number;
+  freezeTitle: number;
+  /** The correct lens button lighting up, and the buttons leaving. */
+  pick: number;
+  buttonsOut: number;
+  endCard: number;
   core: number;
   coreGlow: number;
   pulseMs: number;
@@ -72,6 +81,13 @@ export function initialMotionState(corners: number): MotionState {
     removed: zeros(corners),
     terms: zeros(corners + 1),
     termLit: zeros(corners + 1),
+    question: 0,
+    timeStrip: 0,
+    buttons: 0,
+    freezeTitle: 0,
+    pick: 0,
+    buttonsOut: 0,
+    endCard: 0,
     core: 0,
     coreGlow: 0,
     pulseMs: 0,
@@ -95,17 +111,37 @@ const FADE_MS = 300;
 type BeatReducer = (s: MotionState, t: number, ms: number, beat: Beat, ctx: MotionContext) => MotionState;
 
 const REDUCERS: Record<Beat['name'], BeatReducer> = {
-  trap: (s, _t, ms, beat, { ease }) => ({
+  hook: (s, _t, ms, _beat, { ease }) => ({
     ...s,
     grid: ease(span(ms, 0, 600)),
     chalk: ease(span(ms, 0, 800)),
+    question: ease(span(ms, 300, FADE_MS * 2)),
+  }),
+
+  trap: (s, _t, ms, beat, { ease }) => ({
+    ...s,
+    // After a hook the grid and figure are already in; never fade them back.
+    grid: Math.max(s.grid, ease(span(ms, 0, 600))),
+    chalk: Math.max(s.chalk, ease(span(ms, 0, 800))),
     trapReveal: span(ms, 800, beat.durationMs - 1200),
     trapOpacity: TRAP_READABLE,
+    timeStrip: s.question > 0 ? ease(span(ms, 800, beat.durationMs - 1000)) : 0,
+  }),
+
+  freeze: (s, t, ms, _beat, { ease, spring }) => ({
+    ...s,
+    trapOpacity: TRAP_READABLE * (1 - ease(span(ms, 0, FADE_MS))),
+    timeStrip: s.timeStrip * (1 - ease(span(ms, 0, FADE_MS))),
+    question: s.question * (1 - ease(span(ms, 0, FADE_MS))),
+    freezeTitle: ease(span(ms, FADE_MS, FADE_MS)),
+    buttons: pop(t, ms, FADE_MS, spring),
   }),
 
   lens_activate: (s, t, ms, beat, { ease, spring }) => ({
     ...s,
-    trapOpacity: TRAP_READABLE + (TRAP_DIM - TRAP_READABLE) * ease(span(ms, 0, 600)),
+    pick: s.buttons > 0 ? ease(span(ms, 0, FADE_MS)) : 0,
+    // Dims readable trap text; text the freeze already cleared stays cleared.
+    trapOpacity: s.trapOpacity + (Math.min(s.trapOpacity, TRAP_DIM) - s.trapOpacity) * ease(span(ms, 0, 600)),
     chip: pop(t, ms, 300, spring),
     inked: ease(span(ms, 0, beat.durationMs * 0.6)),
   }),
@@ -116,7 +152,9 @@ const REDUCERS: Record<Beat['name'], BeatReducer> = {
     const box = ease(span(ms, 0, laser));
     return {
       ...s,
-      trapOpacity: TRAP_DIM * (1 - span(ms, 0, FADE_MS)),
+      trapOpacity: Math.min(s.trapOpacity, TRAP_DIM) * (1 - span(ms, 0, FADE_MS)),
+      buttonsOut: ease(span(ms, 0, FADE_MS * 2)),
+      freezeTitle: s.freezeTitle * (1 - ease(span(ms, 0, FADE_MS))),
       focus: { kind: 'box' },
       enter: ease(span(ms, 0, FADE_MS)),
       box,
@@ -168,6 +206,8 @@ const REDUCERS: Record<Beat['name'], BeatReducer> = {
       trigger: ease(span(ms, 500, tokens.motion.duration_ms.shade)),
     };
   },
+
+  end_card: (s, _t, ms, _beat, { ease }) => ({ ...s, endCard: ease(span(ms, 0, FADE_MS * 2)) }),
 };
 
 /** The motion state at beat index `k` and raw (un-eased) progress `t`. */

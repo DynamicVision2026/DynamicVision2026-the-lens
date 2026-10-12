@@ -1,11 +1,12 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { getCard, loadBundle } from '../bundle';
-import { formatExact } from '../format';
+import { formatExact, timeLabel } from '../format';
 import { LensScene } from '../LensScene';
 import { tokens } from '../tokens';
 import type { LensCard } from '../types';
-import { beatAt, motionPreviewTimeline, studyStepMs, timelineDuration, type Beat } from './timeline';
+import { beatAt, motionPreviewTimeline, shortTimeline, studyStepMs, timelineDuration, type Beat } from './timeline';
+import { SHORT_COPY } from './MotionScene';
 
 const bundle = loadBundle();
 const standard = bundle.cards.filter((c) => c.kind === 'standard');
@@ -205,5 +206,58 @@ describe('study-pace motion preview', () => {
     const k = beats.findIndex((b) => b.name === 'lens_activate');
     const html = renderToStaticMarkup(<LensScene card={card001} keyframe={k} t={1} motion={beats} lensLabel="囲む" />);
     expect(texts(html)).toContain('囲む');
+  });
+});
+
+describe('full Short (WO-003 step 2)', () => {
+  const beatsOf = (card: LensCard) => {
+    const beats = shortTimeline(card, tokens);
+    if (!beats) throw new Error(`no Short for ${card.id}`);
+    return beats;
+  };
+  const labels = Object.fromEntries(Object.entries(bundle.labels.lenses).map(([k, v]) => [k, v.ja]));
+  const renderShort = (card: LensCard, k: number, t: number) =>
+    renderToStaticMarkup(<LensScene card={card} keyframe={k} t={t} motion={beatsOf(card)} theme="short_dark" optionLabels={labels} lensLabel={labels[card.lens]} />);
+
+  it('frames the study walkthrough with hook, freeze and end card', () => {
+    const names = beatsOf(card001).map((b) => b.name);
+    expect(names.slice(0, 4)).toEqual(['hook', 'trap', 'freeze', 'lens_activate']);
+    expect(names.at(-1)).toBe('end_card');
+    expect(timelineDuration(beatsOf(card001))).toBe(timelineDuration(preview(card001)) + 3000 + 3500 + 3500);
+  });
+
+  it('asks the question from the bundle in the hook', () => {
+    expect(texts(renderShort(card001, 0, 1)).join('')).toContain(card001.problem.text_ja.slice(0, 10));
+  });
+
+  it('shows the four lens buttons with bundle labels in the freeze', () => {
+    const k = beatsOf(card001).findIndex((b) => b.name === 'freeze');
+    const t = texts(renderShort(card001, k, 1));
+    expect(t).toContain(SHORT_COPY.freeze);
+    for (const opt of card001.picker.options) expect(t).toContain(bundle.labels.lenses[opt]!.ja);
+  });
+
+  it('ends on the trigger, the time saved and the series card', () => {
+    const beats = beatsOf(card001);
+    const t = texts(renderShort(card001, beats.length - 1, 1));
+    expect(t.join('')).toContain(card001.trigger.ja.slice(0, 8));
+    expect(t).toContain(SHORT_COPY.series);
+    expect(t).toContain(SHORT_COPY.url);
+    expect(t).toContain(timeLabel(tokens.time_cost.saved_label_ja, card001.trap_route.time_cost_sec - card001.lens_route.time_cost_sec));
+  });
+
+  it.each(standard.map((c) => [c.id, c] as const))('%s: every Short beat renders purely, inside the safe area', (_id, card) => {
+    const { safe_top_px: top, safe_bottom_px: bottom, size_px } = tokens.layout.short;
+    const beats = beatsOf(card);
+    for (let k = 0; k < beats.length; k++) {
+      for (const t of [0, 0.5, 1]) {
+        const html = renderShort(card, k, t);
+        expect(renderShort(card, k, t)).toBe(html);
+        for (const m of html.matchAll(/<text[^>]* y="([-\d.]+)"/g)) {
+          expect(Number(m[1])).toBeGreaterThanOrEqual(top);
+          expect(Number(m[1])).toBeLessThanOrEqual(size_px[1] - bottom);
+        }
+      }
+    }
   });
 });

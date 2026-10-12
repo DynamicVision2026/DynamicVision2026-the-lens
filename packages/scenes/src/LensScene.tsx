@@ -36,6 +36,8 @@ export interface LensSceneProps {
   motion?: Beat[] | null;
   /** Lens name for the motion preview's lens chip (from bundle.labels). */
   lensLabel?: string;
+  /** Button text per picker option, for the Short's freeze beat (from bundle.labels). */
+  optionLabels?: Record<string, string>;
   className?: string;
 }
 
@@ -55,6 +57,7 @@ export function LensScene({
   theme = 'base',
   motion,
   lensLabel,
+  optionLabels,
   className,
 }: LensSceneProps) {
   const { tokens, glow } = themed(baseTokens, theme);
@@ -80,6 +83,7 @@ export function LensScene({
           glow={glow}
           mode={mode}
           lensLabel={lensLabel}
+          optionLabels={optionLabels}
         />
       </svg>
     );
