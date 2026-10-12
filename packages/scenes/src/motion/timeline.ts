@@ -2,6 +2,7 @@
 // One beat per calculation step; the number of corner beats follows the card's `sub` steps.
 import { bandTriangles } from '../band';
 import { enclosureGaps } from '../geometry';
+import { diagramKeyframes, WORD_CAPTIONS } from '../wordProblem';
 import type { LensCard, Tokens } from '../types';
 
 export type BeatName =
@@ -18,6 +19,7 @@ export type BeatName =
   | 'reflect_point'
   | 'draw_straight'
   | 'mark_similar'
+  | 'figure_step'
   | 'answer'
   | 'end_card';
 
@@ -26,6 +28,9 @@ export interface Beat {
   durationMs: number;
   /** For corner_step / slide_apex: index of the corner or apex (0-based, in order). */
   index?: number;
+  /** For figure_step: the figure keyframe this beat plays, and the lens step it captions. */
+  key?: string;
+  caption?: number;
 }
 
 /** Beat-sheet windows that have no token of their own. */
@@ -46,6 +51,7 @@ export function motionPreviewTimeline(card: LensCard, tokens: Tokens): Beat[] | 
   const figure = card.problem.figure;
   if (figure.type === 'parallel_band') return bandTimeline(card, tokens);
   if (figure.type === 'mirror_path') return mirrorTimeline(card, tokens);
+  if (figure.type === 'word_problem') return wordTimeline(card, tokens);
   if (figure.type !== 'grid_polygon') return null;
   const steps = card.lens_route.steps;
   const start = steps.find((s) => s.op === 'start');
@@ -120,6 +126,24 @@ function mirrorTimeline(card: LensCard, tokens: Tokens): Beat[] | null {
   ];
 }
 
+/**
+ * Study pace for a word problem (WO-006): trap → lens activates → one beat per diagram keyframe
+ * (whatever the card's keyframes are) → answer.
+ */
+function wordTimeline(card: LensCard, tokens: Tokens): Beat[] | null {
+  const figure = card.problem.figure;
+  if (figure.type !== 'word_problem' || !(figure.kind in WORD_CAPTIONS) || !card.lens_route.steps.some((s) => s.op === 'result')) return null;
+  const keys = diagramKeyframes(card);
+  if (keys.length === 0) return null;
+  const captions = WORD_CAPTIONS[figure.kind];
+  return [
+    { name: 'trap', durationMs: BEAT_MS.trap },
+    { name: 'lens_activate', durationMs: BEAT_MS.lens_activate },
+    ...keys.map((key): Beat => ({ name: 'figure_step', durationMs: studyStepMs(tokens), key, caption: captions[key] })),
+    { name: 'answer', durationMs: 500 + tokens.motion.study.final_hold_ms },
+  ];
+}
+
 export function timelineDuration(beats: Beat[]): number {
   return beats.reduce((sum, b) => sum + b.durationMs, 0);
 }
@@ -137,5 +161,6 @@ export function beatAt(beats: Beat[], ms: number): { index: number; t: number } 
 
 /** Short label for a beat, e.g. "corner_step 2". */
 export function beatLabel(beat: Beat): string {
+  if (beat.key) return `${beat.name} ${beat.key}`;
   return beat.index === undefined ? beat.name : `${beat.name} ${beat.index + 1}`;
 }

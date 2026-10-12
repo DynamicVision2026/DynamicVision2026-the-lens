@@ -85,8 +85,19 @@ export interface MirrorPathFigure {
   point_labels: { P: string; Q: string; A: string; B: string; X: string; Q_reflected: string };
 }
 
+/**
+ * A word problem: the figure is a diagram the lens draws. `kind` picks the diagram; `params` holds
+ * the problem's numbers and `names` its nouns. Printed numbers come only from params or the steps.
+ */
+export interface WordProblemFigure {
+  type: 'word_problem';
+  kind: 'two_kinds_total' | 'age_ratio';
+  params: Record<string, number>;
+  names: Record<string, string>;
+}
+
 /** Figures with a scene. Other types in the bundle (later lenses' drafts) have none yet. */
-export type Figure = GridPolygonFigure | ParallelBandFigure | MirrorPathFigure;
+export type Figure = GridPolygonFigure | ParallelBandFigure | MirrorPathFigure | WordProblemFigure;
 
 export interface Picker {
   /** Exactly four move ids, e.g. "enclose" or "direct". */
