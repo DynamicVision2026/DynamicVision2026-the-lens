@@ -91,7 +91,7 @@ export interface MirrorPathFigure {
  */
 export interface WordProblemFigure {
   type: 'word_problem';
-  kind: 'two_kinds_total' | 'age_ratio';
+  kind: 'two_kinds_total' | 'age_ratio' | 'mixture' | 'meeting';
   params: Record<string, number>;
   names: Record<string, string>;
 }

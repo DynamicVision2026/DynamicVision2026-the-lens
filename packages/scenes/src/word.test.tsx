@@ -55,9 +55,9 @@ describe.skipIf(!area || !constant)('word problems (面積図, 差一定)', () =
 
   it('every step the diagram labels has a number after its 「=」', () => {
     // Area labels steps 1–3 (all-b total, gap, strip height); Constant labels steps 0–2 (difference, parts, one part).
-    const labelled: Record<WordProblemFigure['kind'], number[]> = { two_kinds_total: [1, 2, 3], age_ratio: [0, 1, 2] };
+    const labelled: Partial<Record<WordProblemFigure['kind'], number[]>> = { two_kinds_total: [1, 2, 3], age_ratio: [0, 1, 2] };
     for (const card of wordCards) {
-      for (const i of labelled[fig(card).kind]) expect(afterEquals(card.lens_route.steps[i]), `${card.id} step ${i}`).not.toBeNull();
+      for (const i of labelled[fig(card).kind]!) expect(afterEquals(card.lens_route.steps[i]), `${card.id} step ${i}`).not.toBeNull();
       expect(afterEquals(card.lens_route.steps.find((s) => s.op === 'result'))).not.toBeNull();
     }
   });

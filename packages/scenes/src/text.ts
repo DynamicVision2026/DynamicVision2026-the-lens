@@ -10,6 +10,9 @@ function units(text: string): string[] {
   return text.match(/[A-Za-z0-9.²]+|[\s\S]/gu) ?? [];
 }
 
+/** Punctuation that never starts a line (禁則): it hangs at the end of the previous line instead. */
+const NO_LINE_START = /^[、。，．,.)）」』】！？!?ー]/;
+
 export function wrapText(text: string, maxWidth: number, fontSize: number): string[] {
   const maxEm = maxWidth / fontSize;
   const lines: string[] = [];
@@ -17,7 +20,7 @@ export function wrapText(text: string, maxWidth: number, fontSize: number): stri
   let width = 0;
   for (const unit of units(text)) {
     const w = [...unit].reduce((sum, ch) => sum + advance(ch), 0);
-    if (width + w > maxEm && line.length > 0) {
+    if (width + w > maxEm && line.length > 0 && !NO_LINE_START.test(unit)) {
       lines.push(line);
       line = unit === ' ' ? '' : unit;
       width = unit === ' ' ? 0 : w;
