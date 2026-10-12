@@ -1,0 +1,80 @@
+schema_version: "1.1"
+id: balance-001
+kind: standard
+lens: balance
+best_move: balance
+stage: shogakko
+grades: [小5, 小6]
+status: draft            # flips to verified when the word-problem scenes for this lens merge; validator checks it fully either way
+
+provenance:
+  original: true
+  built_from: "Archetype: mixing two salt solutions of known strength to reach a target strength (てんびん図: weights are in the inverse ratio of the arm lengths)."
+  not_derived_from: "Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem."
+  author: "The Lens content team"
+
+grounding:
+  principle_ja: "混ぜたこさは、てんびんがつり合う点。うでの長さ×重さが左右で等しいので、重さの比はうでの長さの逆の比になる。"
+  principle_en: "The mixed strength is the balance point of a lever: arm × weight is equal on both sides, so the amounts are in the inverse ratio of the arms."
+
+problem:
+  text_ja: "5%の食塩水200gに、10%の食塩水を何g混ぜると、8%の食塩水になりますか。"
+  unit: "g"
+  figure:
+    type: word_problem
+    kind: mixture
+    params: {w1: 200, p1: 5, p2: 10, pt: 8}
+
+answer:
+  value: "300"
+  display_ja: "300g"
+  expr: word_problem
+
+trap_route:
+  time_cost_sec: 240
+  time_source: estimate
+  steps:
+    - {ja: "食塩の重さを式にしようとする：200×0.05 ＋ □×0.1 ＝ (200＋□)×0.08", op: note}
+    - {ja: "□が両側に出てきて、小数の計算がふくらむ", op: note}
+    - {ja: "100g、200g…と当てはめて試すが、なかなか合わない", op: note}
+    - {ja: "ここで約4分。式が解けない", op: note}
+
+lens_route:
+  time_cost_sec: 35
+  time_source: estimate
+  steps:
+    - {ja: "てんびんの左はしに5%、右はしに10%、支点に8%をおく", op: note}
+    - {ja: "うでの長さは 8−5 = 3 と 10−8 = 2", op: note}
+    - {ja: "200g と □g の比は、うでの長さの逆の比 2:3", op: note}
+    - {ja: "200×3÷2 = 300（g）", value: "300", op: result}
+
+trigger:
+  ja: "こさのちがう2つを混ぜる問題は、こさをてんびんのうでにして、重さの比を逆にする。"
+  en: "Mixing two strengths: put the strengths on a lever; the amounts are in the inverse ratio of the arms."
+  tags: [mixing, three_strengths_known]
+
+picker:
+  options: [balance, area, constant, direct]
+  correct: balance
+  clue_distractors: [two_kinds_mixed, times_relation]
+  feedback_ja:
+    balance: "そのとおり。混ぜたこさが支点。うでの長さの逆の比が、重さの比になる。"
+    area: "2種類の「数と合計」ではなく、「こさ」を混ぜる問題。"
+    constant: "年れいのように、差が変わらないものを使う問題ではない。"
+    direct: "食塩の重さで式を立てると、□が両側に出てきて解きにくい。"
+
+animation:
+  keyframes: [show_story, draw_lever, place_strengths, mark_arms, invert_ratio, show_answer]
+
+checks:
+  - {type: wp_formula}
+  - {type: wp_unique}
+  - {type: wp_nontrivial}
+  - {type: wp_text_matches}
+  - {type: route_steps_sum, route: lens_route}
+  - {type: lens_faster}
+
+variants:
+  generator: wp_mixture
+  count: 3
+  seed: 2501
