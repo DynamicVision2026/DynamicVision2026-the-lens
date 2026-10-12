@@ -13,3 +13,6 @@ solid_3d:             {ja: 立体の図}
 shortest_path:        {ja: いちばん短い道すじ}
 moving_points:        {ja: 動く点がある}
 mixing:               {ja: 2つのものを混ぜる}
+triangles_between_parallels: {ja: 平行な2本の線の間に三角形がならぶ}
+apexes_on_one_line:   {ja: 頂点が同じ直線の上にある}
+only_total_given:     {ja: 1つ1つの長さは分からず、合計だけ分かる}
