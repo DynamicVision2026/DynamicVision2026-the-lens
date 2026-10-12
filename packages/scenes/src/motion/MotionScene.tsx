@@ -9,6 +9,7 @@ import type { GlowToken, GridPolygonFigure, LensCard, MirrorPathFigure, Parallel
 import { bandLayout, bandTriangles } from '../band';
 import { mirrorLayout, touchX } from '../mirror';
 import { motionState, type MotionState } from './beats';
+import { titleBandText } from './titleBand';
 import type { Beat } from './timeline';
 
 export interface MotionSceneProps {
@@ -370,23 +371,13 @@ export function MotionScene({ card, beats, beat, t, tokens: baseTokens, glow, mo
           {answerText(card)}
         </text>
       )}
-      {state.trigger > 0 && (() => {
-        const lines = wrapText(card.trigger.ja, W - 2 * margin, T.trigger);
-        const lh = T.trigger * 1.35;
-        return (
-          <g opacity={state.trigger} fill={ink} fontFamily={fontFamily(tokens, tokens.type.scale.trigger)} fontSize={T.trigger} fontWeight={tokens.type.scale.trigger.weight} textAnchor="middle">
-            {lines.map((line, i) => (
-              <text key={i} x={W / 2} y={bandMid + (i - (lines.length - 1) / 2) * lh} dominantBaseline="central">
-                {line}
-              </text>
-            ))}
-          </g>
-        );
-      })()}
+      {state.trigger > 0 && (
+        <TitleBandLines text={card.trigger.ja} x={W / 2} width={W - 2 * margin} layout={L} fill={ink} opacity={state.trigger} font={fontFamily(tokens, tokens.type.scale.trigger)} weight={tokens.type.scale.trigger.weight} />
+      )}
 
       {/* Short only: the question (hook, trap), the trap time strip, the four lens buttons (freeze). */}
       {state.question > 0 && (
-        <CentredLines text={card.problem.text_ja} x={W / 2} y={bandMid} width={W - 2 * margin} size={T.trigger} fill={ink} opacity={state.question} font={jaFont} weight={bold} />
+        <TitleBandLines text={card.problem.text_ja} x={W / 2} width={W - 2 * margin} layout={L} fill={ink} opacity={state.question} font={jaFont} weight={bold} />
       )}
       {state.timeStrip > 0 && (
         <TimeBar
@@ -570,6 +561,31 @@ function MirrorLayer({ card, fig, state, layout: L, tokens, ink, chalk, accent, 
   );
 }
 
+interface TitleBandLinesProps {
+  text: string;
+  x: number;
+  width: number;
+  layout: ShortLayout;
+  fill: string;
+  opacity: number;
+  font: string;
+  weight: number;
+}
+
+/** Long text in the title band: anchored at its top, growing downward (see titleBand.ts). */
+function TitleBandLines({ text, x, width, layout, fill, opacity, font, weight }: TitleBandLinesProps) {
+  const block = titleBandText(text, width, layout);
+  return (
+    <g opacity={opacity} fill={fill} fontFamily={font} fontSize={block.size} fontWeight={weight} textAnchor="middle">
+      {block.lines.map((line, i) => (
+        <text key={i} x={x} y={block.ys[i]} dominantBaseline="central">
+          {line}
+        </text>
+      ))}
+    </g>
+  );
+}
+
 interface CentredLinesProps {
   text: string;
   x: number;
@@ -695,7 +711,7 @@ function LensButtons({ options, correct, labels, appear, pick, leave, layout, ac
         return (
           <g key={opt} opacity={dim} transform={`translate(${cx} ${cy}) scale(${Math.min(1, appear) + (isCorrect ? 0.06 * pick : 0)}) translate(${-cx} ${-cy})`}>
             <rect x={x} y={y} width={w} height={h} rx={h / 2} fill={isCorrect && pick > 0 ? accent : paper} fillOpacity={isCorrect ? 0.18 * pick : 1} stroke={stroke} strokeOpacity={isCorrect ? 0.5 + 0.5 * pick : 0.5} strokeWidth={tokens.stroke.lens_construction.width * (isCorrect ? 1 + pick : 1)} />
-            {/* Icons in ink: a theme may not define every lens colour (only the correct one lights up). */}
+            {/* Icons in ink, so no button stands out before the pick; only the correct one lights up. */}
             <LensIcon lens={opt} tokens={tokens} mode={mode} x={x + h * 0.35} y={cy - icon / 2} size={icon} color={isCorrect && pick > 0 ? accent : ink} />
             <text x={x + h * 0.35 + icon + size * 0.4} y={cy} fill={isCorrect && pick > 0 ? accent : ink} fontFamily={font} fontSize={size} fontWeight={weight} dominantBaseline="central">
               {labels[opt] ?? opt}
