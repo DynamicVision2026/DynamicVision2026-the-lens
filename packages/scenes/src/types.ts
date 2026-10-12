@@ -72,8 +72,21 @@ export interface ParallelBandFigure {
   total_base: ExactNumber;
 }
 
+/**
+ * A straight river (line ℓ) with P and Q on the same side; A and B are the feet of the
+ * perpendiculars. The touch point X is drawn at the card's answer (AX), never computed.
+ */
+export interface MirrorPathFigure {
+  type: 'mirror_path';
+  ab: number;
+  pa: number;
+  qb: number;
+  unit: string;
+  point_labels: { P: string; Q: string; A: string; B: string; X: string; Q_reflected: string };
+}
+
 /** Figures with a scene. Other types in the bundle (later lenses' drafts) have none yet. */
-export type Figure = GridPolygonFigure | ParallelBandFigure;
+export type Figure = GridPolygonFigure | ParallelBandFigure | MirrorPathFigure;
 
 export interface Picker {
   /** Exactly four move ids, e.g. "enclose" or "direct". */
@@ -89,8 +102,8 @@ export interface Variant {
   /** grid_polygon variants. */
   points?: Point[];
   grid?: Grid;
-  /** Other figure types carry their own figure fields and sentence. */
-  figure?: Partial<Figure> & { type: Figure['type'] };
+  /** Other figure types carry their own figure fields (a partial figure) and sentence. */
+  figure?: Partial<Figure>;
   text_ja?: string;
   answer: ExactNumber;
   lens_route: VariantRoute;

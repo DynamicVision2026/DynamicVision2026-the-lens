@@ -9,8 +9,10 @@ import type { Beat } from './motion/timeline';
 import { color, fontFamily, fontSize, lensColor, themed, tokens as defaultTokens, type RenderMode, type ThemeName } from './tokens';
 import { bandLayout } from './band';
 import { bandState } from './keyframes/band';
-import { BAND_END_ROOM, BandFigure } from './primitives';
-import type { GlowToken, GridPolygonFigure, LensCard, ParallelBandFigure, Point, Tokens } from './types';
+import { mirrorState } from './keyframes/mirror';
+import { mirrorLayout, touchX } from './mirror';
+import { BAND_END_ROOM, BandFigure, MirrorFigure } from './primitives';
+import type { GlowToken, GridPolygonFigure, LensCard, MirrorPathFigure, ParallelBandFigure, Point, Tokens } from './types';
 
 /** Scene viewBox in px at 1x. Video renders it at 2x (1080 px wide frame ≈ 2.25x). */
 export const SCENE_WIDTH = 480;
@@ -101,6 +103,13 @@ export function LensScene({
     return (
       <svg {...svgProps}>
         <BandKeyframeScene card={card} fig={figure} keyframes={keyframes} keyframe={keyframe} t={progress} tokens={tokens} glow={glow} mode={mode} />
+      </svg>
+    );
+  }
+  if (figure.type === 'mirror_path') {
+    return (
+      <svg {...svgProps}>
+        <MirrorKeyframeScene card={card} fig={figure} keyframes={keyframes} keyframe={keyframe} t={progress} tokens={tokens} glow={glow} mode={mode} />
       </svg>
     );
   }
@@ -284,6 +293,73 @@ function BandKeyframeScene({ card, fig, keyframes, keyframe, t, tokens, glow, mo
         merged={state.merged}
         focus={-1}
         dim={1}
+        tint={tokens.color.step.tint_opacity}
+        idPrefix={`lens-${card.id}`}
+        glowFilter={glow ? `url(#${glowId})` : undefined}
+        glowOpacity={glow?.opacity}
+      />
+      <TextBand
+        card={card}
+        tokens={tokens}
+        mode={mode}
+        caption={state.caption ? { text: state.caption.step.ja, t: state.caption.t, size: 'step' } : null}
+        answer={state.answer}
+        ink={color(tokens.color.ink, mode)}
+        accent={accent}
+      />
+    </g>
+  );
+}
+
+interface MirrorKeyframeSceneProps {
+  card: LensCard;
+  fig: MirrorPathFigure;
+  keyframes: string[];
+  keyframe: number;
+  t: number;
+  tokens: Tokens;
+  glow: GlowToken | null;
+  mode: RenderMode;
+}
+
+/** The Mirror lens on a shortest-path figure, keyframe by keyframe (trainer and /dev/scenes). */
+function MirrorKeyframeScene({ card, fig, keyframes, keyframe, t, tokens, glow, mode }: MirrorKeyframeSceneProps) {
+  const state = mirrorState(keyframes, keyframe, t, card);
+  const label = fontSize(tokens, 'label', mode);
+  const layout = mirrorLayout(fig, PAD, PAD, SCENE_WIDTH - 2 * PAD, FIGURE_HEIGHT - 2 * PAD - 3 * label, label * 2.5);
+  const accent = lensColor(tokens, card.lens, mode);
+  const glowId = `lens-glow-${card.id}`;
+  return (
+    <g>
+      {glow && (
+        <defs>
+          <filter id={glowId} x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation={glow.blur_px / 2} />
+          </filter>
+        </defs>
+      )}
+      <MirrorFigure
+        fig={fig}
+        layout={layout}
+        touchX={touchX(card)}
+        tokens={tokens}
+        ink={color(tokens.color.ink, mode)}
+        chalk={color(tokens.color.trap.ink, mode)}
+        accent={accent}
+        palette={tokens.color.step.palette.map((c) => color(c, mode))}
+        font={fontFamily(tokens, undefined, 'family_num')}
+        weight={tokens.type.scale.label.weight}
+        labelSize={label}
+        figureStroke={tokens.stroke.figure.width}
+        lensStroke={tokens.stroke.lens.width}
+        dash={tokens.stroke.trap.dash}
+        bracket={{ offset: label * 1.4, tick: 5, numberSize: label, strokeWidth: tokens.stroke.lens_construction.width }}
+        show={state.show}
+        tryPath={state.tryPath}
+        tryDim={state.tryDim}
+        reflect={state.reflect}
+        straight={state.straight}
+        similar={state.similar}
         tint={tokens.color.step.tint_opacity}
         idPrefix={`lens-${card.id}`}
         glowFilter={glow ? `url(#${glowId})` : undefined}

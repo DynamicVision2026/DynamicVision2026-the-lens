@@ -35,7 +35,7 @@ export function allSceneCards(bundle: Bundle): LensCard[] {
 }
 
 /** Figure types that have a scene. Later lenses' drafts may carry others until their WO lands. */
-export const SCENE_FIGURE_TYPES = ['grid_polygon', 'parallel_band'] as const;
+export const SCENE_FIGURE_TYPES = ['grid_polygon', 'parallel_band', 'mirror_path'] as const;
 
 export function hasScene(card: LensCard): boolean {
   return (SCENE_FIGURE_TYPES as readonly string[]).includes(card.problem.figure.type);
