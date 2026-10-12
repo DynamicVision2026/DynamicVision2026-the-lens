@@ -73,8 +73,13 @@ jobs:
       - name: Typecheck
         run: pnpm typecheck
 
-      - name: Unit tests
-        run: pnpm test
-
       - name: Build the trainer
         run: pnpm build
+
+      # Draft cards (new lenses) are left out of the app bundle until their scenes ship, but their
+      # scenes are built and tested before that, so the unit tests run on a drafts-included bundle.
+      - name: Bundle including drafts
+        run: pnpm bundle:drafts
+
+      - name: Unit tests (drafts included)
+        run: pnpm test

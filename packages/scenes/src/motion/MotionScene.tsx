@@ -1,11 +1,12 @@
 import { parseEasing } from '../easing';
 import { answerText, formatExact } from '../format';
 import { boundingBox, boxCorners, centroid, enclosureGaps, outwardDirection, partialPolyline, type Box } from '../geometry';
-import { Bracket, ConstructionLine, FigurePolygon, GridLayer, LensIcon, makeFrame, svgPoints, toSvg, type Frame } from '../primitives';
+import { BAND_END_ROOM, BandFigure, Bracket, ConstructionLine, FigurePolygon, GridLayer, LensIcon, makeFrame, svgPoints, toSvg, type Frame } from '../primitives';
 import { wrapText } from '../text';
 import { color, fontFamily, lensColor, type LensOrDirect, type RenderMode } from '../tokens';
 import { timeLabel } from '../format';
-import type { GlowToken, LensCard, Point, ShortLayout, Step, StepDetail, Tokens } from '../types';
+import type { GlowToken, GridPolygonFigure, LensCard, ParallelBandFigure, Point, ShortLayout, Step, StepDetail, Tokens } from '../types';
+import { bandLayout, bandTriangles } from '../band';
 import { motionState, type MotionState } from './beats';
 import type { Beat } from './timeline';
 
@@ -42,6 +43,9 @@ const MINUS = ' − ';
 const TIMES = ' × ';
 
 type CornerDetail = Extract<StepDetail, { kind: 'corner' }>;
+
+/** Stand-in grid for figures that are not grids (their drawing goes through BandLayer instead). */
+const NO_GRID: { grid: GridPolygonFigure['grid']; points: Point[] } = { grid: { width: 1, height: 1, cell_cm: 1 }, points: [] };
 
 /** The viewBox for the motion preview: the Short's safe area, in frame px. */
 export function motionViewBox(layout: ShortLayout): { x: number; y: number; width: number; height: number } {
@@ -91,7 +95,10 @@ export function MotionScene({ card, beats, beat, t, tokens: baseTokens, glow, mo
   const safeBottom = L.size_px[1] - L.safe_bottom_px;
   const margin = R.figure.min_margin_px;
 
-  const { grid, points } = card.problem.figure;
+  const figure = card.problem.figure;
+  const gridFig = figure.type === 'grid_polygon' ? figure : null;
+  const bandFig = figure.type === 'parallel_band' ? figure : null;
+  const { grid, points } = gridFig ?? NO_GRID;
   const gaps = enclosureGaps(points);
   const steps = card.lens_route.steps;
   const start = steps.find((s) => s.op === 'start');
@@ -99,6 +106,7 @@ export function MotionScene({ card, beats, beat, t, tokens: baseTokens, glow, mo
   const result = steps.find((s) => s.op === 'result');
   const state = motionState(beats, beat, t, {
     corners: gaps.length,
+    apexes: bandFig ? bandTriangles(bandFig) : 0,
     trapLines: card.trap_route.steps.length,
     tokens,
     ease: parseEasing(tokens.motion.easing),
@@ -172,6 +180,8 @@ export function MotionScene({ card, beats, beat, t, tokens: baseTokens, glow, mo
       )}
 
       <g opacity={content}>
+      {gridFig && (
+      <>
       <g opacity={state.grid}>
         <GridLayer frame={frame} tokens={tokens} mode={mode} />
       </g>
@@ -229,6 +239,32 @@ export function MotionScene({ card, beats, beat, t, tokens: baseTokens, glow, mo
         );
       })()}
 
+      </>
+      )}
+
+      {bandFig && (
+        <BandLayer
+          fig={bandFig}
+          state={state}
+          layout={L}
+          tokens={tokens}
+          ink={ink}
+          chalk={chalk}
+          accent={accent}
+          palette={palette.map((c) => color(c, mode))}
+          font={numFont}
+          weight={tokens.type.scale.label.weight}
+          idPrefix={`lens-${card.id}`}
+          glowFilter={glowFilter}
+          glowOpacity={state.coreGlow > 0 ? pulse : glow?.opacity}
+          bottom={cardTop}
+        />
+      )}
+      {/* The lens step being shown, in the formula-card row (the band figure leaves it free). */}
+      {bandFig && state.captionStep >= 0 && state.caption > 0 && card.lens_route.steps[state.captionStep] && (
+        <CentredLines text={card.lens_route.steps[state.captionStep]!.ja} x={W / 2} y={R.formula_card.centre_y} width={W - 2 * margin} size={T.trigger} fill={accent} opacity={state.caption} font={jaFont} weight={bold} />
+      )}
+
       {/* Title band: step badge + title on the left, lens chip on the right. */}
       {focus?.kind === 'box' && start && (
         <text x={margin} y={bandMid} fill={accent} fontFamily={jaFont} fontSize={T.step_title} fontWeight={bold} dominantBaseline="central" opacity={state.enter}>
@@ -274,7 +310,7 @@ export function MotionScene({ card, beats, beat, t, tokens: baseTokens, glow, mo
       })()}
 
       {/* The equation: centred, every term in its step colour; future terms are placeholders. */}
-      {state.terms[0] !== undefined && (focus !== null || state.removed.some((r) => r > 0) || state.result > 0) && (
+      {gridFig && state.terms[0] !== undefined && (focus !== null || state.removed.some((r) => r > 0) || state.result > 0) && (
         <Equation
           terms={[start, ...subs]}
           joined={state.terms}
@@ -403,6 +439,64 @@ export function MotionScene({ card, beats, beat, t, tokens: baseTokens, glow, mo
           </text>
         </g>
       )}
+    </g>
+  );
+}
+
+interface BandLayerProps {
+  fig: ParallelBandFigure;
+  state: MotionState;
+  layout: ShortLayout;
+  tokens: Tokens;
+  ink: string;
+  chalk: string;
+  accent: string;
+  palette: string[];
+  font: string;
+  weight: number;
+  idPrefix: string;
+  glowFilter?: string;
+  glowOpacity?: number;
+  /** Lowest y the figure may use (the formula-card row). */
+  bottom: number;
+}
+
+/** The parallel band at Short size: chalk while the trap plays, then ink, triangles striped in their colours. */
+function BandLayer({ fig, state, layout: L, tokens, ink, chalk, accent, palette, font, weight, idPrefix, glowFilter, glowOpacity, bottom }: BandLayerProps) {
+  const { regions: R, type_px: T, pieces: P, brackets: BR } = L;
+  const [W] = L.size_px;
+  const margin = R.figure.min_margin_px;
+  const inset = Math.max(BR.offset_px + T.bracket_number * 1.4, T.vertex_label * BAND_END_ROOM);
+  const layout = bandLayout(fig, margin, R.figure.y + T.vertex_label, W - 2 * margin, bottom - R.figure.y - 3 * T.vertex_label - BR.offset_px, inset);
+  const common = {
+    fig,
+    layout,
+    tokens,
+    accent,
+    font,
+    weight,
+    labelSize: T.vertex_label,
+    figureStroke: tokens.stroke.figure.width,
+    lensStroke: P.current.stroke_width,
+    bracket: { offset: BR.offset_px, tick: BR.tick_px / 2, numberSize: T.bracket_number, strokeWidth: tokens.stroke.lens_construction.width },
+    parallel: state.parallel,
+    slid: state.slid,
+    merged: state.merged,
+    focus: state.bandFocus,
+    dim: tokens.motion.study.dim_others_opacity,
+    tint: P.current.fill_opacity,
+    stripes: P.current.stripes,
+    glowFilter,
+    glowOpacity,
+  };
+  return (
+    <g>
+      <g opacity={1 - state.inked}>
+        <BandFigure {...common} ink={chalk} palette={palette.map(() => chalk)} show={state.chalk} idPrefix={`${idPrefix}-chalk`} />
+      </g>
+      <g opacity={state.inked}>
+        <BandFigure {...common} ink={ink} palette={palette} show={state.chalk} idPrefix={idPrefix} />
+      </g>
     </g>
   );
 }

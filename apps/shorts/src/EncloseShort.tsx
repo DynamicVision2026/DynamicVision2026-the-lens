@@ -12,7 +12,7 @@ const THEME = 'short_dark';
 export const calculateShortMetadata: CalculateMetadataFunction<EncloseShortProps> = ({ props }) => {
   const card = getCard(props.cardId);
   const beats = card ? shortTimeline(card, tokens) : null;
-  if (!beats) throw new Error(`EncloseShort: "${props.cardId}" is not a standard Enclose card in the bundle`);
+  if (!beats) throw new Error(`EncloseShort: "${props.cardId}" has no study-pace timeline (standard card with a scene) in the bundle`);
   return { durationInFrames: Math.round((timelineDuration(beats) / 1000) * tokens.layout.short.fps) };
 };
 
@@ -29,7 +29,7 @@ export function EncloseShort({ cardId }: EncloseShortProps) {
   const beats = card ? shortTimeline(card, tokens) : null;
   const { short } = tokens.layout;
   const paper = themed(tokens, THEME).tokens.color.paper.value;
-  if (!card || !beats) throw new Error(`EncloseShort: "${cardId}" is not a standard Enclose card in the bundle`);
+  if (!card || !beats) throw new Error(`EncloseShort: "${cardId}" has no study-pace timeline (standard card with a scene) in the bundle`);
 
   const { labels } = loadBundle();
   const optionLabels = Object.fromEntries(card.picker.options.map((o) => [o, labels.lenses[o]?.ja ?? o]));

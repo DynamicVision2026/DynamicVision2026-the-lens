@@ -8,3 +8,4 @@ export { StepLabel } from './StepLabel';
 export { TimeStrip } from './TimeStrip';
 export { LensIcon } from './LensIcon';
 export { Bracket, BRACKET_OFFSET } from './Bracket';
+export { BAND_END_ROOM, BandFigure, type BandFigureProps } from './BandFigure';

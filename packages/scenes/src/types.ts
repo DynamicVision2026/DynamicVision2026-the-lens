@@ -58,6 +58,23 @@ export interface GridPolygonFigure {
   points: Point[];
 }
 
+/** Two parallel lines ℓ (top) and m (bottom), `band_height` apart, with triangles between them. */
+export interface ParallelBandFigure {
+  type: 'parallel_band';
+  band_height: number;
+  /** x of A, B, C, D… on m. Triangle i has base bottom_x[i]..bottom_x[i+1] and apex apex_x[i] on ℓ. */
+  bottom_x: number[];
+  apex_x: number[];
+  point_labels: { bottom: string[]; apex: string[] };
+  /** Which lengths the problem gives; only these may be marked. */
+  shown: { total_base: boolean; band_height: boolean; each_base: boolean };
+  /** AD as an exact string, added by the validator so scenes never subtract coordinates. */
+  total_base: ExactNumber;
+}
+
+/** Figures with a scene. Other types in the bundle (later lenses' drafts) have none yet. */
+export type Figure = GridPolygonFigure | ParallelBandFigure;
+
 export interface Picker {
   /** Exactly four move ids, e.g. "enclose" or "direct". */
   options: string[];
@@ -69,8 +86,12 @@ export interface Picker {
 
 export interface Variant {
   id: string;
-  points: Point[];
-  grid: Grid;
+  /** grid_polygon variants. */
+  points?: Point[];
+  grid?: Grid;
+  /** Other figure types carry their own figure fields and sentence. */
+  figure?: Partial<Figure> & { type: Figure['type'] };
+  text_ja?: string;
   answer: ExactNumber;
   lens_route: VariantRoute;
 }
@@ -113,7 +134,7 @@ export interface LensCard {
   problem: {
     text_ja: string;
     unit: string;
-    figure: GridPolygonFigure;
+    figure: Figure;
   };
   answer: {
     value: ExactNumber;

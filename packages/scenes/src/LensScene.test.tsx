@@ -1,6 +1,6 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { loadBundle } from './bundle';
+import { getCard, loadBundle } from './bundle';
 import { enclosureGaps, notchPieces } from './geometry';
 import { formatExact, timeLabel } from './format';
 import { LensScene } from './LensScene';
@@ -9,13 +9,16 @@ import type { Tokens } from './types';
 import { allSceneCards } from './variant';
 
 const bundle = loadBundle();
-const cards = allSceneCards(bundle);
+/** Cards whose figure type has a scene (a drafts bundle also carries later lenses' figures). */
+const SCENE_FIGURES = ['grid_polygon', 'parallel_band'];
+const cards = allSceneCards(bundle).filter((c) => SCENE_FIGURES.includes(c.problem.figure.type));
+const gridPoints = (c: (typeof cards)[number]) => (c.problem.figure.type === 'grid_polygon' ? c.problem.figure.points : []);
 
 afterEach(() => vi.restoreAllMocks());
 
 describe('LensScene', () => {
   it('is pure: the same props give identical SVG markup', () => {
-    const card = bundle.cards[0]!;
+    const card = getCard('enclose-001')!;
     const props = { card, keyframe: 2, t: 0.37 };
     const a = renderToStaticMarkup(<LensScene {...props} />);
     const b = renderToStaticMarkup(<LensScene {...props} />);
@@ -23,9 +26,8 @@ describe('LensScene', () => {
     expect(a).toContain('<svg');
   });
 
-  it('covers all 5 cards and 15 variants', () => {
-    expect(bundle.cards).toHaveLength(5);
-    expect(cards).toHaveLength(20);
+  it('covers the 5 Enclose cards and their 15 variants', () => {
+    expect(cards.filter((c) => c.lens === 'enclose')).toHaveLength(20);
   });
 
   it.each(cards.map((c) => [c.id, c] as const))('%s renders every keyframe at t = 0 and t = 1 without warnings', (_id, card) => {
@@ -48,7 +50,7 @@ describe('LensScene', () => {
 
   it('draws the end state of the previous keyframe for an unknown keyframe, warning once', () => {
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
-    const base = bundle.cards[0]!;
+    const base = getCard('enclose-001')!;
     const card = { ...base, animation: { keyframes: ['show_shape', 'draw_box', 'no_such_keyframe'] } };
     const unknown = renderToStaticMarkup(<LensScene card={card} keyframe={2} t={0.5} />);
     renderToStaticMarkup(<LensScene card={card} keyframe={2} t={0.5} />);
@@ -73,7 +75,7 @@ describe('LensScene', () => {
   });
 
   it('snaps t to 1 with reducedMotion', () => {
-    const card = bundle.cards[0]!;
+    const card = getCard('enclose-001')!;
     expect(renderToStaticMarkup(<LensScene card={card} keyframe={1} t={0.2} reducedMotion />)).toBe(
       renderToStaticMarkup(<LensScene card={card} keyframe={1} t={1} />),
     );
@@ -81,11 +83,11 @@ describe('LensScene', () => {
 });
 
 describe('geometry matches the bundle steps', () => {
-  it.each(cards.filter((c) => c.kind === 'standard').map((c) => [c.id, c] as const))(
+  it.each(cards.filter((c) => c.kind === 'standard' && c.problem.figure.type === 'grid_polygon').map((c) => [c.id, c] as const))(
     '%s has one corner gap per sub step',
     (_id, card) => {
       const subs = card.lens_route.steps.filter((s) => s.op === 'sub');
-      expect(enclosureGaps(card.problem.figure.points)).toHaveLength(subs.length);
+      expect(enclosureGaps(gridPoints(card))).toHaveLength(subs.length);
     },
   );
 
@@ -93,8 +95,8 @@ describe('geometry matches the bundle steps', () => {
     '%s has one piece per start/add step and one irregular gap',
     (_id, card) => {
       const steps = card.lens_route.steps.filter((s) => s.op === 'start' || s.op === 'add');
-      expect(notchPieces(card.problem.figure.points)).toHaveLength(steps.length);
-      expect(enclosureGaps(card.problem.figure.points).filter((g) => g.length > 3)).toHaveLength(1);
+      expect(notchPieces(gridPoints(card))).toHaveLength(steps.length);
+      expect(enclosureGaps(gridPoints(card)).filter((g) => g.length > 3)).toHaveLength(1);
     },
   );
 });
@@ -111,7 +113,7 @@ describe('No-lens ghost box', () => {
   };
 
   it.each(cards.filter((c) => c.kind === 'no_lens').map((c) => [c.id, c] as const))('%s: the strike never crosses the triangle', (_id, card) => {
-    const pts = card.problem.figure.points;
+    const pts = gridPoints(card);
     const xs = pts.map((p) => p[0]);
     const ys = pts.map((p) => p[1]);
     const [x1, y1] = [Math.max(...xs), Math.max(...ys)];
