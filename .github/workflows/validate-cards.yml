@@ -67,8 +67,14 @@ jobs:
       - name: Build the bundle
         run: pnpm bundle
 
+      - name: No hex colour literals in scenes and apps
+        run: pnpm check:literals
+
       - name: Typecheck
         run: pnpm typecheck
+
+      - name: Unit tests
+        run: pnpm test
 
       - name: Build the trainer
         run: pnpm build

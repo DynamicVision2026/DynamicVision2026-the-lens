@@ -1,0 +1,25 @@
+/* All values come from the CSS variables set from tokens/tokens.json in main.tsx. */
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ja);
+  font-size: var(--type-problem-size);
+}
+
+main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--gutter);
+}
+
+a {
+  color: var(--lens-enclose);
+}
+
+button,
+select,
+input {
+  font: inherit;
+  min-height: var(--tap-target);
+}

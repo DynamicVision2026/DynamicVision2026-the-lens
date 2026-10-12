@@ -1,4 +1,10 @@
 export * from './types';
 export { loadBundle, getCard, getVariants } from './bundle';
-
-// Scene components (<LensScene card keyframe t />) arrive in WO-002.
+export { tokens, cssVars, color, lensColor, fontFamily, fontSize, type RenderMode, type LensOrDirect } from './tokens';
+export { formatExact, countUp, answerText, timeLabel } from './format';
+export { clamp01, parseEasing, stagger } from './easing';
+export { withVariant, allSceneCards } from './variant';
+export { enclosureGaps, notchPieces, boundingBox } from './geometry';
+export { KEYFRAMES, sceneState } from './keyframes';
+export * from './primitives';
+export { LensScene, SCENE_WIDTH, SCENE_HEIGHT, type LensSceneProps } from './LensScene';

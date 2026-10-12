@@ -10,7 +10,9 @@
     "dev:trainer": "pnpm --filter @lens/trainer dev",
     "dev:shorts": "pnpm --filter @lens/shorts dev",
     "typecheck": "node scripts/check-bundle.mjs && pnpm -r typecheck",
-    "build": "pnpm --filter @lens/trainer build"
+    "build": "pnpm --filter @lens/trainer build",
+    "test": "pnpm -r test",
+    "check:literals": "node scripts/check-no-literals.mjs"
   },
   "devDependencies": {
     "typescript": "~5.9.3"

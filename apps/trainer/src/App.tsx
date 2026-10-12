@@ -1,7 +1,14 @@
 import { loadBundle } from '@lens/scenes';
+import { DevScenes } from './dev/DevScenes';
 
-// WO-001 placeholder: list every card from the bundle. Styling comes in WO-002.
+// Minimal path switch; no router library.
 export function App() {
+  if (window.location.pathname.startsWith('/dev/scenes')) return <DevScenes />;
+  return <Home />;
+}
+
+// WO-001 placeholder: list every card from the bundle.
+function Home() {
   const { cards } = loadBundle();
 
   return (
@@ -25,6 +32,9 @@ export function App() {
           ))}
         </tbody>
       </table>
+      <p>
+        <a href="/dev/scenes">/dev/scenes</a>
+      </p>
     </main>
   );
 }
