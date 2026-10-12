@@ -350,6 +350,36 @@ def make_variants(card):
     return out
 
 
+def step_order_check(card, pts):
+    """Scenes place each piece's label by step order, so the order is part of the contract.
+
+    Standard Enclose cards: the `sub` steps must list the corner gaps in edge order
+    starting at edge AB (A->B, B->C, ...), exactly as enclose_breakdown returns them.
+    Failure notch cards: the `start`/`add` steps must follow steps_failure_notch
+    (right rectangle, bottom triangle, side triangle, top triangle).
+    Returns (applies, ok, message).
+    """
+    if card["lens"] != "enclose":
+        return False, True, ""
+    steps = card["lens_route"]["steps"]
+    if card["kind"] == "standard":
+        bd = enclose_breakdown(pts)
+        if not bd:
+            return False, True, ""
+        got = [sympify(s["value"]) for s in steps if s.get("op") == "sub"]
+        want = list(bd[1])
+    elif card["kind"] == "failure" and card["variants"]["generator"] == "enclose_failure_notch":
+        ref = steps_failure_notch(pts)
+        if ref is None:
+            return True, False, "figure is not a notch the cut-line route can explain"
+        got = [sympify(s["value"]) for s in steps if s.get("op") in ("start", "add")]
+        want = [sympify(s["value"]) for s in ref if s.get("op") in ("start", "add")]
+    else:
+        return False, True, ""
+    ok = got == want
+    return True, ok, f"pieces in figure order: expected {[str(w) for w in want]}, card has {[str(g) for g in got]}"
+
+
 # -------------------------------------------------------------------- main ---
 
 def validate(path: Path, with_variants: bool) -> bool:
@@ -370,6 +400,10 @@ def validate(path: Path, with_variants: bool) -> bool:
         ok, msg = run_check(card, ch, pts)
         ok_all &= ok
         print(f"  {'PASS' if ok else 'FAIL'}    {ch['type']}{'(' + ch['route'] + ')' if 'route' in ch else ''}: {msg}")
+    applies, ok, msg = step_order_check(card, pts)
+    if applies:
+        ok_all &= ok
+        print(f"  {'PASS' if ok else 'FAIL'}    step_order (labels land on the right pieces): {msg}")
     vs = []
     if with_variants:
         if card["problem"]["figure"]["grid"]["cell_cm"] != 1:

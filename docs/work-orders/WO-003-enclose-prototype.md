@@ -52,6 +52,10 @@ variant ──done──▶ report      (Time-Saved report)
 - [ ] `prefers-reduced-motion` shows end states with 200 ms fades.
 - [ ] PR includes the MP4 and a screen recording of one full picker run.
 
+## Architect notes from the WO-002 review
+
+- **No-lens `ghost_box_struck_out`:** today the red strike runs diagonally across the whole triangle, so a child can read it as "this triangle is wrong". Change it to strike only the faint box (for example a short strike on its top-right corner, or a small ✕ badge beside the box). The triangle and its answer must stay visually untouched.
+
 ## Out of scope
 
 Email capture, Shopify links beyond a placeholder, other lenses, mixed sets, the access engine, deployment.

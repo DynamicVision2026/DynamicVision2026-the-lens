@@ -15,12 +15,12 @@ Each work order (WO) is one PR. Read `docs/PRD.md` first; this folder only adds 
 3. **The bundle is the only data source.** Apps import `build/bundle.json` (contract: `docs/PRD.md` §5). Never read YAML in the apps, never hard-code a card's numbers or Japanese text, never re-compute an answer.
 4. **Tokens are the only style source.** No hex colours, font names or stroke widths in components; read them from `tokens/tokens.json`.
 5. **Merge rule:** the founder approves, the Builder merges. Merge a PR only when all three hold:
-   - the **Validate Lens Cards** check is green;
-   - a screen recording (or rendered MP4) is attached, for app work;
+   - every check is green (**validate** and **apps**);
+   - for app work, the Architect has posted a **visual check** on the PR (the Architect runs the build headless and sends the founder screenshots; AI sessions can't upload video, so no screen recording is required);
    - the founder has approved it. The founder approves verbally to the Architect or Coordinator, who records it as a PR comment starting **"✅ Approved by Brian"**. That comment is the approval; no GitHub review button is needed. PRs touching `cards/`, `schema/`, `tools/` or `tokens/` also need the Architect's sign-off.
 
-   Use **Squash and merge**, then delete the branch. If the PR shows a conflict, update the branch from `main`, wait for the check to go green again, then merge.
-6. **Keep it small.** No state libraries, no UI kits, no backend. React state, plain SVG, Vite, Remotion. Ask before adding any dependency not named in a WO.
+   Use **Squash and merge**. Leave the merged branch in place: AI sessions can't delete branches, and leftover branches are harmless. If the PR shows a conflict, update the branch from `main`, wait for the checks to go green again, then merge.
+6. **Keep it small.** No state libraries, no UI kits, no backend. React state, plain SVG, Vite, Remotion. Ask before adding any dependency not named in a WO. Approved so far: Vitest 4 (dev-only test runner, Node 20 compatible).
 
 ## Glossary
 

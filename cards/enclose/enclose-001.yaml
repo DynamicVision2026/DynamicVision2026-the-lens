@@ -44,11 +44,11 @@ lens_route:
   time_source: estimate
   steps:
     - {ja: "6×6の正方形で囲む", value: "36", op: start}
-    - {ja: "左下の三角形 1×3÷2", value: "3/2", op: sub}
-    - {ja: "右下の三角形 5×2÷2", value: "5", op: sub}
-    - {ja: "右上の三角形 2×4÷2", value: "4", op: sub}
-    - {ja: "左上の三角形 4×3÷2", value: "6", op: sub}
-    - {ja: "36 − 16.5 = 19.5", value: "39/2", op: result}
+    - {ja: "右下の三角形 5×2÷2", value: "5", op: sub}      # gap under edge AB
+    - {ja: "右上の三角形 2×4÷2", value: "4", op: sub}      # edge BC
+    - {ja: "左上の三角形 4×3÷2", value: "6", op: sub}      # edge CD
+    - {ja: "左下の三角形 1×3÷2", value: "3/2", op: sub}    # edge DA
+    - {ja: "36 − (5 + 4 + 6 + 1.5) = 19.5", value: "39/2", op: result}
 
 trigger:
   ja: "方眼の上のななめの図形は、切らずに囲む。"
