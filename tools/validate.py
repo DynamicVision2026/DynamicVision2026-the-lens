@@ -511,6 +511,13 @@ def wp_brute(fig):
     raise ValueError(k)
 
 
+def stray_name_numbers(names, text, steps):
+    """Numbers printed in diagram labels (figure.names) that appear nowhere in the problem text or lens steps (#63)."""
+    import re
+    seen = set(re.findall(r"\d+", text + " ".join(st["ja"] for st in steps)))
+    return sorted({n for v in names.values() for n in re.findall(r"\d+", str(v))} - seen)
+
+
 def wp_diagram(fig):
     """Diagram family and its numbers for the apps (WO-015). Sizes only: printed numbers come from the steps."""
     k, q = fig["kind"], fig["params"]
@@ -584,6 +591,9 @@ def run_check(card, check, pts) -> tuple[bool, str]:
     if t == "wp_unique":
         sols = wp_brute(fig)
         return sols == [ans], f"trying every case finds exactly {sols}"
+    if t == "wp_names_match":
+        stray = stray_name_numbers(fig.get("names", {}), card["problem"]["text_ja"], card["lens_route"]["steps"])
+        return not stray, "every number in the diagram labels appears in the text or steps" if not stray else f"labels print numbers not in the problem: {stray}"
     if t == "wp_text_matches":
         want = wp_text(fig, fig.get("names", {}))
         return card["problem"]["text_ja"] == want, "problem text matches its numbers" if card["problem"]["text_ja"] == want else f"text should be: {want}"
@@ -1012,6 +1022,7 @@ def make_wp_variants(card):
             a = rng.choice([x for x in (80, 100, 110, 120, 130, 150) if x > (b + c) // 2 + 10 and x != b])
             pairs = rng.randint(3, 9); x = rng.randint(3, 12); n = x + 2 * pairs
             q = {"n": n, "a": a, "b": b, "c": c, "t": a * x + (b + c) * pairs}
+            vnames.update({"a": f"{a}円の{names.get('item', 'お菓子')}", "b": f"平均{(b + c) // 2}円"})
         elif fig0["kind"] == "pair_offset":
             a, b = rng.choice([(120, 70), (150, 90), (130, 80), (110, 60), (140, 50)])
             k = rng.randint(2, 6); m = rng.randint(4, 14)
@@ -1107,10 +1118,12 @@ def make_wp_variants(card):
             continue
         text = wp_text(fig, vnames)
         vcard = {**card, "answer": {**card["answer"], "value": str(x)}, "problem": {**card["problem"], "figure": fig, "text_ja": text}}
-        if not all(run_check(vcard, ch, None)[0] for ch in card["checks"] if ch["type"].startswith("wp_")):
+        if not all(run_check(vcard, ch, None)[0] for ch in card["checks"] if ch["type"].startswith("wp_") and ch["type"] != "wp_names_match"):
             continue
         steps = wp_steps(fig, vnames)
         if route_total({"steps": steps}) != x:
+            continue
+        if stray_name_numbers(vnames, text, steps):
             continue
         seen.add(key); used_answers.add(x)
         out.append({"id": f"{card['id']}-v{len(out) + 1}", "text_ja": text, "figure": {"params": q, "names": vnames},
