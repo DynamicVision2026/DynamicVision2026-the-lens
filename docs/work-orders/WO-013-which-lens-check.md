@@ -13,8 +13,8 @@ One mode, two uses:
 1. The ナゼホリ guide asks 「どのレンズで見る？」 for each problem; the figure is shown at rest (the `drawPreview` look from the prototype).
 2. The child picks a lens (4 options, from `picker.options`), then the clue (same chips as the lens flow). **No solving:** this mode trains the choice.
 3. Each pick is timed (first render → pick).
-4. **Result screen (the parent's moment):** correct picks out of 8; which lenses were confused with which (for example 「面積図 ↔ てんびん」); average decision time; one suggested lens to start with. The result can be saved as an image (screenshot-friendly layout), and there is a "share with your LINE" link to the landing URL. No child data leaves the device.
-5. Then the signup block (email + LINE) and the founder offer.
+4. **Result screen (the parent's moment):** correct picks out of 8; which lenses were confused with which (for example 「面積図 ↔ てんびん」); average decision time; one suggested lens to start with. The result can be saved as an image (screenshot-friendly layout), and there is an 「Xで結果をシェア」 link (see *Result screen touchpoints* below). No child data leaves the device.
+5. Then the email capture (4-week schedule PDF), the X share, and the founder offer. No LINE.
 
 ## Result screen touchpoints (Brian, Oct 13 15:09 CST): no LINE; email + X
 

@@ -38,10 +38,12 @@ Landing `points` (replace all three):
 `PREORDER` becomes:
 - title: 先行予約（30家庭限定）
 - stage: 中学受験パス（小4〜小6）
-- listPrice / earlyPrice / delivery / button: unchanged
+- listPrice / earlyPrice / button: unchanged
+- delivery (Oct 13 update): 創設メンバーには、完成したレンズから順に先行公開します（11月中旬開始予定）。全内容は2027年1月31日までにお届けし、間に合わない場合は全額返金します。
 - New `includes` list, shown under the price:
   - 8回のマスタークラス（1回に1つのレンズ）
-  - 各レンズの解説動画（3〜5分）：わな・しくみ・使いどころ
+  - 各回4ステップ：さわって学ぶ（約2分）→ いっしょに発見 → ひとりで練習 → 時間をはかって確認
+  - 4週間完成スケジュール（PDF）と保護者ガイドつき
   - 各レンズ10問以上、基礎から発展まで（全80問以上・すべてオリジナル問題）
   - 同じ型の練習問題は何度でも（数字が毎回かわります）
   - 「このレンズが使えない問題」と「レンズを使わない方が速い問題」つき
