@@ -62,42 +62,53 @@ def _load_catalog():
     return out
 
 
-MC_SAY = ("trap", "trap_end", "lens", "lens_end", "try", "try_done", "when", "boundary")
-MC_TITLE = ("trap", "lens", "try", "when")
+MC_BEATS = ("principle", "example1", "example2", "boundary", "onboarding")
+MC_SAY = ("principle", "principle_turn", "principle_lens", "example1", "example1_done", "example2", "example2_done",
+          "boundary", "onboarding", "onboarding_done")
+
+
+def _has_drag_scene(c):
+    fig = c["problem"]["figure"]
+    return fig["type"] != "word_problem" or wp_diagram(fig)["family"] != "steps_only"
 
 
 def masterclass_check(pid, ps, lens, by_id):
-    """WO-014: a lesson's Micro Masterclass points at real cards of this Pass and fits the 4-beat standard.
-    Returns (errors, bundle entry or None)."""
+    """WO-014: a lesson's Masterclass (5-min core + 1-min onboarding) points at real cards of this Pass and fits the
+    tokens standard. Returns (errors, bundle entry or None)."""
     m = ps.get("masterclass", {}).get(lens)
     if not m:
         return [], None
     errs = []
-    tokens = json.loads((ROOT / "tokens" / "tokens.json").read_text(encoding="utf-8"))
-    std = tokens["motion"]["masterclass"]
-    if [b["id"] for b in std["beats"]] != list(MC_TITLE) or sum(b["sec"] for b in std["beats"]) != std["total_sec"]:
-        errs.append("tokens motion.masterclass beats must be trap/lens/try/when and sum to total_sec")
+    std = json.loads((ROOT / "tokens" / "tokens.json").read_text(encoding="utf-8"))["motion"]["masterclass"]
+    if [b["id"] for b in std["beats"]] != list(MC_BEATS) or sum(b["sec"] for b in std["beats"]) != std["total_sec"] \
+            or sum(b["sec"] for b in std["beats"] if b["part"] == "core") != std["core_sec"]:
+        errs.append("tokens motion.masterclass: beats must be principle/example1/example2/boundary/onboarding and sum to core_sec / total_sec")
     in_pass = {cid for ls in ps.get("lessons", []) for cid in ls["cards"]}
     lesson_cards = next((ls["cards"] for ls in ps.get("lessons", []) if ls["lens"] == lens), [])
+
     def card(role):
         cid = m.get(role)
         if cid not in by_id:
-            errs.append(f"{role}: card {cid} not found"); return None
+            errs.append(f"{role}: card {cid} not found")
+            return None
         return by_id[cid][1]
-    demo, tr, bd = card("demo"), card("try"), card("boundary")
-    if demo:
-        if demo["kind"] != "standard" or demo["lens"] != lens or demo["id"] not in lesson_cards:
-            errs.append(f"demo {demo['id']} must be a standard {lens} card in this lesson")
-        if len(demo["lens_route"]["steps"]) < 2 or len(demo["trap_route"]["steps"]) < 2:
-            errs.append(f"demo {demo['id']} needs at least 2 trap steps and 2 lens steps")
+    e1, e2, bd, tr = card("example1"), card("example2"), card("boundary"), card("try")
+    std_ok = lambda c: c["kind"] == "standard" and c["lens"] == lens and c["id"] in lesson_cards
+    if e1:
+        if not std_ok(e1) or not _has_drag_scene(e1):
+            errs.append(f"example1 {e1['id']} must be a standard {lens} card with a drag scene, in this lesson")
+        if len(e1["lens_route"]["steps"]) < 2 or len(e1["trap_route"]["steps"]) < 2:
+            errs.append(f"example1 {e1['id']} needs at least 2 trap steps and 2 lens steps")
+    if e2:
+        if not std_ok(e2):
+            errs.append(f"example2 {e2['id']} must be a standard {lens} card in this lesson")
+        if e1 and (e2["id"] == e1["id"] or e2.get("level", 0) < e1.get("level", 0)):
+            errs.append("example2 must differ from example1 and be at least as hard")
     if tr:
-        fam = tr["problem"]["figure"].get("diagram", {}).get("family") if tr["problem"]["figure"]["type"] == "word_problem" else "figure"
-        if fam is None and tr["problem"]["figure"]["type"] == "word_problem":
-            fam = wp_diagram(tr["problem"]["figure"])["family"]
-        if tr["kind"] != "standard" or tr["lens"] != lens or tr.get("level", 9) > 2 or tr["id"] not in lesson_cards or fam == "steps_only":
+        if not std_ok(tr) or tr.get("level", 9) > 2 or not _has_drag_scene(tr):
             errs.append(f"try {tr['id']} must be a level 1–2 standard {lens} card with a drag scene, in this lesson")
-        if demo and tr["id"] == demo["id"]:
-            errs.append("try must differ from demo")
+        if tr["id"] in (m.get("example1"), m.get("example2")):
+            errs.append("try must differ from the two examples (the onboarding dry run is a fresh problem)")
     line = None
     if bd:
         if bd["id"] not in in_pass:
@@ -112,15 +123,16 @@ def masterclass_check(pid, ps, lens, by_id):
         v = m.get("say", {}).get(k, "")
         if not v or len(v) > 32:
             errs.append(f"say.{k} must be 1–32 characters")
-    for k in MC_TITLE:
+    for k in MC_BEATS:
         v = m.get("title", {}).get(k, "")
         if not v or len(v) > 32:
             errs.append(f"title.{k} must be 1–32 characters")
-    clues = [t for t in (demo or {}).get("trigger", {}).get("tags", []) if not LABELS["tags"].get(t, {}).get("generic")]
-    if demo and not clues:
-        errs.append("demo has no specific clue tags for beat 4")
-    entry = {"demo": m.get("demo"), "try": m.get("try"), "boundary": m.get("boundary"), "boundary_line": line,
-             "clues": clues, "say": m.get("say"), "title": m.get("title")}
+    clues = [t for t in (e1 or {}).get("trigger", {}).get("tags", []) if not LABELS["tags"].get(t, {}).get("generic")]
+    if e1 and not clues:
+        errs.append("example1 has no specific clue tags")
+    entry = {"example1": m.get("example1"), "example2": m.get("example2"), "boundary": m.get("boundary"), "try": m.get("try"),
+             "example2_mode": ("scene" if e2 and _has_drag_scene(e2) else "walkthrough"),
+             "boundary_line": line, "clues": clues, "say": m.get("say"), "title": m.get("title")}
     return errs, (None if errs else entry)
 
 
@@ -190,7 +202,7 @@ def catalog_check(entries, release=None):
                 print(f"  FAIL    {pid}/{ls['lens']} masterclass: {e}")
             ok_all &= not mc_errs
             if mc:
-                print(f"  PASS    {pid}/{ls['lens']} masterclass: demo {mc['demo']}, try {mc['try']}, boundary {mc['boundary']}, {len(mc['clues'])} clues")
+                print(f"  PASS    {pid}/{ls['lens']} masterclass: {mc['example1']} → {mc['example2']} ({mc['example2_mode']}), boundary {mc['boundary']}, dry run {mc['try']}")
             out_lessons.append({"lens": ls["lens"], "video": ls.get("video"), "cards": [c["id"] for c in cards if c["status"] in PUBLISHABLE],
                                 **({"masterclass": mc} if mc else {})})
         print(f"  {'PASS' if complete else 'INFO'}    {pid}: {'complete' if complete else ps.get('status', 'planned')} ({len(lessons)} lessons)")
