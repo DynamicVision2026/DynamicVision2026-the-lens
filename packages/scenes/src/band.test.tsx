@@ -10,7 +10,9 @@ import { allSceneCards } from './variant';
 
 // slide-001 is a draft until WO-004 merges: CI runs these tests on a drafts-included bundle.
 const slide = getCard('slide-001');
-const bandCards = allSceneCards(loadBundle()).filter((c) => c.problem.figure.type === 'parallel_band');
+// WO-018 modes (one triangle, non-parallel lines, ask for the gap) are drawn in their own PR; these tests cover the classic band.
+const classicBand = (f: Record<string, unknown>) => !f.apex_heights && f.ask !== 'band_height' && (f.apex_x as unknown[]).length > 1;
+const bandCards = allSceneCards(loadBundle()).filter((c) => c.problem.figure.type === 'parallel_band' && classicBand(c.problem.figure as unknown as Record<string, unknown>));
 const band = (c: LensCard) => c.problem.figure as ParallelBandFigure;
 const texts = (html: string) => [...html.matchAll(/>([^<>]+)</g)].map((m) => m[1]!.trim()).filter(Boolean);
 

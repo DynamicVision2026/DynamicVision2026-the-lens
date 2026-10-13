@@ -1,0 +1,122 @@
+schema_version: '1.1'
+id: slide-004
+kind: standard
+lens: slide
+best_move: slide
+stage: shogakko
+grades:
+- 小6
+level: 4
+archetype: slide.band_height_from_area
+status: draft
+provenance:
+  original: true
+  built_from: 'Archetype: triangles between parallel lines with the total area given; find the gap by merging into one triangle (等積変形, inverse).'
+  not_derived_from: Lengths, wording and figure are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 頂点を集めても面積は変わらない。1つの三角形の 底辺×高さ÷2 が合計の面積なので、高さを逆算できる。
+  principle_en: Merging keeps area; base × height ÷ 2 equals the total, so the height follows.
+problem:
+  text_ja: 直線ℓと直線mは平行です。直線m上のAEの長さは12cmで、B、C、DはAとEの間の点です。P、Q、R、Sは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDR、DESの面積の合計は42cm²です。直線ℓと直線mの間は何cmですか。
+  unit: cm
+  figure:
+    type: parallel_band
+    band_height: 7
+    bottom_x:
+    - 0
+    - 3
+    - 5
+    - 9
+    - 12
+    apex_x:
+    - 1
+    - 4
+    - 7
+    - 11
+    total_area: '42'
+    ask: band_height
+    point_labels:
+      bottom:
+      - A
+      - B
+      - C
+      - D
+      - E
+      apex:
+      - P
+      - Q
+      - R
+      - S
+    shown:
+      total_base: true
+      band_height: false
+      each_base: false
+answer:
+  value: '7'
+  display_ja: 7cm
+  expr: band_area
+trap_route:
+  time_cost_sec: 240
+  time_source: estimate
+  steps:
+  - ja: 4つの三角形の底辺を1つずつ知ろうとする
+    op: note
+  - ja: 底辺も高さも分からず、式が立てられない
+    op: note
+  - ja: ここで約4分
+    op: note
+lens_route:
+  time_cost_sec: 40
+  time_source: estimate
+  steps:
+  - ja: 頂点を直線ℓにそって1点に集めると、底辺AE＝12cmの1つの三角形になる（面積は変わらない）
+    op: note
+  - ja: 12×高さ÷2 = 42 なので、高さ = 42×2÷12 = 7
+    value: '7'
+    op: result
+trigger:
+  ja: 面積の合計から長さを聞かれても、頂点を集めて1つの三角形にすれば逆算できる。
+  en: 'Total area given, a length asked: merge into one triangle and work back.'
+  tags:
+  - total_area_given
+  - triangles_between_parallels
+picker:
+  options:
+  - slide
+  - enclose
+  - mirror
+  - direct
+  correct: slide
+  clue_distractors:
+  - vertices_on_box
+  - touch_a_line
+  feedback_ja:
+    slide: そのとおり。集めると底辺12cmの1つの三角形。12×高さ÷2＝42。
+    enclose: 方眼の上の図形ではない。
+    mirror: 最短の道すじを求める問題ではない。
+    direct: 1つずつの底辺が分からないので、そのままでは式が立たない。
+animation:
+  keyframes:
+  - show_band
+  - mark_parallel
+  - slide_apexes
+  - merge_triangle
+  - show_answer
+checks:
+- type: text_matches
+- type: band_triangles_disjoint
+- type: band_area_equals_answer
+- type: band_height_from_area
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: slide_band
+  count: 4
+  seed: 2151
+  constraints:
+    min_base: 10
+    max_base: 16
+    min_height: 3
+    max_height: 9

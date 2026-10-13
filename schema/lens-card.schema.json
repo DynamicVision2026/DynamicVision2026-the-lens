@@ -228,7 +228,7 @@
                   "items": {
                     "type": "number"
                   },
-                  "minItems": 3,
+                  "minItems": 2,
                   "maxItems": 6
                 },
                 "apex_x": {
@@ -236,7 +236,7 @@
                   "items": {
                     "type": "number"
                   },
-                  "minItems": 2,
+                  "minItems": 1,
                   "maxItems": 5
                 },
                 "point_labels": {
@@ -277,6 +277,25 @@
                       "type": "boolean"
                     }
                   }
+                },
+                "apex_heights": {
+                  "description": "WO-018 failure card: each apex's height above m (ℓ is NOT parallel to m). Omit for a true band.",
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                },
+                "ask": {
+                  "description": "WO-018: what the problem asks. 'area' (default) or 'band_height' (the shaded total is given).",
+                  "enum": [
+                    "area",
+                    "band_height"
+                  ]
+                },
+                "total_area": {
+                  "description": "Given total shaded area when ask = band_height (string, exact).",
+                  "type": "string"
                 }
               }
             },
@@ -315,6 +334,13 @@
                   "additionalProperties": {
                     "type": "string"
                   }
+                },
+                "side": {
+                  "description": "WO-018: 'same' (default, reflect) or 'opposite' (Q across the river: the no-lens case, join directly).",
+                  "enum": [
+                    "same",
+                    "opposite"
+                  ]
                 }
               }
             },
@@ -741,7 +767,9 @@
               "coord_enclose_clean",
               "coord_equal_area_valid",
               "coord_mirror_valid",
-              "cevian_valid"
+              "cevian_valid",
+              "band_not_parallel",
+              "band_height_from_area"
             ]
           },
           "route": {

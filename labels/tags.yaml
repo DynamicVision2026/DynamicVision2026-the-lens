@@ -57,3 +57,7 @@ make_total_amount:    {ja: できあがりの全体の量が決まっている}
 price_per_amount:     {ja: 「100gあたり○円」の2種類を混ぜる}
 same_direction:       {ja: 同じ向きに進む}
 around_a_loop:        {ja: 池や公園のまわりを回る}
+base_and_height_given: {ja: 底辺と高さがもう分かっている}
+lines_not_parallel:   {ja: 2本の直線が平行ではない}
+total_area_given:     {ja: 面積の合計が分かっていて、長さを聞いている}
+points_opposite_sides: {ja: 2つの点が直線の反対側にある}

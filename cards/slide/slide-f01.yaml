@@ -1,0 +1,129 @@
+schema_version: '1.1'
+id: slide-f01
+kind: failure
+lens: slide
+best_move: 'direct: add each triangle (1つずつ計算してたす)'
+stage: shogakko
+grades:
+- 小5
+- 小6
+level: 3
+archetype: slide.not_parallel_failure
+status: draft
+provenance:
+  original: true
+  built_from: 'Archetype: triangles between two lines that are NOT parallel; sliding changes heights, so the lens fails (failure card for 等積変形).'
+  not_derived_from: Lengths, wording and figure are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 等積変形は、高さが変わらないときだけ使える。平行でない線の上では、頂点を動かすと高さも変わる。
+  principle_en: Sliding keeps area only when the height is kept; on a non-parallel line it is not.
+problem:
+  text_ja: 直線m上に点A、B、C、Dがこの順にあり、AB＝3cm、BC＝4cm、CD＝3cmです。P、Q、Rは直線ℓ上の点ですが、直線ℓと直線mは平行ではなく、P、Q、Rから直線mまでの高さはそれぞれ4cm、5cm、8cmです。かげをつけた三角形ABP、BCQ、CDRの面積の合計は何cm²ですか。
+  unit: cm²
+  figure:
+    type: parallel_band
+    band_height: 6
+    bottom_x:
+    - 0
+    - 3
+    - 7
+    - 10
+    apex_x:
+    - 1
+    - 5
+    - 9
+    apex_heights:
+    - 4
+    - 5
+    - 8
+    point_labels:
+      bottom:
+      - A
+      - B
+      - C
+      - D
+      apex:
+      - P
+      - Q
+      - R
+    shown:
+      total_base: true
+      band_height: false
+      each_base: true
+answer:
+  value: '28'
+  display_ja: 28cm²
+  expr: band_area
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: くせで頂点を1点に集めて、底辺ADの1つの三角形にする
+    op: note
+  - ja: でも、どの高さを使えばいいか決まらない（4cm？ 5cm？ 8cm？）
+    op: note
+  - ja: 集めると面積が変わってしまい、答えが合わない。約3分むだになる
+    op: note
+lens_route:
+  time_cost_sec: 40
+  time_source: estimate
+  steps:
+  - ja: 直線ℓとmが平行ではないので、頂点を動かすと高さが変わる。等積変形は使えない
+    op: note
+  - ja: 三角形ABP：3×4÷2 = 6
+    value: '6'
+    op: start
+  - ja: 三角形BCQ：4×5÷2 = 10
+    value: '10'
+    op: add
+  - ja: 三角形CDR：3×8÷2 = 12
+    value: '12'
+    op: add
+  - ja: 6 + 10 + 12 = 28
+    value: '28'
+    op: result
+trigger:
+  ja: 2本の直線が平行でなければ、頂点を動かすと高さが変わる。1つずつ計算する。
+  en: 'Lines not parallel: moving an apex changes its height; add the triangles one by one.'
+  tags:
+  - lines_not_parallel
+picker:
+  options:
+  - slide
+  - enclose
+  - mirror
+  - direct
+  correct: direct
+  clue_distractors:
+  - only_total_given
+  - apexes_on_one_line
+  feedback_ja:
+    slide: おしい。等積変形が使えるのは、頂点が底辺に平行な直線の上を動くときだけ。ここは平行ではない。
+    enclose: 方眼の上の図形ではない。
+    mirror: 最短の道すじを求める問題ではない。
+    direct: そのとおり。高さがちがうので、1つずつ 底辺×高さ÷2 を出してたす。
+animation:
+  keyframes:
+  - show_band
+  - mark_parallel
+  - slide_apexes
+  - merge_triangle
+  - show_answer
+checks:
+- type: text_matches
+- type: band_triangles_disjoint
+- type: band_area_equals_answer
+- type: band_not_parallel
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: slide_band
+  count: 4
+  seed: 2141
+  constraints:
+    min_base: 8
+    max_base: 14
+    min_height: 3
+    max_height: 9

@@ -1,0 +1,107 @@
+schema_version: '1.1'
+id: slide-no-lens
+kind: no_lens
+lens: slide
+best_move: 'direct: base × height ÷ 2 (底辺×高さ÷2)'
+stage: shogakko
+grades:
+- 小4
+- 小5
+level: 1
+archetype: slide.single_no_lens
+status: draft
+provenance:
+  original: true
+  built_from: 'Archetype: one triangle between parallel lines with base and height stated (negative control for 等積変形).'
+  not_derived_from: Lengths, wording and figure are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 底辺と高さが分かっていれば、三角形の面積は底辺×高さ÷2。レンズはいらない。
+  principle_en: Base × height ÷ 2 when both are known; no lens needed.
+problem:
+  text_ja: 直線ℓと直線mは平行で、その間は5cmです。点A、Bは直線m上の点でAB＝7cm、点Pは直線ℓ上の点です。三角形ABPの面積は何cm²ですか。
+  unit: cm²
+  figure:
+    type: parallel_band
+    band_height: 5
+    bottom_x:
+    - 0
+    - 7
+    apex_x:
+    - 3
+    point_labels:
+      bottom:
+      - A
+      - B
+      apex:
+      - P
+    shown:
+      total_base: true
+      band_height: true
+      each_base: true
+answer:
+  value: 35/2
+  display_ja: 17.5cm²
+  expr: band_area
+trap_route:
+  time_cost_sec: 60
+  time_source: estimate
+  steps:
+  - ja: 平行線を見て、くせで頂点Pをすべらせようとする
+    op: note
+  - ja: どこへ動かしても面積は同じなので、動かす意味がない
+    op: note
+  - ja: 遠回りで約1分
+    op: note
+lens_route:
+  time_cost_sec: 15
+  time_source: estimate
+  steps:
+  - ja: 底辺AB＝7cm、高さ＝平行線の間の5cm が、もう分かっている
+    op: note
+  - ja: 7×5÷2 = 17.5
+    value: 35/2
+    op: result
+trigger:
+  ja: 底辺と高さがもう分かっていたら、等積変形はいらない。そのまま計算。
+  en: 'Base and height already known: no sliding, just calculate.'
+  tags:
+  - base_and_height_given
+picker:
+  options:
+  - slide
+  - enclose
+  - mirror
+  - direct
+  correct: direct
+  clue_distractors:
+  - only_total_given
+  - triangles_between_parallels
+  feedback_ja:
+    slide: 動かしても面積は変わらないが、底辺も高さももう分かっている。動かす必要がない。
+    enclose: 方眼の上の図形ではない。
+    mirror: 最短の道すじを求める問題ではない。
+    direct: そのとおり。底辺7cm、高さ5cm。7×5÷2でおしまい。
+animation:
+  keyframes:
+  - show_band
+  - mark_parallel
+  - slide_apexes
+  - merge_triangle
+  - show_answer
+checks:
+- type: text_matches
+- type: band_triangles_disjoint
+- type: band_area_equals_answer
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: slide_band
+  count: 4
+  seed: 2131
+  constraints:
+    min_base: 5
+    max_base: 12
+    min_height: 3
+    max_height: 9
