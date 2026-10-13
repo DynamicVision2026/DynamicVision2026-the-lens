@@ -17,9 +17,9 @@ const fig = (c: LensCard) => c.problem.figure as MirrorPathFigure;
 afterEach(() => vi.restoreAllMocks());
 
 describe.skipIf(!mirror)('mirror-001 (shortest path)', () => {
-  it('has the card and its 3 variants, with answers 4, 12, 3 and 6', () => {
-    expect(mirrorCards.map((c) => c.id)).toEqual(['mirror-001', 'mirror-001-v1', 'mirror-001-v2', 'mirror-001-v3']);
-    expect(mirrorCards.map((c) => c.answer.value)).toEqual(['4', '12', '3', '6']);
+  it('has the card and its 4 variants, with answers 4, 12, 3, 6 and 8', () => {
+    expect(mirrorCards.map((c) => c.id)).toEqual(['mirror-001', 'mirror-001-v1', 'mirror-001-v2', 'mirror-001-v3', 'mirror-001-v4']);
+    expect(mirrorCards.map((c) => c.answer.value)).toEqual(['4', '12', '3', '6', '8']);
   });
 
   it.each(mirrorCards.map((c) => [c.id, c] as const))('%s draws X at the answer on AB, apart from the midpoint guess', (_id, card) => {

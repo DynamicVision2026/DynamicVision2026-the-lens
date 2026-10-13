@@ -22,10 +22,10 @@ const at = (card: LensCard, key: string, t = 1) => renderToStaticMarkup(<LensSce
 afterEach(() => vi.restoreAllMocks());
 
 describe.skipIf(!balance || !freeze)('word problems (てんびん, 止める)', () => {
-  it('has both cards and their 3 variants each', () => {
+  it('has both cards and their 4 variants each', () => {
     expect(cards.map((c) => c.id)).toEqual([
-      'balance-001', 'balance-001-v1', 'balance-001-v2', 'balance-001-v3',
-      'freeze-001', 'freeze-001-v1', 'freeze-001-v2', 'freeze-001-v3',
+      'balance-001', 'balance-001-v1', 'balance-001-v2', 'balance-001-v3', 'balance-001-v4',
+      'freeze-001', 'freeze-001-v1', 'freeze-001-v2', 'freeze-001-v3', 'freeze-001-v4',
     ]);
   });
 
