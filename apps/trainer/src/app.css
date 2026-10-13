@@ -779,3 +779,11 @@ html[data-theme='course'] body {
     margin-bottom: 30px;
   }
 }
+.course .stage3d,
+.course .unfold-loading {
+  width: 100%;
+  min-height: min(62vh, 560px);
+}
+.course .stage3d .lbls span {
+  font-size: 15px;
+}

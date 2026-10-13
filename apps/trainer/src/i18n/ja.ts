@@ -55,6 +55,11 @@ export const ja = {
   'guide.freeze.speed': '分速{v}m',
   'guide.freeze.stopped': '止める',
   'guide.freeze.minutes': '{k}分',
+  'guide.unfold.loading': '3Dを読みこみ中…',
+  'guide.unfold.face': 'ピンクの面を引っぱってみよう！',
+  'guide.unfold.p': '光る P を上下に動かして、糸をまっすぐにしよう',
+  'guide.unfold.down': '少し下へ。糸がまっすぐになる所',
+  'guide.unfold.up': '少し上へ。糸がまっすぐになる所',
   'area.yen': '円',
   'area.age': '才',
 } as const;

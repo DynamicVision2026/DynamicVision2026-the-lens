@@ -13,7 +13,8 @@
   "dependencies": {
     "@lens/scenes": "workspace:*",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "@lens/scene3d": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^19.2.0",

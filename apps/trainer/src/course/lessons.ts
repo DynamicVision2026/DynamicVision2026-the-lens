@@ -10,6 +10,7 @@ const PLAYABLE: Record<string, (card: LensCard) => boolean> = {
   constant: (c) => isWord(c, 'age_ratio'),
   balance: (c) => isWord(c, 'mixture'),
   freeze: (c) => isWord(c, 'meeting'),
+  unfold: (c) => c.problem.figure.type === 'box_unfold',
 };
 
 function isWord(card: LensCard, kind: string): boolean {

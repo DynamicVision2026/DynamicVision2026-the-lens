@@ -14,7 +14,7 @@ describe('lesson problems (from bundle.passes)', () => {
     expect(findPass(bundle, 'koko_juken')?.lessons).toEqual([]);
   });
 
-  it.each(['enclose', 'slide', 'mirror', 'area', 'constant', 'balance', 'freeze'])('%s plays lesson_target problems, cards in catalog order then variants', (lens) => {
+  it.each(['enclose', 'slide', 'mirror', 'area', 'constant', 'balance', 'freeze', 'unfold'])('%s plays lesson_target problems, cards in catalog order then variants', (lens) => {
     const lesson = findLesson(pass, lens)!;
     const problems = lessonProblems(pass, lesson);
     expect(problems).toHaveLength(pass.lesson_target!);
@@ -31,10 +31,10 @@ describe('lesson problems (from bundle.passes)', () => {
     expect(problems).not.toContain('enclose-f01');
   });
 
-  it('only lenses with an interaction are playable so far', () => {
+  it('every Stage 1 lens has an interaction', () => {
     expect(hasInteraction('enclose')).toBe(true);
     expect(hasInteraction('area')).toBe(true);
-    expect(hasInteraction('unfold')).toBe(false);
+    expect(hasInteraction('unfold')).toBe(true);
   });
 });
 
