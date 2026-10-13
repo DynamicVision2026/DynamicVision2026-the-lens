@@ -1,0 +1,98 @@
+schema_version: '1.1'
+id: freeze-002
+kind: standard
+lens: freeze
+best_move: freeze
+stage: shogakko
+grades:
+- 小4
+- 小5
+level: 1
+archetype: freeze.chase
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: the slower walker leaves first; the faster one chases: freeze the slower one, closing speed u−v (旅人算 catch-up).'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 追いかける問題も、前を歩く人を止めて考えると、後ろの人は「速さの差」で近づく。
+  principle_en: Freeze the one in front; the chaser closes at the speed difference.
+problem:
+  text_ja: 弟が家を出て、分速60mで歩き始めました。その10分後に、兄が家を出て、分速100mで同じ道を追いかけます。兄が弟に追いつくのは、兄が家を出てから何分後ですか。
+  unit: 分後
+  figure:
+    type: word_problem
+    kind: chase
+    params:
+      u: 100
+      v: 60
+      h: 10
+    names:
+      a: 兄
+      b: 弟
+answer:
+  value: '15'
+  display_ja: 15分後
+  expr: word_problem
+trap_route:
+  time_cost_sec: 120
+  time_source: estimate
+  steps:
+  - ja: 1分後、2分後…と、2人がいる場所を表に書いて比べる
+    op: note
+  - ja: 弟は先に出ているので、表がずれてまちがえやすい
+    op: note
+  - ja: ここで約2分
+    op: note
+lens_route:
+  time_cost_sec: 25
+  time_source: estimate
+  steps:
+  - ja: 弟を止めて考えると、兄は1分に 100−60 = 40m ずつ近づく
+    op: note
+  - ja: 兄が家を出るとき、弟は 60×10 = 600m 先にいる
+    op: note
+  - ja: 600÷40 = 15（分後）
+    value: '15'
+    op: result
+trigger:
+  ja: あとから追いかけるときは、前の人を止めて、速さの差で近づくと考える。
+  en: 'Chasing: freeze the one in front; close at the speed difference.'
+  tags:
+  - head_start
+  - moving_points
+picker:
+  options:
+  - freeze
+  - constant
+  - area
+  - direct
+  correct: freeze
+  clue_distractors:
+  - ages_both_increase
+  - toward_each_other
+  feedback_ja:
+    freeze: そのとおり。弟を止めると、兄は1分に40mずつ近づく。はじめの差は600m。
+    constant: 年れいの問題ではない。2人の間のきょりは変わる。
+    area: 2種類のものの数と合計の問題ではない。
+    direct: 表にすると、時間がずれていてまちがえやすい。
+animation:
+  keyframes:
+  - show_story
+  - draw_road
+  - freeze_one
+  - combine_speeds
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_chase
+  count: 4
+  seed: 2611

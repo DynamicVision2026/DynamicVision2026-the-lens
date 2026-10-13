@@ -1,0 +1,96 @@
+schema_version: '1.1'
+id: freeze-003
+kind: standard
+lens: freeze
+best_move: freeze
+stage: shogakko
+grades:
+- 小5
+- 小6
+level: 3
+archetype: freeze.trains_pass
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: two trains passing each other: freeze one, the other moves at the sum of speeds over the sum of lengths (通過算).'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 片方の列車を止めると、もう片方は速さの和で進み、2つの長さの和だけ進めばはなれる。
+  principle_en: Freeze one train; the other covers both lengths at the sum of speeds.
+problem:
+  text_ja: 長さ160mで秒速20mの列車Aと、長さ190mで秒速15mの列車Bが、向かい合って走っています。2つの列車が出会ってから完全にはなれるまで、何秒かかりますか。
+  unit: 秒
+  figure:
+    type: word_problem
+    kind: trains_pass
+    params:
+      l1: 160
+      s1: 20
+      l2: 190
+      s2: 15
+answer:
+  value: '10'
+  display_ja: 10秒
+  expr: word_problem
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: 2つの列車を両方動かしたまま図をかき、どこからどこまで進むか考える
+    op: note
+  - ja: 先頭とうしろの位置がこんがらがる
+    op: note
+  - ja: ここで約3分
+    op: note
+lens_route:
+  time_cost_sec: 35
+  time_source: estimate
+  steps:
+  - ja: 列車Bを止めて考えると、列車Aは秒速 20+15 = 35m で近づく
+    op: note
+  - ja: 出会ってからはなれるまでに進むのは、2つの列車の長さの和 160+190 = 350m
+    op: note
+  - ja: 350÷35 = 10（秒）
+    value: '10'
+    op: result
+trigger:
+  ja: 2つの列車がすれちがうときは、片方を止めて、速さの和で長さの和を進むと考える。
+  en: 'Trains passing: freeze one; sum of speeds over sum of lengths.'
+  tags:
+  - lengths_of_both
+  - toward_each_other
+picker:
+  options:
+  - freeze
+  - mirror
+  - area
+  - direct
+  correct: freeze
+  clue_distractors:
+  - head_start
+  - shortest_path
+  feedback_ja:
+    freeze: そのとおり。Bを止めると、Aは秒速35mで、160+190＝350m進めばはなれる。
+    mirror: 最短の道すじを求める問題ではない。
+    area: 2種類のものの数と合計の問題ではない。
+    direct: 両方動かしたまま考えると、位置の関係がややこしい。
+animation:
+  keyframes:
+  - show_story
+  - draw_trains
+  - freeze_one
+  - combine_speeds
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_trains_pass
+  count: 4
+  seed: 2621

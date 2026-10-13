@@ -29,6 +29,7 @@ Earlier build order (now done): WO-003 step 2 → WO-009 → WO-004 … WO-008.
 | [WO-013](WO-013-which-lens-check.md) | 「どのレンズ？」 free 8-question check + week-4 mixed drill | WO-012 core | Oct 27 |
 | [WO-015](WO-015-word-diagram-families.md) | Word-problem diagram families (面積図 · 差一定 new kinds playable) | bundle 1.3 `figure.diagram` | Oct 16 |
 | [WO-016](WO-016-boundary-cards-walkthrough.md) | Failure + no-lens cards in lessons; walkthrough mode for cards without a drag scene | WO-012 core | Oct 18 |
+| [WO-017](WO-017-balance-freeze-extensions.md) | てんびん water/salt lever + 止める chase mode; balance/freeze lessons playable | WO-015, WO-016 | Oct 19 |
 | [WO-004](WO-004-slide-scenes.md) | Slide lens (等積変形): parallel-band figure and its scenes | WO-003 step 2 | Oct 27 |
 | [WO-005](WO-005-mirror-scenes.md) | Mirror lens (折り返す): shortest-path figure and its scenes | WO-004 | Oct 30 |
 | [WO-006](WO-006-word-problem-scenes.md) | Area (面積図) and Constant (差一定): word-problem diagrams | WO-004 | Nov 2 |

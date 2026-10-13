@@ -1,0 +1,97 @@
+schema_version: '1.1'
+id: balance-003
+kind: standard
+lens: balance
+best_move: balance
+stage: shogakko
+grades:
+- 小5
+- 小6
+level: 3
+archetype: balance.add_salt
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: strengthen a salt solution by adding pure salt; salt is a 100 % solution, the far end of the lever.'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 食塩は「100%の食塩水」。てんびんの右はしを100%にすれば、食塩を加える問題も混ぜる問題と同じになる。
+  principle_en: 'Salt is a 100 % solution: the lever''s far end sits at 100.'
+problem:
+  text_ja: 8%の食塩水450gに食塩を何g加えると、10%の食塩水になりますか。
+  unit: g
+  figure:
+    type: word_problem
+    kind: mixture_salt
+    params:
+      w1: 450
+      p1: 8
+      pt: 10
+answer:
+  value: '10'
+  display_ja: 10g
+  expr: word_problem
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: 加える食塩を□gとして、(食塩の量)÷(全体の重さ)＝0.1 の式を立てる
+    op: note
+  - ja: □が分母にも分子にも出てきて、小学生の計算では止まる
+    op: note
+  - ja: ここで約3分
+    op: note
+lens_route:
+  time_cost_sec: 40
+  time_source: estimate
+  steps:
+  - ja: 食塩は「100%の食塩水」と考える。てんびんの両はしに8%と100%、支点に10%をおく
+    op: note
+  - ja: うでの長さは 10−8 = 2 と 100−10 = 90
+    op: note
+  - ja: 450g と 食塩□g の比は、うでの長さの逆の比 45:1
+    op: note
+  - ja: 450×1÷45 = 10（g）
+    value: '10'
+    op: result
+trigger:
+  ja: 食塩を加えるときは、食塩を100%の食塩水としててんびんにのせる。
+  en: 'Adding salt: put salt on the lever as a 100 % solution.'
+  tags:
+  - add_water_or_salt
+  - mixing
+picker:
+  options:
+  - balance
+  - area
+  - constant
+  - direct
+  correct: balance
+  clue_distractors:
+  - two_kinds_mixed
+  - evaporate_water
+  feedback_ja:
+    balance: そのとおり。食塩は100%。8%と100%のてんびんで、支点が10%。
+    area: 2種類のものの数と合計の問題ではない。
+    constant: 水の量は変わらないので、それでも解ける。でも、てんびんの比の方が速い。
+    direct: □が分母にも入る式になり、時間がかかる。
+animation:
+  keyframes:
+  - show_story
+  - place_strengths
+  - mark_arms
+  - invert_ratio
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_mixture_salt
+  count: 4
+  seed: 2521

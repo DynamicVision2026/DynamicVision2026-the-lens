@@ -1,0 +1,100 @@
+schema_version: '1.1'
+id: balance-004
+kind: standard
+lens: balance
+best_move: balance
+stage: shogakko
+grades:
+- 小6
+level: 4
+archetype: balance.mix_then_water
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: mix two solutions, then dilute the result with water: two levers in a row.'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: てんびんは何回でも使える。1回目で混ぜたこさを出し、2回目で水（0%）とのてんびんにする。
+  principle_en: 'Use the lever twice: first the mix, then the mix against water.'
+problem:
+  text_ja: 4%の食塩水200gと10%の食塩水400gを混ぜ、さらに水を加えて6%の食塩水にします。水を何g加えればよいですか。
+  unit: g
+  figure:
+    type: word_problem
+    kind: mix_then_water
+    params:
+      w1: 200
+      p1: 4
+      w2: 400
+      p2: 10
+      pt: 6
+answer:
+  value: '200'
+  display_ja: 200g
+  expr: word_problem
+trap_route:
+  time_cost_sec: 240
+  time_source: estimate
+  steps:
+  - ja: 食塩の量を全部出して、最後の重さを□とした式を立てる
+    op: note
+  - ja: 途中の重さと食塩の量をまちがえやすく、式が長い
+    op: note
+  - ja: ここで約4分
+    op: note
+lens_route:
+  time_cost_sec: 70
+  time_source: estimate
+  steps:
+  - ja: まず4%と10%をてんびんで混ぜる。重さの比 200:400 = 1:2 なので、うでの長さの比は 2:1
+    op: note
+  - ja: うでの長さ 10−4 = 6 を 2:1 に分ける。4%からのうでは 6÷3×2 = 4
+    op: note
+  - ja: 混ぜた食塩水は 4+4 = 8%、重さは 200+400 = 600g
+    op: note
+  - ja: 次に水（0%）を混ぜる。うでの長さは 8−6 = 2 と 6−0 = 6
+    op: note
+  - ja: 600g と 水□g の比は 3:1。水 = 600×1÷3 = 200（g）
+    value: '200'
+    op: result
+trigger:
+  ja: 混ぜてからさらに水を加えるときは、てんびんを2回つなげる。
+  en: 'Mix, then add water: chain two levers.'
+  tags:
+  - mix_then_dilute
+  - mixing
+picker:
+  options:
+  - balance
+  - area
+  - constant
+  - direct
+  correct: balance
+  clue_distractors:
+  - two_kinds_mixed
+  - evaporate_water
+  feedback_ja:
+    balance: そのとおり。1回目のてんびんで8%、2回目は8%と0%のてんびん。
+    area: 2種類のものの数と合計の問題ではない。
+    constant: 食塩の量は変わらない、を使っても解けるが、手順が長くなる。
+    direct: 式を1本で立てると、まちがえやすい。
+animation:
+  keyframes:
+  - show_story
+  - first_lever
+  - show_mix
+  - second_lever
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_mix_then_water
+  count: 4
+  seed: 2531
