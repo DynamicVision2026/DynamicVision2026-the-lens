@@ -1,4 +1,4 @@
-# Catalog: elem/ holds exactly one Pass (one Shopify SKU). Architect-owned.
+# Catalog: chugaku_juken/ holds exactly one Pass (one Shopify SKU). Architect-owned.
 # Strict isolation: a Pass lists only cards whose `stage` is in its card_stages, and no card id
 # may appear in two Passes. Shared engine, schema, picker and scene renderers (ADR-001, ADR-003).
 # The validator loads catalog/*/pass.yaml; `--release chugaku_juken` fails unless this Pass is complete.

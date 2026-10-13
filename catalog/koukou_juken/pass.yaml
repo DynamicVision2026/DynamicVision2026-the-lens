@@ -1,9 +1,9 @@
-# Catalog: middle/ holds exactly one Pass (one Shopify SKU). Architect-owned.
+# Catalog: koukou_juken/ holds exactly one Pass (one Shopify SKU). Architect-owned.
 # Strict isolation: a Pass lists only cards whose `stage` is in its card_stages, and no card id
 # may appear in two Passes. Shared engine, schema, picker and scene renderers (ADR-001, ADR-003).
-# The validator loads catalog/*/pass.yaml; `--release koko_juken` fails unless this Pass is complete.
+# The validator loads catalog/*/pass.yaml; `--release koukou_juken` fails unless this Pass is complete.
 
-koko_juken:
+koukou_juken:
   stage_no: 2
   title_ja: 高校受験パス
   product_en: Middle School Breakthrough

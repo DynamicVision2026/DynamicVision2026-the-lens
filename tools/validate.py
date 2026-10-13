@@ -39,7 +39,7 @@ def _load_labels():
 
 
 LABELS = _load_labels()
-CATALOG_DIRS = {"elem": 1, "middle": 2, "high": 3}   # catalog/<dir>/pass.yaml, one Pass (SKU) per dir
+CATALOG_DIRS = {"chugaku_juken": 1, "koukou_juken": 2, "daigaku_juken": 3}   # catalog/<pass id>/pass.yaml, one Pass (SKU) per dir
 
 
 def _load_catalog():
@@ -53,6 +53,8 @@ def _load_catalog():
         if len(data) != 1:
             raise SystemExit(f"catalog/{d}/pass.yaml must define exactly one Pass, found {list(data)}")
         (pid, ps), = data.items()
+        if pid != d:
+            raise SystemExit(f"catalog/{d}/pass.yaml defines {pid}; the folder name must be the Pass id")
         if ps.get("stage_no") != CATALOG_DIRS[d]:
             raise SystemExit(f"catalog/{d}/pass.yaml: {pid} has stage_no {ps.get('stage_no')}, expected {CATALOG_DIRS[d]}")
         out[pid] = {**ps, "catalog_dir": d}
@@ -73,7 +75,7 @@ def catalog_check(entries, release=None):
     """
     by_id = {c["id"]: (ok, c) for ok, c, _ in entries}
     ok_all, out = True, []
-    print("\n== catalog/{elem,middle,high}/pass.yaml")
+    print("\n== catalog/<pass id>/pass.yaml")
     owner = {}
     for pid, ps in CATALOG.items():
         for ls in ps.get("lessons", []):

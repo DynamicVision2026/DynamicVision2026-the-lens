@@ -40,7 +40,7 @@
       ]
     },
     "lens": {
-      "description": "Lens this card is about (for no_lens: the lens a student is tempted to over-apply). Any lens with a label in labels/lenses.yaml; each Pass in catalog/<elem|middle|high>/pass.yaml declares its own lens set.",
+      "description": "Lens this card is about (for no_lens: the lens a student is tempted to over-apply). Any lens with a label in labels/lenses.yaml; each Pass in catalog/<pass id>/pass.yaml declares its own lens set.",
       "type": "string",
       "pattern": "^[a-z_]+$"
     },
