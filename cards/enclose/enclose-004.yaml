@@ -1,0 +1,85 @@
+schema_version: "1.1"
+id: enclose-004
+kind: standard
+lens: enclose
+best_move: enclose
+stage: shogakko
+grades: [小5, 小6]
+level: 1             # 1 基礎 · 2 標準 · 3 応用 · 4 発展
+archetype: enclose.tilted_rectangle
+status: verified
+
+provenance:
+  original: true
+  built_from: "Archetype: lattice rectangle tilted off the grid, each vertex on a different side of its enclosing box (box minus four right triangles, two pairs of equal ones)."
+  not_derived_from: "Coordinates, wording and figure are original. Not adapted from any 入試, textbook or 塾 problem."
+  author: "The Lens content team"
+
+grounding:
+  principle_ja: "面積の加法性：ななめの長方形も、囲んだ長方形から、すみの4つの直角三角形を引けば求まる。"
+  principle_en: "Additivity of area: the shape is the enclosing rectangle minus the right triangles at its corners."
+
+problem:
+  text_ja: "方眼の1目もりは1cmです。長方形ABCDの面積は何cm²ですか。"
+  unit: "cm²"
+  figure:
+    type: grid_polygon
+    grid: {width: 5, height: 4, cell_cm: 1}
+    points: [[1, 0], [5, 2], [4, 4], [0, 2]]
+
+answer:
+  value: "10"
+  display_ja: "10cm²"
+  expr: polygon_area
+
+trap_route:
+  time_cost_sec: 120
+  time_source: estimate
+  steps:
+    - {ja: "長方形だから「たて×横」を使おうとする", op: note}
+    - {ja: "たても横もななめで、長さが方眼から読めない", op: note}
+    - {ja: "ここで約2分。式が立たない", op: note}
+
+lens_route:
+  time_cost_sec: 30
+  time_source: estimate
+  steps:
+    - {ja: "5×4の長方形で囲む", value: "20", op: start}
+    - {ja: "右下の三角形 4×2÷2", value: "4", op: sub}
+    - {ja: "右上の三角形 1×2÷2", value: "1", op: sub}
+    - {ja: "左上の三角形 4×2÷2", value: "4", op: sub}
+    - {ja: "左下の三角形 1×2÷2", value: "1", op: sub}
+    - {ja: "20 − 10 = 10", value: "10", op: result}
+
+trigger:
+  ja: "ななめにかたむいた長方形は、たてと横を探さずに囲む。"
+  en: "A tilted rectangle: do not hunt for its sides, enclose it."
+  tags: [grid, tilted_polygon, vertices_on_box]
+
+fails_when: enclose-f01
+
+picker:
+  options: [enclose, slide, mirror, direct]
+  correct: enclose
+  clue_distractors: [base_on_grid_line, parallel_lines]
+  feedback_ja:
+    enclose: "そのとおり。頂点がすべて外側の長方形の辺に乗っている。"
+    slide: "平行な2本の線の間に三角形がならぶ形ではない。"
+    mirror: "最短の道すじを求める問題ではない。"
+    direct: "長方形の公式を使うには、方眼の線に乗った辺と高さが必要。ここではどちらも読めない。"
+
+animation:
+  keyframes: [show_shape, draw_box, shade_corners, label_corners, subtract, show_answer]
+
+checks:
+  - {type: lattice_only}
+  - {type: simple_polygon}
+  - {type: area_equals_answer}
+  - {type: enclose_clean}
+  - {type: route_steps_sum, route: lens_route}
+  - {type: lens_faster}
+
+variants:
+  generator: enclose_standard
+  count: 0                 # archetype generator to come; lesson practice uses the other Enclose cards' variants
+  seed: 1000

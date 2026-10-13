@@ -21,7 +21,7 @@ chugaku_juken:
   levels: {1: 基礎, 2: 標準, 3: 応用, 4: 発展}
   review_set: {size: 10, no_lens_items: 2}   # mixed toolkit review: pick the lens, all lessons mixed
   lessons:
-    - {lens: enclose,  video: lesson-enclose,  cards: [enclose-002, enclose-001, enclose-003, enclose-f01, enclose-no-lens]}
+    - {lens: enclose,  video: lesson-enclose,  cards: [enclose-002, enclose-004, enclose-no-lens, enclose-001, enclose-003, enclose-008, enclose-005, enclose-006, enclose-f01, enclose-007]}
     - {lens: slide,    video: lesson-slide,    cards: [slide-001]}
     - {lens: area,     video: lesson-area,     cards: [area-001]}
     - {lens: constant, video: lesson-constant, cards: [constant-001]}

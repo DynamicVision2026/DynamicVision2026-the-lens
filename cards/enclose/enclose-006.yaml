@@ -1,0 +1,85 @@
+schema_version: "1.1"
+id: enclose-006
+kind: standard
+lens: enclose
+best_move: enclose
+stage: shogakko
+grades: [小5, 小6]
+level: 3             # 1 基礎 · 2 標準 · 3 応用 · 4 発展
+archetype: enclose.hexagon
+status: verified
+
+provenance:
+  original: true
+  built_from: "Archetype: lattice hexagon with two edges on the box and four tilted edges cutting the four corners (box minus four right triangles)."
+  not_derived_from: "Coordinates, wording and figure are original. Not adapted from any 入試, textbook or 塾 problem."
+  author: "The Lens content team"
+
+grounding:
+  principle_ja: "面積の加法性：六角形も、囲んだ長方形から、4つのすみの直角三角形を引けば求まる。"
+  principle_en: "Additivity of area: the shape is the enclosing rectangle minus the right triangles at its corners."
+
+problem:
+  text_ja: "方眼の1目もりは1cmです。六角形ABCDEFの面積は何cm²ですか。"
+  unit: "cm²"
+  figure:
+    type: grid_polygon
+    grid: {width: 8, height: 7, cell_cm: 1}
+    points: [[2, 0], [6, 0], [8, 3], [6, 7], [1, 7], [0, 3]]
+
+answer:
+  value: "44"
+  display_ja: "44cm²"
+  expr: polygon_area
+
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+    - {ja: "六角形を三角形や台形に分けようとする", op: note}
+    - {ja: "ななめの辺が4本あり、分けた形の高さが読めない", op: note}
+    - {ja: "ここで約3分。計算が長くなる", op: note}
+
+lens_route:
+  time_cost_sec: 30
+  time_source: estimate
+  steps:
+    - {ja: "8×7の長方形で囲む", value: "56", op: start}
+    - {ja: "右下の三角形 2×3÷2", value: "3", op: sub}
+    - {ja: "右上の三角形 2×4÷2", value: "4", op: sub}
+    - {ja: "左上の三角形 1×4÷2", value: "2", op: sub}
+    - {ja: "左下の三角形 2×3÷2", value: "3", op: sub}
+    - {ja: "56 − 12 = 44", value: "44", op: result}
+
+trigger:
+  ja: "すみが欠けた形は、欠ける前の長方形で囲んで、欠けた三角形を引く。"
+  en: "A rectangle with its corners cut off: enclose it and subtract the cut corners."
+  tags: [grid, vertices_on_box]
+
+fails_when: enclose-f01
+
+picker:
+  options: [enclose, slide, mirror, direct]
+  correct: enclose
+  clue_distractors: [base_on_grid_line, parallel_lines]
+  feedback_ja:
+    enclose: "そのとおり。頂点がすべて外側の長方形の辺に乗っている。"
+    slide: "平行な2本の線の間に三角形がならぶ形ではない。"
+    mirror: "最短の道すじを求める問題ではない。"
+    direct: "六角形の公式を使うには、方眼の線に乗った辺と高さが必要。ここではどちらも読めない。"
+
+animation:
+  keyframes: [show_shape, draw_box, shade_corners, label_corners, subtract, show_answer]
+
+checks:
+  - {type: lattice_only}
+  - {type: simple_polygon}
+  - {type: area_equals_answer}
+  - {type: enclose_clean}
+  - {type: route_steps_sum, route: lens_route}
+  - {type: lens_faster}
+
+variants:
+  generator: enclose_standard
+  count: 0                 # archetype generator to come; lesson practice uses the other Enclose cards' variants
+  seed: 1000

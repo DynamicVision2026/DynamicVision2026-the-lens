@@ -52,6 +52,12 @@ Landing `points` (replace all three):
 
 No score promises anywhere (ADR-001, last section).
 
+## i18n-ready from the start ([ADR-002](../architecture/ADR-002-i18n.md))
+
+- Every new UI string goes into `apps/trainer/src/i18n/ja.ts` under a key, and components call `t('key')`. No language toggle yet and no other locales; this only keeps new code from hard-coding Japanese.
+- Card text keeps coming from the bundle as today.
+- The site URL in the Short end card and on the landing page becomes one setting, `SITE_URL = 'domo-ai.com'`, in `launch.config.ts`.
+
 ## Acceptance
 
 - [ ] `/pass/chugaku_juken` shows 8 tiles from the bundle; `/pass/koko_juken` shows 準備中. No lens ids or counts hard-coded.
