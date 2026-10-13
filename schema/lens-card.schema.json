@@ -386,6 +386,13 @@
                     "surface",
                     "edges"
                   ]
+                },
+                "route": {
+                  "description": "WO-018 L4: 'one_edge' (default, A→BF→G) or 'three_faces' (A→BF→CG→H).",
+                  "enum": [
+                    "one_edge",
+                    "three_faces"
+                  ]
                 }
               }
             },
@@ -815,7 +822,8 @@
               "band_not_parallel",
               "band_height_from_area",
               "unfold_edges",
-              "corner_valid"
+              "corner_valid",
+              "unfold3_valid"
             ]
           },
           "route": {

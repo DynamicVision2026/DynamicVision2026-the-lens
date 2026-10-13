@@ -12,7 +12,7 @@ import { allSceneCards } from './variant';
 // unfold-001 is a draft until WO-008 merges: CI runs these tests on a drafts-included bundle.
 const unfold = getCard('unfold-001');
 // WO-018 path: 'edges' (the no-lens case) is drawn in its own PR; these tests cover the surface path.
-const unfoldCards = allSceneCards(loadBundle()).filter((c) => c.problem.figure.type === 'box_unfold' && (c.problem.figure as { path?: string }).path !== 'edges');
+const unfoldCards = allSceneCards(loadBundle()).filter((c) => c.problem.figure.type === 'box_unfold' && (c.problem.figure as { path?: string }).path !== 'edges' && (c.problem.figure as { route?: string }).route !== 'three_faces');
 const fig = (c: LensCard) => c.problem.figure as BoxUnfoldFigure;
 const last = (c: LensCard) => c.animation!.keyframes.length - 1;
 const dataY = (html: string, part: string) => Number(new RegExp(`data-part="${part}" data-y="([\\d.]+)"`).exec(html)?.[1]);

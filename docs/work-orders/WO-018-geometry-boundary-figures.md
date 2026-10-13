@@ -30,7 +30,8 @@ Until a field is drawn, cards that use it stay `draft`, so a wrong picture can't
 | slide-004 (L4) | `parallel_band.ask: band_height`, `total_area: "42"`: print the given total, and show the gap as 「?cm」 until the answer | scene: merge the apexes, then the gap appears |
 | mirror-no-lens | `mirror_path.side: opposite`: Q is drawn **below** the river | walkthrough (no-lens) |
 | mirror-004 (L4) | new type `mirror_corner`: P, Q inside the right angle of ℓ (horizontal) and m (vertical) at O; keyframes reflect P across m → Q across ℓ → straight P'Q' → touch points | scene: drag P across m, then Q across ℓ (two snaps) |
+| unfold-004 (L4) | `box_unfold.route: three_faces`: open front, right and back faces (width a+b+a); the line A→H crosses BF at P and CG at Q | scene: unfold three faces, then draw the straight line (CQ from the steps) |
 | unfold-no-lens | `box_unfold.path: edges`: highlight the edges A→B→C→G (any shortest edge path); no net | walkthrough (no-lens) |
 
 - Scenes tests (`band.test.tsx`, `mirror.test.tsx`) cover the classic figures only. Extend them to these modes in your drawing PR.
-- When that PR merges, I flip the cards to `verified` and add them to the catalog. Still to come from me: 展開 L4 (two possible nets, compare) and the 展開 failure card.
+- When that PR merges, I flip the cards to `verified` and add them to the catalog. Still to come from me: the 展開 failure card and the 折り返す failure card.
