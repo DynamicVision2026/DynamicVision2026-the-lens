@@ -950,8 +950,27 @@ def _annotate_band(fig):
 
 
 def _annotate_unfold(fig):
-    """The net's total width a+b is printed on screen, so it comes from the bundle."""
-    return {**fig, "net_width": str(S(fig["a"]) + fig["b"])}
+    """Bundle data for the box_unfold scenes: the printed net width, and figure.mesh for the 3D viewport.
+
+    mesh (problem units; x along AB, y up along AE, z away from the viewer along BC, so z = -BC):
+      vertices: A..H; faces: name -> 4 vertex names (counter-clockwise seen from outside);
+      hinge: the edge the right face folds around (B-F), the folding face (BCGF), and its open angle;
+      net: 2D drawing coordinates of the opened faces ABFE + BCGF (A at the origin).
+    Drawing data only; nothing here is printed except via net_width.
+    """
+    a, b, h = fig["a"], fig["b"], fig["h"]
+    V = {"A": [0, 0, 0], "B": [a, 0, 0], "C": [a, 0, -b], "D": [0, 0, -b],
+         "E": [0, h, 0], "F": [a, h, 0], "G": [a, h, -b], "H": [0, h, -b]}
+    mesh = {
+        "units": fig.get("unit", ""),
+        "vertices": V,
+        "faces": {"front": ["A", "B", "F", "E"], "right": ["B", "C", "G", "F"], "back": ["C", "D", "H", "G"],
+                  "left": ["D", "A", "E", "H"], "top": ["E", "F", "G", "H"], "bottom": ["A", "D", "C", "B"]},
+        "hinge": {"edge": ["B", "F"], "face": "right", "open_deg": 90},
+        "net": {"A": [0, 0], "B": [a, 0], "C": [a + b, 0], "G": [a + b, h], "F": [a, h], "E": [0, h]},
+        "path": {"from": "A", "via_edge": ["B", "F"], "to": "G"},
+    }
+    return {**fig, "net_width": str(S(a) + b), "mesh": mesh}
 
 
 def _annotate(card, vs):
