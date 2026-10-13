@@ -179,7 +179,16 @@ const place = (el, x, y) => el.setAttribute('transform', `translate(${x},${y})`)
 function txt(g, x, y, s, attrs = {}) { const t = S('text', { x, y, fill: '#E8ECF4', 'font-size': 18, 'font-family': 'Zen Maru Gothic, sans-serif', 'font-weight': 700, 'text-anchor': 'middle', 'paint-order': 'stroke', stroke: '#131C30', 'stroke-width': 5, ...attrs }, g); t.textContent = s; return t; }
 function stripes(defs, id, color) { const p = S('pattern', { id, width: 12, height: 12, patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)' }, defs); S('rect', { width: 12, height: 12, fill: color, opacity: .12 }, p); S('rect', { width: 4.5, height: 12, fill: color, opacity: .85 }, p); return `url(#${id})`; }
 function newSvg(stage, w = 600, h = 440) { const svg = S('svg', { viewBox: `0 0 ${w} ${h}`, class: 'fig' }); stage.appendChild(svg); const defs = S('defs', {}, svg); PAL.forEach((c, i) => stripes(defs, 'st' + i, c)); return { svg, defs }; }
-function gridBg(g, x0, y0, x1, y1, step) { for (let x = x0; x <= x1 + .1; x += step) S('line', { x1: x, y1: y0, x2: x, y2: y1, stroke: '#1C2740', 'stroke-width': 1 }, g); for (let y = y0; y <= y1 + .1; y += step) S('line', { x1: x0, y1: y, x2: x1, y2: y, stroke: '#1C2740', 'stroke-width': 1 }, g); }
+function gridBg(g, x0, y0, x1, y1, step) { for (let x = x0; x <= x1 + .1; x += step) S('line', { x1: x, y1: y0, x2: x, y2: y1, stroke: '#3A4B70', 'stroke-width': 1 }, g); for (let y = y0; y <= y1 + .1; y += step) S('line', { x1: x0, y1: y, x2: x1, y2: y, stroke: '#3A4B70', 'stroke-width': 1 }, g); }
+/* square grid in problem units (1 square = 1cm): brighter lines, a stronger line every 5, numbered edges */
+function unitGrid(g, X, Y, W, Hh) {
+  for (let i = -1; i <= W + 1; i++) S('line', { x1: X(i), y1: Y(-1), x2: X(i), y2: Y(Hh + 1), stroke: i % 5 === 0 ? '#6F82AD' : '#3A4B70', 'stroke-width': i % 5 === 0 ? 1.6 : 1 }, g);
+  for (let j = -1; j <= Hh + 1; j++) S('line', { x1: X(-1), y1: Y(j), x2: X(W + 1), y2: Y(j), stroke: j % 5 === 0 ? '#6F82AD' : '#3A4B70', 'stroke-width': j % 5 === 0 ? 1.6 : 1 }, g);
+  for (let i = 0; i <= W; i++) txt(g, X(i), Y(-1) + 17, String(i), { 'font-size': 12, fill: i % 5 === 0 ? '#C9D1E0' : '#8A93A6', 'font-weight': 500, 'stroke-width': 3 });
+  for (let j = 0; j <= Hh; j++) txt(g, X(-1) - 12, Y(j) + 4, String(j), { 'font-size': 12, fill: j % 5 === 0 ? '#C9D1E0' : '#8A93A6', 'font-weight': 500, 'stroke-width': 3 });
+  const u = X(1) - X(0); S('line', { x1: X(W + 1) - u, y1: Y(Hh + 1) - 12, x2: X(W + 1), y2: Y(Hh + 1) - 12, stroke: '#E8ECF4', 'stroke-width': 2 }, g);
+  txt(g, X(W + 1) - u / 2, Y(Hh + 1) - 18, '1cm', { 'font-size': 12, fill: '#E8ECF4', 'font-weight': 500, 'stroke-width': 3 });
+}
 
 /* =====================================================================
    Lens scenes. Each: (stage, prob, lens, api) → cleanup. api.hint(text), api.solved()
@@ -192,9 +201,9 @@ SCENES.enclose = (stage, P, L, api) => {
   const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
   const bx0 = Math.min(...xs), by0 = Math.min(...ys), bx1 = Math.max(...xs), by1 = Math.max(...ys);
   const W = P.fig.grid.width, Hh = P.fig.grid.height;
-  const s = Math.min(480 / (W + 2), 360 / (Hh + 2)), ox = (600 - W * s) / 2, oy = (440 + Hh * s) / 2 - 10;
+  const s = Math.min(470 / (W + 3), 350 / (Hh + 3)), ox = (600 - W * s) / 2, oy = (440 + Hh * s) / 2 - 6;
   const X = x => ox + x * s, Y = y => oy - y * s, gx = px => (px - ox) / s, gy = py => (oy - py) / s;
-  const g = S('g', {}, svg); gridBg(g, X(-1), Y(Hh + 1), X(W + 1), Y(-1), s);
+  const g = S('g', {}, svg); unitGrid(g, X, Y, W, Hh);
   const corners = S('g', {}, svg);
   S('polygon', { points: pts.map(p => `${X(p[0])},${Y(p[1])}`).join(' '), fill: 'rgba(232,236,244,.07)', stroke: '#E8ECF4', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, svg);
   pts.forEach((p, i) => { const cx = pts.reduce((a, q) => a + q[0], 0) / pts.length, cy = pts.reduce((a, q) => a + q[1], 0) / pts.length; const dx = p[0] - cx, dy = p[1] - cy, d = Math.hypot(dx, dy) || 1; txt(svg, X(p[0]) + dx / d * 20, Y(p[1]) - dy / d * 20 + 6, 'ABCDEFGHIJ'[i], { 'font-size': 16, fill: '#8A93A6' }); });
@@ -613,7 +622,7 @@ function lensView() {
     sfx.aha(); burst(stage, c); hintEl.remove();
     const done = new Set(solved[l.lens] || []); done.add(P.id); solved[l.lens] = [...done]; store.set('lens.founder.v1', solved);
     const ans = P.display || (fmt(P.answer) + P.unit);
-    const box = H(`<div class="card"><div class="answer">${ans}</div><ul class="steps">${P.steps.map((s, i) => `<li><i style="background:${s.op === 'result' ? c : PAL[i % 4]}"></i><span>${s.ja}</span></li>`).join('')}</ul><div class="why">${l.principle}</div></div>`);
+    const box = H(`<div class="card"><div class="answer">${ans}</div><ul class="steps">${(() => { let si = 0; return P.steps.map((s, i) => `<li><i style="background:${s.op === 'sub' ? PAL[si++ % 4] : (s.op === 'result' || s.op === 'start') ? c : PAL[i % 4]}"></i><span>${s.ja}</span></li>`).join(''); })()}</ul><div class="why">${l.principle}</div></div>`);
     side.appendChild(box);
     requestAnimationFrame(() => box.querySelector('.answer').classList.add('in'));
     box.querySelectorAll('li').forEach((li, i) => setTimeout(() => li.classList.add('in'), 350 + i * 380));
@@ -627,7 +636,7 @@ function lensView() {
 /* the locked preview shown while choosing the lens: the bare problem figure */
 function drawPreview(stage, l, P) {
   const F = P.fig; const { svg } = newSvg(stage); svg.style.opacity = .9;
-  if (F.type === 'grid_polygon') { const W = F.grid.width, Hh = F.grid.height, s = Math.min(480 / (W + 2), 360 / (Hh + 2)), ox = (600 - W * s) / 2, oy = (440 + Hh * s) / 2 - 10; gridBg(svg, ox - s, oy - (Hh + 1) * s, ox + (W + 1) * s, oy + s, s); S('polygon', { points: F.points.map(p => `${ox + p[0] * s},${oy - p[1] * s}`).join(' '), fill: 'rgba(232,236,244,.07)', stroke: '#E8ECF4', 'stroke-width': 2.5 }, svg); }
+  if (F.type === 'grid_polygon') { const W = F.grid.width, Hh = F.grid.height, s = Math.min(470 / (W + 3), 350 / (Hh + 3)), ox = (600 - W * s) / 2, oy = (440 + Hh * s) / 2 - 6; unitGrid(svg, x => ox + x * s, y => oy - y * s, W, Hh); S('polygon', { points: F.points.map(p => `${ox + p[0] * s},${oy - p[1] * s}`).join(' '), fill: 'rgba(232,236,244,.07)', stroke: '#E8ECF4', 'stroke-width': 2.5 }, svg); }
   else if (F.type === 'parallel_band') { const bx = F.bottom_x, lo = bx[0] - 1, hi = bx[bx.length - 1] + 1, s = 520 / (hi - lo), sh = Math.min(240 / F.band_height, 46), X = u => 40 + (u - lo) * s, yM = 340, yL = 340 - F.band_height * sh; [yL, yM].forEach(y => S('line', { x1: 20, y1: y, x2: 580, y2: y, stroke: '#8A93A6', 'stroke-width': 2 }, svg)); F.apex_x.forEach((a, i) => S('polygon', { points: `${X(bx[i])},${yM} ${X(bx[i + 1])},${yM} ${X(a)},${yL}`, fill: '#E8ECF4', opacity: .15, stroke: '#E8ECF4' }, svg)); }
   else if (F.type === 'mirror_path') { const s = 440 / F.ab, sv = Math.min(170 / Math.max(F.pa, F.qb), s); S('line', { x1: 0, y1: 250, x2: 600, y2: 250, stroke: '#8A93A6', 'stroke-width': 2 }, svg); [[80, F.pa, 'P'], [80 + F.ab * s, F.qb, 'Q']].forEach(([x, v, n]) => { S('circle', { cx: x, cy: 250 - v * sv, r: 7, fill: '#E8ECF4' }, svg); txt(svg, x + 22, 250 - v * sv + 6, n); }); }
   else if (F.type === 'box_unfold') { const k = 22, a = F.a * k, b = F.b * k * .6, h = F.h * k, x = 300 - (a + b) / 2, y = 330; const d = 'M' + [[x, y], [x + a, y], [x + a + b, y - b * .7], [x + a + b, y - b * .7 - h], [x + b, y - b * .7 - h], [x, y - h], [x, y]].map(p => p.join(',')).join('L') + `M${x + a},${y}L${x + a},${y - h}L${x},${y - h}M${x + a},${y - h}L${x + a + b},${y - b * .7 - h}`; S('path', { d, fill: 'none', stroke: '#E8ECF4', 'stroke-width': 2 }, svg); }
