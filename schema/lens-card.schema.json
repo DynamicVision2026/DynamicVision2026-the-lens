@@ -394,7 +394,18 @@
                     "trains_pass",
                     "clock_overlap",
                     "speed_change",
-                    "arrival_gap"
+                    "arrival_gap",
+                    "shortfall_both_over",
+                    "score_penalty",
+                    "same_gain",
+                    "transfer_ratio",
+                    "transfer_equal",
+                    "mixture_unknown_strength",
+                    "mixture_total",
+                    "price_blend",
+                    "trains_overtake",
+                    "circle_meet",
+                    "circle_lap"
                   ]
                 },
                 "params": {
@@ -791,7 +802,18 @@
             "coord_triangle",
             "coord_equal_area",
             "coord_mirror_area",
-            "triangle_cevians"
+            "triangle_cevians",
+            "wp_shortfall_both_over",
+            "wp_score_penalty",
+            "wp_same_gain",
+            "wp_transfer_ratio",
+            "wp_transfer_equal",
+            "wp_mixture_unknown_strength",
+            "wp_mixture_total",
+            "wp_price_blend",
+            "wp_trains_overtake",
+            "wp_circle_meet",
+            "wp_circle_lap"
           ]
         },
         "count": {

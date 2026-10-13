@@ -1,0 +1,95 @@
+schema_version: '1.1'
+id: freeze-005
+kind: standard
+lens: freeze
+best_move: freeze
+stage: shogakko
+grades:
+- 小5
+- 小6
+level: 3
+archetype: freeze.trains_overtake
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: a faster train overtakes a slower one going the same way: freeze the slower, close at the speed difference over both lengths.'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 片方を止めると、もう片方は速さの差で近づく。追いこすまでに進むのは、2つの列車の長さの和。
+  principle_en: Freeze one; the other closes at the speed difference over the sum of lengths.
+problem:
+  text_ja: 長さ180mで秒速25mの列車Aが、同じ向きに走る長さ140mで秒速17mの列車Bに、うしろから追いつきました。Aの先頭がBの最後尾に追いついてから、AがBを完全に追いこすまで、何秒かかりますか。
+  unit: 秒
+  figure:
+    type: word_problem
+    kind: trains_overtake
+    params:
+      l1: 180
+      s1: 25
+      l2: 140
+      s2: 17
+answer:
+  value: '40'
+  display_ja: 40秒
+  expr: word_problem
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: 2つの列車を両方動かしたまま、先頭と最後尾の位置を追いかける
+    op: note
+  - ja: どこからどこまで進むかがこんがらがる
+    op: note
+  - ja: ここで約3分
+    op: note
+lens_route:
+  time_cost_sec: 35
+  time_source: estimate
+  steps:
+  - ja: 列車Bを止めて考えると、列車Aは秒速 25−17 = 8m で近づく
+    op: note
+  - ja: 追いこすまでに進むのは、2つの列車の長さの和 180+140 = 320m
+    op: note
+  - ja: 320÷8 = 40（秒）
+    value: '40'
+    op: result
+trigger:
+  ja: 同じ向きに走る列車が追いこすときは、遅い方を止めて、速さの差で長さの和を進むと考える。
+  en: 'Overtaking: freeze the slower train; the speed difference covers both lengths.'
+  tags:
+  - same_direction
+  - lengths_of_both
+picker:
+  options:
+  - freeze
+  - constant
+  - area
+  - direct
+  correct: freeze
+  clue_distractors:
+  - toward_each_other
+  - around_a_loop
+  feedback_ja:
+    constant: 差や合計が変わらないことを使う問題ではない。
+    area: 2種類のものの数と合計の問題ではない。
+    freeze: そのとおり。Bを止めると、Aは秒速8mで、180+140＝320m進めば追いこせる。
+    direct: 両方動かしたまま考えると、位置の関係がややこしい。
+animation:
+  keyframes:
+  - show_story
+  - show_steps
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_trains_overtake
+  count: 4
+  seed: 2661

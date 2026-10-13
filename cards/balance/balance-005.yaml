@@ -1,0 +1,99 @@
+schema_version: '1.1'
+id: balance-005
+kind: standard
+lens: balance
+best_move: balance
+stage: shogakko
+grades:
+- 小5
+- 小6
+level: 3
+archetype: balance.unknown_strength
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: mix a known solution with one of unknown strength; the lever arms are inverse to the weights.'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: てんびんでは、重さ×うでの長さがつり合う。重さが分かっていれば、うでの長さの比が決まる。
+  principle_en: On the lever, weight × arm balances; known weights fix the arm ratio.
+problem:
+  text_ja: 4%の食塩水400gに、こさのわからない食塩水200gを混ぜると、7%の食塩水になりました。混ぜた食塩水のこさは何%ですか。
+  unit: '%'
+  figure:
+    type: word_problem
+    kind: mixture_unknown_strength
+    params:
+      w1: 400
+      p1: 4
+      w2: 200
+      pt: 7
+answer:
+  value: '13'
+  display_ja: 13%
+  expr: word_problem
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: 食塩の量の式を立て、□%を文字のまま計算しようとする
+    op: note
+  - ja: わり算が分数になり、手が止まる
+    op: note
+  - ja: ここで約3分
+    op: note
+lens_route:
+  time_cost_sec: 35
+  time_source: estimate
+  steps:
+  - ja: てんびんの左はしに4%（400g）、支点に7%、右はしに □%（200g）
+    op: note
+  - ja: 左のうでの長さは 7−4 = 3
+    op: note
+  - ja: うでの長さの比は、重さの逆の比 1:2。右のうでは 3×2/1 = 6
+    op: note
+  - ja: □ = 7+6 = 13（%）
+    value: '13'
+    op: result
+trigger:
+  ja: 混ぜたあとのこさから、わからない方のこさを聞かれたら、てんびんのうでの長さの比を使う。
+  en: 'The unknown strength: use the arm ratio on the lever.'
+  tags:
+  - unknown_strength
+  - mixing
+picker:
+  options:
+  - balance
+  - area
+  - constant
+  - direct
+  correct: balance
+  clue_distractors:
+  - two_kinds_mixed
+  - times_relation
+  feedback_ja:
+    area: 2種類のものの数と合計の問題ではない。
+    constant: 差や合計が変わらないことを使う問題ではない。
+    balance: そのとおり。重さの比400:200の逆の比が、うでの長さの比。
+    direct: 式を立てると□が分数で出てきて、時間がかかる。
+animation:
+  keyframes:
+  - show_story
+  - place_strengths
+  - mark_arms
+  - invert_ratio
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_mixture_unknown_strength
+  count: 4
+  seed: 2561

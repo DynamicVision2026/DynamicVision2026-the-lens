@@ -1,0 +1,102 @@
+schema_version: '1.1'
+id: constant-006
+kind: standard
+lens: constant
+best_move: constant
+stage: shogakko
+grades:
+- 小4
+- 小5
+level: 2
+archetype: constant.same_gain
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: two siblings both receive the same amount; afterwards one has r times the other (差一定 with money, increasing).'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 2人が同じ金額をもらうと、2人のお金の差は変わらない。年れいの問題と同じ形。
+  principle_en: Equal gains keep the difference; the same shape as the age problem.
+problem:
+  text_ja: 姉は1500円、弟は300円持っています。2人が同じ金額ずつおこづかいをもらったところ、姉の金額は弟の金額の3倍になりました。1人何円もらいましたか。
+  unit: 円
+  figure:
+    type: word_problem
+    kind: same_gain
+    params:
+      x: 1500
+      y: 300
+      r: 3
+    names:
+      older: 姉
+      younger: 弟
+answer:
+  value: '300'
+  display_ja: 300円
+  expr: word_problem
+trap_route:
+  time_cost_sec: 150
+  time_source: estimate
+  steps:
+  - ja: 100円もらったら、200円もらったら…と、2人の金額を表にする
+    op: note
+  - ja: 毎回「3倍か」をわり算で確かめる
+    op: note
+  - ja: ここで約2分半
+    op: note
+lens_route:
+  time_cost_sec: 30
+  time_source: estimate
+  steps:
+  - ja: 2人が同じ金額をもらっても、お金の差 1500−300 = 1200 は変わらない
+    op: note
+  - ja: 姉が弟の3倍のとき、差の1200は弟の 3−1 = 2 つ分
+    op: note
+  - ja: そのときの弟は 1200÷2 = 600 円
+    op: note
+  - ja: 600−300 = 300（円）
+    value: '300'
+    op: result
+trigger:
+  ja: 2人が同じだけふえるときは、変わらない「差」に目をつける。
+  en: 'Both gain the same: anchor on the unchanging difference.'
+  tags:
+  - both_change_same
+  - times_relation
+picker:
+  options:
+  - constant
+  - area
+  - balance
+  - direct
+  correct: constant
+  clue_distractors:
+  - two_kinds_mixed
+  - mixing
+  feedback_ja:
+    area: 2種類のものの数と合計の問題ではない。
+    balance: こさや平均を混ぜる問題ではない。
+    constant: そのとおり。同じ金額をもらうので、差の1200円はずっと同じ。
+    direct: 100円ずつためすと、何回も計算することになる。
+animation:
+  keyframes:
+  - show_story
+  - draw_money_bars
+  - mark_difference
+  - grow_bars
+  - split_difference
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_same_gain
+  count: 4
+  seed: 2471

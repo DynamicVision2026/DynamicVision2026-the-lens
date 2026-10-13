@@ -1,0 +1,98 @@
+schema_version: '1.1'
+id: balance-006
+kind: standard
+lens: balance
+best_move: balance
+stage: shogakko
+grades:
+- 小5
+level: 2
+archetype: balance.mix_to_total
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: make a fixed total of a target strength from two solutions: split the total in the inverse arm ratio.'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 混ぜる重さの比は、うでの長さの逆の比。全体の量を、その比で分ければよい。
+  principle_en: The weights are in the inverse arm ratio; split the total by it.
+problem:
+  text_ja: 4%の食塩水と12%の食塩水を混ぜて、9%の食塩水を400g作ります。4%の食塩水は何g使いますか。
+  unit: g
+  figure:
+    type: word_problem
+    kind: mixture_total
+    params:
+      p1: 4
+      p2: 12
+      pt: 9
+      W: 400
+answer:
+  value: '150'
+  display_ja: 150g
+  expr: word_problem
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: 4%を□g、12%を(400−□)gとおいて食塩の式を立てる
+    op: note
+  - ja: かっこの計算でまちがえやすい
+    op: note
+  - ja: ここで約3分
+    op: note
+lens_route:
+  time_cost_sec: 30
+  time_source: estimate
+  steps:
+  - ja: てんびんの両はしに4%と12%、支点に9%をおく
+    op: note
+  - ja: うでの長さは 9−4 = 5 と 12−9 = 3
+    op: note
+  - ja: 重さの比は、うでの長さの逆の比 3:5
+    op: note
+  - ja: 4%の方 = 400×3/8 = 150（g）
+    value: '150'
+    op: result
+trigger:
+  ja: 全体の量が決まっていて、2種類を混ぜるときは、てんびんの比で全体を分ける。
+  en: 'A fixed total from two strengths: split it in the lever ratio.'
+  tags:
+  - make_total_amount
+  - mixing
+picker:
+  options:
+  - balance
+  - area
+  - constant
+  - direct
+  correct: balance
+  clue_distractors:
+  - two_kinds_mixed
+  - times_relation
+  feedback_ja:
+    area: 2種類のものの数と合計の問題ではない。
+    constant: 差や合計が変わらないことを使う問題ではない。
+    balance: そのとおり。うでの長さ5と3の逆の比 3:5 で、400gを分ける。
+    direct: 式を立てると、かっこと分数が出てきて時間がかかる。
+animation:
+  keyframes:
+  - show_story
+  - place_strengths
+  - mark_arms
+  - invert_ratio
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_mixture_total
+  count: 4
+  seed: 2571

@@ -1,0 +1,109 @@
+schema_version: '1.1'
+id: area-007
+kind: standard
+lens: area
+best_move: area
+stage: shogakko
+grades:
+- 小4
+- 小5
+level: 2
+archetype: area.two_kinds_ticket
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: two prices (adult/child), total people and total fee: area diagram (つるかめ算, ticket story).'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 1人あたりの入館料×人数は長方形の面積。全部を安いほうと考えると、はみ出した部分だけが残る。
+  principle_en: Fee per person × people is a rectangle; assume all at the lower fee and the strip remains.
+problem:
+  text_ja: ある博物館の入館料は、大人1人1200円、子ども1人800円です。大人と子ども合わせて24人で入館し、入館料は合計22400円でした。大人は何人ですか。
+  unit: 人
+  figure:
+    type: word_problem
+    kind: two_kinds_total
+    params:
+      n: 24
+      a: 1200
+      b: 800
+      t: 22400
+    names:
+      template: ticket
+      a: 大人
+      b: 子ども
+      counter: 人
+      measure: 入館料
+      unit: 円
+answer:
+  value: '8'
+  display_ja: 8人
+  expr: word_problem
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: 大人が1人、2人…のときの合計を表にして、1つずつ調べる
+    op: note
+  - ja: 24通りまであり、計算が多い
+    op: note
+  - ja: ここで約3分
+    op: note
+lens_route:
+  time_cost_sec: 40
+  time_source: estimate
+  steps:
+  - ja: たて＝1人あたりの入館料、横＝人数の長方形2つで表す（面積＝入館料）
+    op: note
+  - ja: 全部子どもだとすると 800×24 = 19200
+    op: note
+  - ja: 本当の入館料との差 22400−19200 = 3200 が、上にはみ出した長方形の面積
+    op: note
+  - ja: その長方形のたては 1200−800 = 400
+    op: note
+  - ja: 大人の数 = 3200÷400 = 8
+    value: '8'
+    op: result
+trigger:
+  ja: 2種類がまざっていて、全部の人数と合計金額だけ分かるときは、長方形2つの面積図にする。
+  en: 'Two kinds mixed, only the total count and total value: two rectangles.'
+  tags:
+  - two_kinds_mixed
+  - total_count_and_total
+picker:
+  options:
+  - area
+  - balance
+  - constant
+  - direct
+  correct: area
+  clue_distractors:
+  - times_relation
+  - mixing
+  feedback_ja:
+    balance: こさや平均を混ぜる問題ではない。
+    constant: 差や合計が変わらないことを使う問題ではない。
+    area: そのとおり。全部子どもとすると 800×24、差の分だけ大人がいる。
+    direct: 1人ずつ表にすると、24行も書くことになる。
+animation:
+  keyframes:
+  - show_story
+  - draw_rectangles
+  - assume_all_b
+  - show_gap_strip
+  - divide_strip
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_two_kinds
+  count: 4
+  seed: 2381

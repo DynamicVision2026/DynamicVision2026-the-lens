@@ -1,0 +1,99 @@
+schema_version: '1.1'
+id: balance-007
+kind: standard
+lens: balance
+best_move: balance
+stage: shogakko
+grades:
+- 小5
+- 小6
+level: 3
+archetype: balance.price_blend
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: blend two teas priced per 100 g into a fixed total at a target price: the lever works for prices too.'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 「あたりの量」を混ぜる問題は、食塩水でもお茶の値段でも同じてんびんになる。
+  principle_en: 'Any ''per amount'' mix balances the same way: salt or price.'
+problem:
+  text_ja: 100gあたり400円のお茶と、100gあたり900円のお茶を混ぜて、100gあたり600円のお茶を1000g作ります。100gあたり400円のお茶は何g使いますか。
+  unit: g
+  figure:
+    type: word_problem
+    kind: price_blend
+    params:
+      p1: 400
+      p2: 900
+      pt: 600
+      W: 1000
+answer:
+  value: '600'
+  display_ja: 600g
+  expr: word_problem
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: 400円のお茶を□gとして、代金の式を立てようとする
+    op: note
+  - ja: 100gあたりの値段と重さがまざって、式が合わない
+    op: note
+  - ja: ここで約3分
+    op: note
+lens_route:
+  time_cost_sec: 35
+  time_source: estimate
+  steps:
+  - ja: てんびんの両はしに400円と900円、支点に600円をおく
+    op: note
+  - ja: うでの長さは 600−400 = 200 と 900−600 = 300
+    op: note
+  - ja: 重さの比は、うでの長さの逆の比 3:2
+    op: note
+  - ja: 400円の方 = 1000×3/5 = 600（g）
+    value: '600'
+    op: result
+trigger:
+  ja: 「100gあたり○円」の2種類を混ぜるときも、てんびんで考える。
+  en: 'Two per-100 g prices mixed: use the lever too.'
+  tags:
+  - price_per_amount
+  - make_total_amount
+picker:
+  options:
+  - balance
+  - area
+  - constant
+  - direct
+  correct: balance
+  clue_distractors:
+  - two_kinds_mixed
+  - times_relation
+  feedback_ja:
+    area: 2種類のものの数と合計の問題ではない。
+    constant: 差や合計が変わらないことを使う問題ではない。
+    balance: そのとおり。こさのかわりに値段をてんびんにのせる。うでの長さは200と300。
+    direct: 式を立てると、100gあたりの値段と全体の代金が入りまじってまちがえやすい。
+animation:
+  keyframes:
+  - show_story
+  - place_strengths
+  - mark_arms
+  - invert_ratio
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_price_blend
+  count: 4
+  seed: 2581
