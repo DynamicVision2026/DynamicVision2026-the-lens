@@ -1,0 +1,637 @@
+<title>視点レンズ Founder MVP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* Layout: one-screen app. Home = lens case (8 tiles). Lens = stage (figure you touch) + side panel (pick → clue → play → aha). Single deliberate dark look: the Shorts' navy. */
+:root {
+  color-scheme: dark;
+  --paper: #0D1424; --panel: #131C30; --raise: #1A2540; --line: #24314F;
+  --ink: #E8ECF4; --quiet: #8A93A6; --grid: #1C2740;
+  --flag: #FF8A65; --ok: #5BE38C;
+  --s0: #FFC857; --s1: #FF7AB6; --s2: #B9A6FF; --s3: #9BE36B;
+  --lens: #3BE3F5;
+  --display: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
+  --body: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
+}
+html, body { height: 100%; }
+body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 15px; -webkit-tap-highlight-color: transparent; overscroll-behavior: none; }
+button { font: inherit; color: inherit; touch-action: manipulation; cursor: pointer; }
+.app { min-height: 100%; display: flex; flex-direction: column; padding: 14px 16px 20px; max-width: 1280px; margin: 0 auto; box-sizing: border-box; gap: 12px; }
+/* ---------- home ---------- */
+.brand { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.brand h1 { font-family: var(--display); font-weight: 900; font-size: clamp(26px, 4vw, 38px); margin: 0; letter-spacing: .02em; }
+.brand .tag { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--paper); background: var(--lens); padding: 3px 8px; border-radius: 4px; font-weight: 700; }
+.lede { color: var(--quiet); margin: 0; max-width: 60ch; line-height: 1.7; }
+.case { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+.tile { position: relative; text-align: left; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 16px 14px 14px; display: flex; flex-direction: column; gap: 8px; min-height: 150px; transition: transform .08s ease, border-color .2s; }
+.tile:active { transform: scale(.97); }
+.tile .ring { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; border: 2px solid var(--c); box-shadow: 0 0 18px -4px var(--c); }
+.tile .ring svg { width: 24px; height: 24px; }
+.tile .nm { font-family: var(--display); font-weight: 900; font-size: 22px; }
+.tile .hn { color: var(--quiet); font-size: 12px; line-height: 1.5; }
+.tile .dots { display: flex; gap: 4px; margin-top: auto; }
+.tile .dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
+.tile .dots i.on { background: var(--c); box-shadow: 0 0 6px var(--c); }
+.tile.done { border-color: var(--c); }
+.foot { color: var(--quiet); font-size: 12px; line-height: 1.6; }
+/* ---------- lens screen ---------- */
+.bar { display: flex; align-items: center; gap: 10px; }
+.back { background: var(--raise); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; font-weight: 700; }
+.chip { display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--lens); color: var(--lens); border-radius: 999px; padding: 4px 12px; font-family: var(--display); font-weight: 700; }
+.chip svg { width: 18px; height: 18px; }
+.pdots { margin-left: auto; display: flex; gap: 6px; }
+.pdots i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+.pdots i.cur { background: var(--ink); }
+.pdots i.on { background: var(--lens); }
+.qtext { font-size: clamp(16px, 2.1vw, 19px); line-height: 1.75; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px; margin: 0; }
+.main { display: grid; grid-template-columns: 1fr; gap: 12px; flex: 1; min-height: 0; }
+@media (min-width: 900px) { .main { grid-template-columns: minmax(0, 1.45fr) minmax(300px, 1fr); } }
+.stage { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; touch-action: none; user-select: none; -webkit-user-select: none; min-height: 300px; display: flex; }
+.stage svg.fig { width: 100%; height: auto; display: block; max-height: 68vh; margin: auto; }
+.stage canvas.gl { width: 100%; height: 100%; display: block; min-height: 380px; }
+.stage .lbls { position: absolute; inset: 0; pointer-events: none; }
+.stage .lbls span { position: absolute; transform: translate(-50%, -50%); font-family: var(--display); font-weight: 700; font-size: 15px; text-shadow: 0 0 6px var(--paper), 0 0 2px var(--paper); white-space: nowrap; }
+.stage.glow { box-shadow: 0 0 0 2px var(--lens), 0 0 40px -6px var(--lens); transition: box-shadow .25s; }
+canvas.fx { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.hint { position: absolute; left: 12px; right: 12px; bottom: 10px; text-align: center; font-size: 14px; color: var(--ink); pointer-events: none; }
+.hint b { background: color-mix(in srgb, var(--paper) 80%, transparent); padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); font-weight: 500; display: inline-block; }
+.side { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.card h2 { font-family: var(--display); font-weight: 900; font-size: 19px; margin: 0; }
+.trap { color: var(--quiet); font-size: 13px; line-height: 1.6; border-left: 3px solid var(--flag); padding-left: 10px; }
+.opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.opt { display: flex; align-items: center; gap: 8px; min-height: 56px; padding: 8px 12px; border-radius: 14px; background: var(--raise); border: 1.5px solid var(--line); font-family: var(--display); font-weight: 700; font-size: 17px; transition: transform .08s ease, opacity .3s, border-color .2s; }
+.opt svg { width: 22px; height: 22px; flex: none; }
+.opt:active, .opt.press { transform: scale(.95); }
+.opt.tried { opacity: .38; }
+.opt.right { border-color: var(--lens); box-shadow: 0 0 20px -4px var(--lens); }
+.shake { animation: shake .38s ease; }
+@keyframes shake { 20% { transform: translateX(-6px) } 40% { transform: translateX(5px) } 60% { transform: translateX(-3px) } 80% { transform: translateX(2px) } }
+.try { font-size: 14px; line-height: 1.7; background: var(--raise); border-radius: 12px; padding: 10px 12px; border: 1px dashed var(--line); }
+.try b { color: var(--flag); font-weight: 700; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.cl { min-height: 44px; padding: 8px 14px; border-radius: 999px; background: var(--raise); border: 1.5px solid var(--line); font-size: 14px; transition: transform .08s; }
+.cl:active { transform: scale(.95); }
+.cl.yes { border-color: var(--lens); color: var(--lens); box-shadow: 0 0 14px -4px var(--lens); }
+.cl.no { opacity: .4; }
+.steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.steps li { display: flex; gap: 10px; align-items: baseline; line-height: 1.6; font-size: 15px; opacity: 0; transform: translateY(6px); transition: opacity .35s, transform .35s; }
+.steps li.in { opacity: 1; transform: none; }
+.steps li i { width: 10px; height: 10px; border-radius: 3px; flex: none; transform: translateY(1px); }
+.answer { font-family: var(--display); font-weight: 900; font-size: clamp(40px, 6vw, 58px); color: var(--lens); text-shadow: 0 0 24px color-mix(in srgb, var(--lens) 50%, transparent); line-height: 1; opacity: 0; transform: scale(.6); transition: opacity .3s, transform .45s cubic-bezier(.2, 1.6, .4, 1); }
+.answer.in { opacity: 1; transform: none; }
+.go { align-self: stretch; min-height: 54px; border-radius: 14px; border: 0; background: var(--lens); color: var(--paper); font-family: var(--display); font-weight: 900; font-size: 18px; transition: transform .08s; }
+.go:active { transform: scale(.97); }
+.go.ghost { background: var(--raise); color: var(--ink); border: 1px solid var(--line); }
+.trigger { font-size: 14px; line-height: 1.7; color: var(--ink); border-left: 3px solid var(--lens); padding-left: 10px; }
+.why { font-size: 13px; color: var(--quiet); line-height: 1.6; }
+:focus-visible { outline: 2px solid var(--lens); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { * { transition-duration: .01s !important; animation-duration: .01s !important; } }
+</style>
+
+<div class="app" id="app"></div>
+
+<script>
+const DATA = /*DATA*/null;
+const PAL = ['#FFC857', '#FF7AB6', '#B9A6FF', '#9BE36B'];
+const LENSC = { enclose: '#3BE3F5', slide: '#3EF0C0', unfold: '#FF9A4D', freeze: '#86B8FF', balance: '#E58CFF', area: '#FFE066', mirror: '#5CC8FF', constant: '#C6F06A', direct: '#C9D1E0' };
+const ICON = {
+  enclose: ['M4 4h16v16H4z', 'M9 15l6-6'], slide: ['M4 8h14', 'M15 5l3 3-3 3', 'M4 16h14', 'M15 13l3 3-3 3'],
+  unfold: ['M9 3h6v6H9z', 'M3 9h18v6H3z', 'M9 15h6v6H9z'], freeze: ['M12 3v18', 'M4.2 7.5l15.6 9', 'M4.2 16.5l15.6-9'],
+  balance: ['M3 15l18-6', 'M12 12l-3 8h6z'], area: ['M3 6h10v12H3z', 'M13 10h8v8h-8z'],
+  mirror: ['M12 3v18', 'M9 7l-5 5 5 5z', 'M15 7l5 5-5 5z'], constant: ['M5 9h14', 'M5 15h14'],
+  direct: ['M4 20l1-5L16 4l4 4L9 19z', 'M14 6l4 4'],
+};
+const icon = (k, c) => `<svg viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${(ICON[k] || []).map(d => `<path d="${d}"/>`).join('')}</svg>`;
+const NS = 'http://www.w3.org/2000/svg';
+function S(tag, attrs = {}, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function H(html) { const t = document.createElement('template'); t.innerHTML = html.trim(); return t.content.firstChild; }
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+function frac(s) { s = String(s); if (s.includes('/')) { const [a, b] = s.split('/').map(Number); return a / b; } return Number(s); }
+const fmt = v => { const n = typeof v === 'string' ? frac(v) : v; return Number.isInteger(n) ? String(n) : String(Math.round(n * 100) / 100); };
+const store = { get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} } };
+let solved = store.get('lens.founder.v1', {});
+
+/* ---------- sound + haptics ---------- */
+let AC = null;
+function audio() { if (!AC) { try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {} } if (AC && AC.state === 'suspended') AC.resume(); return AC; }
+function tone(f, t0, dur, type = 'sine', vol = .12) { const a = audio(); if (!a) return; const o = a.createOscillator(), g = a.createGain(); o.type = type; o.frequency.value = f; g.gain.setValueAtTime(0, a.currentTime + t0); g.gain.linearRampToValueAtTime(vol, a.currentTime + t0 + .01); g.gain.exponentialRampToValueAtTime(.0001, a.currentTime + t0 + dur); o.connect(g).connect(a.destination); o.start(a.currentTime + t0); o.stop(a.currentTime + t0 + dur + .05); }
+const sfx = {
+  tap() { tone(880, 0, .05, 'triangle', .05); buzz(5); },
+  snap() { tone(1320, 0, .07, 'triangle', .09); tone(1760, .04, .08, 'sine', .06); buzz(12); },
+  soft() { tone(330, 0, .16, 'sine', .07); },
+  aha() { [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(f, i * .085, .5, 'sine', .11)); tone(2093, .34, .6, 'triangle', .04); buzz([15, 40, 25]); },
+};
+function buzz(p) { try { navigator.vibrate && navigator.vibrate(p); } catch (e) {} }
+document.addEventListener('pointerdown', () => audio(), { once: true, capture: true });
+
+/* ---------- spring engine ---------- */
+const springs = new Set();
+function spring(get, set, target, { k = 260, c = 22, done } = {}) {
+  const s = { x: get(), v: 0, target, k, c, set, done };
+  for (const o of springs) if (o.set === set) springs.delete(o);
+  springs.add(s); kick(); return s;
+}
+let ticking = false, lastT = 0; const frameHooks = new Set();
+function kick() { if (!ticking) { ticking = true; lastT = performance.now(); requestAnimationFrame(tick); } }
+function tick(t) {
+  const dt = Math.min(.032, (t - lastT) / 1000); lastT = t;
+  for (const s of springs) {
+    const a = s.k * (s.target - s.x) - s.c * s.v; s.v += a * dt; s.x += s.v * dt; s.set(s.x);
+    if (Math.abs(s.target - s.x) < 1e-3 && Math.abs(s.v) < 1e-3) { s.set(s.target); springs.delete(s); s.done && s.done(); }
+  }
+  for (const h of frameHooks) h(dt);
+  if (springs.size || frameHooks.size) requestAnimationFrame(tick); else ticking = false;
+}
+
+/* ---------- confetti burst ---------- */
+function burst(stage, color) {
+  const cv = document.createElement('canvas'); cv.className = 'fx'; stage.appendChild(cv);
+  const r = stage.getBoundingClientRect(), dpr = Math.min(2, devicePixelRatio || 1);
+  cv.width = r.width * dpr; cv.height = r.height * dpr; const g = cv.getContext('2d'); g.scale(dpr, dpr);
+  const cols = [color, ...PAL, '#ffffff']; const ps = [];
+  for (let i = 0; i < 90; i++) { const a = Math.random() * Math.PI * 2, sp = 3 + Math.random() * 7; ps.push({ x: r.width / 2, y: r.height * .45, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 3, s: 3 + Math.random() * 5, c: cols[i % cols.length], life: 1 }); }
+  const hook = () => { g.clearRect(0, 0, r.width, r.height); let alive = 0; for (const p of ps) { if (p.life <= 0) continue; alive++; p.vy += .25; p.vx *= .985; p.x += p.vx; p.y += p.vy; p.life -= .016; g.globalAlpha = Math.max(0, p.life); g.fillStyle = p.c; g.fillRect(p.x, p.y, p.s, p.s * .6); } if (!alive) { frameHooks.delete(hook); cv.remove(); } };
+  frameHooks.add(hook); kick();
+}
+
+/* ---------- svg pointer helper ---------- */
+function svgPt(svg, e) { const p = svg.createSVGPoint(); p.x = e.clientX; p.y = e.clientY; return p.matrixTransform(svg.getScreenCTM().inverse()); }
+function draggable(svg, handle, { start, move, end }) {
+  handle.style.cursor = 'grab';
+  handle.addEventListener('pointerdown', e => {
+    e.preventDefault(); e.stopPropagation(); sfx.tap(); springs.clear();
+    const id = e.pointerId; svg.setPointerCapture(id); start && start(svgPt(svg, e));
+    const mv = ev => { if (ev.pointerId === id) move(svgPt(svg, ev)); };
+    const up = ev => { if (ev.pointerId !== id) return; svg.removeEventListener('pointermove', mv); svg.removeEventListener('pointerup', up); svg.removeEventListener('pointercancel', up); end && end(svgPt(svg, ev)); };
+    svg.addEventListener('pointermove', mv); svg.addEventListener('pointerup', up); svg.addEventListener('pointercancel', up);
+  });
+}
+function knob(g, x, y, color, r = 15) {
+  const k = S('g', {}, g);
+  S('circle', { cx: 0, cy: 0, r: r + 14, fill: 'transparent' }, k);
+  S('circle', { cx: 0, cy: 0, r: r + 6, fill: color, opacity: .16 }, k);
+  S('circle', { cx: 0, cy: 0, r, fill: '#0D1424', stroke: color, 'stroke-width': 3 }, k);
+  S('circle', { cx: 0, cy: 0, r: 4, fill: color }, k);
+  k.setAttribute('transform', `translate(${x},${y})`); return k;
+}
+const place = (el, x, y) => el.setAttribute('transform', `translate(${x},${y})`);
+function txt(g, x, y, s, attrs = {}) { const t = S('text', { x, y, fill: '#E8ECF4', 'font-size': 18, 'font-family': 'Zen Maru Gothic, sans-serif', 'font-weight': 700, 'text-anchor': 'middle', 'paint-order': 'stroke', stroke: '#131C30', 'stroke-width': 5, ...attrs }, g); t.textContent = s; return t; }
+function stripes(defs, id, color) { const p = S('pattern', { id, width: 12, height: 12, patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)' }, defs); S('rect', { width: 12, height: 12, fill: color, opacity: .12 }, p); S('rect', { width: 4.5, height: 12, fill: color, opacity: .85 }, p); return `url(#${id})`; }
+function newSvg(stage, w = 600, h = 440) { const svg = S('svg', { viewBox: `0 0 ${w} ${h}`, class: 'fig' }); stage.appendChild(svg); const defs = S('defs', {}, svg); PAL.forEach((c, i) => stripes(defs, 'st' + i, c)); return { svg, defs }; }
+function gridBg(g, x0, y0, x1, y1, step) { for (let x = x0; x <= x1 + .1; x += step) S('line', { x1: x, y1: y0, x2: x, y2: y1, stroke: '#1C2740', 'stroke-width': 1 }, g); for (let y = y0; y <= y1 + .1; y += step) S('line', { x1: x0, y1: y, x2: x1, y2: y, stroke: '#1C2740', 'stroke-width': 1 }, g); }
+
+/* =====================================================================
+   Lens scenes. Each: (stage, prob, lens, api) → cleanup. api.hint(text), api.solved()
+   ===================================================================== */
+const SCENES = {};
+
+/* ---- 囲む: drag the box corners until they snap onto the shape ---- */
+SCENES.enclose = (stage, P, L, api) => {
+  const { svg } = newSvg(stage); const pts = P.fig.points;
+  const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+  const bx0 = Math.min(...xs), by0 = Math.min(...ys), bx1 = Math.max(...xs), by1 = Math.max(...ys);
+  const W = P.fig.grid.width, Hh = P.fig.grid.height;
+  const s = Math.min(480 / (W + 2), 360 / (Hh + 2)), ox = (600 - W * s) / 2, oy = (440 + Hh * s) / 2 - 10;
+  const X = x => ox + x * s, Y = y => oy - y * s, gx = px => (px - ox) / s, gy = py => (oy - py) / s;
+  const g = S('g', {}, svg); gridBg(g, X(-1), Y(Hh + 1), X(W + 1), Y(-1), s);
+  const corners = S('g', {}, svg);
+  S('polygon', { points: pts.map(p => `${X(p[0])},${Y(p[1])}`).join(' '), fill: 'rgba(232,236,244,.07)', stroke: '#E8ECF4', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, svg);
+  pts.forEach((p, i) => { const cx = pts.reduce((a, q) => a + q[0], 0) / pts.length, cy = pts.reduce((a, q) => a + q[1], 0) / pts.length; const dx = p[0] - cx, dy = p[1] - cy, d = Math.hypot(dx, dy) || 1; txt(svg, X(p[0]) + dx / d * 20, Y(p[1]) - dy / d * 20 + 6, 'ABCDEFGHIJ'[i], { 'font-size': 16, fill: '#8A93A6' }); });
+  const cx0 = (bx0 + bx1) / 2, cy0 = (by0 + by1) / 2;
+  const box = { x0: cx0 - .8, y0: cy0 - .8, x1: cx0 + .8, y1: cy0 + .8 };
+  const rect = S('rect', { fill: 'none', stroke: L.c, 'stroke-width': 3, 'stroke-dasharray': '10 7', rx: 2 }, svg);
+  const hA = knob(svg, 0, 0, L.c), hB = knob(svg, 0, 0, L.c);
+  const draw = () => { rect.setAttribute('x', X(Math.min(box.x0, box.x1))); rect.setAttribute('y', Y(Math.max(box.y0, box.y1))); rect.setAttribute('width', Math.abs(box.x1 - box.x0) * s); rect.setAttribute('height', Math.abs(box.y1 - box.y0) * s); place(hA, X(box.x0), Y(box.y1)); place(hB, X(box.x1), Y(box.y0)); };
+  draw(); let done = false;
+  const snapAll = () => {
+    const keys = ['x0', 'y0', 'x1', 'y1'], lim = { x0: [0, W], x1: [0, W], y0: [0, Hh], y1: [0, Hh] };
+    keys.forEach(k => { const t = clamp(Math.round(box[k]), ...lim[k]); spring(() => box[k], v => { box[k] = v; draw(); }, t, { k: 420, c: 16 }); });
+    setTimeout(check, 380);
+  };
+  const check = () => {
+    if (done) return; const r = k => Math.round(box[k]);
+    if (r('x0') === bx0 && r('y0') === by0 && r('x1') === bx1 && r('y1') === by1) { done = true; sfx.snap(); win(); }
+    else if (Math.abs(box.x1 - box.x0) > 1.5) api.hint('外わくの頂点に、ぴったり合わせよう');
+  };
+  [[hA, 'x0', 'y1'], [hB, 'x1', 'y0']].forEach(([h, kx, ky]) => draggable(svg, h, {
+    move: p => { if (done) return; box[kx] = clamp(gx(p.x), -.5, W + .5); box[ky] = clamp(gy(p.y), -.5, Hh + .5); draw(); },
+    end: () => { if (!done) { sfx.tap(); snapAll(); } },
+  }));
+  function win() {
+    rect.setAttribute('stroke-dasharray', '0'); hA.remove(); hB.remove(); stage.classList.add('glow');
+    const subs = P.steps.filter(st => st.op === 'sub'); const tris = [];
+    const n = pts.length; const orient = (a, b, c) => Math.sign((b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]));
+    for (let i = 0; i < n; i++) { const a = pts[i], b = pts[(i + 1) % n]; if (a[0] === b[0] || a[1] === b[1]) continue; const c1 = [b[0], a[1]], c2 = [a[0], b[1]]; tris.push([a, b, orient(a, b, c1) < 0 ? c1 : c2]); }
+    tris.forEach((t, i) => setTimeout(() => {
+      const poly = S('polygon', { points: t.map(p => `${X(p[0])},${Y(p[1])}`).join(' '), fill: `url(#st${i % 4})`, stroke: PAL[i % 4], 'stroke-width': 2, opacity: 0 }, corners);
+      poly.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, fill: 'forwards' });
+      const mx = (t[0][0] + t[1][0] + t[2][0]) / 3, my = (t[0][1] + t[1][1] + t[2][1]) / 3;
+      txt(corners, X(mx), Y(my) + 7, subs[i] ? fmt(subs[i].value) : '', { fill: PAL[i % 4], 'font-size': 22 }); sfx.tap();
+    }, 250 + i * 420));
+    setTimeout(() => api.solved(), 400 + tris.length * 420);
+  }
+  api.hint('角の ● をドラッグして、図形をぴったり囲もう');
+};
+
+/* ---- 等積変形: drag the apexes along ℓ until they meet ---- */
+SCENES.slide = (stage, P, L, api) => {
+  const { svg } = newSvg(stage); const F = P.fig; const bx = F.bottom_x, ax = F.apex_x.slice(), Hb = F.band_height;
+  const lo = bx[0] - 1, hi = bx[bx.length - 1] + 1, s = 520 / (hi - lo), sh = Math.min(240 / Hb, 46);
+  const X = u => 40 + (u - lo) * s, yM = 340, yL = 340 - Hb * sh, ux = px => (px - 40) / s + lo;
+  S('line', { x1: 20, y1: yL, x2: 580, y2: yL, stroke: '#8A93A6', 'stroke-width': 2 }, svg); S('line', { x1: 20, y1: yM, x2: 580, y2: yM, stroke: '#8A93A6', 'stroke-width': 2 }, svg);
+  txt(svg, 575, yL - 10, 'ℓ', { 'font-size': 18, fill: '#8A93A6', 'font-style': 'italic' }); txt(svg, 575, yM - 10, 'm', { 'font-size': 18, fill: '#8A93A6', 'font-style': 'italic' });
+  S('line', { x1: 24, y1: yL, x2: 24, y2: yM, stroke: L.c, 'stroke-width': 2 }, svg); txt(svg, 24, (yL + yM) / 2 + 6, String(Hb), { fill: L.c });
+  const lab = F.point_labels || {}; (lab.bottom || 'ABCDEF'.split('')).slice(0, bx.length).forEach((t, i) => txt(svg, X(bx[i]), yM + 26, t, { 'font-size': 16, fill: '#8A93A6' }));
+  S('line', { x1: X(bx[0]), y1: yM + 44, x2: X(bx[bx.length - 1]), y2: yM + 44, stroke: '#E8ECF4', 'stroke-width': 1.5 }, svg);
+  txt(svg, (X(bx[0]) + X(bx[bx.length - 1])) / 2, yM + 70, fmt(F.total_base), { 'font-size': 22 });
+  const tris = ax.map((_, i) => S('polygon', { fill: `url(#st${i % 4})`, stroke: PAL[i % 4], 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, svg));
+  const merged = S('polygon', { fill: 'none', stroke: L.c, 'stroke-width': 4, opacity: 0, 'stroke-linejoin': 'round' }, svg);
+  const badge = txt(svg, 300, 44, '面積の合計は 変わらない', { fill: L.c, 'font-size': 20, opacity: 0 });
+  const knobs = ax.map((_, i) => knob(svg, 0, 0, PAL[i % 4], 14));
+  const draw = () => { ax.forEach((a, i) => { tris[i].setAttribute('points', `${X(bx[i])},${yM} ${X(bx[i + 1])},${yM} ${X(a)},${yL}`); place(knobs[i], X(a), yL); }); };
+  draw(); let done = false;
+  knobs.forEach((k, i) => draggable(svg, k, {
+    start: () => badge.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, fill: 'forwards' }),
+    move: p => { if (done) return; ax[i] = clamp(ux(p.x), lo + .3, hi - .3); draw(); },
+    end: () => {
+      badge.animate([{ opacity: 1 }, { opacity: .35 }], { duration: 600, fill: 'forwards' });
+      if (Math.max(...ax) - Math.min(...ax) < .7 && !done) {
+        done = true; const m = ax.reduce((a, b) => a + b, 0) / ax.length;
+        ax.forEach((_, j) => spring(() => ax[j], v => { ax[j] = v; draw(); }, m, { k: 380, c: 15 }));
+        setTimeout(() => { sfx.snap(); merged.setAttribute('points', `${X(bx[0])},${yM} ${X(bx[bx.length - 1])},${yM} ${X(m)},${yL}`); merged.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 400, fill: 'forwards' }); knobs.forEach(k => k.remove()); stage.classList.add('glow'); setTimeout(() => api.solved(), 450); }, 380);
+      } else if (!done) api.hint('3つの頂点を、ℓの上の1点に集めよう');
+    },
+  }));
+  api.hint('上の ● を直線ℓにそってドラッグしてみよう');
+};
+
+/* ---- 折り返す: flip the plane over the river, then straighten the path ---- */
+SCENES.mirror = (stage, P, L, api) => {
+  const { svg } = newSvg(stage, 600, 480); const F = P.fig; const ab = F.ab, pa = F.pa, qb = F.qb, ansX = frac(P.answer);
+  const s = 440 / ab, sv = Math.min(170 / Math.max(pa, qb), s), Ax = 80, Bx = 80 + ab * s, ry = 250;
+  const Py = ry - pa * sv, Qy = ry - qb * sv, Qpy = ry + qb * sv;
+  S('rect', { x: 0, y: ry - 6, width: 600, height: 12, fill: L.c, opacity: .18 }, svg);
+  S('line', { x1: 0, y1: ry, x2: 600, y2: ry, stroke: L.c, 'stroke-width': 2 }, svg); txt(svg, 585, ry - 12, 'ℓ', { fill: L.c, 'font-style': 'italic' });
+  const sheet = S('g', {}, svg);
+  const sheetRect = S('rect', { x: Bx - 70, y: ry - qb * sv - 40, width: 140, height: qb * sv + 40, rx: 10, fill: L.c, opacity: .08, stroke: L.c, 'stroke-opacity': .35 }, sheet);
+  const qDrop = S('line', { x1: Bx, y1: Qy, x2: Bx, y2: ry, stroke: '#8A93A6', 'stroke-dasharray': '5 5' }, sheet);
+  const qDot = S('circle', { cx: Bx, cy: Qy, r: 7, fill: L.c }, sheet); S('circle', { cx: Bx, cy: Qy, r: 7, fill: '#E8ECF4' }, svg); txt(svg, Bx + 22, Qy + 6, 'Q');
+  S('line', { x1: Ax, y1: Py, x2: Ax, y2: ry, stroke: '#8A93A6', 'stroke-dasharray': '5 5' }, svg);
+  S('circle', { cx: Ax, cy: Py, r: 7, fill: '#E8ECF4' }, svg); txt(svg, Ax - 22, Py + 6, 'P');
+  txt(svg, Ax - 30, (Py + ry) / 2 + 6, `${pa}${F.unit}`, { 'font-size': 15, fill: '#8A93A6' }); txt(svg, Bx + 36, (Qy + ry) / 2 + 6, `${qb}${F.unit}`, { 'font-size': 15, fill: '#8A93A6' });
+  txt(svg, Ax, ry + 28, 'A', { 'font-size': 15, fill: '#8A93A6' }); txt(svg, Bx, ry + 28, 'B', { 'font-size': 15, fill: '#8A93A6' });
+  S('line', { x1: Ax, y1: 460, x2: Bx, y2: 460, stroke: '#E8ECF4' }, svg); txt(svg, (Ax + Bx) / 2, 452, `${ab}${F.unit}`, { 'font-size': 16 });
+  const path = S('polyline', { fill: 'none', stroke: '#E8ECF4', 'stroke-width': 3, 'stroke-linejoin': 'round', opacity: .9 }, svg);
+  const ghost = S('polyline', { fill: 'none', stroke: L.c, 'stroke-width': 3, 'stroke-dasharray': '8 6', opacity: 0 }, svg);
+  const straight = S('line', { stroke: L.c, 'stroke-width': 5, opacity: 0 }, svg);
+  const qpLbl = txt(svg, Bx + 24, Qpy + 6, "Q'", { fill: L.c, opacity: 0 });
+  let f = 0, x = ab / 2, phase = 1, done = false;
+  const Xp = () => Ax + x * s;
+  const draw = () => {
+    const c = Math.cos(Math.PI * f); sheet.setAttribute('transform', `translate(0,${ry}) scale(1,${c}) translate(0,${-ry})`);
+    sheetRect.setAttribute('opacity', (.06 + .1 * (1 - Math.abs(c))).toFixed(3));
+    path.setAttribute('points', `${Ax},${Py} ${Xp()},${ry} ${Bx},${Qy}`);
+    ghost.setAttribute('points', `${Ax},${Py} ${Xp()},${ry} ${Bx},${Qpy}`); place(xk, Xp(), ry); place(qk, Bx, ry - qb * sv * c);
+  };
+  const qk = knob(svg, 0, 0, L.c, 13); const xk = knob(svg, 0, 0, '#E8ECF4', 13); xk.style.display = 'none';
+  draw();
+  draggable(svg, qk, {
+    move: p => { if (phase !== 1) return; const c = clamp((ry - p.y) / (qb * sv), -1, 1); f = Math.acos(c) / Math.PI; draw(); },
+    end: () => { if (phase !== 1) return; if (f > .55) { spring(() => f, v => { f = v; draw(); }, 1, { k: 300, c: 16, done: () => { sfx.snap(); phase = 2; qk.remove(); xk.style.display = ''; ghost.setAttribute('opacity', .9); qpLbl.setAttribute('opacity', 1); api.hint('X を動かして、P から Q′ までを まっすぐにしよう'); } }); } else spring(() => f, v => { f = v; draw(); }, 0, { k: 300, c: 18 }); },
+  });
+  draggable(svg, xk, {
+    move: p => { if (phase !== 2 || done) return; x = clamp((p.x - Ax) / s, 0, ab); draw(); },
+    end: () => {
+      if (phase !== 2 || done) return;
+      if (Math.abs(x - ansX) < .45) { done = true; spring(() => x, v => { x = v; draw(); }, ansX, { k: 420, c: 15, done: () => { sfx.snap(); straight.setAttribute('x1', Ax); straight.setAttribute('y1', Py); straight.setAttribute('x2', Bx); straight.setAttribute('y2', Qpy); straight.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 350, fill: 'forwards' }); path.setAttribute('stroke', L.c); path.setAttribute('stroke-width', 5); txt(svg, Xp(), ry + 28, 'X', { fill: L.c }); txt(svg, (Ax + Xp()) / 2, ry + 52, `AX = ${fmt(ansX)}${F.unit}`, { fill: L.c, 'font-size': 18 }); xk.remove(); stage.classList.add('glow'); setTimeout(() => api.solved(), 400); } }); }
+      else api.hint(x < ansX ? 'もう少し右。折れ線がまっすぐになる所' : 'もう少し左。折れ線がまっすぐになる所');
+    },
+  });
+  api.hint('Q の ● をつかんで、川の向こうへ折り返そう');
+};
+
+/* ---- 面積図: lower the line, then size the strip ---- */
+SCENES.area = (stage, P, L, api) => {
+  const { svg } = newSvg(stage); const q = P.fig.params, nm = P.fig.names || {}; const n = q.n, a = q.a, b = q.b, t = q.t, ans = frac(P.answer);
+  const u = 480 / n, hs = 250 / a, x0 = 60, y0 = 370;
+  let xw = Math.round(n / 2), lineH = a, phase = 1, done = false;
+  const big = S('rect', { fill: '#E8ECF4', 'fill-opacity': .05, stroke: '#8A93A6', 'stroke-dasharray': '6 5' }, svg);
+  const left = S('rect', { fill: PAL[0], opacity: .18, stroke: PAL[0], 'stroke-width': 2.5 }, svg);
+  const right = S('rect', { fill: PAL[1], opacity: .18, stroke: PAL[1], 'stroke-width': 2.5 }, svg);
+  const base = S('rect', { fill: '#E8ECF4', opacity: 0 }, svg);
+  const strip = S('rect', { fill: 'url(#st0)', stroke: L.c, 'stroke-width': 3, opacity: 0 }, svg);
+  const line = S('line', { stroke: L.c, 'stroke-width': 3, 'stroke-dasharray': '10 7' }, svg);
+  const lA = txt(svg, x0 - 30, y0 - a * hs + 6, `${a}円`, { 'font-size': 16, fill: PAL[0] }); const lB = txt(svg, 0, 0, `${b}円`, { 'font-size': 16, fill: PAL[1] });
+  const wL = txt(svg, 0, 0, '?', { 'font-size': 18, fill: PAL[0] }), wR = txt(svg, 0, 0, '?', { 'font-size': 18, fill: PAL[1] });
+  S('line', { x1: x0, y1: y0 + 40, x2: x0 + n * u, y2: y0 + 40, stroke: '#E8ECF4' }, svg); txt(svg, x0 + n * u / 2, y0 + 64, `${n}${nm.counter || '枚'}`, { 'font-size': 20 });
+  txt(svg, x0 + 34, y0 + 22, nm.a || '', { 'font-size': 14, fill: PAL[0] }); txt(svg, x0 + n * u - 34, y0 + 22, nm.b || '', { 'font-size': 14, fill: PAL[1] });
+  const lineLbl = txt(svg, 0, 0, '', { fill: L.c, 'font-size': 16, 'text-anchor': 'start' });
+  const area = txt(svg, 300, 40, '', { fill: L.c, 'font-size': 22 });
+  const lk = knob(svg, 0, 0, L.c, 14), dk = knob(svg, 0, 0, '#E8ECF4', 13); dk.style.display = 'none';
+  const draw = () => {
+    const xl = x0 + xw * u;
+    big.setAttribute('x', x0); big.setAttribute('y', y0 - a * hs); big.setAttribute('width', n * u); big.setAttribute('height', a * hs); big.setAttribute('opacity', phase === 1 ? 1 : 0);
+    left.setAttribute('x', x0); left.setAttribute('y', y0 - a * hs); left.setAttribute('width', xw * u); left.setAttribute('height', a * hs);
+    right.setAttribute('x', xl); right.setAttribute('y', y0 - b * hs); right.setAttribute('width', (n - xw) * u); right.setAttribute('height', b * hs);
+    line.setAttribute('x1', x0 - 10); line.setAttribute('x2', x0 + n * u + 10); line.setAttribute('y1', y0 - lineH * hs); line.setAttribute('y2', y0 - lineH * hs);
+    place(lk, x0 + n * u + 26, y0 - lineH * hs); lB.setAttribute('x', x0 + n * u + 30); lB.setAttribute('y', y0 - b * hs + 26);
+    strip.setAttribute('x', x0); strip.setAttribute('y', y0 - a * hs); strip.setAttribute('width', xw * u); strip.setAttribute('height', (a - b) * hs);
+    base.setAttribute('x', x0); base.setAttribute('y', y0 - b * hs); base.setAttribute('width', n * u); base.setAttribute('height', b * hs);
+    wL.setAttribute('x', x0 + xw * u / 2); wL.setAttribute('y', y0 + 22); wR.setAttribute('x', xl + (n - xw) * u / 2); wR.setAttribute('y', y0 + 22);
+    place(dk, xl, y0 - a * hs - 22);
+    if (phase === 2) { wL.textContent = String(Math.round(xw)); wR.textContent = String(n - Math.round(xw)); area.textContent = `はみ出し ${a - b}×${Math.round(xw)} = ${(a - b) * Math.round(xw)}　（ほしいのは ${t - b * n}）`; }
+  };
+  draw();
+  draggable(svg, lk, {
+    move: p => { if (phase !== 1) return; lineH = clamp((y0 - p.y) / hs, 0, a); draw(); },
+    end: () => { if (phase !== 1) return; if (Math.abs(lineH - b) < a * .12) { spring(() => lineH, v => { lineH = v; draw(); }, b, { k: 420, c: 15, done: () => { sfx.snap(); phase = 2; lk.remove(); dk.style.display = ''; base.setAttribute('opacity', .1); strip.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, fill: 'forwards' }); lineLbl.setAttribute('x', x0 + n * u + 14); lineLbl.setAttribute('y', y0 - b * hs - 10); lineLbl.textContent = ''; txt(svg, x0 + n * u / 2, y0 - b * hs / 2 + 7, `全部${nm.b || ''}なら ${b * n}`, { 'font-size': 17, fill: '#8A93A6' }); draw(); api.hint('白い ● を動かして、はみ出した面積を ' + (t - b * n) + ' にしよう'); } }); } else api.hint(`線を「全部${nm.b || ''}」の高さまで下げよう`); },
+  });
+  draggable(svg, dk, {
+    move: p => { if (phase !== 2 || done) return; xw = clamp((p.x - x0) / u, 1, n - 1); draw(); },
+    end: () => { if (phase !== 2 || done) return; const r = Math.round(xw); spring(() => xw, v => { xw = v; draw(); }, r, { k: 420, c: 16 }); if (r === ans) { done = true; setTimeout(() => { sfx.snap(); dk.remove(); stage.classList.add('glow'); area.textContent = `${t - b * n} ÷ ${a - b} = ${fmt(ans)}`; api.solved(); }, 300); } },
+  });
+  api.hint(`点線をつかんで、下へ。「全部${nm.b || ''}だったら？」`);
+};
+
+/* ---- 差一定: grow both ages; the gap never changes ---- */
+SCENES.constant = (stage, P, L, api) => {
+  const { svg } = newSvg(stage); const q = P.fig.params, nm = P.fig.names || {}; const p = q.p, c = q.c, r = q.r, ans = frac(P.answer);
+  const maxL = Math.max(p + ans, r * (c + ans)) + 6, u = 500 / maxL, x0 = 60;
+  let y = 0, done = false;
+  S('line', { x1: x0, y1: 360, x2: x0 + maxL * u, y2: 360, stroke: '#24314F', 'stroke-width': 6, 'stroke-linecap': 'round' }, svg);
+  const pb = S('rect', { x: x0, y: 110, height: 30, rx: 6, fill: PAL[0], opacity: .25, stroke: PAL[0], 'stroke-width': 2 }, svg);
+  const diff = S('rect', { y: 110, height: 30, fill: 'url(#st3)', stroke: L.c, 'stroke-width': 3, rx: 4 }, svg);
+  const cb = S('rect', { x: x0, y: 300, height: 30, rx: 6, fill: PAL[1], opacity: .25, stroke: PAL[1], 'stroke-width': 2 }, svg);
+  const copies = S('g', {}, svg);
+  txt(svg, x0 - 6, 98, nm.older || '親', { 'text-anchor': 'start', fill: PAL[0], 'font-size': 16 }); txt(svg, x0 - 6, 288, nm.younger || '子', { 'text-anchor': 'start', fill: PAL[1], 'font-size': 16 });
+  const pl = txt(svg, 0, 132, '', { 'text-anchor': 'start', 'font-size': 18 }), cl = txt(svg, 0, 322, '', { 'text-anchor': 'start', 'font-size': 18 });
+  const dl = txt(svg, 0, 172, '', { fill: L.c, 'font-size': 16 });
+  txt(svg, x0 - 6, 200, `${nm.younger || '子'}の${r}つ分`, { 'text-anchor': 'start', 'font-size': 14, fill: '#8A93A6' });
+  const yl = txt(svg, 300, 400, '', { 'font-size': 26, fill: L.c });
+  const hk = knob(svg, 0, 0, L.c, 14);
+  const draw = () => {
+    const P2 = p + y, C2 = c + y;
+    pb.setAttribute('width', P2 * u); cb.setAttribute('width', C2 * u); diff.setAttribute('x', x0 + C2 * u); diff.setAttribute('width', (p - c) * u);
+    pl.setAttribute('x', x0 + P2 * u + 10); pl.textContent = `${Math.round(P2)}才`; cl.setAttribute('x', x0 + C2 * u + 10); cl.textContent = `${Math.round(C2)}才`;
+    dl.setAttribute('x', x0 + (C2 + (p - c) / 2) * u); dl.textContent = `差 ${p - c}（ずっと同じ）`;
+    copies.replaceChildren(); for (let i = 0; i < r; i++) S('rect', { x: x0 + i * C2 * u, y: 210, width: C2 * u, height: 22, rx: 5, fill: 'none', stroke: PAL[1], 'stroke-width': 2, 'stroke-dasharray': i ? '6 4' : '0' }, copies);
+    S('line', { x1: x0 + P2 * u, y1: 100, x2: x0 + P2 * u, y2: 245, stroke: '#E8ECF4', 'stroke-dasharray': '3 4', opacity: .5 }, copies);
+    yl.textContent = `${Math.round(y)}年後`; place(hk, x0 + C2 * u, 360);
+  };
+  draw();
+  draggable(svg, hk, {
+    move: pt => { if (done) return; y = clamp(pt.x / u - x0 / u - c, 0, maxL - p - 1); draw(); },
+    end: () => { if (done) return; const t = Math.round(y); spring(() => y, v => { y = v; draw(); }, t, { k: 420, c: 16 }); sfx.tap(); if (t === ans) { done = true; setTimeout(() => { sfx.snap(); hk.remove(); stage.classList.add('glow'); api.solved(); }, 320); } else api.hint(`${nm.younger || '子'}の${r}つ分が、${nm.older || '親'}にぴったり重なる年をさがそう`); },
+  });
+  api.hint('下の ● を右へ。2人とも同じだけ年をとる');
+};
+
+/* ---- てんびん: change the unknown weight until the beam balances ---- */
+SCENES.balance = (stage, P, L, api) => {
+  const { svg } = newSvg(stage); const q = P.fig.params; const w1 = q.w1, p1 = q.p1, p2 = q.p2, pt = q.pt, ans = frac(P.answer);
+  const X1 = 110, X2 = 490, Xp = X1 + (pt - p1) / (p2 - p1) * (X2 - X1), Yb = 190;
+  const stepG = ans % 10 === 0 ? 10 : ans % 5 === 0 ? 5 : 1; let w2 = Math.max(stepG, Math.round(ans * .35 / stepG) * stepG); let th = 0, om = 0, done = false;
+  const arm1 = pt - p1, arm2 = p2 - pt;
+  S('path', { d: `M${Xp},${Yb + 6} l-26,64 h52 z`, fill: '#24314F', stroke: L.c, 'stroke-width': 2 }, svg);
+  txt(svg, Xp, Yb + 96, `${pt}%`, { fill: L.c });
+  const beamG = S('g', {}, svg);
+  S('line', { x1: X1, y1: Yb, x2: X2, y2: Yb, stroke: '#E8ECF4', 'stroke-width': 6, 'stroke-linecap': 'round' }, beamG);
+  S('line', { x1: X1, y1: Yb - 14, x2: Xp, y2: Yb - 14, stroke: PAL[0], 'stroke-width': 3 }, beamG); S('line', { x1: Xp, y1: Yb - 14, x2: X2, y2: Yb - 14, stroke: PAL[1], 'stroke-width': 3 }, beamG);
+  txt(beamG, (X1 + Xp) / 2, Yb - 22, String(arm1), { fill: PAL[0] }); txt(beamG, (Xp + X2) / 2, Yb - 22, String(arm2), { fill: PAL[1] });
+  txt(beamG, X1, Yb - 44, `${p1}%`, { 'font-size': 16 }); txt(beamG, X2, Yb - 44, `${p2}%`, { 'font-size': 16 });
+  const hang = (x, color) => { const g = S('g', {}, svg); S('line', { x1: 0, y1: 0, x2: 0, y2: 40, stroke: '#8A93A6', 'stroke-width': 2 }, g); const r = S('rect', { rx: 8, fill: color, opacity: .25, stroke: color, 'stroke-width': 2.5 }, g); const t = txt(g, 0, 0, '', { 'font-size': 18 }); return { g, r, t, x }; };
+  const L1 = hang(X1, PAL[0]), L2 = hang(X2, PAL[1]); const wk = knob(svg, 0, 0, PAL[1], 14);
+  const size = w => 36 + 46 * Math.sqrt(w / Math.max(w1, ans));
+  const ratio = txt(svg, 300, 420, '', { fill: L.c, 'font-size': 20 });
+  const draw = () => {
+    beamG.setAttribute('transform', `rotate(${th * 180 / Math.PI} ${Xp} ${Yb})`);
+    [[L1, w1, X1], [L2, w2, X2]].forEach(([h, w, x]) => { const dx = x - Xp, px = Xp + dx * Math.cos(th), py = Yb + dx * Math.sin(th), sz = size(w); h.g.setAttribute('transform', `translate(${px},${py})`); h.r.setAttribute('x', -sz / 2); h.r.setAttribute('y', 40); h.r.setAttribute('width', sz); h.r.setAttribute('height', sz); h.t.setAttribute('y', 40 + sz / 2 + 7); h.t.textContent = h === L2 && !done && w2 !== ans ? `${w}g?` : `${w}g`; });
+    const dx = X2 - Xp; place(wk, Xp + dx * Math.cos(th) + 44, Yb + dx * Math.sin(th) + 40 + size(w2) / 2);
+  };
+  const phys = dt => { const tau = (w2 * arm2 - w1 * arm1) / (w1 * arm1); const target = clamp(Math.atan(tau) * .45, -.38, .38); const a = 70 * (target - th) - 4.5 * om; om += a * dt; th += om * dt; draw(); };
+  frameHooks.add(phys); kick();
+  let startY = 0, startW = 0;
+  draggable(svg, wk, {
+    start: p => { startY = p.y; startW = w2; },
+    move: p => { if (done) return; const nw = clamp(Math.round((startW + (p.y - startY) * ans / 140) / stepG) * stepG, stepG, Math.round(ans * 2.4)); if (nw !== w2) { w2 = nw; tone(400 + w2 / ans * 300, 0, .03, 'triangle', .03); } kick(); },
+    end: () => { if (done) return; if (Math.abs(w2 - ans) <= 2 * stepG) { w2 = ans; }
+      if (w2 === ans) { done = true; sfx.snap(); wk.remove(); setTimeout(() => { frameHooks.delete(phys); spring(() => th, v => { th = v; draw(); }, 0, { k: 200, c: 18 }); ratio.textContent = `${w1}g : ${ans}g ＝ ${arm2} : ${arm1}（うでの逆）`; stage.classList.add('glow'); api.solved(); }, 500); } else api.hint(w2 > ans ? '右が重すぎる。上へドラッグ' : '左が重い。下へドラッグして重くしよう'); },
+  });
+  stage._cleanup = () => frameHooks.delete(phys);
+  api.hint('右のおもりの ● を上下にドラッグ。てんびんを水平にしよう');
+};
+
+/* ---- 止める: freeze one walker, drag the other in 1-minute blocks ---- */
+SCENES.freeze = (stage, P, L, api) => {
+  const { svg } = newSvg(stage); const q = P.fig.params, nm = P.fig.names || {}; const d = q.d, uu = q.u, vv = q.v, ans = frac(P.answer), sp = uu + vv;
+  const x0 = 60, x1 = 540, Y = 230, m = (x1 - x0) / d;
+  S('line', { x1: x0, y1: Y, x2: x1, y2: Y, stroke: '#8A93A6', 'stroke-width': 6, 'stroke-linecap': 'round' }, svg);
+  S('line', { x1: x0, y1: Y - 70, x2: x1, y2: Y - 70, stroke: '#E8ECF4' }, svg); txt(svg, (x0 + x1) / 2, Y - 80, `${d}m`, { 'font-size': 20 });
+  const blocks = S('g', {}, svg);
+  const walker = (x, color, name) => { const g = S('g', {}, svg); S('circle', { cx: 0, cy: 0, r: 16, fill: color }, g); txt(g, 0, 7, name, { 'font-size': 16, fill: '#0D1424', stroke: 'none' }); place(g, x, Y); return g; };
+  const ga = walker(x0, PAL[0], nm.a || 'A'), gb = walker(x1, PAL[1], nm.b || 'B');
+  const ta = txt(svg, x0, Y + 48, `分速${uu}m`, { 'font-size': 15, fill: PAL[0] }), tb = txt(svg, x1, Y + 48, `分速${vv}m`, { 'font-size': 15, fill: PAL[1] });
+  const qm = txt(svg, (x0 + x1) / 2, Y - 26, '?', { 'font-size': 26, fill: '#FF8A65', opacity: 0 });
+  const clock = txt(svg, 300, 380, '', { 'font-size': 28, fill: L.c });
+  let phase = 0, xa = 0, done = false;
+  const tryWalk = () => { let t = 0; qm.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, fill: 'forwards' }); const hook = dt => { t += dt; const k = Math.min(1, t / 1.4) * .25; place(ga, x0 + d * k * uu / sp * m, Y); place(gb, x1 - d * k * vv / sp * m, Y); if (t > 1.9) { frameHooks.delete(hook); place(ga, x0, Y); place(gb, x1, Y); phase = 1; api.hint(`${nm.b || 'B'}をタップして、止めてみよう`); } }; frameHooks.add(hook); kick(); };
+  api.hint('まず、2人がふつうに歩くと…'); setTimeout(tryWalk, 500);
+  const ring = S('circle', { cx: 0, cy: 0, r: 26, fill: 'none', stroke: L.c, 'stroke-width': 3, opacity: 0 }, gb);
+  gb.style.cursor = 'pointer';
+  gb.addEventListener('pointerdown', e => {
+    if (phase !== 1) return; e.stopPropagation(); phase = 2; sfx.snap(); ring.animate([{ opacity: 0, r: 40 }, { opacity: 1, r: 26 }], { duration: 300, fill: 'forwards' });
+    S('path', { d: 'M0 -40v-16 M-8 -44l16 -8 M-8 -52l16 8', stroke: L.c, 'stroke-width': 2.5, fill: 'none' }, gb);
+    tb.textContent = '止める'; ta.textContent = `分速${uu}+${vv}=${sp}m`; qm.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: 'forwards' });
+    const ak = knob(svg, 0, 0, PAL[0], 14); const draw = () => { place(ga, x0 + xa * m, Y); place(ak, x0 + xa * m, Y + 92); ta.setAttribute('x', x0 + xa * m); };
+    draw(); api.hint(`${nm.a || 'A'}を、1分=${sp}mずつ進めよう`);
+    draggable(svg, ak, {
+      move: p => { if (done) return; xa = clamp((p.x - x0) / m, 0, d); const k = Math.round(xa / sp); blocks.replaceChildren(); for (let i = 0; i < k; i++) S('rect', { x: x0 + i * sp * m + 1, y: Y - 9, width: sp * m - 2, height: 18, rx: 3, fill: i % 2 ? PAL[0] : L.c, opacity: .55 }, blocks); clock.textContent = `${k}分`; draw(); },
+      end: () => { if (done) return; const k = Math.round(xa / sp); spring(() => xa, v => { xa = v; draw(); }, k * sp, { k: 400, c: 16 }); sfx.tap(); if (k === ans) { done = true; setTimeout(() => { sfx.snap(); ak.remove(); ta.textContent = ''; tb.textContent = ''; clock.textContent = `${d}÷${sp} = ${fmt(ans)}分後`; const meet = x0 + uu * ans * m; S('line', { x1: meet, y1: Y - 40, x2: meet, y2: Y + 20, stroke: L.c, 'stroke-width': 3 }, svg); txt(svg, meet, Y - 46, '出会う', { fill: L.c, 'font-size': 16 }); stage.classList.add('glow'); api.solved(); }, 320); } else api.hint(k < ans ? 'まだ届かない。もっと右へ' : '行きすぎ！ 少しもどそう'); },
+    });
+  });
+};
+
+/* ---- 展開: real 3D box. Spin it, swing a face open, slide P until the string is straight ---- */
+SCENES.unfold = (stage, P, L, api) => {
+  let alive = true; const cleanup = () => { alive = false; };
+  const boot = () => { if (!alive) return; if (!window.THREE) { api.hint('3Dを読みこみ中…'); return; } build(); };
+  if (window.THREE) setTimeout(boot, 0); else { api.hint('3Dを読みこみ中…'); const sc = document.createElement('script'); sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'; sc.onload = boot; sc.onerror = () => api.hint('3Dを読みこめませんでした。通信を確認してください'); document.head.appendChild(sc); }
+  function build() {
+    const T = window.THREE; const F = P.fig; const ans = frac(P.answer);
+    const k = 5.4 / Math.max(F.a + F.b * .7, F.h * 1.3); const a = F.a * k, b = F.b * k, h = F.h * k, pAns = ans * k;
+    const cv = document.createElement('canvas'); cv.className = 'gl'; stage.appendChild(cv);
+    const lbl = document.createElement('div'); lbl.className = 'lbls'; stage.appendChild(lbl);
+    let renderer; try { renderer = new T.WebGLRenderer({ canvas: cv, antialias: true, alpha: true }); } catch (e) { api.hint('この端末では3Dを表示できません'); return; }
+    renderer.setPixelRatio(Math.min(2, devicePixelRatio || 1));
+    const scene = new T.Scene(); const cam = new T.PerspectiveCamera(36, 1, .1, 100); cam.position.set(0, 0, 13);
+    scene.add(new T.AmbientLight(0xffffff, .55)); const dl = new T.DirectionalLight(0xffffff, .7); dl.position.set(3, 6, 8); scene.add(dl);
+    const root = new T.Group(); scene.add(root); const model = new T.Group(); root.add(model); model.position.set(-(a + b * .3) / 2, -h / 2, b / 2);
+    const lensCol = new T.Color(L.c), ink = new T.Color('#E8ECF4');
+    const rod = (p, q, color, r = .025, parent = model, op = 1) => { const d = new T.Vector3().subVectors(q, p); const g = new T.CylinderGeometry(r, r, d.length(), 10); const m = new T.Mesh(g, new T.MeshBasicMaterial({ color, transparent: op < 1, opacity: op })); m.position.copy(p).addScaledVector(d, .5); m.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), d.clone().normalize()); parent.add(m); return m; };
+    const V = (x, y, z) => new T.Vector3(x, y, z);
+    const A = V(0, 0, 0), B = V(a, 0, 0), C = V(a, 0, -b), D = V(0, 0, -b), E = V(0, h, 0), Fv = V(a, h, 0), G = V(a, h, -b), Hv = V(0, h, -b);
+    const faceMat = (c, op) => new T.MeshStandardMaterial({ color: c, transparent: true, opacity: op, side: T.DoubleSide, emissive: c, emissiveIntensity: .25, depthWrite: false });
+    const quad = (pts, mat, parent = model) => { const g = new T.BufferGeometry().setFromPoints([pts[0], pts[1], pts[2], pts[0], pts[2], pts[3]]); g.computeVertexNormals(); const m = new T.Mesh(g, mat); parent.add(m); return m; };
+    const front = quad([A, B, Fv, E], faceMat(new T.Color(PAL[0]), .16));
+    quad([D, C, G, Hv], faceMat(ink, .04)); quad([E, Fv, G, Hv], faceMat(ink, .05)); quad([A, D, Hv, E], faceMat(ink, .03));
+    [[A, B], [B, Fv], [Fv, E], [E, A], [D, C], [C, G], [G, Hv], [Hv, D], [A, D], [E, Hv]].forEach(([p, q]) => rod(p, q, ink, .022, model, .75));
+    const hinge = new T.Group(); hinge.position.copy(B); model.add(hinge);
+    const rf = quad([V(0, 0, 0), V(0, 0, -b), V(0, h, -b), V(0, h, 0)], faceMat(new T.Color(PAL[1]), .2), hinge);
+    [[V(0, 0, -b), V(0, h, -b)], [V(0, 0, 0), V(0, 0, -b)], [V(0, h, 0), V(0, h, -b)]].forEach(([p, q]) => rod(p, q, new T.Color(PAL[1]), .03, hinge));
+    rod(B, Fv, lensCol, .045);
+    const ghostG = new T.Group(); model.add(ghostG); [[B, C], [C, G], [G, Fv]].forEach(([p, q]) => rod(p, q, ink, .012, ghostG, .25));
+    const pBall = new T.Mesh(new T.SphereGeometry(.17, 24, 16), new T.MeshStandardMaterial({ color: lensCol, emissive: lensCol, emissiveIntensity: .9 })); model.add(pBall);
+    const halo = new T.Mesh(new T.SphereGeometry(.34, 24, 16), new T.MeshBasicMaterial({ color: lensCol, transparent: true, opacity: .18, depthWrite: false })); pBall.add(halo);
+    const Gl = V(0, h, -b); const strA = new T.Group(); model.add(strA); const strB = new T.Group(); hinge.add(strB);
+    let phi = 0, pY = h * .5, yaw = -.55, pitch = .32, vyaw = 0, vpitch = 0, phase = 1, done = false, glowT = 0;
+    const setString = () => {
+      strA.clear(); strB.clear(); const Pp = V(a, pY, 0); pBall.position.copy(Pp);
+      const col = done ? lensCol : new T.Color('#FFFFFF'); rod(A, Pp, col, done ? .05 : .03, strA); rod(V(0, pY, 0), Gl, col, done ? .05 : .03, strB);
+    };
+    setString();
+    const labels = {}; const addL = (key, text, color) => { const s = document.createElement('span'); s.textContent = text; s.style.color = color || '#E8ECF4'; lbl.appendChild(s); labels[key] = s; };
+    addL('A', 'A'); addL('B', 'B'); addL('C', 'C'); addL('E', 'E'); addL('F', 'F'); addL('G', 'G'); addL('P', 'P', L.c);
+    addL('ab', `${F.a}${F.unit}`, PAL[0]); addL('bc', `${F.b}${F.unit}`, PAL[1]); addL('bf', `${F.h}${F.unit}`, '#8A93A6');
+    const resize = () => { const r = stage.getBoundingClientRect(); const w = r.width, hh = Math.max(380, Math.min(r.width * .78, innerHeight * .62)); cv.style.height = hh + 'px'; renderer.setSize(w, hh, false); cam.aspect = w / hh; cam.updateProjectionMatrix(); };
+    resize(); addEventListener('resize', resize);
+    const proj = (v, parent) => { const p = v.clone(); (parent || model).localToWorld(p); p.project(cam); const r = cv.getBoundingClientRect(); return [(p.x + 1) / 2 * r.width, (1 - p.y) / 2 * r.height]; };
+    const placeL = () => {
+      const put = (key, v, par, dx = 0, dy = 0) => { const [x, y] = proj(v, par); labels[key].style.left = (x + dx) + 'px'; labels[key].style.top = (y + dy) + 'px'; };
+      put('A', A, null, -14, 12); put('B', B, null, 0, 16); put('E', E, null, -14, -10); put('F', Fv, null, 0, -16);
+      put('C', V(0, 0, -b), hinge, 12, 12); put('G', Gl, hinge, 12, -12); put('P', V(a, pY, 0), null, 18, 0);
+      put('ab', V(a / 2, 0, 0), null, 0, 22); put('bc', V(0, 0, -b / 2), hinge, 0, 22); put('bf', V(a, h * .25, 0), null, -34, 0);
+    };
+    const ray = new T.Raycaster(); const ndc = (e) => { const r = cv.getBoundingClientRect(); return new T.Vector2((e.clientX - r.left) / r.width * 2 - 1, -(e.clientY - r.top) / r.height * 2 + 1); };
+    let mode = null, lx = 0, ly = 0, lt = 0;
+    cv.addEventListener('pointerdown', e => {
+      e.preventDefault(); cv.setPointerCapture(e.pointerId); sfx.tap(); lx = e.clientX; ly = e.clientY; lt = performance.now(); vyaw = vpitch = 0;
+      ray.setFromCamera(ndc(e), cam); const hits = ray.intersectObjects([pBall, halo, rf], false);
+      mode = 'spin'; if (hits.length) { if ((hits[0].object === pBall || hits[0].object === halo) && phase === 2) mode = 'p'; else if (hits[0].object === rf && phase === 1) mode = 'face'; }
+    });
+    cv.addEventListener('pointermove', e => {
+      if (!mode) return; const dx = e.clientX - lx, dy = e.clientY - ly, now = performance.now(), dt = Math.max(8, now - lt); lx = e.clientX; ly = e.clientY; lt = now;
+      if (mode === 'spin') { yaw += dx * .008; pitch = clamp(pitch + dy * .006, -.9, 1.2); vyaw = dx * .008 / dt * 16; vpitch = dy * .006 / dt * 16; }
+      else if (mode === 'face') { phi = clamp(phi + (dx * Math.cos(yaw) - dy * .2) * .009, 0, Math.PI / 2); hinge.rotation.y = -phi; }
+      else if (mode === 'p') { const [, y0] = proj(V(a, 0, 0)); const [, y1] = proj(V(a, h, 0)); const r = cv.getBoundingClientRect(); const t = clamp((y0 - (e.clientY - r.top)) / (y0 - y1), .02, .98); pY = t * h; setString(); }
+      kick();
+    });
+    const up = () => {
+      if (mode === 'face') { if (phi > Math.PI / 2 * .62) { spring(() => phi, v => { phi = v; hinge.rotation.y = -phi; }, Math.PI / 2, { k: 300, c: 14, done: () => { if (phase === 1) { phase = 2; sfx.snap(); ghostG.visible = false; api.hint('光る P を上下に動かして、糸を まっすぐにしよう'); spring(() => yaw, v => { yaw = v; }, -.18, { k: 60, c: 14 }); spring(() => pitch, v => { pitch = v; }, .12, { k: 60, c: 14 }); } } }); } else spring(() => phi, v => { phi = v; hinge.rotation.y = -phi; }, 0, { k: 260, c: 18 }); }
+      if (mode === 'p' && !done) { if (Math.abs(pY - pAns) < h * .07) { done = true; spring(() => pY, v => { pY = v; setString(); }, pAns, { k: 420, c: 15, done: () => { sfx.snap(); setString(); pBall.scale.setScalar(1.3); labels.P.textContent = `P（BP=${fmt(ans)}${F.unit}）`; spring(() => yaw, v => { yaw = v; }, 0, { k: 50, c: 13 }); spring(() => pitch, v => { pitch = v; }, 0, { k: 50, c: 13 }); stage.classList.add('glow'); glowT = 1; setTimeout(() => api.solved(), 500); } }); } else api.hint(pY > pAns ? '少し下へ。糸がまっすぐになる所' : '少し上へ。糸がまっすぐになる所'); }
+      mode = null;
+    };
+    cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+    let t = 0;
+    const loop = dt => {
+      if (!alive || !cv.isConnected) { frameHooks.delete(loop); renderer.dispose(); return; }
+      t += dt; if (!mode) { yaw += vyaw; pitch = clamp(pitch + vpitch, -.9, 1.2); vyaw *= .93; vpitch *= .93; }
+      root.rotation.set(pitch, yaw, 0); halo.scale.setScalar(1 + .25 * Math.sin(t * 4)); halo.material.opacity = .14 + .1 * Math.sin(t * 4);
+      if (phase === 1 && !mode && phi < .02) hinge.rotation.y = -(.12 + .1 * Math.sin(t * 3)) * (t < 6 ? 1 : 0);
+      renderer.render(scene, cam); placeL();
+    };
+    frameHooks.add(loop); kick();
+    api.hint('箱を指で回してみよう。ピンクの面をつかんで、右へ開こう');
+  }
+  return cleanup;
+};
+
+/* =====================================================================
+   App shell
+   ===================================================================== */
+const app = document.getElementById('app');
+let state = { view: 'home', li: 0, pi: 0 };
+function home() {
+  state.view = 'home'; app.replaceChildren();
+  app.appendChild(H(`<div class="brand"><h1>視点レンズ</h1><span class="tag">Founder MVP</span></div>`));
+  app.appendChild(H(`<p class="lede">レンズケースに8つの道具。1つ選んで、まず「どのレンズで見るか」を選び、それから図を指で動かして答えにたどり着きます。</p>`));
+  const grid = H('<div class="case"></div>');
+  DATA.lenses.forEach((l, i) => {
+    const c = LENSC[l.lens], n = l.problems.length, got = (solved[l.lens] || []).length;
+    const t = H(`<button class="tile${got >= n ? ' done' : ''}" style="--c:${c}"><span class="ring">${icon(l.lens, c)}</span><span class="nm">${l.ja}</span><span class="hn">${l.hint}</span><span class="dots">${l.problems.map(p => `<i class="${(solved[l.lens] || []).includes(p.id) ? 'on' : ''}"></i>`).join('')}</span></button>`);
+    t.addEventListener('click', () => { sfx.tap(); state.li = i; state.pi = Math.min(got, n - 1); lensView(); });
+    grid.appendChild(t);
+  });
+  app.appendChild(grid);
+  app.appendChild(H(`<p class="foot">問題と答えは、すべて視点レンズの検証ずみデータ（${DATA.lenses.reduce((a, l) => a + l.problems.length, 0)}問）から読みこんでいます。iPadでは横向きがおすすめ。音が出ます。</p>`));
+}
+let cleanupScene = null;
+function lensView() {
+  state.view = 'lens'; cleanupScene && cleanupScene(); cleanupScene = null; springs.clear();
+  for (const h of [...frameHooks]) frameHooks.delete(h);
+  const l = DATA.lenses[state.li], P = l.problems[state.pi]; const c = LENSC[l.lens];
+  document.documentElement.style.setProperty('--lens', c);
+  app.replaceChildren();
+  const bar = H(`<div class="bar"><button class="back" aria-label="レンズケースへ">← ケース</button><span class="pdots">${l.problems.map((p, i) => `<i class="${i === state.pi ? 'cur' : (solved[l.lens] || []).includes(p.id) ? 'on' : ''}"></i>`).join('')}</span></div>`);
+  bar.querySelector('.back').addEventListener('click', () => { sfx.tap(); cleanupScene && cleanupScene(); home(); });
+  app.appendChild(bar);
+  app.appendChild(H(`<p class="qtext">${P.text}</p>`));
+  const main = H('<div class="main"></div>'); app.appendChild(main);
+  const stage = H('<div class="stage"></div>'); main.appendChild(stage);
+  const side = H('<div class="side"></div>'); main.appendChild(side);
+  // preview figure (locked) during pick
+  const preview = H('<div class="hint"><b>どのレンズで見る？　右から選ぼう</b></div>');
+  let hintEl = preview; stage.appendChild(preview);
+  const api = {
+    hint: t => { if (!hintEl.isConnected) { hintEl = H('<div class="hint"><b></b></div>'); stage.appendChild(hintEl); } hintEl.querySelector('b').textContent = t; hintEl.animate([{ transform: 'translateY(4px)', opacity: .4 }, { transform: 'none', opacity: 1 }], { duration: 220 }); },
+    solved: () => aha(),
+  };
+  drawPreview(stage, l, P);
+  // ---- pick ----
+  const pick = H(`<div class="card"><h2>どのレンズで見る？</h2><div class="trap">よくある考え方：${P.trap[0]}</div><div class="opts"></div><div class="try" hidden></div></div>`);
+  side.appendChild(pick);
+  const opts = pick.querySelector('.opts'), tryBox = pick.querySelector('.try');
+  const order = l.options.slice().sort(() => Math.random() - .5);
+  order.forEach(o => {
+    const lab = DATA.labels.lenses[o].ja, oc = LENSC[o];
+    const b = H(`<button class="opt">${icon(o, oc)}<span>${lab}</span></button>`);
+    b.addEventListener('click', () => {
+      if (b.classList.contains('tried')) return;
+      if (o === l.lens) { sfx.snap(); b.classList.add('right'); [...opts.children].forEach(x => x !== b && x.classList.add('tried')); setTimeout(() => clue(), 380); }
+      else { sfx.soft(); b.classList.add('shake'); setTimeout(() => b.classList.add('tried'), 380); tryBox.hidden = false; tryBox.innerHTML = `<b>${lab}で見ると…</b><br>${l.feedback[o] || ''}`; tryBox.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250 }); }
+    });
+    opts.appendChild(b);
+  });
+  function clue() {
+    pick.remove();
+    const all = [...l.tags.map(t => [t, 1]), ...l.decoys.map(t => [t, 0])].sort(() => Math.random() - .5);
+    const box = H(`<div class="card"><h2>どこを見て、${l.ja}にした？</h2><div class="chips"></div><div class="why" hidden></div></div>`); side.appendChild(box);
+    const chips = box.querySelector('.chips'), why = box.querySelector('.why'); let ok = false;
+    all.forEach(([t, real]) => { const b = H(`<button class="cl">${t}</button>`); chips.appendChild(b); b.addEventListener('click', () => {
+      if (ok) return;
+      if (real) { ok = true; sfx.snap(); b.classList.add('yes'); why.hidden = false; why.textContent = 'そこが手がかり。では、指で確かめよう。'; setTimeout(() => { box.remove(); play(); }, 700); }
+      else { sfx.soft(); b.classList.add('no', 'shake'); why.hidden = false; why.textContent = 'それは別のレンズの手がかり。もう1つ選んでみよう。'; }
+    }); });
+  }
+  function play() {
+    stage.replaceChildren(); hintEl = H('<div class="hint"><b></b></div>');
+    const lensChip = H(`<div class="card"><span class="chip">${icon(l.lens, c)}${l.ja}</span><div class="trigger">${l.trigger}</div></div>`); side.appendChild(lensChip);
+    const cu = SCENES[l.lens](stage, P, { c }, api); stage.appendChild(hintEl);
+    cleanupScene = () => { cu && cu(); stage._cleanup && stage._cleanup(); };
+  }
+  function aha() {
+    sfx.aha(); burst(stage, c); hintEl.remove();
+    const done = new Set(solved[l.lens] || []); done.add(P.id); solved[l.lens] = [...done]; store.set('lens.founder.v1', solved);
+    const ans = P.display || (fmt(P.answer) + P.unit);
+    const box = H(`<div class="card"><div class="answer">${ans}</div><ul class="steps">${P.steps.map((s, i) => `<li><i style="background:${s.op === 'result' ? c : PAL[i % 4]}"></i><span>${s.ja}</span></li>`).join('')}</ul><div class="why">${l.principle}</div></div>`);
+    side.appendChild(box);
+    requestAnimationFrame(() => box.querySelector('.answer').classList.add('in'));
+    box.querySelectorAll('li').forEach((li, i) => setTimeout(() => li.classList.add('in'), 350 + i * 380));
+    const last = state.pi >= l.problems.length - 1;
+    const nx = H(`<button class="go">${last ? 'レンズケースへ' : '次の問題 →'}</button>`);
+    nx.addEventListener('click', () => { sfx.tap(); if (last) home(); else { state.pi++; lensView(); } });
+    const again = H('<button class="go ghost">もう一度さわる</button>'); again.addEventListener('click', () => { sfx.tap(); lensView(); });
+    setTimeout(() => { side.appendChild(nx); side.appendChild(again); nx.animate([{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }], { duration: 250 }); }, 350 + P.steps.length * 380);
+  }
+}
+/* the locked preview shown while choosing the lens: the bare problem figure */
+function drawPreview(stage, l, P) {
+  const F = P.fig; const { svg } = newSvg(stage); svg.style.opacity = .9;
+  if (F.type === 'grid_polygon') { const W = F.grid.width, Hh = F.grid.height, s = Math.min(480 / (W + 2), 360 / (Hh + 2)), ox = (600 - W * s) / 2, oy = (440 + Hh * s) / 2 - 10; gridBg(svg, ox - s, oy - (Hh + 1) * s, ox + (W + 1) * s, oy + s, s); S('polygon', { points: F.points.map(p => `${ox + p[0] * s},${oy - p[1] * s}`).join(' '), fill: 'rgba(232,236,244,.07)', stroke: '#E8ECF4', 'stroke-width': 2.5 }, svg); }
+  else if (F.type === 'parallel_band') { const bx = F.bottom_x, lo = bx[0] - 1, hi = bx[bx.length - 1] + 1, s = 520 / (hi - lo), sh = Math.min(240 / F.band_height, 46), X = u => 40 + (u - lo) * s, yM = 340, yL = 340 - F.band_height * sh; [yL, yM].forEach(y => S('line', { x1: 20, y1: y, x2: 580, y2: y, stroke: '#8A93A6', 'stroke-width': 2 }, svg)); F.apex_x.forEach((a, i) => S('polygon', { points: `${X(bx[i])},${yM} ${X(bx[i + 1])},${yM} ${X(a)},${yL}`, fill: '#E8ECF4', opacity: .15, stroke: '#E8ECF4' }, svg)); }
+  else if (F.type === 'mirror_path') { const s = 440 / F.ab, sv = Math.min(170 / Math.max(F.pa, F.qb), s); S('line', { x1: 0, y1: 250, x2: 600, y2: 250, stroke: '#8A93A6', 'stroke-width': 2 }, svg); [[80, F.pa, 'P'], [80 + F.ab * s, F.qb, 'Q']].forEach(([x, v, n]) => { S('circle', { cx: x, cy: 250 - v * sv, r: 7, fill: '#E8ECF4' }, svg); txt(svg, x + 22, 250 - v * sv + 6, n); }); }
+  else if (F.type === 'box_unfold') { const k = 22, a = F.a * k, b = F.b * k * .6, h = F.h * k, x = 300 - (a + b) / 2, y = 330; const d = 'M' + [[x, y], [x + a, y], [x + a + b, y - b * .7], [x + a + b, y - b * .7 - h], [x + b, y - b * .7 - h], [x, y - h], [x, y]].map(p => p.join(',')).join('L') + `M${x + a},${y}L${x + a},${y - h}L${x},${y - h}M${x + a},${y - h}L${x + a + b},${y - b * .7 - h}`; S('path', { d, fill: 'none', stroke: '#E8ECF4', 'stroke-width': 2 }, svg); }
+  else { txt(svg, 300, 230, '「どのレンズで見る？」', { 'font-size': 22, fill: '#8A93A6' }); }
+}
+home();
+</script>
