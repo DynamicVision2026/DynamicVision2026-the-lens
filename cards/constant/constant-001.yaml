@@ -78,5 +78,5 @@ checks:
 
 variants:
   generator: wp_age_ratio
-  count: 3
+  count: 4
   seed: 2401

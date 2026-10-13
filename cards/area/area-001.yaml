@@ -79,5 +79,5 @@ checks:
 
 variants:
   generator: wp_two_kinds
-  count: 3
+  count: 4
   seed: 2301
