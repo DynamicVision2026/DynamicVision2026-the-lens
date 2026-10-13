@@ -1215,6 +1215,8 @@ html[data-theme='course'] body {
   padding: 0;
   background: none;
   margin: 0;
+}
+
 /* ---- WO-019: decision time, measure entry points, parent report ---- */
 .course .pick-time {
   margin: 4px 0 0;

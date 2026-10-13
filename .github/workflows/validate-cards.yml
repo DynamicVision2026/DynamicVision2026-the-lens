@@ -69,6 +69,8 @@ jobs:
 
       - name: No hex colour literals in scenes and apps
         run: pnpm check:literals
+      - name: CSS rules all close (no accidental nesting)
+        run: pnpm check:css
 
       - name: Typecheck
         run: pnpm typecheck

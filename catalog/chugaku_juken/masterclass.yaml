@@ -1,0 +1,194 @@
+# Masterclass + practice onboarding for each lesson of this Pass (Step 1). Architect-owned content; one shared player (WO-014).
+# Standard (tokens 1.8 motion.masterclass, Brian Oct 13 19:33): 360 s =
+#   core 300 s: わなとレンズ 60 → 例題1 105 → 例題2 90 → 使えないとき 45;  onboarding 60 s;  then the 5-problem practice round (Step 3).
+#
+#   example1  standard L2 anchor of this lens: principle beat shows its trap vs lens; example 1 = the child drags it, step by step
+#   example2  a transformed / harder standard card of this lens (level ≥ example1): versatility (drag scene, or walkthrough)
+#   boundary  failure / no-lens card of this lens, or a card from another lens where this lens is a tempting wrong pick
+#   try       level 1–2 drag card for the onboarding dry run: find the clue, pick the lens unassisted (no solve)
+#   say / title: ≤ 32 characters each
+
+enclose:
+  example1: enclose-001
+  example2: enclose-005
+  boundary: enclose-f01
+  try: enclose-002
+  title:
+    principle: "1辺の長さを はかりたくなる"
+    example1: "囲んで、すみを引く"
+    example2: "五角形も、囲んで引く"
+    boundary: "このときは使わない"
+    onboarding: "練習は3ステップ"
+  say:
+    principle: "ななめの図形。面積は、どう出す？"
+    principle_turn: "ここで手が止まる…。どうする？"
+    principle_lens: "囲むレンズ！ 外わくで囲んでみよう"
+    example1: "ゴーストの指をまねして、やってみよう"
+    example1_done: "ななめの長さは、はからなくていい"
+    example2: "こんどは五角形。囲めるかな？"
+    example2_done: "どんな形でも、囲んですみを引く"
+    boundary: "でも注意！ こんなときは囲まない"
+    onboarding: "手がかり → 道具 → ドラッグ。ヒントなしでね"
+    onboarding_done: "準備OK！ 5問、ひとりでやってみよう"
+
+slide:
+  example1: slide-001
+  example2: slide-003
+  boundary: enclose-no-lens
+  try: slide-002
+  title:
+    principle: "1つずつの底辺を知りたくなる"
+    example1: "頂点をすべらせて、1つにまとめる"
+    example2: "5つの三角形も、1つに"
+    boundary: "このときは使わない"
+    onboarding: "練習は3ステップ"
+  say:
+    principle: "三角形がいくつも。面積の合計は？"
+    principle_turn: "底辺が1つずつ分からない…。どうする？"
+    principle_lens: "等積変形レンズ！ 頂点を平行線にそって動かそう"
+    example1: "頂点を1か所に集めてみよう"
+    example1_done: "高さが同じなら、面積は変わらない"
+    example2: "こんどは三角形が5つ。同じ考え方で！"
+    example2_done: "いくつあっても、1つにまとめられる"
+    boundary: "でも、もう底辺と高さが見えているなら…"
+    onboarding: "手がかり → 道具 → ドラッグ。ヒントなしでね"
+    onboarding_done: "準備OK！ 5問、ひとりでやってみよう"
+
+area:
+  example1: area-001
+  example2: area-003
+  boundary: area-f01
+  try: area-002
+  title:
+    principle: "1枚ずつ表にしたくなる"
+    example1: "長方形2つで、ちがいを見る"
+    example2: "平均も、面積図で"
+    boundary: "このときは使わない"
+    onboarding: "練習は3ステップ"
+  say:
+    principle: "2種類がまざっている。どう数える？"
+    principle_turn: "表がどんどん長くなる…。どうする？"
+    principle_lens: "面積図レンズ！ 1枚あたり×枚数を長方形に"
+    example1: "点線をつかんで、下へ動かそう"
+    example1_done: "はみ出した部分だけで、答えが出る"
+    example2: "こんどは平均の問題。これも面積図！"
+    example2_done: "はみ出しとへこみが、同じ広さ"
+    boundary: "でも注意！ 全部の数が分からないときは…"
+    onboarding: "手がかり → 道具 → ドラッグ。ヒントなしでね"
+    onboarding_done: "準備OK！ 5問、ひとりでやってみよう"
+
+constant:
+  example1: constant-001
+  example2: constant-003
+  boundary: constant-f01
+  try: constant-004
+  title:
+    principle: "1年ずつ表にしたくなる"
+    example1: "変わらない「差」に目をつける"
+    example2: "お金の差も、変わらない"
+    boundary: "このときは使わない"
+    onboarding: "練習は3ステップ"
+  say:
+    principle: "何年後に3倍？ どう考える？"
+    principle_turn: "表が長くなる…。どうする？"
+    principle_lens: "差一定レンズ！ 年れいの差はずっと同じ"
+    example1: "● を動かして、差を見よう"
+    example1_done: "差を「何つ分」で見れば、わり算1回"
+    example2: "こんどはお金。差は変わる？"
+    example2_done: "お金でも年れいでも、差は同じ"
+    boundary: "でも注意！ 1人と何人かの合計だと…"
+    onboarding: "手がかり → 道具 → ドラッグ。ヒントなしでね"
+    onboarding_done: "準備OK！ 5問、ひとりでやってみよう"
+
+balance:
+  example1: balance-001
+  example2: balance-003
+  boundary: balance-f01
+  try: balance-002
+  title:
+    principle: "食塩の量の式を立てたくなる"
+    example1: "てんびんのつり合いで考える"
+    example2: "食塩は100%の食塩水"
+    boundary: "このときは使わない"
+    onboarding: "練習は3ステップ"
+  say:
+    principle: "こさのちがう食塩水。何g混ぜる？"
+    principle_turn: "式が分数だらけ…。どうする？"
+    principle_lens: "てんびんレンズ！ こさを位置、重さをおもりに"
+    example1: "おもりを動かして、水平にしよう"
+    example1_done: "うでの長さの逆の比が、重さの比"
+    example2: "こんどは食塩を加える。てんびんは？"
+    example2_done: "食塩は100%。てんびんの右はしへ"
+    boundary: "でも注意！ 何も混ぜていないときは…"
+    onboarding: "手がかり → 道具 → ドラッグ。ヒントなしでね"
+    onboarding_done: "準備OK！ 5問、ひとりでやってみよう"
+
+freeze:
+  example1: freeze-001
+  example2: freeze-003
+  boundary: freeze-f01
+  try: freeze-002
+  title:
+    principle: "2人を両方動かしたくなる"
+    example1: "片方を止めて、近づく速さで考える"
+    example2: "列車も、片方を止める"
+    boundary: "このときは使わない"
+    onboarding: "練習は3ステップ"
+  say:
+    principle: "2人が向かい合って歩く。いつ出会う？"
+    principle_turn: "まん中で出会う…とは限らない。どうする？"
+    principle_lens: "止めるレンズ！ 片方を止めてみよう"
+    example1: "前を歩く人をタップして止めよう"
+    example1_done: "近づく速さで、きょりをわるだけ"
+    example2: "こんどは列車のすれちがい！"
+    example2_done: "列車でも、片方を止めれば同じ"
+    boundary: "でも注意！ 動くのが1人だけなら…"
+    onboarding: "手がかり → 道具 → ドラッグ。ヒントなしでね"
+    onboarding_done: "準備OK！ 5問、ひとりでやってみよう"
+
+mirror:
+  example1: mirror-001
+  example2: mirror-003
+  boundary: unfold-001
+  try: mirror-002
+  title:
+    principle: "まん中によればいいと思いたくなる"
+    example1: "折り返して、まっすぐ結ぶ"
+    example2: "大きな数でも、折り返す"
+    boundary: "このときは使わない"
+    onboarding: "練習は3ステップ"
+  say:
+    principle: "川によって水をくむ。いちばん短い道は？"
+    principle_turn: "まん中では最短にならない…。どうする？"
+    principle_lens: "折り返すレンズ！ Qを川で折り返そう"
+    example1: "点を川の反対がわへ折り返そう"
+    example1_done: "まっすぐな線が、いちばん短い"
+    example2: "数が大きくなっても、同じ考え方"
+    example2_done: "比をかんたんにしてから計算"
+    boundary: "でも、立体の表面の道なら…"
+    onboarding: "手がかり → 道具 → ドラッグ。ヒントなしでね"
+    onboarding_done: "準備OK！ 5問、ひとりでやってみよう"
+
+unfold:
+  example1: unfold-001
+  example2: unfold-003
+  boundary: mirror-001
+  try: unfold-002
+  title:
+    principle: "立体のまま長さを比べたくなる"
+    example1: "面を開いて、まっすぐ結ぶ"
+    example2: "どんな箱でも、開く"
+    boundary: "このときは使わない"
+    onboarding: "練習は3ステップ"
+  say:
+    principle: "箱の表面に糸をかける。いちばん短いのは？"
+    principle_turn: "ななめの長さが計算できない…。どうする？"
+    principle_lens: "展開レンズ！ 2つの面を開いて平らに"
+    example1: "面をつかんで、開いてみよう"
+    example1_done: "開いても、糸の長さは変わらない"
+    example2: "箱の大きさが変わっても、開けば同じ"
+    example2_done: "開いて、同じ形の三角形を見る"
+    boundary: "でも、平面の上の道なら…"
+    onboarding: "手がかり → 道具 → ドラッグ。ヒントなしでね"
+    onboarding_done: "準備OK！ 5問、ひとりでやってみよう"
+

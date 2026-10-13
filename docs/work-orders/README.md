@@ -27,6 +27,7 @@ Earlier build order (now done): WO-003 step 2 → WO-009 → WO-004 … WO-008.
 | [WO-011](WO-011-lesson-video.md) | Lesson video template (3–5 min per lens) | WO-010 | Oct 27 |
 | [WO-012](WO-012-tactile-and-3d.md) | Tactile drag + lazy 3D viewport (Unfold first), native-shell readiness | WO-010 | Spike Nov 10 |
 | [WO-013](WO-013-which-lens-check.md) | 「どのレンズ？」 free 8-question check + week-4 mixed drill | WO-012 core | Oct 27 |
+| [WO-014](WO-014-micro-masterclass.md) | Masterclass (Step 1): 5-min core + 1-min practice onboarding (360 s, tokens 1.8), one data-driven player for 8 lenses; Step 3 as a 5-problem round | WO-016, catalog masterclass.yaml | Oct 21 |
 | [WO-015](WO-015-word-diagram-families.md) | Word-problem diagram families (面積図 · 差一定 new kinds playable) | bundle 1.3 `figure.diagram` | Oct 16 |
 | [WO-016](WO-016-boundary-cards-walkthrough.md) | Failure + no-lens cards in lessons; walkthrough mode for cards without a drag scene | WO-012 core | Oct 18 |
 | [WO-017](WO-017-balance-freeze-extensions.md) | てんびん water/salt lever + 止める chase mode; balance/freeze lessons playable | WO-015, WO-016 | Oct 19 |
