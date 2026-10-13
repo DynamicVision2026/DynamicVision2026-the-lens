@@ -1,0 +1,14 @@
+# Catalog: high/ holds exactly one Pass (one Shopify SKU). Architect-owned.
+# Strict isolation: a Pass lists only cards whose `stage` is in its card_stages, and no card id
+# may appear in two Passes. Shared engine, schema, picker and scene renderers (ADR-001, ADR-003).
+# The validator loads catalog/*/pass.yaml; `--release daigaku_juken` fails unless this Pass is complete.
+
+daigaku_juken:
+  stage_no: 3
+  title_ja: 大学受験パス
+  product_en: High School Analytical
+  audience_ja: 高1〜高3・共通テスト／個別試験
+  card_stages: [koko]
+  status: planned
+  sku: LENS-DJ-12M
+  lessons: []

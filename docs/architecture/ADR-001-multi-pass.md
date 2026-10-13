@@ -19,7 +19,7 @@
 ## Data model
 
 ```
-catalog/passes.yaml      one entry per Pass: sku, price, term, devices, lesson_target,
+catalog/<elem|middle|high>/pass.yaml   one Pass per folder (ADR-003): sku, price, term, devices, lesson_target,
                          levels, review_set, lessons[{lens, video, cards[]}]
 cards/<lens>/*.yaml      problems; new fields: level (1 基礎 … 4 発展), archetype (lens.type)
 labels/lenses.yaml       every lens of every Pass
