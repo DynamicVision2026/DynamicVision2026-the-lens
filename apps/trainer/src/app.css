@@ -803,15 +803,33 @@ html[data-theme='course'] body {
   padding-left: 1.2em;
   line-height: 1.9;
 }
-.course.check .result-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+.course.check .score .answer {
+  font-size: clamp(36px, 5vw, 48px);
 }
-.course.check .result-actions .go {
-  display: grid;
+/* The report stays compact so the founder offer starts as high as possible (iPad landscape). */
+.course.check .result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 8px;
+}
+.course.check .result-actions .why {
+  margin: 0;
+}
+.course.check .result-actions .go,
+.course.check .share-x .go {
+  display: inline-grid;
   place-items: center;
+  min-height: var(--tap-target);
+  padding: 0 var(--gutter);
+  font-size: 16px;
   text-decoration: none;
+}
+.course.check .share-x {
+  display: flex;
+  justify-content: center;
 }
 .course.check .signup,
 .course.check .preorder-block {
@@ -883,7 +901,7 @@ html[data-theme='course'] body {
   text-decoration: none;
 }
 
-.preorder-block .stage {
+.preorder-block .pass-stage {
   margin: 0;
   color: var(--ink-quiet);
 }

@@ -1,11 +1,14 @@
 // /check — 「どのレンズ？」 (WO-013): 8 problems, one per lens, mixed order. The child picks the lens
-// and the clue; no solving. Each first pick is timed. Then the result for the parent, signup and the
-// founder offer. Nothing leaves the device except what the parent submits in the signup form.
+// and the clue; no solving. Each first pick is timed. Then the result for the parent, the email form,
+// the X share and the founder offer. Nothing leaves the device unless the parent submits the email
+// form (tags: free-check + top confusion) or taps the X share (score and average seconds only).
 import { loadBundle, type LensCard } from '@lens/scenes';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { t } from '../i18n/ja';
 import { Footer, Preorder } from '../launch/Landing';
+import { LAUNCH } from '../launch.config';
 import { Signup } from '../launch/Signup';
+import { checkTags, xShareHref } from '../launch/tracking';
 import { checkProblems, saveCheck, seconds, summarize, type CheckAnswer } from './check';
 import { burst, sfx } from './fx';
 import { GuideOverlay, GuideProvider, useGuide } from './guide';
@@ -112,7 +115,7 @@ function Result({ answers, short, onAgain }: { answers: CheckAnswer[]; short: st
     sfx.aha();
     if (host.current) burst(host.current, [...C.palette, C.lens('enclose')]);
   }, [r, answers]);
-  const share = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(window.location.origin + '/')}`;
+  const share = xShareHref(t('check.shareText', { score: r.correct, sec: seconds(r.averageMs) }), LAUNCH.siteUrl || window.location.origin);
   return (
     <div className="result" ref={host}>
       <section className="card score">
@@ -134,16 +137,18 @@ function Result({ answers, short, onAgain }: { answers: CheckAnswer[]; short: st
         )}
         {r.suggest && <p className="trigger">{t('check.suggest', { lens: name(r.suggest) })}</p>}
         <div className="result-actions">
-          <a className="go" href={share} target="_blank" rel="noopener">
-            {t('check.shareLine')}
-          </a>
+          <p className="why">{t('check.private')}</p>
           <button type="button" className="go ghost" onClick={onAgain}>
             {t('check.again')}
           </button>
         </div>
-        <p className="why">{t('check.private')}</p>
       </section>
-      <Signup short={short} />
+      <Signup short={short} title={t('check.emailTitle')} tags={checkTags(r.confusions[0], short)} stay />
+      <div className="share-x">
+        <a className="go ghost" href={share} target="_blank" rel="noopener">
+          {t('check.shareX')}
+        </a>
+      </div>
       <Preorder />
       <Footer />
     </div>

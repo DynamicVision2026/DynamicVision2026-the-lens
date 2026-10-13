@@ -4,7 +4,8 @@ import { join, relative } from 'node:path';
 import { findRepoRoot } from './check-bundle.mjs';
 
 const root = findRepoRoot();
-const HEX = /#[0-9a-f]{3,8}\b/gi;
+// A hex run not followed by any letter or digit, so a hashtag such as 「#2027年組」 is not a colour.
+const HEX = /#[0-9a-f]{3,8}(?![\p{L}\p{N}_])/giu;
 const EXTENSIONS = /\.(tsx?|jsx?|mjs|css|html)$/;
 
 function sourceDirs() {

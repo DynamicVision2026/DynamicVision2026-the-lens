@@ -67,7 +67,10 @@ export const ja = {
   'check.average': '1問あたり 平均 {s} 秒で選びました',
   'check.confusedTitle': 'まちがえやすい組み合わせ',
   'check.suggest': 'まずは「{lens}」のレンズから始めるのがおすすめです。',
-  'check.shareLine': 'LINEで送る',
+  // Result screen touchpoints, as written in WO-013 (Brian, Oct 13).
+  'check.emailTitle': '診断結果と『4週間完成スケジュール（PDF）』をメールで受け取る',
+  'check.shareX': 'Xで結果をシェア',
+  'check.shareText': 'どのレンズ？チェック {score}/8問・1問平均{sec}秒でした。#中学受験 #2027年組',
   'check.again': 'もう一度チェックする',
   'check.private': '結果はこの端末の中だけに保存されます。',
   'area.yen': '円',

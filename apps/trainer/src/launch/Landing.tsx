@@ -80,7 +80,7 @@ export function Preorder() {
   return (
     <section className="preorder-block">
       <h2>{PREORDER.title(pass.founder_seats)}</h2>
-      <p className="stage">{PREORDER.stage}</p>
+      <p className="pass-stage">{PREORDER.stage}</p>
       <p className="price">
         <strong>{PREORDER.price(pass.early_price_jpy, pass.founder_seats, pass.price_jpy)}</strong>
       </p>

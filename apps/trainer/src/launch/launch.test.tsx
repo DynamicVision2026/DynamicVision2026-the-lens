@@ -5,7 +5,8 @@ import { LAUNCH } from '../launch.config';
 import { FOOTER, LANDING, PREORDER, PRIVACY, SIGNUP } from './copy';
 import { Landing, Privacy } from './Landing';
 import { Signup } from './Signup';
-import { beaconConfig, preorderHref, shortFrom, signupAction, signupTags } from './tracking';
+import { t } from '../i18n/ja';
+import { beaconConfig, checkTags, preorderHref, shortFrom, signupAction, signupTags, xShareHref } from './tracking';
 
 describe('Short tracking', () => {
   it('reads ?s=<card-id> and ignores anything else', () => {
@@ -31,6 +32,32 @@ describe('Short tracking', () => {
   it('loads analytics only with a token', () => {
     expect(beaconConfig('')).toBeNull();
     expect(JSON.parse(beaconConfig('abc')!)).toEqual({ token: 'abc', spa: true });
+  });
+});
+
+describe('check result touchpoints (WO-013)', () => {
+  it('tags the check signup with free-check, the top confusion pair and the Short', () => {
+    expect(checkTags(['area', 'balance', 2], null)).toBe('free-check,confused:area-balance');
+    expect(checkTags(['area', 'balance', 1], 'x')).toBe('free-check,confused:area-balance,x');
+    expect(checkTags(undefined, null)).toBe('free-check');
+  });
+
+  it('builds the X Web Intent with the WO text and /check?s=x', () => {
+    const text = t('check.shareText', { score: 6, sec: '4.2' });
+    expect(text).toBe('どのレンズ？チェック 6/8問・1問平均4.2秒でした。#中学受験 #2027年組');
+    const u = new URL(xShareHref(text, 'https://lens.example/'));
+    expect(u.origin + u.pathname).toBe('https://x.com/intent/post');
+    expect(u.searchParams.get('text')).toBe(text);
+    expect(u.searchParams.get('url')).toBe('https://lens.example/check?s=x');
+    expect(shortFrom('?s=x')).toBe('x');
+  });
+
+  it('renders the check email form with its own title and tags', () => {
+    const html = renderToStaticMarkup(<Signup short={null} title={t('check.emailTitle')} tags={checkTags(['area', 'balance', 1], null)} stay />);
+    expect(html).toContain('診断結果と『4週間完成スケジュール（PDF）』をメールで受け取る');
+    expect(html).toContain('value="free-check,confused:area-balance"');
+    expect(html).toContain(SIGNUP.consent);
+    expect(html).not.toContain('LINE');
   });
 });
 
