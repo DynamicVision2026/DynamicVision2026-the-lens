@@ -15,6 +15,8 @@ import { checkProblems, drillProblems, saveCheck, saveDrill, seconds, summarize,
 import { burst, sfx } from './fx';
 import { GuideOverlay, GuideProvider, useGuide } from './guide';
 import { findPass, problemMode } from './lessons';
+import { baseline, readAttempts, week4Problems, type AttemptCtx } from './attempts';
+import { AttemptContext, useAttemptScope } from './attemptContext';
 import { navigate } from '../launch/navigate';
 import { ClueCard, PickCard, usePickClue } from './PickClue';
 import { firstTime } from './progress';
@@ -23,47 +25,85 @@ import { C, SceneLock, useCourseTheme, useFigScale } from './scenes/kit';
 
 const PASS = 'chugaku_juken';
 
-export function CheckView({ short, drill = false, passId = PASS }: { short: string | null; drill?: boolean; passId?: string }) {
+/**
+ * Which check: the free funnel check (/check), the paid drill (/drill), the course's day-1 check
+ * (/baseline, the same 8 questions as the free one) and the week-4 check (/week4, WO-019).
+ */
+export type CheckMode = 'free' | 'drill' | 'baseline' | 'week4';
+
+const CTX: Record<CheckMode, AttemptCtx> = { free: 'check', baseline: 'check', drill: 'drill', week4: 'week4' };
+
+export function CheckView({ short, mode = 'free', passId = PASS }: { short: string | null; mode?: CheckMode; passId?: string }) {
   useCourseTheme();
   const pass = findPass(loadBundle(), passId);
   const [round, setRound] = useState(0);
-  const problems = useMemo(() => (pass ? (drill ? drillProblems(pass) : checkProblems(pass)) : []), [pass, round, drill]);
+  const problems = useMemo(() => {
+    if (!pass) return [];
+    if (mode === 'drill') return drillProblems(pass);
+    if (mode === 'week4') return week4Problems(pass, baseline(readAttempts(), pass.id)?.attempts ?? []);
+    return checkProblems(pass);
+  }, [pass, round, mode]);
+  const scope = useAttemptScope(CTX[mode], passId, round);
   const [answers, setAnswers] = useState<CheckAnswer[]>([]);
   if (!pass || problems.length === 0) return <main className="course">{t('lesson.notFound')}</main>;
   const done = answers.length >= problems.length;
   const card = problems[Math.min(answers.length, problems.length - 1)]!;
+  const again = () => {
+    setAnswers([]);
+    setRound(round + 1);
+  };
+  const title = mode === 'drill' ? t('drill.title') : mode === 'week4' ? t('week4.title') : mode === 'baseline' ? t('baseline.title') : t('check.title');
   return (
-    <main className="course check" style={{ ['--lens' as string]: C.lens('enclose') }}>
-      <div className="bar">
-        <span className="chip">{drill ? t('drill.title') : t('check.title')}</span>
-        <span className="pdots">
-          {problems.map((p, i) => (
-            <i key={p.id} className={i === answers.length ? 'cur' : i < answers.length ? 'on' : ''} />
-          ))}
-        </span>
-      </div>
-      {done && drill ? (
-        <DrillResult
-          answers={answers}
-          onAgain={() => {
-            setAnswers([]);
-            setRound(round + 1);
-          }}
-          onCase={() => navigate(`/pass/${passId}`)}
-        />
-      ) : done ? (
-        <Result
-          answers={answers}
-          short={short}
-          onAgain={() => {
-            setAnswers([]);
-            setRound(round + 1);
-          }}
-        />
-      ) : (
-        <CheckProblem key={`${round}-${card.id}`} card={card} first={answers.length === 0} onDone={(a) => setAnswers((xs) => [...xs, a])} />
-      )}
-    </main>
+    <AttemptContext.Provider value={scope}>
+      <main className="course check" style={{ ['--lens' as string]: C.lens('enclose') }}>
+        <div className="bar">
+          <span className="chip">{title}</span>
+          <span className="pdots">
+            {problems.map((p, i) => (
+              <i key={p.id} className={i === answers.length ? 'cur' : i < answers.length ? 'on' : ''} />
+            ))}
+          </span>
+        </div>
+        {done && mode === 'drill' ? (
+          <DrillResult answers={answers} onAgain={again} onCase={() => navigate(`/pass/${passId}`)} />
+        ) : done && mode !== 'free' ? (
+          <CourseCheckResult answers={answers} mode={mode} passId={passId} />
+        ) : done ? (
+          <Result answers={answers} short={short} onAgain={again} />
+        ) : (
+          <CheckProblem key={`${round}-${card.id}`} card={card} first={answers.length === 0} onDone={(a) => setAnswers((xs) => [...xs, a])} />
+        )}
+      </main>
+    </AttemptContext.Provider>
+  );
+}
+
+/** Day 1 / week 4 inside the course: the same summary for the child, then on to the lessons or the parent report. */
+function CourseCheckResult({ answers, mode, passId }: { answers: CheckAnswer[]; mode: CheckMode; passId: string }) {
+  const r = useMemo(() => summarize(answers), [answers]);
+  const host = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    sfx.aha();
+    if (host.current) burst(host.current, [...C.palette, C.lens('enclose')]);
+  }, []);
+  return (
+    <div className="result" ref={host}>
+      <section className="card score">
+        <h2>{t('check.resultTitle')}</h2>
+        <div className="answer">{t('check.score', { n: r.correct, total: r.total })}</div>
+        <p className="why">{t('check.average', { s: seconds(r.averageMs) })}</p>
+        <p className="why">{t('check.private')}</p>
+        {mode === 'week4' ? (
+          <button type="button" className="go" onClick={() => (sfx.tap(), navigate(`/report/${passId}`))}>
+            {t('week4.toReport')}
+          </button>
+        ) : (
+          <button type="button" className="go" onClick={() => (sfx.tap(), navigate(`/pass/${passId}`))}>
+            {t('baseline.toLessons')}
+          </button>
+        )}
+      </section>
+    </div>
   );
 }
 
