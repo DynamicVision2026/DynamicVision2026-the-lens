@@ -1,12 +1,20 @@
 import type { ComponentType } from 'react';
+import { AreaScene } from './Area';
+import { BalanceScene } from './Balance';
+import { ConstantScene } from './Constant';
 import { EncloseScene } from './Enclose';
+import { FreezeScene } from './Freeze';
 import { MirrorScene } from './Mirror';
 import { SlideScene } from './Slide';
 import type { SceneProps } from './kit';
 
-/** The hands-on interaction for each lens (others arrive in later WO-012 PRs). */
+/** The hands-on interaction for each lens. */
 export const SCENES: Record<string, ComponentType<SceneProps>> = {
   enclose: EncloseScene,
   slide: SlideScene,
   mirror: MirrorScene,
+  area: AreaScene,
+  constant: ConstantScene,
+  balance: BalanceScene,
+  freeze: FreezeScene,
 };

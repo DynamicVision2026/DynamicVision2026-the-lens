@@ -6,7 +6,16 @@ const PLAYABLE: Record<string, (card: LensCard) => boolean> = {
   enclose: (c) => c.problem.figure.type === 'grid_polygon' && verticesOnBox(c),
   slide: (c) => c.problem.figure.type === 'parallel_band',
   mirror: (c) => c.problem.figure.type === 'mirror_path',
+  area: (c) => isWord(c, 'two_kinds_total'),
+  constant: (c) => isWord(c, 'age_ratio'),
+  balance: (c) => isWord(c, 'mixture'),
+  freeze: (c) => isWord(c, 'meeting'),
 };
+
+function isWord(card: LensCard, kind: string): boolean {
+  const fig = card.problem.figure;
+  return fig.type === 'word_problem' && fig.kind === kind;
+}
 
 /** Every vertex lies on the enclosing box (the corner-triangle Enclose interaction needs that). */
 function verticesOnBox(card: LensCard): boolean {
