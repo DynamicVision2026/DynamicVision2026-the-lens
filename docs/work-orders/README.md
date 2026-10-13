@@ -13,6 +13,8 @@ Each work order (WO) is one PR. Read `docs/PRD.md` first; this folder only adds 
 | [WO-003](WO-003-enclose-prototype.md) | Enclose prototype: 30 s Short + Perspective Picker. **Start with the [motion preview](WO-003-motion.md).** | WO-002 | Preview first, then Oct 21 demo |
 | [WO-009](WO-009-launch-site.md) | **Launch site:** landing page → Free Lens → email signup → ¥6,800 preorder. **Next after WO-003 step 2** | WO-003 step 2 | Oct 27 |
 | [WO-010](WO-010-lessons-and-catalog.md) | Lessons and catalog: bundle 1.3 `passes`, `/pass/:passId`, `/lesson/:passId/:lens`, Masterclass copy | WO-009 | Oct 20 |
+| [WO-011](WO-011-lesson-video.md) | Lesson video template (3–5 min per lens) | WO-010 | Oct 27 |
+| [WO-012](WO-012-tactile-and-3d.md) | Tactile drag + lazy 3D viewport (Unfold first), native-shell readiness | WO-010 | Spike Nov 10 |
 | [WO-004](WO-004-slide-scenes.md) | Slide lens (等積変形): parallel-band figure and its scenes | WO-003 step 2 | Oct 27 |
 | [WO-005](WO-005-mirror-scenes.md) | Mirror lens (折り返す): shortest-path figure and its scenes | WO-004 | Oct 30 |
 | [WO-006](WO-006-word-problem-scenes.md) | Area (面積図) and Constant (差一定): word-problem diagrams | WO-004 | Nov 2 |
