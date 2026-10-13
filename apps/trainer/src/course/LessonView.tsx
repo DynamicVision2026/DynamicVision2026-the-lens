@@ -6,6 +6,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { t } from '../i18n/ja';
 import { navigate } from '../launch/navigate';
 import { Aha } from './Aha';
+import { isClean, type PlayOpts } from './play';
 import { burst, sfx } from './fx';
 import { GuideOverlay, GuideProvider, useGuide } from './guide';
 import { findLesson, findPass, isPlayable, lessonProblems, type LessonProblem, type ProblemMode } from './lessons';
@@ -13,6 +14,7 @@ import { markSolved, solvedIn } from './progress';
 import { ClueCard, PickCard, usePickClue } from './PickClue';
 import { SCENES } from './scenes';
 import { C, SceneLock, useCourseTheme, useFigScale } from './scenes/kit';
+import { StepNav } from './StepNav';
 import { boundaryChip, WalkFlow } from './Walkthrough';
 
 export function LessonView({ passId, lens }: { passId: string; lens: string }) {
@@ -27,7 +29,8 @@ export function LessonView({ passId, lens }: { passId: string; lens: string }) {
   const { card, mode } = problems[index]!;
   const chip = boundaryChip(card);
   const next = () => {
-    if (index >= problems.length - 1) navigate(`/pass/${passId}`);
+    // After the ladder: step 3, practice on your own.
+    if (index >= problems.length - 1) navigate(`/lesson/${passId}/${lens}/practice`);
     else setIndex(index + 1);
   };
   return (
@@ -36,6 +39,7 @@ export function LessonView({ passId, lens }: { passId: string; lens: string }) {
         <button type="button" className="back" aria-label={t('lesson.backLabel')} onClick={() => navigate(`/pass/${passId}`)}>
           {t('lesson.back')}
         </button>
+        <StepNav passId={passId} lens={lens} current={2} />
         <span className="pdots">
           {problems.map((p, i) => (
             <i key={p.card.id} className={i === index ? 'cur' : solvedIn(passId, lens).includes(p.card.id) ? 'on' : ''} />
@@ -43,10 +47,13 @@ export function LessonView({ passId, lens }: { passId: string; lens: string }) {
         </span>
         {chip && <span className="chip boundary">{chip}</span>}
       </div>
-      <Problem key={`${card.id}-${round}`} card={card} mode={mode} lens={lens} passId={passId} last={index >= problems.length - 1} onNext={next} onAgain={() => setRound(round + 1)} />
+      <Problem key={`${card.id}-${round}`} card={card} mode={mode} lens={lens} passId={passId} last={index >= problems.length - 1} onNext={next} onAgain={() => setRound(round + 1)} opts={index >= problems.length - 1 ? LAST_OPTS : NO_OPTS} />
     </main>
   );
 }
+
+const NO_OPTS = {};
+const LAST_OPTS = { nextLabel: t('practice.toPractice') };
 
 /**
  * Review aid (the lesson is already behind ?preview=1 until launch): ?card=<id> plays just that card
@@ -59,7 +66,8 @@ function oneCard(lens: string): LessonProblem[] | null {
   return [{ card, mode: isPlayable(card, lens) ? 'scene' : 'walkthrough' }];
 }
 
-function Problem({ card, mode, lens, passId, last, onNext, onAgain }: { card: LensCard; mode: ProblemMode; lens: string; passId: string; last: boolean; onNext: () => void; onAgain: () => void }) {
+/** One problem: the question, then the scene flow or the walkthrough (the ladder, Steps 3 and 4). */
+export function Problem({ card, mode, lens, passId, last, onNext, onAgain, opts = {} }: { card: LensCard; mode: ProblemMode; lens: string; passId: string; last: boolean; onNext: () => void; onAgain: () => void; opts?: PlayOpts }) {
   const stage = useRef<HTMLDivElement>(null);
   useFigScale(stage);
   return (
@@ -68,9 +76,9 @@ function Problem({ card, mode, lens, passId, last, onNext, onAgain }: { card: Le
       <div className="main">
         <GuideProvider lens={lens} stageRef={stage}>
           {mode === 'scene' ? (
-            <Flow card={card} lens={lens} passId={passId} last={last} onNext={onNext} onAgain={onAgain} stage={stage} />
+            <Flow card={card} lens={lens} passId={passId} last={last} onNext={onNext} onAgain={onAgain} stage={stage} opts={opts} />
           ) : (
-            <WalkFlow card={card} lens={lens} passId={passId} last={last} onNext={onNext} onAgain={onAgain} stage={stage} />
+            <WalkFlow card={card} lens={lens} passId={passId} last={last} onNext={onNext} onAgain={onAgain} stage={stage} opts={opts} />
           )}
         </GuideProvider>
       </div>
@@ -78,7 +86,7 @@ function Problem({ card, mode, lens, passId, last, onNext, onAgain }: { card: Le
   );
 }
 
-function Flow({ card, lens, passId, last, onNext, onAgain, stage }: { card: LensCard; lens: string; passId: string; last: boolean; onNext: () => void; onAgain: () => void; stage: React.RefObject<HTMLDivElement | null> }) {
+function Flow({ card, lens, passId, last, onNext, onAgain, stage, opts }: { card: LensCard; lens: string; passId: string; last: boolean; onNext: () => void; onAgain: () => void; stage: React.RefObject<HTMLDivElement | null>; opts: PlayOpts }) {
   const { labels } = loadBundle();
   const guide = useGuide();
   const pc = usePickClue(card);
@@ -95,12 +103,18 @@ function Flow({ card, lens, passId, last, onNext, onAgain, stage }: { card: Lens
   }, [s.phase, s.clueChip, dispatch]);
   const phase = s.phase;
 
+  const sRef = useRef(s);
+  sRef.current = s;
+  // Through a ref, so `solved` keeps its identity (scenes restart their timers when onSolved changes).
+  const optsRef = useRef(opts);
+  optsRef.current = opts;
   const solved = useCallback(() => {
     dispatch({ type: 'solved' });
     sfx.aha();
     if (stage.current) burst(stage.current, [C.lens(lens), ...C.palette, C.ink]);
     guide.say(t('guide.aha'), 'd');
-    markSolved(passId, lens, card.id);
+    if (optsRef.current.record !== false) markSolved(passId, lens, card.id);
+    optsRef.current.onResult?.({ clean: isClean(sRef.current) });
   }, [dispatch, guide, stage, lens, passId, card.id]);
 
   const locked = phase === 'pick' || phase === 'clue';
@@ -113,7 +127,7 @@ function Flow({ card, lens, passId, last, onNext, onAgain, stage }: { card: Lens
         <GuideOverlay />
       </div>
       <aside className="side">
-        {phase === 'pick' && <PickCard card={card} pc={pc} trap={parent.trap_route.steps[0]?.ja} />}
+        {phase === 'pick' && <PickCard card={card} pc={pc} trap={opts.practice ? undefined : parent.trap_route.steps[0]?.ja} />}
         {phase === 'clue' && <ClueCard lens={lens} pc={pc} />}
         {(phase === 'play' || phase === 'aha') && (
           <div className="card">
@@ -126,7 +140,7 @@ function Flow({ card, lens, passId, last, onNext, onAgain, stage }: { card: Lens
             <div className="trigger">{card.trigger.ja}</div>
           </div>
         )}
-        {phase === 'aha' && <Aha card={card} last={last} onNext={onNext} onAgain={onAgain} />}
+        {phase === 'aha' && <Aha card={card} last={last} onNext={onNext} onAgain={onAgain} nextLabel={opts.nextLabel} again={opts.again} />}
       </aside>
     </>
   );

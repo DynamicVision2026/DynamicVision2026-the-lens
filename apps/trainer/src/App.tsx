@@ -3,6 +3,7 @@ import { CaseView } from './course/CaseView';
 import { CheckView } from './course/CheckView';
 import { lessonsOpen } from './course/access';
 import { LessonView } from './course/LessonView';
+import { PracticeView, TimedView } from './course/StepsView';
 import { DevScenes } from './dev/DevScenes';
 import { GoPreorder, Landing, Privacy, Thanks } from './launch/Landing';
 import { usePath } from './launch/navigate';
@@ -23,8 +24,15 @@ export function App() {
   // The course player (WO-012): the lens case and a lesson.
   const pass = /^\/pass\/([\w-]+)\/?$/.exec(path);
   if (pass) return <CaseView passId={pass[1]!} />;
-  const lesson = /^\/lesson\/([\w-]+)\/([\w-]+)\/?$/.exec(path);
-  if (lesson) return lessonsOpen() ? <LessonView key={path} passId={lesson[1]!} lens={lesson[2]!} /> : <CaseView passId={lesson[1]!} />;
+  // A lesson: the ladder (step 2), then /practice (step 3) and /timed (step 4).
+  const lesson = /^\/lesson\/([\w-]+)\/([\w-]+)(?:\/(practice|timed))?\/?$/.exec(path);
+  if (lesson) {
+    if (!lessonsOpen()) return <CaseView passId={lesson[1]!} />;
+    const [, passId, lens, step] = lesson as unknown as [string, string, string, string | undefined];
+    if (step === 'practice') return <PracticeView key={path} passId={passId} lens={lens} />;
+    if (step === 'timed') return <TimedView key={path} passId={passId} lens={lens} />;
+    return <LessonView key={path} passId={passId} lens={lens} />;
+  }
   if (path === '/privacy') return <Privacy />;
   if (path === '/thanks') return <Thanks />;
   if (path === '/go/preorder') return <GoPreorder short={short} />;

@@ -5,7 +5,7 @@ import { t } from '../i18n/ja';
 import { sfx, TACTILE } from './fx';
 import { C } from './scenes/kit';
 
-export function Aha({ card, last, onNext, onAgain, listSteps = true }: { card: LensCard; last: boolean; onNext: () => void; onAgain: () => void; listSteps?: boolean }) {
+export function Aha({ card, last, onNext, onAgain, listSteps = true, nextLabel, again = true }: { card: LensCard; last: boolean; onNext: () => void; onAgain: () => void; listSteps?: boolean; nextLabel?: string; again?: boolean }) {
   // The walkthrough has already revealed the steps one by one; then only the answer and the buttons.
   const steps = listSteps ? card.lens_route.steps : [];
   const [shown, setShown] = useState(0);
@@ -30,11 +30,13 @@ export function Aha({ card, last, onNext, onAgain, listSteps = true }: { card: L
       {shown >= steps.length && (
         <>
           <button type="button" className="go" onClick={() => (sfx.tap(), onNext())}>
-            {last ? t('lesson.toCase') : t('lesson.next')}
+            {nextLabel ?? (last ? t('lesson.toCase') : t('lesson.next'))}
           </button>
-          <button type="button" className="go ghost" onClick={() => (sfx.tap(), onAgain())}>
-            {t('lesson.again')}
-          </button>
+          {again && (
+            <button type="button" className="go ghost" onClick={() => (sfx.tap(), onAgain())}>
+              {t('lesson.again')}
+            </button>
+          )}
         </>
       )}
     </div>
