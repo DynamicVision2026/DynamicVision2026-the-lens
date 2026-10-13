@@ -46,4 +46,6 @@ export const PROPOSED = {
   emailLabel: 'メールアドレス',
   signupButton: '登録する',
   signupSent: '登録を受け付けました。開いたページで完了してください。',
+  /** WO-013: the free check from the landing page (proposed; the WO gives no copy). */
+  checkLink: 'どのレンズ？チェック（無料・8問）',
 } as const;

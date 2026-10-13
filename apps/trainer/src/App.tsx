@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { CaseView } from './course/CaseView';
+import { CheckView } from './course/CheckView';
 import { lessonsOpen } from './course/access';
 import { LessonView } from './course/LessonView';
 import { DevScenes } from './dev/DevScenes';
@@ -17,6 +18,8 @@ export function App() {
   // /play/:cardId, and /play/:cardId/report once the report is shown (counted as its own path).
   const play = /^\/play\/([\w-]+)(?:\/report)?\/?$/.exec(path);
   if (play) return <Play cardId={play[1]!} short={short} />;
+  // The free どのレンズ？ check (WO-013): open to everyone.
+  if (path === '/check') return <CheckView short={short} />;
   // The course player (WO-012): the lens case and a lesson.
   const pass = /^\/pass\/([\w-]+)\/?$/.exec(path);
   if (pass) return <CaseView passId={pass[1]!} />;

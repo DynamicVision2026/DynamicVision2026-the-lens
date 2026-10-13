@@ -2,26 +2,16 @@
 // (wrong picks "try on" their feedback), taps the clue, then moves the figure until it snaps,
 // guided by ナゼホリ. Everything shown comes from the bundle.
 import { answerText, getCard, LensIcon, loadBundle, tokens, type LensCard, type LensOrDirect } from '@lens/scenes';
-import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { t } from '../i18n/ja';
 import { navigate } from '../launch/navigate';
 import { burst, sfx, TACTILE } from './fx';
-import { flowReducer, initialFlow } from './flow';
 import { GuideOverlay, GuideProvider, useGuide } from './guide';
 import { findLesson, findPass, lessonProblems } from './lessons';
 import { markSolved, solvedIn } from './progress';
+import { ClueCard, PickCard, usePickClue } from './PickClue';
 import { SCENES } from './scenes';
 import { C, SceneLock, useCourseTheme } from './scenes/kit';
-
-/** Fisher–Yates with a given random source (tests pass a fixed one). */
-export function shuffle<T>(xs: readonly T[], rand: () => number = Math.random): T[] {
-  const a = xs.slice();
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(rand() * (i + 1));
-    [a[i], a[j]] = [a[j]!, a[i]!];
-  }
-  return a;
-}
 
 export function LessonView({ passId, lens }: { passId: string; lens: string }) {
   useCourseTheme();
@@ -71,37 +61,18 @@ function Problem({ card, lens, passId, last, onNext, onAgain }: { card: LensCard
 function Flow({ card, lens, passId, last, onNext, onAgain, stage }: { card: LensCard; lens: string; passId: string; last: boolean; onNext: () => void; onAgain: () => void; stage: React.RefObject<HTMLDivElement | null> }) {
   const { labels } = loadBundle();
   const guide = useGuide();
-  const [s, dispatch] = useReducer(flowReducer, card.picker.correct, initialFlow);
-  const options = useMemo(() => shuffle(card.picker.options), [card]);
-  const chips = useMemo(() => {
-    const real = card.trigger.tags.filter((tag) => !labels.tags[tag]?.generic);
-    return shuffle([...real.map((tag) => ({ tag, real: true })), ...card.picker.clue_distractors.map((tag) => ({ tag, real: false }))]);
-  }, [card, labels]);
-  const [glow, setGlow] = useState(0);
+  const pc = usePickClue(card);
+  const { s, dispatch } = pc;
   const Scene = SCENES[lens]!;
   const parent = getCard(card.id.replace(/-v\d+$/, '')) ?? card;
   const lensName = labels.lenses[lens]?.ja ?? lens;
-
-  // Pick and clue: the guide asks, and the idle prompt glows the options/chips.
-  useEffect(() => {
-    if (s.phase === 'pick') {
-      guide.say(t('guide.pick'));
-      guide.idle(() => setGlow((g) => g + 1));
-    }
-    if (s.phase === 'clue') {
-      guide.say(t('guide.clue'));
-      guide.idle(() => setGlow((g) => g + 1));
-    }
-    if (s.phase === 'aha') guide.idle(null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [s.phase]);
 
   // A right clue lights up, then the figure unlocks.
   useEffect(() => {
     if (s.phase !== 'clue' || !s.clueChip) return;
     const go = window.setTimeout(() => dispatch({ type: 'play' }), 700);
     return () => window.clearTimeout(go);
-  }, [s.phase, s.clueChip]);
+  }, [s.phase, s.clueChip, dispatch]);
   const phase = s.phase;
 
   const solved = useCallback(() => {
@@ -110,28 +81,7 @@ function Flow({ card, lens, passId, last, onNext, onAgain, stage }: { card: Lens
     if (stage.current) burst(stage.current, [C.lens(lens), ...C.palette, C.ink]);
     guide.say(t('guide.aha'), 'd');
     markSolved(passId, lens, card.id);
-  }, [guide, stage, lens, passId, card.id]);
-
-  const pick = (o: string) => {
-    if (s.tried.includes(o) || s.phase !== 'pick') return;
-    if (o === s.correct) {
-      sfx.snap();
-      guide.say(t('guide.pickRight'), 'd');
-    } else {
-      sfx.soft();
-      guide.say(t('guide.pickWrong'));
-    }
-    dispatch({ type: 'pick', option: o });
-  };
-
-  const chip = (tag: string, real: boolean) => {
-    if (s.clueChip || s.wrongChips.includes(tag)) return;
-    if (real) {
-      sfx.snap();
-      guide.say(t('guide.clueRight'), 'd');
-    } else sfx.soft();
-    dispatch({ type: 'chip', tag, real });
-  };
+  }, [dispatch, guide, stage, lens, passId, card.id]);
 
   const locked = phase === 'pick' || phase === 'clue';
   return (
@@ -143,47 +93,8 @@ function Flow({ card, lens, passId, last, onNext, onAgain, stage }: { card: Lens
         <GuideOverlay />
       </div>
       <aside className="side">
-        {phase === 'pick' && (
-          <div className="card">
-            <h2>{t('lesson.pickTitle')}</h2>
-            {parent.trap_route.steps[0] && (
-              <div className="trap">
-                {t('lesson.trapLead')}
-                {parent.trap_route.steps[0].ja}
-              </div>
-            )}
-            <div className="opts">
-              {options.map((o) => (
-                <button key={`${o}-${glow}`} type="button" className={`opt${s.tried.includes(o) ? ' tried' : ''}${s.tryOn === o ? ' shake' : ''}${glow && !s.tried.includes(o) ? ' nudge' : ''}`} onClick={() => pick(o)}>
-                  <svg viewBox="0 0 24 24" aria-hidden>
-                    <LensIcon lens={o as LensOrDirect} tokens={tokens} color={C.lens(o)} />
-                  </svg>
-                  <span>{labels.lenses[o]?.ja ?? o}</span>
-                </button>
-              ))}
-            </div>
-            {s.tryOn && (
-              <div className="try" key={s.tryOn}>
-                <b>{t('lesson.tryOn', { lens: labels.lenses[s.tryOn]?.ja ?? s.tryOn })}</b>
-                <br />
-                {card.picker.feedback_ja[s.tryOn]}
-              </div>
-            )}
-          </div>
-        )}
-        {phase === 'clue' && (
-          <div className="card">
-            <h2>{t('lesson.clueTitle', { lens: lensName })}</h2>
-            <div className="chips">
-              {chips.map(({ tag, real }) => (
-                <button key={`${tag}-${glow}`} type="button" className={`cl${s.clueChip === tag ? ' yes' : ''}${s.wrongChips.includes(tag) ? ' no shake' : ''}${glow && !s.clueChip && !s.wrongChips.includes(tag) ? ' nudge' : ''}`} onClick={() => chip(tag, real)}>
-                  {labels.tags[tag]?.ja ?? tag}
-                </button>
-              ))}
-            </div>
-            {(s.clueChip || s.wrongChips.length > 0) && <div className="why">{s.clueChip ? t('lesson.clueRight') : t('lesson.clueWrong')}</div>}
-          </div>
-        )}
+        {phase === 'pick' && <PickCard card={card} pc={pc} trap={parent.trap_route.steps[0]?.ja} />}
+        {phase === 'clue' && <ClueCard lens={lens} pc={pc} />}
         {(phase === 'play' || phase === 'aha') && (
           <div className="card">
             <span className="chip">

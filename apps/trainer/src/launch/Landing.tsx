@@ -35,9 +35,14 @@ export function Landing({ short }: { short: string | null }) {
             ))}
           </h1>
           <p className="sub">{LANDING.sub}</p>
-          <a className="primary start" href="/play/enclose-001">
-            {LANDING.start}
-          </a>
+          <div className="ctas">
+            <a className="primary start" href="/play/enclose-001">
+              {LANDING.start}
+            </a>
+            <a className="secondary" href="/check">
+              {PROPOSED.checkLink}
+            </a>
+          </div>
         </div>
         {hero && (
           <figure className="hero-figure">
