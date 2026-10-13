@@ -101,6 +101,18 @@ svg .pulse .halo { animation: halo 1.1s ease-in-out 3; }
 @keyframes halo { 0%, 100% { opacity: 0; stroke-width: 2 } 50% { opacity: .95; stroke-width: 6 } }
 .nudge { animation: nudge 1.1s ease-in-out 2; }
 @keyframes nudge { 0%, 100% { box-shadow: none } 50% { box-shadow: 0 0 0 3px var(--lens), 0 0 22px -2px var(--lens) } }
+.mbar { display: flex; gap: 6px; flex: 1; }
+.mbar i { flex: 1; height: 6px; border-radius: 3px; background: var(--line); position: relative; overflow: hidden; }
+.mbar i.done { background: var(--lens); }
+.mbar i.cur::after { content: ""; position: absolute; inset: 0; background: var(--lens); transform-origin: left; animation: fill var(--dur, 25s) linear forwards; }
+@keyframes fill { from { transform: scaleX(0) } to { transform: scaleX(1) } }
+.clock { font-variant-numeric: tabular-nums; color: var(--quiet); font-size: 13px; min-width: 7ch; text-align: right; }
+.mc { display: inline-flex; align-items: center; gap: 6px; background: var(--lens); color: var(--paper); border: 0; border-radius: 999px; padding: 8px 14px; font-family: var(--display); font-weight: 900; }
+.beat { font-size: 12px; letter-spacing: .14em; color: var(--lens); font-weight: 700; }
+.lines { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.lines li { line-height: 1.6; opacity: 0; transform: translateY(6px); transition: .35s; }
+.lines li.in { opacity: 1; transform: none; }
+.eq { font-family: var(--display); font-weight: 900; font-size: clamp(26px, 3.4vw, 34px); color: var(--lens); }
 :focus-visible { outline: 2px solid var(--lens); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { * { transition-duration: .01s !important; animation-duration: .01s !important; } }
 </style>
@@ -580,6 +592,7 @@ let state = { view: 'home', li: 0, pi: 0 };
 function home() {
   state.view = 'home'; idle.stop(); app.replaceChildren();
   app.appendChild(H(`<div class="brand"><h1>視点レンズ</h1><span class="tag">Founder MVP</span></div>`));
+  const mcb = H(`<button class="mc">▶ マスタークラス体験：囲む（2分）</button>`); mcb.addEventListener('click', () => { sfx.tap(); masterView(0); });
   app.appendChild(H(`<p class="lede">レンズケースに8つの道具。1つ選んで、まず「どのレンズで見るか」を選び、それから図を指で動かして答えにたどり着きます。</p>`));
   const grid = H('<div class="case"></div>');
   DATA.lenses.forEach((l, i) => {
@@ -588,6 +601,7 @@ function home() {
     t.addEventListener('click', () => { sfx.tap(); state.li = i; state.pi = Math.min(got, n - 1); lensView(); });
     grid.appendChild(t);
   });
+  app.appendChild(mcb);
   app.appendChild(grid);
   app.appendChild(H(`<p class="foot">問題と答えは、すべて視点レンズの検証ずみデータ（${DATA.lenses.reduce((a, l) => a + l.problems.length, 0)}問）から読みこんでいます。iPadでは横向きがおすすめ。音が出ます。</p>`));
 }
@@ -671,6 +685,103 @@ function lensView() {
     setTimeout(() => { side.appendChild(nx); side.appendChild(again); nx.animate([{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }], { duration: 250 }); }, 350 + P.steps.length * 380);
   }
 }
+/* =====================================================================
+   Micro Masterclass (Step 1): 4 beats, about 2 minutes, mascot-narrated, tap to advance
+   ===================================================================== */
+function makeCoach(stage, lensKey, onSolved) {
+  const guide = H(`<div class="guide"><div class="bot" data-pose="q">${MASCOT.q}</div><div class="bubble"></div></div>`);
+  const say = (t, pose = 'q') => { const b = guide.querySelector('.bubble'); b.textContent = t; b.classList.remove('say'); void b.offsetWidth; b.classList.add('say'); const bot = guide.querySelector('.bot'); if (bot.dataset.pose !== pose) { bot.innerHTML = MASCOT[pose]; bot.dataset.pose = pose; } bot.classList.remove('pop'); void bot.offsetWidth; bot.classList.add('pop'); };
+  const toStage = (svg, x, y) => { const pt = svg.createSVGPoint(); pt.x = x; pt.y = y; const r = pt.matrixTransform(svg.getScreenCTM()); const sr = stage.getBoundingClientRect(); return [r.x - sr.left, r.y - sr.top]; };
+  const demo = o => { const g = v => typeof v === 'function' ? v() : v; let a = g(o.from), b = g(o.to) || a; if (!a) return; if (o.svg) { a = toStage(o.svg, ...a); b = toStage(o.svg, ...b); } const f = H('<div class="finger"></div>'); stage.appendChild(f); const an = f.animate([{ left: a[0] + 'px', top: a[1] + 'px', opacity: 0, transform: 'scale(1.5)' }, { left: a[0] + 'px', top: a[1] + 'px', opacity: .95, transform: 'scale(1)', offset: .2 }, { left: b[0] + 'px', top: b[1] + 'px', opacity: .95, transform: 'scale(1)', offset: .78 }, { left: b[0] + 'px', top: b[1] + 'px', opacity: 0, transform: 'scale(1.2)' }], { duration: 1500, iterations: 2, easing: 'ease-in-out' }); an.onfinish = () => f.remove(); };
+  const api = { hint: t => say(t), solved: () => onSolved && onSolved(), coach: o => { say(o.text); const run = () => { (o.pulse || []).forEach(el => { el.classList.remove('pulse'); void el.getBoundingClientRect(); el.classList.add('pulse'); setTimeout(() => el.classList.remove('pulse'), 3400); }); demo(o); }; idle.set(run); setTimeout(() => demo(o), 700); } };
+  return { guide, say, api, attach() { stage.appendChild(guide); } };
+}
+function cornerTris(pts) {
+  const n = pts.length, out = [], orient = (a, b, c) => Math.sign((b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]));
+  for (let i = 0; i < n; i++) { const a = pts[i], b = pts[(i + 1) % n]; if (a[0] === b[0] || a[1] === b[1]) continue; const c1 = [b[0], a[1]], c2 = [a[0], b[1]]; out.push([a, b, orient(a, b, c1) < 0 ? c1 : c2]); }
+  return out;
+}
+function gridFigure(stage, fig) {
+  const { svg } = newSvg(stage); const W = fig.grid.width, Hh = fig.grid.height;
+  const s = Math.min(470 / (W + 3), 350 / (Hh + 3)), ox = (600 - W * s) / 2, oy = (440 + Hh * s) / 2 - 6;
+  const X = x => ox + x * s, Y = y => oy - y * s; unitGrid(svg, X, Y, W, Hh);
+  const layer = S('g', {}, svg);
+  S('polygon', { points: fig.points.map(p => `${X(p[0])},${Y(p[1])}`).join(' '), fill: 'rgba(232,236,244,.07)', stroke: '#E8ECF4', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, svg);
+  const cx = fig.points.reduce((a, q) => a + q[0], 0) / fig.points.length, cy = fig.points.reduce((a, q) => a + q[1], 0) / fig.points.length;
+  fig.points.forEach((p, i) => { const dx = p[0] - cx, dy = p[1] - cy, d = Math.hypot(dx, dy) || 1; txt(svg, X(p[0]) + dx / d * 20, Y(p[1]) - dy / d * 20 + 6, 'ABCDEFGHIJ'[i], { 'font-size': 16, fill: '#8A93A6' }); });
+  return { svg, layer, X, Y, s };
+}
+function masterView(li) {
+  state.view = 'master'; cleanupScene && cleanupScene(); cleanupScene = null; springs.clear(); idle.stop(); for (const h of [...frameHooks]) frameHooks.delete(h);
+  const l = DATA.lenses[li], M = l.master, P = l.problems[0], c = LENSC[l.lens]; document.documentElement.style.setProperty('--lens', c);
+  app.replaceChildren();
+  const BEATS = [['わな', 25], ['レンズ', 30], ['やってみる', 35], ['いつ使う？', 30]];
+  const bar = H(`<div class="bar"><button class="back">← ケース</button><span class="mbar">${BEATS.map(() => '<i></i>').join('')}</span><span class="clock">0:00 / 2:00</span></div>`);
+  bar.querySelector('.back').addEventListener('click', () => { sfx.tap(); clearInterval(tk); home(); }); app.appendChild(bar);
+  const t0 = performance.now(); const tk = setInterval(() => { if (state.view !== 'master') return clearInterval(tk); const e = Math.round((performance.now() - t0) / 1000); bar.querySelector('.clock').textContent = `${Math.floor(e / 60)}:${String(e % 60).padStart(2, '0')} / 2:00`; }, 500);
+  const q = H(`<p class="qtext"></p>`); app.appendChild(q);
+  const main = H('<div class="main"></div>'); app.appendChild(main);
+  const stage = H('<div class="stage"></div>'); main.appendChild(stage); const side = H('<div class="side"></div>'); main.appendChild(side);
+  const marks = [...bar.querySelectorAll('.mbar i')];
+  const setBeat = i => { marks.forEach((m, j) => { m.className = j < i ? 'done' : j === i ? 'cur' : ''; if (j === i) m.style.setProperty('--dur', BEATS[i][1] + 's'); }); };
+  const card = (beat, title) => { side.replaceChildren(); const k = H(`<div class="card"><span class="beat">${beat}</span><h2>${title}</h2></div>`); side.appendChild(k); return k; };
+  const next = (label, fn, ghost) => { const b = H(`<button class="go${ghost ? ' ghost' : ''}">${label}</button>`); b.addEventListener('click', () => { sfx.tap(); fn(); }); side.appendChild(b); b.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250 }); return b; };
+  let co;
+  // ---- beat 1: the trap ----
+  function b1() {
+    setBeat(0); q.textContent = P.text; stage.replaceChildren(); const f = gridFigure(stage, P.fig); co = makeCoach(stage, l.lens); co.attach(); co.say('ななめの正方形。面積は、どう出す？');
+    const [A, B] = P.fig.points; S('line', { x1: f.X(A[0]), y1: f.Y(A[1]), x2: f.X(B[0]), y2: f.Y(B[1]), stroke: '#FF8A65', 'stroke-width': 5, 'stroke-dasharray': '8 6', opacity: .9 }, f.layer);
+    txt(f.svg, (f.X(A[0]) + f.X(B[0])) / 2 + 18, (f.Y(A[1]) + f.Y(B[1])) / 2 + 26, '1辺 = ?', { fill: '#FF8A65', 'font-size': 18 });
+    const k = card('1 / 4　わな', '1辺の長さを はかりたくなる'); const ul = H('<ul class="lines"></ul>'); k.appendChild(ul);
+    const strip = H('<div style="height:10px;border-radius:5px;background:#FF8A65;width:0;transition:width 8s linear"></div>'); k.appendChild(strip); requestAnimationFrame(() => strip.style.width = '100%');
+    P.trap.forEach((t, i) => setTimeout(() => { const li = H(`<li>${t}</li>`); ul.appendChild(li); requestAnimationFrame(() => li.classList.add('in')); if (i === P.trap.length - 1) { co.say('ここで手が止まる…。どうする？'); next('どうする？ →', b2); } }, 900 + i * 2400));
+  }
+  // ---- beat 2: the lens, tap by tap ----
+  function b2() {
+    setBeat(1); stage.replaceChildren(); const f = gridFigure(stage, P.fig); co = makeCoach(stage, l.lens); co.attach(); co.say(`${l.ja}レンズ！ 外わくで囲んでみよう`, 'd');
+    const pts = P.fig.points, xs = pts.map(p => p[0]), ys = pts.map(p => p[1]); const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+    const tris = cornerTris(pts), subs = P.steps.filter(s => s.op === 'sub'), start = P.steps.find(s => s.op === 'start'), res = P.steps.find(s => s.op === 'result');
+    const k = card('2 / 4　レンズ', '囲んで、すみを引く'); const ul = H('<ul class="lines"></ul>'); k.appendChild(ul); const eq = H('<div class="eq"></div>'); k.appendChild(eq);
+    const add = t => { const li = H(`<li>${t}</li>`); ul.appendChild(li); requestAnimationFrame(() => li.classList.add('in')); };
+    let stepI = 0; const terms = [];
+    const btn = next('囲む ▶', () => advance());
+    function advance() {
+      if (stepI === 0) { const per = 2 * ((x1 - x0) + (y1 - y0)) * f.s; const r = S('rect', { x: f.X(x0), y: f.Y(y1), width: (x1 - x0) * f.s, height: (y1 - y0) * f.s, fill: 'none', stroke: c, 'stroke-width': 4, 'stroke-dasharray': per, 'stroke-dashoffset': per }, f.layer); r.animate([{ strokeDashoffset: per }, { strokeDashoffset: 0 }], { duration: 900, fill: 'forwards', easing: 'ease-out' }); sfx.snap(); add(start.ja); terms.push(fmt(start.value)); eq.textContent = terms[0]; btn.textContent = 'すみ ① ▶'; co.say(`${x1 - x0}×${y1 - y0}の正方形で囲めた！`, 'd'); }
+      else if (stepI <= tris.length) { const i = stepI - 1, t = tris[i]; const poly = S('polygon', { points: t.map(p => `${f.X(p[0])},${f.Y(p[1])}`).join(' '), fill: `url(#st${i % 4})`, stroke: PAL[i % 4], 'stroke-width': 2 }, f.layer); poly.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300 }); const mx = (t[0][0] + t[1][0] + t[2][0]) / 3, my = (t[0][1] + t[1][1] + t[2][1]) / 3; txt(f.svg, f.X(mx), f.Y(my) + 7, fmt(subs[i].value), { fill: PAL[i % 4], 'font-size': 22 }); sfx.tap(); add(subs[i].ja); terms.push(fmt(subs[i].value)); eq.textContent = terms[0] + terms.slice(1).map(v => ' − ' + v).join(''); btn.textContent = stepI < tris.length ? `すみ ${'①②③④⑤⑥'[stepI]} ▶` : '引き算 ▶'; co.say(stepI < tris.length ? 'すみの直角三角形は、すぐ計算できる' : '最後に、まとめて引く'); }
+      else { sfx.aha(); burst(stage, c); add(res.ja); eq.textContent = `${eq.textContent} = ${fmt(res.value)}`; co.say(`${P.display || fmt(P.answer) + P.unit}！ 1辺は はからなくていい`, 'd'); btn.remove(); next('自分でやってみる →', b3); stage.classList.add('glow'); }
+      stepI++;
+    }
+  }
+  // ---- beat 3: try it once, on an easier figure ----
+  function b3() {
+    setBeat(2); stage.classList.remove('glow'); const E = l.problems[1]; q.textContent = E.text; stage.replaceChildren();
+    const k = card('3 / 4　やってみる', '角をドラッグして囲もう'); k.appendChild(H('<p class="why">ゴーストの指をまねしてね。</p>'));
+    co = makeCoach(stage, l.lens, () => { idle.stop(); sfx.aha(); burst(stage, c); co.say('できた！ それが「囲む」レンズ', 'd'); k.appendChild(H(`<div class="eq">${E.display || fmt(E.answer) + E.unit}</div>`)); next('いつ使う？ →', b4); });
+    co.attach(); const cu = SCENES[l.lens](stage, E, { c }, co.api); cleanupScene = () => cu && cu();
+  }
+  // ---- beat 4: when to use it, and when it fails ----
+  function b4() {
+    setBeat(3); idle.stop(); stage.classList.remove('glow'); q.textContent = M.fail.text; stage.replaceChildren();
+    const k = card('4 / 4　いつ使う？', 'この言葉が見えたら、囲む'); const chips = H('<div class="chips"></div>'); k.appendChild(chips);
+    co = makeCoach(stage, l.lens); co.attach(); co.say('手がかりの言葉をタップしてみて');
+    let lit = 0;
+    l.tags.forEach(t => { const b = H(`<button class="cl">${t}</button>`); chips.appendChild(b); b.addEventListener('click', () => { if (b.classList.contains('yes')) return; b.classList.add('yes'); sfx.snap(); if (++lit === l.tags.length) failPart(); }); });
+    gridFigure(stage, M.fail);
+    function failPart() {
+      stage.replaceChildren(); const f = gridFigure(stage, M.fail); co.attach();
+      const xs = M.fail.points.map(p => p[0]), ys = M.fail.points.map(p => p[1]);
+      S('rect', { x: f.X(Math.min(...xs)), y: f.Y(Math.max(...ys)), width: (Math.max(...xs) - Math.min(...xs)) * f.s, height: (Math.max(...ys) - Math.min(...ys)) * f.s, fill: 'none', stroke: c, 'stroke-width': 3, 'stroke-dasharray': '9 6' }, f.layer);
+      const inner = M.fail.points.filter(p => p[0] > Math.min(...xs) && p[0] < Math.max(...xs) && p[1] > Math.min(...ys) && p[1] < Math.max(...ys));
+      inner.forEach(p => { const r = S('circle', { cx: f.X(p[0]), cy: f.Y(p[1]), r: 14, fill: 'none', stroke: '#FF8A65', 'stroke-width': 3 }, f.svg); r.animate([{ opacity: .2 }, { opacity: 1 }, { opacity: .2 }], { duration: 1200, iterations: Infinity }); });
+      txt(f.svg, 300, 432, 'すき間が 直角三角形にならない ?', { fill: '#FF8A65', 'font-size': 18 });
+      co.say('でも注意！ 頂点が内側にあると、囲むだけでは足りない');
+      k.appendChild(H(`<div class="try"><b>レンズが使えないとき</b><br>${M.fail.trigger}</div>`));
+      next('マスタークラス完了！ 練習へ →', () => { clearInterval(tk); marks.forEach(m => m.className = 'done'); state.li = li; state.pi = 0; lensView(); });
+    }
+  }
+  b1();
+}
+
 /* the locked preview shown while choosing the lens: the bare problem figure */
 function drawPreview(stage, l, P) {
   const F = P.fig; const { svg } = newSvg(stage); svg.style.opacity = .9;
