@@ -72,6 +72,10 @@ export function CaseView({ passId }: { passId: string }) {
           );
         })}
       </div>
+      {/* Week 4: the mixed drill across all lenses (WO-013), with the lessons' access. */}
+      <button type="button" className="go drill-link" disabled={!open} onClick={() => (sfx.tap(), navigate(`/drill/${pass.id}`))}>
+        {t('drill.link')}
+      </button>
     </main>
   );
 }

@@ -1,6 +1,6 @@
 import { loadBundle } from '@lens/scenes';
 import { describe, expect, it } from 'vitest';
-import { checkProblems, seconds, summarize, type CheckAnswer } from './check';
+import { checkProblems, DRILL_BOUNDARY, drillProblems, seconds, summarize, type CheckAnswer } from './check';
 import { findPass } from './lessons';
 
 const pass = findPass(loadBundle(), 'chugaku_juken')!;
@@ -55,5 +55,48 @@ describe('result for a scripted run', () => {
 
   it('suggests the slowest lens when every pick was right', () => {
     expect(summarize(run.filter((a) => a.firstPick === a.lens)).suggest).toBe('mirror');
+  });
+});
+
+describe('week-4 mixed drill', () => {
+  const lenses = pass.lessons.map((l) => l.lens);
+  const parent = (id: string) => id.replace(/-v\d+$/, '');
+
+  it('asks 10: one standard problem per lens plus 2 boundary problems from different lenses, mixed', () => {
+    for (let seed = 1; seed <= 40; seed++) {
+      const ps = drillProblems(pass, seeded(seed));
+      expect(ps).toHaveLength(lenses.length + DRILL_BOUNDARY);
+      const standard = ps.filter((c) => c.kind === 'standard');
+      const boundary = ps.filter((c) => c.kind !== 'standard');
+      expect(new Set(standard.map((c) => c.lens))).toEqual(new Set(lenses));
+      expect(boundary).toHaveLength(DRILL_BOUNDARY);
+      expect(new Set(boundary.map((c) => c.lens)).size).toBe(DRILL_BOUNDARY);
+      // A boundary card's right pick is its best move, not its lesson's lens.
+      for (const c of boundary) expect(c.picker.correct).not.toBe(c.lens);
+    }
+  });
+
+  it('draws from every level, variants and boundary kinds over many runs', () => {
+    const seen = { levels: new Set<number>(), variants: 0, kinds: new Set<string>() };
+    for (let seed = 1; seed <= 200; seed++) {
+      for (const c of drillProblems(pass, seeded(seed))) {
+        seen.levels.add(c.level ?? 1);
+        if (c.id !== parent(c.id)) seen.variants++;
+        seen.kinds.add(c.kind);
+      }
+    }
+    expect([...seen.levels].sort()).toEqual([1, 2, 3, 4]);
+    expect(seen.variants).toBeGreaterThan(0);
+    expect(seen.kinds).toEqual(new Set(['standard', 'failure', 'no_lens']));
+  });
+
+  it('scores pick + clue: clean needs both firsts right', () => {
+    const r = summarize([
+      { cardId: 'a', lens: 'area', firstPick: 'area', ms: 1000, clue: true },
+      { cardId: 'b', lens: 'direct', firstPick: 'area', ms: 3000, clue: true },
+      { cardId: 'c', lens: 'freeze', firstPick: 'freeze', ms: 2000, clue: false },
+    ]);
+    expect(r).toMatchObject({ correct: 2, clean: 1, total: 3 });
+    expect(r.confusions).toEqual([['direct', 'area', 1]]);
   });
 });

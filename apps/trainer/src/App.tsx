@@ -21,6 +21,9 @@ export function App() {
   if (play) return <Play cardId={play[1]!} short={short} />;
   // The free どのレンズ？ check (WO-013): open to everyone.
   if (path === '/check') return <CheckView short={short} />;
+  // The week-4 mixed drill (WO-013): part of the paid course, so behind the same access as lessons.
+  const drill = /^\/drill\/([\w-]+)\/?$/.exec(path);
+  if (drill) return lessonsOpen() ? <CheckView key={path} short={short} drill passId={drill[1]!} /> : <CaseView passId={drill[1]!} />;
   // The course player (WO-012): the lens case and a lesson.
   const pass = /^\/pass\/([\w-]+)\/?$/.exec(path);
   if (pass) return <CaseView passId={pass[1]!} />;
