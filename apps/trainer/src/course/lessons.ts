@@ -51,13 +51,41 @@ export function findLesson(pass: Pass, lens: string): Lesson | undefined {
   return pass.lessons.find((l) => l.lens === lens);
 }
 
+/** How a problem plays: a drag interaction, or the step-by-step walkthrough (WO-016). */
+export type ProblemMode = 'scene' | 'walkthrough';
+
+export interface LessonProblem {
+  card: LensCard;
+  mode: ProblemMode;
+}
+
+/** Cards with a drag interaction for this lens play as scenes; failure, no-lens and steps-only cards walk through. */
+export function problemMode(card: LensCard, lens: string): ProblemMode {
+  return isPlayable(card, lens) ? 'scene' : 'walkthrough';
+}
+
 /**
- * The lesson's problems: its playable cards in catalog order, then their variants (as cards with
- * their own sentence and steps), up to the pass's lesson_target.
+ * The lesson's problems (WO-016): every anchor card in catalog order, boundary cards included. Only
+ * when there are fewer anchors than lesson_target do variants of the scene cards top it up; otherwise
+ * variants belong to the drill.
  */
-export function lessonProblems(pass: Pass, lesson: Lesson): LensCard[] {
-  const cards = lesson.cards.map((id) => getCard(id)).filter((c): c is LensCard => !!c && isPlayable(c, lesson.lens));
-  const variants = cards.flatMap((c) => c.variants.map((v) => withVariant(c, v)));
-  const target = pass.lesson_target ?? cards.length + variants.length;
-  return [...cards, ...variants].slice(0, target);
+export function lessonProblems(pass: Pass, lesson: Lesson): LessonProblem[] {
+  const anchors = lesson.cards.map((id) => getCard(id)).filter((c): c is LensCard => !!c);
+  const target = pass.lesson_target ?? anchors.length;
+  const topUp =
+    anchors.length < target
+      ? anchors
+          .filter((c) => isPlayable(c, lesson.lens))
+          .flatMap((c) => c.variants.map((v) => withVariant(c, v)))
+          .slice(0, target - anchors.length)
+      : [];
+  return [...anchors, ...topUp].map((card) => ({ card, mode: problemMode(card, lesson.lens) }));
+}
+
+/** A lesson's scene cards with their variants (the free check picks from these; never boundary cards). */
+export function scenePool(lesson: Lesson): LensCard[] {
+  return lesson.cards
+    .map((id) => getCard(id))
+    .filter((c): c is LensCard => !!c && c.kind === 'standard' && isPlayable(c, lesson.lens))
+    .flatMap((c) => [c, ...c.variants.map((v) => withVariant(c, v))]);
 }

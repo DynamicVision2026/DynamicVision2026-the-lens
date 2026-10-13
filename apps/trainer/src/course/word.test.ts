@@ -27,8 +27,9 @@ describe('area and constant by diagram family', () => {
     }
   });
 
-  it.each(['area', 'constant'])('%s lesson has lesson_target problems', (lens) => {
-    expect(lessonProblems(pass, findLesson(pass, lens)!)).toHaveLength(pass.lesson_target!);
+  it.each(['area', 'constant'])('%s lesson plays every scene anchor as a scene', (lens) => {
+    const problems = lessonProblems(pass, findLesson(pass, lens)!);
+    for (const p of problems.filter((x) => x.card.kind === 'standard' && diagram(x.card)?.family !== 'steps_only')) expect(p.mode, p.card.id).toBe('scene');
   });
 });
 

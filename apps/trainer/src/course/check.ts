@@ -1,7 +1,7 @@
 // The どのレンズ？ check (WO-013): which problems it asks, and what the result screen shows.
 // Pure functions, so the confusion pairs and times are testable for a scripted run.
 import type { LensCard, Pass } from '@lens/scenes';
-import { lessonProblems } from './lessons';
+import { scenePool } from './lessons';
 import { shuffle } from './shuffle';
 
 /** One problem's outcome: the child's first pick and how long it took (ms from first render). */
@@ -28,7 +28,8 @@ export interface CheckResult {
  */
 export function checkProblems(pass: Pass, rand: () => number = Math.random, maxLevel = 2): LensCard[] {
   const picks = pass.lessons.flatMap((lesson) => {
-    const pool = lessonProblems(pass, lesson).filter((c) => (c.level ?? 1) <= maxLevel);
+    // Standard scene cards only (WO-016): the free check asks which lens; boundary cards are for lessons.
+    const pool = scenePool(lesson).filter((c) => (c.level ?? 1) <= maxLevel);
     return pool.length ? [pool[Math.floor(rand() * pool.length)]!] : [];
   });
   return shuffle(picks, rand);

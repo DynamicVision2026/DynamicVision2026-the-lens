@@ -14,21 +14,29 @@ describe('lesson problems (from bundle.passes)', () => {
     expect(findPass(bundle, 'koko_juken')?.lessons).toEqual([]);
   });
 
-  it.each(['enclose', 'slide', 'mirror', 'area', 'constant', 'balance', 'freeze', 'unfold'])('%s plays lesson_target problems, cards in catalog order then variants', (lens) => {
+  it.each(['enclose', 'slide', 'mirror', 'area', 'constant', 'balance', 'freeze', 'unfold'])('%s plays every anchor in catalog order, variants only as a top-up', (lens) => {
     const lesson = findLesson(pass, lens)!;
     const problems = lessonProblems(pass, lesson);
-    expect(problems).toHaveLength(pass.lesson_target!);
-    const cardIds = lesson.cards.filter((id) => problems.some((p) => p.id === id));
-    expect(problems.slice(0, cardIds.length).map((p) => p.id)).toEqual(cardIds);
-    for (const p of problems) expect(isPlayable(p, lens)).toBe(true);
-    // Variants keep their own sentence.
-    for (const v of problems.filter((p) => /-v\d+$/.test(p.id))) expect(v.problem.text_ja).toBeTruthy();
+    expect(problems.slice(0, lesson.cards.length).map((p) => p.card.id)).toEqual(lesson.cards);
+    expect(problems).toHaveLength(Math.max(lesson.cards.length, pass.lesson_target!));
+    for (const p of problems) expect(p.mode).toBe(isPlayable(p.card, lens) ? 'scene' : 'walkthrough');
+    // Top-up variants are scene cards with their own sentence.
+    for (const v of problems.slice(lesson.cards.length)) {
+      expect(v.card.id).toMatch(/-v\d+$/);
+      expect(v.mode).toBe('scene');
+      expect(v.card.problem.text_ja).toBeTruthy();
+    }
   });
 
-  it('skips cards whose best move is not the lens (no-lens, failure)', () => {
-    const problems = lessonProblems(pass, findLesson(pass, 'enclose')!).map((p) => p.id);
-    expect(problems).not.toContain('enclose-no-lens');
-    expect(problems).not.toContain('enclose-f01');
+  it.each([
+    ['area', 7, ['area-no-lens', 'area-f01']],
+    ['constant', 7, ['constant-no-lens', 'constant-f01', 'constant-005']],
+    ['enclose', 10, ['enclose-no-lens', 'enclose-f01']],
+  ] as const)('%s: %i anchors; boundary and steps-only cards walk through (WO-016)', (lens, n, walk) => {
+    const problems = lessonProblems(pass, findLesson(pass, lens)!);
+    expect(problems).toHaveLength(n);
+    for (const id of walk) expect(problems.find((p) => p.card.id === id)?.mode, id).toBe('walkthrough');
+    for (const p of problems.filter((x) => x.card.kind !== 'standard')) expect(p.mode, p.card.id).toBe('walkthrough');
   });
 
   it('every Stage 1 lens has an interaction', () => {

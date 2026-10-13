@@ -922,3 +922,92 @@ html[data-theme='course'] body {
   padding-left: 1.2em;
   line-height: 1.8;
 }
+
+/* ---- Walkthrough (WO-016): boundary and steps-only cards ---- */
+.course .bar .chip.boundary {
+  margin-left: auto;
+  color: var(--flag);
+  border-color: var(--flag);
+  white-space: nowrap;
+}
+.course .bar:has(.chip.boundary) {
+  flex-wrap: wrap;
+  row-gap: 8px;
+}
+.course .bar .back {
+  white-space: nowrap;
+}
+.course .stage.walk {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 14px 96px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.course .stage.walk svg.walkfig {
+  max-height: 34vh;
+  flex: none;
+}
+.course .stage.walk:not(.live) svg.walkfig {
+  max-height: 60vh;
+}
+.course .walk-text {
+  font-size: clamp(18px, 2.4vw, 24px);
+  line-height: 1.8;
+  margin: auto 8px;
+}
+.course .walk-board {
+  display: grid;
+  gap: 10px;
+}
+.course .trapbeat,
+.course .reveal {
+  background: var(--raise);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+.course .trapbeat {
+  color: var(--ink-quiet);
+  opacity: 0.85;
+}
+.course .trapbeat b,
+.course .reveal b {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+.course .reveal b svg {
+  width: 20px;
+  height: 20px;
+}
+.course .trapbeat ol,
+.course .reveal ol {
+  margin: 6px 0 0;
+  padding-left: 1.4em;
+  line-height: 1.7;
+}
+.course .trapbeat li.stop {
+  text-decoration: line-through;
+  text-decoration-color: var(--flag);
+}
+.course .trapbeat .x {
+  color: var(--flag);
+  font-weight: 900;
+  margin-left: 6px;
+  text-decoration: none;
+  display: inline-block;
+}
+.course .reveal li.in {
+  animation: rise 0.26s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+.course .reveal li.result {
+  color: var(--lens);
+  font-weight: 900;
+}
+.course .reveal .go.next {
+  margin-top: 8px;
+  width: 100%;
+}
