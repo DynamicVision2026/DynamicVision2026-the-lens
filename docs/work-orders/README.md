@@ -4,7 +4,18 @@ Each work order (WO) is one PR. Read `docs/PRD.md` first; this folder only adds 
 
 **Product plan (Brian, Oct 13):** three Passes on one engine, Stage 1 中学受験 first; see [ADR-001](../architecture/ADR-001-multi-pass.md). Next WO: [WO-010](WO-010-lessons-and-catalog.md).
 
-**Build order (Brian, Oct 12: launch path first):** WO-003 step 2 → **WO-009** → WO-004 → WO-005 → WO-006 → WO-007 → WO-008. Start each one as soon as the previous PR is in review.
+**Production schedule (Brian, Oct 13: full production, compressed):**
+
+| Date | Delivery |
+| --- | --- |
+| Oct 14 | Enclose interactive Masterclass prototype (Architect) for pacing review |
+| **Oct 23** | **WO-012:** course player with all 8 guided-discovery interactions (2D + 3D Unfold), ナゼホリ guide, countable grid |
+| **Oct 27–28** | **WO-013** 「どのレンズ？」 free 8-question check + landing/preorder live (WO-009/010 copy), capturing the 30 founder families |
+| Nov 4 | Masterclass template for all 8 lenses; drill + timer check (Steps 3–4) |
+| Mid-Nov | Founder early access: full 4-week sprint playable; problems toward ~80 (Architect, in parallel) |
+| Late Nov | Parent dashboard, 4-week guide and parent manual; Round 1 outside review |
+
+Earlier build order (now done): WO-003 step 2 → WO-009 → WO-004 … WO-008.
 
 | WO | Title | Depends on | Target |
 | --- | --- | --- | --- |
@@ -15,6 +26,7 @@ Each work order (WO) is one PR. Read `docs/PRD.md` first; this folder only adds 
 | [WO-010](WO-010-lessons-and-catalog.md) | Lessons and catalog: bundle 1.3 `passes`, `/pass/:passId`, `/lesson/:passId/:lens`, Masterclass copy | WO-009 | Oct 20 |
 | [WO-011](WO-011-lesson-video.md) | Lesson video template (3–5 min per lens) | WO-010 | Oct 27 |
 | [WO-012](WO-012-tactile-and-3d.md) | Tactile drag + lazy 3D viewport (Unfold first), native-shell readiness | WO-010 | Spike Nov 10 |
+| [WO-013](WO-013-which-lens-check.md) | 「どのレンズ？」 free 8-question check + week-4 mixed drill | WO-012 core | Oct 27 |
 | [WO-004](WO-004-slide-scenes.md) | Slide lens (等積変形): parallel-band figure and its scenes | WO-003 step 2 | Oct 27 |
 | [WO-005](WO-005-mirror-scenes.md) | Mirror lens (折り返す): shortest-path figure and its scenes | WO-004 | Oct 30 |
 | [WO-006](WO-006-word-problem-scenes.md) | Area (面積図) and Constant (差一定): word-problem diagrams | WO-004 | Nov 2 |
