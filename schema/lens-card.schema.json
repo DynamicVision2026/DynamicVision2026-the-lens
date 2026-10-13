@@ -626,6 +626,10 @@
                 "ea": {
                   "type": "integer",
                   "minimum": 1
+                },
+                "ask": {
+                  "enum": ["ap_pd", "bp_pe", "area_pbc", "area_abd"],
+                  "description": "What is asked: AP:PD (default), BP:PE, △PBC/△ABC, or △ABD/△ABC (no-lens: E is a decoy)."
                 }
               }
             },

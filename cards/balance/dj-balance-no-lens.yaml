@@ -1,0 +1,93 @@
+schema_version: '1.1'
+id: dj-balance-no-lens
+kind: no_lens
+lens: balance
+best_move: 'direct: same height, so the area ratio is the base ratio BD:BC'
+stage: koko
+grades:
+- 高1
+level: 1
+archetype: balance.mass_point_no_lens
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: two cevians of a triangle with given division ratios; find the ratio on one cevian by mass points (てんびん = 内分の重み).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 内分点は、両はしのおもりがつり合う支点。おもりは比の逆。辺ごとのてんびんをつなげば、交点での比が出る。
+  principle_en: A dividing point is the fulcrum where the end weights balance (weights inverse to the lengths); chain the levers.
+problem:
+  text_ja: △ABCで、辺BC上に点DをBD:DC＝3:5となるようにとり、辺CA上に点EをCE:EA＝2:3となるようにとります。ADとBEの交点をPとするとき、△ABDの面積は△ABCの面積の何倍ですか。
+  unit: ''
+  figure:
+    type: triangle_cevians
+    bd: 3
+    dc: 5
+    ce: 2
+    ea: 3
+    ask: area_abd
+answer:
+  value: 3/8
+  display_ja: 3/8倍
+  expr: coordinate
+trap_route:
+  time_cost_sec: 150
+  time_source: estimate
+  steps:
+  - ja: 比が2つあるので、くせで各頂点におもりをのせ始める
+    op: note
+  - ja: AP:PD まで出してから、△ABDとどうつながるか迷う
+    op: note
+  - ja: ここで約2分半
+    op: note
+lens_route:
+  time_cost_sec: 20
+  time_source: estimate
+  steps:
+  - ja: △ABD と △ABC は、Aからの高さが共通（Pも点Eも使わない）
+    op: note
+  - ja: 面積の比は底辺の比 BD:BC＝3:8 なので、3/8 倍
+    value: 3/8
+    op: result
+trigger:
+  ja: 交点Pを使わない三角形の面積比なら、てんびんはいらない。高さが共通なら底辺の比。
+  en: 'The asked triangle does not use P: no weights; same height means base ratio.'
+  tags:
+  - area_ratio_same_height
+picker:
+  options:
+  - balance
+  - area
+  - slide
+  - direct
+  correct: direct
+  clue_distractors:
+  - cevians_ratio
+  - equal_area_asked
+  feedback_ja:
+    balance: おもりでも出せるが、ここでは遠回り。△ABDは交点Pを使っていない。
+    area: 面積図（つるかめ算）の問題ではない。
+    slide: 平行な線で頂点を動かす問題ではない。
+    direct: そのとおり。高さが共通なので、面積の比は底辺の比 BD:BC。
+animation:
+  keyframes:
+  - show_triangle
+  - same_height
+  - base_ratio
+  - show_answer
+  - ghost_weights_struck_out
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: cevian_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: triangle_cevians
+  count: 4
+  seed: 3409
+  constraints:
+    max: 5

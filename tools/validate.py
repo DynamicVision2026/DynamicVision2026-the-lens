@@ -927,7 +927,14 @@ def mass_point(fig):
     from sympy import symbols, solve
     t, u = symbols("t u")
     sol = solve([A[0] + t * (D[0] - A[0]) - B[0] - u * (E[0] - B[0]), A[1] + t * (D[1] - A[1]) - B[1] - u * (E[1] - B[1])], [t, u])
-    tt = S(sol[t])
+    tt, uu = S(sol[t]), S(sol[u])
+    ask = fig.get("ask", "ap_pd")
+    if ask == "bp_pe":
+        return uu / (1 - uu)
+    if ask == "area_pbc":
+        return 1 - tt          # PD/AD = △PBC/△ABC (same base BC)
+    if ask == "area_abd":      # no-lens card: shoelace on the coordinates, E is a decoy
+        return shoelace([A, B, D]) / shoelace([A, B, C])
     return tt / (1 - tt)
 
 
@@ -966,8 +973,13 @@ def coord_text(fig):
         return (f"座標平面上に2点{_pt('A', fig['A'])}、{_pt('B', fig['B'])}があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。"
                 f"このとき、△ABPの面積を求めなさい。ただし、座標の1目もりを1{u}とします。")
     if t == "triangle_cevians":
+        ask = fig.get("ask", "ap_pd")
+        q = {"ap_pd": "AP:PDを最も簡単な整数の比で求めなさい。",
+             "bp_pe": "BP:PEを最も簡単な整数の比で求めなさい。",
+             "area_pbc": "△PBCの面積は△ABCの面積の何倍ですか。",
+             "area_abd": "△ABDの面積は△ABCの面積の何倍ですか。"}[ask]
         return (f"△ABCで、辺BC上に点DをBD:DC＝{fig['bd']}:{fig['dc']}となるようにとり、辺CA上に点EをCE:EA＝{fig['ce']}:{fig['ea']}となるようにとります。"
-                f"ADとBEの交点をPとするとき、AP:PDを最も簡単な整数の比で求めなさい。")
+                f"ADとBEの交点をPとするとき、{q}")
     return None
 
 
@@ -1026,11 +1038,34 @@ def coord_steps(fig):
     if t == "triangle_cevians":
         mA, mB, mC = mass_weights(fig)
         ratio = mass_point(fig)
-        return [
+        head = [
             {"ja": f"辺BCのてんびん：BD:DC＝{fig['bd']}:{fig['dc']} なので、おもりは B:C＝{fig['dc']}:{fig['bd']}", "op": "note"},
             {"ja": f"辺CAのてんびん：CE:EA＝{fig['ce']}:{fig['ea']} なので、おもりは C:A＝{fig['ea']}:{fig['ce']}", "op": "note"},
             {"ja": f"Cのおもりをそろえると A:B:C＝{mA}:{mB}:{mC}", "op": "note"},
             {"ja": f"Dには B と C のおもりが集まる：{mB}+{mC} = {mB + mC}", "op": "note"},
+        ]
+        ask = fig.get("ask", "ap_pd")
+        if ask == "bp_pe":
+            return [
+                *head[:3],
+                {"ja": f"Eには C と A のおもりが集まる：{mC}+{mA} = {mA + mC}", "op": "note"},
+                {"ja": f"BEのてんびん：BP:PE は おもりの逆で {mA + mC}:{mB}" + (f"＝{ratio.p}:{ratio.q}" if ratio.p != mA + mC else ""), "value": str(ratio), "op": "result"},
+            ]
+        if ask == "area_abd":
+            p_, q_ = fig["bd"], fig["dc"]
+            return [
+                {"ja": "△ABD と △ABC は、Aからの高さが共通（Pも点Eも使わない）", "op": "note"},
+                {"ja": f"面積の比は底辺の比 BD:BC＝{p_}:{p_ + q_} なので、{_c(ratio)} 倍", "value": str(ratio), "op": "result"},
+            ]
+        if ask == "area_pbc":
+            tot = mA + mB + mC
+            return [
+                *head,
+                {"ja": f"ADのてんびん：AP:PD＝{mB + mC}:{mA} なので、PD は AD の {mA}/{tot}", "op": "note"},
+                {"ja": f"△PBC と △ABC は底辺BCが共通。高さの比は PD:AD なので、面積は {_c(ratio)} 倍", "value": str(ratio), "op": "result"},
+            ]
+        return [
+            *head,
             {"ja": f"ADのてんびん：AP:PD は おもりの逆で {mB + mC}:{mA}" + (f"＝{ratio.p}:{ratio.q}" if ratio.p != mB + mC else ""), "value": str(ratio), "op": "result"},
         ]
     return None
@@ -1079,8 +1114,11 @@ def coord_check(card, t, ans, fig):
     if t == "cevian_valid":
         ratio = mass_point(fig)
         mA, mB, mC = mass_weights(fig)
-        ok = ratio == S(mB + mC) / mA and ratio > 0 and fig["bd"] != fig["dc"]
-        return ok, f"coordinates give AP:PD = {ratio}, mass points give {mB + mC}:{mA}"
+        ask = fig.get("ask", "ap_pd")
+        want = {"ap_pd": S(mB + mC) / mA, "bp_pe": S(mA + mC) / mB, "area_pbc": S(mA) / (mA + mB + mC),
+                "area_abd": S(fig["bd"]) / (fig["bd"] + fig["dc"])}[ask]
+        ok = ratio == want and ratio > 0 and fig["bd"] != fig["dc"] and fig["ce"] != fig["ea"]
+        return ok, f"coordinates give {ask} = {ratio}, mass points give {want}"
     return None
 
 
