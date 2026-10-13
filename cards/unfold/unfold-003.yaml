@@ -1,0 +1,114 @@
+schema_version: '1.1'
+id: unfold-003
+kind: standard
+lens: unfold
+best_move: unfold
+stage: shogakko
+grades:
+- 小6
+level: 3
+archetype: unfold.box_one_edge
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: shortest string on a cuboid surface crossing one edge; open the two faces flat (展開, level 3).'
+  not_derived_from: Lengths, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 立体の表面を通る道は、面を開いて平面にしても長さは変わらない。平面では、2点を結ぶいちばん短い線はまっすぐな線。
+  principle_en: Opening faces flat preserves path length; on the flat net the straight segment is the shortest path.
+problem:
+  text_ja: 直方体ABCD-EFGHがあり、AB＝9cm、BC＝6cm、AE＝10cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。
+  unit: cm
+  figure:
+    type: box_unfold
+    a: 9
+    b: 6
+    h: 10
+    unit: cm
+    point_labels:
+      A: A
+      B: B
+      C: C
+      D: D
+      E: E
+      F: F
+      G: G
+      H: H
+      P: P
+answer:
+  value: '6'
+  display_ja: 6cm
+  expr: unfold_cross
+trap_route:
+  time_cost_sec: 240
+  time_source: estimate
+  steps:
+  - ja: BFのまん中を通ればいい、と考える
+    op: note
+  - ja: ABとBCの長さがちがうので、まん中では最短にならない
+    op: note
+  - ja: 立体の図のまま、糸の長さを比べようとするが、ななめの長さが計算できない
+    op: note
+  - ja: ここで約4分。決め手がない
+    op: note
+lens_route:
+  time_cost_sec: 45
+  time_source: estimate
+  steps:
+  - ja: 辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 9+6 = 15、たて 10）
+    op: note
+  - ja: 開いた図でAとGをまっすぐ結ぶ。辺BFと交わる点がP
+    op: note
+  - ja: 三角形ABPとACGは同じ形なので BP:CG = AB:AC = 9:15 = 3:5
+    op: note
+  - ja: BP = 10×3/5 = 6
+    value: '6'
+    op: result
+trigger:
+  ja: 立体の表面を通る最短の道は、面を開いて展開図にし、まっすぐ結ぶ。
+  en: 'Shortest path on the surface of a solid: open the faces into a net and join with a straight line.'
+  tags:
+  - solid_3d
+  - path_on_surface
+  - shortest_path
+picker:
+  options:
+  - unfold
+  - mirror
+  - enclose
+  - direct
+  correct: unfold
+  clue_distractors:
+  - two_points_same_side
+  - parallel_lines
+  feedback_ja:
+    unfold: そのとおり。面を開いても糸の長さは変わらないので、展開図でまっすぐ結んだ線が最短になる。
+    mirror: おしい。まっすぐにする発想は同じだが、ここでは直線で折り返すのではなく、立体の面を開く。
+    enclose: 方眼の上の図形の面積ではない。立体の表面の道すじの問題。
+    direct: BFのまん中を通るのが最短とは限らない。ABとBCの長さがちがう。
+animation:
+  keyframes:
+  - show_box
+  - try_midpoint
+  - unfold_faces
+  - draw_straight
+  - mark_similar
+  - show_answer
+checks:
+- type: text_matches
+- type: unfold_cross_point
+- type: unfold_shortest
+- type: unfold_not_midpoint
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: box_unfold
+  count: 4
+  seed: 2421
+  constraints:
+    min_side: 4
+    max_side: 15
+    min_h: 6
+    max_h: 18
