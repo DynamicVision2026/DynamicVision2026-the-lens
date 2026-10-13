@@ -80,6 +80,6 @@ checks:
 
 variants:
   generator: slide_band
-  count: 3
+  count: 4
   seed: 2101
   constraints: {min_base: 8, max_base: 14, min_height: 3, max_height: 8}

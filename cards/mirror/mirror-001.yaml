@@ -81,6 +81,6 @@ checks:
 
 variants:
   generator: mirror_path
-  count: 3
+  count: 4
   seed: 2201
   constraints: {min_side: 2, max_side: 10, min_ab: 6, max_ab: 20}

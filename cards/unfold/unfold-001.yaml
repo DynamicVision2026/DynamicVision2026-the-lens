@@ -81,6 +81,6 @@ checks:
 
 variants:
   generator: box_unfold
-  count: 3
+  count: 4
   seed: 2401
   constraints: {min_side: 2, max_side: 12, min_h: 3, max_h: 15}

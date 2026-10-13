@@ -17,8 +17,8 @@ const texts = (html: string) => [...html.matchAll(/>([^<>]+)</g)].map((m) => m[1
 afterEach(() => vi.restoreAllMocks());
 
 describe.skipIf(!slide)('slide-001 (parallel band)', () => {
-  it('has the card and its 3 variants', () => {
-    expect(bandCards.map((c) => c.id)).toEqual(['slide-001', 'slide-001-v1', 'slide-001-v2', 'slide-001-v3']);
+  it('has the card and its 4 variants', () => {
+    expect(bandCards.map((c) => c.id)).toEqual(['slide-001', 'slide-001-v1', 'slide-001-v2', 'slide-001-v3', 'slide-001-v4']);
   });
 
   it.each(bandCards.map((c) => [c.id, c] as const))('%s renders every keyframe at t = 0 and 1, both themes, purely and without warnings', (_id, card) => {
