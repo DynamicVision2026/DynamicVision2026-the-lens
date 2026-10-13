@@ -21,3 +21,14 @@ Each geometry lens now has L1, L2 and L3. To finish the catalog (L4, a "lens doe
 - the scene either supports it (L4 cards) or the card plays as a walkthrough (failure and no-lens cards; WO-016 already routes them).
 
 Until a field is drawn, cards that use it stay `draft`, so a wrong picture can't reach a child.
+
+## Cards ready to draw against (Architect, Oct 13; in `pnpm bundle:drafts`)
+| card | figure fields | mode in the player |
+|---|---|---|
+| slide-no-lens | `parallel_band` with one triangle, `shown.each_base: true` | walkthrough (no-lens) |
+| slide-f01 | `parallel_band.apex_heights: [4, 5, 8]`: ℓ is drawn **tilted** through the apexes | walkthrough (failure) |
+| slide-004 (L4) | `parallel_band.ask: band_height`, `total_area: "42"`: print the given total, and show the gap as 「?cm」 until the answer | scene: merge the apexes, then the gap appears |
+| mirror-no-lens | `mirror_path.side: opposite`: Q is drawn **below** the river | walkthrough (no-lens) |
+
+- Scenes tests (`band.test.tsx`, `mirror.test.tsx`) cover the classic figures only. Extend them to these modes in your drawing PR.
+- When that PR merges, I flip the cards to `verified` and add them to the catalog. Still to come from me: `mirror_corner` (L4), and `box_unfold` same_face / compare / failure.

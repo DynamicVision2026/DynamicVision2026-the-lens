@@ -346,8 +346,19 @@ def is_tilted_square(pts) -> bool:
 
 def band_triangles(fig):
     """Triangles of a parallel_band figure: base on y=0, apex on y=band_height."""
-    b, a, h = fig["bottom_x"], fig["apex_x"], fig["band_height"]
-    return [[(S(b[i]), S(0)), (S(b[i + 1]), S(0)), (S(a[i]), S(h))] for i in range(len(a))]
+    b, a = fig["bottom_x"], fig["apex_x"]
+    hs = fig.get("apex_heights") or [fig["band_height"]] * len(a)
+    return [[(S(b[i]), S(0)), (S(b[i + 1]), S(0)), (S(a[i]), S(hs[i]))] for i in range(len(a))]
+
+
+def band_mode(fig):
+    if fig.get("apex_heights"):
+        return "nonparallel"
+    if fig.get("ask") == "band_height":
+        return "ask_height"
+    if len(fig["apex_x"]) == 1:
+        return "single"
+    return "standard"
 
 
 def mirror_touch(fig):
@@ -364,6 +375,29 @@ def fig_text(fig):
     """Problem sentence for a figure card, generated from its numbers (used for variants, and checked
     against the card's own text_ja by `text_matches`), so text and figure can never disagree."""
     t = fig["type"]
+    if t == "mirror_path" and fig.get("side") == "opposite":
+        u = fig["unit"]
+        return (f"点Pと点Qは、まっすぐな川（直線ℓ）をはさんで反対側にあります。PとQから川に垂直に下ろした点をA、Bとすると、"
+                f"PA＝{fig['pa']}{u}、QB＝{fig['qb']}{u}、AB＝{fig['ab']}{u}です。PからQまで、とちゅうで川の上の点Xを通って行きます。"
+                f"道のりがいちばん短くなるとき、AXは何{u}ですか。")
+    if t == "parallel_band" and band_mode(fig) != "standard":
+        lb = fig.get("point_labels", {})
+        bot = lb.get("bottom") or list("ABCDEF")[:len(fig["bottom_x"])]
+        top = lb.get("apex") or list("PQRSTU")[:len(fig["apex_x"])]
+        b = fig["bottom_x"]
+        L = S(b[-1]) - b[0]
+        tris = "、".join(bot[i] + bot[i + 1] + top[i] for i in range(len(top)))
+        mode = band_mode(fig)
+        if mode == "single":
+            return (f"直線ℓと直線mは平行で、その間は{fig['band_height']}cmです。点{bot[0]}、{bot[1]}は直線m上の点で{bot[0]}{bot[1]}＝{_fmt(L)}cm、"
+                    f"点{top[0]}は直線ℓ上の点です。三角形{tris}の面積は何cm²ですか。")
+        if mode == "ask_height":
+            return (f"直線ℓと直線mは平行です。直線m上の{bot[0]}{bot[-1]}の長さは{_fmt(L)}cmで、{'、'.join(bot[1:-1])}は{bot[0]}と{bot[-1]}の間の点です。"
+                    f"{'、'.join(top)}は直線ℓ上の点です。かげをつけた三角形{tris}の面積の合計は{fig['total_area']}cm²です。直線ℓと直線mの間は何cmですか。")
+        segs = "、".join(f"{bot[i]}{bot[i + 1]}＝{_fmt(S(b[i + 1]) - b[i])}cm" for i in range(len(top)))
+        hs = "、".join(f"{h}cm" for h in fig["apex_heights"])
+        return (f"直線m上に点{'、'.join(bot)}がこの順にあり、{segs}です。{'、'.join(top)}は直線ℓ上の点ですが、直線ℓと直線mは平行ではなく、"
+                f"{'、'.join(top)}から直線mまでの高さはそれぞれ{hs}です。かげをつけた三角形{tris}の面積の合計は何cm²ですか。")
     if t == "mirror_path":
         u = fig["unit"]
         return (f"点Pと点Qは、まっすぐな川（直線ℓ）の同じ側にあります。PとQから川に垂直に下ろした点をA、Bとすると、"
@@ -1187,8 +1221,24 @@ def run_check(card, check, pts) -> tuple[bool, str]:
     if t == "band_area_equals_answer":
         tris = band_triangles(fig)
         total = sum((abs(shoelace(tr)) for tr in tris), S(0))
+        if band_mode(fig) == "nonparallel":
+            return total == ans, f"sum of the triangles = {total}, answer = {ans}"
         merged = S(fig["bottom_x"][-1] - fig["bottom_x"][0]) * fig["band_height"] / 2
+        if band_mode(fig) == "ask_height":
+            ok = total == merged == sympify(fig["total_area"]) and ans == fig["band_height"]
+            return ok, f"given total {fig['total_area']} = merged triangle {merged}; height = {ans}"
         return total == ans == merged, f"sum of triangles={total}, one merged triangle={merged}, answer={ans}"
+    if t == "band_not_parallel":
+        tris = band_triangles(fig)
+        total = sum((abs(shoelace(tr)) for tr in tris), S(0))
+        L = S(fig["bottom_x"][-1] - fig["bottom_x"][0])
+        wrong = {L * h / 2 for h in fig["apex_heights"]}
+        ok = len(set(fig["apex_heights"])) > 1 and total not in wrong
+        return ok, f"heights differ, so merging into one triangle (any single height) gives a wrong total; true total {total}"
+    if t == "band_height_from_area":
+        L = S(fig["bottom_x"][-1] - fig["bottom_x"][0])
+        h = sympify(fig["total_area"]) * 2 / L
+        return h == ans, f"height = {fig['total_area']}×2÷{L} = {h}, answer = {ans}"
     if t == "lattice_only":
         ok = all(0 <= x <= g["width"] and 0 <= y <= g["height"] for x, y in pts)
         return ok, "all vertices are grid points inside the drawn grid"
@@ -1338,6 +1388,40 @@ STEP_BUILDERS = {
 VARIANT_CHECKS = {"lattice_only", "simple_polygon", "enclose_clean", "enclose_not_clean", "has_horizontal_base", "tilted_square"}
 
 
+def band_answer(fig):
+    mode = band_mode(fig)
+    if mode == "ask_height":
+        return S(fig["band_height"])
+    return sum((abs(shoelace(tr)) for tr in band_triangles(fig)), S(0))
+
+
+def band_steps(fig):
+    """Lens / direct steps for the WO-018 band modes."""
+    lb = fig.get("point_labels", {})
+    bot = lb.get("bottom") or list("ABCDEF")[:len(fig["bottom_x"])]
+    top = lb.get("apex") or list("PQRSTU")[:len(fig["apex_x"])]
+    b = fig["bottom_x"]
+    L = S(b[-1]) - b[0]
+    mode = band_mode(fig)
+    if mode == "single":
+        a = L * fig["band_height"] / 2
+        return [{"ja": f"底辺{bot[0]}{bot[1]}＝{_fmt(L)}cm、高さ＝平行線の間の{fig['band_height']}cm が、もう分かっている", "op": "note"},
+                {"ja": f"{_fmt(L)}×{fig['band_height']}÷2 = {_fmt(a)}", "value": str(a), "op": "result"}]
+    if mode == "ask_height":
+        h = S(fig["band_height"])
+        return [{"ja": f"頂点を直線ℓにそって1点に集めると、底辺{bot[0]}{bot[-1]}＝{_fmt(L)}cmの1つの三角形になる（面積は変わらない）", "op": "note"},
+                {"ja": f"{_fmt(L)}×高さ÷2 = {fig['total_area']} なので、高さ = {fig['total_area']}×2÷{_fmt(L)} = {_fmt(h)}", "value": str(h), "op": "result"}]
+    steps = [{"ja": "直線ℓとmが平行ではないので、頂点を動かすと高さが変わる。等積変形は使えない", "op": "note"}]
+    total = S(0)
+    for i in range(len(top)):
+        base = S(b[i + 1]) - b[i]
+        a = base * fig["apex_heights"][i] / 2
+        steps.append({"ja": f"三角形{bot[i]}{bot[i + 1]}{top[i]}：{_fmt(base)}×{fig['apex_heights'][i]}÷2 = {_fmt(a)}", "value": str(a), "op": "start" if i == 0 else "add"})
+        total += a
+    steps.append({"ja": " + ".join(_fmt(st["value"]) for st in steps[1:]) + f" = {_fmt(total)}", "value": str(total), "op": "result"})
+    return steps
+
+
 def make_band_variants(card):
     """slide_band: new total base, band height and splits; apexes stay in order. Answer = total × height ÷ 2."""
     v = card["variants"]
@@ -1359,12 +1443,18 @@ def make_band_variants(card):
         key = (tuple(bottom), tuple(apex), h)
         if key in seen:
             continue
+        mode = band_mode(fig0)
         fig = {**fig0, "bottom_x": bottom, "apex_x": apex, "band_height": h}
-        area = S(L) * h / 2
+        if mode == "nonparallel":
+            hs = rng.sample(range(c.get("min_height", 3), c.get("max_height", 8) + 1), k)
+            fig["apex_heights"] = hs
+        if mode == "ask_height":
+            fig["total_area"] = str(S(L) * h / 2)
+        area = band_answer(fig)
         vcard = {**card, "answer": {**card["answer"], "value": str(area)}, "problem": {**card["problem"], "figure": fig}}
         if not all(run_check(vcard, ch, None)[0] for ch in card["checks"] if ch["type"].startswith("band_")):
             continue
-        steps = [
+        steps = band_steps(fig) if mode != "standard" else [
             {"ja": "頂点を直線ℓにそって1点に集める（面積は変わらない）", "op": "note"},
             {"ja": f"底辺{L}、高さ{h}の1つの三角形になる", "op": "note"},
             {"ja": f"{L}×{h}÷2 = {_fmt(area)}", "value": str(area), "op": "result"},
@@ -1372,7 +1462,8 @@ def make_band_variants(card):
         if route_total({"steps": steps}) != area:
             continue
         seen.add(key); used_h.add(h); used_L.add(L)
-        out.append({"id": f"{card['id']}-v{len(out) + 1}", "text_ja": fig_text(fig), "figure": {"bottom_x": bottom, "apex_x": apex, "band_height": h},
+        figv = {"bottom_x": bottom, "apex_x": apex, "band_height": h, **{k2: fig[k2] for k2 in ("apex_heights", "total_area") if k2 in fig}}
+        out.append({"id": f"{card['id']}-v{len(out) + 1}", "text_ja": fig_text(fig), "figure": figv,
                     "answer": str(area), "lens_route": {"steps": steps}})
     return out
 
@@ -1403,13 +1494,18 @@ def make_mirror_variants(card):
         from math import gcd
         g = gcd(pa, qb)
         steps = [
+            {"ja": "PとQは川の反対側にある。まっすぐ結ぶだけで川を通る（折り返しはいらない）", "op": "note"},
+            {"ja": "PとQをまっすぐ結ぶ。川と交わる点がX", "op": "note"},
+        ] if fig.get("side") == "opposite" else [
             {"ja": "Qを川で折り返した点Q'をとる（XQ＝XQ'）", "op": "note"},
             {"ja": "PからQ'へまっすぐ線を引く。川と交わる点がX", "op": "note"},
-            {"ja": f"三角形PAXとQ'BXは同じ形なので AX:XB = {pa}:{qb}" + (f" = {pa // g}:{qb // g}" if g > 1 else ""), "op": "note"},
+        ]
+        steps += [
+            {"ja": f"三角形PAXと{'QBX' if fig.get('side') == 'opposite' else chr(81) + chr(39) + 'BX'}は同じ形なので AX:XB = {pa}:{qb}" + (f" = {pa // g}:{qb // g}" if g > 1 else ""), "op": "note"},
             {"ja": f"AX = {ab}×{pa // g}/{(pa + qb) // g} = {_fmt(x)}", "value": str(x), "op": "result"},
         ]
         seen.add((ab, pa, qb)); used_ratios.add(ratio(pa, qb)); used_ab.add(ab)
-        out.append({"id": f"{card['id']}-v{len(out) + 1}", "text_ja": fig_text(fig), "figure": {"ab": ab, "pa": pa, "qb": qb},
+        out.append({"id": f"{card['id']}-v{len(out) + 1}", "text_ja": fig_text(fig), "figure": {"ab": ab, "pa": pa, "qb": qb, **({"side": "opposite"} if fig.get("side") == "opposite" else {})},
                     "answer": str(x), "lens_route": {"steps": steps}})
     return out
 

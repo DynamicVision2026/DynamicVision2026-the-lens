@@ -11,7 +11,8 @@ import { allSceneCards } from './variant';
 
 // mirror-001 is a draft until WO-005 merges: CI runs these tests on a drafts-included bundle.
 const mirror = getCard('mirror-001');
-const mirrorCards = allSceneCards(loadBundle()).filter((c) => c.problem.figure.type === 'mirror_path');
+// WO-018 side: 'opposite' (the no-lens case) is drawn in its own PR; these tests cover the reflection figure.
+const mirrorCards = allSceneCards(loadBundle()).filter((c) => c.problem.figure.type === 'mirror_path' && (c.problem.figure as { side?: string }).side !== 'opposite');
 const fig = (c: LensCard) => c.problem.figure as MirrorPathFigure;
 
 afterEach(() => vi.restoreAllMocks());
