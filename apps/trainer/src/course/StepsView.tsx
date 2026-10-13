@@ -8,6 +8,7 @@ import { navigate } from '../launch/navigate';
 import { sfx } from './fx';
 import { findLesson, findPass, lessonProblems } from './lessons';
 import { Problem } from './LessonView';
+import { AttemptContext, useAttemptScope } from './attemptContext';
 import type { PlayResult } from './play';
 import { applyPractice, fasterBy, MASTERY_STREAK, practiceQueue, summarizeTimed, timedSet, trapMinutes, type TimedItem, type TimedRun } from './practice';
 import { masteryOf, saveMastery, saveTimedRun, timedRuns } from './progress';
@@ -38,6 +39,7 @@ export function PracticeView({ passId, lens }: { passId: string; lens: string })
     shownAt.current = performance.now();
     setLastMs(null);
   }, [i]);
+  const scope = useAttemptScope('lesson', passId);
   if (!lesson || queue.length === 0 || !SCENES[lens]) return <main className="course">{t('lesson.notFound')}</main>;
   const p = queue[i % queue.length]!;
   const onResult = ({ clean }: PlayResult) => {
@@ -48,6 +50,7 @@ export function PracticeView({ passId, lens }: { passId: string; lens: string })
     setM(next);
   };
   return (
+    <AttemptContext.Provider value={scope}>
     <main className="course lesson practice" style={{ ['--lens' as string]: C.lens(lens) }}>
       <div className="bar">
         <button type="button" className="back" aria-label={t('lesson.backLabel')} onClick={() => navigate(`/pass/${passId}`)}>
@@ -81,6 +84,7 @@ export function PracticeView({ passId, lens }: { passId: string; lens: string })
         opts={{ practice: true, record: false, onResult, again: false, nextLabel: t('practice.next') }}
       />
     </main>
+    </AttemptContext.Provider>
   );
 }
 
@@ -104,6 +108,7 @@ export function TimedView({ passId, lens }: { passId: string; lens: string }) {
     const id = window.setInterval(() => setNow(performance.now() - startAt.current), 100);
     return () => window.clearInterval(id);
   }, [running, i, round]);
+  const scope = useAttemptScope('timer', passId, round);
   if (!lesson || set.length === 0 || !SCENES[lens]) return <main className="course">{t('lesson.notFound')}</main>;
   const p = set[Math.min(i, set.length - 1)]!;
   const onResult = ({ clean }: PlayResult) => {
@@ -124,6 +129,7 @@ export function TimedView({ passId, lens }: { passId: string; lens: string }) {
     setRound(round + 1);
   };
   return (
+    <AttemptContext.Provider value={scope}>
     <main className="course lesson timed" style={{ ['--lens' as string]: C.lens(lens) }}>
       <div className="bar">
         <button type="button" className="back" aria-label={t('lesson.backLabel')} onClick={() => navigate(`/pass/${passId}`)}>
@@ -152,6 +158,7 @@ export function TimedView({ passId, lens }: { passId: string; lens: string }) {
         />
       )}
     </main>
+    </AttemptContext.Provider>
   );
 }
 

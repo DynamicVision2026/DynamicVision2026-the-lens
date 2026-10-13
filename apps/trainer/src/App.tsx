@@ -4,6 +4,7 @@ import { CheckView } from './course/CheckView';
 import { lessonsOpen } from './course/access';
 import { LessonView } from './course/LessonView';
 import { PracticeView, TimedView } from './course/StepsView';
+import { ReportView } from './course/ReportView';
 import { DevScenes } from './dev/DevScenes';
 import { GoPreorder, Landing, Privacy, Thanks } from './launch/Landing';
 import { usePath } from './launch/navigate';
@@ -23,7 +24,15 @@ export function App() {
   if (path === '/check') return <CheckView short={short} />;
   // The week-4 mixed drill (WO-013): part of the paid course, so behind the same access as lessons.
   const drill = /^\/drill\/([\w-]+)\/?$/.exec(path);
-  if (drill) return lessonsOpen() ? <CheckView key={path} short={short} drill passId={drill[1]!} /> : <CaseView passId={drill[1]!} />;
+  if (drill) return lessonsOpen() ? <CheckView key={path} short={short} mode="drill" passId={drill[1]!} /> : <CaseView passId={drill[1]!} />;
+  // WO-019: the course's day-1 check, the week-4 check and the parent report (same access as lessons).
+  const measure = /^\/(baseline|week4|report)\/([\w-]+)\/?$/.exec(path);
+  if (measure) {
+    const [, what, passId] = measure as unknown as [string, 'baseline' | 'week4' | 'report', string];
+    if (!lessonsOpen()) return <CaseView passId={passId} />;
+    if (what === 'report') return <ReportView key={path} passId={passId} />;
+    return <CheckView key={path} short={short} mode={what} passId={passId} />;
+  }
   // The course player (WO-012): the lens case and a lesson.
   const pass = /^\/pass\/([\w-]+)\/?$/.exec(path);
   if (pass) return <CaseView passId={pass[1]!} />;
