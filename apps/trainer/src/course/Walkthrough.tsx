@@ -6,6 +6,7 @@ import { getCard, hasScene, LensIcon, LensScene, loadBundle, tokens, type LensCa
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { t } from '../i18n/ja';
 import { Aha } from './Aha';
+import { readAttempts, todayMedian } from './attempts';
 import { isClean, type PlayOpts } from './play';
 import { burst, sfx } from './fx';
 import { GuideOverlay, useGuide } from './guide';
@@ -157,7 +158,8 @@ export function WalkFlow({ card, lens, passId, last, onNext, onAgain, stage, opt
         {figure ? (
           <LensScene card={card} keyframe={kf} t={1} theme="short_dark" className="fig walkfig" />
         ) : (
-          !live && <p className="walk-text">{card.problem.text_ja}</p>
+          // In Steps 3–4 the sentence is already above; a short prompt instead of repeating it (Architect, #68).
+          !live && (opts.practice ? <p className="walk-text no-figure">{t('drill.noFigure')}</p> : <p className="walk-text">{card.problem.text_ja}</p>)
         )}
         {live && <WalkBoard card={card} shown={shown} next={phase === 'play'} nudge={nudge} />}
         <GuideOverlay />
@@ -176,7 +178,7 @@ export function WalkFlow({ card, lens, passId, last, onNext, onAgain, stage, opt
             <div className="trigger">{card.trigger.ja}</div>
           </div>
         )}
-        {phase === 'aha' && <Aha card={card} last={last} onNext={onNext} onAgain={onAgain} listSteps={false} nextLabel={opts.nextLabel} again={opts.again} />}
+        {phase === 'aha' && <Aha card={card} last={last} onNext={onNext} onAgain={onAgain} listSteps={false} nextLabel={opts.nextLabel} again={opts.again} pickMs={pc.pickMs} summary={opts.summary ? todayMedian(readAttempts(), passId, lens) : null} />}
       </aside>
     </>
   );

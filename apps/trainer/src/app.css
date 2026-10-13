@@ -1171,3 +1171,79 @@ html[data-theme='course'] body {
   flex-wrap: wrap;
   justify-content: flex-end;
 }
+
+/* ---- WO-019: decision time, measure entry points, parent report ---- */
+.course .pick-time {
+  margin: 4px 0 0;
+  color: var(--ink-quiet);
+  font-weight: 700;
+}
+.course .measure {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0 4px;
+}
+.course .measure .go {
+  min-height: var(--tap-target);
+  padding: 0 18px;
+}
+.course .linkish {
+  background: none;
+  border: 0;
+  padding: 6px 0;
+  color: var(--ink-quiet);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.course.report .report-card {
+  display: grid;
+  gap: 12px;
+  max-width: 760px;
+}
+.course.report .rows {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 8px 14px;
+  margin: 0;
+}
+.course.report .rows dt {
+  color: var(--ink-quiet);
+}
+.course.report .rows dd {
+  margin: 0;
+  font-weight: 700;
+}
+.course.report .pairs {
+  margin: 0;
+  padding-left: 1.1em;
+}
+.course.report .per-lens {
+  border-collapse: collapse;
+  width: 100%;
+  font-variant-numeric: tabular-nums;
+}
+.course.report .per-lens th,
+.course.report .per-lens td {
+  text-align: left;
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--line);
+}
+.course.report .weekly b {
+  margin-right: 10px;
+}
+.course.report .foot {
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+@media (max-width: 700px) {
+  .course.report .rows {
+    grid-template-columns: 1fr;
+  }
+}
+.course.report .clear {
+  justify-self: start;
+  color: var(--ink);
+}

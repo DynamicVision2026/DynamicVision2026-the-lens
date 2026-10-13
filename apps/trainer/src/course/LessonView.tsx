@@ -6,6 +6,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { t } from '../i18n/ja';
 import { navigate } from '../launch/navigate';
 import { Aha } from './Aha';
+import { readAttempts, todayMedian } from './attempts';
+import { AttemptContext, useAttemptScope } from './attemptContext';
 import { isClean, type PlayOpts } from './play';
 import { burst, sfx } from './fx';
 import { GuideOverlay, GuideProvider, useGuide } from './guide';
@@ -25,6 +27,7 @@ export function LessonView({ passId, lens }: { passId: string; lens: string }) {
   const problems = useMemo(() => (pass && lesson ? (oneCard(lens) ?? lessonProblems(pass, lesson)) : []), [pass, lesson, lens]);
   const [index, setIndex] = useState(() => Math.min(solvedIn(passId, lens).length, Math.max(0, problems.length - 1)));
   const [round, setRound] = useState(0);
+  const scope = useAttemptScope('lesson', passId);
   if (!pass || !lesson || problems.length === 0 || !SCENES[lens]) return <main className="course">{t('lesson.notFound')}</main>;
   const { card, mode } = problems[index]!;
   const chip = boundaryChip(card);
@@ -34,6 +37,7 @@ export function LessonView({ passId, lens }: { passId: string; lens: string }) {
     else setIndex(index + 1);
   };
   return (
+    <AttemptContext.Provider value={scope}>
     <main className="course lesson" style={{ ['--lens' as string]: C.lens(lens) }}>
       <div className="bar">
         <button type="button" className="back" aria-label={t('lesson.backLabel')} onClick={() => navigate(`/pass/${passId}`)}>
@@ -49,11 +53,12 @@ export function LessonView({ passId, lens }: { passId: string; lens: string }) {
       </div>
       <Problem key={`${card.id}-${round}`} card={card} mode={mode} lens={lens} passId={passId} last={index >= problems.length - 1} onNext={next} onAgain={() => setRound(round + 1)} opts={index >= problems.length - 1 ? LAST_OPTS : NO_OPTS} />
     </main>
+    </AttemptContext.Provider>
   );
 }
 
 const NO_OPTS = {};
-const LAST_OPTS = { nextLabel: t('practice.toPractice') };
+const LAST_OPTS = { nextLabel: t('practice.toPractice'), summary: true };
 
 /**
  * Review aid (the lesson is already behind ?preview=1 until launch): ?card=<id> plays just that card
@@ -140,7 +145,7 @@ function Flow({ card, lens, passId, last, onNext, onAgain, stage, opts }: { card
             <div className="trigger">{card.trigger.ja}</div>
           </div>
         )}
-        {phase === 'aha' && <Aha card={card} last={last} onNext={onNext} onAgain={onAgain} nextLabel={opts.nextLabel} again={opts.again} />}
+        {phase === 'aha' && <Aha card={card} last={last} onNext={onNext} onAgain={onAgain} nextLabel={opts.nextLabel} again={opts.again} pickMs={pc.pickMs} summary={opts.summary ? todayMedian(readAttempts(), passId, lens) : null} />}
       </aside>
     </>
   );

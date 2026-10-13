@@ -15,6 +15,8 @@ export interface PlayOpts {
   nextLabel?: string;
   /** Show 「もう一度さわる」 (default true). */
   again?: boolean;
+  /** The ladder's last problem: show today's median decision time for this lens (WO-019). */
+  summary?: boolean;
 }
 
 export const isClean = (s: { misses: number; wrongChips: string[] }) => s.misses === 0 && s.wrongChips.length === 0;

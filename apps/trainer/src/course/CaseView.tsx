@@ -7,6 +7,7 @@ import { lessonsOpen } from './access';
 import { sfx } from './fx';
 import { findPass, lessonProblems } from './lessons';
 import { masteryOf } from './progress';
+import { baseline, readAttempts, week4, week4Open } from './attempts';
 import { solvedIn } from './progress';
 import { SCENES } from './scenes';
 import { C, useCourseTheme } from './scenes/kit';
@@ -33,6 +34,7 @@ export function CaseView({ passId }: { passId: string }) {
         <span className="tag">{pass.title_ja}</span>
       </div>
       <p className="lede">{open ? t('case.lede') : t('case.locked')}</p>
+      {open && <Measure passId={pass.id} />}
       <div className="case">
         {pass.lessons.map((lesson) => {
           const problems = lessonProblems(pass, lesson);
@@ -77,5 +79,29 @@ export function CaseView({ passId }: { passId: string }) {
         {t('drill.link')}
       </button>
     </main>
+  );
+}
+
+/** WO-019: the day-1 check before lesson 1, the week-4 check from day 22, and the parent report. */
+function Measure({ passId }: { passId: string }) {
+  const all = readAttempts();
+  const base = baseline(all, passId);
+  const due = base && week4Open(base) && !week4(all, passId);
+  return (
+    <div className="measure">
+      {!base && (
+        <button type="button" className="go" onClick={() => (sfx.tap(), navigate(`/baseline/${passId}`))}>
+          {t('baseline.offer')}
+        </button>
+      )}
+      {due && (
+        <button type="button" className="go" onClick={() => (sfx.tap(), navigate(`/week4/${passId}`))}>
+          {t('week4.offer')}
+        </button>
+      )}
+      <button type="button" className="linkish" onClick={() => (sfx.tap(), navigate(`/report/${passId}`))}>
+        {t('report.link')}
+      </button>
+    </div>
   );
 }
