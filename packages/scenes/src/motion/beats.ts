@@ -174,6 +174,8 @@ const REDUCERS: Record<Beat['name'], BeatReducer> = {
   lens_activate: (s, t, ms, beat, { ease, spring }) => ({
     ...s,
     pick: s.buttons > 0 ? ease(span(ms, 0, FADE_MS)) : 0,
+    // The correct button lights up, then all of them leave before the next beat brings in the equation row.
+    buttonsOut: s.buttons > 0 ? ease(span(ms, beat.durationMs - FADE_MS * 2, FADE_MS * 2)) : 0,
     trapDemoDim: 1 - 0.7 * ease(span(ms, 0, beat.durationMs * 0.6)),
     // Dims readable trap text; text the freeze already cleared stays cleared.
     trapOpacity: s.trapOpacity + (Math.min(s.trapOpacity, TRAP_DIM) - s.trapOpacity) * ease(span(ms, 0, 600)),
@@ -188,7 +190,7 @@ const REDUCERS: Record<Beat['name'], BeatReducer> = {
     return {
       ...s,
       trapOpacity: Math.min(s.trapOpacity, TRAP_DIM) * (1 - span(ms, 0, FADE_MS)),
-      buttonsOut: ease(span(ms, 0, FADE_MS * 2)),
+      buttonsOut: Math.max(s.buttonsOut, ease(span(ms, 0, FADE_MS * 2))),
       freezeTitle: s.freezeTitle * (1 - ease(span(ms, 0, FADE_MS))),
       focus: { kind: 'box' },
       enter: ease(span(ms, 0, FADE_MS)),
@@ -232,7 +234,7 @@ const REDUCERS: Record<Beat['name'], BeatReducer> = {
   mark_parallel: (s, _t, ms, beat, { ease }) => ({
     ...s,
     trapOpacity: Math.min(s.trapOpacity, TRAP_DIM) * (1 - span(ms, 0, FADE_MS)),
-    buttonsOut: ease(span(ms, 0, FADE_MS * 2)),
+    buttonsOut: Math.max(s.buttonsOut, ease(span(ms, 0, FADE_MS * 2))),
     freezeTitle: s.freezeTitle * (1 - ease(span(ms, 0, FADE_MS))),
     // Pulse up, then settle at a visible highlight.
     parallel: ms < beat.durationMs / 2 ? ease(span(ms, 0, beat.durationMs / 2)) : 1 - 0.4 * ease(span(ms, beat.durationMs / 2, beat.durationMs / 2)),
@@ -261,7 +263,7 @@ const REDUCERS: Record<Beat['name'], BeatReducer> = {
   reflect_point: (s, _t, ms, _beat, { ease }) => ({
     ...s,
     trapOpacity: Math.min(s.trapOpacity, TRAP_DIM) * (1 - span(ms, 0, FADE_MS)),
-    buttonsOut: ease(span(ms, 0, FADE_MS * 2)),
+    buttonsOut: Math.max(s.buttonsOut, ease(span(ms, 0, FADE_MS * 2))),
     freezeTitle: s.freezeTitle * (1 - ease(span(ms, 0, FADE_MS))),
     reflect: ease(span(ms, 0, FADE_MS * 3)),
     captionStep: 0,
@@ -271,7 +273,7 @@ const REDUCERS: Record<Beat['name'], BeatReducer> = {
   unfold_faces: (s, _t, ms, beat, { ease, tokens }) => ({
     ...s,
     trapOpacity: Math.min(s.trapOpacity, TRAP_DIM) * (1 - span(ms, 0, FADE_MS)),
-    buttonsOut: ease(span(ms, 0, FADE_MS * 2)),
+    buttonsOut: Math.max(s.buttonsOut, ease(span(ms, 0, FADE_MS * 2))),
     freezeTitle: s.freezeTitle * (1 - ease(span(ms, 0, FADE_MS))),
     unfold: ease(span(ms, 0, beat.durationMs - tokens.motion.study.step_hold_ms)),
     captionStep: 0,

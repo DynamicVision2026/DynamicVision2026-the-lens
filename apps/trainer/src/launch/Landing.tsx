@@ -2,7 +2,7 @@ import { getCard, LensScene } from '@lens/scenes';
 import { LAUNCH } from '../launch.config';
 import { FOOTER, LANDING, PREORDER, PRIVACY, PROPOSED } from './copy';
 import { preorderHref } from './tracking';
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import { Signup } from './Signup';
 
 /** Small line icons for the three points (drawn in the lens colour via currentColor). */
@@ -15,14 +15,25 @@ const POINT_ICONS = [
 const PREORDER_PATH = '/go/preorder';
 
 export function Landing({ short }: { short: string | null }) {
-  const hero = getCard('enclose-001');
-  const last = (hero?.animation?.keyframes.length ?? 1) - 1;
+  // Not the Free Lens problem (enclose-001), so the hero doesn't give its answer away. Shown with every
+  // corner triangle shaded and labelled, so the numbers read as their areas.
+  const hero = getCard('enclose-002');
+  const keyframes = hero?.animation?.keyframes ?? [];
+  const heroKeyframe = keyframes.includes('label_corners') ? keyframes.indexOf('label_corners') : Math.max(0, keyframes.length - 1);
   return (
     <main className="launch">
       <header className="hero">
         <div className="hero-text">
           <p className="eyebrow">{LANDING.eyebrow}</p>
-          <h1>{LANDING.h1}</h1>
+          <h1>
+            {/* Break only after 「、」 and 「を」 (h1 is keep-all), so 「選ぶ。」 stays together. */}
+            {LANDING.h1.split(/(?<=[、を])/).map((part, i) => (
+              <Fragment key={i}>
+                {i > 0 && <wbr />}
+                {part}
+              </Fragment>
+            ))}
+          </h1>
           <p className="sub">{LANDING.sub}</p>
           <a className="primary start" href="/play/enclose-001">
             {LANDING.start}
@@ -30,7 +41,7 @@ export function Landing({ short }: { short: string | null }) {
         </div>
         {hero && (
           <figure className="hero-figure">
-            <LensScene card={hero} keyframe={last} t={1} />
+            <LensScene card={hero} keyframe={heroKeyframe} t={1} />
             <figcaption>{LANDING.heroCaption}</figcaption>
           </figure>
         )}
