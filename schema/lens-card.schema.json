@@ -503,7 +503,8 @@
                   "enum": [
                     "triangle",
                     "square",
-                    "quad"
+                    "quad",
+                    "axis_base"
                   ]
                 }
               }
@@ -871,6 +872,7 @@
               "coord_answer",
               "coord_steps_match",
               "coord_enclose_clean",
+              "coord_axis_base",
               "coord_equal_area_valid",
               "coord_mirror_valid",
               "cevian_valid",
