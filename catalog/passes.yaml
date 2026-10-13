@@ -14,7 +14,8 @@ chugaku_juken:
   status: building            # building → preorder → live
   sku: LENS-CJ-12M            # Shopify variant SKU; the access Worker maps SKU → pass
   price_jpy: 9800
-  early_price_jpy: 6800
+  early_price_jpy: 6800        # founder edition: first 30 families only; then price_jpy (Brian, Oct 13)
+  founder_seats: 30
   term_months: 12
   devices: 3
   lesson_target: 5            # Founder MVP (Brian, Oct 13): 5 curated problems per lens, 40 total
