@@ -22,7 +22,7 @@ Coordinate-plane geometry (中1〜中2, 一次関数・図形) first, because it
 
 | lens | first archetype (built) | next (planned) |
 |---|---|---|
-| てんびん | `triangle_cevians`: mass points. Each side is a lever; chain the weights to get AP:PD (checked against exact coordinates) | 面積比, 内分点ベクトル, 重心 |
+| てんびん | `triangle_cevians`: mass points. Each side is a lever; chain the weights to get AP:PD (L2–3), BP:PE (L3, `ask: bp_pe`) and △PBC/△ABC (L4, `ask: area_pbc`), all checked against exact coordinates. No-lens: △ABD/△ABC (`ask: area_abd`, E is a decoy; same height → base ratio) | L1 single lever, failure card, 内分点ベクトル |
 | 止める | — | 文字定数を固定する (parameter freezing) in 2次関数・軌跡 |
 | 囲む / 展開 | — | 座標・ベクトルでの面積, 空間図形の切断 |
 

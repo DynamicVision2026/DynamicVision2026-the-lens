@@ -1,0 +1,99 @@
+schema_version: '1.1'
+id: dj-balance-003
+kind: standard
+lens: balance
+best_move: balance
+stage: koko
+grades:
+- 高1
+level: 3
+archetype: balance.mass_point_other_cevian
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: two cevians of a triangle with given division ratios; find the ratio on one cevian by mass points (てんびん = 内分の重み).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 内分点は、両はしのおもりがつり合う支点。おもりは比の逆。辺ごとのてんびんをつなげば、交点での比が出る。
+  principle_en: A dividing point is the fulcrum where the end weights balance (weights inverse to the lengths); chain the levers.
+problem:
+  text_ja: △ABCで、辺BC上に点DをBD:DC＝1:2となるようにとり、辺CA上に点EをCE:EA＝3:4となるようにとります。ADとBEの交点をPとするとき、BP:PEを最も簡単な整数の比で求めなさい。
+  unit: ''
+  figure:
+    type: triangle_cevians
+    bd: 1
+    dc: 2
+    ce: 3
+    ea: 4
+    ask: bp_pe
+answer:
+  value: 7/8
+  display_ja: BP:PE＝7:8
+  expr: coordinate
+trap_route:
+  time_cost_sec: 240
+  time_source: estimate
+  steps:
+  - ja: メネラウスの定理を使おうとして、△BCEと直線ADか、△ABEと直線…と迷う
+    op: note
+  - ja: 比を書き間違えやすく、何度もやり直す
+    op: note
+  - ja: ここで約4分
+    op: note
+lens_route:
+  time_cost_sec: 60
+  time_source: estimate
+  steps:
+  - ja: 辺BCのてんびん：BD:DC＝1:2 なので、おもりは B:C＝2:1
+    op: note
+  - ja: 辺CAのてんびん：CE:EA＝3:4 なので、おもりは C:A＝4:3
+    op: note
+  - ja: Cのおもりをそろえると A:B:C＝3:8:4
+    op: note
+  - ja: Eには C と A のおもりが集まる：4+3 = 7
+    op: note
+  - ja: BEのてんびん：BP:PE は おもりの逆で 7:8
+    value: 7/8
+    op: result
+trigger:
+  ja: 交点がもう一方の線分をどう分けるか聞かれても、同じおもりで、Eに集まる重さを見る。
+  en: 'Two division ratios given, a cevian ratio asked: put weights on the vertices.'
+  tags:
+  - cevians_ratio
+picker:
+  options:
+  - balance
+  - area
+  - slide
+  - direct
+  correct: balance
+  clue_distractors:
+  - coordinates_given
+  - equal_area_asked
+  feedback_ja:
+    balance: そのとおり。辺ごとにてんびんを考えて、おもりをそろえる。
+    area: 面積比でも解けるが、比を何回もつなぐので遠回り。
+    slide: 平行な線を使う問題ではない。
+    direct: ベクトルや座標で交点を出すこともできるが、連立方程式が重い。
+animation:
+  keyframes:
+  - show_triangle
+  - weights_bc
+  - weights_ca
+  - balance_be
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: cevian_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: triangle_cevians
+  count: 4
+  seed: 3403
+  constraints:
+    max: 5
