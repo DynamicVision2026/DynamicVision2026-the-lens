@@ -2,11 +2,11 @@ import { loadBundle } from '@lens/scenes';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { LAUNCH } from '../launch.config';
-import { FOOTER, LANDING, PREORDER, PRIVACY, SIGNUP } from './copy';
-import { Landing, Privacy } from './Landing';
+import { FOOTER, LANDING, PREORDER, PRIVACY, SIGNUP, WAITLIST } from './copy';
+import { Landing, Privacy, Waitlist } from './Landing';
 import { Signup } from './Signup';
 import { t } from '../i18n/ja';
-import { beaconConfig, checkTags, preorderHref, shortFrom, signupAction, signupTags, xShareHref } from './tracking';
+import { beaconConfig, checkTags, preorderHref, shortFrom, signupAction, signupTags, waitlistTags, xShareHref } from './tracking';
 
 describe('Short tracking', () => {
   it('reads ?s=<card-id> and ignores anything else', () => {
@@ -124,5 +124,32 @@ describe('landing and privacy copy', () => {
   it('renders the privacy note', () => {
     const html = renderToStaticMarkup(<Privacy />);
     for (const line of PRIVACY) expect(html).toContain(line);
+  });
+});
+
+describe('waitlist cards for planned Passes (ADR-003 §3)', () => {
+  const planned = loadBundle().passes!.filter((p) => p.status === 'planned');
+  const html = renderToStaticMarkup(<Waitlist />);
+  const section = html;
+
+  it('has one card per planned Pass, with the badge and an email form tagged waitlist:<id>', () => {
+    expect(planned.map((p) => p.id)).toEqual(expect.arrayContaining(['koukou_juken', 'daigaku_juken']));
+    for (const p of planned) {
+      expect(html).toContain(`data-pass="${p.id}"`);
+      expect(html).toContain(p.title_ja);
+      expect(html).toContain(`value="${waitlistTags(p.id)}"`);
+    }
+    expect(html.split(WAITLIST.badge).length - 1).toBe(planned.length);
+    expect(html.split(`action="${signupAction(LAUNCH.shopDomain)}"`).length - 1).toBe(planned.length);
+    expect(waitlistTags('koukou_juken')).toBe('waitlist:koukou_juken');
+  });
+
+  it('shows no price, checkout or delivery date', () => {
+    for (const banned of ['¥', '円', PREORDER.button, PREORDER.delivery, '/go/preorder', 'preorder']) expect(section, banned).not.toContain(banned);
+  });
+
+  it('sits on the landing page after the founder offer', () => {
+    const landing = renderToStaticMarkup(<Landing short={null} />);
+    expect(landing.indexOf('class="waitlist"')).toBeGreaterThan(landing.indexOf('preorder-block'));
   });
 });
