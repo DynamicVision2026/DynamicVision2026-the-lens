@@ -11,3 +11,4 @@ export { KEYFRAMES, sceneState } from './keyframes';
 export * from './primitives';
 export { motionViewBox, SHORT_COPY } from './motion/MotionScene';
 export { LensScene, SCENE_WIDTH, SCENE_HEIGHT, type LensSceneProps } from './LensScene';
+export { afterEquals, allAfterEquals, ratioIn, expressionIn, answerNumber, WORD_CAPTIONS } from './wordProblem';
