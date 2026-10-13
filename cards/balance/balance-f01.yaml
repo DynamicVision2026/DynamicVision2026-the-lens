@@ -1,0 +1,97 @@
+schema_version: '1.1'
+id: balance-f01
+kind: failure
+lens: balance
+best_move: 'constant: the salt amount does not change (食塩の量は変わらない)'
+stage: shogakko
+grades:
+- 小5
+- 小6
+level: 3
+archetype: balance.evaporate_failure
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: evaporating water from a salt solution: nothing is mixed, so the lever has no second solution; the unchanging salt amount is the fast route (failure card for てんびん).'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 水が蒸発しても食塩の量は変わらない。変わらないものに目をつければ、1回のわり算で残りの重さが出る。
+  principle_en: Evaporation keeps the salt amount fixed; anchor on it.
+problem:
+  text_ja: 6%の食塩水300gから水を何g蒸発させると、9%の食塩水になりますか。
+  unit: g
+  figure:
+    type: word_problem
+    kind: evaporate
+    params:
+      w1: 300
+      p1: 6
+      pt: 9
+answer:
+  value: '100'
+  display_ja: 100g
+  expr: word_problem
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: 食塩水の問題なので、くせでてんびんをかこうとする
+    op: note
+  - ja: 「何を混ぜるのか」が分からず、右はしにおくものがない
+    op: note
+  - ja: ここで約3分止まる
+    op: note
+lens_route:
+  time_cost_sec: 35
+  time_source: estimate
+  steps:
+  - ja: 水が蒸発しても、食塩の量は変わらない
+    op: note
+  - ja: 食塩は 300×6÷100 = 18（g）
+    op: note
+  - ja: 9%で食塩が18gなら、食塩水は 18÷9×100 = 200（g）
+    op: note
+  - ja: 300−200 = 100（g）
+    value: '100'
+    op: result
+trigger:
+  ja: 水を蒸発させる問題は、てんびんではなく、変わらない食塩の量に目をつける。
+  en: 'Evaporation: not a lever; anchor on the unchanged salt.'
+  tags:
+  - evaporate_water
+picker:
+  options:
+  - balance
+  - constant
+  - area
+  - direct
+  correct: constant
+  clue_distractors:
+  - add_water_or_salt
+  - mixing
+  feedback_ja:
+    balance: おしい。何も混ぜていないので、てんびんの片方におくものがない。
+    constant: そのとおり。食塩の18gは変わらない。9%で18gなら、全体は200g。
+    area: 2種類のものの数と合計の問題ではない。
+    direct: □を使った式でも解けるが、変わらない食塩の量を見る方が速い。
+animation:
+  keyframes:
+  - show_story
+  - try_lever
+  - flash_no_partner
+  - keep_salt
+  - divide
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_evaporate
+  count: 4
+  seed: 2541

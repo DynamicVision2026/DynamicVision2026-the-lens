@@ -333,7 +333,38 @@ def wp_solve(fig):
     if k == "ratio_shift":           # older:younger now a1:b1, y years later a2:b2: older now?
         P1, P2 = _ratio_parts(q)
         return S(q["y"]) / (P2 - P1) * P1
+    if k == "mixture_water":         # w1 g at p1 %, add water (0 %) to get pt %
+        return S(q["w1"]) * (q["p1"] - q["pt"]) / q["pt"]
+    if k == "mixture_salt":          # w1 g at p1 %, add salt (100 %) to get pt %
+        return S(q["w1"]) * (q["pt"] - q["p1"]) / (100 - q["pt"])
+    if k == "mix_then_water":        # mix w1 @ p1 with w2 @ p2, then water to pt
+        W = q["w1"] + q["w2"]
+        m = S(q["w1"] * q["p1"] + q["w2"] * q["p2"]) / W
+        return W * (m - q["pt"]) / q["pt"]
+    if k == "evaporate":             # w1 g at p1 %, evaporate water to reach pt %
+        return q["w1"] - S(q["w1"]) * q["p1"] / q["pt"]
+    if k == "salt_total":            # no lens: salt in two solutions
+        return S(q["w1"] * q["p1"] + q["w2"] * q["p2"]) / 100
+    if k == "chase":                 # slower leaves h min earlier; faster chases: minutes after faster leaves
+        return S(q["v"] * q["h"]) / (q["u"] - q["v"])
+    if k == "trains_pass":           # two trains toward each other: from meeting to fully apart
+        return S(q["l1"] + q["l2"]) / (q["s1"] + q["s2"])
+    if k == "clock_overlap":         # minutes after h o'clock when the hands overlap
+        return S(30 * q["h"]) / Rational(11, 2)
+    if k == "speed_change":          # d m in T min, first at u then at v: minutes at u
+        return S(q["d"] - q["v"] * q["T"]) / (q["u"] - q["v"])
+    if k == "arrival_gap":           # no lens: same start, same goal, how many minutes earlier
+        return S(q["d"]) / q["v"] - S(q["d"]) / q["u"]
     raise ValueError(k)
+
+
+def _mixed(v) -> str:
+    """Japanese mixed number for kids: 180/11 → 16と4/11."""
+    v = S(v)
+    if v.is_integer:
+        return str(v)
+    w, r = divmod(v.p, v.q)
+    return f"{w}と{r}/{v.q}" if w else f"{r}/{v.q}"
 
 
 def _ratio_parts(q):
@@ -380,6 +411,32 @@ def wp_text(fig, names):
     if fig["kind"] == "sum_catchup":
         return (f"いま、お父さんは{q['p']}才で、3人の子どもは{q['c1']}才、{q['c2']}才、{q['c3']}才です。"
                 f"お父さんの年れいが、子ども3人の年れいの和と等しくなるのは何年後ですか。")
+    if fig["kind"] == "mixture_water":
+        return f"{q['p1']}%の食塩水{q['w1']}gに水を何g加えると、{q['pt']}%の食塩水になりますか。"
+    if fig["kind"] == "mixture_salt":
+        return f"{q['p1']}%の食塩水{q['w1']}gに食塩を何g加えると、{q['pt']}%の食塩水になりますか。"
+    if fig["kind"] == "mix_then_water":
+        return (f"{q['p1']}%の食塩水{q['w1']}gと{q['p2']}%の食塩水{q['w2']}gを混ぜ、さらに水を加えて{q['pt']}%の食塩水にします。"
+                f"水を何g加えればよいですか。")
+    if fig["kind"] == "evaporate":
+        return f"{q['p1']}%の食塩水{q['w1']}gから水を何g蒸発させると、{q['pt']}%の食塩水になりますか。"
+    if fig["kind"] == "salt_total":
+        return f"{q['p1']}%の食塩水{q['w1']}gと、{q['p2']}%の食塩水{q['w2']}gにふくまれる食塩は、合わせて何gですか。"
+    if fig["kind"] == "chase":
+        A, B = names["a"], names["b"]
+        return (f"{B}が家を出て、分速{q['v']}mで歩き始めました。その{q['h']}分後に、{A}が家を出て、分速{q['u']}mで同じ道を追いかけます。"
+                f"{A}が{B}に追いつくのは、{A}が家を出てから何分後ですか。")
+    if fig["kind"] == "trains_pass":
+        return (f"長さ{q['l1']}mで秒速{q['s1']}mの列車Aと、長さ{q['l2']}mで秒速{q['s2']}mの列車Bが、向かい合って走っています。"
+                f"2つの列車が出会ってから完全にはなれるまで、何秒かかりますか。")
+    if fig["kind"] == "clock_overlap":
+        return f"{q['h']}時と{q['h'] + 1}時の間で、時計の長針と短針が重なるのは、{q['h']}時何分ですか。"
+    if fig["kind"] == "speed_change":
+        return (f"家から{q['d']}mはなれた公園まで行きます。はじめは分速{q['u']}mで走り、とちゅうから分速{q['v']}mで歩いたところ、"
+                f"全部で{q['T']}分かかりました。分速{q['u']}mで走ったのは何分間ですか。")
+    if fig["kind"] == "arrival_gap":
+        A, B = names["a"], names["b"]
+        return f"{A}は分速{q['u']}m、{B}は分速{q['v']}mで、家から{q['d']}mはなれた駅に向かって、同時に家を出ました。{A}は{B}より何分早く駅に着きますか。"
     if fig["kind"] == "ratio_shift":
         o, y = names["older"], names["younger"]
         return (f"いま、{o}と{y}の年れいの比は{q['a1']}:{q['b1']}です。{q['y']}年後には、{o}と{y}の年れいの比は{q['a2']}:{q['b2']}になります。"
@@ -427,6 +484,27 @@ def wp_brute(fig):
     if k == "sum_catchup":
         s0 = q["c1"] + q["c2"] + q["c3"]
         return [y for y in range(0, 200) if q["p"] + y == s0 + 3 * y]
+    if k == "mixture_water":       # gram by gram of water: salt stays w1*p1
+        return [x for x in range(1, 5000) if S(q["w1"] * q["p1"]) / (q["w1"] + x) == q["pt"]]
+    if k == "mixture_salt":        # gram by gram of salt
+        return [x for x in range(1, 2000) if S(q["w1"] * q["p1"] + 100 * x) / (q["w1"] + x) == q["pt"]]
+    if k == "mix_then_water":
+        W, salt = q["w1"] + q["w2"], q["w1"] * q["p1"] + q["w2"] * q["p2"]
+        return [x for x in range(1, 5000) if S(salt) / (W + x) == q["pt"]]
+    if k == "evaporate":
+        return [x for x in range(1, q["w1"]) if S(q["w1"] * q["p1"]) / (q["w1"] - x) == q["pt"]]
+    if k == "salt_total":          # gram by gram is pointless; add the two products the long way
+        return [sum(Rational(q["p1"], 100) for _ in range(q["w1"])) + sum(Rational(q["p2"], 100) for _ in range(q["w2"]))]
+    if k == "chase":               # minute by minute after the faster one leaves
+        return [t for t in range(1, 600) if q["u"] * t == q["v"] * (q["h"] + t)]
+    if k == "trains_pass":         # second by second: combined travel covers both lengths
+        return [t for t in range(1, 600) if (q["s1"] + q["s2"]) * t == q["l1"] + q["l2"]]
+    if k == "clock_overlap":       # every 1/11 minute between h:00 and h+1:00
+        return [Rational(k11, 11) for k11 in range(0, 660) if 6 * Rational(k11, 11) == 30 * q["h"] + Rational(1, 2) * Rational(k11, 11)]
+    if k == "speed_change":        # minute by minute of running
+        return [x for x in range(0, q["T"] + 1) if q["u"] * x + q["v"] * (q["T"] - x) == q["d"]]
+    if k == "arrival_gap":
+        return [S(q["d"]) / q["v"] - S(q["d"]) / q["u"]]
     if k == "ratio_shift":         # every older/younger pair now
         return [o for o in range(1, 120) for u in range(1, o)
                 if o * q["b1"] == u * q["a1"] and (o + q["y"]) * q["b2"] == (u + q["y"]) * q["a2"]]
@@ -455,12 +533,21 @@ def wp_diagram(fig):
     if k == "three_kinds_equal":
         avg = S(q["b"] + q["c"]) / 2
         return {"family": "area_two_rect", "unit": "円", "n": q["n"], "a": q["a"], "b": int(avg), "t": q["t"], "x": xs}
-    if k in ("pair_offset", "two_kinds_known", "age_sum_later", "sum_catchup", "ratio_shift"):
+    if k in ("pair_offset", "two_kinds_known", "age_sum_later", "sum_catchup", "ratio_shift",
+             "mix_then_water", "evaporate", "salt_total", "trains_pass", "clock_overlap", "arrival_gap"):
         return {"family": "steps_only"}
+    if k == "mixture_water":
+        return {"family": "lever", "unit_w": "g", "unit_p": "%", "w1": q["w1"], "p1": q["p1"], "p2": 0, "pt": q["pt"], "w2": xs}
+    if k == "mixture_salt":
+        return {"family": "lever", "unit_w": "g", "unit_p": "%", "w1": q["w1"], "p1": q["p1"], "p2": 100, "pt": q["pt"], "w2": xs}
+    if k == "chase":
+        return {"family": "road", "mode": "chase", "d": q["v"] * q["h"], "u": q["u"], "v": q["v"], "t": xs}
+    if k == "speed_change":
+        return {"family": "area_two_rect", "unit": "m", "n": q["T"], "a": q["u"], "b": q["v"], "t": q["d"], "x": xs}
     if k == "mixture":
-        return {"family": "lever", "w1": q["w1"], "p1": q["p1"], "p2": q["p2"], "pt": q["pt"], "w2": xs}
+        return {"family": "lever", "unit_w": "g", "unit_p": "%", "w1": q["w1"], "p1": q["p1"], "p2": q["p2"], "pt": q["pt"], "w2": xs}
     if k == "meeting":
-        return {"family": "road", "d": q["d"], "u": q["u"], "v": q["v"], "t": xs}
+        return {"family": "road", "mode": "toward", "d": q["d"], "u": q["u"], "v": q["v"], "t": xs}
     raise ValueError(k)
 
 
@@ -533,6 +620,37 @@ def run_check(card, check, pts) -> tuple[bool, str]:
             s0 = q["c1"] + q["c2"] + q["c3"]
             ok = ans > 0 and q["p"] > s0 and len({q["c1"], q["c2"], q["c3"]}) == 3
             return ok, "the gap is not constant: it shrinks by 2 a year (差一定 does not apply)"
+        if fig["kind"] == "mixture_water":
+            ok = 0 < q["pt"] < q["p1"] and ans > 0
+            return ok, "water (0 %) weakens the solution: the target lies between 0 and the start"
+        if fig["kind"] == "mixture_salt":
+            ok = q["p1"] < q["pt"] < 100 and ans > 0
+            return ok, "salt counts as 100 %: the target lies between the start and 100"
+        if fig["kind"] == "mix_then_water":
+            m = S(q["w1"] * q["p1"] + q["w2"] * q["p2"]) / (q["w1"] + q["w2"])
+            ok = q["p1"] < q["p2"] and m.is_integer and 0 < q["pt"] < m and q["w1"] != q["w2"] and ans > 0
+            return ok, "two levers in a row: the first mix is a whole percent and stronger than the target"
+        if fig["kind"] == "evaporate":
+            ok = q["p1"] < q["pt"] and 0 < ans < q["w1"]
+            return ok, "evaporating water strengthens the solution; the salt amount is unchanged"
+        if fig["kind"] == "salt_total":
+            ok = q["p1"] != q["p2"]
+            return ok, "a direct amount of salt: no mixing ratio is asked"
+        if fig["kind"] == "chase":
+            ok = q["u"] > q["v"] and ans >= 2 and q["u"] != 2 * q["v"]
+            return ok, "the faster one starts later and catches up (not exactly twice as fast, where the answer just repeats the head start)"
+        if fig["kind"] == "trains_pass":
+            ok = q["l1"] != q["l2"] and q["s1"] != q["s2"] and ans >= 2
+            return ok, "both trains move and both lengths count"
+        if fig["kind"] == "clock_overlap":
+            ok = 1 <= q["h"] <= 10
+            return ok, "the overlap falls strictly between h:00 and h+1:00"
+        if fig["kind"] == "speed_change":
+            ok = 0 < ans < q["T"] and q["u"] > q["v"]
+            return ok, "both speeds are used for some minutes (a speed story that is really 面積図)"
+        if fig["kind"] == "arrival_gap":
+            ok = ans > 0 and (S(q["d"]) / q["u"]).is_integer and (S(q["d"]) / q["v"]).is_integer
+            return ok, "both travel times are whole minutes; the two never meet, so no relative speed"
         if fig["kind"] == "ratio_shift":
             d1, d2 = q["a1"] - q["b1"], q["a2"] - q["b2"]
             ok = d1 != d2 and q["a2"] * q["b1"] < q["a1"] * q["b2"] and ans > 0
@@ -911,6 +1029,59 @@ def make_wp_variants(card):
             q = {"p": c1 + c2 + c3 + 2 * y, "c1": c1, "c2": c2, "c3": c3}
             if not (30 <= q["p"] <= 50):
                 continue
+        elif fig0["kind"] == "mixture_water":
+            p1 = rng.randint(5, 15); pt = rng.randint(2, p1 - 1); w1 = rng.choice([100, 150, 200, 240, 300, 400, 500])
+            q = {"w1": w1, "p1": p1, "pt": pt}
+            if (w1 * (p1 - pt)) % pt or not (20 <= w1 * (p1 - pt) // pt <= 2 * w1):
+                continue
+        elif fig0["kind"] == "mixture_salt":
+            p1 = rng.randint(2, 15); pt = rng.randint(p1 + 1, 25); w1 = rng.randint(4, 30) * 10
+            q = {"w1": w1, "p1": p1, "pt": pt}
+            if (w1 * (pt - p1)) % (100 - pt) or not (5 <= w1 * (pt - p1) // (100 - pt) <= 100):
+                continue
+        elif fig0["kind"] == "mix_then_water":
+            p1 = rng.randint(2, 8); p2 = rng.randint(p1 + 3, 16)
+            w1 = rng.choice([100, 200, 300, 400]); w2 = rng.choice([100, 200, 300, 400, 600])
+            m = S(w1 * p1 + w2 * p2) / (w1 + w2)
+            if not m.is_integer or m - 1 < 2:
+                continue
+            pt = rng.randint(2, int(m) - 1)
+            q = {"w1": w1, "p1": p1, "w2": w2, "p2": p2, "pt": pt}
+            W = w1 + w2
+            if (W * (int(m) - pt)) % pt:
+                continue
+        elif fig0["kind"] == "evaporate":
+            p1 = rng.randint(2, 10); pt = rng.randint(p1 + 1, 20); w1 = rng.randint(2, 12) * 50
+            q = {"w1": w1, "p1": p1, "pt": pt}
+            if (w1 * p1) % 100 or ((w1 * p1) * 100 // 100) % pt or (w1 * p1) % pt:
+                continue
+        elif fig0["kind"] == "salt_total":
+            p1 = rng.randint(2, 12); p2 = rng.randint(2, 12); w1 = rng.randint(1, 8) * 50; w2 = rng.randint(1, 8) * 50
+            q = {"w1": w1, "p1": p1, "w2": w2, "p2": p2}
+            if (w1 * p1) % 100 or (w2 * p2) % 100:
+                continue
+        elif fig0["kind"] == "chase":
+            sv = rng.randint(5, 8) * 10; u = sv + rng.randint(1, 5) * 10; h = rng.randint(3, 15)
+            q = {"u": u, "v": sv, "h": h}
+            if (sv * h) % (u - sv) or (sv * h) // (u - sv) > 30:
+                continue
+        elif fig0["kind"] == "trains_pass":
+            l1 = rng.randint(8, 30) * 10; l2 = rng.randint(8, 30) * 10; s1 = rng.randint(12, 30); s2 = rng.randint(10, 28)
+            q = {"l1": l1, "s1": s1, "l2": l2, "s2": s2}
+            if (l1 + l2) % (s1 + s2) or not (4 <= (l1 + l2) // (s1 + s2) <= 30):
+                continue
+        elif fig0["kind"] == "clock_overlap":
+            q = {"h": rng.randint(1, 10)}
+        elif fig0["kind"] == "speed_change":
+            sv = rng.randint(5, 8) * 10; u = rng.randint(max(10, sv // 10 + 2), 15) * 10; T = rng.randint(12, 30); x = rng.randint(4, T - 4)
+            q = {"d": u * x + sv * (T - x), "u": u, "v": sv, "T": T}
+        elif fig0["kind"] == "arrival_gap":
+            sv = rng.choice([50, 60, 70, 80]); u = sv + rng.choice([10, 20, 30, 40]); k = rng.randint(1, 4)
+            from math import lcm
+            d = lcm(u, sv) * k
+            q = {"d": d, "u": u, "v": sv}
+            if not (600 <= d <= 4000):
+                continue
         elif fig0["kind"] == "ratio_shift":
             a1, b1 = rng.choice([(5, 3), (7, 4), (3, 1), (5, 2), (7, 3), (4, 1), (9, 5)])
             a2, b2 = rng.choice([(3, 2), (4, 3), (5, 3), (2, 1), (7, 5), (5, 4)])
@@ -1044,6 +1215,99 @@ def wp_steps(fig, names):
             {"ja": "1年で、子ども3人の和は3才、お父さんは1才ふえる。差は1年に 3−1 = 2 ずつちぢむ", "op": "note"},
             {"ja": f"{q['p'] - s0}÷2 = {_fmt(y)}（年後）", "value": str(y), "op": "result"},
         ]
+    if fig["kind"] in ("mixture_water", "mixture_salt"):
+        from math import gcd
+        water = fig["kind"] == "mixture_water"
+        a1, a2 = (q["p1"] - q["pt"], q["pt"]) if water else (q["pt"] - q["p1"], 100 - q["pt"])
+        g = gcd(a1, a2)
+        x = wp_solve(fig)
+        what = "水" if water else "食塩"
+        arm1 = f"{q['p1']}−{q['pt']} = {a1}" if water else f"{q['pt']}−{q['p1']} = {a1}"
+        arm2 = f"{q['pt']}−0 = {a2}" if water else f"100−{q['pt']} = {a2}"
+        first = (f"水は「0%の食塩水」と考える。てんびんの両はしに{q['p1']}%と0%、支点に{q['pt']}%をおく" if water else
+                 f"食塩は「100%の食塩水」と考える。てんびんの両はしに{q['p1']}%と100%、支点に{q['pt']}%をおく")
+        return [
+            {"ja": first, "op": "note"},
+            {"ja": f"うでの長さは {arm1} と {arm2}", "op": "note"},
+            {"ja": f"{q['w1']}g と {what}□g の比は、うでの長さの逆の比 {a2 // g}:{a1 // g}", "op": "note"},
+            {"ja": f"{q['w1']}×{a1 // g}" + (f"÷{a2 // g}" if a2 // g > 1 else "") + f" = {_fmt(x)}（g）", "value": str(x), "op": "result"},
+        ]
+    if fig["kind"] == "mix_then_water":
+        from math import gcd
+        g = gcd(q["w1"], q["w2"]); r1, r2 = q["w1"] // g, q["w2"] // g
+        D = q["p2"] - q["p1"]; arm = S(D) / (r1 + r2) * r2
+        m = q["p1"] + arm; W = q["w1"] + q["w2"]
+        b1 = m - q["pt"]; h = gcd(int(b1), q["pt"])
+        x = wp_solve(fig)
+        return [
+            {"ja": f"まず{q['p1']}%と{q['p2']}%をてんびんで混ぜる。重さの比 {q['w1']}:{q['w2']} = {r1}:{r2} なので、うでの長さの比は {r2}:{r1}", "op": "note"},
+            {"ja": f"うでの長さ {q['p2']}−{q['p1']} = {D} を {r2}:{r1} に分ける。{q['p1']}%からのうでは {D}÷{r1 + r2}×{r2} = {_fmt(arm)}", "op": "note"},
+            {"ja": f"混ぜた食塩水は {q['p1']}+{_fmt(arm)} = {_fmt(m)}%、重さは {q['w1']}+{q['w2']} = {W}g", "op": "note"},
+            {"ja": f"次に水（0%）を混ぜる。うでの長さは {_fmt(m)}−{q['pt']} = {_fmt(b1)} と {q['pt']}−0 = {q['pt']}", "op": "note"},
+            {"ja": f"{W}g と 水□g の比は {q['pt'] // h}:{int(b1) // h}。水 = {W}×{int(b1) // h}" + (f"÷{q['pt'] // h}" if q['pt'] // h > 1 else "") + f" = {_fmt(x)}（g）", "value": str(x), "op": "result"},
+        ]
+    if fig["kind"] == "evaporate":
+        salt = S(q["w1"]) * q["p1"] / 100; W2 = salt / q["pt"] * 100
+        x = wp_solve(fig)
+        return [
+            {"ja": "水が蒸発しても、食塩の量は変わらない", "op": "note"},
+            {"ja": f"食塩は {q['w1']}×{q['p1']}÷100 = {_fmt(salt)}（g）", "op": "note"},
+            {"ja": f"{q['pt']}%で食塩が{_fmt(salt)}gなら、食塩水は {_fmt(salt)}÷{q['pt']}×100 = {_fmt(W2)}（g）", "op": "note"},
+            {"ja": f"{q['w1']}−{_fmt(W2)} = {_fmt(x)}（g）", "value": str(x), "op": "result"},
+        ]
+    if fig["kind"] == "salt_total":
+        s1 = S(q["w1"] * q["p1"]) / 100; s2 = S(q["w2"] * q["p2"]) / 100
+        t = wp_solve(fig)
+        return [
+            {"ja": f"{q['p1']}%の方の食塩は {q['w1']}×{q['p1']}÷100 = {_fmt(s1)}（g）", "op": "note"},
+            {"ja": f"{q['p2']}%の方の食塩は {q['w2']}×{q['p2']}÷100 = {_fmt(s2)}（g）", "op": "note"},
+            {"ja": f"{_fmt(s1)}+{_fmt(s2)} = {_fmt(t)}（g）", "value": str(t), "op": "result"},
+        ]
+    if fig["kind"] == "chase":
+        A, B = names.get("a", "兄"), names.get("b", "弟")
+        c = q["u"] - q["v"]; gap = q["v"] * q["h"]
+        t = wp_solve(fig)
+        return [
+            {"ja": f"{B}を止めて考えると、{A}は1分に {q['u']}−{q['v']} = {c}m ずつ近づく", "op": "note"},
+            {"ja": f"{A}が家を出るとき、{B}は {q['v']}×{q['h']} = {gap}m 先にいる", "op": "note"},
+            {"ja": f"{gap}÷{c} = {_fmt(t)}（分後）", "value": str(t), "op": "result"},
+        ]
+    if fig["kind"] == "trains_pass":
+        c = q["s1"] + q["s2"]; L = q["l1"] + q["l2"]
+        t = wp_solve(fig)
+        return [
+            {"ja": f"列車Bを止めて考えると、列車Aは秒速 {q['s1']}+{q['s2']} = {c}m で近づく", "op": "note"},
+            {"ja": f"出会ってからはなれるまでに進むのは、2つの列車の長さの和 {q['l1']}+{q['l2']} = {L}m", "op": "note"},
+            {"ja": f"{L}÷{c} = {_fmt(t)}（秒）", "value": str(t), "op": "result"},
+        ]
+    if fig["kind"] == "clock_overlap":
+        deg = 30 * q["h"]
+        t = wp_solve(fig)
+        return [
+            {"ja": "長針は1分に6度、短針は1分に0.5度進む", "op": "note"},
+            {"ja": "短針を止めて考えると、長針は1分に 6−0.5 = 5.5 度ずつ近づく", "op": "note"},
+            {"ja": f"{q['h']}時ちょうどのとき、長針は短針より {q['h']}×30 = {deg} 度うしろにいる", "op": "note"},
+            {"ja": f"{deg}÷5.5 = {_mixed(t)}（分）", "value": str(t), "op": "result"},
+        ]
+    if fig["kind"] == "speed_change":
+        vt = q["v"] * q["T"]; gap = q["d"] - vt; hh = q["u"] - q["v"]
+        x = wp_solve(fig)
+        return [
+            {"ja": "たて＝速さ、横＝時間の長方形2つで表す（面積＝道のり）", "op": "note"},
+            {"ja": f"全部歩いたとすると {q['v']}×{q['T']} = {vt}", "op": "note"},
+            {"ja": f"本当の道のりとの差 {q['d']}−{vt} = {gap} が、上にはみ出した長方形の面積", "op": "note"},
+            {"ja": f"その長方形のたては {q['u']}−{q['v']} = {hh}", "op": "note"},
+            {"ja": f"走った時間 = {gap}÷{hh} = {_fmt(x)}（分）", "value": str(x), "op": "result"},
+        ]
+    if fig["kind"] == "arrival_gap":
+        A, B = names.get("a", "兄"), names.get("b", "弟")
+        ta, tb = S(q["d"]) / q["u"], S(q["d"]) / q["v"]
+        x = wp_solve(fig)
+        return [
+            {"ja": f"{A}がかかる時間は {q['d']}÷{q['u']} = {_fmt(ta)}（分）", "op": "note"},
+            {"ja": f"{B}がかかる時間は {q['d']}÷{q['v']} = {_fmt(tb)}（分）", "op": "note"},
+            {"ja": f"{_fmt(tb)}−{_fmt(ta)} = {_fmt(x)}（分）", "value": str(x), "op": "result"},
+        ]
     if fig["kind"] == "ratio_shift":
         o = names.get("older", "兄")
         d1, d2 = q["a1"] - q["b1"], q["a2"] - q["b2"]
@@ -1095,7 +1359,9 @@ def wp_steps(fig, names):
 WP_GENERATORS = ("wp_two_kinds", "wp_age_ratio", "wp_mixture", "wp_meeting",
                  "wp_average_groups", "wp_shortfall", "wp_age_ratio_past", "wp_same_spend",
                  "wp_three_kinds_equal", "wp_pair_offset", "wp_two_kinds_known", "wp_age_sum_later",
-                 "wp_sum_catchup", "wp_ratio_shift")
+                 "wp_sum_catchup", "wp_ratio_shift", "wp_mixture_water", "wp_mixture_salt", "wp_mix_then_water",
+                 "wp_evaporate", "wp_salt_total", "wp_chase", "wp_trains_pass", "wp_clock_overlap", "wp_speed_change",
+                 "wp_arrival_gap")
 
 
 def make_variants(card):

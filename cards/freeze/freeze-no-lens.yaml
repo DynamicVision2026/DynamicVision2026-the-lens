@@ -1,0 +1,97 @@
+schema_version: '1.1'
+id: freeze-no-lens
+kind: no_lens
+lens: freeze
+best_move: 'direct: each travel time, then subtract'
+stage: shogakko
+grades:
+- 小4
+- 小5
+level: 1
+archetype: freeze.arrival_gap_no_lens
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: two walkers to the same station from the same place; the question is about each arrival, not meeting (negative control for 止める).'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 2人が出会ったり追いついたりしないなら、相対的な速さはいらない。それぞれの時間を出して引く。
+  principle_en: 'No meeting or catching up: just each travel time, then subtract.'
+problem:
+  text_ja: 兄は分速90m、弟は分速60mで、家から1800mはなれた駅に向かって、同時に家を出ました。兄は弟より何分早く駅に着きますか。
+  unit: 分
+  figure:
+    type: word_problem
+    kind: arrival_gap
+    params:
+      d: 1800
+      u: 90
+      v: 60
+    names:
+      a: 兄
+      b: 弟
+answer:
+  value: '10'
+  display_ja: 10分
+  expr: word_problem
+trap_route:
+  time_cost_sec: 90
+  time_source: estimate
+  steps:
+  - ja: くせで弟を止め、速さの差 90−60 = 30 を出す
+    op: note
+  - ja: 1800÷30 = 60 は、何の時間でもない
+    op: note
+  - ja: 遠回りで約1分半
+    op: note
+lens_route:
+  time_cost_sec: 20
+  time_source: estimate
+  steps:
+  - ja: 兄がかかる時間は 1800÷90 = 20（分）
+    op: note
+  - ja: 弟がかかる時間は 1800÷60 = 30（分）
+    op: note
+  - ja: 30−20 = 10（分）
+    value: '10'
+    op: result
+trigger:
+  ja: 出会う・追いつくではなく、それぞれの時間を聞いているときは、止めなくていい。
+  en: 'Not meeting or catching up: no freeze; compare the two times.'
+  tags:
+  - never_meet
+picker:
+  options:
+  - freeze
+  - constant
+  - area
+  - direct
+  correct: direct
+  clue_distractors:
+  - head_start
+  - toward_each_other
+  feedback_ja:
+    freeze: 速さの差を出しても、ここでは使い道がない。2人は追いかけっこをしていない。
+    constant: 差が変わらないものを使う問題ではない。
+    area: 2種類のものの数と合計の問題ではない。
+    direct: そのとおり。兄は20分、弟は30分。ちがいは10分。
+animation:
+  keyframes:
+  - show_story
+  - time_each
+  - subtract
+  - show_answer
+  - ghost_freeze_struck_out
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_arrival_gap
+  count: 4
+  seed: 2651

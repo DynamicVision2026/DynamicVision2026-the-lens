@@ -34,3 +34,13 @@ each_count_known:     {ja: それぞれの数がもう分かっている}
 asks_sum_later:       {ja: 何倍かではなく、何年後の「和」を聞いている}
 one_vs_sum_of_many:   {ja: 1人と、何人かの合計をくらべる}
 two_ratios_known:     {ja: いまと何年後の、2つの比が分かる}
+add_water_or_salt:    {ja: 水や食塩を加える（水は0%、食塩は100%）}
+mix_then_dilute:      {ja: 混ぜたあと、さらに水を加える}
+evaporate_water:      {ja: 水を蒸発させる（食塩の量は変わらない）}
+amount_not_strength:  {ja: こさではなく、食塩の量を聞いている}
+head_start:           {ja: 先に出発した人を、あとから追いかける}
+lengths_of_both:      {ja: 2つのものの長さも速さも分かる}
+clock_hands:          {ja: 時計の長針と短針}
+speed_changes_midway: {ja: とちゅうで速さが変わる}
+total_time_and_distance: {ja: かかった時間の合計と、道のりの合計が分かる}
+never_meet:           {ja: 2人は出会わない・追いつかない（それぞれの時間を聞いている）}

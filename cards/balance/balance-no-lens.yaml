@@ -1,0 +1,94 @@
+schema_version: '1.1'
+id: balance-no-lens
+kind: no_lens
+lens: balance
+best_move: 'direct: weight × percent ÷ 100 for each, then add'
+stage: shogakko
+grades:
+- 小5
+level: 1
+archetype: balance.salt_amount_no_lens
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: the amount of salt in two solutions, nothing mixed or asked about strength (negative control for てんびん).'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 食塩の量は「食塩水の重さ×こさ」。こさを聞いていなければ、てんびんはいらない。
+  principle_en: Salt = weight × strength; no strength asked, no lever.
+problem:
+  text_ja: 8%の食塩水250gと、5%の食塩水200gにふくまれる食塩は、合わせて何gですか。
+  unit: g
+  figure:
+    type: word_problem
+    kind: salt_total
+    params:
+      w1: 250
+      p1: 8
+      w2: 200
+      p2: 5
+answer:
+  value: '30'
+  display_ja: 30g
+  expr: word_problem
+trap_route:
+  time_cost_sec: 90
+  time_source: estimate
+  steps:
+  - ja: 2つの食塩水なので、くせでてんびんをかき、混ぜたこさを出そうとする
+    op: note
+  - ja: 混ぜたこさから食塩の量にもどすので、遠回り
+    op: note
+  - ja: ここで約1分半
+    op: note
+lens_route:
+  time_cost_sec: 20
+  time_source: estimate
+  steps:
+  - ja: 8%の方の食塩は 250×8÷100 = 20（g）
+    op: note
+  - ja: 5%の方の食塩は 200×5÷100 = 10（g）
+    op: note
+  - ja: 20+10 = 30（g）
+    value: '30'
+    op: result
+trigger:
+  ja: こさではなく食塩の量を聞いているときは、てんびんはいらない。それぞれかけて、たす。
+  en: 'Amount of salt, not strength: no lever; multiply each and add.'
+  tags:
+  - amount_not_strength
+picker:
+  options:
+  - balance
+  - area
+  - constant
+  - direct
+  correct: direct
+  clue_distractors:
+  - three_strengths_known
+  - add_water_or_salt
+  feedback_ja:
+    balance: てんびんでも出せるが、ここでは遠回り。こさではなく食塩の量を聞いている。
+    area: 2種類のものの数と合計の問題ではない。
+    constant: 変わらないものを使う問題ではない。
+    direct: そのとおり。250×8÷100＝20、200×5÷100＝10、合わせて30g。
+animation:
+  keyframes:
+  - show_story
+  - salt_each
+  - add_together
+  - show_answer
+  - ghost_lever_struck_out
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_salt_total
+  count: 4
+  seed: 2551

@@ -26,8 +26,8 @@ chugaku_juken:
     - {lens: slide,    video: lesson-slide,    cards: [slide-001]}
     - {lens: area,     video: lesson-area,     cards: [area-002, area-001, area-no-lens, area-004, area-003, area-f01, area-005]}
     - {lens: constant, video: lesson-constant, cards: [constant-004, constant-001, constant-no-lens, constant-002, constant-003, constant-f01, constant-005]}
-    - {lens: balance,  video: lesson-balance,  cards: [balance-001]}
-    - {lens: freeze,   video: lesson-freeze,   cards: [freeze-001]}
+    - {lens: balance,  video: lesson-balance,  cards: [balance-002, balance-001, balance-no-lens, balance-003, balance-f01, balance-004]}
+    - {lens: freeze,   video: lesson-freeze,   cards: [freeze-002, freeze-001, freeze-no-lens, freeze-003, freeze-f01, freeze-004]}
     - {lens: mirror,   video: lesson-mirror,   cards: [mirror-001]}
     - {lens: unfold,   video: lesson-unfold,   cards: [unfold-001]}
 
