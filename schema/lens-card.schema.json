@@ -379,6 +379,13 @@
                   "additionalProperties": {
                     "type": "string"
                   }
+                },
+                "path": {
+                  "description": "WO-018: 'surface' (default) or 'edges' (no-lens: along the edges only).",
+                  "enum": [
+                    "surface",
+                    "edges"
+                  ]
                 }
               }
             },
@@ -600,6 +607,42 @@
                   "minimum": 1
                 }
               }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "description": "WO-018 L4: two perpendicular lines ℓ (x-axis) and m (y-axis) meeting at O; P and Q inside; touch m then ℓ (reflect twice). Answer = OX.",
+              "required": [
+                "type",
+                "P",
+                "Q"
+              ],
+              "properties": {
+                "type": {
+                  "const": "mirror_corner"
+                },
+                "P": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "Q": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "unit": {
+                  "type": "string"
+                }
+              }
             }
           ]
         }
@@ -628,7 +671,8 @@
             "mirror_touch",
             "unfold_cross",
             "word_problem",
-            "coordinate"
+            "coordinate",
+            "corner_touch"
           ]
         }
       }
@@ -769,7 +813,9 @@
               "coord_mirror_valid",
               "cevian_valid",
               "band_not_parallel",
-              "band_height_from_area"
+              "band_height_from_area",
+              "unfold_edges",
+              "corner_valid"
             ]
           },
           "route": {
@@ -841,7 +887,8 @@
             "wp_price_blend",
             "wp_trains_overtake",
             "wp_circle_meet",
-            "wp_circle_lap"
+            "wp_circle_lap",
+            "mirror_corner"
           ]
         },
         "count": {

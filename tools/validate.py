@@ -412,12 +412,44 @@ def fig_text(fig):
         return (f"直線ℓと直線mは平行で、その間は{fig['band_height']}cmです。直線m上の{bot[0]}{bot[-1]}の長さは{_fmt(L)}cmで、"
                 f"{'、'.join(bot[1:-1])}は{bot[0]}と{bot[-1]}の間の点です。{'、'.join(top)}は直線ℓ上の点です。"
                 f"かげをつけた三角形{tris}の面積の合計は何cm²ですか。")
+    if t == "box_unfold" and fig.get("path") == "edges":
+        u = fig["unit"]
+        return (f"直方体ABCD-EFGHがあり、AB＝{fig['a']}{u}、BC＝{fig['b']}{u}、AE＝{fig['h']}{u}です。"
+                f"辺の上だけを通って、頂点Aから頂点Gまで行きます。いちばん短い道のりは何{u}ですか。")
+    if t == "mirror_corner":
+        (px, py), (qx, qy) = fig["P"], fig["Q"]
+        u = fig.get("unit", "m")
+        return (f"点Oで直角に交わる2本の直線ℓ、mがあります。点Pは直線mから{px}{u}、直線ℓから{py}{u}のところに、"
+                f"点Qは直線mから{qx}{u}、直線ℓから{qy}{u}のところにあります（PもQも、ℓとmにはさまれた同じ側にあります）。"
+                f"PからQまで、とちゅうで直線m、直線ℓの順に1回ずつふれて行きます。道のりがいちばん短くなるとき、直線ℓにふれる点からOまでのきょりは何{u}ですか。")
     if t == "box_unfold":
         u = fig["unit"]
         return (f"直方体ABCD-EFGHがあり、AB＝{fig['a']}{u}、BC＝{fig['b']}{u}、AE＝{fig['h']}{u}です。"
                 f"頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。"
                 f"糸の長さがいちばん短くなるとき、BPは何{u}ですか。")
     return None
+
+
+def corner_touch(fig):
+    """Reflect P across m (x = 0) and Q across ℓ (y = 0); the line P'Q' meets ℓ at OX, m at OY."""
+    (px, py), (qx, qy) = fig["P"], fig["Q"]
+    X = -S(px) + S(qx + px) * py / (py + qy)
+    Y = S(py) - S(py + qy) * px / (px + qx)
+    return X, Y
+
+
+def corner_steps(fig):
+    (px, py), (qx, qy) = fig["P"], fig["Q"]
+    W, H = px + qx, py + qy
+    s_ = S(W) * py / H
+    X, _ = corner_touch(fig)
+    return [
+        {"ja": "Pを直線mで折り返した点P'をとる（mまでの道のりはそのまま）", "op": "note"},
+        {"ja": "Qを直線ℓで折り返した点Q'をとる（ℓからの道のりもそのまま）", "op": "note"},
+        {"ja": "P'とQ'をまっすぐ結ぶ。直線m、直線ℓと交わる点が、ふれる点", "op": "note"},
+        {"ja": f"P'からQ'へ、横に {px}+{qx} = {W} 進む間に、たてに {py}+{qy} = {H} 下がる。ℓまで（たて{py}下がる間）に横へ {W}×{py}/{H} = {_fmt(s_)} 進む", "op": "note"},
+        {"ja": f"Oからのきょり = {_fmt(s_)}−{px} = {_fmt(X)}", "value": str(X), "op": "result"},
+    ]
 
 
 def unfold_cross(fig):
@@ -1198,6 +1230,18 @@ def run_check(card, check, pts) -> tuple[bool, str]:
         want = fig_text(fig)
         ok = want is not None and card["problem"]["text_ja"] == want
         return ok, "problem text matches its figure numbers" if ok else f"text should be: {want}"
+    if t == "unfold_edges":
+        ok = ans == fig["a"] + fig["b"] + fig["h"] and len({fig["a"], fig["b"], fig["h"]}) == 3
+        return ok, f"along the edges every shortest route uses one of each length: {fig['a']}+{fig['b']}+{fig['h']}"
+    if t == "corner_valid":
+        import math
+        X, Y = corner_touch(fig)
+        (px, py), (qx, qy) = fig["P"], fig["Q"]
+        f = lambda y, x: math.hypot(px, py - y) + math.hypot(x, y) + math.hypot(qx - x, qy)
+        best = f(float(Y), float(X))
+        grid = min(f(y / 4, x / 4) for y in range(0, 4 * (py + qy) + 1) for x in range(0, 4 * (px + qx) + 1))
+        ok = X > 0 and Y > 0 and X == ans and best <= grid + 1e-9 and S(X).is_integer
+        return ok, f"touch points OY = {Y}, OX = {X}; the twice-reflected straight line is shortest"
     if t == "unfold_cross_point":
         x = unfold_cross(fig)
         return x == ans, f"straight line on the net gives BP = {x}, answer = {ans}"
@@ -1530,6 +1574,17 @@ def make_unfold_variants(card):
         if abs(S(h * a) / (a + b) - Rational(h, 2)) < Rational(h, 6):   # the midpoint guess must look visibly wrong in the figure
             continue
         fig = {**fig0, "a": a, "b": b, "h": h}
+        if fig0.get("path") == "edges":
+            if len({a, b, h}) < 3:
+                continue
+            x = S(a + b + h)
+            steps = [{"ja": "辺の上だけを通るので、面を開く必要はない", "op": "note"},
+                     {"ja": "どの最短の道も、横・おく・たての辺を1回ずつ通る", "op": "note"},
+                     {"ja": f"{a}+{b}+{h} = {a + b + h}", "value": str(x), "op": "result"}]
+            used_ratios.add(ratio(a, b)); used_h.add(h); used_ans.add(x)
+            out.append({"id": f"{card['id']}-v{len(out) + 1}", "text_ja": fig_text(fig), "figure": {"a": a, "b": b, "h": h},
+                        "answer": str(x), "lens_route": {"steps": steps}})
+            continue
         x = unfold_cross(fig)
         vcard = {**card, "answer": {**card["answer"], "value": str(x)}, "problem": {**card["problem"], "figure": fig}}
         if not all(run_check(vcard, ch, None)[0] for ch in card["checks"] if ch["type"].startswith("unfold_")):
@@ -2102,6 +2157,24 @@ def make_variants(card):
         return make_wp_variants(card)
     if card["variants"]["generator"] in ("coord_triangle", "coord_equal_area", "coord_mirror_area", "triangle_cevians"):
         return make_coord_variants(card)
+    if card["variants"]["generator"] == "mirror_corner":
+        v = card["variants"]; rng = random.Random(v["seed"]); fig0 = card["problem"]["figure"]
+        out, seen, tries = [], {(tuple(fig0["P"]), tuple(fig0["Q"]))}, 0
+        used = {sympify(card["answer"]["value"])}
+        while len(out) < v["count"] and tries < 20000:
+            tries += 1
+            P = [rng.randint(1, 8), rng.randint(1, 8)]; Q = [rng.randint(1, 10), rng.randint(1, 10)]
+            fig = {**fig0, "P": P, "Q": Q}
+            X, Y = corner_touch(fig)
+            if (tuple(P), tuple(Q)) in seen or not (X > 0 and Y > 0 and S(X).is_integer) or X in used or P == Q:
+                continue
+            vcard = {**card, "answer": {**card["answer"], "value": str(X)}, "problem": {**card["problem"], "figure": fig}}
+            if not run_check(vcard, {"type": "corner_valid"}, None)[0]:
+                continue
+            seen.add((tuple(P), tuple(Q))); used.add(X)
+            out.append({"id": f"{card['id']}-v{len(out) + 1}", "text_ja": fig_text(fig), "figure": {"P": P, "Q": Q},
+                        "answer": str(X), "lens_route": {"steps": corner_steps(fig)}})
+        return out
     if card["variants"]["generator"] == "slide_band":
         return make_band_variants(card)
     if card["variants"]["generator"] == "mirror_path":

@@ -1,0 +1,99 @@
+schema_version: '1.1'
+id: mirror-004
+kind: standard
+lens: mirror
+best_move: mirror
+stage: shogakko
+grades:
+- 小6
+level: 4
+archetype: mirror.two_lines
+status: draft
+provenance:
+  original: true
+  built_from: 'Archetype: shortest path touching two perpendicular lines in a given order; reflect once across each line (折り返す twice).'
+  not_derived_from: Lengths, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 2本の線にふれるなら、2回折り返す。折り返しても道のりは変わらないので、まっすぐ結んだ線が最短。
+  principle_en: 'Two lines to touch: reflect twice; the straight line is shortest.'
+problem:
+  text_ja: 点Oで直角に交わる2本の直線ℓ、mがあります。点Pは直線mから2m、直線ℓから3mのところに、点Qは直線mから6m、直線ℓから5mのところにあります（PもQも、ℓとmにはさまれた同じ側にあります）。PからQまで、とちゅうで直線m、直線ℓの順に1回ずつふれて行きます。道のりがいちばん短くなるとき、直線ℓにふれる点からOまでのきょりは何mですか。
+  unit: m
+  figure:
+    type: mirror_corner
+    P:
+    - 2
+    - 3
+    Q:
+    - 6
+    - 5
+    unit: m
+answer:
+  value: '1'
+  display_ja: 1m
+  expr: corner_touch
+trap_route:
+  time_cost_sec: 300
+  time_source: estimate
+  steps:
+  - ja: 1回だけ折り返して考えようとする
+    op: note
+  - ja: もう1本の線にもふれなければならず、道がまっすぐにならない
+    op: note
+  - ja: ふれる点を少しずつずらして比べるが、決め手がない。約5分
+    op: note
+lens_route:
+  time_cost_sec: 60
+  time_source: estimate
+  steps:
+  - ja: Pを直線mで折り返した点P'をとる（mまでの道のりはそのまま）
+    op: note
+  - ja: Qを直線ℓで折り返した点Q'をとる（ℓからの道のりもそのまま）
+    op: note
+  - ja: P'とQ'をまっすぐ結ぶ。直線m、直線ℓと交わる点が、ふれる点
+    op: note
+  - ja: P'からQ'へ、横に 2+6 = 8 進む間に、たてに 3+5 = 8 下がる。ℓまで（たて3下がる間）に横へ 8×3/8 = 3 進む
+    op: note
+  - ja: Oからのきょり = 3−2 = 1
+    value: '1'
+    op: result
+trigger:
+  ja: 2本の線に1回ずつふれる最短の道は、それぞれの線で折り返して、まっすぐ結ぶ。
+  en: 'Touch two lines once each: reflect across each and join straight.'
+  tags:
+  - two_walls
+  - shortest_path
+picker:
+  options:
+  - mirror
+  - unfold
+  - slide
+  - direct
+  correct: mirror
+  clue_distractors:
+  - parallel_lines
+  - path_on_surface
+  feedback_ja:
+    mirror: そのとおり。Pをmで、Qをℓで折り返して、まっすぐ結ぶ。
+    unfold: 立体の表面の問題ではない。
+    slide: 面積の問題ではない。
+    direct: ふれる点を1つずつためすと、組み合わせが多すぎる。
+animation:
+  keyframes:
+  - show_points
+  - reflect_p
+  - reflect_q
+  - draw_straight
+  - mark_touch
+  - show_answer
+checks:
+- type: text_matches
+- type: corner_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: mirror_corner
+  count: 4
+  seed: 2241
