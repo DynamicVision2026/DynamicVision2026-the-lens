@@ -62,3 +62,14 @@ export const PROPOSED = {
   /** WO-013: the free check from the landing page. */
   checkLink: 'どのレンズ？チェック（無料・8問）',
 } as const;
+
+/**
+ * Stage 2 and 3 waitlist (ADR-003 §3, Brian Oct 13: 先行登録 only at launch). The badge is the ADR's
+ * wording; the heading, lead and button are proposed. No price, no checkout, no delivery date.
+ */
+export const WAITLIST = {
+  heading: '高校受験・大学受験のパスも準備中です',
+  badge: '準備中・先行登録受付中',
+  lead: '公開のときに、いちばん先にメールでお知らせします。',
+  button: '先行登録する',
+} as const;

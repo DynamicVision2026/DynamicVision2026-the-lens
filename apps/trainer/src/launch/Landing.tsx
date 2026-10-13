@@ -1,7 +1,7 @@
 import { getCard, LensScene, loadBundle } from '@lens/scenes';
 import { LAUNCH } from '../launch.config';
-import { FOOTER, LANDING, PREORDER, PRIVACY, PROPOSED } from './copy';
-import { preorderHref } from './tracking';
+import { FOOTER, LANDING, PREORDER, PRIVACY, PROPOSED, WAITLIST } from './copy';
+import { preorderHref, waitlistTags } from './tracking';
 import { Fragment, useEffect } from 'react';
 import { Signup } from './Signup';
 
@@ -67,6 +67,7 @@ export function Landing({ short }: { short: string | null }) {
 
       <Signup short={short} />
       <Preorder />
+      <Waitlist />
       <Footer />
     </main>
   );
@@ -150,5 +151,29 @@ export function GoPreorder({ short }: { short: string | null }) {
         {PREORDER.button}
       </a>
     </main>
+  );
+}
+
+/**
+ * Planned Passes (status: planned in bundle.passes) as waitlist cards: 「準備中・先行登録受付中」 and an
+ * email form tagged waitlist:<pass id>. No price, no checkout, no delivery date (ADR-003 §3).
+ */
+export function Waitlist() {
+  const planned = (loadBundle().passes ?? []).filter((p) => p.status === 'planned');
+  if (planned.length === 0) return null;
+  return (
+    <section className="waitlist">
+      <h2>{WAITLIST.heading}</h2>
+      <div className="waitlist-cards">
+        {planned.map((p) => (
+          <article key={p.id} className="waitlist-card" data-pass={p.id}>
+            <span className="badge">{WAITLIST.badge}</span>
+            <h3>{p.title_ja}</h3>
+            {p.audience_ja && <p className="audience">{p.audience_ja}</p>}
+            <Signup short={null} title={WAITLIST.lead} tags={waitlistTags(p.id)} stay button={WAITLIST.button} className="signup waitlist-form" />
+          </article>
+        ))}
+      </div>
+    </section>
   );
 }

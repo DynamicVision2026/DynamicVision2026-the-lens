@@ -54,6 +54,11 @@ export function xShareHref(text: string, siteUrl: string): string {
   return `https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
 }
 
+/** Customer tag for a planned Pass's waitlist (ADR-003 §3), e.g. waitlist:koukou_juken. */
+export function waitlistTags(passId: string): string {
+  return `waitlist:${passId}`;
+}
+
 /** The preorder link, with the Short as UTM parameters when known. */
 export function preorderHref(url: string, short: string | null): string {
   if (!short) return url;
