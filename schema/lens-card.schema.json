@@ -194,7 +194,7 @@
         "additionalProperties": false,
         "required": ["type"],
         "properties": {
-          "type": { "enum": ["area_equals_answer", "route_steps_sum", "enclose_clean", "enclose_not_clean", "has_horizontal_base", "tilted_square", "band_triangles_disjoint", "band_total_only", "band_area_equals_answer", "mirror_touch_point", "mirror_shortest", "mirror_not_midpoint", "text_matches", "unfold_cross_point", "unfold_shortest", "unfold_not_midpoint", "wp_formula", "wp_unique", "wp_nontrivial", "wp_text_matches", "lattice_only", "simple_polygon", "lens_faster"] },
+          "type": { "enum": ["area_equals_answer", "route_steps_sum", "enclose_clean", "enclose_not_clean", "has_horizontal_base", "tilted_square", "band_triangles_disjoint", "band_total_only", "band_area_equals_answer", "mirror_touch_point", "mirror_shortest", "mirror_not_midpoint", "text_matches", "unfold_cross_point", "unfold_shortest", "unfold_not_midpoint", "wp_formula", "wp_unique", "wp_nontrivial", "wp_text_matches", "wp_names_match", "lattice_only", "simple_polygon", "lens_faster"] },
           "route": { "enum": ["trap_route", "lens_route"] },
           "note": { "type": "string" }
         }
