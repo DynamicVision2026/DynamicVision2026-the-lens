@@ -14,6 +14,16 @@ import { C } from './scenes/kit';
 
 export const isBoundary = (card: LensCard) => card.kind === 'failure' || card.kind === 'no_lens';
 
+/**
+ * A trap that still reaches the answer, only slowly (its last step is a result): no ✕, but
+ * ⏱ 「答えは出るが遠回り（約N分）」 (Architect, #64). Returns that line, or null when the trap never gets there.
+ */
+export function slowTrapLine(card: LensCard): string | null {
+  const steps = card.trap_route.steps;
+  if (steps[steps.length - 1]?.op !== 'result') return null;
+  return t('walk.slow', { n: Math.max(1, Math.round((card.trap_route.time_cost_sec ?? 60) / 60)) });
+}
+
 /** The header chip for a boundary card, or null. */
 export function boundaryChip(card: LensCard): string | null {
   if (card.kind === 'failure') return t('walk.chipFailure');
@@ -36,19 +46,24 @@ export function WalkBoard({ card, shown, next, nudge = 0 }: { card: LensCard; sh
   const { labels } = loadBundle();
   const steps = card.lens_route.steps;
   const way = card.picker.correct;
+  const slow = slowTrapLine(card);
   return (
     <div className="walk-board">
       {isBoundary(card) && (
         <div className="trapbeat">
           <b>{card.kind === 'no_lens' ? t('walk.trapNoLens') : t('walk.trapFailure')}</b>
           <ol>
-            {card.trap_route.steps.map((st, i, all) => (
-              <li key={i} className={i === all.length - 1 ? 'stop' : undefined}>
-                {st.ja}
-                {i === all.length - 1 && <span className="x" aria-label="✕">✕</span>}
-              </li>
-            ))}
+            {card.trap_route.steps.map((st, i, all) => {
+              const stop = i === all.length - 1 && !slow;
+              return (
+                <li key={i} className={stop ? 'stop' : undefined}>
+                  {st.ja}
+                  {stop && <span className="x" aria-label="✕">✕</span>}
+                </li>
+              );
+            })}
           </ol>
+          {slow && <p className="slow">⏱ {slow}</p>}
         </div>
       )}
       <div className="reveal">
@@ -98,7 +113,7 @@ export function WalkFlow({ card, lens, passId, last, onNext, onAgain, stage }: P
 
   useEffect(() => {
     if (phase !== 'play') return;
-    guide.say(boundary ? t('walk.stop') : t('walk.tap'), boundary ? 'q' : 'd');
+    guide.say(boundary ? (slowTrapLine(card) ?? t('walk.stop')) : t('walk.tap'), boundary ? 'q' : 'd');
     guide.idle(() => setNudge((n) => n + 1));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase]);

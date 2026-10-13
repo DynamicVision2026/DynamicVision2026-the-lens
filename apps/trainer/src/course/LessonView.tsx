@@ -12,7 +12,7 @@ import { findLesson, findPass, isPlayable, lessonProblems, type LessonProblem, t
 import { markSolved, solvedIn } from './progress';
 import { ClueCard, PickCard, usePickClue } from './PickClue';
 import { SCENES } from './scenes';
-import { C, SceneLock, useCourseTheme } from './scenes/kit';
+import { C, SceneLock, useCourseTheme, useFigScale } from './scenes/kit';
 import { boundaryChip, WalkFlow } from './Walkthrough';
 
 export function LessonView({ passId, lens }: { passId: string; lens: string }) {
@@ -61,6 +61,7 @@ function oneCard(lens: string): LessonProblem[] | null {
 
 function Problem({ card, mode, lens, passId, last, onNext, onAgain }: { card: LensCard; mode: ProblemMode; lens: string; passId: string; last: boolean; onNext: () => void; onAgain: () => void }) {
   const stage = useRef<HTMLDivElement>(null);
+  useFigScale(stage);
   return (
     <>
       <p className="qtext">{card.problem.text_ja}</p>

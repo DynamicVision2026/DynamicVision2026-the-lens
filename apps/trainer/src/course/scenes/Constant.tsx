@@ -56,7 +56,7 @@ export function ConstantScene({ card, lens, onSolved }: SceneProps) {
           sfx.snap();
           onSolved();
         }, 320);
-      } else guide.say(t('guide.constant.retry', { younger: nm.younger ?? '', older: nm.older ?? '', r }));
+      } else guide.say(t(d.measure === 'yen' ? 'guide.constant.retryYen' : 'guide.constant.retry', { younger: nm.younger ?? '', older: nm.older ?? '', r }));
     },
   });
 
@@ -93,11 +93,12 @@ export function ConstantScene({ card, lens, onSolved }: SceneProps) {
       {/* Today's amounts (from the text) fade once the ● moves. */}
       <Txt x={x0 + d.big * u + 10} y={132} anchor="start" opacity={k < 0.5 ? 1 : 0} className="fade-op">{`${d.big}${unit}`}</Txt>
       <Txt x={x0 + d.small * u + 10} y={322} anchor="start" opacity={k < 0.5 ? 1 : 0} className="fade-op">{`${d.small}${unit}`}</Txt>
-      <Txt x={300} y={400} size={26} fill={color}>
+      {/* The readout sits at the top, clear of the guide bubble (bottom-left). */}
+      <Txt x={300} y={62} size={26} fill={color}>
         {readout}
       </Txt>
       {done && last && (
-        <Txt x={300} y={52} size={18} fill={color} className="appear">
+        <Txt x={300} y={28} size={18} fill={color} className="appear">
           {last.ja}
         </Txt>
       )}
