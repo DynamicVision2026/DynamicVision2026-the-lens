@@ -1,0 +1,98 @@
+schema_version: '1.1'
+id: area-no-lens
+kind: no_lens
+lens: area
+best_move: 'direct: multiply and add (それぞれかけて、たす)'
+stage: shogakko
+grades:
+- 小4
+- 小5
+level: 1
+archetype: area.counts_known_no_lens
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: two kinds of coins where both counts are already known; the total is direct multiplication (negative control for 面積図).'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: それぞれの数が分かっていれば、「1枚あたり×枚数」をたすだけ。面積図はいらない。
+  principle_en: When each count is known, just multiply and add; no area diagram is needed.
+problem:
+  text_ja: 50円玉と10円玉が合わせて20枚あり、そのうち50円玉は7枚です。合計金額は何円ですか。
+  unit: 円
+  figure:
+    type: word_problem
+    kind: two_kinds_known
+    params:
+      n: 20
+      a: 50
+      b: 10
+      x: 7
+    names:
+      a: 50円玉
+      b: 10円玉
+answer:
+  value: '480'
+  display_ja: 480円
+  expr: word_problem
+trap_route:
+  time_cost_sec: 90
+  time_source: estimate
+  steps:
+  - ja: 2種類がまざっているので、くせで面積図をかく
+    op: note
+  - ja: 「全部10円玉だったら」から始めるが、答えは同じなのに手順が多い
+    op: note
+  - ja: ここで約1分半。遠回り
+    op: note
+lens_route:
+  time_cost_sec: 20
+  time_source: estimate
+  steps:
+  - ja: 10円玉の数は 20−7 = 13（枚）
+    op: note
+  - ja: 50円玉は 50×7 = 350、10円玉は 10×13 = 130
+    op: note
+  - ja: 350+130 = 480（円）
+    value: '480'
+    op: result
+trigger:
+  ja: それぞれの数がもう分かっていたら、面積図はいらない。かけてたすだけ。
+  en: 'Each count already known: no area diagram, just multiply and add.'
+  tags:
+  - each_count_known
+picker:
+  options:
+  - area
+  - constant
+  - balance
+  - direct
+  correct: direct
+  clue_distractors:
+  - total_count_and_total
+  - count_difference_given
+  feedback_ja:
+    area: 面積図でも答えは出るが、ここでは遠回り。50円玉の数がもう分かっている。
+    constant: 差が変わらないものを使う問題ではない。
+    balance: こさや平均を混ぜる問題ではない。
+    direct: そのとおり。50円玉7枚、10円玉13枚と分かっているので、かけてたすだけ。
+animation:
+  keyframes:
+  - show_story
+  - count_each
+  - multiply_each
+  - show_answer
+  - ghost_area_struck_out
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_two_kinds_known
+  count: 4
+  seed: 2361

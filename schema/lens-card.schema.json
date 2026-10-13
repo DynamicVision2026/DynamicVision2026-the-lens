@@ -132,7 +132,7 @@
           "required": ["type", "kind", "params"],
           "properties": {
             "type": { "const": "word_problem" },
-            "kind": { "enum": ["two_kinds_total", "age_ratio", "mixture", "meeting", "average_groups", "shortfall", "age_ratio_past", "same_spend"] },
+            "kind": { "enum": ["two_kinds_total", "age_ratio", "mixture", "meeting", "average_groups", "shortfall", "age_ratio_past", "same_spend", "three_kinds_equal", "pair_offset", "two_kinds_known", "age_sum_later", "sum_catchup", "ratio_shift"] },
             "params": { "type": "object", "additionalProperties": { "type": "integer" } },
             "names": { "type": "object", "additionalProperties": { "type": "string" } }
           }
@@ -205,7 +205,7 @@
       "additionalProperties": false,
       "required": ["generator", "count", "seed"],
       "properties": {
-        "generator": { "enum": ["enclose_standard", "enclose_tilted_square", "enclose_triangle", "slide_band", "mirror_path", "box_unfold", "wp_two_kinds", "wp_age_ratio", "wp_mixture", "wp_meeting", "wp_average_groups", "wp_shortfall", "wp_age_ratio_past", "wp_same_spend", "enclose_failure_notch", "no_lens_flat_base"] },
+        "generator": { "enum": ["enclose_standard", "enclose_tilted_square", "enclose_triangle", "slide_band", "mirror_path", "box_unfold", "wp_two_kinds", "wp_age_ratio", "wp_mixture", "wp_meeting", "wp_average_groups", "wp_shortfall", "wp_age_ratio_past", "wp_same_spend", "wp_three_kinds_equal", "wp_pair_offset", "wp_two_kinds_known", "wp_age_sum_later", "wp_sum_catchup", "wp_ratio_shift", "enclose_failure_notch", "no_lens_flat_base"] },
         "count": { "type": "integer", "minimum": 0, "maximum": 50 },
         "seed": { "type": "integer" },
         "constraints": { "type": "object" }

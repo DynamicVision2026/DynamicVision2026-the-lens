@@ -1,0 +1,98 @@
+schema_version: '1.1'
+id: constant-f01
+kind: failure
+lens: constant
+best_move: 'freeze: the gap shrinks by a fixed amount each year (差が1年にいくつちぢむか)'
+stage: shogakko
+grades:
+- 小5
+- 小6
+level: 3
+archetype: constant.sum_catchup_failure
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: one age against the sum of three ages; the gap is NOT constant, it shrinks by 2 a year, so think of closing speed (failure card for 差一定; best move is the 止める closing-speed idea).'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 3人の和は1年に3才、1人は1才ふえるので、差は変わらないのではなく、1年に2ずつちぢむ。ちぢむ速さで割ればよい。
+  principle_en: A sum of three grows by 3 a year and one person by 1, so the gap shrinks by 2 a year; divide by that closing rate.
+problem:
+  text_ja: いま、お父さんは45才で、3人の子どもは9才、7才、5才です。お父さんの年れいが、子ども3人の年れいの和と等しくなるのは何年後ですか。
+  unit: 年後
+  figure:
+    type: word_problem
+    kind: sum_catchup
+    params:
+      p: 45
+      c1: 9
+      c2: 7
+      c3: 5
+answer:
+  value: '12'
+  display_ja: 12年後
+  expr: word_problem
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: 年れいの問題なので、くせで「差は変わらない」と考える
+    op: note
+  - ja: 差24がずっと同じなら、和と等しくなる日は来ない…と手が止まる
+    op: note
+  - ja: ここで約3分
+    op: note
+lens_route:
+  time_cost_sec: 35
+  time_source: estimate
+  steps:
+  - ja: 子ども3人の年れいの和は 9+7+5 = 21
+    op: note
+  - ja: お父さんとの差は 45−21 = 24
+    op: note
+  - ja: 1年で、子ども3人の和は3才、お父さんは1才ふえる。差は1年に 3−1 = 2 ずつちぢむ
+    op: note
+  - ja: 24÷2 = 12（年後）
+    value: '12'
+    op: result
+trigger:
+  ja: 1人と何人かの合計をくらべるときは、差は変わらない。1年にいくつちぢむかを見る。
+  en: 'One person against a sum of several: the gap is not constant; find how fast it shrinks.'
+  tags:
+  - one_vs_sum_of_many
+picker:
+  options:
+  - constant
+  - freeze
+  - area
+  - direct
+  correct: freeze
+  clue_distractors:
+  - ages_both_increase
+  - two_kinds_mixed
+  feedback_ja:
+    constant: おしい。2人どうしなら差は変わらないが、ここは1人と3人の合計。差は1年に2ずつちぢむ。
+    freeze: そのとおり。お父さんを止めて考えると、子ども3人の和は1年に2ずつ近づいてくる。
+    area: 2種類のものの数と合計の問題ではない。
+    direct: 1年ずつ表にすると、12行も書くことになる。
+animation:
+  keyframes:
+  - show_story
+  - draw_bars
+  - try_constant_gap
+  - flash_gap_shrinks
+  - closing_rate
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_sum_catchup
+  count: 4
+  seed: 2451

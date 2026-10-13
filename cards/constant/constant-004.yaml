@@ -1,0 +1,108 @@
+schema_version: '1.1'
+id: constant-004
+kind: standard
+lens: constant
+best_move: constant
+stage: shogakko
+grades:
+- 小4
+level: 1
+archetype: constant.age_ratio_past
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: small ages, ratio 2: how many years ago one was twice the other, using the unchanging difference (差一定, level 1).'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 何年前でも、2人の年れいの差は同じ。2倍のときは、差がちょうど小さいほうの年れいになる。
+  principle_en: The age difference never changes; at the moment of 'twice', the difference equals the younger age.
+problem:
+  text_ja: いま、兄は14才、弟は8才です。兄の年れいが弟の年れいの2倍だったのは何年前ですか。
+  unit: 年前
+  figure:
+    type: word_problem
+    kind: age_ratio_past
+    params:
+      p: 14
+      c: 8
+      r: 2
+    names:
+      older: 兄
+      younger: 弟
+answer:
+  value: '2'
+  display_ja: 2年前
+  expr: word_problem
+trap_route:
+  time_cost_sec: 60
+  time_source: estimate
+  steps:
+  - ja: 1年前、2年前…と、2人の年れいを表に書いてさかのぼる
+    op: note
+  - ja: 毎回「2倍になったか」を確かめる
+    op: note
+  - ja: ここで約1分
+    op: note
+lens_route:
+  time_cost_sec: 15
+  time_source: estimate
+  steps:
+  - ja: 年れいの差は 14−8 = 6 で、何年前でも変わらない
+    op: note
+  - ja: 兄が弟の2倍のとき、差の6は弟の 2−1 = 1 つ分
+    op: note
+  - ja: そのときの弟は 6÷1 = 6 才
+    op: note
+  - ja: 8−6 = 2（年前）
+    value: '2'
+    op: result
+trigger:
+  ja: 2人の年れいが同じだけ変わるときは、変わらない「差」に目をつける。
+  en: 'Two ages changing together: anchor on the difference.'
+  tags:
+  - both_change_same
+  - times_relation
+picker:
+  options:
+  - constant
+  - area
+  - freeze
+  - direct
+  correct: constant
+  clue_distractors:
+  - two_kinds_mixed
+  - moving_points
+  feedback_ja:
+    constant: そのとおり。差の6はずっと同じ。2倍のとき、弟はちょうど6才。
+    area: 2種類のものの数と合計の問題ではない。
+    freeze: 動く点の速さの問題ではない。
+    direct: 表にしても出るが、差を見ればすぐ分かる。
+animation:
+  keyframes:
+  - show_story
+  - draw_age_bars
+  - mark_difference
+  - shrink_bars
+  - split_difference
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_age_ratio_past
+  count: 4
+  seed: 2431
+  constraints:
+    r:
+    - 2
+    - 2
+    p:
+    - 10
+    - 24
+    min_diff: 3
