@@ -1172,6 +1172,49 @@ html[data-theme='course'] body {
   justify-content: flex-end;
 }
 
+/* ---- Waitlist cards for planned Passes (ADR-003 §3) ---- */
+.waitlist h2 {
+  margin: 0 0 12px;
+}
+.waitlist-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--gutter);
+}
+.waitlist-card {
+  border: var(--stroke-figure) solid var(--grid);
+  border-radius: var(--gutter);
+  padding: var(--gutter);
+  display: grid;
+  gap: 6px;
+  align-content: start;
+}
+.waitlist-card .badge {
+  justify-self: start;
+  font-size: var(--type-label-size);
+  font-weight: var(--type-title-weight);
+  color: var(--ink-quiet);
+  border: 1px solid var(--grid);
+  border-radius: 999px;
+  padding: 2px 10px;
+}
+.waitlist-card h3 {
+  margin: 4px 0 0;
+}
+.waitlist-card .audience {
+  margin: 0;
+  color: var(--ink-quiet);
+}
+.waitlist-card .waitlist-form h2 {
+  font-size: var(--type-label-size);
+  font-weight: normal;
+  margin: 6px 0;
+}
+.waitlist-card .waitlist-form {
+  border: 0;
+  padding: 0;
+  background: none;
+  margin: 0;
 /* ---- WO-019: decision time, measure entry points, parent report ---- */
 .course .pick-time {
   margin: 4px 0 0;

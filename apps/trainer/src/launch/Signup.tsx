@@ -11,18 +11,18 @@ import { signupAction, signupTags } from './tracking';
  * The check's result screen passes its own title and tags and stays put (the report and the founder
  * offer are on the same page), showing the sent line in place of the form.
  */
-export function Signup({ short, title = SIGNUP.title, tags, stay = false }: { short: string | null; title?: string; tags?: string; stay?: boolean }) {
+export function Signup({ short, title = SIGNUP.title, tags, stay = false, button = PROPOSED.signupButton, className = 'signup' }: { short: string | null; title?: string; tags?: string; stay?: boolean; button?: string; className?: string }) {
   const [sent, setSent] = useState(false);
   if (sent) {
     return (
-      <section className="signup">
+      <section className={className}>
         <h2>{title}</h2>
         <p className="sent">{PROPOSED.signupSent}</p>
       </section>
     );
   }
   return (
-    <section className="signup">
+    <section className={className}>
       <h2>{title}</h2>
       <form
         method="post"
@@ -42,7 +42,7 @@ export function Signup({ short, title = SIGNUP.title, tags, stay = false }: { sh
         <div className="signup-row">
           <input type="email" name="contact[email]" required autoComplete="email" inputMode="email" aria-label={PROPOSED.emailLabel} placeholder={PROPOSED.emailLabel} />
           <button type="submit" className="primary">
-            {PROPOSED.signupButton}
+            {button}
           </button>
         </div>
         <p className="consent">{SIGNUP.consent}</p>
