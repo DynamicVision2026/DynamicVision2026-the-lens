@@ -31,6 +31,23 @@
 - **Haptics:** `navigator.vibrate` where it exists (Android); real haptics through the Capacitor Haptics plugin in the native shell. iOS web has none, so the motion carries the feel.
 - All values (spring stiffness, snap radius, glow intensity, durations) are tokens in `tokens.motion.tactile` (Architect adds them before the spike).
 
+## 3b. Guide and onboarding (Brian, Oct 13, from iPad testing)
+
+Children and first-time parents stall when they can't tell what is draggable. Every interactive step therefore has a guide.
+
+- **Mascot guide:** the ナゼホリ character (`assets/ip/nazehori/`). It sits small and fixed in the stage's bottom-left (64–72 px), with a speech bubble beside it. It replaces plain hint text everywhere.
+  - Pose **? (`nazehori_question.svg`)** while asking or coaching; pose **! (`nazehori_discovery.svg`)** on a right pick, a right clue and the aha.
+  - A gentle idle bob; a small pop when it speaks. `prefers-reduced-motion`: no bob or pop.
+- **Bubble lines (copy owned by the Architect; data-driven per lens and phase):**
+  - Pick: 「どの道具で見る？」
+  - Wrong pick: 「おしい！ そのレンズだと、どうなるかな？」 (the option's `feedback_ja` shows beside it)
+  - Clue: 「決め手になった言葉はどこかな？」
+  - Play: one line per interaction phase, e.g. 展開 「ピンクの面を引っぱってみよう！」, then 「光る P を上下に動かして、糸をまっすぐにしよう」
+  - Aha: 「やったね！ 見方を変えたら、すぐ解けた！」
+- **Ghost finger:** on the child's first time at each interaction phase (per lens and phase, remembered on the device), a translucent fingertip presses on the real target and drags along the motion twice, then fades. It moves only partway, so it never reveals the answer position.
+- **Idle prompt:** after 5 s with no touch, pulse a glow ring on the active target(s) and replay the ghost finger. During the pick and clue steps, the options/chips glow instead. The timer resets on any touch and stops at the aha.
+- **Reference implementation:** `prototypes/founder-mvp/template.html`, which has the `coach({text, from, to, pulse})` API, idle watcher, finger demo and halo ring.
+
 ## 4. Performance budgets (checked on every PR, real iPad)
 
 - Touch → visible response within 1 frame; 60 fps while dragging on an iPad (2019, A12) and iPhone 11.
