@@ -6,6 +6,7 @@ import { EncloseScene } from './Enclose';
 import { FreezeScene } from './Freeze';
 import { MirrorScene } from './Mirror';
 import { SlideScene } from './Slide';
+import { UnfoldScene } from './Unfold';
 import type { SceneProps } from './kit';
 
 /** The hands-on interaction for each lens. */
@@ -17,4 +18,5 @@ export const SCENES: Record<string, ComponentType<SceneProps>> = {
   constant: ConstantScene,
   balance: BalanceScene,
   freeze: FreezeScene,
+  unfold: UnfoldScene,
 };
