@@ -116,8 +116,11 @@ export function MirrorScene({ card, lens, onSolved }: SceneProps) {
       <Txt x={Bx} y={ry + 28} size={15} fill={C.quiet}>
         {L.B}
       </Txt>
-      <line x1={Ax} y1={460} x2={Bx} y2={460} stroke={C.ink} />
-      <Txt x={(Ax + Bx) / 2} y={452} size={16}>{`${ab}${unit}`}</Txt>
+      {/* AB across the top, clear of the guide in the bottom-left corner. */}
+      <line x1={Ax} y1={34} x2={Bx} y2={34} stroke={C.ink} />
+      <line x1={Ax} y1={28} x2={Ax} y2={40} stroke={C.ink} />
+      <line x1={Bx} y1={28} x2={Bx} y2={40} stroke={C.ink} />
+      <Txt x={(Ax + Bx) / 2} y={26} size={16}>{`${L.A}${L.B} = ${ab}${unit}`}</Txt>
       {/* The path P → X → Q, and once folded the dashed P → X → Q′. */}
       <polyline points={`${Ax},${Py} ${Xp},${ry} ${Bx},${Qy}`} fill="none" stroke={phase === 3 ? color : C.ink} strokeWidth={phase === 3 ? 5 : 3} strokeLinejoin="round" opacity={0.9} />
       {phase >= 2 && (
