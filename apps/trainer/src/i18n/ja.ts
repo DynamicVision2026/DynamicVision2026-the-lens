@@ -75,7 +75,12 @@ export const ja = {
   'guide.balance.weight': '右のおもりの ● を上下にドラッグ。てんびんを水平にしよう',
   'guide.balance.heavy': '右が重すぎる。上へドラッグ',
   'guide.balance.light': '左が重い。下へドラッグして重くしよう',
+  // WO-017: the unknown weight hangs on the left when it is water (0%). Proposed mirror of the lines above.
+  'guide.balance.weightLeft': '左のおもりの ● を上下にドラッグ。てんびんを水平にしよう',
+  'guide.balance.heavyLeft': '左が重すぎる。上へドラッグ',
+  'guide.balance.lightLeft': '右が重い。下へドラッグして重くしよう',
   'guide.freeze.watch': 'まず、2人がふつうに歩くと…',
+  'guide.freeze.chase': '前を歩く{b}をタップして止めよう。{a}は1分に何mずつ近づく？',
   'guide.freeze.tap': '{b}をタップして、止めてみよう',
   'guide.freeze.walk': '{a}を、1分ずつ進めよう',
   'guide.freeze.more': 'まだ届かない。もっと右へ',
@@ -102,6 +107,8 @@ export const ja = {
   'check.again': 'もう一度チェックする',
   'check.private': '結果はこの端末の中だけに保存されます。',
   'area.yen': '円',
+  'balance.water': '水 0%',
+  'balance.salt': '食塩 100%',
   'area.age': '才',
 } as const;
 
