@@ -121,6 +121,14 @@ export const ja = {
   'guide.unfold.up': '少し上へ。糸がまっすぐになる所',
   // check.*: proposed copy for WO-013 (not in the WO); the Architect may replace it.
   'check.title': 'どのレンズ？チェック',
+  // Week-4 mixed drill (WO-013). Proposed copy; the case link uses the Masterclass include's wording.
+  'drill.title': '総まとめ：どのレンズ？',
+  'drill.link': '総まとめ：8つのレンズを混ぜた「どのレンズ？」問題',
+  'drill.resultTitle': '総まとめの結果',
+  'drill.clean': 'レンズも決め手も一発で正解 {n} / {total} 問',
+  'drill.suggest': 'もう一度「{lens}」のレッスンで練習しよう。',
+  'drill.again': 'もう一度ためす',
+  'drill.noFigure': '図のない問題。文章から見方を選ぼう',
   'check.resultTitle': 'チェックの結果',
   'check.score': '{n} / {total} 問',
   'check.average': '1問あたり 平均 {s} 秒で選びました',

@@ -1,19 +1,24 @@
 // The どのレンズ？ check (WO-013): which problems it asks, and what the result screen shows.
 // Pure functions, so the confusion pairs and times are testable for a scripted run.
-import type { LensCard, Pass } from '@lens/scenes';
+import { getCard, withVariant, type LensCard, type Pass } from '@lens/scenes';
 import { scenePool } from './lessons';
 import { shuffle } from './shuffle';
 
 /** One problem's outcome: the child's first pick and how long it took (ms from first render). */
 export interface CheckAnswer {
   cardId: string;
+  /** The right pick: the card's best move (a lens, or "direct" on boundary cards). */
   lens: string;
   firstPick: string;
   ms: number;
+  /** The first clue chip tapped was the real one (the drill scores pick + clue). */
+  clue?: boolean;
 }
 
 export interface CheckResult {
   correct: number;
+  /** Right first pick and right first clue. */
+  clean: number;
   total: number;
   /** Mixed-up lens pairs, most frequent first: [the right lens, the one picked instead, count]. */
   confusions: [string, string, number][];
@@ -35,6 +40,44 @@ export function checkProblems(pass: Pass, rand: () => number = Math.random, maxL
   return shuffle(picks, rand);
 }
 
+/** Drill size (PRD, "Mixed set"): one per lens plus this many boundary items. */
+export const DRILL_BOUNDARY = 2;
+
+/** A card and its variants, as drawable cards. */
+const withVariants = (c: LensCard) => [c, ...c.variants.map((v) => withVariant(c, v))];
+
+/**
+ * The week-4 mixed drill (WO-013, PRD "Mixed set"): one problem per lens from all its standard cards
+ * and variants (every level, scene or not), plus DRILL_BOUNDARY failure / no-lens problems from
+ * different lenses, where the right pick is the card's best move. Mixed order.
+ */
+export function drillProblems(pass: Pass, rand: () => number = Math.random): LensCard[] {
+  const pick = <T,>(xs: T[]) => xs[Math.floor(rand() * xs.length)]!;
+  const anchors = (lens: string) => (pass.lessons.find((l) => l.lens === lens)?.cards ?? []).map((id) => getCard(id)).filter((c): c is LensCard => !!c);
+  const standard = pass.lessons.flatMap((l) => {
+    const pool = anchors(l.lens).filter((c) => c.kind === 'standard').flatMap(withVariants);
+    return pool.length ? [pick(pool)] : [];
+  });
+  const boundaryLenses = shuffle(
+    pass.lessons.map((l) => l.lens).filter((lens) => anchors(lens).some((c) => c.kind !== 'standard')),
+    rand,
+  ).slice(0, DRILL_BOUNDARY);
+  const boundary = boundaryLenses.map((lens) => pick(anchors(lens).filter((c) => c.kind !== 'standard').flatMap(withVariants)));
+  return shuffle([...standard, ...boundary], rand);
+}
+
+const DRILL_KEY = 'lens.v1.drill';
+
+/** Drill runs, latest first (the last 10), for the parent report. */
+export function saveDrill(result: CheckResult, answers: CheckAnswer[]) {
+  try {
+    const all = JSON.parse(window.localStorage.getItem(DRILL_KEY) ?? '[]') as unknown[];
+    window.localStorage.setItem(DRILL_KEY, JSON.stringify([{ at: Date.now(), result, answers }, ...all].slice(0, 10)));
+  } catch {
+    // Storage unavailable: the result shows, it just isn't kept.
+  }
+}
+
 export function summarize(answers: CheckAnswer[]): CheckResult {
   const correct = answers.filter((a) => a.firstPick === a.lens).length;
   const pairs = new Map<string, [string, string, number]>();
@@ -48,7 +91,8 @@ export function summarize(answers: CheckAnswer[]): CheckResult {
   const misses = answers.filter((a) => a.firstPick !== a.lens);
   const pool = misses.length ? misses : answers;
   const slowest = pool.reduce<CheckAnswer | null>((m, a) => (!m || a.ms > m.ms ? a : m), null);
-  return { correct, total: answers.length, confusions, averageMs, suggest: slowest?.lens ?? null };
+  const clean = answers.filter((a) => a.firstPick === a.lens && a.clue !== false).length;
+  return { correct, clean, total: answers.length, confusions, averageMs, suggest: slowest?.lens ?? null };
 }
 
 /** Seconds with one decimal, for the result screen. */

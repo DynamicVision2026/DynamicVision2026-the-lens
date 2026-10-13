@@ -1150,3 +1150,24 @@ html[data-theme='course'] body {
     display: none;
   }
 }
+.course .drill-link {
+  margin-top: 14px;
+  width: 100%;
+  min-height: var(--tap-target);
+}
+.course .drill-link:disabled {
+  opacity: 0.45;
+}
+.course .walk-text.no-figure {
+  text-align: center;
+  color: var(--ink-quiet);
+  font-size: clamp(16px, 2vw, 20px);
+  padding: 48px 12px;
+}
+.course.check .bar .chip {
+  white-space: nowrap;
+}
+.course.check .bar .pdots {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
