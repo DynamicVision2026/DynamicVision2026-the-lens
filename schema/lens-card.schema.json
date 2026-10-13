@@ -498,6 +498,13 @@
                 "min_slanted": {
                   "type": "integer",
                   "minimum": 0
+                },
+                "shape": {
+                  "enum": [
+                    "triangle",
+                    "square",
+                    "quad"
+                  ]
                 }
               }
             },
@@ -579,6 +586,13 @@
                 "min_slanted": {
                   "type": "integer",
                   "minimum": 0
+                },
+                "ask": {
+                  "description": "'area' (default, chained) or 'p_x' (single-lens: P's x coordinate).",
+                  "enum": [
+                    "area",
+                    "p_x"
+                  ]
                 }
               }
             },

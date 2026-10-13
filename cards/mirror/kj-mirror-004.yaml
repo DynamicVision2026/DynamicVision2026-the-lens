@@ -1,0 +1,97 @@
+schema_version: '1.1'
+id: kj-mirror-004
+kind: standard
+lens: mirror
+best_move: mirror
+stage: chugaku
+grades:
+- 中1
+- 中2
+level: 2
+archetype: mirror.coord_point_wide
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: P on the x-axis minimising AP+PB: reflect B across the x-axis and join A–B'' (single lens).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 折り返しても長さは変わらないので、AとB'を結ぶまっすぐな線が最短。
+  principle_en: Reflection keeps lengths; the straight line A–B' is shortest.
+problem:
+  text_ja: 座標平面上に2点A(−4, 4)、B(8, 2)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、点Pのx座標を求めなさい。
+  unit: ''
+  figure:
+    type: coord_mirror_area
+    A:
+    - -4
+    - 4
+    B:
+    - 8
+    - 2
+    ask: p_x
+answer:
+  value: '4'
+  display_ja: '4'
+  expr: coordinate
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: Pを(p, 0)とおいて、AP＋PBをpの式で表そうとする
+    op: note
+  - ja: ルートが2つ出てきて、最小が出せない
+    op: note
+  - ja: ここで約3分
+    op: note
+lens_route:
+  time_cost_sec: 30
+  time_source: estimate
+  steps:
+  - ja: Bをx軸で折り返した点B'(8, −2)をとる（PB＝PB'）
+    op: note
+  - ja: AとB'をまっすぐ結ぶ。x軸との交点がP
+    op: note
+  - ja: yが 4+2 = 6 下がる間にxは 8−(−4) = 12 進むので、Pのx座標は −4+12×4/6 = 4
+    value: '4'
+    op: result
+trigger:
+  ja: 軸の上の点までの2つのきょりの和が最短なら、片方を軸で折り返す。
+  en: 'Shortest sum of distances to a point on an axis: reflect one point.'
+  tags:
+  - sum_of_distances
+  - point_on_axis
+picker:
+  options:
+  - mirror
+  - enclose
+  - slide
+  - direct
+  correct: mirror
+  clue_distractors:
+  - equal_area_asked
+  - cevians_ratio
+  feedback_ja:
+    mirror: そのとおり。Bをx軸で折り返して、Aとまっすぐ結ぶ。
+    enclose: 面積の問題ではない。
+    slide: 平行な線を使う問題ではない。
+    direct: Pを(p, 0)とおいてAP＋PBを式にすると、ルートの和になって最小が出せない。
+animation:
+  keyframes:
+  - show_points
+  - reflect_b
+  - draw_straight
+  - mark_p
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: coord_mirror_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: coord_mirror_area
+  count: 4
+  seed: 3304
