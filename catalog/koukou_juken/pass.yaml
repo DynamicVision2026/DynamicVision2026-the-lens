@@ -9,6 +9,11 @@ koukou_juken:
   product_en: Middle School Breakthrough
   audience_ja: 中1〜中3・高校受験
   card_stages: [chugaku]
-  status: planned             # lens set decided from signup data after Stage 1 ships
+  status: planned             # waitlist (先行登録) until reviewed lessons exist; ADR-004 lens map is provisional
   sku: LENS-KJ-12M
-  lessons: []
+  lesson_target: 5
+  levels: {1: 基礎, 2: 標準, 3: 応用, 4: 発展}
+  lessons:              # ADR-004: first coordinate-plane lessons (中1〜中2), Oct 13; more lenses follow
+    - {lens: enclose, cards: [kj-enclose-001, kj-enclose-002]}
+    - {lens: slide,   cards: [kj-slide-001, kj-slide-002]}
+    - {lens: mirror,  cards: [kj-mirror-001, kj-mirror-002]}     # chained: 折り返す → 囲む (ADR-003)

@@ -29,7 +29,8 @@
     },
     "id": {
       "type": "string",
-      "pattern": "^[a-z]+-(\\d{3}|f\\d{2}|no-lens(-\\d{2})?)$"
+      "pattern": "^((kj|dj)-)?[a-z]+-(\\d{3}|f\\d{2}|no-lens(-\\d{2})?)$",
+      "description": " Stage 2/3 cards carry a Pass prefix: kj- (koukou_juken), dj- (daigaku_juken)."
     },
     "kind": {
       "description": "standard = the lens is the best route; failure = the lens stalls and another move wins; no_lens = direct calculation is fastest.",
@@ -409,6 +410,159 @@
                   }
                 }
               }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "description": "Stage 2 (ADR-004): lattice polygon on the coordinate plane (axes through the origin; coordinates may be negative).",
+              "required": [
+                "type",
+                "points"
+              ],
+              "properties": {
+                "type": {
+                  "const": "coord_polygon"
+                },
+                "points": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  "minItems": 3
+                },
+                "labels": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "min_slanted": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "description": "Stage 2: P on the y-axis with △ABP = △ABC (等積変形 with a parallel line).",
+              "required": [
+                "type",
+                "A",
+                "B",
+                "C"
+              ],
+              "properties": {
+                "type": {
+                  "const": "coord_equal_area"
+                },
+                "A": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "B": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "C": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "unit": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "description": "Stage 2 chained (折り返す → 囲む): P on the x-axis minimises AP+PB; answer = area of △ABP.",
+              "required": [
+                "type",
+                "A",
+                "B"
+              ],
+              "properties": {
+                "type": {
+                  "const": "coord_mirror_area"
+                },
+                "A": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "B": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "min_slanted": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "description": "Stage 3 seed: cevians AD, BE in △ABC (BD:DC, CE:EA); answer AP/PD via mass points (てんびん).",
+              "required": [
+                "type",
+                "bd",
+                "dc",
+                "ce",
+                "ea"
+              ],
+              "properties": {
+                "type": {
+                  "const": "triangle_cevians"
+                },
+                "bd": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "dc": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "ce": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "ea": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
             }
           ]
         }
@@ -436,7 +590,8 @@
             "band_area",
             "mirror_touch",
             "unfold_cross",
-            "word_problem"
+            "word_problem",
+            "coordinate"
           ]
         }
       }
@@ -568,7 +723,14 @@
               "wp_names_match",
               "lattice_only",
               "simple_polygon",
-              "lens_faster"
+              "lens_faster",
+              "coord_text_matches",
+              "coord_answer",
+              "coord_steps_match",
+              "coord_enclose_clean",
+              "coord_equal_area_valid",
+              "coord_mirror_valid",
+              "cevian_valid"
             ]
           },
           "route": {
@@ -625,7 +787,11 @@
             "wp_speed_change",
             "wp_arrival_gap",
             "enclose_failure_notch",
-            "no_lens_flat_base"
+            "no_lens_flat_base",
+            "coord_triangle",
+            "coord_equal_area",
+            "coord_mirror_area",
+            "triangle_cevians"
           ]
         },
         "count": {

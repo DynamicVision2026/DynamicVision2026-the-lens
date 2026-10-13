@@ -33,6 +33,7 @@ Earlier build order (now done): WO-003 step 2 → WO-009 → WO-004 … WO-008.
 | [WO-017](WO-017-balance-freeze-extensions.md) | てんびん water/salt lever + 止める chase mode; balance/freeze lessons playable | WO-015, WO-016 | Oct 19 |
 | [WO-018](WO-018-geometry-boundary-figures.md) | Geometry boundary + L4 figure extensions (等積変形 · 折り返す · 展開) | WO-016 | Oct 20 |
 | [WO-019](WO-019-decision-speed-log.md) | Decision-speed log (all modes) + Day-1 vs Week-4 parent report | WO-013, WO-016 | Oct 21 |
+| [WO-020](WO-020-stage2-coordinate-and-chain.md) | Stage 2/3 figures (coordinate plane, cevians) + chained-lens runner (ADR-003/004) | WO-014 | Oct 25 |
 | [WO-004](WO-004-slide-scenes.md) | Slide lens (等積変形): parallel-band figure and its scenes | WO-003 step 2 | Oct 27 |
 | [WO-005](WO-005-mirror-scenes.md) | Mirror lens (折り返す): shortest-path figure and its scenes | WO-004 | Oct 30 |
 | [WO-006](WO-006-word-problem-scenes.md) | Area (面積図) and Constant (差一定): word-problem diagrams | WO-004 | Nov 2 |

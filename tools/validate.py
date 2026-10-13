@@ -690,11 +690,273 @@ def route_total(route) -> Rational | None:
     return result if result is not None else total
 
 
+# ------------------------------------------------- Stage 2/3 coordinate types ---
+# ADR-004. Middle-school (koukou_juken) coordinate-plane cards and the first high-school (daigaku_juken) seed.
+# Every answer is exact (SymPy Rationals); text and steps are generated from the numbers.
+
+def _c(v) -> str:
+    """Coordinate / number for Japanese text: negatives with a real minus sign."""
+    v = S(v)
+    t = _fmt(abs(v)) if v.is_integer else f"{abs(v).p}/{abs(v).q}"
+    return ("−" if v < 0 else "") + t
+
+
+def _cp(v) -> str:
+    """Number inside an expression: negatives in parentheses."""
+    return f"({_c(v)})" if S(v) < 0 else _c(v)
+
+
+def _pt(name, p) -> str:
+    return f"{name}({_c(p[0])}, {_c(p[1])})"
+
+
+def coord_mirror_P(fig):
+    (ax, ay), (bx, by) = fig["A"], fig["B"]
+    return S(ax) + S(bx - ax) * ay / (ay + by)
+
+
+def _num(v):
+    """Plain int for exact integers (geometry helpers compare with Python bools), else the SymPy value."""
+    v = S(v)
+    return int(v) if v.is_integer else v
+
+
+def coord_equal_area_k(fig):
+    (ax, ay), (bx, by), (cx, cy) = fig["A"], fig["B"], fig["C"]
+    m = S(by - ay) / (bx - ax)
+    return cy - m * cx, m
+
+
+def mass_point(fig):
+    """BD:DC = p:q, CE:EA = r:s; AD ∩ BE = P. Returns AP/PD (exact), by coordinates."""
+    p, q, r, s_ = fig["bd"], fig["dc"], fig["ce"], fig["ea"]
+    A, B, C = (S(0), S(0)), (S(1), S(0)), (S(0), S(1))
+    D = (B[0] + (C[0] - B[0]) * S(p) / (p + q), B[1] + (C[1] - B[1]) * S(p) / (p + q))
+    E = (C[0] + (A[0] - C[0]) * S(r) / (r + s_), C[1] + (A[1] - C[1]) * S(r) / (r + s_))
+    # A + t(D - A) = B + u(E - B)
+    from sympy import symbols, solve
+    t, u = symbols("t u")
+    sol = solve([A[0] + t * (D[0] - A[0]) - B[0] - u * (E[0] - B[0]), A[1] + t * (D[1] - A[1]) - B[1] - u * (E[1] - B[1])], [t, u])
+    tt = S(sol[t])
+    return tt / (1 - tt)
+
+
+def mass_weights(fig):
+    """Mass-point weights (A, B, C) as integers: BC lever gives B:C = dc:bd, CA lever gives C:A = ea:ce."""
+    from math import lcm, gcd
+    p, q, r, s_ = fig["bd"], fig["dc"], fig["ce"], fig["ea"]
+    # B*p = C*q  -> B:C = q:p ;  C*r = A*s -> C:A = s:r
+    L = lcm(p, s_)
+    mC = L
+    mB = S(q) * mC / p
+    mA = S(r) * mC / s_
+    den = 1
+    for v in (mA, mB):
+        den = den * v.q // gcd(den, v.q)
+    mA, mB, mC = int(mA * den), int(mB * den), int(mC * den)
+    g = gcd(gcd(mA, mB), mC)
+    return mA // g, mB // g, mC // g
+
+
+def coord_text(fig):
+    t = fig["type"]
+    u = fig.get("unit", "cm")
+    if t == "coord_polygon":
+        lab = fig.get("labels") or list("ABCDEF")[:len(fig["points"])]
+        pts = "、".join(_pt(n, p) for n, p in zip(lab, fig["points"]))
+        shape = "△" + "".join(lab) if len(lab) == 3 else "四角形" + "".join(lab)
+        return f"座標平面上に{len(lab)}点{pts}があります。{shape}の面積を求めなさい。ただし、座標の1目もりを1{u}とします。"
+    if t == "coord_equal_area":
+        return (f"座標平面上に3点{_pt('A', fig['A'])}、{_pt('B', fig['B'])}、{_pt('C', fig['C'])}があります。"
+                f"y軸上に点Pを、直線ABについて点Cと同じ側にとり、△ABPの面積が△ABCの面積と等しくなるようにします。点Pのy座標を求めなさい。")
+    if t == "coord_mirror_area":
+        return (f"座標平面上に2点{_pt('A', fig['A'])}、{_pt('B', fig['B'])}があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。"
+                f"このとき、△ABPの面積を求めなさい。ただし、座標の1目もりを1{u}とします。")
+    if t == "triangle_cevians":
+        return (f"△ABCで、辺BC上に点DをBD:DC＝{fig['bd']}:{fig['dc']}となるようにとり、辺CA上に点EをCE:EA＝{fig['ce']}:{fig['ea']}となるようにとります。"
+                f"ADとBEの交点をPとするとき、AP:PDを最も簡単な整数の比で求めなさい。")
+    return None
+
+
+def coord_answer(fig):
+    t = fig["type"]
+    if t == "coord_polygon":
+        return shoelace([tuple(p) for p in fig["points"]])
+    if t == "coord_equal_area":
+        return coord_equal_area_k(fig)[0]
+    if t == "coord_mirror_area":
+        P = (_num(coord_mirror_P(fig)), 0)
+        return shoelace([tuple(fig["A"]), P, tuple(fig["B"])])
+    if t == "triangle_cevians":
+        return mass_point(fig)
+    return None
+
+
+def coord_steps(fig):
+    t = fig["type"]
+    if t == "coord_polygon":
+        return steps_enclose([tuple(p) for p in fig["points"]])
+    if t == "coord_equal_area":
+        (ax, ay), (bx, by), (cx, cy) = fig["A"], fig["B"], fig["C"]
+        k, m = coord_equal_area_k(fig)
+        mtxt = _c(m)
+        return [
+            {"ja": "ABを底辺と見る。Cを通りABに平行な直線の上なら、どこに頂点があっても高さは同じ（等積変形）", "op": "note"},
+            {"ja": f"ABの傾きは ({_cp(by)}−{_cp(ay)})÷({_cp(bx)}−{_cp(ax)}) = {mtxt}", "op": "note"},
+            {"ja": f"Cを通り傾き{mtxt}の直線 y = {mtxt} x + b に C を代入：b = {_cp(cy)}−{_cp(m)}×{_cp(cx)} = {_c(k)}", "op": "note"},
+            {"ja": f"この直線とy軸の交点がP。Pのy座標 = {_c(k)}", "value": str(k), "op": "result"},
+        ]
+    if t == "coord_mirror_area":
+        (ax, ay), (bx, by) = fig["A"], fig["B"]
+        px = coord_mirror_P(fig)
+        pts = [tuple(fig["A"]), (_num(px), 0), tuple(fig["B"])]
+        enc = steps_enclose(pts) if S(px).is_integer else None
+        if enc is None:
+            return None
+        return [
+            {"ja": f"Bをx軸で折り返した点B'({_c(bx)}, {_c(-by)})をとる（PB＝PB'）", "op": "note"},
+            {"ja": f"AとB'をまっすぐ結ぶ。x軸との交点がP。yが {ay}+{by} = {ay + by} 下がる間にxは {_cp(bx)}−{_cp(ax)} = {bx - ax} 進むので、"
+                   f"Pのx座標は {_c(ax)}+{bx - ax}×{ay}/{ay + by} = {_c(px)}", "op": "note"},
+            *enc,
+        ]
+    if t == "triangle_cevians":
+        mA, mB, mC = mass_weights(fig)
+        ratio = mass_point(fig)
+        return [
+            {"ja": f"辺BCのてんびん：BD:DC＝{fig['bd']}:{fig['dc']} なので、おもりは B:C＝{fig['dc']}:{fig['bd']}", "op": "note"},
+            {"ja": f"辺CAのてんびん：CE:EA＝{fig['ce']}:{fig['ea']} なので、おもりは C:A＝{fig['ea']}:{fig['ce']}", "op": "note"},
+            {"ja": f"Cのおもりをそろえると A:B:C＝{mA}:{mB}:{mC}", "op": "note"},
+            {"ja": f"Dには B と C のおもりが集まる：{mB}+{mC} = {mB + mC}", "op": "note"},
+            {"ja": f"ADのてんびん：AP:PD は おもりの逆で {mB + mC}:{mA}" + (f"＝{ratio.p}:{ratio.q}" if ratio.p != mB + mC else ""), "value": str(ratio), "op": "result"},
+        ]
+    return None
+
+
+def coord_check(card, t, ans, fig):
+    """Checks for the Stage 2/3 types; None when the check is not one of them."""
+    if t == "coord_text_matches":
+        want = coord_text(fig)
+        return card["problem"]["text_ja"] == want, "problem text matches its coordinates" if card["problem"]["text_ja"] == want else f"text should be: {want}"
+    if t == "coord_answer":
+        a = coord_answer(fig)
+        return a == ans, f"exact computation gives {a}, answer = {ans}"
+    if t == "coord_steps_match":
+        st = coord_steps(fig)
+        same = st is not None and [x["ja"] for x in st] == [x["ja"] for x in card["lens_route"]["steps"]]
+        return same, "lens steps are the generated ones" if same else "lens steps differ from the generated steps"
+    if t == "coord_enclose_clean":
+        pts = [tuple(p) for p in fig["points"]] if fig["type"] == "coord_polygon" else \
+              [tuple(fig["A"]), (_num(coord_mirror_P(fig)), 0), tuple(fig["B"])]
+        if not all(S(c).is_integer for p in pts for c in p):
+            return False, "a vertex is not a lattice point"
+        ok = is_simple_ccw(pts)[0] and enclose_breakdown(pts) is not None
+        sides_on_grid = sum(1 for i in range(len(pts)) if pts[i][0] == pts[(i + 1) % len(pts)][0] or pts[i][1] == pts[(i + 1) % len(pts)][1])
+        need = fig.get("min_slanted", 2)
+        ok = ok and (len(pts) - sides_on_grid) >= need
+        return ok, f"lattice, counter-clockwise, encloses cleanly, {len(pts) - sides_on_grid} slanted sides (need ≥ {need})"
+    if t == "coord_equal_area_valid":
+        k, m = coord_equal_area_k(fig)
+        A, B, C = tuple(fig["A"]), tuple(fig["B"]), tuple(fig["C"])
+        if not k.is_integer:
+            return False, f"P = (0, {k}) is not a lattice point"
+        P = (0, int(k))
+        same_side = _orient(A, B, C) * _orient(A, B, P) > 0
+        ok = fig["A"][0] != fig["B"][0] and 0 not in (fig["A"][0], fig["B"][0]) and shoelace([A, B, P]) == shoelace([A, B, C]) and P != C and C[0] != 0 and same_side
+        return ok, "P on the y-axis, same side as C, lattice, equal area, and C is not already on the axis"
+    if t == "coord_mirror_valid":
+        (ax, ay), (bx, by) = fig["A"], fig["B"]
+        px = coord_mirror_P(fig)
+        import math
+        f = lambda x: math.hypot(x - ax, ay) + math.hypot(bx - x, by)
+        best = f(float(px))
+        others = [f(ax + (bx - ax) * i / 200) for i in range(201)]
+        ok = ay > 0 and by > 0 and ay != by and ax < bx and px.is_integer and best <= min(others) + 1e-9 and px != S(ax + bx) / 2
+        return ok, f"A, B above the x-axis, P = ({_c(px)}, 0) is a lattice point, AP+PB is minimal there and it is not the midpoint"
+    if t == "cevian_valid":
+        ratio = mass_point(fig)
+        mA, mB, mC = mass_weights(fig)
+        ok = ratio == S(mB + mC) / mA and ratio > 0 and fig["bd"] != fig["dc"]
+        return ok, f"coordinates give AP:PD = {ratio}, mass points give {mB + mC}:{mA}"
+    return None
+
+
+def make_coord_variants(card):
+    v = card["variants"]
+    rng = random.Random(v["seed"])
+    c = v.get("constraints", {})
+    fig0 = card["problem"]["figure"]
+    t = fig0["type"]
+    out, seen, tries = [], {json.dumps(fig0, sort_keys=True)}, 0
+    used = {sympify(card["answer"]["value"])}
+    while len(out) < v["count"] and tries < 20000:
+        tries += 1
+        if t == "coord_polygon" and len(fig0["points"]) == 4:   # tilted square, side vector (a, -b)
+            a, b = rng.randint(1, 4), rng.randint(1, 4)
+            if a == b:
+                continue
+            base = [(0, b), (a, 0), (a + b, a), (b, a + b)]
+            ox, oy = rng.randint(-(a + b), 0), rng.randint(-(a + b), 0)
+            fig = {**fig0, "points": [[x + ox, y + oy] for x, y in base]}
+        elif t == "coord_polygon":
+            w, h = rng.randint(c.get("min", 4), c.get("max", 8)), rng.randint(c.get("min", 4), c.get("max", 8))
+            base = [(0, rng.randint(1, h - 1)), (w, 0), (rng.randint(1, w - 1), h)]
+            ox, oy = rng.randint(-w, 0), rng.randint(-h, 0)
+            pts = [[x + ox, y + oy] for x, y in base]
+            if not is_simple_ccw([tuple(p) for p in pts])[0]:
+                pts = pts[::-1]
+            fig = {**fig0, "points": pts}
+        elif t == "coord_equal_area":
+            ax, ay = rng.randint(-6, -1), rng.randint(-3, 5)
+            dx, dy = rng.choice([1, 2, 3]), rng.choice([-2, -1, 1, 2, 3])
+            k = rng.randint(1, 3)
+            bx, by = ax + dx * k, ay + dy * k
+            cx = rng.randint(1, 6)
+            m = S(dy) / dx
+            if (m * cx).q != 1:
+                continue
+            cy = int(m * cx) + rng.choice([-6, -5, -4, -3, 3, 4, 5, 6])
+            fig = {**fig0, "A": [ax, ay], "B": [bx, by], "C": [cx, cy]}
+        elif t == "coord_mirror_area":
+            ay, by = rng.randint(1, 6), rng.randint(1, 8)
+            ax = rng.randint(-6, 2)
+            bx = ax + rng.randint(3, 12)
+            fig = {**fig0, "A": [ax, ay], "B": [bx, by]}
+            if not coord_mirror_P(fig).is_integer:
+                continue
+        elif t == "triangle_cevians":
+            bd, dc, ce, ea = (rng.randint(1, c.get("max", 5)) for _ in range(4))
+            from math import gcd
+            if gcd(bd, dc) != 1 or gcd(ce, ea) != 1:
+                continue
+            fig = {**fig0, "bd": bd, "dc": dc, "ce": ce, "ea": ea}
+        else:
+            return out
+        key = json.dumps(fig, sort_keys=True)
+        a = coord_answer(fig)
+        if key in seen or a in used:
+            continue
+        steps = coord_steps(fig)
+        if steps is None or route_total({"steps": steps}) != a:
+            continue
+        text = coord_text(fig)
+        vcard = {**card, "answer": {**card["answer"], "value": str(a)}, "problem": {**card["problem"], "figure": fig, "text_ja": text},
+                 "lens_route": {**card["lens_route"], "steps": steps}}
+        if not all(coord_check(vcard, ch["type"], a, fig)[0] for ch in card["checks"] if coord_check(vcard, ch["type"], a, fig) is not None):
+            continue
+        seen.add(key); used.add(a)
+        figv = {k: fig[k] for k in fig if k not in ("type", "unit", "labels", "min_slanted")}
+        out.append({"id": f"{card['id']}-v{len(out) + 1}", "text_ja": text, "figure": figv, "answer": str(a), "lens_route": {"steps": steps}})
+    return out
+
+
 def run_check(card, check, pts) -> tuple[bool, str]:
     t = check["type"]
     ans = sympify(card["answer"]["value"])
     fig = card["problem"]["figure"]
     g = fig.get("grid")
+    r = coord_check(card, t, ans, fig)
+    if r is not None:
+        return r
     if t == "wp_formula":
         x = wp_solve(fig)
         return x == ans, f"lens formula gives {x}, answer = {ans}"
@@ -1492,6 +1754,8 @@ WP_GENERATORS = ("wp_two_kinds", "wp_age_ratio", "wp_mixture", "wp_meeting",
 def make_variants(card):
     if card["variants"]["generator"] in WP_GENERATORS:
         return make_wp_variants(card)
+    if card["variants"]["generator"] in ("coord_triangle", "coord_equal_area", "coord_mirror_area", "triangle_cevians"):
+        return make_coord_variants(card)
     if card["variants"]["generator"] == "slide_band":
         return make_band_variants(card)
     if card["variants"]["generator"] == "mirror_path":
@@ -1735,7 +1999,7 @@ def _annotate(card, vs):
     card = {**card, "lens_route": {**card["lens_route"], "steps": steps}}
     new_vs = []
     for v in vs:
-        vsteps = annotate_enclose_steps([tuple(p) for p in v["points"]], v["lens_route"]["steps"])
+        vsteps = annotate_enclose_steps([tuple(p) for p in (v.get("points") or v["figure"]["points"])], v["lens_route"]["steps"])
         if vsteps is None:
             raise SystemExit(f"bundle: cannot annotate {v['id']}")
         new_vs.append({**v, "lens_route": {**v["lens_route"], "steps": vsteps}})

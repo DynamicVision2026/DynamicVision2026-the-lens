@@ -1,0 +1,99 @@
+schema_version: '1.1'
+id: kj-slide-001
+kind: standard
+lens: slide
+best_move: slide
+stage: chugaku
+grades:
+- 中2
+level: 2
+archetype: slide.coord_parallel
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: point P on the y-axis with the same area as △ABC: draw the line through C parallel to AB (等積変形 with 一次関数).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 底辺ABが同じで、高さが同じなら面積は同じ。高さが同じ点は、ABに平行な直線の上にならぶ。
+  principle_en: Same base AB and same height give the same area; points at the same height lie on a line parallel to AB.
+problem:
+  text_ja: 座標平面上に3点A(−4, −1)、B(2, 2)、C(4, −3)があります。y軸上に点Pを、直線ABについて点Cと同じ側にとり、△ABPの面積が△ABCの面積と等しくなるようにします。点Pのy座標を求めなさい。
+  unit: ''
+  figure:
+    type: coord_equal_area
+    A:
+    - -4
+    - -1
+    B:
+    - 2
+    - 2
+    C:
+    - 4
+    - -3
+answer:
+  value: '-5'
+  display_ja: −5
+  expr: coordinate
+trap_route:
+  time_cost_sec: 240
+  time_source: estimate
+  steps:
+  - ja: Pを(0, p)とおき、△ABPの面積をpの式で表そうとする
+    op: note
+  - ja: △ABCの面積も計算し、方程式を立てる
+    op: note
+  - ja: 面積の式に場合分けが出てきて、約4分かかる
+    op: note
+lens_route:
+  time_cost_sec: 50
+  time_source: estimate
+  steps:
+  - ja: ABを底辺と見る。Cを通りABに平行な直線の上なら、どこに頂点があっても高さは同じ（等積変形）
+    op: note
+  - ja: ABの傾きは (2−(−1))÷(2−(−4)) = 1/2
+    op: note
+  - ja: Cを通り傾き1/2の直線 y = 1/2 x + b に C を代入：b = (−3)−1/2×4 = −5
+    op: note
+  - ja: この直線とy軸の交点がP。Pのy座標 = −5
+    value: '-5'
+    op: result
+trigger:
+  ja: 面積が等しい点を軸の上にとるときは、頂点を通り底辺に平行な直線をひく。
+  en: 'Equal-area point on an axis: draw the line through the vertex parallel to the base.'
+  tags:
+  - equal_area_asked
+  - point_on_axis
+picker:
+  options:
+  - slide
+  - enclose
+  - mirror
+  - direct
+  correct: slide
+  clue_distractors:
+  - sum_of_distances
+  - tilted_polygon
+  feedback_ja:
+    slide: そのとおり。Cを通りABに平行な直線の上なら、高さが同じなので面積も同じ。
+    enclose: △ABCの面積は囲めば出るが、Pの位置を決めるには遠回り。
+    mirror: 最短の道すじを求める問題ではない。
+    direct: Pを(0, p)とおいて面積の方程式を立てると、場合分けが出てきて計算が重い。
+animation:
+  keyframes:
+  - show_shape
+  - draw_parallel
+  - slide_vertex
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: coord_equal_area_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: coord_equal_area
+  count: 4
+  seed: 3201
