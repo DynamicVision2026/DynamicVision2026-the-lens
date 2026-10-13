@@ -1,0 +1,129 @@
+# Micro Masterclass (Step 1) for each lesson of this Pass. Architect-owned content; the player is shared (WO-014).
+# Standard (tokens motion.masterclass, Brian Oct 13): わな 25s → レンズ 30s → やってみる 35s → いつ使う？ 30s = 120s.
+#
+#   demo      standard card of this lens: beat 1 shows its trap route, beat 2 plays its lens route (scene keyframes, tap by tap)
+#   try       easier standard card of this lens (level ≤ 2, a drag scene): beat 3, coached by the ghost finger
+#   boundary  beat 4's "but not here" card: a failure / no-lens card of this lens, or a card from another lens where
+#             this lens is a tempting wrong pick (its picker.feedback_ja[lens] becomes the line)
+#   clues     come from the demo card's trigger.tags (non-generic); the child taps each one in beat 4
+#   say       mascot lines (≤ 32 characters); title = the beat card's heading (≤ 32 characters)
+
+enclose:
+  demo: enclose-001
+  try: enclose-002
+  boundary: enclose-f01
+  title: {trap: "1辺の長さを はかりたくなる", lens: "囲んで、すみを引く", try: "角をドラッグして囲もう", when: "この手がかりが見えたら、囲む"}
+  say:
+    trap: "ななめの図形。面積は、どう出す？"
+    trap_end: "ここで手が止まる…。どうする？"
+    lens: "囲むレンズ！ 外わくで囲んでみよう"
+    lens_end: "ななめの長さは、はからなくていい"
+    try: "ゴーストの指をまねして、やってみよう"
+    try_done: "できた！ それが「囲む」レンズ"
+    when: "手がかりの言葉をタップしてみて"
+    boundary: "でも注意！ こんなときは囲まない"
+
+slide:
+  demo: slide-001
+  try: slide-002
+  boundary: enclose-no-lens
+  title: {trap: "1つずつの底辺を知りたくなる", lens: "頂点をすべらせて、1つにまとめる", try: "頂点をドラッグして集めよう", when: "この手がかりが見えたら、すべらせる"}
+  say:
+    trap: "三角形がいくつも。面積の合計は？"
+    trap_end: "底辺が1つずつ分からない…。どうする？"
+    lens: "等積変形レンズ！ 頂点を平行線にそって動かそう"
+    lens_end: "高さが同じなら、面積は変わらない"
+    try: "頂点を1か所に集めてみよう"
+    try_done: "できた！ 1つの三角形になった"
+    when: "手がかりの言葉をタップしてみて"
+    boundary: "でも、もう底辺と高さが見えているなら…"
+
+area:
+  demo: area-001
+  try: area-002
+  boundary: area-f01
+  title: {trap: "1枚ずつ表にしたくなる", lens: "長方形2つで、ちがいを見る", try: "点線を下げて、はみ出しを見よう", when: "この手がかりが見えたら、面積図"}
+  say:
+    trap: "2種類がまざっている。どう数える？"
+    trap_end: "表がどんどん長くなる…。どうする？"
+    lens: "面積図レンズ！ 1枚あたり×枚数を長方形に"
+    lens_end: "はみ出した部分だけで、答えが出る"
+    try: "点線をつかんで、下へ動かそう"
+    try_done: "できた！ それが「面積図」レンズ"
+    when: "手がかりの言葉をタップしてみて"
+    boundary: "でも注意！ 全部の数が分からないときは…"
+
+constant:
+  demo: constant-001
+  try: constant-004
+  boundary: constant-f01
+  title: {trap: "1年ずつ表にしたくなる", lens: "変わらない「差」に目をつける", try: "2人の年れいを動かしてみよう", when: "この手がかりが見えたら、差一定"}
+  say:
+    trap: "何年後に3倍？ どう考える？"
+    trap_end: "表が長くなる…。どうする？"
+    lens: "差一定レンズ！ 年れいの差はずっと同じ"
+    lens_end: "差を「何つ分」で見れば、わり算1回"
+    try: "● を動かして、差を見よう"
+    try_done: "できた！ 差は動かなかったね"
+    when: "手がかりの言葉をタップしてみて"
+    boundary: "でも注意！ 1人と何人かの合計だと…"
+
+balance:
+  demo: balance-001
+  try: balance-002
+  boundary: balance-f01
+  title: {trap: "食塩の量の式を立てたくなる", lens: "てんびんのつり合いで考える", try: "おもりを動かして、つり合わせよう", when: "この手がかりが見えたら、てんびん"}
+  say:
+    trap: "こさのちがう食塩水。何g混ぜる？"
+    trap_end: "式が分数だらけ…。どうする？"
+    lens: "てんびんレンズ！ こさを位置、重さをおもりに"
+    lens_end: "うでの長さの逆の比が、重さの比"
+    try: "おもりを動かして、水平にしよう"
+    try_done: "できた！ つり合った"
+    when: "手がかりの言葉をタップしてみて"
+    boundary: "でも注意！ 何も混ぜていないときは…"
+
+freeze:
+  demo: freeze-001
+  try: freeze-002
+  boundary: freeze-f01
+  title: {trap: "2人を両方動かしたくなる", lens: "片方を止めて、近づく速さで考える", try: "前の人を止めてみよう", when: "この手がかりが見えたら、止める"}
+  say:
+    trap: "2人が向かい合って歩く。いつ出会う？"
+    trap_end: "まん中で出会う…とは限らない。どうする？"
+    lens: "止めるレンズ！ 片方を止めてみよう"
+    lens_end: "近づく速さで、きょりをわるだけ"
+    try: "前を歩く人をタップして止めよう"
+    try_done: "できた！ それが「止める」レンズ"
+    when: "手がかりの言葉をタップしてみて"
+    boundary: "でも注意！ 動くのが1人だけなら…"
+
+mirror:
+  demo: mirror-001
+  try: mirror-002
+  boundary: unfold-001
+  title: {trap: "まん中によればいいと思いたくなる", lens: "折り返して、まっすぐ結ぶ", try: "点を折り返してみよう", when: "この手がかりが見えたら、折り返す"}
+  say:
+    trap: "川によって水をくむ。いちばん短い道は？"
+    trap_end: "まん中では最短にならない…。どうする？"
+    lens: "折り返すレンズ！ Qを川で折り返そう"
+    lens_end: "まっすぐな線が、いちばん短い"
+    try: "点を川の反対がわへ折り返そう"
+    try_done: "できた！ まっすぐになった"
+    when: "手がかりの言葉をタップしてみて"
+    boundary: "でも、立体の表面の道なら…"
+
+unfold:
+  demo: unfold-001
+  try: unfold-002
+  boundary: mirror-001
+  title: {trap: "立体のまま長さを比べたくなる", lens: "面を開いて、まっすぐ結ぶ", try: "面を開いてみよう", when: "この手がかりが見えたら、展開"}
+  say:
+    trap: "箱の表面に糸をかける。いちばん短いのは？"
+    trap_end: "ななめの長さが計算できない…。どうする？"
+    lens: "展開レンズ！ 2つの面を開いて平らに"
+    lens_end: "開いても、糸の長さは変わらない"
+    try: "面をつかんで、開いてみよう"
+    try_done: "できた！ まっすぐ結べた"
+    when: "手がかりの言葉をタップしてみて"
+    boundary: "でも、平面の上の道なら…"
