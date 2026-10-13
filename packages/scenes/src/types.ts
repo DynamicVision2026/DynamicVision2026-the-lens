@@ -156,6 +156,9 @@ export interface LensCard {
   kind: CardKind;
   lens: LensId;
   best_move?: string;
+  /** 1–4, labels in pass.levels (bundle 1.3). */
+  level?: number;
+  archetype?: string;
   stage: Stage;
   grades: Grade[];
   status: CardStatus;
@@ -380,6 +383,32 @@ export interface TagLabel {
   generic?: boolean;
 }
 
+/** One lesson of a Pass: a lens and its cards in catalog order (bundle 1.3). */
+export interface Lesson {
+  lens: LensId;
+  video: string;
+  cards: string[];
+}
+
+/** A Pass (ADR-001). Planned Passes have no lessons yet. */
+export interface Pass {
+  id: string;
+  stage_no: number;
+  title_ja: string;
+  audience_ja: string;
+  card_stages: string[];
+  status: string;
+  sku: string;
+  price_jpy?: number;
+  early_price_jpy?: number;
+  founder_seats?: number;
+  term_months?: number;
+  devices?: number;
+  lesson_target?: number;
+  levels?: Record<string, string>;
+  lessons: Lesson[];
+}
+
 export interface Bundle {
   bundle_version: string;
   schema_version: string;
@@ -389,6 +418,8 @@ export interface Bundle {
     lenses: Record<string, LensLabel>;
     tags: Record<string, TagLabel>;
   };
+  /** Passes and their lessons (bundle 1.3). */
+  passes?: Pass[];
   /** Status verified or later, sorted by lens then id. */
   cards: LensCard[];
 }
