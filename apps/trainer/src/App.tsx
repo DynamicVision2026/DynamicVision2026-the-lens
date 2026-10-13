@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { CaseView } from './course/CaseView';
 import { CheckView } from './course/CheckView';
-import { lessonsOpen } from './course/access';
+import { passOpen } from './course/access';
 import { LessonView } from './course/LessonView';
 import { PracticeView, TimedView } from './course/StepsView';
 import { ReportView } from './course/ReportView';
@@ -24,12 +24,12 @@ export function App() {
   if (path === '/check') return <CheckView short={short} />;
   // The week-4 mixed drill (WO-013): part of the paid course, so behind the same access as lessons.
   const drill = /^\/drill\/([\w-]+)\/?$/.exec(path);
-  if (drill) return lessonsOpen() ? <CheckView key={path} short={short} mode="drill" passId={drill[1]!} /> : <CaseView passId={drill[1]!} />;
+  if (drill) return passOpen(drill[1]!) ? <CheckView key={path} short={short} mode="drill" passId={drill[1]!} /> : <CaseView passId={drill[1]!} />;
   // WO-019: the course's day-1 check, the week-4 check and the parent report (same access as lessons).
   const measure = /^\/(baseline|week4|report)\/([\w-]+)\/?$/.exec(path);
   if (measure) {
     const [, what, passId] = measure as unknown as [string, 'baseline' | 'week4' | 'report', string];
-    if (!lessonsOpen()) return <CaseView passId={passId} />;
+    if (!passOpen(passId)) return <CaseView passId={passId} />;
     if (what === 'report') return <ReportView key={path} passId={passId} />;
     return <CheckView key={path} short={short} mode={what} passId={passId} />;
   }
@@ -39,7 +39,7 @@ export function App() {
   // A lesson: the ladder (step 2), then /practice (step 3) and /timed (step 4).
   const lesson = /^\/lesson\/([\w-]+)\/([\w-]+)(?:\/(practice|timed))?\/?$/.exec(path);
   if (lesson) {
-    if (!lessonsOpen()) return <CaseView passId={lesson[1]!} />;
+    if (!passOpen(lesson[1]!)) return <CaseView passId={lesson[1]!} />;
     const [, passId, lens, step] = lesson as unknown as [string, string, string, string | undefined];
     if (step === 'practice') return <PracticeView key={path} passId={passId} lens={lens} />;
     if (step === 'timed') return <TimedView key={path} passId={passId} lens={lens} />;

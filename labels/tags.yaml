@@ -44,3 +44,8 @@ clock_hands:          {ja: 時計の長針と短針}
 speed_changes_midway: {ja: とちゅうで速さが変わる}
 total_time_and_distance: {ja: かかった時間の合計と、道のりの合計が分かる}
 never_meet:           {ja: 2人は出会わない・追いつかない（それぞれの時間を聞いている）}
+coordinates_given:    {ja: 頂点の座標が分かっている}
+point_on_axis:        {ja: 軸の上に点をとる}
+equal_area_asked:     {ja: 面積が等しくなる点を聞いている}
+sum_of_distances:     {ja: 2つのきょりの和がいちばん短い}
+cevians_ratio:        {ja: 三角形の辺を分ける比が2つ分かる}

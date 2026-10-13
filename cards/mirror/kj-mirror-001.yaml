@@ -1,0 +1,124 @@
+schema_version: '1.1'
+id: kj-mirror-001
+kind: standard
+lens: mirror
+best_move: mirror
+stage: chugaku
+grades:
+- 中2
+level: 3
+archetype: mirror.coord_then_enclose
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: chained lenses (ADR-003): P on the x-axis minimising AP+PB (reflect B), then the area of △ABP (enclose).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 折り返しても長さは変わらないので、A と B' を結ぶまっすぐな線が最短。Pが決まれば、三角形は囲んで面積を出せる。
+  principle_en: Reflection keeps lengths, so the straight line A–B' is shortest; once P is fixed, enclose the triangle.
+problem:
+  text_ja: 座標平面上に2点A(−2, 3)、B(6, 5)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、△ABPの面積を求めなさい。ただし、座標の1目もりを1cmとします。
+  unit: cm²
+  figure:
+    type: coord_mirror_area
+    A:
+    - -2
+    - 3
+    B:
+    - 6
+    - 5
+    unit: cm
+    min_slanted: 3
+answer:
+  value: '15'
+  display_ja: 15cm²
+  expr: coordinate
+trap_route:
+  time_cost_sec: 240
+  time_source: estimate
+  steps:
+  - ja: Pを(p, 0)とおいて、AP＋PBをpの式で表そうとする
+    op: note
+  - ja: ルートが2つ出てきて、最小になるpが求められない
+    op: note
+  - ja: ここで約4分。面積まで届かない
+    op: note
+lens_route:
+  time_cost_sec: 70
+  time_source: estimate
+  steps:
+  - ja: Bをx軸で折り返した点B'(6, −5)をとる（PB＝PB'）
+    op: note
+  - ja: AとB'をまっすぐ結ぶ。x軸との交点がP。yが 3+5 = 8 下がる間にxは 6−(−2) = 8 進むので、Pのx座標は −2+8×3/8 = 1
+    op: note
+  - ja: 8×5の長方形で囲む
+    value: '40'
+    op: start
+  - ja: すみの三角形 3×3÷2
+    value: 9/2
+    op: sub
+  - ja: すみの三角形 5×5÷2
+    value: 25/2
+    op: sub
+  - ja: すみの三角形 8×2÷2
+    value: '8'
+    op: sub
+  - ja: 40 − 25 = 15
+    value: '15'
+    op: result
+trigger:
+  ja: 軸の上の点までの2つのきょりの和が最短なら、まず折り返す。決まった三角形の面積は囲む。
+  en: 'Shortest sum of distances to a point on an axis: reflect first; then enclose the triangle.'
+  tags:
+  - sum_of_distances
+  - point_on_axis
+picker:
+  options:
+  - mirror
+  - enclose
+  - slide
+  - direct
+  correct: mirror
+  clue_distractors:
+  - equal_area_asked
+  - cevians_ratio
+  feedback_ja:
+    mirror: そのとおり。まずBを折り返してPを決める。そのあと△ABPを囲んで面積を出す。
+    enclose: 面積は囲めば出せる。でも、その前にPの位置を決めるレンズが必要。
+    slide: 平行な線を使う問題ではない。
+    direct: Pを(p, 0)とおいてAP＋PBを式にすると、ルートの和になって最小が出せない。
+animation:
+  keyframes:
+  - show_points
+  - reflect_b
+  - draw_straight
+  - mark_p
+  - draw_box
+  - shade_corners
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: coord_mirror_valid
+- type: coord_enclose_clean
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: coord_mirror_area
+  count: 4
+  seed: 3301
+chain:
+- lens: mirror
+  steps:
+  - 0
+  - 1
+  goal_ja: Bを折り返すと、Pが1つに決まる
+  snap: mirror.reflect
+- lens: enclose
+  steps:
+  - 2
+  - 6
+  goal_ja: △ABPを外わくで囲んで、すみを引く

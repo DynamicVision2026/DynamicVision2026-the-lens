@@ -3,7 +3,7 @@
 import { LensIcon, loadBundle, tokens, type LensOrDirect } from '@lens/scenes';
 import { t } from '../i18n/ja';
 import { navigate } from '../launch/navigate';
-import { lessonsOpen } from './access';
+import { lessonsOpen, previewOn } from './access';
 import { sfx } from './fx';
 import { findPass, lessonProblems } from './lessons';
 import { masteryOf } from './progress';
@@ -18,7 +18,8 @@ export function CaseView({ passId }: { passId: string }) {
   const pass = findPass(bundle, passId);
   if (!pass) return <main className="course">{t('lesson.notFound')}</main>;
   const open = lessonsOpen();
-  if (pass.lessons.length === 0)
+  // A planned Pass (waitlist, ADR-003 §3) shows 準備中 to the public even once its first lessons exist; preview sees them.
+  if (pass.lessons.length === 0 || (pass.status === 'planned' && !previewOn()))
     return (
       <main className="course">
         <div className="brand">

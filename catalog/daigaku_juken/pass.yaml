@@ -11,4 +11,7 @@ daigaku_juken:
   card_stages: [koko]
   status: planned
   sku: LENS-DJ-12M
-  lessons: []
+  lesson_target: 5
+  levels: {1: 基礎, 2: 標準, 3: 応用, 4: 発展}
+  lessons:              # ADR-004: first seed lesson (数A 平面図形), Oct 13
+    - {lens: balance, cards: [dj-balance-001, dj-balance-002]}   # mass points = てんびん on each side

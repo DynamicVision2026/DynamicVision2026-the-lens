@@ -11,7 +11,8 @@ describe('lesson problems (from bundle.passes)', () => {
   it('has the Stage 1 pass with its lessons', () => {
     expect(pass).toBeDefined();
     expect(pass.lessons.length).toBeGreaterThan(0);
-    expect(findPass(bundle, 'koukou_juken')?.lessons).toEqual([]);
+    // Stage 2 has its first lessons (ADR-004) but stays a waitlist: status planned → 準備中 on the public case page.
+    expect(findPass(bundle, 'koukou_juken')?.status).toBe('planned');
   });
 
   it.each(['enclose', 'slide', 'mirror', 'area', 'constant', 'balance', 'freeze', 'unfold'])('%s plays every anchor in catalog order, variants only as a top-up', (lens) => {
@@ -79,3 +80,13 @@ describe('i18n', () => {
     expect(t('guide.pick')).toBe('どの道具で見る？');
   });
 });
+
+describe('planned Passes stay closed without preview (ADR-003 §3, ADR-004)', () => {
+  it('opens koukou_juken / daigaku_juken lessons only with ?preview=1', async () => {
+    const { passOpen } = await import('./access');
+    expect(passOpen('koukou_juken', '')).toBe(false);
+    expect(passOpen('daigaku_juken', '')).toBe(false);
+    expect(passOpen('koukou_juken', '?preview=1')).toBe(true);
+  });
+});
+
