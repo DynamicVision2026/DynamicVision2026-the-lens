@@ -412,6 +412,11 @@ def fig_text(fig):
         return (f"直線ℓと直線mは平行で、その間は{fig['band_height']}cmです。直線m上の{bot[0]}{bot[-1]}の長さは{_fmt(L)}cmで、"
                 f"{'、'.join(bot[1:-1])}は{bot[0]}と{bot[-1]}の間の点です。{'、'.join(top)}は直線ℓ上の点です。"
                 f"かげをつけた三角形{tris}の面積の合計は何cm²ですか。")
+    if t == "box_unfold" and fig.get("route") == "three_faces":
+        u = fig["unit"]
+        return (f"直方体ABCD-EFGHがあり、AB＝{fig['a']}{u}、BC＝{fig['b']}{u}、AE＝{fig['h']}{u}です。"
+                f"頂点Aから、辺BF上の点P、辺CG上の点Qを通って頂点Hまで、直方体の表面に糸をぴんとかけます。"
+                f"糸の長さがいちばん短くなるとき、CQは何{u}ですか。")
     if t == "box_unfold" and fig.get("path") == "edges":
         u = fig["unit"]
         return (f"直方体ABCD-EFGHがあり、AB＝{fig['a']}{u}、BC＝{fig['b']}{u}、AE＝{fig['h']}{u}です。"
@@ -428,6 +433,25 @@ def fig_text(fig):
                 f"頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。"
                 f"糸の長さがいちばん短くなるとき、BPは何{u}ですか。")
     return None
+
+
+def unfold3(fig):
+    """Front ABFE, right BCGF, back CDHG opened flat: A=(0,0), H=(2a+b, h). Returns (BP, CQ)."""
+    a, b, h = fig["a"], fig["b"], fig["h"]
+    W = 2 * a + b
+    return S(h) * a / W, S(h) * (a + b) / W
+
+
+def unfold3_steps(fig):
+    a, b, h = fig["a"], fig["b"], fig["h"]
+    W = 2 * a + b
+    bp, cq = unfold3(fig)
+    return [
+        {"ja": f"面ABFE、BCGF、CDHGの3つを開いて、1つの長方形にする（横 {a}+{b}+{a} = {W}、たて {h}）", "op": "note"},
+        {"ja": "開いた図でAとHをまっすぐ結ぶ。辺BFと交わる点がP、辺CGと交わる点がQ", "op": "note"},
+        {"ja": f"Aから横に{W}進む間に{h}上がるので、横に {a}+{b} = {a + b} 進んだCGでは {h}×{a + b}/{W} 上がる", "op": "note"},
+        {"ja": f"CQ = {h}×{a + b}/{W} = {_fmt(cq)}", "value": str(cq), "op": "result"},
+    ]
 
 
 def corner_touch(fig):
@@ -1230,6 +1254,15 @@ def run_check(card, check, pts) -> tuple[bool, str]:
         want = fig_text(fig)
         ok = want is not None and card["problem"]["text_ja"] == want
         return ok, "problem text matches its figure numbers" if ok else f"text should be: {want}"
+    if t == "unfold3_valid":
+        import math
+        a, b, h = fig["a"], fig["b"], fig["h"]
+        bp, cq = unfold3(fig)
+        L = lambda p, q: math.hypot(a, p) + math.hypot(b, q - p) + math.hypot(a, h - q)
+        best = L(float(bp), float(cq))
+        grid = min(L(i * h / 40, j * h / 40) for i in range(41) for j in range(41))
+        ok = cq == ans and S(cq).is_integer and best <= grid + 1e-9 and 0 < bp < cq < h
+        return ok, f"three faces opened: BP = {bp}, CQ = {cq}; the straight line is shortest"
     if t == "unfold_edges":
         ok = ans == fig["a"] + fig["b"] + fig["h"] and len({fig["a"], fig["b"], fig["h"]}) == 3
         return ok, f"along the edges every shortest route uses one of each length: {fig['a']}+{fig['b']}+{fig['h']}"
@@ -1569,11 +1602,26 @@ def make_unfold_variants(card):
         tries += 1
         a, b = rng.randint(c.get("min_side", 2), c.get("max_side", 12)), rng.randint(c.get("min_side", 2), c.get("max_side", 12))
         h = rng.randint(c.get("min_h", 3), c.get("max_h", 15))
-        if a == b or (h * a) % (a + b) or ratio(a, b) in used_ratios or h in used_h or S(h * a) / (a + b) in used_ans:
-            continue
-        if abs(S(h * a) / (a + b) - Rational(h, 2)) < Rational(h, 6):   # the midpoint guess must look visibly wrong in the figure
+        special = fig0.get("route") == "three_faces" or fig0.get("path") == "edges"
+        if not special:
+            if a == b or (h * a) % (a + b) or ratio(a, b) in used_ratios or h in used_h or S(h * a) / (a + b) in used_ans:
+                continue
+            if abs(S(h * a) / (a + b) - Rational(h, 2)) < Rational(h, 6):   # the midpoint guess must look visibly wrong in the figure
+                continue
+        elif ratio(a, b) in used_ratios or h in used_h:
             continue
         fig = {**fig0, "a": a, "b": b, "h": h}
+        if fig0.get("route") == "three_faces":
+            bp, cq = unfold3(fig)
+            if not S(cq).is_integer or cq in used_ans or a == b:
+                continue
+            vcard = {**card, "answer": {**card["answer"], "value": str(cq)}, "problem": {**card["problem"], "figure": fig}}
+            if not run_check(vcard, {"type": "unfold3_valid"}, None)[0]:
+                continue
+            used_ratios.add(ratio(a, b)); used_h.add(h); used_ans.add(cq)
+            out.append({"id": f"{card['id']}-v{len(out) + 1}", "text_ja": fig_text(fig), "figure": {"a": a, "b": b, "h": h},
+                        "answer": str(cq), "lens_route": {"steps": unfold3_steps(fig)}})
+            continue
         if fig0.get("path") == "edges":
             if len({a, b, h}) < 3:
                 continue
