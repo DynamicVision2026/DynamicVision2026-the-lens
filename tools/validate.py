@@ -320,7 +320,28 @@ def wp_solve(fig):
         return S(q["r"] * q["c"] - q["p"]) / (q["r"] - 1)
     if k == "same_spend":            # x and y yen, both spend the same: then x' = r y'. How much each?
         return S(q["r"] * q["y"] - q["x"]) / (q["r"] - 1)
+    if k == "three_kinds_equal":     # a, b, c each, b and c in equal numbers: pair b+c into their average
+        return (q["t"] - S(q["b"] + q["c"]) / 2 * q["n"]) / (q["a"] - S(q["b"] + q["c"]) / 2)
+    if k == "pair_offset":           # a and b each, k more of A than B, total t: how many B? (remove k, then pairs)
+        return S(q["t"] - q["a"] * q["k"]) / (q["a"] + q["b"])
+    if k == "two_kinds_known":       # no lens: both counts known, total value directly
+        return S(q["a"] * q["x"] + q["b"] * (q["n"] - q["x"]))
+    if k == "age_sum_later":         # no lens: sum of two ages y years from now
+        return S(q["p"] + q["c"] + 2 * q["y"])
+    if k == "sum_catchup":           # father vs sum of 3 children: gap shrinks by 3-1 = 2 a year
+        return S(q["p"] - q["c1"] - q["c2"] - q["c3"]) / 2
+    if k == "ratio_shift":           # older:younger now a1:b1, y years later a2:b2: older now?
+        P1, P2 = _ratio_parts(q)
+        return S(q["y"]) / (P2 - P1) * P1
     raise ValueError(k)
+
+
+def _ratio_parts(q):
+    """Scale both ratios so the (unchanging) difference has the same number of parts: older's parts now and later."""
+    from math import lcm
+    d1, d2 = q["a1"] - q["b1"], q["a2"] - q["b2"]
+    L = lcm(d1, d2)
+    return q["a1"] * L // d1, q["a2"] * L // d2
 
 
 def wp_text(fig, names):
@@ -343,6 +364,26 @@ def wp_text(fig, names):
     if fig["kind"] == "age_ratio_past":
         o, y = names["older"], names["younger"]
         return f"いま、{o}は{q['p']}才、{y}は{q['c']}才です。{o}の年れいが{y}の年れいの{q['r']}倍だったのは何年前ですか。"
+    if fig["kind"] == "three_kinds_equal":
+        it = names["item"]
+        return (f"1個{q['a']}円、{q['b']}円、{q['c']}円の3種類の{it}を合わせて{q['n']}個買い、代金は{q['t']}円でした。"
+                f"{q['b']}円と{q['c']}円の{it}は同じ数です。{q['a']}円の{it}は何個買いましたか。")
+    if fig["kind"] == "pair_offset":
+        A, B = names["a"], names["b"]
+        return f"1個{q['a']}円の{A}と1個{q['b']}円の{B}を買いました。{A}は{B}より{q['k']}個多く、代金は合わせて{q['t']}円でした。{B}は何個買いましたか。"
+    if fig["kind"] == "two_kinds_known":
+        A, B = names["a"], names["b"]
+        return f"{A}と{B}が合わせて{q['n']}枚あり、そのうち{A}は{q['x']}枚です。合計金額は何円ですか。"
+    if fig["kind"] == "age_sum_later":
+        o, y = names["older"], names["younger"]
+        return f"いま、{o}は{q['p']}才、{y}は{q['c']}才です。{q['y']}年後、2人の年れいの和は何才ですか。"
+    if fig["kind"] == "sum_catchup":
+        return (f"いま、お父さんは{q['p']}才で、3人の子どもは{q['c1']}才、{q['c2']}才、{q['c3']}才です。"
+                f"お父さんの年れいが、子ども3人の年れいの和と等しくなるのは何年後ですか。")
+    if fig["kind"] == "ratio_shift":
+        o, y = names["older"], names["younger"]
+        return (f"いま、{o}と{y}の年れいの比は{q['a1']}:{q['b1']}です。{q['y']}年後には、{o}と{y}の年れいの比は{q['a2']}:{q['b2']}になります。"
+                f"いま、{o}は何才ですか。")
     if fig["kind"] == "mixture":
         return f"{q['p1']}%の食塩水{q['w1']}gに、{q['p2']}%の食塩水を何g混ぜると、{q['pt']}%の食塩水になりますか。"
     if fig["kind"] == "meeting":
@@ -371,6 +412,24 @@ def wp_brute(fig):
         return [y for y in range(0, q["c"] + 1) if q["p"] - y == q["r"] * (q["c"] - y)]
     if k == "same_spend":       # yen by yen, never more than the smaller amount
         return [z for z in range(0, q["y"] + 1) if q["x"] - z == q["r"] * (q["y"] - z)]
+    if k == "three_kinds_equal":   # count of A, the rest split evenly between B and C
+        return [x for x in range(q["n"] + 1) if (q["n"] - x) % 2 == 0
+                and q["a"] * x + (q["b"] + q["c"]) * (q["n"] - x) // 2 == q["t"]]
+    if k == "pair_offset":
+        return [m for m in range(0, 500) if q["a"] * (m + q["k"]) + q["b"] * m == q["t"]]
+    if k == "two_kinds_known":     # coin by coin
+        return [sum([q["a"]] * q["x"] + [q["b"]] * (q["n"] - q["x"]))]
+    if k == "age_sum_later":       # year by year
+        a, b = q["p"], q["c"]
+        for _ in range(q["y"]):
+            a, b = a + 1, b + 1
+        return [a + b]
+    if k == "sum_catchup":
+        s0 = q["c1"] + q["c2"] + q["c3"]
+        return [y for y in range(0, 200) if q["p"] + y == s0 + 3 * y]
+    if k == "ratio_shift":         # every older/younger pair now
+        return [o for o in range(1, 120) for u in range(1, o)
+                if o * q["b1"] == u * q["a1"] and (o + q["y"]) * q["b2"] == (u + q["y"]) * q["a2"]]
     raise ValueError(k)
 
 
@@ -393,6 +452,11 @@ def wp_diagram(fig):
         return {"family": "diff_bars", "measure": "age", "step": 1, "big": q["p"], "small": q["c"], "r": q["r"], "dir": -1, "shift": xs}
     if k == "same_spend":
         return {"family": "diff_bars", "measure": "yen", "step": 100, "big": q["x"], "small": q["y"], "r": q["r"], "dir": -1, "shift": xs}
+    if k == "three_kinds_equal":
+        avg = S(q["b"] + q["c"]) / 2
+        return {"family": "area_two_rect", "unit": "円", "n": q["n"], "a": q["a"], "b": int(avg), "t": q["t"], "x": xs}
+    if k in ("pair_offset", "two_kinds_known", "age_sum_later", "sum_catchup", "ratio_shift"):
+        return {"family": "steps_only"}
     if k == "mixture":
         return {"family": "lever", "w1": q["w1"], "p1": q["p1"], "p2": q["p2"], "pt": q["pt"], "w2": xs}
     if k == "meeting":
@@ -453,6 +517,26 @@ def run_check(card, check, pts) -> tuple[bool, str]:
         if fig["kind"] == "shortfall":
             ok = q["b"] - q["a"] >= 2 and q["s"] > 0 and q["d"] > 0 and ans >= 3
             return ok, "one way leaves some over, the other is short, and the gap per person is more than 1"
+        if fig["kind"] == "three_kinds_equal":
+            ok = (q["b"] + q["c"]) % 2 == 0 and 0 < ans < q["n"] and (q["n"] - ans) % 2 == 0 and q["b"] != q["c"]
+            return ok, "B and C pair into a whole-yen average, and every kind appears"
+        if fig["kind"] == "pair_offset":
+            ok = ans >= 2 and q["k"] >= 1 and q["a"] != q["b"]
+            return ok, "both kinds appear and the count difference matters"
+        if fig["kind"] == "two_kinds_known":
+            ok = 0 < q["x"] < q["n"] and q["a"] != q["b"]
+            return ok, "both counts are known (the area diagram is not needed)"
+        if fig["kind"] == "age_sum_later":
+            ok = q["y"] >= 2 and q["p"] > q["c"]
+            return ok, "a sum later, not a ratio: the difference is not needed"
+        if fig["kind"] == "sum_catchup":
+            s0 = q["c1"] + q["c2"] + q["c3"]
+            ok = ans > 0 and q["p"] > s0 and len({q["c1"], q["c2"], q["c3"]}) == 3
+            return ok, "the gap is not constant: it shrinks by 2 a year (差一定 does not apply)"
+        if fig["kind"] == "ratio_shift":
+            d1, d2 = q["a1"] - q["b1"], q["a2"] - q["b2"]
+            ok = d1 != d2 and q["a2"] * q["b1"] < q["a1"] * q["b2"] and ans > 0
+            return ok, "the two ratios have different differences, so they must be lined up first"
         if fig["kind"] in ("age_ratio_past", "same_spend"):
             big, small = (q["p"], q["c"]) if fig["kind"] == "age_ratio_past" else (q["x"], q["y"])
             then_small = small - ans
@@ -799,9 +883,43 @@ def make_wp_variants(card):
             gap = (b - a) * n; s = rng.randint(1, gap - 1)
             q = {"a": a, "s": s, "b": b, "d": gap - s}
         elif fig0["kind"] == "age_ratio_past":
-            r = rng.randint(2, 5); then_c = rng.randint(2, 9); y = rng.randint(2, 10)
+            cons = v.get("constraints", {})
+            r = rng.randint(*cons.get("r", [2, 5])); then_c = rng.randint(2, 9); y = rng.randint(2, 10)
             q = {"p": r * then_c + y, "c": then_c + y, "r": r}
-            if not (25 <= q["p"] <= 50) or q["p"] - q["c"] < 20:
+            lo, hi = cons.get("p", [25, 50])
+            if not (lo <= q["p"] <= hi) or q["p"] - q["c"] < cons.get("min_diff", 20):
+                continue
+        elif fig0["kind"] == "three_kinds_equal":
+            b, c = rng.choice([(60, 40), (70, 50), (90, 50), (60, 20), (80, 40)])
+            a = rng.choice([x for x in (80, 100, 110, 120, 130, 150) if x > (b + c) // 2 + 10 and x != b])
+            pairs = rng.randint(3, 9); x = rng.randint(3, 12); n = x + 2 * pairs
+            q = {"n": n, "a": a, "b": b, "c": c, "t": a * x + (b + c) * pairs}
+        elif fig0["kind"] == "pair_offset":
+            a, b = rng.choice([(120, 70), (150, 90), (130, 80), (110, 60), (140, 50)])
+            k = rng.randint(2, 6); m = rng.randint(4, 14)
+            q = {"a": a, "b": b, "k": k, "t": a * (m + k) + b * m}
+        elif fig0["kind"] == "two_kinds_known":
+            a, b = rng.choice([(50, 10), (100, 10), (100, 50), (10, 5), (50, 5)])
+            n = rng.randint(12, 30); x = rng.randint(2, n - 2)
+            q = {"n": n, "a": a, "b": b, "x": x}
+            vnames.update({"a": f"{a}円玉", "b": f"{b}円玉"})
+        elif fig0["kind"] == "age_sum_later":
+            c = rng.randint(5, 13); p = c + rng.randint(2, 8); y = rng.randint(2, 9)
+            q = {"p": p, "c": c, "y": y}
+        elif fig0["kind"] == "sum_catchup":
+            c3 = rng.randint(2, 6); c2 = c3 + rng.randint(1, 3); c1 = c2 + rng.randint(1, 3); y = rng.randint(4, 15)
+            q = {"p": c1 + c2 + c3 + 2 * y, "c1": c1, "c2": c2, "c3": c3}
+            if not (30 <= q["p"] <= 50):
+                continue
+        elif fig0["kind"] == "ratio_shift":
+            a1, b1 = rng.choice([(5, 3), (7, 4), (3, 1), (5, 2), (7, 3), (4, 1), (9, 5)])
+            a2, b2 = rng.choice([(3, 2), (4, 3), (5, 3), (2, 1), (7, 5), (5, 4)])
+            P1, P2 = _ratio_parts({"a1": a1, "b1": b1, "a2": a2, "b2": b2})
+            if a2 * b1 >= a1 * b2 or P2 <= P1 or (a1 - b1) == (a2 - b2):
+                continue
+            unit = rng.randint(1, 6); older = unit * P1; younger = older * b1 // a1
+            q = {"a1": a1, "b1": b1, "a2": a2, "b2": b2, "y": unit * (P2 - P1)}
+            if not (12 <= older <= 50 and younger >= 4 and q["y"] <= 20):
                 continue
         elif fig0["kind"] == "same_spend":
             r = rng.randint(2, 4); left = rng.randint(2, 10) * 100; z = rng.randint(2, 12) * 100
@@ -879,6 +997,68 @@ def wp_steps(fig, names):
             {"ja": f"その差は、たて {q['b']}−{q['a']} = {q['b'] - q['a']}、横＝人数 の長方形の面積", "op": "note"},
             {"ja": f"人数 = {q['s'] + q['d']}÷{q['b'] - q['a']} = {_fmt(n)}（人）", "value": str(n), "op": "result"},
         ]
+    if fig["kind"] == "three_kinds_equal":
+        avg = (q["b"] + q["c"]) // 2
+        alll = avg * q["n"]
+        x = wp_solve(fig)
+        return [
+            {"ja": f"{q['b']}円と{q['c']}円は同じ数なので、1個ずつ組にすると平均 ({q['b']}+{q['c']})÷2 = {avg} 円", "op": "note"},
+            {"ja": f"全部{avg}円だとすると {avg}×{q['n']} = {alll}", "op": "note"},
+            {"ja": f"本当の代金との差 {q['t']}−{alll} = {q['t'] - alll} が、上にはみ出した長方形の面積", "op": "note"},
+            {"ja": f"その長方形のたては {q['a']}−{avg} = {q['a'] - avg}", "op": "note"},
+            {"ja": f"{q['a']}円の数 = {q['t'] - alll}÷{q['a'] - avg} = {_fmt(x)}（個）", "value": str(x), "op": "result"},
+        ]
+    if fig["kind"] == "pair_offset":
+        A, B = names.get("a", "A"), names.get("b", "B")
+        extra = q["a"] * q["k"]
+        m = wp_solve(fig)
+        return [
+            {"ja": f"{A}の多い{q['k']}個分 {q['a']}×{q['k']} = {extra} を先に取りのぞく", "op": "note"},
+            {"ja": f"残り {q['t']}−{extra} = {q['t'] - extra} は、{A}と{B}が同じ数", "op": "note"},
+            {"ja": f"{A}1個と{B}1個の組は {q['a']}+{q['b']} = {q['a'] + q['b']} 円", "op": "note"},
+            {"ja": f"{B}の数 = {q['t'] - extra}÷{q['a'] + q['b']} = {_fmt(m)}（個）", "value": str(m), "op": "result"},
+        ]
+    if fig["kind"] == "two_kinds_known":
+        A, B = names.get("a", "A"), names.get("b", "B")
+        nb = q["n"] - q["x"]
+        t = wp_solve(fig)
+        return [
+            {"ja": f"{B}の数は {q['n']}−{q['x']} = {nb}（枚）", "op": "note"},
+            {"ja": f"{A}は {q['a']}×{q['x']} = {q['a'] * q['x']}、{B}は {q['b']}×{nb} = {q['b'] * nb}", "op": "note"},
+            {"ja": f"{q['a'] * q['x']}+{q['b'] * nb} = {_fmt(t)}（円）", "value": str(t), "op": "result"},
+        ]
+    if fig["kind"] == "age_sum_later":
+        o, y = names.get("older", "兄"), names.get("younger", "弟")
+        t = wp_solve(fig)
+        return [
+            {"ja": f"{q['y']}年後の{o}は {q['p']}+{q['y']} = {q['p'] + q['y']}", "op": "note"},
+            {"ja": f"{q['y']}年後の{y}は {q['c']}+{q['y']} = {q['c'] + q['y']}", "op": "note"},
+            {"ja": f"{q['p'] + q['y']}+{q['c'] + q['y']} = {_fmt(t)}（才）", "value": str(t), "op": "result"},
+        ]
+    if fig["kind"] == "sum_catchup":
+        s0 = q["c1"] + q["c2"] + q["c3"]
+        y = wp_solve(fig)
+        return [
+            {"ja": f"子ども3人の年れいの和は {q['c1']}+{q['c2']}+{q['c3']} = {s0}", "op": "note"},
+            {"ja": f"お父さんとの差は {q['p']}−{s0} = {q['p'] - s0}", "op": "note"},
+            {"ja": "1年で、子ども3人の和は3才、お父さんは1才ふえる。差は1年に 3−1 = 2 ずつちぢむ", "op": "note"},
+            {"ja": f"{q['p'] - s0}÷2 = {_fmt(y)}（年後）", "value": str(y), "op": "result"},
+        ]
+    if fig["kind"] == "ratio_shift":
+        o = names.get("older", "兄")
+        d1, d2 = q["a1"] - q["b1"], q["a2"] - q["b2"]
+        P1, P2 = _ratio_parts(q)
+        f1, f2 = P1 // q["a1"], P2 // q["a2"]
+        unit = S(q["y"]) / (P2 - P1)
+        ans = wp_solve(fig)
+        now = f"{q['a1']}:{q['b1']}" + (f" → {q['a1'] * f1}:{q['b1'] * f1}" if f1 > 1 else "")
+        later = f"{q['a2']}:{q['b2']}" + (f" → {q['a2'] * f2}:{q['b2'] * f2}" if f2 > 1 else "")
+        return [
+            {"ja": f"年れいの差は変わらない。差は、いまの比で {q['a1']}−{q['b1']} = {d1}、{q['y']}年後の比で {q['a2']}−{q['b2']} = {d2}", "op": "note"},
+            {"ja": f"差が同じ数になるように比をそろえる。いま {now}、{q['y']}年後 {later}", "op": "note"},
+            {"ja": f"{o}は {P1} から {P2} へ、{P2}−{P1} = {P2 - P1} つ分ふえた。それが{q['y']}年なので、1つ分は {q['y']}÷{P2 - P1} = {_fmt(unit)}", "op": "note"},
+            {"ja": f"いまの{o} = {_fmt(unit)}×{P1} = {_fmt(ans)}（才）", "value": str(ans), "op": "result"},
+        ]
     if fig["kind"] in ("age_ratio_past", "same_spend"):
         past = fig["kind"] == "age_ratio_past"
         o, y = names.get("older", "兄"), names.get("younger", "弟")
@@ -913,7 +1093,9 @@ def wp_steps(fig, names):
 
 
 WP_GENERATORS = ("wp_two_kinds", "wp_age_ratio", "wp_mixture", "wp_meeting",
-                 "wp_average_groups", "wp_shortfall", "wp_age_ratio_past", "wp_same_spend")
+                 "wp_average_groups", "wp_shortfall", "wp_age_ratio_past", "wp_same_spend",
+                 "wp_three_kinds_equal", "wp_pair_offset", "wp_two_kinds_known", "wp_age_sum_later",
+                 "wp_sum_catchup", "wp_ratio_shift")
 
 
 def make_variants(card):

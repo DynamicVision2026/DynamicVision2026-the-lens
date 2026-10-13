@@ -1,0 +1,102 @@
+schema_version: '1.1'
+id: constant-005
+kind: standard
+lens: constant
+best_move: constant
+stage: shogakko
+grades:
+- 小6
+level: 4
+archetype: constant.ratio_shift
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: the ratio of two ages now and some years later; the difference is the same in both ratios, so scale them to the same difference parts (比の差一定).'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 年れいの差は何年たっても同じ。2つの比を、差が同じ数になるようにそろえると、1つ分の大きさが分かる。
+  principle_en: The difference is the same in both ratios; scale them so the difference has the same number of parts, then one part is found.
+problem:
+  text_ja: いま、兄と弟の年れいの比は5:3です。6年後には、兄と弟の年れいの比は3:2になります。いま、兄は何才ですか。
+  unit: 才
+  figure:
+    type: word_problem
+    kind: ratio_shift
+    params:
+      a1: 5
+      b1: 3
+      a2: 3
+      b2: 2
+      y: 6
+    names:
+      older: 兄
+      younger: 弟
+answer:
+  value: '30'
+  display_ja: 30才
+  expr: word_problem
+trap_route:
+  time_cost_sec: 240
+  time_source: estimate
+  steps:
+  - ja: 兄の年れいを5の倍数で決め、弟の年れいと6年後の比を1つずつ確かめる
+    op: note
+  - ja: 比の計算が毎回あり、まちがえやすい
+    op: note
+  - ja: ここで約4分
+    op: note
+lens_route:
+  time_cost_sec: 60
+  time_source: estimate
+  steps:
+  - ja: 年れいの差は変わらない。差は、いまの比で 5−3 = 2、6年後の比で 3−2 = 1
+    op: note
+  - ja: 差が同じ数になるように比をそろえる。いま 5:3、6年後 3:2 → 6:4
+    op: note
+  - ja: 兄は 5 から 6 へ、6−5 = 1 つ分ふえた。それが6年なので、1つ分は 6÷1 = 6
+    op: note
+  - ja: いまの兄 = 6×5 = 30（才）
+    value: '30'
+    op: result
+trigger:
+  ja: 2つの時点の比が分かるときは、変わらない「差」の部分の数をそろえる。
+  en: 'Ratios at two moments: line up the unchanging difference.'
+  tags:
+  - two_ratios_known
+  - both_change_same
+picker:
+  options:
+  - constant
+  - balance
+  - area
+  - direct
+  correct: constant
+  clue_distractors:
+  - two_kinds_mixed
+  - mixing
+  feedback_ja:
+    constant: そのとおり。差はどちらの比でも同じなので、差の数をそろえて比べる。
+    balance: 比は出てくるが、こさや平均を混ぜる問題ではない。
+    area: 2種類のものの数と合計の問題ではない。
+    direct: 1つずつためすと、比の計算が何回も必要になる。
+animation:
+  keyframes:
+  - show_story
+  - draw_age_bars
+  - mark_difference
+  - scale_ratios
+  - find_one_part
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_ratio_shift
+  count: 4
+  seed: 2441

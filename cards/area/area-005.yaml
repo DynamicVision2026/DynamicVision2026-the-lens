@@ -1,0 +1,109 @@
+schema_version: '1.1'
+id: area-005
+kind: standard
+lens: area
+best_move: area
+stage: shogakko
+grades:
+- 小5
+- 小6
+level: 4
+archetype: area.three_kinds_paired
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: three kinds of items, two of them in equal numbers; pair those two into their average, then it is a two-kind area diagram (つるかめ算 with three kinds).'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 同じ数ずつある2種類は、1個ずつ組にすると「平均の値段のもの」が2個あるのと同じ。そうすれば2種類の面積図になる。
+  principle_en: Two kinds in equal numbers act like items at their average price; pairing them turns three kinds into a two-rectangle area diagram.
+problem:
+  text_ja: 1個80円、60円、40円の3種類のお菓子を合わせて20個買い、代金は1240円でした。60円と40円のお菓子は同じ数です。80円のお菓子は何個買いましたか。
+  unit: 個
+  figure:
+    type: word_problem
+    kind: three_kinds_equal
+    params:
+      n: 20
+      a: 80
+      b: 60
+      c: 40
+      t: 1240
+    names:
+      item: お菓子
+      a: 80円のお菓子
+      b: 平均50円
+      counter: 個
+      measure: 金額
+answer:
+  value: '8'
+  display_ja: 8個
+  expr: word_problem
+trap_route:
+  time_cost_sec: 240
+  time_source: estimate
+  steps:
+  - ja: 80円のお菓子が1個、2個…と決め、残りを60円と40円に半分ずつ分けて代金を計算する
+    op: note
+  - ja: 残りが奇数のときは分けられず、ためし直しが多い
+    op: note
+  - ja: ここで約4分
+    op: note
+lens_route:
+  time_cost_sec: 50
+  time_source: estimate
+  steps:
+  - ja: 60円と40円は同じ数なので、1個ずつ組にすると平均 (60+40)÷2 = 50 円
+    op: note
+  - ja: 全部50円だとすると 50×20 = 1000
+    op: note
+  - ja: 本当の代金との差 1240−1000 = 240 が、上にはみ出した長方形の面積
+    op: note
+  - ja: その長方形のたては 80−50 = 30
+    op: note
+  - ja: 80円の数 = 240÷30 = 8（個）
+    value: '8'
+    op: result
+trigger:
+  ja: 3種類でも、同じ数の2種類を組にして平均にすれば、2種類の面積図になる。
+  en: 'Three kinds with two in equal numbers: pair them at their average, then use the two-rectangle area diagram.'
+  tags:
+  - two_with_equal_counts
+  - total_count_and_total
+picker:
+  options:
+  - area
+  - balance
+  - constant
+  - direct
+  correct: area
+  clue_distractors:
+  - times_relation
+  - count_difference_given
+  feedback_ja:
+    area: そのとおり。60円と40円を組にすると平均50円。あとは2種類の面積図。
+    balance: 平均は使うが、こさを混ぜる問題ではない。
+    constant: 差が変わらないものを使う問題ではない。
+    direct: 1つずつためすと、組み合わせが多すぎる。
+animation:
+  keyframes:
+  - show_story
+  - pair_two_kinds
+  - draw_rectangles
+  - assume_all_b
+  - show_gap_strip
+  - divide_strip
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_three_kinds_equal
+  count: 4
+  seed: 2341

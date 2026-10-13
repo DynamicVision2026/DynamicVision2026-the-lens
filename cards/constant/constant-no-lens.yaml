@@ -1,0 +1,97 @@
+schema_version: '1.1'
+id: constant-no-lens
+kind: no_lens
+lens: constant
+best_move: 'direct: add the years to each age (それぞれにたす)'
+stage: shogakko
+grades:
+- 小4
+- 小5
+level: 1
+archetype: constant.sum_later_no_lens
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: ages now and a sum asked some years later; no ratio, so the unchanging difference is not needed (negative control for 差一定).'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 「何倍」を聞いていなければ、差を使う必要はない。それぞれの年れいに年数をたすだけ。
+  principle_en: 'No ratio asked, so the difference is not needed: add the years to each age.'
+problem:
+  text_ja: いま、姉は13才、妹は9才です。5年後、2人の年れいの和は何才ですか。
+  unit: 才
+  figure:
+    type: word_problem
+    kind: age_sum_later
+    params:
+      p: 13
+      c: 9
+      y: 5
+    names:
+      older: 姉
+      younger: 妹
+answer:
+  value: '32'
+  display_ja: 32才
+  expr: word_problem
+trap_route:
+  time_cost_sec: 60
+  time_source: estimate
+  steps:
+  - ja: 年れいの問題なので、くせで差 13−9 を出す
+    op: note
+  - ja: 差は答えに使わないのに、図をかき始める
+    op: note
+  - ja: 遠回りで約1分
+    op: note
+lens_route:
+  time_cost_sec: 15
+  time_source: estimate
+  steps:
+  - ja: 5年後の姉は 13+5 = 18
+    op: note
+  - ja: 5年後の妹は 9+5 = 14
+    op: note
+  - ja: 18+14 = 32（才）
+    value: '32'
+    op: result
+trigger:
+  ja: 「何倍」ではなく「和」を聞いているときは、差はいらない。それぞれにたす。
+  en: 'A sum, not a ratio: no need for the difference; add to each.'
+  tags:
+  - asks_sum_later
+picker:
+  options:
+  - constant
+  - area
+  - freeze
+  - direct
+  correct: direct
+  clue_distractors:
+  - times_relation
+  - two_kinds_mixed
+  feedback_ja:
+    constant: 差は変わらないが、ここでは差を使わなくても答えが出る。
+    area: 2種類のものの数と合計の問題ではない。
+    freeze: 動く点の速さの問題ではない。
+    direct: そのとおり。5年後の姉と妹の年れいをそれぞれ出して、たすだけ。
+animation:
+  keyframes:
+  - show_story
+  - add_years_each
+  - add_together
+  - show_answer
+  - ghost_bars_struck_out
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_age_sum_later
+  count: 4
+  seed: 2461
