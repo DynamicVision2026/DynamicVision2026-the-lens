@@ -1,24 +1,33 @@
 // 面積図: lower the dashed line to "all of the cheaper item", then slide the divider until the
-// overhang strip is the gap. Printed numbers: params, step values, and the count the child sets.
-import { afterEquals, answerNumber, formatExact, type WordProblemFigure } from '@lens/scenes';
+// overhang strip is the gap. Printed numbers: the text, step values, and the count the child sets.
+// Routed by figure.diagram.family (WO-015): averages and 過不足 have their own scenes.
+import { afterEquals, answerNumber, formatExact, type WordDiagramSpec, type WordProblemFigure } from '@lens/scenes';
 import { useEffect, useRef, useState } from 'react';
 import { t } from '../../i18n/ja';
 import { sfx, springTo, TACTILE } from '../fx';
+import { AreaAverageScene } from './AreaAverage';
+import { AreaShortfallScene } from './AreaShortfall';
 import { C, clamp, Knob, StripeDefs, Txt, useDrag, useSceneGuide, type SceneProps } from './kit';
 
 const W = 600;
 const H = 440;
 
-export function AreaScene({ card, lens, onSolved }: SceneProps) {
+export function AreaScene(props: SceneProps) {
+  const family = (props.card.problem.figure as WordProblemFigure).diagram?.family;
+  if (family === 'area_average') return <AreaAverageScene {...props} />;
+  if (family === 'area_shortfall') return <AreaShortfallScene {...props} />;
+  return <TwoRectScene {...props} />;
+}
+
+function TwoRectScene({ card, lens, onSolved }: SceneProps) {
   const fig = card.problem.figure as WordProblemFigure;
-  const { n = 1, a = 1, b = 0 } = fig.params;
-  const nm = fig.names;
+  const { n, a, b, unit } = fig.diagram as Extract<WordDiagramSpec, { family: 'area_two_rect' }>;
+  const nm = fig.names ?? {};
   const steps = card.lens_route.steps;
   const allB = afterEquals(steps[1]);
   const gap = afterEquals(steps[2]);
   const height = afterEquals(steps[3]);
   const ans = answerNumber(card);
-  const yen = nm.measure === '金額' ? t('area.yen') : '';
   const u = 480 / n;
   const hs = 250 / a;
   const x0 = 60;
@@ -120,8 +129,8 @@ export function AreaScene({ card, lens, onSolved }: SceneProps) {
         </g>
       )}
       <line x1={x0 - 10} y1={y0 - lineH * hs} x2={x0 + n * u + 10} y2={y0 - lineH * hs} stroke={color} strokeWidth={3} strokeDasharray="10 7" />
-      <Txt x={x0 - 30} y={y0 - a * hs + 6} size={16} fill={C.palette[0]}>{`${a}${yen}`}</Txt>
-      <Txt x={x0 + n * u + 30} y={y0 - b * hs + 26} size={16} fill={C.palette[1]}>{`${b}${yen}`}</Txt>
+      <Txt x={x0 - 30} y={y0 - a * hs + 6} size={16} fill={C.palette[0]}>{`${a}${unit}`}</Txt>
+      <Txt x={x0 + n * u + 30} y={y0 - b * hs + 26} size={16} fill={C.palette[1]}>{`${b}${unit}`}</Txt>
       <Txt x={x0 + (xw * u) / 2} y={y0 + 22} size={18} fill={C.palette[0]}>
         {phase >= 2 ? String(count) : '?'}
       </Txt>

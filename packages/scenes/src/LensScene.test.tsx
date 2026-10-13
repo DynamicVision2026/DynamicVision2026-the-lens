@@ -90,7 +90,7 @@ describe('geometry matches the bundle steps', () => {
     },
   );
 
-  it.each(cards.filter((c) => c.kind === 'failure').map((c) => [c.id, c] as const))(
+  it.each(cards.filter((c) => c.kind === 'failure' && c.problem.figure.type === 'grid_polygon').map((c) => [c.id, c] as const))(
     '%s has one piece per start/add step and one irregular gap',
     (_id, card) => {
       const steps = card.lens_route.steps.filter((s) => s.op === 'start' || s.op === 'add');

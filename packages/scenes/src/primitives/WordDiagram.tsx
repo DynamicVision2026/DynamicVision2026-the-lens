@@ -1,13 +1,18 @@
 import type { ReactElement } from 'react';
 import { formatExact } from '../format';
 import { wrapText } from '../text';
-import type { LensCard, Tokens, WordProblemFigure } from '../types';
-import { afterEquals, allAfterEquals, answerNumber, expressionIn, ratioIn } from '../wordProblem';
+import type { LensCard, Tokens, WordDiagramSpec, WordFamily, WordProblemFigure } from '../types';
+import { afterEquals, allAfterEquals, answerNumber, expressionIn, ratioIn, wordFamily } from '../wordProblem';
 import { Bracket } from './Bracket';
 import { LensIcon } from './LensIcon';
 
 /** Fixed copy in the diagrams (everything else comes from the card). */
-const COPY = { unknown: '?', blank: '□', same: 'ずっと同じ', parts: 'つ分', age: '才', yen: '円', percent: '%', ratio: ' : ', perMinute: '分速', metre: 'm', meet: '出会う' } as const;
+const COPY = { unknown: '?', blank: '□', same: 'ずっと同じ', parts: 'つ分', age: '才', yen: '円', percent: '%', ratio: ' : ', perMinute: '分速', metre: 'm', meet: '出会う', point: '点', person: '人', average: '平均', excess: 'はみ出し', dent: 'へこみ', extra: 'あまり', short: 'たりない' } as const;
+
+/** The figure's diagram, narrowed to one family (callers are routed by family, so it matches). */
+function spec<F extends WordFamily>(fig: WordProblemFigure, _family: F): Extract<WordDiagramSpec, { family: F }> {
+  return fig.diagram as Extract<WordDiagramSpec, { family: F }>;
+}
 
 export interface WordDiagramProps {
   card: LensCard;
@@ -40,16 +45,20 @@ export interface WordDiagramProps {
   chalk?: string;
 }
 
-const DIAGRAMS: Record<WordProblemFigure['kind'], (p: WordDiagramProps) => ReactElement> = {
-  two_kinds_total: AreaDiagram,
-  age_ratio: AgeDiagram,
-  mixture: BalanceDiagram,
-  meeting: RoadDiagram,
+/** One picture per diagram family (WO-015): a new story type with an existing family needs no code. */
+const DIAGRAMS: Partial<Record<WordFamily, (p: WordDiagramProps) => ReactElement>> = {
+  area_two_rect: AreaDiagram,
+  area_average: AverageDiagram,
+  area_shortfall: ShortfallDiagram,
+  diff_bars: AgeDiagram,
+  lever: BalanceDiagram,
+  road: RoadDiagram,
 };
 
 export function WordDiagram(props: WordDiagramProps) {
   if (props.show <= 0) return null;
-  const Diagram = DIAGRAMS[props.fig.kind];
+  const family = wordFamily(props.fig);
+  const Diagram = family ? DIAGRAMS[family] : undefined;
   return <g opacity={props.show}>{Diagram && <Diagram {...props} />}</g>;
 }
 
@@ -62,10 +71,9 @@ const label = (x: number, y: number, text: string, size: number, fill: string, f
 /** 面積図: two rectangles on one baseline; width = count, height = value per item. */
 function AreaDiagram(p: WordDiagramProps) {
   const { card, fig, prog, ink, accent, palette, font, jaFont, weight, labelSize: size, numberSize: num } = p;
-  const { n = 0, a = 0, b = 0 } = fig.params;
+  const { n, a, b, unit } = spec(fig, 'area_two_rect');
   const steps = card.lens_route.steps;
   const result = steps.find((s) => s.op === 'result');
-  const unit = fig.names.measure === '金額' ? COPY.yen : '';
   const leftRoom = num * 3.2;
   const rightRoom = num * 3.2;
   const topRoom = num * 1.8;
@@ -90,14 +98,14 @@ function AreaDiagram(p: WordDiagramProps) {
         <g opacity={rects}>
           <rect x={x0} y={yA} width={xa * sx} height={a * sy} fill={palette[0]} fillOpacity={p.tint} stroke={palette[0]} strokeWidth={p.figureStroke} />
           <rect x={xMid} y={yB} width={(n - xa) * sx} height={b * sy} fill={palette[1]} fillOpacity={p.tint} stroke={palette[1]} strokeWidth={p.figureStroke} />
-          {label(x0 + (xa * sx) / 2, (yB + base) / 2, fig.names.a ?? '', size, palette[0]!, jaFont, weight)}
-          {label(xMid + ((n - xa) * sx) / 2, (yB + base) / 2, fig.names.b ?? '', size, palette[1]!, jaFont, weight)}
+          {label(x0 + (xa * sx) / 2, (yB + base) / 2, (fig.names ?? {}).a ?? '', size, palette[0]!, jaFont, weight)}
+          {label(xMid + ((n - xa) * sx) / 2, (yB + base) / 2, (fig.names ?? {}).b ?? '', size, palette[1]!, jaFont, weight)}
           {/* The unknown counts: inside the tall rectangle above its name (until the strip fills it), above the short one. */}
           {label(x0 + (xa * sx) / 2, (yA + yB) / 2, COPY.unknown, num, ink, font, weight, (1 - divide) * (1 - strip))}
           {label(xMid + ((n - xa) * sx) / 2, yB - num * 0.8, COPY.unknown, num, ink, font, weight)}
           {label(x0 - num * 0.3, yA, `${a}${unit}`, num * 0.8, palette[0]!, font, weight, 1, 'end')}
           {label(xEnd + num * 0.3, yB, `${b}${unit}`, num * 0.8, palette[1]!, font, weight, 1, 'start')}
-          <Bracket from={[x0, base]} to={[xEnd, base]} normal={[0, 1]} label={`${n}${fig.names.counter ?? ''}`} color={ink} {...bk} />
+          <Bracket from={[x0, base]} to={[xEnd, base]} normal={[0, 1]} label={`${n}${(fig.names ?? {}).counter ?? ''}`} color={ink} {...bk} />
         </g>
       )}
       {assume > 0 && (
@@ -122,18 +130,20 @@ function AreaDiagram(p: WordDiagramProps) {
 /** 線分図: the older and younger ages as bars; their difference never changes. */
 function AgeDiagram(p: WordDiagramProps) {
   const { card, fig, prog, ink, accent, palette, font, jaFont, weight, labelSize: size, numberSize: num } = p;
-  const { p: older = 0, c: younger = 0, r = 1 } = fig.params;
+  const { big: older, small: younger, r, dir, measure } = spec(fig, 'diff_bars');
+  const unit = measure === 'yen' ? COPY.yen : COPY.age;
   const steps = card.lens_route.steps;
-  const years = answerNumber(card); // drawing only: how far the bars grow
+  // Drawing only: how far the bars grow (dir 1) or shrink (dir −1), in the measure's units.
+  const years = answerNumber(card) * dir;
   const nameRoom = size * 5;
   const x0 = p.x + nameRoom;
-  const scale = (p.w - nameRoom - num * 3) / Math.max(1, older + years);
+  const scale = (p.w - nameRoom - num * 3) / Math.max(1, older + Math.max(0, years));
   const th = size * 1.3;
   const yP = p.y + p.h * 0.32;
   const yC = p.y + p.h * 0.68;
-  const draw = prog.draw_age_bars ?? 0;
+  const draw = Math.max(prog.draw_age_bars ?? 0, prog.draw_money_bars ?? 0);
   const diff = prog.mark_difference ?? 0;
-  const grow = prog.grow_bars ?? 0;
+  const grow = Math.max(prog.grow_bars ?? 0, prog.shrink_bars ?? 0);
   const split = prog.split_difference ?? 0;
   const lenP = (older + years * grow) * scale;
   const lenC = (younger + years * grow) * scale;
@@ -145,13 +155,13 @@ function AgeDiagram(p: WordDiagramProps) {
   const partText = afterEquals(steps[2]);
   return (
     <g>
-      {label(x0 - size * 0.5, yP, fig.names.older ?? '', size, palette[0]!, jaFont, weight, draw, 'end')}
-      {label(x0 - size * 0.5, yC, fig.names.younger ?? '', size, palette[1]!, jaFont, weight, draw, 'end')}
+      {label(x0 - size * 0.5, yP, (fig.names ?? {}).older ?? '', size, palette[0]!, jaFont, weight, draw, 'end')}
+      {label(x0 - size * 0.5, yC, (fig.names ?? {}).younger ?? '', size, palette[1]!, jaFont, weight, draw, 'end')}
       {bar(yP, lenP, palette[0]!)}
       {bar(yC, lenC, palette[1]!)}
-      {/* Today's ages, from params; they leave once the bars start to grow (no new ages are printed). */}
-      {label(x0 + lenP * draw + num * 0.3, yP, `${older}${COPY.age}`, num * 0.8, palette[0]!, font, weight, draw * (1 - grow), 'start')}
-      {label(x0 + lenC * draw + num * 0.3, yC, `${younger}${COPY.age}`, num * 0.8, palette[1]!, font, weight, draw * (1 - grow), 'start')}
+      {/* Today's amounts, from the story; they leave once the bars start to change (no new amounts are printed). */}
+      {label(x0 + lenP * draw + num * 0.3, yP, `${older}${unit}`, num * 0.8, palette[0]!, font, weight, draw * (1 - grow), 'start')}
+      {label(x0 + lenC * draw + num * 0.3, yC, `${younger}${unit}`, num * 0.8, palette[1]!, font, weight, draw * (1 - grow), 'start')}
 
       {/* The difference: the part of the older bar beyond the younger one. It keeps its length. */}
       {diff > 0 && (
@@ -176,12 +186,159 @@ function AgeDiagram(p: WordDiagramProps) {
   );
 }
 
+/**
+ * 平均の面積図: two rectangles (height = average, width = head count). The overall average is a line;
+ * the excess of the first group above it equals the dent of the second below it. Only the band near
+ * the averages is drawn (from h2 − 4 to h1 + 4) so small differences stay visible.
+ */
+function AverageDiagram(p: WordDiagramProps) {
+  const { card, fig, prog, ink, accent, palette, font, jaFont, weight, labelSize: size, numberSize: num } = p;
+  const { w1, h1, h2, level } = spec(fig, 'area_average');
+  const steps = card.lens_route.steps;
+  const result = steps.find((s) => s.op === 'result');
+  const w2 = answerNumber(card); // drawing only: the second rectangle's width
+  const lo = h2 - 4;
+  const hi = h1 + 4;
+  const leftRoom = num * 3.2;
+  const rightRoom = num * 3.6;
+  const topRoom = num * 1.8;
+  const bottomRoom = p.bracket.offset + num * 1.6;
+  const sx = (p.w - leftRoom - rightRoom) / Math.max(1, w1 + w2);
+  const sy = (p.h - topRoom - bottomRoom) / Math.max(1, hi - lo);
+  const x0 = p.x + leftRoom;
+  const base = p.y + p.h - bottomRoom;
+  const Y = (v: number) => base - (v - lo) * sy;
+  const xMid = x0 + w1 * sx;
+  const xEnd = xMid + w2 * sx;
+  const rects = prog.draw_rectangles ?? 0;
+  const line = prog.draw_average_line ?? 0;
+  const excess = prog.show_excess ?? 0;
+  const dent = prog.fill_dent ?? 0;
+  const divide = prog.divide_dent ?? 0;
+  const excessText = afterEquals(steps[1]);
+  const dentText = afterEquals(steps[2]);
+  const bk = { tokens: p.tokens, offset: p.bracket.offset, tick: p.bracket.tick, numberSize: num, strokeWidth: p.bracket.strokeWidth };
+  return (
+    <g>
+      {rects > 0 && (
+        <g opacity={rects}>
+          <rect x={x0} y={Y(h1)} width={w1 * sx} height={(h1 - lo) * sy} fill={palette[0]} fillOpacity={p.tint} stroke={palette[0]} strokeWidth={p.figureStroke} />
+          <rect x={xMid} y={Y(h2)} width={w2 * sx} height={(h2 - lo) * sy} fill={palette[1]} fillOpacity={p.tint} stroke={palette[1]} strokeWidth={p.figureStroke} />
+          {label(x0 - num * 0.3, Y(h1), `${h1}${COPY.point}`, num * 0.8, palette[0]!, font, weight, 1, 'end')}
+          {label(xEnd + num * 0.3, Y(h2), `${h2}${COPY.point}`, num * 0.8, palette[1]!, font, weight, 1, 'start')}
+          <Bracket from={[x0, base]} to={[xMid, base]} normal={[0, 1]} label={`${w1}${COPY.person}`} color={palette[0]!} {...bk} />
+          {label(xMid + (w2 * sx) / 2, base + p.bracket.offset + num * 0.6, `${COPY.unknown}${COPY.person}`, num, palette[1]!, font, weight, 1 - divide)}
+        </g>
+      )}
+      {line > 0 && (
+        <g opacity={line}>
+          <line x1={x0 - num * 0.4} y1={Y(level)} x2={x0 + (xEnd + num * 0.4 - x0) * line} y2={Y(level)} stroke={ink} strokeWidth={p.lensStroke} strokeDasharray={p.dash} />
+          {label(xEnd + num * 0.3, Y(level), `${COPY.average}${level}${COPY.point}`, size, ink, jaFont, weight, 1, 'start')}
+        </g>
+      )}
+      {excess > 0 && (
+        <g opacity={excess}>
+          <rect data-part="excess" x={x0} y={Y(h1)} width={w1 * sx} height={(h1 - level) * sy} fill={accent} fillOpacity={p.tint * 2} stroke={accent} strokeWidth={p.lensStroke} />
+          {excessText && label(x0 + (w1 * sx) / 2, (Y(h1) + Y(level)) / 2, excessText, num, accent, font, weight)}
+        </g>
+      )}
+      {dent > 0 && (
+        <g opacity={dent}>
+          <rect data-part="dent" x={xMid} y={Y(level)} width={w2 * sx} height={(level - h2) * sy} fill={accent} fillOpacity={p.tint * 2} stroke={accent} strokeWidth={p.lensStroke} strokeDasharray={p.dash} />
+          {excessText && label(xMid + (w2 * sx) / 2, (Y(level) + Y(h2)) / 2, excessText, num * 0.8, accent, font, weight)}
+        </g>
+      )}
+      {divide > 0 && (
+        <g opacity={divide}>
+          {dentText && <Bracket from={[xEnd, Y(h2)]} to={[xEnd, Y(level)]} normal={[1, 0]} label={dentText} color={accent} {...bk} offset={num * 0.8} />}
+          {result?.value && <Bracket from={[xMid, base]} to={[xEnd, base]} normal={[0, 1]} label={formatExact(result.value)} color={accent} {...bk} />}
+        </g>
+      )}
+    </g>
+  );
+}
+
+/**
+ * 過不足の面積図: height = items per person, width = people. Plan A (a each) leaves s over, plan B
+ * (b each) is d short; the strip between them is s + d, and its height is b − a.
+ */
+function ShortfallDiagram(p: WordDiagramProps) {
+  const { card, fig, prog, ink, accent, palette, font, jaFont, weight, labelSize: size, numberSize: num } = p;
+  const { a, b, s: extra, d: short } = spec(fig, 'area_shortfall');
+  const steps = card.lens_route.steps;
+  const result = steps.find((st) => st.op === 'result');
+  const n = answerNumber(card); // drawing only: the rectangle's width
+  const leftRoom = num * 2.4;
+  const rightRoom = p.w * 0.3;
+  const topRoom = num * 1.6;
+  const bottomRoom = p.bracket.offset + num * 1.6;
+  const sx = (p.w - leftRoom - rightRoom) / Math.max(1, n);
+  const sy = (p.h - topRoom - bottomRoom) / Math.max(1, b);
+  const x0 = p.x + leftRoom;
+  const base = p.y + p.h - bottomRoom;
+  const xEnd = x0 + n * sx;
+  const yA = base - a * sy;
+  const yB = base - b * sy;
+  const planA = prog.draw_plan_a ?? 0;
+  const planB = prog.draw_plan_b ?? 0;
+  const gap = prog.show_gap ?? 0;
+  const divide = prog.divide_gap ?? 0;
+  const gapText = afterEquals(steps[1]);
+  const heightText = afterEquals(steps[2]);
+  // The leftover and missing items as dots beside the rectangle; they fly into the strip with show_gap.
+  const r = Math.max(2, Math.min(num * 0.22, (rightRoom - num) / 22));
+  const pitch = r * 2.6;
+  const dots = (count: number, x: number, y: number, filled: boolean, c: string) =>
+    Array.from({ length: count }, (_, i) => {
+      const cx = x + (i % 8) * pitch;
+      const cy = y + Math.floor(i / 8) * pitch;
+      const tx = x0 + ((i % 8) + 0.5) * ((n * sx) / 8);
+      const ty = lerp(yB, yA, (Math.floor(i / 8) + 0.5) / Math.max(1, Math.ceil(count / 8)));
+      return <circle key={i} cx={lerp(cx, tx, gap)} cy={lerp(cy, ty, gap)} r={r} fill={filled ? c : 'none'} stroke={c} strokeWidth={p.bracket.strokeWidth} opacity={1 - gap * 0.6} />;
+    });
+  const dotX = xEnd + num * 1.2;
+  const bk = { tokens: p.tokens, offset: p.bracket.offset, tick: p.bracket.tick, numberSize: num, strokeWidth: p.bracket.strokeWidth };
+  return (
+    <g>
+      {planA > 0 && (
+        <g opacity={planA}>
+          <rect x={x0} y={yA} width={n * sx} height={a * sy} fill={palette[0]} fillOpacity={p.tint} stroke={palette[0]} strokeWidth={p.figureStroke} />
+          {label(x0 - num * 0.3, yA, String(a), num * 0.8, palette[0]!, font, weight, 1, 'end')}
+          {label(dotX, yA - num * 0.6, `${COPY.extra} ${extra}`, size, palette[0]!, jaFont, weight, 1 - gap, 'start')}
+          {dots(extra, dotX, yA, true, palette[0]!)}
+          {label(x0 + (n * sx) / 2, base + p.bracket.offset + num * 0.6, `${COPY.unknown}${COPY.person}`, num, ink, font, weight, 1 - divide)}
+        </g>
+      )}
+      {planB > 0 && (
+        <g opacity={planB}>
+          <rect x={x0} y={yB} width={n * sx} height={b * sy} fill="none" stroke={palette[1]} strokeWidth={p.figureStroke} strokeDasharray={p.dash} />
+          {label(x0 - num * 0.3, yB, String(b), num * 0.8, palette[1]!, font, weight, 1, 'end')}
+          {label(dotX, yB - num * 0.6, `${COPY.short} ${short}`, size, palette[1]!, jaFont, weight, 1 - gap, 'start')}
+          {dots(short, dotX, yB, false, palette[1]!)}
+        </g>
+      )}
+      {gap > 0 && (
+        <g opacity={gap}>
+          <rect data-part="gap" x={x0} y={yB} width={n * sx} height={(b - a) * sy} fill={accent} fillOpacity={p.tint * 2} stroke={accent} strokeWidth={p.lensStroke} />
+          {gapText && label(x0 + (n * sx) / 2, (yA + yB) / 2, gapText, num, accent, font, weight)}
+        </g>
+      )}
+      {divide > 0 && (
+        <g opacity={divide}>
+          {heightText && <Bracket from={[xEnd, yA]} to={[xEnd, yB]} normal={[1, 0]} label={heightText} color={accent} {...bk} offset={num * 0.6} />}
+          {result?.value && <Bracket from={[x0, base]} to={[xEnd, base]} normal={[0, 1]} label={formatExact(result.value)} color={accent} {...bk} />}
+        </g>
+      )}
+    </g>
+  );
+}
+
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
 /** てんびん: a beam on a number line of strengths; the weights hang at the ends, the pivot at the mix. */
 function BalanceDiagram(p: WordDiagramProps) {
   const { card, fig, prog, ink, accent, palette, font, weight, labelSize: size, numberSize: num } = p;
-  const { w1 = 0, p1 = 0, p2 = 1, pt = 0 } = fig.params;
+  const { w1, p1, p2, pt } = spec(fig, 'lever');
   const steps = card.lens_route.steps;
   const unit = card.problem.unit ?? '';
   const answer = p.answer ?? 0;
@@ -260,7 +417,7 @@ function BalanceDiagram(p: WordDiagramProps) {
 function RoadDiagram(p: WordDiagramProps) {
   const { card, fig, prog, ink, accent, palette, font, jaFont, weight, labelSize: size, numberSize: num } = p;
   const chalk = p.chalk ?? ink;
-  const { d = 1, u = 0, v = 0 } = fig.params;
+  const { d, u, v } = spec(fig, 'road');
   const steps = card.lens_route.steps;
   const minutes = answerNumber(card); // drawing only: how far the walkers get, and the block count
   const answer = p.answer ?? 0;
@@ -326,8 +483,8 @@ function RoadDiagram(p: WordDiagramProps) {
         <g opacity={road}>
           <circle cx={xa} cy={yr} r={r} fill={palette[0]} fillOpacity={0.9} stroke={palette[0]} strokeWidth={p.figureStroke} />
           <circle cx={xb} cy={yr} r={r} fill={palette[1]} fillOpacity={0.9} stroke={freeze > 0 ? accent : palette[1]} strokeWidth={p.figureStroke + p.lensStroke * freeze} />
-          {label(xa - size * 0.7 * combine, yr - r - size * 0.7, fig.names.a ?? '', size, palette[0]!, jaFont, weight)}
-          {label(xb, yr - r - size * 0.7, fig.names.b ?? '', size, palette[1]!, jaFont, weight)}
+          {label(xa - size * 0.7 * combine, yr - r - size * 0.7, (fig.names ?? {}).a ?? '', size, palette[0]!, jaFont, weight)}
+          {label(xb, yr - r - size * 0.7, (fig.names ?? {}).b ?? '', size, palette[1]!, jaFont, weight)}
           {tag(xa, `${COPY.perMinute}${u}${COPY.metre}`, palette[0]!, 1 - freeze)}
           {closing && tag(xa, closing, accent, freeze * (1 - combine))}
           {closingSpeed && tag(xa - num * 1.2 * combine, `${COPY.perMinute}${closingSpeed}${COPY.metre}`, accent, combine)}

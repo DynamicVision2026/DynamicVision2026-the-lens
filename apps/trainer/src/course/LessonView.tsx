@@ -1,13 +1,13 @@
 // /lesson/:passId/:lens — the course player (WO-012): problem by problem, the child picks the lens
 // (wrong picks "try on" their feedback), taps the clue, then moves the figure until it snaps,
 // guided by ナゼホリ. Everything shown comes from the bundle.
-import { answerText, getCard, LensIcon, loadBundle, tokens, type LensCard, type LensOrDirect } from '@lens/scenes';
+import { allSceneCards, answerText, getCard, LensIcon, loadBundle, tokens, type LensCard, type LensOrDirect } from '@lens/scenes';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { t } from '../i18n/ja';
 import { navigate } from '../launch/navigate';
 import { burst, sfx, TACTILE } from './fx';
 import { GuideOverlay, GuideProvider, useGuide } from './guide';
-import { findLesson, findPass, lessonProblems } from './lessons';
+import { findLesson, findPass, isPlayable, lessonProblems } from './lessons';
 import { markSolved, solvedIn } from './progress';
 import { ClueCard, PickCard, usePickClue } from './PickClue';
 import { SCENES } from './scenes';
@@ -18,7 +18,7 @@ export function LessonView({ passId, lens }: { passId: string; lens: string }) {
   const bundle = loadBundle();
   const pass = findPass(bundle, passId);
   const lesson = pass && findLesson(pass, lens);
-  const problems = useMemo(() => (pass && lesson ? lessonProblems(pass, lesson) : []), [pass, lesson]);
+  const problems = useMemo(() => (pass && lesson ? (oneCard(lens) ?? lessonProblems(pass, lesson)) : []), [pass, lesson, lens]);
   const [index, setIndex] = useState(() => Math.min(solvedIn(passId, lens).length, Math.max(0, problems.length - 1)));
   const [round, setRound] = useState(0);
   if (!pass || !lesson || problems.length === 0 || !SCENES[lens]) return <main className="course">{t('lesson.notFound')}</main>;
@@ -42,6 +42,16 @@ export function LessonView({ passId, lens }: { passId: string; lens: string }) {
       <Problem key={`${card.id}-${round}`} card={card} lens={lens} passId={passId} last={index >= problems.length - 1} onNext={next} onAgain={() => setRound(round + 1)} />
     </main>
   );
+}
+
+/**
+ * Review aid (the lesson is already behind ?preview=1 until launch): ?card=<id> plays just that card
+ * or variant of this lens, so every variant can be checked, not only the lesson's first few.
+ */
+function oneCard(lens: string): LensCard[] | null {
+  const id = new URLSearchParams(window.location.search).get('card');
+  const card = id ? allSceneCards(loadBundle()).find((c) => c.id === id) : undefined;
+  return card && isPlayable(card, lens) ? [card] : null;
 }
 
 function Problem({ card, lens, passId, last, onNext, onAgain }: { card: LensCard; lens: string; passId: string; last: boolean; onNext: () => void; onAgain: () => void }) {
@@ -86,7 +96,7 @@ function Flow({ card, lens, passId, last, onNext, onAgain, stage }: { card: Lens
   const locked = phase === 'pick' || phase === 'clue';
   return (
     <>
-      <div className="stage" ref={stage}>
+      <div className="stage" ref={stage} data-card={card.id}>
         <SceneLock.Provider value={locked}>
           <Scene key={locked ? 'locked' : 'live'} card={card} lens={lens} onSolved={solved} />
         </SceneLock.Provider>
