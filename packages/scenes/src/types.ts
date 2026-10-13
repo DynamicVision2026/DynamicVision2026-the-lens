@@ -112,14 +112,32 @@ export interface BoxMesh {
 }
 
 /**
- * A word problem: the figure is a diagram the lens draws. `kind` picks the diagram; `params` holds
- * the problem's numbers and `names` its nouns. Printed numbers come only from params or the steps.
+ * Which picture a word problem draws (bundle 1.3, WO-015) and the numbers that size it. Render by
+ * `family`, not by kind. These numbers size and snap shapes only; the answer fields (x, w2, n, shift,
+ * t) are strings and are never printed.
+ */
+export type WordDiagramSpec =
+  | { family: 'area_two_rect'; unit: string; n: number; a: number; b: number; t: number; x: string }
+  | { family: 'area_average'; w1: number; h1: number; h2: number; level: number; w2: string }
+  | { family: 'area_shortfall'; a: number; b: number; s: number; d: number; n: string }
+  | { family: 'diff_bars'; measure: 'age' | 'yen'; step: number; big: number; small: number; r: number; dir: 1 | -1; shift: string }
+  | { family: 'lever'; unit_w: string; unit_p: string; w1: number; p1: number; p2: number; pt: number; w2: string }
+  | { family: 'road'; mode: 'toward' | 'chase'; d: number; u: number; v: number; t: string }
+  | { family: 'steps_only' };
+
+export type WordFamily = WordDiagramSpec['family'];
+
+/**
+ * A word problem: the figure is a diagram the lens draws. `diagram.family` picks the picture; `params`
+ * holds the problem's numbers and `names` its nouns. Printed numbers come only from params, the text
+ * or the steps.
  */
 export interface WordProblemFigure {
   type: 'word_problem';
-  kind: 'two_kinds_total' | 'age_ratio' | 'mixture' | 'meeting';
+  kind: 'two_kinds_total' | 'age_ratio' | 'mixture' | 'meeting' | 'average_groups' | 'shortfall' | 'age_ratio_past' | 'same_spend' | (string & {});
   params: Record<string, number>;
   names: Record<string, string>;
+  diagram: WordDiagramSpec;
 }
 
 /** Figures with a scene. Other types in the bundle (later lenses' drafts) have none yet. */

@@ -1,7 +1,7 @@
 // Word-problem keyframes (WO-006): each keyframe is a stage of the diagram, so the state is simply
 // the progress of every keyframe so far, plus the story highlight, the caption and the answer.
 import type { LensCard, Step, WordProblemFigure } from '../types';
-import { WORD_CAPTIONS } from '../wordProblem';
+import { wordCaptions } from '../wordProblem';
 
 export interface WordState {
   story: number;
@@ -23,7 +23,7 @@ export function wordState(keyframes: string[], k: number, t: number, card: LensC
       if (result) state.caption = { step: result, t: 1 };
     } else {
       state.prog[name] = p;
-      const c = WORD_CAPTIONS[fig.kind][name];
+      const c = wordCaptions(fig)[name];
       const step = c === undefined ? undefined : card.lens_route.steps[c];
       if (step) state.caption = { step, t: p };
     }

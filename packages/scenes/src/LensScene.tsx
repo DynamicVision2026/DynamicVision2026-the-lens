@@ -132,7 +132,7 @@ export function LensScene({
     );
   }
   if (figure.type !== 'grid_polygon') {
-    warnNoScene(figure.type === 'word_problem' ? `word_problem/${figure.kind}` : (figure as { type: string }).type);
+    warnNoScene(figure.type === 'word_problem' ? `word_problem/${figure.diagram?.family ?? figure.kind}` : (figure as { type: string }).type);
     return <svg {...svgProps} />;
   }
 

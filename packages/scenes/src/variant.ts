@@ -1,5 +1,5 @@
 import type { Bundle, Figure, LensCard, Variant } from './types';
-import { WORD_CAPTIONS } from './wordProblem';
+import { wordFamily } from './wordProblem';
 
 /** The variant's figure over the card's: points/grid for grids, a figure object for other types. */
 function mergeFigure(figure: Figure, variant: Variant): Figure {
@@ -41,6 +41,6 @@ export const SCENE_FIGURE_TYPES = ['grid_polygon', 'parallel_band', 'mirror_path
 export function hasScene(card: LensCard): boolean {
   const figure = card.problem.figure;
   if (!(SCENE_FIGURE_TYPES as readonly string[]).includes(figure.type)) return false;
-  // Word problems also need a diagram for their kind.
-  return figure.type !== 'word_problem' || figure.kind in WORD_CAPTIONS;
+  // Word problems also need a diagram family the shared scenes can draw.
+  return figure.type !== 'word_problem' || wordFamily(figure) !== null;
 }

@@ -2,7 +2,7 @@
 // One beat per calculation step; the number of corner beats follows the card's `sub` steps.
 import { bandTriangles } from '../band';
 import { enclosureGaps } from '../geometry';
-import { diagramKeyframes, WORD_CAPTIONS } from '../wordProblem';
+import { diagramKeyframes, wordCaptions, wordFamily } from '../wordProblem';
 import type { LensCard, Tokens } from '../types';
 
 export type BeatName =
@@ -153,10 +153,10 @@ function unfoldTimeline(card: LensCard, tokens: Tokens): Beat[] | null {
  */
 function wordTimeline(card: LensCard, tokens: Tokens): Beat[] | null {
   const figure = card.problem.figure;
-  if (figure.type !== 'word_problem' || !(figure.kind in WORD_CAPTIONS) || !card.lens_route.steps.some((s) => s.op === 'result')) return null;
+  if (figure.type !== 'word_problem' || !wordFamily(figure) || !card.lens_route.steps.some((s) => s.op === 'result')) return null;
   const keys = diagramKeyframes(card);
   if (keys.length === 0) return null;
-  const captions = WORD_CAPTIONS[figure.kind];
+  const captions = wordCaptions(figure);
   return [
     { name: 'trap', durationMs: BEAT_MS.trap },
     { name: 'lens_activate', durationMs: BEAT_MS.lens_activate },
