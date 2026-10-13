@@ -1016,3 +1016,137 @@ html[data-theme='course'] body {
   margin-top: 8px;
   width: 100%;
 }
+
+/* ---- Lesson steps (Steps 3–4) ---- */
+.course .steps-nav {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+.course .steps-nav .st {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 36px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--raise);
+  color: var(--ink-quiet);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.course .steps-nav .st i {
+  font-style: normal;
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--line);
+  color: var(--ink);
+  font-size: 12px;
+}
+.course .steps-nav .st.cur {
+  color: var(--ink);
+  border-color: var(--lens);
+}
+.course .steps-nav .st.cur i {
+  background: var(--lens);
+  color: var(--paper);
+}
+.course .steps-nav .st.off {
+  opacity: 0.45;
+  cursor: default;
+}
+.course .streak,
+.course .clock {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.course .streak i {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--lens);
+}
+.course .streak i.on {
+  background: var(--lens);
+}
+.course .clock {
+  font-variant-numeric: tabular-nums;
+  color: var(--lens);
+}
+.course .mastered {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+  background: var(--panel);
+  border: 1px solid var(--lens);
+  border-radius: 14px;
+  padding: 10px 14px;
+  font-weight: 700;
+}
+.course .mastered.in {
+  animation: rise 0.3s ease both;
+}
+.course .mastered .go {
+  min-height: var(--tap-target);
+  padding: 0 16px;
+  font-size: 15px;
+}
+.course .timed-result .timed-items {
+  margin: 0;
+  padding-left: 1.4em;
+  display: grid;
+  gap: 8px;
+}
+.course .timed-result .timed-items li {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 4px 10px;
+  align-items: baseline;
+}
+.course .timed-result .q {
+  font-size: 14px;
+  color: var(--ink-quiet);
+}
+.course .timed-result .trap {
+  grid-column: 1 / -1;
+  font-size: 13px;
+  color: var(--ink-quiet);
+}
+.course .timed-result .ok {
+  color: var(--lens);
+}
+.course .timed-result .miss {
+  color: var(--flag);
+}
+.course .tile .star {
+  color: var(--c);
+}
+@media (max-width: 700px) {
+  /* Phone: the steps get their own row; only the current one keeps its label. */
+  .course .bar:has(.steps-nav) {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+  .course .steps-nav {
+    order: 3;
+    flex-basis: 100%;
+    flex-wrap: nowrap;
+  }
+  .course .steps-nav .st:not(.cur) .lbl {
+    display: none;
+  }
+}

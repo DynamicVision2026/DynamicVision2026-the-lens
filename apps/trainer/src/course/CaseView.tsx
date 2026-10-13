@@ -6,6 +6,7 @@ import { navigate } from '../launch/navigate';
 import { lessonsOpen } from './access';
 import { sfx } from './fx';
 import { findPass, lessonProblems } from './lessons';
+import { masteryOf } from './progress';
 import { solvedIn } from './progress';
 import { SCENES } from './scenes';
 import { C, useCourseTheme } from './scenes/kit';
@@ -57,7 +58,10 @@ export function CaseView({ passId }: { passId: string }) {
                   <LensIcon lens={lesson.lens as LensOrDirect} tokens={tokens} color={c} />
                 </svg>
               </span>
-              <span className="nm">{label?.ja ?? lesson.lens}</span>
+              <span className="nm">
+                {label?.ja ?? lesson.lens}
+                {masteryOf(pass.id, lesson.lens).done && <span className="star" aria-label={t('practice.masteredShort')}> ★</span>}
+              </span>
               <span className="hn">{ready ? label?.hint_ja : t('case.planned')}</span>
               <span className="dots">
                 {problems.map((p) => (

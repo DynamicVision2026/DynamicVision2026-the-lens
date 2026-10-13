@@ -3,9 +3,10 @@
 // the trap beat (the habit's route, greyed, ending in ✕); then the lens route one tap at a time,
 // with the aha on the result. The figure, when the card has one, shows static beside it.
 import { getCard, hasScene, LensIcon, LensScene, loadBundle, tokens, type LensCard, type LensOrDirect } from '@lens/scenes';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { t } from '../i18n/ja';
 import { Aha } from './Aha';
+import { isClean, type PlayOpts } from './play';
 import { burst, sfx } from './fx';
 import { GuideOverlay, useGuide } from './guide';
 import { ClueCard, PickCard, usePickClue } from './PickClue';
@@ -39,6 +40,7 @@ interface Props {
   onNext: () => void;
   onAgain: () => void;
   stage: React.RefObject<HTMLDivElement | null>;
+  opts?: PlayOpts;
 }
 
 /** The trap beat (boundary cards) and the lens route revealed up to `shown` steps. Pure, for tests. */
@@ -90,7 +92,7 @@ export function WalkBoard({ card, shown, next, nudge = 0 }: { card: LensCard; sh
   );
 }
 
-export function WalkFlow({ card, lens, passId, last, onNext, onAgain, stage }: Props) {
+export function WalkFlow({ card, lens, passId, last, onNext, onAgain, stage, opts = {} }: Props) {
   const { labels } = loadBundle();
   const guide = useGuide();
   const pc = usePickClue(card);
@@ -118,13 +120,19 @@ export function WalkFlow({ card, lens, passId, last, onNext, onAgain, stage }: P
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase]);
 
+  const sRef = useRef(s);
+  sRef.current = s;
+  // Through a ref, so `solved` keeps its identity (scenes restart their timers when onSolved changes).
+  const optsRef = useRef(opts);
+  optsRef.current = opts;
   const solved = useCallback(() => {
     dispatch({ type: 'solved' });
     guide.idle(null);
     sfx.aha();
     if (stage.current) burst(stage.current, [C.lens(lens), ...C.palette, C.ink]);
     guide.say(t('guide.aha'), 'd');
-    markSolved(passId, lens, card.id);
+    if (optsRef.current.record !== false) markSolved(passId, lens, card.id);
+    optsRef.current.onResult?.({ clean: isClean(sRef.current) });
   }, [dispatch, guide, stage, lens, passId, card.id]);
 
   // One tap, one step (the settle and the tick); the result step plays the aha.
@@ -155,7 +163,7 @@ export function WalkFlow({ card, lens, passId, last, onNext, onAgain, stage }: P
         <GuideOverlay />
       </div>
       <aside className="side">
-        {phase === 'pick' && <PickCard card={card} pc={pc} trap={parent.trap_route.steps[0]?.ja} />}
+        {phase === 'pick' && <PickCard card={card} pc={pc} trap={opts.practice ? undefined : parent.trap_route.steps[0]?.ja} />}
         {phase === 'clue' && <ClueCard lens={way} pc={pc} />}
         {live && (
           <div className="card">
@@ -168,7 +176,7 @@ export function WalkFlow({ card, lens, passId, last, onNext, onAgain, stage }: P
             <div className="trigger">{card.trigger.ja}</div>
           </div>
         )}
-        {phase === 'aha' && <Aha card={card} last={last} onNext={onNext} onAgain={onAgain} listSteps={false} />}
+        {phase === 'aha' && <Aha card={card} last={last} onNext={onNext} onAgain={onAgain} listSteps={false} nextLabel={opts.nextLabel} again={opts.again} />}
       </aside>
     </>
   );
