@@ -936,6 +936,9 @@ def coord_text(fig):
     if t == "coord_equal_area":
         return (f"座標平面上に3点{_pt('A', fig['A'])}、{_pt('B', fig['B'])}、{_pt('C', fig['C'])}があります。"
                 f"y軸上に点Pを、直線ABについて点Cと同じ側にとり、△ABPの面積が△ABCの面積と等しくなるようにします。点Pのy座標を求めなさい。")
+    if t == "coord_mirror_area" and fig.get("ask") == "p_x":
+        return (f"座標平面上に2点{_pt('A', fig['A'])}、{_pt('B', fig['B'])}があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。"
+                f"このとき、点Pのx座標を求めなさい。")
     if t == "coord_mirror_area":
         return (f"座標平面上に2点{_pt('A', fig['A'])}、{_pt('B', fig['B'])}があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。"
                 f"このとき、△ABPの面積を求めなさい。ただし、座標の1目もりを1{u}とします。")
@@ -951,6 +954,8 @@ def coord_answer(fig):
         return shoelace([tuple(p) for p in fig["points"]])
     if t == "coord_equal_area":
         return coord_equal_area_k(fig)[0]
+    if t == "coord_mirror_area" and fig.get("ask") == "p_x":
+        return coord_mirror_P(fig)
     if t == "coord_mirror_area":
         P = (_num(coord_mirror_P(fig)), 0)
         return shoelace([tuple(fig["A"]), P, tuple(fig["B"])])
@@ -972,6 +977,15 @@ def coord_steps(fig):
             {"ja": f"ABの傾きは ({_cp(by)}−{_cp(ay)})÷({_cp(bx)}−{_cp(ax)}) = {mtxt}", "op": "note"},
             {"ja": f"Cを通り傾き{mtxt}の直線 y = {mtxt} x + b に C を代入：b = {_cp(cy)}−{_cp(m)}×{_cp(cx)} = {_c(k)}", "op": "note"},
             {"ja": f"この直線とy軸の交点がP。Pのy座標 = {_c(k)}", "value": str(k), "op": "result"},
+        ]
+    if t == "coord_mirror_area" and fig.get("ask") == "p_x":
+        (ax, ay), (bx, by) = fig["A"], fig["B"]
+        px = coord_mirror_P(fig)
+        return [
+            {"ja": f"Bをx軸で折り返した点B'({_c(bx)}, {_c(-by)})をとる（PB＝PB'）", "op": "note"},
+            {"ja": "AとB'をまっすぐ結ぶ。x軸との交点がP", "op": "note"},
+            {"ja": f"yが {ay}+{by} = {ay + by} 下がる間にxは {_cp(bx)}−{_cp(ax)} = {bx - ax} 進むので、Pのx座標は {_c(ax)}+{bx - ax}×{ay}/{ay + by} = {_c(px)}",
+             "value": str(px), "op": "result"},
         ]
     if t == "coord_mirror_area":
         (ax, ay), (bx, by) = fig["A"], fig["B"]
@@ -1057,7 +1071,12 @@ def make_coord_variants(card):
     used = {sympify(card["answer"]["value"])}
     while len(out) < v["count"] and tries < 20000:
         tries += 1
-        if t == "coord_polygon" and len(fig0["points"]) == 4:   # tilted square, side vector (a, -b)
+        if t == "coord_polygon" and fig0.get("shape") == "quad":   # general convex quadrilateral, one vertex on each side of the box
+            w, h = rng.randint(5, 10), rng.randint(5, 10)
+            base = [(0, rng.randint(1, h - 1)), (rng.randint(1, w - 1), 0), (w, rng.randint(1, h - 1)), (rng.randint(1, w - 1), h)]
+            ox, oy = rng.randint(-w, 0), rng.randint(-h, 0)
+            fig = {**fig0, "points": [[x + ox, y + oy] for x, y in base]}
+        elif t == "coord_polygon" and len(fig0["points"]) == 4:   # tilted square, side vector (a, -b)
             a, b = rng.randint(1, 4), rng.randint(1, 4)
             if a == b:
                 continue
@@ -1073,8 +1092,8 @@ def make_coord_variants(card):
                 pts = pts[::-1]
             fig = {**fig0, "points": pts}
         elif t == "coord_equal_area":
-            ax, ay = rng.randint(-6, -1), rng.randint(-3, 5)
-            dx, dy = rng.choice([1, 2, 3]), rng.choice([-2, -1, 1, 2, 3])
+            ax, ay = rng.randint(-6, -1), (0 if c.get("slope0") else rng.randint(-3, 5))
+            dx, dy = rng.choice([1, 2, 3]), (0 if c.get("slope0") else rng.choice([-2, -1, 1, 2, 3]))
             k = rng.randint(1, 3)
             bx, by = ax + dx * k, ay + dy * k
             cx = rng.randint(1, 6)

@@ -1,0 +1,102 @@
+schema_version: '1.1'
+id: kj-slide-003
+kind: standard
+lens: slide
+best_move: slide
+stage: chugaku
+grades:
+- 中1
+- 中2
+level: 1
+archetype: slide.coord_parallel_axis
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: AB on the x-axis: the equal-area point P on the y-axis has the same height as C (line through C parallel to the x-axis).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 底辺ABがx軸の上なら、高さはy座標そのもの。Cと同じ高さの点は、x軸に平行な直線の上にならぶ。
+  principle_en: With AB on the x-axis the height is the y-coordinate; same height lies on a horizontal line.
+problem:
+  text_ja: 座標平面上に3点A(−5, 0)、B(3, 0)、C(4, 6)があります。y軸上に点Pを、直線ABについて点Cと同じ側にとり、△ABPの面積が△ABCの面積と等しくなるようにします。点Pのy座標を求めなさい。
+  unit: ''
+  figure:
+    type: coord_equal_area
+    A:
+    - -5
+    - 0
+    B:
+    - 3
+    - 0
+    C:
+    - 4
+    - 6
+answer:
+  value: '6'
+  display_ja: '6'
+  expr: coordinate
+trap_route:
+  time_cost_sec: 120
+  time_source: estimate
+  steps:
+  - ja: △ABCの面積を出してから、Pのy座標を□とおいて方程式を立てる
+    op: note
+  - ja: 高さの意味を考えずに式を書くので、まちがえやすい
+    op: note
+  - ja: ここで約2分
+    op: note
+lens_route:
+  time_cost_sec: 20
+  time_source: estimate
+  steps:
+  - ja: ABを底辺と見る。Cを通りABに平行な直線の上なら、どこに頂点があっても高さは同じ（等積変形）
+    op: note
+  - ja: ABの傾きは (0−0)÷(3−(−5)) = 0
+    op: note
+  - ja: Cを通り傾き0の直線 y = 0 x + b に C を代入：b = 6−0×4 = 6
+    op: note
+  - ja: この直線とy軸の交点がP。Pのy座標 = 6
+    value: '6'
+    op: result
+trigger:
+  ja: 面積が等しい点を軸の上にとるときは、頂点を通り底辺に平行な直線をひく。
+  en: 'Equal-area point: draw the line through the vertex parallel to the base.'
+  tags:
+  - equal_area_asked
+  - point_on_axis
+picker:
+  options:
+  - slide
+  - enclose
+  - mirror
+  - direct
+  correct: slide
+  clue_distractors:
+  - sum_of_distances
+  - tilted_polygon
+  feedback_ja:
+    slide: そのとおり。ABはx軸の上なので、Cを通りx軸に平行な直線の上なら高さが同じ。
+    enclose: △ABCの面積は出せるが、Pの位置を決めるには遠回り。
+    mirror: 最短の道すじを求める問題ではない。
+    direct: Pを(0, p)とおいて面積の式を立てることもできるが、遠回り。
+animation:
+  keyframes:
+  - show_shape
+  - draw_parallel
+  - slide_vertex
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: coord_equal_area_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: coord_equal_area
+  count: 4
+  seed: 3203
+  constraints:
+    slope0: true
