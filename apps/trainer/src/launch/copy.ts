@@ -1,4 +1,6 @@
-// Launch copy (WO-009), as written in the work order. Do not edit without the Architect.
+// Launch copy (WO-009, WO-010 Masterclass copy and the founder pricing from the #52 check), as
+// written by the Architect. Do not edit without the Architect. Prices, seats, term and devices come
+// from bundle.passes, so the copy can't drift from the catalog.
 export const LANDING = {
   eyebrow: '中学受験の算数',
   h1: '計算する前に、「見方」を選ぶ。',
@@ -6,7 +8,7 @@ export const LANDING = {
   heroCaption: 'ななめの四角形の面積も、「囲む」と見えればすぐに出せる。',
   start: '無料でためす（3分）',
   points: [
-    '8つのレンズ：囲む・ずらす・展開・止める・てんびん・面積図・折り返す・差一定',
+    '8回のマスタークラス：1回に1つのレンズ（囲む・ずらす・展開・止める・てんびん・面積図・折り返す・差一定）',
     '解き方の前に「どのレンズか」を選ぶ練習。まちがえても、なぜちがうかが分かる。',
     'かかった時間を記録。同じ型の問題で、どれだけ速くなったかが分かる。',
   ],
@@ -17,12 +19,25 @@ export const SIGNUP = {
   consent: '登録すると、視点レンズからのお知らせメールを受け取ることに同意したことになります。いつでも解除できます。',
 } as const;
 
+const yen = (n: number) => `¥${n.toLocaleString('ja-JP')}`;
+
+/** The founder offer (Architect, #52): no struck-through "regular" price before it has been charged. */
 export const PREORDER = {
-  title: '先行予約（30家庭限定）',
-  stage: '第1ステージ（中学受験）',
-  listPrice: '¥9,800',
-  arrow: '→',
-  earlyPrice: '先行価格 ¥6,800',
+  title: (seats: number) => `創設メンバー募集（先着${seats}家庭）`,
+  stage: '中学受験パス（新小5・新小6）',
+  price: (early: number, seats: number, list: number) => `創設メンバー価格 ${yen(early)}（先着${seats}家庭）。${seats + 1}家庭目からは通常価格 ${yen(list)}`,
+  /** Proposed wording for the seats-left line (the number comes from launch.config.ts). */
+  seatsLeft: (n: number) => `残り ${n} 家庭`,
+  includes: (termMonths: number, devices: number) => [
+    '8回のマスタークラス（1回に1つのレンズ）',
+    '各レンズの解説動画（3〜5分）：わな・しくみ・使いどころ',
+    '各レンズ10問以上、基礎から発展まで（全80問以上・すべてオリジナル問題）',
+    '同じ型の練習問題は何度でも（数字が毎回かわります）',
+    '「このレンズが使えない問題」と「レンズを使わない方が速い問題」つき',
+    '総まとめ：8つのレンズを混ぜた「どのレンズ？」問題',
+    '保護者レポート：かかった時間と、得意・苦手なレンズ',
+    `${termMonths === 12 ? '1年間' : `${termMonths}か月`}・${devices}台まで利用できます`,
+  ],
   delivery: '2027年1月にお届け。1月31日までにお届けできない場合は全額返金します。',
   button: '先行予約する',
 } as const;
@@ -38,14 +53,11 @@ export const PRIVACY = [
   'メールアドレスは、ご登録いただいた場合のみ、お知らせの送信に使います。',
 ] as const;
 
-/**
- * Not in WO-009 (proposed; needs the Architect's OK): the email field's accessible name and button,
- * and the line shown after a signup is sent.
- */
+/** Approved by the Architect (#32, #52): the signup field and button, the sent line, the check link. */
 export const PROPOSED = {
   emailLabel: 'メールアドレス',
   signupButton: '登録する',
   signupSent: '登録を受け付けました。開いたページで完了してください。',
-  /** WO-013: the free check from the landing page (proposed; the WO gives no copy). */
+  /** WO-013: the free check from the landing page. */
   checkLink: 'どのレンズ？チェック（無料・8問）',
 } as const;

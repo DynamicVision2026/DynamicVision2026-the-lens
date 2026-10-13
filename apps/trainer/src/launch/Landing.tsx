@@ -1,4 +1,4 @@
-import { getCard, LensScene } from '@lens/scenes';
+import { getCard, LensScene, loadBundle } from '@lens/scenes';
 import { LAUNCH } from '../launch.config';
 import { FOOTER, LANDING, PREORDER, PRIVACY, PROPOSED } from './copy';
 import { preorderHref } from './tracking';
@@ -72,13 +72,24 @@ export function Landing({ short }: { short: string | null }) {
   );
 }
 
+/** The founder offer; numbers from bundle.passes and the seats-left count from launch.config.ts. */
 export function Preorder() {
+  const pass = loadBundle().passes?.find((p) => p.id === LAUNCH.passId);
+  if (!pass?.price_jpy || !pass.early_price_jpy || !pass.founder_seats) return null;
+  const seatsLeft = LAUNCH.founderSeatsLeft;
   return (
     <section className="preorder-block">
-      <h2>{PREORDER.title}</h2>
+      <h2>{PREORDER.title(pass.founder_seats)}</h2>
+      <p className="stage">{PREORDER.stage}</p>
       <p className="price">
-        {PREORDER.stage} <s>{PREORDER.listPrice}</s> {PREORDER.arrow} <strong>{PREORDER.earlyPrice}</strong>
+        <strong>{PREORDER.price(pass.early_price_jpy, pass.founder_seats, pass.price_jpy)}</strong>
       </p>
+      {seatsLeft !== null && <p className="seats">{PREORDER.seatsLeft(seatsLeft)}</p>}
+      <ul className="includes">
+        {PREORDER.includes(pass.term_months ?? 12, pass.devices ?? 1).map((line) => (
+          <li key={line}>{line}</li>
+        ))}
+      </ul>
       <p>{PREORDER.delivery}</p>
       <a className="primary" href={PREORDER_PATH}>
         {PREORDER.button}
