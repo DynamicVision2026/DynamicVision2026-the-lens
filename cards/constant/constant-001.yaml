@@ -73,6 +73,7 @@ checks:
   - {type: wp_unique}
   - {type: wp_nontrivial}
   - {type: wp_text_matches}
+  - {type: wp_names_match}
   - {type: route_steps_sum, route: lens_route}
   - {type: lens_faster}
 
