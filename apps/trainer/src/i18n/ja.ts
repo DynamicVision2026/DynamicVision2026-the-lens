@@ -60,6 +60,16 @@ export const ja = {
   'guide.unfold.p': '光る P を上下に動かして、糸をまっすぐにしよう',
   'guide.unfold.down': '少し下へ。糸がまっすぐになる所',
   'guide.unfold.up': '少し上へ。糸がまっすぐになる所',
+  // check.*: proposed copy for WO-013 (not in the WO); the Architect may replace it.
+  'check.title': 'どのレンズ？チェック',
+  'check.resultTitle': 'チェックの結果',
+  'check.score': '{n} / {total} 問',
+  'check.average': '1問あたり 平均 {s} 秒で選びました',
+  'check.confusedTitle': 'まちがえやすい組み合わせ',
+  'check.suggest': 'まずは「{lens}」のレンズから始めるのがおすすめです。',
+  'check.shareLine': 'LINEで送る',
+  'check.again': 'もう一度チェックする',
+  'check.private': '結果はこの端末の中だけに保存されます。',
   'area.yen': '円',
   'area.age': '才',
 } as const;
