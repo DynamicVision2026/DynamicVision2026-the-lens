@@ -380,17 +380,19 @@ def wp_diagram(fig):
     x = wp_solve(fig)
     xs = str(x)
     if k == "two_kinds_total":
-        return {"family": "area_two_rect", "n": q["n"], "a": q["a"], "b": q["b"], "t": q["t"], "x": xs}
+        names = fig.get("names", {})
+        return {"family": "area_two_rect", "unit": names.get("unit", "円" if names.get("measure") == "金額" else ""),
+                "n": q["n"], "a": q["a"], "b": q["b"], "t": q["t"], "x": xs}
     if k == "average_groups":
         return {"family": "area_average", "w1": q["m"], "h1": q["p"], "h2": q["q"], "level": q["r"], "w2": xs}
     if k == "shortfall":
         return {"family": "area_shortfall", "a": q["a"], "b": q["b"], "s": q["s"], "d": q["d"], "n": xs}
     if k == "age_ratio":
-        return {"family": "diff_bars", "big": q["p"], "small": q["c"], "r": q["r"], "dir": 1, "shift": xs}
+        return {"family": "diff_bars", "measure": "age", "step": 1, "big": q["p"], "small": q["c"], "r": q["r"], "dir": 1, "shift": xs}
     if k == "age_ratio_past":
-        return {"family": "diff_bars", "big": q["p"], "small": q["c"], "r": q["r"], "dir": -1, "shift": xs}
+        return {"family": "diff_bars", "measure": "age", "step": 1, "big": q["p"], "small": q["c"], "r": q["r"], "dir": -1, "shift": xs}
     if k == "same_spend":
-        return {"family": "diff_bars", "big": q["x"], "small": q["y"], "r": q["r"], "dir": -1, "shift": xs}
+        return {"family": "diff_bars", "measure": "yen", "step": 100, "big": q["x"], "small": q["y"], "r": q["r"], "dir": -1, "shift": xs}
     if k == "mixture":
         return {"family": "lever", "w1": q["w1"], "p1": q["p1"], "p2": q["p2"], "pt": q["pt"], "w2": xs}
     if k == "meeting":
