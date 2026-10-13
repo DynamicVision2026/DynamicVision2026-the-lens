@@ -16,7 +16,7 @@ import { findPass } from './lessons';
 import { ClueCard, PickCard, usePickClue } from './PickClue';
 import { firstTime } from './progress';
 import { SCENES } from './scenes';
-import { C, SceneLock, useCourseTheme } from './scenes/kit';
+import { C, SceneLock, useCourseTheme, useFigScale } from './scenes/kit';
 
 const PASS = 'chugaku_juken';
 
@@ -57,6 +57,7 @@ export function CheckView({ short }: { short: string | null }) {
 
 function CheckProblem({ card, first, onDone }: { card: LensCard; first: boolean; onDone: (a: CheckAnswer) => void }) {
   const stage = useRef<HTMLDivElement>(null);
+  useFigScale(stage);
   return (
     <>
       <p className="qtext">{card.problem.text_ja}</p>

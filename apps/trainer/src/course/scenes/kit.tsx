@@ -85,10 +85,35 @@ export function StripeDefs({ id = 'st' }: { id?: string }) {
   );
 }
 
+/**
+ * Figure text never renders below 12 px on screen (Architect, #64): `--fig-k` is viewBox units per
+ * screen pixel (set by useFigScale), so on a phone the label grows in figure units to stay readable.
+ */
+const minPx = (size: number) => `max(${size}px, calc(12px * var(--fig-k, 1)))`;
+
+/** Keeps `--fig-k` on `host` up to date with how far its figure (600 units wide) is scaled down. */
+export function useFigScale(host: RefObject<HTMLElement | null>) {
+  useEffect(() => {
+    const el = host.current;
+    if (!el || typeof ResizeObserver === 'undefined') return;
+    const update = () => {
+      const fig = el.querySelector('svg.fig');
+      const w = fig?.getBoundingClientRect().width ?? 0;
+      el.style.setProperty('--fig-k', w > 0 ? String(Math.max(1, FIG_W / w)) : '1');
+    };
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    update();
+    return () => ro.disconnect();
+  }, [host]);
+}
+
+const FIG_W = 600;
+
 /** Text with a paper halo so it reads over lines and stripes. */
 export function Txt({ x, y, children, size = 18, fill = C.ink, anchor = 'middle', ...rest }: { x: number; y: number; children: ReactNode; size?: number; fill?: string; anchor?: 'start' | 'middle' | 'end' } & Omit<SVGProps<SVGTextElement>, 'x' | 'y' | 'fill'>) {
   return (
-    <text x={x} y={y} fill={fill} fontSize={size} fontFamily={C.font} fontWeight={C.weight} textAnchor={anchor} paintOrder="stroke" stroke={C.paper} strokeWidth={5} strokeLinejoin="round" {...rest}>
+    <text x={x} y={y} fill={fill} fontSize={size} style={{ fontSize: minPx(size) }} fontFamily={C.font} fontWeight={C.weight} textAnchor={anchor} paintOrder="stroke" stroke={C.paper} strokeWidth={5} strokeLinejoin="round" {...rest}>
       {children}
     </text>
   );

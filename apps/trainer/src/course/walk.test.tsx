@@ -1,11 +1,11 @@
 // WO-016: every walkthrough card renders its trap beat and every lens step; the free check never
 // serves a boundary card.
-import { hasScene, LensScene, loadBundle } from '@lens/scenes';
+import { getCard, hasScene, LensScene, loadBundle } from '@lens/scenes';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { checkProblems } from './check';
 import { findPass, lessonProblems } from './lessons';
-import { boundaryChip, WalkBoard } from './Walkthrough';
+import { boundaryChip, slowTrapLine, WalkBoard } from './Walkthrough';
 
 const pass = findPass(loadBundle(), 'chugaku_juken')!;
 const walks = pass.lessons.flatMap((l) => lessonProblems(pass, l)).filter((p) => p.mode === 'walkthrough').map((p) => [p.card.id, p.card] as const);
@@ -35,6 +35,20 @@ describe('walkthrough', () => {
     }
     expect(warn).not.toHaveBeenCalled();
     expect(err).not.toHaveBeenCalled();
+  });
+
+  it('strikes a trap that never gets there; a slow but right trap shows ⏱ instead (Architect, #64)', () => {
+    for (const id of ['enclose-f01', 'enclose-no-lens']) {
+      const card = getCard(id)!;
+      const html = text(renderToStaticMarkup(<WalkBoard card={card} shown={0} next={false} />));
+      expect(html, id).toContain(`⏱ 答えは出るが遠回り（約${Math.max(1, Math.round(card.trap_route.time_cost_sec! / 60))}分）`);
+      expect(html, id).not.toContain('✕');
+    }
+    for (const id of ['area-f01', 'area-no-lens', 'constant-f01', 'balance-f01', 'freeze-no-lens']) {
+      const card = getCard(id)!;
+      expect(slowTrapLine(card), id).toBeNull();
+      expect(text(renderToStaticMarkup(<WalkBoard card={card} shown={0} next={false} />)), id).toContain('✕');
+    }
   });
 
   it('the free check never serves a boundary or walkthrough card', () => {

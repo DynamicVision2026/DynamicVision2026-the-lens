@@ -989,6 +989,11 @@ html[data-theme='course'] body {
   padding-left: 1.4em;
   line-height: 1.7;
 }
+.course .trapbeat .slow {
+  margin: 6px 0 0;
+  color: var(--ink);
+  font-weight: 700;
+}
 .course .trapbeat li.stop {
   text-decoration: line-through;
   text-decoration-color: var(--flag);
