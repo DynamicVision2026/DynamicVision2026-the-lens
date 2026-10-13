@@ -59,13 +59,13 @@ trigger:
   tags: [shortest_path, touch_a_line, two_points_same_side]
 
 picker:
-  options: [mirror, slide, enclose, direct]
+  options: [mirror, unfold, slide, direct]
   correct: mirror
   clue_distractors: [parallel_lines, vertices_on_box]
   feedback_ja:
     mirror: "そのとおり。折り返しても長さは変わらないので、まっすぐ結んだ線が最短になる。"
     slide: "面積の問題ではない。道のりの長さを考える問題。"
-    enclose: "方眼の上の図形の面積ではない。"
+    unfold: "おしい。まっすぐにする発想は同じだが、ここは平面。面を開くのではなく、直線で折り返す。"
     direct: "まん中によるのが最短とは限らない。PAとQBの長さがちがう。"
 
 animation:

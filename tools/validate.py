@@ -57,8 +57,71 @@ def _load_catalog():
             raise SystemExit(f"catalog/{d}/pass.yaml defines {pid}; the folder name must be the Pass id")
         if ps.get("stage_no") != CATALOG_DIRS[d]:
             raise SystemExit(f"catalog/{d}/pass.yaml: {pid} has stage_no {ps.get('stage_no')}, expected {CATALOG_DIRS[d]}")
-        out[pid] = {**ps, "catalog_dir": d}
+        mc = ROOT / "catalog" / d / "masterclass.yaml"
+        out[pid] = {**ps, "catalog_dir": d, "masterclass": (yaml.safe_load(mc.read_text(encoding="utf-8")) or {}) if mc.exists() else {}}
     return out
+
+
+MC_SAY = ("trap", "trap_end", "lens", "lens_end", "try", "try_done", "when", "boundary")
+MC_TITLE = ("trap", "lens", "try", "when")
+
+
+def masterclass_check(pid, ps, lens, by_id):
+    """WO-014: a lesson's Micro Masterclass points at real cards of this Pass and fits the 4-beat standard.
+    Returns (errors, bundle entry or None)."""
+    m = ps.get("masterclass", {}).get(lens)
+    if not m:
+        return [], None
+    errs = []
+    tokens = json.loads((ROOT / "tokens" / "tokens.json").read_text(encoding="utf-8"))
+    std = tokens["motion"]["masterclass"]
+    if [b["id"] for b in std["beats"]] != list(MC_TITLE) or sum(b["sec"] for b in std["beats"]) != std["total_sec"]:
+        errs.append("tokens motion.masterclass beats must be trap/lens/try/when and sum to total_sec")
+    in_pass = {cid for ls in ps.get("lessons", []) for cid in ls["cards"]}
+    lesson_cards = next((ls["cards"] for ls in ps.get("lessons", []) if ls["lens"] == lens), [])
+    def card(role):
+        cid = m.get(role)
+        if cid not in by_id:
+            errs.append(f"{role}: card {cid} not found"); return None
+        return by_id[cid][1]
+    demo, tr, bd = card("demo"), card("try"), card("boundary")
+    if demo:
+        if demo["kind"] != "standard" or demo["lens"] != lens or demo["id"] not in lesson_cards:
+            errs.append(f"demo {demo['id']} must be a standard {lens} card in this lesson")
+        if len(demo["lens_route"]["steps"]) < 2 or len(demo["trap_route"]["steps"]) < 2:
+            errs.append(f"demo {demo['id']} needs at least 2 trap steps and 2 lens steps")
+    if tr:
+        fam = tr["problem"]["figure"].get("diagram", {}).get("family") if tr["problem"]["figure"]["type"] == "word_problem" else "figure"
+        if fam is None and tr["problem"]["figure"]["type"] == "word_problem":
+            fam = wp_diagram(tr["problem"]["figure"])["family"]
+        if tr["kind"] != "standard" or tr["lens"] != lens or tr.get("level", 9) > 2 or tr["id"] not in lesson_cards or fam == "steps_only":
+            errs.append(f"try {tr['id']} must be a level 1–2 standard {lens} card with a drag scene, in this lesson")
+        if demo and tr["id"] == demo["id"]:
+            errs.append("try must differ from demo")
+    line = None
+    if bd:
+        if bd["id"] not in in_pass:
+            errs.append(f"boundary {bd['id']} is not in this Pass")
+        if bd["lens"] == lens and bd["kind"] in ("failure", "no_lens"):
+            line = bd["trigger"]["ja"]
+        elif lens in bd["picker"]["options"] and bd["picker"]["correct"] != lens and bd["picker"]["feedback_ja"].get(lens):
+            line = bd["picker"]["feedback_ja"][lens]
+        else:
+            errs.append(f"boundary {bd['id']} must be a {lens} failure/no-lens card, or offer {lens} as a wrong pick with feedback")
+    for k in MC_SAY:
+        v = m.get("say", {}).get(k, "")
+        if not v or len(v) > 32:
+            errs.append(f"say.{k} must be 1–32 characters")
+    for k in MC_TITLE:
+        v = m.get("title", {}).get(k, "")
+        if not v or len(v) > 32:
+            errs.append(f"title.{k} must be 1–32 characters")
+    clues = [t for t in (demo or {}).get("trigger", {}).get("tags", []) if not LABELS["tags"].get(t, {}).get("generic")]
+    if demo and not clues:
+        errs.append("demo has no specific clue tags for beat 4")
+    entry = {"demo": m.get("demo"), "try": m.get("try"), "boundary": m.get("boundary"), "boundary_line": line,
+             "clues": clues, "say": m.get("say"), "title": m.get("title")}
+    return errs, (None if errs else entry)
 
 
 CATALOG = _load_catalog()
@@ -122,11 +185,18 @@ def catalog_check(entries, release=None):
             missing += ["no-lens card"] if not has_none else []
             tag = "FAIL" if errs else ("DONE" if done else "TODO")
             print(f"  {tag}    {pid}/{ls['lens']}: " + ("; ".join(errs) if errs else ("complete" if done else "needs " + ", ".join(missing))))
-            out_lessons.append({"lens": ls["lens"], "video": ls.get("video"), "cards": [c["id"] for c in cards if c["status"] in PUBLISHABLE]})
+            mc_errs, mc = masterclass_check(pid, ps, ls["lens"], by_id)
+            for e in mc_errs:
+                print(f"  FAIL    {pid}/{ls['lens']} masterclass: {e}")
+            ok_all &= not mc_errs
+            if mc:
+                print(f"  PASS    {pid}/{ls['lens']} masterclass: demo {mc['demo']}, try {mc['try']}, boundary {mc['boundary']}, {len(mc['clues'])} clues")
+            out_lessons.append({"lens": ls["lens"], "video": ls.get("video"), "cards": [c["id"] for c in cards if c["status"] in PUBLISHABLE],
+                                **({"masterclass": mc} if mc else {})})
         print(f"  {'PASS' if complete else 'INFO'}    {pid}: {'complete' if complete else ps.get('status', 'planned')} ({len(lessons)} lessons)")
         if release == pid and not complete:
             print(f"  FAIL    --release {pid}: not every lesson is complete"); ok_all = False
-        meta = {k: v for k, v in ps.items() if k != "lessons"}
+        meta = {k: v for k, v in ps.items() if k not in ("lessons", "masterclass")}
         out.append({"id": pid, **meta, "lessons": out_lessons})
     return ok_all, out
 
