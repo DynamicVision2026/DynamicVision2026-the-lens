@@ -11,7 +11,7 @@ describe('lesson problems (from bundle.passes)', () => {
   it('has the Stage 1 pass with its lessons', () => {
     expect(pass).toBeDefined();
     expect(pass.lessons.length).toBeGreaterThan(0);
-    expect(findPass(bundle, 'koko_juken')?.lessons).toEqual([]);
+    expect(findPass(bundle, 'koukou_juken')?.lessons).toEqual([]);
   });
 
   it.each(['enclose', 'slide', 'mirror', 'area', 'constant', 'balance', 'freeze', 'unfold'])('%s plays every anchor in catalog order, variants only as a top-up', (lens) => {

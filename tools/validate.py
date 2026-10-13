@@ -39,8 +39,29 @@ def _load_labels():
 
 
 LABELS = _load_labels()
-CATALOG_PATH = ROOT / "catalog" / "passes.yaml"
-CATALOG = yaml.safe_load(CATALOG_PATH.read_text(encoding="utf-8")) if CATALOG_PATH.exists() else {}
+CATALOG_DIRS = {"chugaku_juken": 1, "koukou_juken": 2, "daigaku_juken": 3}   # catalog/<pass id>/pass.yaml, one Pass (SKU) per dir
+
+
+def _load_catalog():
+    """One Pass per catalog/<dir>/pass.yaml (strict isolation per SKU). Ordered elem → middle → high."""
+    out = {}
+    for d in sorted(CATALOG_DIRS, key=CATALOG_DIRS.get):
+        f = ROOT / "catalog" / d / "pass.yaml"
+        if not f.exists():
+            continue
+        data = yaml.safe_load(f.read_text(encoding="utf-8")) or {}
+        if len(data) != 1:
+            raise SystemExit(f"catalog/{d}/pass.yaml must define exactly one Pass, found {list(data)}")
+        (pid, ps), = data.items()
+        if pid != d:
+            raise SystemExit(f"catalog/{d}/pass.yaml defines {pid}; the folder name must be the Pass id")
+        if ps.get("stage_no") != CATALOG_DIRS[d]:
+            raise SystemExit(f"catalog/{d}/pass.yaml: {pid} has stage_no {ps.get('stage_no')}, expected {CATALOG_DIRS[d]}")
+        out[pid] = {**ps, "catalog_dir": d}
+    return out
+
+
+CATALOG = _load_catalog()
 
 
 def catalog_check(entries, release=None):
@@ -54,7 +75,14 @@ def catalog_check(entries, release=None):
     """
     by_id = {c["id"]: (ok, c) for ok, c, _ in entries}
     ok_all, out = True, []
-    print("\n== catalog/passes.yaml")
+    print("\n== catalog/<pass id>/pass.yaml")
+    owner = {}
+    for pid, ps in CATALOG.items():
+        for ls in ps.get("lessons", []):
+            for cid in ls["cards"]:
+                if cid in owner and owner[cid] != pid:
+                    print(f"  FAIL    isolation: {cid} is listed in both {owner[cid]} and {pid}"); ok_all = False
+                owner[cid] = pid
     for pid, ps in CATALOG.items():
         lessons, target = ps.get("lessons", []), ps.get("lesson_target", 10)
         levels = set(ps.get("levels", {1: 0, 2: 0, 3: 0, 4: 0}))
@@ -955,6 +983,8 @@ def make_unfold_variants(card):
         h = rng.randint(c.get("min_h", 3), c.get("max_h", 15))
         if a == b or (h * a) % (a + b) or ratio(a, b) in used_ratios or h in used_h or S(h * a) / (a + b) in used_ans:
             continue
+        if abs(S(h * a) / (a + b) - Rational(h, 2)) < Rational(h, 6):   # the midpoint guess must look visibly wrong in the figure
+            continue
         fig = {**fig0, "a": a, "b": b, "h": h}
         x = unfold_cross(fig)
         vcard = {**card, "answer": {**card["answer"], "value": str(x)}, "problem": {**card["problem"], "figure": fig}}
@@ -1421,6 +1451,30 @@ def make_variants(card):
     return out
 
 
+def chain_check(card):
+    """ADR-003: chained lenses. Stages are labelled lenses, consecutive stages differ, the first stage is the
+    card's lens, and the step slices are contiguous and cover lens_route.steps exactly; the last stage ends on the result."""
+    errs, chain = [], card["chain"]
+    steps = card["lens_route"]["steps"]
+    if chain[0]["lens"] != card["lens"]:
+        errs.append(f"first stage is {chain[0]['lens']}, card lens is {card['lens']}")
+    nxt = 0
+    for i, st in enumerate(chain):
+        if st["lens"] not in LABELS["lenses"]:
+            errs.append(f"stage {i + 1} lens '{st['lens']}' has no label")
+        if i and st["lens"] == chain[i - 1]["lens"]:
+            errs.append(f"stages {i} and {i + 1} use the same lens")
+        a, b = st["steps"]
+        if a != nxt or b < a:
+            errs.append(f"stage {i + 1} covers steps {a}..{b}, expected to start at {nxt}")
+        nxt = b + 1
+    if nxt != len(steps):
+        errs.append(f"stages cover {nxt} of {len(steps)} lens steps")
+    elif steps[-1].get("op") != "result":
+        errs.append("the last stage must end on the result step")
+    return errs
+
+
 def step_order_check(card, pts):
     """Scenes place each piece's label by step order, so the order is part of the contract.
 
@@ -1478,6 +1532,13 @@ def validate(path: Path, with_variants: bool) -> bool:
     if not lerrs:
         print("  PASS    labels: every option and clue chip has a label; decoys differ from real clues")
     ok_all &= not lerrs
+    if "chain" in card:
+        cerrs = chain_check(card)
+        for e in cerrs:
+            print(f"  FAIL    chain: {e}")
+        if not cerrs:
+            print(f"  PASS    chain: {' → '.join(st['lens'] for st in card['chain'])}, stages cover every lens step in order")
+        ok_all &= not cerrs
     applies, ok, msg = step_order_check(card, pts)
     if applies:
         ok_all &= ok

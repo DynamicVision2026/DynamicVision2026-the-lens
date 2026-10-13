@@ -1,14 +1,12 @@
-# Product catalog: one entry per sellable Pass (Shopify SKU). Architect-owned.
-# The engine, the picker and the scene renderers are shared; each Pass owns its lens set,
-# its lessons and its problems. Cards stay in cards/<lens>/; a Pass only lists card ids.
-#
-# A card belongs to a Pass when its `stage` is in the Pass's card_stages.
-# The validator checks every lesson below and reports progress toward its target.
-# `python tools/validate.py ... --bundle --release <pass>` fails unless that Pass is complete.
+# Catalog: chugaku_juken/ holds exactly one Pass (one Shopify SKU). Architect-owned.
+# Strict isolation: a Pass lists only cards whose `stage` is in its card_stages, and no card id
+# may appear in two Passes. Shared engine, schema, picker and scene renderers (ADR-001, ADR-003).
+# The validator loads catalog/*/pass.yaml; `--release chugaku_juken` fails unless this Pass is complete.
 
 chugaku_juken:
   stage_no: 1
   title_ja: 中学受験パス
+  product_en: Elementary Sprint
   audience_ja: 小4〜小6・中学受験
   card_stages: [shogakko]
   status: building            # building → preorder → live
@@ -23,28 +21,10 @@ chugaku_juken:
   review_set: {size: 10, no_lens_items: 2}   # mixed toolkit review: pick the lens, all lessons mixed
   lessons:
     - {lens: enclose,  video: lesson-enclose,  cards: [enclose-002, enclose-004, enclose-no-lens, enclose-001, enclose-003, enclose-008, enclose-005, enclose-006, enclose-f01, enclose-007]}
-    - {lens: slide,    video: lesson-slide,    cards: [slide-001]}
+    - {lens: slide,    video: lesson-slide,    cards: [slide-002, slide-001, slide-003]}
     - {lens: area,     video: lesson-area,     cards: [area-002, area-001, area-no-lens, area-004, area-003, area-f01, area-005]}
     - {lens: constant, video: lesson-constant, cards: [constant-004, constant-001, constant-no-lens, constant-002, constant-003, constant-f01, constant-005]}
     - {lens: balance,  video: lesson-balance,  cards: [balance-002, balance-001, balance-no-lens, balance-003, balance-f01, balance-004]}
     - {lens: freeze,   video: lesson-freeze,   cards: [freeze-002, freeze-001, freeze-no-lens, freeze-003, freeze-f01, freeze-004]}
-    - {lens: mirror,   video: lesson-mirror,   cards: [mirror-001]}
-    - {lens: unfold,   video: lesson-unfold,   cards: [unfold-001]}
-
-koko_juken:
-  stage_no: 2
-  title_ja: 高校受験パス
-  audience_ja: 中1〜中3・高校受験
-  card_stages: [chugaku]
-  status: planned             # lens set decided from signup data after Stage 1 ships
-  sku: LENS-KJ-12M
-  lessons: []
-
-daigaku_juken:
-  stage_no: 3
-  title_ja: 大学受験パス
-  audience_ja: 高1〜高3・共通テスト／個別試験
-  card_stages: [koko]
-  status: planned
-  sku: LENS-DJ-12M
-  lessons: []
+    - {lens: mirror,   video: lesson-mirror,   cards: [mirror-002, mirror-001, mirror-003]}
+    - {lens: unfold,   video: lesson-unfold,   cards: [unfold-002, unfold-001, unfold-003]}
