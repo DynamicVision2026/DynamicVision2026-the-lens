@@ -17,7 +17,9 @@
       "description": "standard = the lens is the best route; failure = the lens stalls and another move wins; no_lens = direct calculation is fastest.",
       "enum": ["standard", "failure", "no_lens"]
     },
-    "lens": { "description": "Lens this card is about (for no_lens: the lens a student is tempted to over-apply).", "enum": ["enclose", "slide", "unfold", "freeze", "balance", "area", "mirror", "constant"] },
+    "lens": { "description": "Lens this card is about (for no_lens: the lens a student is tempted to over-apply). Any lens with a label in labels/lenses.yaml; each Pass in catalog/passes.yaml declares its own lens set.", "type": "string", "pattern": "^[a-z_]+$" },
+    "level": { "description": "Difficulty within its lesson: 1 基礎, 2 標準, 3 応用, 4 発展. Required for cards listed in a lesson.", "type": "integer", "minimum": 1, "maximum": 4 },
+    "archetype": { "description": "Problem type within the lens (e.g. enclose.tilted_square). Two cards in one lesson never share an archetype at the same level.", "type": "string", "pattern": "^[a-z_]+\\.[a-z0-9_]+$" },
     "best_move": { "description": "The move that actually wins. Equals lens for standard cards; required for failure and no_lens cards.", "type": "string" },
     "stage": { "enum": ["shogakko", "chugaku", "koko", "daigaku"] },
     "grades": { "type": "array", "items": { "enum": ["小4", "小5", "小6", "中1", "中2", "中3", "高1", "高2", "高3", "大学"] }, "minItems": 1 },

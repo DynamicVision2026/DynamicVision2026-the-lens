@@ -1,0 +1,49 @@
+# Product catalog: one entry per sellable Pass (Shopify SKU). Architect-owned.
+# The engine, the picker and the scene renderers are shared; each Pass owns its lens set,
+# its lessons and its problems. Cards stay in cards/<lens>/; a Pass only lists card ids.
+#
+# A card belongs to a Pass when its `stage` is in the Pass's card_stages.
+# The validator checks every lesson below and reports progress toward its target.
+# `python tools/validate.py ... --bundle --release <pass>` fails unless that Pass is complete.
+
+chugaku_juken:
+  stage_no: 1
+  title_ja: 中学受験パス
+  audience_ja: 小4〜小6・中学受験
+  card_stages: [shogakko]
+  status: building            # building → preorder → live
+  sku: LENS-CJ-12M            # Shopify variant SKU; the access Worker maps SKU → pass
+  price_jpy: 9800
+  early_price_jpy: 6800
+  term_months: 12
+  devices: 3
+  lesson_target: 10           # graded problems per lesson (anchor + practice + failure + no-lens)
+  levels: {1: 基礎, 2: 標準, 3: 応用, 4: 発展}
+  review_set: {size: 10, no_lens_items: 2}   # mixed toolkit review: pick the lens, all lessons mixed
+  lessons:
+    - {lens: enclose,  video: lesson-enclose,  cards: [enclose-002, enclose-001, enclose-003, enclose-f01, enclose-no-lens]}
+    - {lens: slide,    video: lesson-slide,    cards: [slide-001]}
+    - {lens: area,     video: lesson-area,     cards: [area-001]}
+    - {lens: constant, video: lesson-constant, cards: [constant-001]}
+    - {lens: balance,  video: lesson-balance,  cards: [balance-001]}
+    - {lens: freeze,   video: lesson-freeze,   cards: [freeze-001]}
+    - {lens: mirror,   video: lesson-mirror,   cards: [mirror-001]}
+    - {lens: unfold,   video: lesson-unfold,   cards: [unfold-001]}
+
+koko_juken:
+  stage_no: 2
+  title_ja: 高校受験パス
+  audience_ja: 中1〜中3・高校受験
+  card_stages: [chugaku]
+  status: planned             # lens set decided from signup data after Stage 1 ships
+  sku: LENS-KJ-12M
+  lessons: []
+
+daigaku_juken:
+  stage_no: 3
+  title_ja: 大学受験パス
+  audience_ja: 高1〜高3・共通テスト／個別試験
+  card_stages: [koko]
+  status: planned
+  sku: LENS-DJ-12M
+  lessons: []

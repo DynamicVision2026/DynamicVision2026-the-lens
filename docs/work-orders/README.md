@@ -2,6 +2,8 @@
 
 Each work order (WO) is one PR. Read `docs/PRD.md` first; this folder only adds what to build next and how it is accepted.
 
+**Product plan (Brian, Oct 13):** three Passes on one engine, Stage 1 中学受験 first; see [ADR-001](../architecture/ADR-001-multi-pass.md). Next WO: [WO-010](WO-010-lessons-and-catalog.md).
+
 **Build order (Brian, Oct 12: launch path first):** WO-003 step 2 → **WO-009** → WO-004 → WO-005 → WO-006 → WO-007 → WO-008. Start each one as soon as the previous PR is in review.
 
 | WO | Title | Depends on | Target |
@@ -10,6 +12,7 @@ Each work order (WO) is one PR. Read `docs/PRD.md` first; this folder only adds 
 | [WO-002](WO-002-scenes-and-tokens.md) | Shared SVG scene components reading tokens | WO-001 | Oct 20 |
 | [WO-003](WO-003-enclose-prototype.md) | Enclose prototype: 30 s Short + Perspective Picker. **Start with the [motion preview](WO-003-motion.md).** | WO-002 | Preview first, then Oct 21 demo |
 | [WO-009](WO-009-launch-site.md) | **Launch site:** landing page → Free Lens → email signup → ¥6,800 preorder. **Next after WO-003 step 2** | WO-003 step 2 | Oct 27 |
+| [WO-010](WO-010-lessons-and-catalog.md) | Lessons and catalog: bundle 1.3 `passes`, `/pass/:passId`, `/lesson/:passId/:lens`, Masterclass copy | WO-009 | Oct 20 |
 | [WO-004](WO-004-slide-scenes.md) | Slide lens (等積変形): parallel-band figure and its scenes | WO-003 step 2 | Oct 27 |
 | [WO-005](WO-005-mirror-scenes.md) | Mirror lens (折り返す): shortest-path figure and its scenes | WO-004 | Oct 30 |
 | [WO-006](WO-006-word-problem-scenes.md) | Area (面積図) and Constant (差一定): word-problem diagrams | WO-004 | Nov 2 |
@@ -19,7 +22,7 @@ Each work order (WO) is one PR. Read `docs/PRD.md` first; this folder only adds 
 ## Rules for every WO
 
 1. **One PR per WO**, branch `builder/wo-00N-short-name`, title starting `WO-00N:`. Small follow-up PRs are fine; never mix two WOs in one PR.
-2. **Architect-owned paths:** `cards/`, `labels/`, `schema/`, `tools/`, `tokens/`. Do not edit them. If you need a field, a token or a bundle change, open an issue labelled `architect` and keep going with a clearly marked stub.
+2. **Architect-owned paths:** `cards/`, `catalog/`, `labels/`, `schema/`, `tools/`, `tokens/`. Do not edit them. If you need a field, a token or a bundle change, open an issue labelled `architect` and keep going with a clearly marked stub.
 3. **The bundle is the only data source.** Apps import `build/bundle.json` (contract: `docs/PRD.md` §5). Never read YAML in the apps, never hard-code a card's numbers or Japanese text, never re-compute an answer.
 4. **Tokens are the only style source.** No hex colours, font names or stroke widths in components; read them from `tokens/tokens.json`.
 5. **Merge rule:** the founder approves, the **Architect merges** (Brian, Oct 12; before that the Builder merged). Merge a PR only when all three hold:

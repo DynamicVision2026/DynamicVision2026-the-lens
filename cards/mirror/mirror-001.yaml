@@ -5,6 +5,8 @@ lens: mirror
 best_move: mirror
 stage: shogakko
 grades: [小6]
+level: 2             # 1 基礎 · 2 標準 · 3 応用 · 4 発展
+archetype: mirror.one_line
 status: verified
 
 provenance:
