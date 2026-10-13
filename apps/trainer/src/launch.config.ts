@@ -1,5 +1,6 @@
 // Launch settings (WO-009), filled in by the founder. Nothing else in the app holds these values.
 export const LAUNCH = {
+  siteUrl: '', // public site origin, e.g. https://lens.example.jp (X share link); empty = this page's origin
   shopDomain: 'TODO.myshopify.com', // Shopify store (customer signup form posts here)
   preorderUrl: 'https://TODO/products/…', // ¥6,800 preorder product
   tokushohoUrl: 'https://TODO/policies/legal-notice', // 特定商取引法 page on the store
