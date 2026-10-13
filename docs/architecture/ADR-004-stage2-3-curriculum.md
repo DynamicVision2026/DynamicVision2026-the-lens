@@ -10,7 +10,7 @@ Coordinate-plane geometry (中1〜中2, 一次関数・図形) first, because it
 
 | lens | first archetypes (built) | next (planned) |
 |---|---|---|
-| 囲む | `coord_polygon`: lattice △ / tilted □ on the coordinate plane | quadrilateral with one side on an axis (boundary), 座標と面積の二等分 |
+| 囲む | `coord_polygon`: lattice △ / tilted □ / quadrilateral on the coordinate plane. No-lens: `shape: axis_base` (one side on the x-axis → 底辺×高さ÷2, no box) | failure card, 座標と面積の二等分 |
 | 等積変形 | `coord_equal_area`: P on the y-axis with △ABP = △ABC (parallel line) | 四角形→三角形, 面積の二等分線 |
 | 折り返す | **chained** `coord_mirror_area`: 折り返す (P minimises AP+PB) → 囲む (area of △ABP) | 2本の直線で2回折り返す, 回転 (new lens) → 等積変形 |
 | 展開, 面積図, 差一定, てんびん, 止める | — | 円すい・角すいの表面の最短, 連立方程式の文章題 (面積図/てんびん), 動点 (止める) |

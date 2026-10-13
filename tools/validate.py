@@ -989,6 +989,16 @@ def coord_answer(fig):
 
 def coord_steps(fig):
     t = fig["type"]
+    if t == "coord_polygon" and fig.get("shape") == "axis_base":
+        (xa, _), (xb, _), (cx, cy) = fig["points"]
+        lab = fig.get("labels") or ["A", "B", "C"]
+        base, h = abs(xb - xa), abs(cy)
+        area = S(base) * h / 2
+        return [
+            {"ja": f"{lab[0]}{lab[1]}はx軸の上にある。底辺 {lab[0]}{lab[1]} = {base}", "op": "note"},
+            {"ja": f"高さは{lab[2]}からx軸までの {h}", "op": "note"},
+            {"ja": f"{base}×{h}÷2 = {_fmt(area)}", "value": str(area), "op": "result"},
+        ]
     if t == "coord_polygon":
         return steps_enclose([tuple(p) for p in fig["points"]])
     if t == "coord_equal_area":
@@ -1048,6 +1058,12 @@ def coord_check(card, t, ans, fig):
         st = coord_steps(fig)
         same = st is not None and [x["ja"] for x in st] == [x["ja"] for x in card["lens_route"]["steps"]]
         return same, "lens steps are the generated ones" if same else "lens steps differ from the generated steps"
+    if t == "coord_axis_base":
+        pts = fig["points"]
+        on = [p for p in pts if p[1] == 0]
+        ok = fig.get("shape") == "axis_base" and len(pts) == 3 and pts[0][1] == 0 and pts[1][1] == 0 and pts[2][1] != 0 \
+            and coord_answer(fig) == S(abs(pts[1][0] - pts[0][0])) * abs(pts[2][1]) / 2 and coord_answer(fig) > 0
+        return ok, f"{len(on)} vertices on the x-axis, base×height÷2 equals the shoelace area"
     if t == "coord_enclose_clean":
         pts = [tuple(p) for p in fig["points"]] if fig["type"] == "coord_polygon" else \
               [tuple(fig["A"]), (_num(coord_mirror_P(fig)), 0), tuple(fig["B"])]
@@ -1094,7 +1110,15 @@ def make_coord_variants(card):
     used = {sympify(card["answer"]["value"])}
     while len(out) < v["count"] and tries < 20000:
         tries += 1
-        if t == "coord_polygon" and fig0.get("shape") == "quad":   # general convex quadrilateral, one vertex on each side of the box
+        if t == "coord_polygon" and fig0.get("shape") == "axis_base":   # no-lens: A, B on the x-axis, C off it
+            xa = rng.randint(-7, -1)
+            xb = xa + rng.randint(3, 10)
+            cx, cy = rng.randint(xa - 2, xb + 2), rng.choice([-1, 1]) * rng.randint(2, 7)
+            pts = [[xa, 0], [xb, 0], [cx, cy]]
+            if not is_simple_ccw([tuple(p) for p in pts])[0]:
+                pts = [pts[1], pts[0], pts[2]]
+            fig = {**fig0, "points": pts}
+        elif t == "coord_polygon" and fig0.get("shape") == "quad":   # general convex quadrilateral, one vertex on each side of the box
             w, h = rng.randint(5, 10), rng.randint(5, 10)
             base = [(0, rng.randint(1, h - 1)), (rng.randint(1, w - 1), 0), (w, rng.randint(1, h - 1)), (rng.randint(1, w - 1), h)]
             ox, oy = rng.randint(-w, 0), rng.randint(-h, 0)

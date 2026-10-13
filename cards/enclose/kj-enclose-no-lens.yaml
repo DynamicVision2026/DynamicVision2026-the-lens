@@ -1,0 +1,98 @@
+schema_version: '1.1'
+id: kj-enclose-no-lens
+kind: no_lens
+lens: enclose
+best_move: 'direct: one side lies on the x-axis, so base × height ÷ 2'
+stage: chugaku
+grades:
+- 中1
+- 中2
+level: 1
+archetype: enclose.coord_axis_base_no_lens
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: lattice polygon on the coordinate plane with every side slanted; enclose with the bounding rectangle and subtract the corner right triangles (座標平面の面積).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 座標平面でも、外わくの長方形の面積から、すみの直角三角形を引けばよい。直角三角形の辺は座標の差で読める。
+  principle_en: On the coordinate plane, box minus corner right triangles; their legs are coordinate differences.
+problem:
+  text_ja: 座標平面上に3点A(−3, 0)、B(4, 0)、C(2, 6)があります。△ABCの面積を求めなさい。ただし、座標の1目もりを1cmとします。
+  unit: cm²
+  figure:
+    type: coord_polygon
+    shape: axis_base
+    points:
+    - - -3
+      - 0
+    - - 4
+      - 0
+    - - 2
+      - 6
+    unit: cm
+answer:
+  value: '21'
+  display_ja: 21cm²
+  expr: coordinate
+trap_route:
+  time_cost_sec: 90
+  time_source: estimate
+  steps:
+  - ja: 座標の三角形なので、くせで長方形で囲む
+    op: note
+  - ja: すみの三角形を1つずつ計算して引くので、手間がふえる
+    op: note
+  - ja: ここで約1分半
+    op: note
+lens_route:
+  time_cost_sec: 20
+  time_source: estimate
+  steps:
+  - ja: ABはx軸の上にある。底辺 AB = 7
+    op: note
+  - ja: 高さはCからx軸までの 6
+    op: note
+  - ja: 7×6÷2 = 21
+    value: '21'
+    op: result
+trigger:
+  ja: 1辺が軸の上にあれば、囲まなくてよい。その辺を底辺にして、底辺×高さ÷2。
+  en: 'A side on an axis: no box; base × height ÷ 2.'
+  tags:
+  - side_on_axis
+picker:
+  options:
+  - enclose
+  - slide
+  - mirror
+  - direct
+  correct: direct
+  clue_distractors:
+  - equal_area_asked
+  - sum_of_distances
+  feedback_ja:
+    enclose: 囲んでも出せるが、ここでは遠回り。ABがx軸の上にある。
+    slide: 面積の等しい三角形を作る問題ではない。
+    mirror: 最短の道を聞いている問題ではない。
+    direct: そのとおり。x軸上の辺を底辺に、残りの点からx軸までのきょりが高さ。
+animation:
+  keyframes:
+  - show_grid
+  - base_on_axis
+  - height
+  - show_answer
+  - ghost_box_struck_out
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: coord_axis_base
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: coord_triangle
+  count: 4
+  seed: 3109
