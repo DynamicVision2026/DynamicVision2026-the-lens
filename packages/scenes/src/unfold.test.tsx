@@ -20,9 +20,9 @@ const textNodes = (html: string) => [...html.matchAll(/>([^<]+)</g)].map((m) => 
 afterEach(() => vi.restoreAllMocks());
 
 describe.skipIf(!unfold)('unfold-001 (box net)', () => {
-  it('has the card and its 4 variants, with answers 3, 4, 8, 6 and 5', () => {
-    expect(unfoldCards.map((c) => c.id)).toEqual(['unfold-001', 'unfold-001-v1', 'unfold-001-v2', 'unfold-001-v3', 'unfold-001-v4']);
-    expect(unfoldCards.map((c) => c.answer.value)).toEqual(['3', '4', '8', '6', '5']);
+  it('has the card and its 4 variants, with answers 3, 8, 6, 5 and 11', () => {
+    expect(unfoldCards.filter((c) => c.id.startsWith('unfold-001')).map((c) => c.id)).toEqual(['unfold-001', 'unfold-001-v1', 'unfold-001-v2', 'unfold-001-v3', 'unfold-001-v4']);
+    expect(unfoldCards.filter((c) => c.id.startsWith('unfold-001')).map((c) => c.answer.value)).toEqual(['3', '8', '6', '5', '11']);
   });
 
   it.each(unfoldCards.map((c) => [c.id, c] as const))('%s draws P at the answer height on BF, apart from the midpoint guess', (_id, card) => {
@@ -89,8 +89,8 @@ describe.skipIf(!unfold)('unfold-001 (box net)', () => {
   });
 
   it('shows each variant with its own sentence', () => {
-    for (const v of unfoldCards.slice(1)) expect(v.problem.text_ja).not.toBe(unfold!.problem.text_ja);
-    const v1 = unfoldCards[1]!;
-    expect(textNodes(renderToStaticMarkup(<LensScene card={v1} keyframe={0} t={1} />))).toContain('9cm');
+    for (const v of unfoldCards.filter((c) => c.id.startsWith('unfold-001-v'))) expect(v.problem.text_ja).not.toBe(unfold!.problem.text_ja);
+    const v1 = unfoldCards.find((c) => c.id === 'unfold-001-v1')!;
+    expect(textNodes(renderToStaticMarkup(<LensScene card={v1} keyframe={0} t={1} />))).toContain(`${v1.problem.figure.type === 'box_unfold' ? v1.problem.figure.a : ''}cm`);
   });
 });

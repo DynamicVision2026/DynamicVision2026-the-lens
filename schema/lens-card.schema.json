@@ -6,234 +6,738 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "schema_version", "id", "kind", "lens", "stage", "grades", "provenance",
-    "problem", "answer", "trap_route", "lens_route", "trigger", "picker",
-    "checks", "variants", "status"
+    "schema_version",
+    "id",
+    "kind",
+    "lens",
+    "stage",
+    "grades",
+    "provenance",
+    "problem",
+    "answer",
+    "trap_route",
+    "lens_route",
+    "trigger",
+    "picker",
+    "checks",
+    "variants",
+    "status"
   ],
   "properties": {
-    "schema_version": { "const": "1.1" },
-    "id": { "type": "string", "pattern": "^[a-z]+-(\\d{3}|f\\d{2}|no-lens(-\\d{2})?)$" },
+    "schema_version": {
+      "const": "1.1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z]+-(\\d{3}|f\\d{2}|no-lens(-\\d{2})?)$"
+    },
     "kind": {
       "description": "standard = the lens is the best route; failure = the lens stalls and another move wins; no_lens = direct calculation is fastest.",
-      "enum": ["standard", "failure", "no_lens"]
+      "enum": [
+        "standard",
+        "failure",
+        "no_lens"
+      ]
     },
-    "lens": { "description": "Lens this card is about (for no_lens: the lens a student is tempted to over-apply). Any lens with a label in labels/lenses.yaml; each Pass in catalog/passes.yaml declares its own lens set.", "type": "string", "pattern": "^[a-z_]+$" },
-    "level": { "description": "Difficulty within its lesson: 1 基礎, 2 標準, 3 応用, 4 発展. Required for cards listed in a lesson.", "type": "integer", "minimum": 1, "maximum": 4 },
-    "archetype": { "description": "Problem type within the lens (e.g. enclose.tilted_square). Two cards in one lesson never share an archetype at the same level.", "type": "string", "pattern": "^[a-z_]+\\.[a-z0-9_]+$" },
-    "best_move": { "description": "The move that actually wins. Equals lens for standard cards; required for failure and no_lens cards.", "type": "string" },
-    "stage": { "enum": ["shogakko", "chugaku", "koko", "daigaku"] },
-    "grades": { "type": "array", "items": { "enum": ["小4", "小5", "小6", "中1", "中2", "中3", "高1", "高2", "高3", "大学"] }, "minItems": 1 },
+    "lens": {
+      "description": "Lens this card is about (for no_lens: the lens a student is tempted to over-apply). Any lens with a label in labels/lenses.yaml; each Pass in catalog/<pass id>/pass.yaml declares its own lens set.",
+      "type": "string",
+      "pattern": "^[a-z_]+$"
+    },
+    "level": {
+      "description": "Difficulty within its lesson: 1 基礎, 2 標準, 3 応用, 4 発展. Required for cards listed in a lesson.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4
+    },
+    "archetype": {
+      "description": "Problem type within the lens (e.g. enclose.tilted_square). Two cards in one lesson never share an archetype at the same level.",
+      "type": "string",
+      "pattern": "^[a-z_]+\\.[a-z0-9_]+$"
+    },
+    "best_move": {
+      "description": "The move that actually wins. Equals lens for standard cards; required for failure and no_lens cards.",
+      "type": "string"
+    },
+    "stage": {
+      "enum": [
+        "shogakko",
+        "chugaku",
+        "koko",
+        "daigaku"
+      ]
+    },
+    "grades": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "小4",
+          "小5",
+          "小6",
+          "中1",
+          "中2",
+          "中3",
+          "高1",
+          "高2",
+          "高3",
+          "大学"
+        ]
+      },
+      "minItems": 1
+    },
     "provenance": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["original", "built_from", "not_derived_from"],
+      "required": [
+        "original",
+        "built_from",
+        "not_derived_from"
+      ],
       "properties": {
-        "original": { "const": true },
-        "built_from": { "description": "The mathematical archetype or theorem the card is built from.", "type": "string" },
-        "not_derived_from": { "description": "Plain statement that no exam, textbook or 塾 problem was adapted.", "type": "string" },
-        "author": { "type": "string" },
-        "reviewed_by": { "type": "string" }
+        "original": {
+          "const": true
+        },
+        "built_from": {
+          "description": "The mathematical archetype or theorem the card is built from.",
+          "type": "string"
+        },
+        "not_derived_from": {
+          "description": "Plain statement that no exam, textbook or 塾 problem was adapted.",
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        },
+        "reviewed_by": {
+          "type": "string"
+        }
       }
     },
     "grounding": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["principle_ja", "principle_en"],
+      "required": [
+        "principle_ja",
+        "principle_en"
+      ],
       "properties": {
-        "principle_ja": { "type": "string" },
-        "principle_en": { "type": "string" }
+        "principle_ja": {
+          "type": "string"
+        },
+        "principle_en": {
+          "type": "string"
+        }
       }
     },
     "problem": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["text_ja", "figure", "unit"],
+      "required": [
+        "text_ja",
+        "figure",
+        "unit"
+      ],
       "properties": {
-        "text_ja": { "type": "string" },
-        "unit": { "type": "string" },
-        "figure": { "oneOf": [
-        {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["type", "grid", "points"],
-          "properties": {
-            "type": { "enum": ["grid_polygon"] },
-            "grid": {
+        "text_ja": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "figure": {
+          "oneOf": [
+            {
               "type": "object",
               "additionalProperties": false,
-              "required": ["width", "height", "cell_cm"],
+              "required": [
+                "type",
+                "grid",
+                "points"
+              ],
               "properties": {
-                "width": { "type": "integer", "minimum": 2, "maximum": 12 },
-                "height": { "type": "integer", "minimum": 2, "maximum": 12 },
-                "cell_cm": { "type": "number", "exclusiveMinimum": 0 }
+                "type": {
+                  "enum": [
+                    "grid_polygon"
+                  ]
+                },
+                "grid": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "width",
+                    "height",
+                    "cell_cm"
+                  ],
+                  "properties": {
+                    "width": {
+                      "type": "integer",
+                      "minimum": 2,
+                      "maximum": 12
+                    },
+                    "height": {
+                      "type": "integer",
+                      "minimum": 2,
+                      "maximum": 12
+                    },
+                    "cell_cm": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    }
+                  }
+                },
+                "points": {
+                  "description": "Lattice points in drawing order, counter-clockwise. Labels A, B, C... are assigned in this order.",
+                  "type": "array",
+                  "minItems": 3,
+                  "maxItems": 10,
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  }
+                }
               }
             },
-            "points": {
-              "description": "Lattice points in drawing order, counter-clockwise. Labels A, B, C... are assigned in this order.",
-              "type": "array", "minItems": 3, "maxItems": 10,
-              "items": { "type": "array", "items": { "type": "integer", "minimum": 0 }, "minItems": 2, "maxItems": 2 }
-            }
-          }
-        },
-        {
-          "type": "object",
-          "additionalProperties": false,
-          "description": "Two horizontal parallel lines band_height apart. Triangle i has its base bottom_x[i]..bottom_x[i+1] on the lower line and its apex at apex_x[i] on the upper line.",
-          "required": ["type", "band_height", "bottom_x", "apex_x", "shown"],
-          "properties": {
-            "type": { "const": "parallel_band" },
-            "band_height": { "type": "integer", "minimum": 1, "maximum": 20 },
-            "bottom_x": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 6 },
-            "apex_x": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 5 },
-            "point_labels": {
-              "type": "object", "additionalProperties": false,
-              "properties": { "bottom": { "type": "array", "items": { "type": "string" } }, "apex": { "type": "array", "items": { "type": "string" } } }
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "description": "Two horizontal parallel lines band_height apart. Triangle i has its base bottom_x[i]..bottom_x[i+1] on the lower line and its apex at apex_x[i] on the upper line.",
+              "required": [
+                "type",
+                "band_height",
+                "bottom_x",
+                "apex_x",
+                "shown"
+              ],
+              "properties": {
+                "type": {
+                  "const": "parallel_band"
+                },
+                "band_height": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 20
+                },
+                "bottom_x": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 3,
+                  "maxItems": 6
+                },
+                "apex_x": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2,
+                  "maxItems": 5
+                },
+                "point_labels": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "bottom": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "apex": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "shown": {
+                  "description": "Which lengths the problem states. The individual bases are deliberately not shown: that is the trap.",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "total_base",
+                    "band_height",
+                    "each_base"
+                  ],
+                  "properties": {
+                    "total_base": {
+                      "type": "boolean"
+                    },
+                    "band_height": {
+                      "type": "boolean"
+                    },
+                    "each_base": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
             },
-            "shown": {
-              "description": "Which lengths the problem states. The individual bases are deliberately not shown: that is the trap.",
-              "type": "object", "additionalProperties": false,
-              "required": ["total_base", "band_height", "each_base"],
-              "properties": { "total_base": { "type": "boolean" }, "band_height": { "type": "boolean" }, "each_base": { "type": "boolean" } }
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "description": "Shortest path touching a straight line once. The line is horizontal; A and B are the feet of the perpendiculars from P and Q. P = (0, pa), Q = (ab, qb), both on the same side.",
+              "required": [
+                "type",
+                "ab",
+                "pa",
+                "qb",
+                "unit"
+              ],
+              "properties": {
+                "type": {
+                  "const": "mirror_path"
+                },
+                "ab": {
+                  "type": "integer",
+                  "minimum": 2
+                },
+                "pa": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "qb": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "point_labels": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "description": "Cuboid ABCD-EFGH (E above A, F above B, G above C). A path on the surface goes from A to G and crosses edge BF at P. a = AB, b = BC, h = AE. On the net (faces ABFE and BCGF opened flat along BF) A = (0, 0), B = (a, 0), C = (a+b, 0), G = (a+b, h), P = (a, BP).",
+              "required": [
+                "type",
+                "a",
+                "b",
+                "h",
+                "unit"
+              ],
+              "properties": {
+                "type": {
+                  "const": "box_unfold"
+                },
+                "a": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "b": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "h": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "point_labels": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "description": "Word problem with no geometry. `kind` selects the model; `params` holds its numbers (checked by the validator per kind).",
+              "required": [
+                "type",
+                "kind",
+                "params"
+              ],
+              "properties": {
+                "type": {
+                  "const": "word_problem"
+                },
+                "kind": {
+                  "enum": [
+                    "two_kinds_total",
+                    "age_ratio",
+                    "mixture",
+                    "meeting",
+                    "average_groups",
+                    "shortfall",
+                    "age_ratio_past",
+                    "same_spend",
+                    "three_kinds_equal",
+                    "pair_offset",
+                    "two_kinds_known",
+                    "age_sum_later",
+                    "sum_catchup",
+                    "ratio_shift",
+                    "mixture_water",
+                    "mixture_salt",
+                    "mix_then_water",
+                    "evaporate",
+                    "salt_total",
+                    "chase",
+                    "trains_pass",
+                    "clock_overlap",
+                    "speed_change",
+                    "arrival_gap"
+                  ]
+                },
+                "params": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "integer"
+                  }
+                },
+                "names": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
             }
-          }
-        },
-        {
-          "type": "object",
-          "additionalProperties": false,
-          "description": "Shortest path touching a straight line once. The line is horizontal; A and B are the feet of the perpendiculars from P and Q. P = (0, pa), Q = (ab, qb), both on the same side.",
-          "required": ["type", "ab", "pa", "qb", "unit"],
-          "properties": {
-            "type": { "const": "mirror_path" },
-            "ab": { "type": "integer", "minimum": 2 },
-            "pa": { "type": "integer", "minimum": 1 },
-            "qb": { "type": "integer", "minimum": 1 },
-            "unit": { "type": "string" },
-            "point_labels": { "type": "object", "additionalProperties": { "type": "string" } }
-          }
-        },
-        {
-          "type": "object",
-          "additionalProperties": false,
-          "description": "Cuboid ABCD-EFGH (E above A, F above B, G above C). A path on the surface goes from A to G and crosses edge BF at P. a = AB, b = BC, h = AE. On the net (faces ABFE and BCGF opened flat along BF) A = (0, 0), B = (a, 0), C = (a+b, 0), G = (a+b, h), P = (a, BP).",
-          "required": ["type", "a", "b", "h", "unit"],
-          "properties": {
-            "type": { "const": "box_unfold" },
-            "a": { "type": "integer", "minimum": 1 },
-            "b": { "type": "integer", "minimum": 1 },
-            "h": { "type": "integer", "minimum": 1 },
-            "unit": { "type": "string" },
-            "point_labels": { "type": "object", "additionalProperties": { "type": "string" } }
-          }
-        },
-        {
-          "type": "object",
-          "additionalProperties": false,
-          "description": "Word problem with no geometry. `kind` selects the model; `params` holds its numbers (checked by the validator per kind).",
-          "required": ["type", "kind", "params"],
-          "properties": {
-            "type": { "const": "word_problem" },
-            "kind": { "enum": ["two_kinds_total", "age_ratio", "mixture", "meeting", "average_groups", "shortfall", "age_ratio_past", "same_spend", "three_kinds_equal", "pair_offset", "two_kinds_known", "age_sum_later", "sum_catchup", "ratio_shift", "mixture_water", "mixture_salt", "mix_then_water", "evaporate", "salt_total", "chase", "trains_pass", "clock_overlap", "speed_change", "arrival_gap"] },
-            "params": { "type": "object", "additionalProperties": { "type": "integer" } },
-            "names": { "type": "object", "additionalProperties": { "type": "string" } }
-          }
+          ]
         }
-        ] }
       }
     },
     "answer": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["value", "expr"],
+      "required": [
+        "value",
+        "expr"
+      ],
       "properties": {
-        "value": { "description": "Exact answer as a SymPy-parsable string, e.g. '39/2'.", "type": "string" },
-        "display_ja": { "type": "string" },
-        "expr": { "description": "Which check produces the answer.", "enum": ["polygon_area", "band_area", "mirror_touch", "unfold_cross", "word_problem"] }
+        "value": {
+          "description": "Exact answer as a SymPy-parsable string, e.g. '39/2'.",
+          "type": "string"
+        },
+        "display_ja": {
+          "type": "string"
+        },
+        "expr": {
+          "description": "Which check produces the answer.",
+          "enum": [
+            "polygon_area",
+            "band_area",
+            "mirror_touch",
+            "unfold_cross",
+            "word_problem"
+          ]
+        }
       }
     },
-    "trap_route": { "$ref": "#/$defs/route" },
-    "lens_route": { "$ref": "#/$defs/route" },
+    "trap_route": {
+      "$ref": "#/$defs/route"
+    },
+    "lens_route": {
+      "$ref": "#/$defs/route"
+    },
     "trigger": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["ja", "tags"],
+      "required": [
+        "ja",
+        "tags"
+      ],
       "properties": {
-        "ja": { "type": "string" },
-        "en": { "type": "string" },
-        "tags": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+        "ja": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        }
       }
     },
-    "fails_when": { "description": "id of the linked failure card (standard cards only).", "type": "string" },
+    "fails_when": {
+      "description": "id of the linked failure card (standard cards only).",
+      "type": "string"
+    },
     "picker": {
       "description": "The four choices shown in the Perspective Picker.",
       "type": "object",
       "additionalProperties": false,
-      "required": ["options", "correct", "clue_distractors", "feedback_ja"],
+      "required": [
+        "options",
+        "correct",
+        "clue_distractors",
+        "feedback_ja"
+      ],
       "properties": {
-        "options": { "type": "array", "items": { "type": "string" }, "minItems": 4, "maxItems": 4, "uniqueItems": true },
-        "correct": { "type": "string" },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 4,
+          "maxItems": 4,
+          "uniqueItems": true
+        },
+        "correct": {
+          "type": "string"
+        },
         "clue_distractors": {
           "description": "2-3 decoy clue tags shown beside the real trigger tags. Each must have a label in labels/tags.yaml and must not be one of this card's trigger.tags. Pick clues that point to a different move, so a wrong tap is informative.",
-          "type": "array", "items": { "type": "string" }, "minItems": 2, "maxItems": 3, "uniqueItems": true
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 2,
+          "maxItems": 3,
+          "uniqueItems": true
         },
-        "feedback_ja": { "description": "One line per option explaining why it does or does not fit.", "type": "object", "additionalProperties": { "type": "string" } }
+        "feedback_ja": {
+          "description": "One line per option explaining why it does or does not fit.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
       }
     },
     "animation": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["keyframes"],
+      "required": [
+        "keyframes"
+      ],
       "properties": {
-        "keyframes": { "type": "array", "items": { "type": "string" }, "minItems": 2 }
+        "keyframes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 2
+        }
       }
     },
     "checks": {
       "description": "Assertions the validator runs with SymPy. All must pass for status 'verified'.",
-      "type": "array", "minItems": 1,
+      "type": "array",
+      "minItems": 1,
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["type"],
+        "required": [
+          "type"
+        ],
         "properties": {
-          "type": { "enum": ["area_equals_answer", "route_steps_sum", "enclose_clean", "enclose_not_clean", "has_horizontal_base", "tilted_square", "band_triangles_disjoint", "band_total_only", "band_area_equals_answer", "mirror_touch_point", "mirror_shortest", "mirror_not_midpoint", "text_matches", "unfold_cross_point", "unfold_shortest", "unfold_not_midpoint", "wp_formula", "wp_unique", "wp_nontrivial", "wp_text_matches", "wp_names_match", "lattice_only", "simple_polygon", "lens_faster"] },
-          "route": { "enum": ["trap_route", "lens_route"] },
-          "note": { "type": "string" }
+          "type": {
+            "enum": [
+              "area_equals_answer",
+              "route_steps_sum",
+              "enclose_clean",
+              "enclose_not_clean",
+              "has_horizontal_base",
+              "tilted_square",
+              "band_triangles_disjoint",
+              "band_total_only",
+              "band_area_equals_answer",
+              "mirror_touch_point",
+              "mirror_shortest",
+              "mirror_not_midpoint",
+              "text_matches",
+              "unfold_cross_point",
+              "unfold_shortest",
+              "unfold_not_midpoint",
+              "wp_formula",
+              "wp_unique",
+              "wp_nontrivial",
+              "wp_text_matches",
+              "wp_names_match",
+              "lattice_only",
+              "simple_polygon",
+              "lens_faster"
+            ]
+          },
+          "route": {
+            "enum": [
+              "trap_route",
+              "lens_route"
+            ]
+          },
+          "note": {
+            "type": "string"
+          }
         }
       }
     },
     "variants": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["generator", "count", "seed"],
+      "required": [
+        "generator",
+        "count",
+        "seed"
+      ],
       "properties": {
-        "generator": { "enum": ["enclose_standard", "enclose_tilted_square", "enclose_triangle", "slide_band", "mirror_path", "box_unfold", "wp_two_kinds", "wp_age_ratio", "wp_mixture", "wp_meeting", "wp_average_groups", "wp_shortfall", "wp_age_ratio_past", "wp_same_spend", "wp_three_kinds_equal", "wp_pair_offset", "wp_two_kinds_known", "wp_age_sum_later", "wp_sum_catchup", "wp_ratio_shift", "wp_mixture_water", "wp_mixture_salt", "wp_mix_then_water", "wp_evaporate", "wp_salt_total", "wp_chase", "wp_trains_pass", "wp_clock_overlap", "wp_speed_change", "wp_arrival_gap", "enclose_failure_notch", "no_lens_flat_base"] },
-        "count": { "type": "integer", "minimum": 0, "maximum": 50 },
-        "seed": { "type": "integer" },
-        "constraints": { "type": "object" }
+        "generator": {
+          "enum": [
+            "enclose_standard",
+            "enclose_tilted_square",
+            "enclose_triangle",
+            "slide_band",
+            "mirror_path",
+            "box_unfold",
+            "wp_two_kinds",
+            "wp_age_ratio",
+            "wp_mixture",
+            "wp_meeting",
+            "wp_average_groups",
+            "wp_shortfall",
+            "wp_age_ratio_past",
+            "wp_same_spend",
+            "wp_three_kinds_equal",
+            "wp_pair_offset",
+            "wp_two_kinds_known",
+            "wp_age_sum_later",
+            "wp_sum_catchup",
+            "wp_ratio_shift",
+            "wp_mixture_water",
+            "wp_mixture_salt",
+            "wp_mix_then_water",
+            "wp_evaporate",
+            "wp_salt_total",
+            "wp_chase",
+            "wp_trains_pass",
+            "wp_clock_overlap",
+            "wp_speed_change",
+            "wp_arrival_gap",
+            "enclose_failure_notch",
+            "no_lens_flat_base"
+          ]
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 50
+        },
+        "seed": {
+          "type": "integer"
+        },
+        "constraints": {
+          "type": "object"
+        }
       }
     },
-    "status": { "enum": ["draft", "verified", "reviewed", "published"] }
+    "status": {
+      "enum": [
+        "draft",
+        "verified",
+        "reviewed",
+        "published"
+      ]
+    },
+    "chain": {
+      "description": "Chained lenses (ADR-003, Stage 2+): ordered stages over ONE figure; stage n+1 unlocks when stage n's scene snaps. Each stage owns a contiguous slice of lens_route.steps; together the slices cover every step, in order.",
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "lens",
+          "steps",
+          "goal_ja"
+        ],
+        "properties": {
+          "lens": {
+            "type": "string",
+            "pattern": "^[a-z_]+$"
+          },
+          "steps": {
+            "description": "[first, last] indexes into lens_route.steps (inclusive)",
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "goal_ja": {
+            "description": "What this stage's snap achieves, shown when the stage unlocks.",
+            "type": "string"
+          },
+          "snap": {
+            "description": "Scene event that completes the stage, e.g. 'mirror.reflect'. Defaults to the lens scene's own solved event.",
+            "type": "string"
+          }
+        }
+      }
+    }
   },
   "$defs": {
     "route": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["steps", "time_cost_sec", "time_source"],
+      "required": [
+        "steps",
+        "time_cost_sec",
+        "time_source"
+      ],
       "properties": {
         "steps": {
-          "type": "array", "minItems": 1,
+          "type": "array",
+          "minItems": 1,
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["ja"],
+            "required": [
+              "ja"
+            ],
             "properties": {
-              "ja": { "type": "string" },
-              "value": { "description": "Exact value this step produces (SymPy string).", "type": "string" },
-              "op": { "description": "How this step's value combines into the route total.", "enum": ["start", "add", "sub", "result", "note"] }
+              "ja": {
+                "type": "string"
+              },
+              "value": {
+                "description": "Exact value this step produces (SymPy string).",
+                "type": "string"
+              },
+              "op": {
+                "description": "How this step's value combines into the route total.",
+                "enum": [
+                  "start",
+                  "add",
+                  "sub",
+                  "result",
+                  "note"
+                ]
+              }
             }
           }
         },
-        "time_cost_sec": { "type": "integer", "minimum": 1 },
-        "time_source": { "enum": ["estimate", "tester_median"] }
+        "time_cost_sec": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "time_source": {
+          "enum": [
+            "estimate",
+            "tester_median"
+          ]
+        }
       }
     }
   }

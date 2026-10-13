@@ -18,7 +18,7 @@ afterEach(() => vi.restoreAllMocks());
 
 describe.skipIf(!slide)('slide-001 (parallel band)', () => {
   it('has the card and its 4 variants', () => {
-    expect(bandCards.map((c) => c.id)).toEqual(['slide-001', 'slide-001-v1', 'slide-001-v2', 'slide-001-v3', 'slide-001-v4']);
+    expect(bandCards.filter((c) => c.id.startsWith('slide-001')).map((c) => c.id)).toEqual(['slide-001', 'slide-001-v1', 'slide-001-v2', 'slide-001-v3', 'slide-001-v4']);
   });
 
   it.each(bandCards.map((c) => [c.id, c] as const))('%s renders every keyframe at t = 0 and 1, both themes, purely and without warnings', (_id, card) => {
@@ -85,7 +85,7 @@ describe.skipIf(!slide)('slide-001 (parallel band)', () => {
   });
 
   it('shows each variant with its own sentence', () => {
-    for (const v of bandCards.slice(1)) {
+    for (const v of bandCards.filter((c) => c.id.startsWith('slide-001-v'))) {
       const original = slide!.variants.find((x) => x.id === v.id)!;
       expect(v.problem.text_ja).toBe(original.text_ja);
       expect(v.problem.text_ja).not.toBe(slide!.problem.text_ja);
