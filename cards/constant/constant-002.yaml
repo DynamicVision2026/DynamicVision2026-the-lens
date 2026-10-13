@@ -1,0 +1,101 @@
+schema_version: '1.1'
+id: constant-002
+kind: standard
+lens: constant
+best_move: constant
+stage: shogakko
+grades:
+- 小4
+- 小5
+level: 2
+archetype: constant.age_ratio_past
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: two ages; find how many years ago one was r times the other, using the unchanging difference (差一定, looking back).'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 何年前にさかのぼっても、2人の年れいの差は同じ。差を「何つ分」で考えると、1回のわり算でそのときの年れいが出る。
+  principle_en: Going back in time, the age difference stays the same; splitting it into (r−1) parts gives the younger age at that moment.
+problem:
+  text_ja: いま、お母さんは40才、けんたは12才です。お母さんの年れいがけんたの年れいの5倍だったのは何年前ですか。
+  unit: 年前
+  figure:
+    type: word_problem
+    kind: age_ratio_past
+    params:
+      p: 40
+      c: 12
+      r: 5
+    names:
+      older: お母さん
+      younger: けんた
+answer:
+  value: '5'
+  display_ja: 5年前
+  expr: word_problem
+trap_route:
+  time_cost_sec: 130
+  time_source: estimate
+  steps:
+  - ja: 1年前、2年前、3年前…と、2人の年れいを表に書いてさかのぼる
+    op: note
+  - ja: 毎回「5倍になったか」をわり算で確かめる
+    op: note
+  - ja: ここで約2分
+    op: note
+lens_route:
+  time_cost_sec: 25
+  time_source: estimate
+  steps:
+  - ja: 年れいの差は 40−12 = 28 で、何年前でも変わらない
+    op: note
+  - ja: お母さんがけんたの5倍のとき、差の28はけんたの 5−1 = 4 つ分
+    op: note
+  - ja: そのときのけんたは 28÷4 = 7 才
+    op: note
+  - ja: 12−7 = 5（年前）
+    value: '5'
+    op: result
+trigger:
+  ja: 2人の年れいが同じだけ変わるときは、変わらない「差」に目をつける。前にさかのぼっても同じ。
+  en: 'Two ages changing together, forward or back: anchor on the difference.'
+  tags:
+  - both_change_same
+  - times_relation
+picker:
+  options:
+  - constant
+  - area
+  - freeze
+  - direct
+  correct: constant
+  clue_distractors:
+  - two_kinds_mixed
+  - moving_points
+  feedback_ja:
+    constant: そのとおり。年れいの差28は、何年前でも同じ。
+    area: 2種類のものの数と合計の問題ではない。
+    freeze: 動く点の速さの問題ではない。
+    direct: 1年ずつさかのぼると、表が長くなる。
+animation:
+  keyframes:
+  - show_story
+  - draw_age_bars
+  - mark_difference
+  - shrink_bars
+  - split_difference
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_age_ratio_past
+  count: 4
+  seed: 2411

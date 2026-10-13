@@ -1,0 +1,100 @@
+schema_version: '1.1'
+id: area-004
+kind: standard
+lens: area
+best_move: area
+stage: shogakko
+grades:
+- 小5
+- 小6
+level: 2
+archetype: area.shortfall
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: the same group shared items two ways, one leaving some over and one falling short (過不足算); the two ways differ by a strip of height (b−a) and width = head count.'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 「1人あたりの個数×人数」は長方形の面積。2つの配り方の長方形のちがいは、あまりと不足を合わせた数になる。
+  principle_en: Items per person × people is a rectangle; the difference between the two ways of sharing is the surplus plus the shortfall.
+problem:
+  text_ja: 何人かの子どもにあめを配ります。1人に4個ずつ配ると11個あまり、1人に7個ずつ配ると10個たりません。子どもは何人ですか。
+  unit: 人
+  figure:
+    type: word_problem
+    kind: shortfall
+    params:
+      a: 4
+      s: 11
+      b: 7
+      d: 10
+    names:
+      item: あめ
+answer:
+  value: '7'
+  display_ja: 7人
+  expr: word_problem
+trap_route:
+  time_cost_sec: 150
+  time_source: estimate
+  steps:
+  - ja: 子どもが5人、6人、7人…のとき、あめが何個あるかを2通りで計算して比べる
+    op: note
+  - ja: 2つの式の答えが合うまで、何回もためす
+    op: note
+  - ja: ここで約2分半
+    op: note
+lens_route:
+  time_cost_sec: 35
+  time_source: estimate
+  steps:
+  - ja: たて＝1人あたりの個数、横＝人数の長方形で、2つの配り方をかさねる
+    op: note
+  - ja: 2つの配り方の差は、あまり11個とたりない10個を合わせた 11+10 = 21
+    op: note
+  - ja: その差は、たて 7−4 = 3、横＝人数 の長方形の面積
+    op: note
+  - ja: 人数 = 21÷3 = 7（人）
+    value: '7'
+    op: result
+trigger:
+  ja: 2通りの配り方で、あまりと不足が分かるときは、2つの長方形をかさねてちがいを見る。
+  en: 'Two ways of sharing with a surplus and a shortfall: overlay the two rectangles and look at the difference.'
+  tags:
+  - two_ways_to_share
+picker:
+  options:
+  - area
+  - constant
+  - balance
+  - direct
+  correct: area
+  clue_distractors:
+  - two_kinds_mixed
+  - times_relation
+  feedback_ja:
+    area: そのとおり。2つの配り方の差 11+10＝21 個が、たて3の長方形の面積になる。
+    constant: 2人の差が変わらない問題ではない。
+    balance: こさや平均を混ぜる問題ではない。
+    direct: 人数を1つずつためすと、毎回2つの式を計算することになる。
+animation:
+  keyframes:
+  - show_story
+  - draw_plan_a
+  - draw_plan_b
+  - show_gap
+  - divide_gap
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_shortfall
+  count: 4
+  seed: 2331
