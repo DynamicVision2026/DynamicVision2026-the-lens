@@ -1,0 +1,94 @@
+schema_version: '1.1'
+id: mirror-f01
+kind: failure
+lens: mirror
+best_move: 'slide: shift Q by the river width (橋の長さの分だけずらす)'
+stage: shogakko
+grades:
+- 小6
+level: 3
+archetype: mirror.bridge_failure
+status: draft
+provenance:
+  original: true
+  built_from: 'Archetype: river with a perpendicular bridge between P and Q on opposite banks; the fixed bridge length is removed by shifting Q (translation), not by reflecting (failure card for 折り返す).'
+  not_derived_from: Lengths, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 長さが決まっている部分（橋）は、どこにあっても同じ。その分だけ点をずらすと、残りがまっすぐな1本の道になる。
+  principle_en: 'A fixed-length piece (the bridge) can be moved anywhere: shift a point by it and the rest is one straight line.'
+problem:
+  text_ja: 川はば5mのまっすぐな川があります。点Pは北の岸から4m、点Qは南の岸から8mはなれたところにあります。PとQから岸に垂直にひいた線が北の岸、南の岸と交わる点をA、Bとすると、岸にそってはかったAとBの間は18mです。川に垂直な橋を1本かけて、PからQまで行く道のりをいちばん短くします。橋は、北の岸のAから何mのところにかければよいですか。
+  unit: m
+  figure:
+    type: river_bridge
+    pa: 4
+    qb: 8
+    ab: 18
+    w: 5
+    unit: m
+answer:
+  value: '6'
+  display_ja: 6m
+  expr: bridge
+trap_route:
+  time_cost_sec: 240
+  time_source: estimate
+  steps:
+  - ja: 最短の道なので、くせでQを岸で折り返そうとする
+    op: note
+  - ja: PとQは川をはさんで反対側。折り返すと川はばを2回たしてしまい、図が合わない
+    op: note
+  - ja: 橋の位置を少しずつずらして比べ、約4分かかる
+    op: note
+lens_route:
+  time_cost_sec: 50
+  time_source: estimate
+  steps:
+  - ja: 橋の長さ5mは、どこにかけても同じ。橋をわたる分を先にすませたと考えて、Qを北へ5mずらした点Q'をとる（ずらしても道のりは同じ）
+    op: note
+  - ja: PとQ'をまっすぐ結ぶ。北の岸と交わる点に橋をかければよい（折り返しはいらない）
+    op: note
+  - ja: 同じ形の三角形で、AX:XB = 4:8 = 1:2
+    op: note
+  - ja: AX = 18×1/3 = 6（m）
+    value: '6'
+    op: result
+trigger:
+  ja: 長さが決まっている部分をはさむ最短の道は、折り返さずに、その長さの分だけ点をずらす。
+  en: 'A fixed-length piece in the path: shift a point by it instead of reflecting.'
+  tags:
+  - bridge_across
+picker:
+  options:
+  - mirror
+  - slide
+  - unfold
+  - direct
+  correct: slide
+  clue_distractors:
+  - two_points_same_side
+  - touch_a_line
+  feedback_ja:
+    mirror: おしい。最短の道だが、PとQは川の反対側。折り返すのではなく、橋の長さの分だけQをずらす。
+    slide: そのとおり。Qを北へ5mずらすと、橋の分が消えて、PとQ'をまっすぐ結ぶだけになる。
+    unfold: 立体の表面の問題ではない。
+    direct: 橋の位置を1mずつためすと、何回も計算することになる。
+animation:
+  keyframes:
+  - show_river
+  - try_reflect
+  - flash_double_width
+  - shift_q
+  - draw_straight
+  - show_answer
+checks:
+- type: text_matches
+- type: bridge_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: river_bridge
+  count: 4
+  seed: 2251
