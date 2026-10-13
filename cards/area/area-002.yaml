@@ -1,0 +1,109 @@
+schema_version: '1.1'
+id: area-002
+kind: standard
+lens: area
+best_move: area
+stage: shogakko
+grades:
+- 小4
+- 小5
+level: 1
+archetype: area.two_kinds_count
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: two kinds of vehicles with a known number of wheels each, known total count and total wheels (つるかめ算 with wheels), solved with an area diagram.'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 「1台あたりのタイヤ×台数＝タイヤの数」は長方形の面積と同じ形。全部を少ないほうと考えると、はみ出した部分だけが残る。
+  principle_en: Wheels per vehicle × vehicles = wheels has the shape of rectangle area; assume all are the smaller kind and only the extra strip is left.
+problem:
+  text_ja: 自動車と自転車が合わせて18台あり、タイヤの数は合わせて52本です。自動車は何台ありますか。
+  unit: 台
+  figure:
+    type: word_problem
+    kind: two_kinds_total
+    params:
+      n: 18
+      a: 4
+      b: 2
+      t: 52
+    names:
+      template: count
+      a: 自動車
+      b: 自転車
+      counter: 台
+      part: タイヤ
+      unit: 本
+      measure: タイヤの数
+answer:
+  value: '8'
+  display_ja: 8台
+  expr: word_problem
+trap_route:
+  time_cost_sec: 150
+  time_source: estimate
+  steps:
+  - ja: 自動車が1台、2台、3台…のときのタイヤの数を表にして、1つずつ調べる
+    op: note
+  - ja: 18通りまであり、どこで52本になるか分かりにくい
+    op: note
+  - ja: ここで約2分半。表が長くなる
+    op: note
+lens_route:
+  time_cost_sec: 35
+  time_source: estimate
+  steps:
+  - ja: たて＝1台あたりのタイヤの数、横＝台数の長方形2つで表す（面積＝タイヤの数）
+    op: note
+  - ja: 全部自転車だとすると 2×18 = 36
+    op: note
+  - ja: 本当のタイヤの数との差 52−36 = 16 が、上にはみ出した長方形の面積
+    op: note
+  - ja: その長方形のたては 4−2 = 2
+    op: note
+  - ja: 自動車の数 = 16÷2 = 8
+    value: '8'
+    op: result
+trigger:
+  ja: 2種類がまざっていて、全部の数と合計だけ分かるときは、長方形2つの面積図にする。
+  en: 'Two kinds mixed, only the total count and total known: two rectangles as an area diagram.'
+  tags:
+  - two_kinds_mixed
+  - total_count_and_total
+picker:
+  options:
+  - area
+  - constant
+  - balance
+  - direct
+  correct: area
+  clue_distractors:
+  - times_relation
+  - mixing
+  feedback_ja:
+    area: そのとおり。1台あたりのタイヤの数×台数を長方形で表すと、はみ出した部分だけで答えが出る。
+    constant: 差が変わらないものを使う問題ではない。
+    balance: こさや平均を混ぜる問題ではない。
+    direct: 1台ずつ表にすると、答えまでに何行も書くことになる。
+animation:
+  keyframes:
+  - show_story
+  - draw_rectangles
+  - assume_all_b
+  - show_gap_strip
+  - divide_strip
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_two_kinds
+  count: 4
+  seed: 2311

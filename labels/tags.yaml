@@ -25,3 +25,6 @@ times_relation:       {ja: 「何倍」になるときを聞いている}
 three_strengths_known: {ja: 2つのこさと、混ぜたあとのこさが分かる}
 toward_each_other:    {ja: 2人が向かい合って進む}
 path_on_surface:      {ja: 立体の表面を通る道すじ}
+two_averages_known:   {ja: 2つの組の平均と、全体の平均が分かる}
+two_ways_to_share:    {ja: 2通りの配り方で、あまりと不足が分かる}
+both_change_same:     {ja: 2人とも同じだけふえる・へる}

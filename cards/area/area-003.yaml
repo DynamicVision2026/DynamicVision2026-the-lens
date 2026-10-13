@@ -1,0 +1,99 @@
+schema_version: '1.1'
+id: area-003
+kind: standard
+lens: area
+best_move: area
+stage: shogakko
+grades:
+- 小5
+- 小6
+level: 3
+archetype: area.average_groups
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: two groups with known averages and a known overall average; the part above the overall average equals the dent below it (平均算 with an area diagram).'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 「平均点×人数＝合計点」は長方形の面積。全体の平均の線より上にはみ出した面積と、下にへこんだ面積は等しい。
+  principle_en: Average × head count = total points is a rectangle area; above the overall-average line, the excess area equals the dent below it.
+problem:
+  text_ja: 1組30人のテストの平均点は74点、2組の平均点は62点で、2つの組を合わせた平均点は70点でした。2組は何人ですか。
+  unit: 人
+  figure:
+    type: word_problem
+    kind: average_groups
+    params:
+      m: 30
+      p: 74
+      q: 62
+      r: 70
+answer:
+  value: '15'
+  display_ja: 15人
+  expr: word_problem
+trap_route:
+  time_cost_sec: 210
+  time_source: estimate
+  steps:
+  - ja: 2組の人数を10人、11人、12人…と決めて、合計点÷全体の人数を1つずつ計算する
+    op: note
+  - ja: わり算が毎回あり、小数になって手が止まる
+    op: note
+  - ja: ここで約3分半。どこで70点になるか見えない
+    op: note
+lens_route:
+  time_cost_sec: 45
+  time_source: estimate
+  steps:
+  - ja: たて＝平均点、横＝人数の長方形2つをならべる（面積＝合計点）
+    op: note
+  - ja: 全体の平均70点の線を引く。1組がはみ出す部分のたては 74−70 = 4、面積は 30×4 = 120
+    op: note
+  - ja: 2組の、線より下のへこみも同じ面積。へこみのたては 70−62 = 8
+    op: note
+  - ja: 2組の人数 = 120÷8 = 15（人）
+    value: '15'
+    op: result
+trigger:
+  ja: 2つの組の平均と全体の平均が分かるときは、平均の線より上と下の面積が等しい面積図にする。
+  en: 'Two group averages and the overall average: draw an area diagram where the excess above the line equals the dent below.'
+  tags:
+  - two_averages_known
+picker:
+  options:
+  - area
+  - balance
+  - constant
+  - direct
+  correct: area
+  clue_distractors:
+  - two_kinds_mixed
+  - mixing
+  feedback_ja:
+    area: そのとおり。平均の線より上にはみ出した面積と、下のへこみの面積が等しくなる。
+    balance: おしい。てんびんでも解けるが、ここでは人数と点数の長方形で、はみ出しとへこみを比べると見えやすい。
+    constant: 差が変わらないものを使う問題ではない。
+    direct: 人数を1つずつ決めて平均を出すと、わり算が何回も必要になる。
+animation:
+  keyframes:
+  - show_story
+  - draw_rectangles
+  - draw_average_line
+  - show_excess
+  - fill_dent
+  - divide_dent
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_average_groups
+  count: 4
+  seed: 2321

@@ -1,0 +1,101 @@
+schema_version: '1.1'
+id: constant-003
+kind: standard
+lens: constant
+best_move: constant
+stage: shogakko
+grades:
+- 小5
+- 小6
+level: 3
+archetype: constant.same_spend
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: two siblings each spend the same amount; afterwards one has r times the other (差一定 with money).'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 2人が同じ金額ずつ使うと、2人のお金の差は変わらない。年れいの問題と同じ形になる。
+  principle_en: 'If both spend the same amount, the difference between them is unchanged: the same shape as the age problem.'
+problem:
+  text_ja: 姉は1600円、弟は1000円持っています。2人が同じ金額ずつ使ったところ、姉の残りは弟の残りの3倍になりました。1人何円使いましたか。
+  unit: 円
+  figure:
+    type: word_problem
+    kind: same_spend
+    params:
+      x: 1600
+      y: 1000
+      r: 3
+    names:
+      older: 姉
+      younger: 弟
+answer:
+  value: '700'
+  display_ja: 700円
+  expr: word_problem
+trap_route:
+  time_cost_sec: 150
+  time_source: estimate
+  steps:
+  - ja: 100円使ったら、200円使ったら…と、2人の残りを表にして調べる
+    op: note
+  - ja: 毎回「3倍になったか」をわり算で確かめる
+    op: note
+  - ja: ここで約2分半
+    op: note
+lens_route:
+  time_cost_sec: 30
+  time_source: estimate
+  steps:
+  - ja: 2人が同じ金額を使っても、お金の差 1600−1000 = 600 は変わらない
+    op: note
+  - ja: 姉が弟の3倍のとき、差の600は弟の 3−1 = 2 つ分
+    op: note
+  - ja: 弟の残りは 600÷2 = 300 円
+    op: note
+  - ja: 1000−300 = 700（円）
+    value: '700'
+    op: result
+trigger:
+  ja: 2人が同じだけふえたりへったりするときは、変わらない「差」に目をつける。
+  en: 'Both change by the same amount: anchor on the unchanging difference.'
+  tags:
+  - both_change_same
+  - times_relation
+picker:
+  options:
+  - constant
+  - area
+  - balance
+  - direct
+  correct: constant
+  clue_distractors:
+  - two_kinds_mixed
+  - mixing
+  feedback_ja:
+    constant: そのとおり。同じ金額を使うので、差の600円はずっと同じ。
+    area: 2種類のものの数と合計の問題ではない。
+    balance: こさや平均を混ぜる問題ではない。
+    direct: 100円ずつためすと、何回も計算することになる。
+animation:
+  keyframes:
+  - show_story
+  - draw_money_bars
+  - mark_difference
+  - shrink_bars
+  - split_difference
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_same_spend
+  count: 4
+  seed: 2421

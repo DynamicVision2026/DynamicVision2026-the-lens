@@ -23,10 +23,12 @@ afterEach(() => vi.restoreAllMocks());
 
 describe.skipIf(!area || !constant)('word problems (面積図, 差一定)', () => {
   it('has both cards and their 4 variants each', () => {
-    expect(wordCards.map((c) => c.id)).toEqual([
-      'area-001', 'area-001-v1', 'area-001-v2', 'area-001-v3', 'area-001-v4',
-      'constant-001', 'constant-001-v1', 'constant-001-v2', 'constant-001-v3', 'constant-001-v4',
-    ]);
+    // Data-driven: more anchor cards of these kinds arrive from catalog work (Architect, Oct 13).
+    const ids = wordCards.map((c) => c.id);
+    expect(ids).toEqual(expect.arrayContaining(['area-001', 'constant-001']));
+    for (const anchor of ids.filter((id) => !/-v\d+$/.test(id))) {
+      expect(ids.filter((id) => id.startsWith(`${anchor}-v`))).toHaveLength(4);
+    }
   });
 
   it.each(wordCards.map((c) => [c.id, c] as const))('%s renders every keyframe at t = 0, 0.5 and 1, both themes, purely and without warnings', (_id, card) => {

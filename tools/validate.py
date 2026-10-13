@@ -312,15 +312,37 @@ def wp_solve(fig):
         return S(q["w1"]) * (q["pt"] - q["p1"]) / (q["p2"] - q["pt"])
     if k == "meeting":               # d apart, speeds u and v toward each other: freeze one, closing speed u+v
         return S(q["d"]) / (q["u"] + q["v"])
+    if k == "average_groups":        # m at average p, ? at average q, all together r: excess over r = dent under r
+        return S(q["m"]) * (q["p"] - q["r"]) / (q["r"] - q["q"])
+    if k == "shortfall":             # a each leaves s over, b each is d short: how many people?
+        return S(q["s"] + q["d"]) / (q["b"] - q["a"])
+    if k == "age_ratio_past":        # older p, younger c now: years ago when older = r x younger
+        return S(q["r"] * q["c"] - q["p"]) / (q["r"] - 1)
+    if k == "same_spend":            # x and y yen, both spend the same: then x' = r y'. How much each?
+        return S(q["r"] * q["y"] - q["x"]) / (q["r"] - 1)
     raise ValueError(k)
 
 
 def wp_text(fig, names):
     """The problem sentence for a word problem, generated from its numbers, so text and numbers can never disagree."""
     q = fig["params"]
+    if fig["kind"] == "two_kinds_total" and names.get("template") == "count":
+        A, B = names["a"], names["b"]
+        return f"{A}と{B}が合わせて{q['n']}{names['counter']}あり、{names['part']}の数は合わせて{q['t']}{names['unit']}です。{A}は何{names['counter']}ありますか。"
     if fig["kind"] == "two_kinds_total":
         A, B = names["a"], names["b"]
         return f"{A}と{B}が合わせて{q['n']}{names['counter']}あり、合計{names['measure']}は{q['t']}円です。{A}は何{names['counter']}ありますか。"
+    if fig["kind"] == "average_groups":
+        return f"1組{q['m']}人のテストの平均点は{q['p']}点、2組の平均点は{q['q']}点で、2つの組を合わせた平均点は{q['r']}点でした。2組は何人ですか。"
+    if fig["kind"] == "shortfall":
+        it = names["item"]
+        return f"何人かの子どもに{it}を配ります。1人に{q['a']}個ずつ配ると{q['s']}個あまり、1人に{q['b']}個ずつ配ると{q['d']}個たりません。子どもは何人ですか。"
+    if fig["kind"] == "same_spend":
+        o, y = names["older"], names["younger"]
+        return f"{o}は{q['x']}円、{y}は{q['y']}円持っています。2人が同じ金額ずつ使ったところ、{o}の残りは{y}の残りの{q['r']}倍になりました。1人何円使いましたか。"
+    if fig["kind"] == "age_ratio_past":
+        o, y = names["older"], names["younger"]
+        return f"いま、{o}は{q['p']}才、{y}は{q['c']}才です。{o}の年れいが{y}の年れいの{q['r']}倍だったのは何年前ですか。"
     if fig["kind"] == "mixture":
         return f"{q['p1']}%の食塩水{q['w1']}gに、{q['p2']}%の食塩水を何g混ぜると、{q['pt']}%の食塩水になりますか。"
     if fig["kind"] == "meeting":
@@ -341,6 +363,38 @@ def wp_brute(fig):
         return [x for x in range(1, 5000) if S(q["w1"] * q["p1"] + x * q["p2"]) / (q["w1"] + x) == q["pt"]]
     if k == "meeting":   # minute by minute: distance walked by both == d
         return [t for t in range(0, 600) if (q["u"] + q["v"]) * t == q["d"]]
+    if k == "average_groups":   # class size by class size: total points / total people == r
+        return [n for n in range(1, 500) if S(q["m"] * q["p"] + n * q["q"]) / (q["m"] + n) == q["r"]]
+    if k == "shortfall":        # head count by head count: the two ways need the same number of items
+        return [n for n in range(1, 500) if q["a"] * n + q["s"] == q["b"] * n - q["d"]]
+    if k == "age_ratio_past":   # year by year back to the younger one's birth
+        return [y for y in range(0, q["c"] + 1) if q["p"] - y == q["r"] * (q["c"] - y)]
+    if k == "same_spend":       # yen by yen, never more than the smaller amount
+        return [z for z in range(0, q["y"] + 1) if q["x"] - z == q["r"] * (q["y"] - z)]
+    raise ValueError(k)
+
+
+def wp_diagram(fig):
+    """Diagram family and its numbers for the apps (WO-015). Sizes only: printed numbers come from the steps."""
+    k, q = fig["kind"], fig["params"]
+    x = wp_solve(fig)
+    xs = str(x)
+    if k == "two_kinds_total":
+        return {"family": "area_two_rect", "n": q["n"], "a": q["a"], "b": q["b"], "t": q["t"], "x": xs}
+    if k == "average_groups":
+        return {"family": "area_average", "w1": q["m"], "h1": q["p"], "h2": q["q"], "level": q["r"], "w2": xs}
+    if k == "shortfall":
+        return {"family": "area_shortfall", "a": q["a"], "b": q["b"], "s": q["s"], "d": q["d"], "n": xs}
+    if k == "age_ratio":
+        return {"family": "diff_bars", "big": q["p"], "small": q["c"], "r": q["r"], "dir": 1, "shift": xs}
+    if k == "age_ratio_past":
+        return {"family": "diff_bars", "big": q["p"], "small": q["c"], "r": q["r"], "dir": -1, "shift": xs}
+    if k == "same_spend":
+        return {"family": "diff_bars", "big": q["x"], "small": q["y"], "r": q["r"], "dir": -1, "shift": xs}
+    if k == "mixture":
+        return {"family": "lever", "w1": q["w1"], "p1": q["p1"], "p2": q["p2"], "pt": q["pt"], "w2": xs}
+    if k == "meeting":
+        return {"family": "road", "d": q["d"], "u": q["u"], "v": q["v"], "t": xs}
     raise ValueError(k)
 
 
@@ -391,6 +445,17 @@ def run_check(card, check, pts) -> tuple[bool, str]:
         if fig["kind"] == "meeting":
             ok = ans > 1 and q["u"] != q["v"]
             return ok, "different speeds, so meeting at the halfway point is a wrong guess"
+        if fig["kind"] == "average_groups":
+            ok = q["q"] < q["r"] < q["p"] and ans > 0 and ans != q["m"] and 2 * q["r"] != q["p"] + q["q"]
+            return ok, "overall average lies between the two and is not their midpoint (classes differ in size)"
+        if fig["kind"] == "shortfall":
+            ok = q["b"] - q["a"] >= 2 and q["s"] > 0 and q["d"] > 0 and ans >= 3
+            return ok, "one way leaves some over, the other is short, and the gap per person is more than 1"
+        if fig["kind"] in ("age_ratio_past", "same_spend"):
+            big, small = (q["p"], q["c"]) if fig["kind"] == "age_ratio_past" else (q["x"], q["y"])
+            then_small = small - ans
+            ok = ans > 0 and then_small >= 1 and q["r"] >= 2 and big > small
+            return ok, "the moment is in the past / after spending, the smaller amount stays positive, and the ratio is at least 2"
         ok = ans > 0 and q["p"] > q["c"] and q["r"] >= 2
         return ok, "the moment is in the future and the ratio is at least 2"
     if t == "mirror_touch_point":
@@ -701,7 +766,12 @@ def make_wp_variants(card):
     while len(out) < v["count"] and tries < 20000:
         tries += 1
         vnames = dict(names)
-        if fig0["kind"] == "two_kinds_total":
+        if fig0["kind"] == "two_kinds_total" and names.get("template") == "count":
+            # the story fixes the per-item numbers (4 wheels, 2 wheels); only the counts change
+            a, b = fig0["params"]["a"], fig0["params"]["b"]
+            n = rng.randint(12, 36); x = rng.randint(3, n - 3)
+            q = {"n": n, "a": a, "b": b, "t": a * x + b * (n - x)}
+        elif fig0["kind"] == "two_kinds_total":
             a, b = rng.choice([(50, 10), (100, 10), (100, 50), (10, 5), (50, 5)])
             n = rng.randint(12, 30); x = rng.randint(1, n - 1)
             q = {"n": n, "a": a, "b": b, "t": a * x + b * (n - x)}
@@ -716,6 +786,24 @@ def make_wp_variants(card):
         elif fig0["kind"] == "meeting":
             su = rng.randint(5, 10) * 10; sv = rng.randint(4, 9) * 10; tt = rng.randint(6, 20)
             q = {"d": (su + sv) * tt, "u": su, "v": sv}
+        elif fig0["kind"] == "average_groups":
+            m = rng.randint(20, 36); r = rng.randint(58, 80)
+            up = rng.randint(2, 9); dn = rng.randint(2, 12)
+            q = {"m": m, "p": r + up, "q": r - dn, "r": r}
+            if (m * up) % dn or not (8 <= m * up // dn <= 40):
+                continue
+        elif fig0["kind"] == "shortfall":
+            a = rng.randint(2, 6); b = a + rng.randint(2, 4); n = rng.randint(5, 18)
+            gap = (b - a) * n; s = rng.randint(1, gap - 1)
+            q = {"a": a, "s": s, "b": b, "d": gap - s}
+        elif fig0["kind"] == "age_ratio_past":
+            r = rng.randint(2, 5); then_c = rng.randint(2, 9); y = rng.randint(2, 10)
+            q = {"p": r * then_c + y, "c": then_c + y, "r": r}
+            if not (25 <= q["p"] <= 50) or q["p"] - q["c"] < 20:
+                continue
+        elif fig0["kind"] == "same_spend":
+            r = rng.randint(2, 4); left = rng.randint(2, 10) * 100; z = rng.randint(2, 12) * 100
+            q = {"x": r * left + z, "y": left + z, "r": r}
         else:
             c = rng.randint(3, 12); r = rng.randint(2, 4); y = rng.randint(2, 15)
             q = {"p": r * (c + y) - y, "c": c, "r": r}
@@ -772,6 +860,44 @@ def wp_steps(fig, names):
             {"ja": f"はじめのきょりは{q['d']}m", "op": "note"},
             {"ja": f"{q['d']}÷{q['u'] + q['v']} = {_fmt(t)}（分後）", "value": str(t), "op": "result"},
         ]
+    if fig["kind"] == "average_groups":
+        up, dn = q["p"] - q["r"], q["r"] - q["q"]
+        k = wp_solve(fig)
+        return [
+            {"ja": "たて＝平均点、横＝人数の長方形2つをならべる（面積＝合計点）", "op": "note"},
+            {"ja": f"全体の平均{q['r']}点の線を引く。1組がはみ出す部分のたては {q['p']}−{q['r']} = {up}、面積は {q['m']}×{up} = {q['m'] * up}", "op": "note"},
+            {"ja": f"2組の、線より下のへこみも同じ面積。へこみのたては {q['r']}−{q['q']} = {dn}", "op": "note"},
+            {"ja": f"2組の人数 = {q['m'] * up}÷{dn} = {_fmt(k)}（人）", "value": str(k), "op": "result"},
+        ]
+    if fig["kind"] == "shortfall":
+        n = wp_solve(fig)
+        return [
+            {"ja": "たて＝1人あたりの個数、横＝人数の長方形で、2つの配り方をかさねる", "op": "note"},
+            {"ja": f"2つの配り方の差は、あまり{q['s']}個とたりない{q['d']}個を合わせた {q['s']}+{q['d']} = {q['s'] + q['d']}", "op": "note"},
+            {"ja": f"その差は、たて {q['b']}−{q['a']} = {q['b'] - q['a']}、横＝人数 の長方形の面積", "op": "note"},
+            {"ja": f"人数 = {q['s'] + q['d']}÷{q['b'] - q['a']} = {_fmt(n)}（人）", "value": str(n), "op": "result"},
+        ]
+    if fig["kind"] in ("age_ratio_past", "same_spend"):
+        past = fig["kind"] == "age_ratio_past"
+        o, y = names.get("older", "兄"), names.get("younger", "弟")
+        big, small = (q["p"], q["c"]) if past else (q["x"], q["y"])
+        d = big - small
+        then_small = S(d) / (q["r"] - 1)
+        z = wp_solve(fig)
+        if past:
+            first = f"年れいの差は {big}−{small} = {d} で、何年前でも変わらない"
+            third = f"そのときの{y}は {d}÷{q['r'] - 1} = {_fmt(then_small)} 才"
+            last = f"{small}−{_fmt(then_small)} = {_fmt(z)}（年前）"
+        else:
+            first = f"2人が同じ金額を使っても、お金の差 {big}−{small} = {d} は変わらない"
+            third = f"{y}の残りは {d}÷{q['r'] - 1} = {_fmt(then_small)} 円"
+            last = f"{small}−{_fmt(then_small)} = {_fmt(z)}（円）"
+        return [
+            {"ja": first, "op": "note"},
+            {"ja": f"{o}が{y}の{q['r']}倍のとき、差の{d}は{y}の {q['r']}−1 = {q['r'] - 1} つ分", "op": "note"},
+            {"ja": third, "op": "note"},
+            {"ja": last, "value": str(z), "op": "result"},
+        ]
     older, younger = names.get("older", "親"), names.get("younger", "子")
     d = q["p"] - q["c"]
     child_then = S(d) / (q["r"] - 1)
@@ -784,8 +910,12 @@ def wp_steps(fig, names):
     ]
 
 
+WP_GENERATORS = ("wp_two_kinds", "wp_age_ratio", "wp_mixture", "wp_meeting",
+                 "wp_average_groups", "wp_shortfall", "wp_age_ratio_past", "wp_same_spend")
+
+
 def make_variants(card):
-    if card["variants"]["generator"] in ("wp_two_kinds", "wp_age_ratio", "wp_mixture", "wp_meeting"):
+    if card["variants"]["generator"] in WP_GENERATORS:
         return make_wp_variants(card)
     if card["variants"]["generator"] == "slide_band":
         return make_band_variants(card)
@@ -974,6 +1104,12 @@ def _annotate_unfold(fig):
 
 
 def _annotate(card, vs):
+    if card["problem"]["figure"]["type"] == "word_problem":
+        fig = card["problem"]["figure"]
+        fig = {**fig, "diagram": wp_diagram(fig)}
+        card = {**card, "problem": {**card["problem"], "figure": fig}}
+        vs = [{**v, "figure": {**v["figure"], "diagram": wp_diagram({**fig, **v["figure"]})}} for v in vs]
+        return card, vs
     if card["problem"]["figure"]["type"] == "box_unfold":
         fig = _annotate_unfold(card["problem"]["figure"])
         card = {**card, "problem": {**card["problem"], "figure": fig}}
