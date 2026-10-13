@@ -1247,3 +1247,24 @@ html[data-theme='course'] body {
   justify-self: start;
   color: var(--ink);
 }
+.course.report .per-lens tr.sub th {
+  font-size: 12px;
+  color: var(--ink-quiet);
+  font-weight: 500;
+}
+.course.report .per-lens tbody th,
+.course.report .per-lens td {
+  white-space: nowrap;
+}
+@media (max-width: 700px) {
+  .course.report .per-lens {
+    font-size: 14px;
+  }
+  .course.report .per-lens th,
+  .course.report .per-lens td {
+    padding: 4px 5px;
+  }
+  .course.report .per-lens tr.sub th {
+    font-size: 11px;
+  }
+}
