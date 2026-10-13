@@ -981,6 +981,8 @@ def make_unfold_variants(card):
         h = rng.randint(c.get("min_h", 3), c.get("max_h", 15))
         if a == b or (h * a) % (a + b) or ratio(a, b) in used_ratios or h in used_h or S(h * a) / (a + b) in used_ans:
             continue
+        if abs(S(h * a) / (a + b) - Rational(h, 2)) < Rational(h, 6):   # the midpoint guess must look visibly wrong in the figure
+            continue
         fig = {**fig0, "a": a, "b": b, "h": h}
         x = unfold_cross(fig)
         vcard = {**card, "answer": {**card["answer"], "value": str(x)}, "problem": {**card["problem"], "figure": fig}}

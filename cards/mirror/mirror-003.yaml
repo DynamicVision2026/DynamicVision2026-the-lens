@@ -1,0 +1,112 @@
+schema_version: '1.1'
+id: mirror-003
+kind: standard
+lens: mirror
+best_move: mirror
+stage: shogakko
+grades:
+- 小5
+- 小6
+level: 3
+archetype: mirror.one_line
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: shortest path touching a straight river once, both points on the same side; reflect one point (折り返す, level 3).'
+  not_derived_from: Lengths, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 2点を結ぶ線のうち、いちばん短いのはまっすぐな線。折り返しても長さは変わらないので、折り返した点とまっすぐ結べば最短になる。
+  principle_en: The straight segment is the shortest path; reflection preserves length, so the straight line to the reflected point gives the shortest touching path.
+problem:
+  text_ja: 点Pと点Qは、まっすぐな川（直線ℓ）の同じ側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝6m、QB＝9m、AB＝25mです。PからQまで、とちゅうで川の点Xに1回よって水をくんでいきます。道のりがいちばん短くなるとき、AXは何mですか。
+  unit: m
+  figure:
+    type: mirror_path
+    ab: 25
+    pa: 6
+    qb: 9
+    unit: m
+    point_labels:
+      P: P
+      Q: Q
+      A: A
+      B: B
+      X: X
+      Q_reflected: Q'
+answer:
+  value: '10'
+  display_ja: 10m
+  expr: mirror_touch
+trap_route:
+  time_cost_sec: 240
+  time_source: estimate
+  steps:
+  - ja: AとBのまん中によればいい、と考える
+    op: note
+  - ja: PA と QB の長さがちがうので、まん中では最短にならない
+    op: note
+  - ja: Xを少しずつずらして道のりを比べようとするが、長さが計算できない
+    op: note
+  - ja: ここで約4分。決め手がない
+    op: note
+lens_route:
+  time_cost_sec: 35
+  time_source: estimate
+  steps:
+  - ja: Qを川で折り返した点Q'をとる（XQ＝XQ'）
+    op: note
+  - ja: PからQ'へまっすぐ線を引く。川と交わる点がX
+    op: note
+  - ja: 三角形PAXとQ'BXは同じ形なので AX:XB = 6:9 = 2:3
+    op: note
+  - ja: AX = 25×2/5 = 10
+    value: '10'
+    op: result
+trigger:
+  ja: とちゅうで直線に1回ふれる最短の道は、片方の点を折り返して、まっすぐ結ぶ。
+  en: 'Shortest path that must touch a line once: reflect one point across the line and join with a straight line.'
+  tags:
+  - shortest_path
+  - touch_a_line
+  - two_points_same_side
+picker:
+  options:
+  - mirror
+  - slide
+  - enclose
+  - direct
+  correct: mirror
+  clue_distractors:
+  - parallel_lines
+  - vertices_on_box
+  feedback_ja:
+    mirror: そのとおり。折り返しても長さは変わらないので、まっすぐ結んだ線が最短になる。
+    slide: 面積の問題ではない。道のりの長さを考える問題。
+    enclose: 方眼の上の図形の面積ではない。
+    direct: まん中によるのが最短とは限らない。PAとQBの長さがちがう。
+animation:
+  keyframes:
+  - show_river
+  - try_midpoint
+  - reflect_point
+  - draw_straight
+  - mark_similar
+  - show_answer
+checks:
+- type: text_matches
+- type: mirror_touch_point
+- type: mirror_shortest
+- type: mirror_not_midpoint
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: mirror_path
+  count: 4
+  seed: 2221
+  constraints:
+    min_side: 4
+    max_side: 15
+    min_ab: 15
+    max_ab: 30
