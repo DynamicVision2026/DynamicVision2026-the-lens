@@ -44,7 +44,7 @@ export function CaseView({ passId }: { passId: string }) {
             <button
               key={lesson.lens}
               type="button"
-              className={`tile${problems.length > 0 && problems.every((p) => solved.includes(p.id)) ? ' done' : ''}${playable ? '' : ' locked'}`}
+              className={`tile${problems.length > 0 && problems.every((p) => solved.includes(p.card.id)) ? ' done' : ''}${playable ? '' : ' locked'}`}
               style={{ ['--c' as string]: c }}
               disabled={!playable}
               onClick={() => {
@@ -61,7 +61,7 @@ export function CaseView({ passId }: { passId: string }) {
               <span className="hn">{ready ? label?.hint_ja : t('case.planned')}</span>
               <span className="dots">
                 {problems.map((p) => (
-                  <i key={p.id} className={solved.includes(p.id) ? 'on' : ''} />
+                  <i key={p.card.id} className={solved.includes(p.card.id) ? 'on' : ''} />
                 ))}
               </span>
             </button>

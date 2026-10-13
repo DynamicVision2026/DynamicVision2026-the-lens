@@ -1,17 +1,19 @@
 // /lesson/:passId/:lens — the course player (WO-012): problem by problem, the child picks the lens
 // (wrong picks "try on" their feedback), taps the clue, then moves the figure until it snaps,
 // guided by ナゼホリ. Everything shown comes from the bundle.
-import { allSceneCards, answerText, getCard, LensIcon, loadBundle, tokens, type LensCard, type LensOrDirect } from '@lens/scenes';
+import { allSceneCards, getCard, LensIcon, loadBundle, tokens, type LensCard, type LensOrDirect } from '@lens/scenes';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { t } from '../i18n/ja';
 import { navigate } from '../launch/navigate';
-import { burst, sfx, TACTILE } from './fx';
+import { Aha } from './Aha';
+import { burst, sfx } from './fx';
 import { GuideOverlay, GuideProvider, useGuide } from './guide';
-import { findLesson, findPass, isPlayable, lessonProblems } from './lessons';
+import { findLesson, findPass, isPlayable, lessonProblems, type LessonProblem, type ProblemMode } from './lessons';
 import { markSolved, solvedIn } from './progress';
 import { ClueCard, PickCard, usePickClue } from './PickClue';
 import { SCENES } from './scenes';
 import { C, SceneLock, useCourseTheme } from './scenes/kit';
+import { boundaryChip, WalkFlow } from './Walkthrough';
 
 export function LessonView({ passId, lens }: { passId: string; lens: string }) {
   useCourseTheme();
@@ -22,7 +24,8 @@ export function LessonView({ passId, lens }: { passId: string; lens: string }) {
   const [index, setIndex] = useState(() => Math.min(solvedIn(passId, lens).length, Math.max(0, problems.length - 1)));
   const [round, setRound] = useState(0);
   if (!pass || !lesson || problems.length === 0 || !SCENES[lens]) return <main className="course">{t('lesson.notFound')}</main>;
-  const card = problems[index]!;
+  const { card, mode } = problems[index]!;
+  const chip = boundaryChip(card);
   const next = () => {
     if (index >= problems.length - 1) navigate(`/pass/${passId}`);
     else setIndex(index + 1);
@@ -35,11 +38,12 @@ export function LessonView({ passId, lens }: { passId: string; lens: string }) {
         </button>
         <span className="pdots">
           {problems.map((p, i) => (
-            <i key={p.id} className={i === index ? 'cur' : solvedIn(passId, lens).includes(p.id) ? 'on' : ''} />
+            <i key={p.card.id} className={i === index ? 'cur' : solvedIn(passId, lens).includes(p.card.id) ? 'on' : ''} />
           ))}
         </span>
+        {chip && <span className="chip boundary">{chip}</span>}
       </div>
-      <Problem key={`${card.id}-${round}`} card={card} lens={lens} passId={passId} last={index >= problems.length - 1} onNext={next} onAgain={() => setRound(round + 1)} />
+      <Problem key={`${card.id}-${round}`} card={card} mode={mode} lens={lens} passId={passId} last={index >= problems.length - 1} onNext={next} onAgain={() => setRound(round + 1)} />
     </main>
   );
 }
@@ -48,20 +52,25 @@ export function LessonView({ passId, lens }: { passId: string; lens: string }) {
  * Review aid (the lesson is already behind ?preview=1 until launch): ?card=<id> plays just that card
  * or variant of this lens, so every variant can be checked, not only the lesson's first few.
  */
-function oneCard(lens: string): LensCard[] | null {
+function oneCard(lens: string): LessonProblem[] | null {
   const id = new URLSearchParams(window.location.search).get('card');
   const card = id ? allSceneCards(loadBundle()).find((c) => c.id === id) : undefined;
-  return card && isPlayable(card, lens) ? [card] : null;
+  if (!card || card.lens !== lens) return null;
+  return [{ card, mode: isPlayable(card, lens) ? 'scene' : 'walkthrough' }];
 }
 
-function Problem({ card, lens, passId, last, onNext, onAgain }: { card: LensCard; lens: string; passId: string; last: boolean; onNext: () => void; onAgain: () => void }) {
+function Problem({ card, mode, lens, passId, last, onNext, onAgain }: { card: LensCard; mode: ProblemMode; lens: string; passId: string; last: boolean; onNext: () => void; onAgain: () => void }) {
   const stage = useRef<HTMLDivElement>(null);
   return (
     <>
       <p className="qtext">{card.problem.text_ja}</p>
       <div className="main">
         <GuideProvider lens={lens} stageRef={stage}>
-          <Flow card={card} lens={lens} passId={passId} last={last} onNext={onNext} onAgain={onAgain} stage={stage} />
+          {mode === 'scene' ? (
+            <Flow card={card} lens={lens} passId={passId} last={last} onNext={onNext} onAgain={onAgain} stage={stage} />
+          ) : (
+            <WalkFlow card={card} lens={lens} passId={passId} last={last} onNext={onNext} onAgain={onAgain} stage={stage} />
+          )}
         </GuideProvider>
       </div>
     </>
@@ -119,40 +128,5 @@ function Flow({ card, lens, passId, last, onNext, onAgain, stage }: { card: Lens
         {phase === 'aha' && <Aha card={card} last={last} onNext={onNext} onAgain={onAgain} />}
       </aside>
     </>
-  );
-}
-
-function Aha({ card, last, onNext, onAgain }: { card: LensCard; last: boolean; onNext: () => void; onAgain: () => void }) {
-  const steps = card.lens_route.steps;
-  const [shown, setShown] = useState(0);
-  useEffect(() => {
-    if (shown >= steps.length) return;
-    const id = window.setTimeout(() => setShown((n) => n + 1), shown === 0 ? 350 : TACTILE.stepStaggerMs);
-    return () => window.clearTimeout(id);
-  }, [shown, steps.length]);
-  let sub = 0;
-  return (
-    <div className="card">
-      <div className="answer in">{answerText(card)}</div>
-      <ul className="steps">
-        {steps.slice(0, shown).map((st, i) => (
-          <li key={i} className="in">
-            <i style={{ background: st.op === 'sub' ? C.palette[sub++ % 4] : 'var(--lens)' }} />
-            <span>{st.ja}</span>
-          </li>
-        ))}
-      </ul>
-      {card.grounding && <div className="why">{card.grounding.principle_ja}</div>}
-      {shown >= steps.length && (
-        <>
-          <button type="button" className="go" onClick={() => (sfx.tap(), onNext())}>
-            {last ? t('lesson.toCase') : t('lesson.next')}
-          </button>
-          <button type="button" className="go ghost" onClick={() => (sfx.tap(), onAgain())}>
-            {t('lesson.again')}
-          </button>
-        </>
-      )}
-    </div>
   );
 }
