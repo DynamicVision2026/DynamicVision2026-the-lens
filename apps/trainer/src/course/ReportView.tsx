@@ -60,11 +60,19 @@ export function ReportView({ passId }: { passId: string }) {
         ) : (
           <Compare b={b} w={w} name={name} lenses={pass.lessons.map((l) => l.lens)} all={all} passId={passId} />
         )}
-        {b && (
+        {b && !w && (
           <p className="parent-link">
             {week4Open(base) ? null : <span className="why">{t('report.week4When')} </span>}
             <button type="button" className="linkish" onClick={() => (sfx.tap(), navigate(`/week4/${passId}`))}>
               {t('report.measureNow')}
+            </button>
+          </p>
+        )}
+        {/* Once week 4 is in, the unlock line goes; a re-measure gets its own line (Architect, #74). */}
+        {b && w && (
+          <p className="parent-link">
+            <button type="button" className="linkish" onClick={() => (sfx.tap(), navigate(`/week4/${passId}`))}>
+              {t('report.measureAgain')}
             </button>
           </p>
         )}
@@ -103,11 +111,18 @@ function Compare({ b, w, name, lenses, all, passId }: { b: SessionStats; w: Sess
       </dl>
       <h3>{t('report.rowLens')}</h3>
       <table className="per-lens">
+        {/* ✓/✗ alone can read like a grade: the header says what it means (Architect, #74). */}
         <thead>
           <tr>
-            <th />
-            <th>{t('report.then')}</th>
-            <th>{t('report.now')}</th>
+            <th rowSpan={2} />
+            <th colSpan={2}>{t('report.then')}</th>
+            <th colSpan={2}>{t('report.now')}</th>
+          </tr>
+          <tr className="sub">
+            <th>{t('report.colTime')}</th>
+            <th>{t('report.colRight')}</th>
+            <th>{t('report.colTime')}</th>
+            <th>{t('report.colRight')}</th>
           </tr>
         </thead>
         <tbody>
@@ -117,8 +132,10 @@ function Compare({ b, w, name, lenses, all, passId }: { b: SessionStats; w: Sess
             return (
               <tr key={l}>
                 <th style={{ color: C.lens(l) }}>{name(l)}</th>
-                <td>{x ? `${t('report.secs', { s: sec(x.ms) })} ${x.ok ? '✓' : '✗'}` : '—'}</td>
-                <td>{y ? `${t('report.secs', { s: sec(y.ms) })} ${y.ok ? '✓' : '✗'}` : '—'}</td>
+                <td>{x ? t('report.secs', { s: sec(x.ms) }) : '—'}</td>
+                <td>{x ? (x.ok ? '✓' : '✗') : '—'}</td>
+                <td>{y ? t('report.secs', { s: sec(y.ms) }) : '—'}</td>
+                <td>{y ? (y.ok ? '✓' : '✗') : '—'}</td>
               </tr>
             );
           })}

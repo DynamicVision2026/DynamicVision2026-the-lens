@@ -174,5 +174,10 @@ describe('the parent report', () => {
     expect(text).toContain('1週目 1問 · 2週目 0問 · 3週目 1問 · 4週目 0問');
     expect(text).toContain('この記録は、この端末の中だけに保存されています');
     for (const banned of ['点数', '合格', '偏差値', '%', '％']) expect(text, banned).not.toContain(banned);
+    // Once week 4 is in: no unlock line, a separate re-measure line, and the ✓/✗ column says what it means.
+    expect(text).not.toContain('22日目にひらきます');
+    expect(text).not.toContain('今すぐ測る');
+    expect(text).toContain('もう一度はかる');
+    expect(text).toContain('1回目で正しい道具');
   });
 });
