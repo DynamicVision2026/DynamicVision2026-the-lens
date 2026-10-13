@@ -8,8 +8,8 @@ const PLAYABLE: Record<string, (card: LensCard) => boolean> = {
   mirror: (c) => c.problem.figure.type === 'mirror_path',
   area: (c) => ['area_two_rect', 'area_average', 'area_shortfall'].includes(family(c) ?? ''),
   constant: (c) => family(c) === 'diff_bars',
-  balance: (c) => isWord(c, 'mixture'),
-  freeze: (c) => isWord(c, 'meeting'),
+  balance: (c) => family(c) === 'lever',
+  freeze: (c) => family(c) === 'road',
   unfold: (c) => c.problem.figure.type === 'box_unfold',
 };
 
@@ -19,10 +19,6 @@ function family(card: LensCard): string | null {
   return fig.type === 'word_problem' ? (fig.diagram?.family ?? null) : null;
 }
 
-function isWord(card: LensCard, kind: string): boolean {
-  const fig = card.problem.figure;
-  return fig.type === 'word_problem' && fig.kind === kind;
-}
 
 /** Every vertex lies on the enclosing box (the corner-triangle Enclose interaction needs that). */
 function verticesOnBox(card: LensCard): boolean {

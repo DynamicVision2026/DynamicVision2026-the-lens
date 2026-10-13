@@ -47,3 +47,38 @@ export function barsModel(d: Spec<'diff_bars'>) {
     snaps: (k: number) => Math.round(k) === target,
   };
 }
+
+/**
+ * てんびん (lever, WO-017): the lower % is drawn on the left. The unknown weight hangs at p2, which can
+ * be 0% (water) or 100% (salt). It balances when weight × arm is equal on both sides (drawing only;
+ * the snap target is the bundle answer).
+ */
+export function leverModel(d: Spec<'lever'>) {
+  const target = num(d.w2);
+  const step = target >= 50 && target % 10 === 0 ? 10 : target >= 25 && target % 5 === 0 ? 5 : 1;
+  const armKnown = Math.abs(d.pt - d.p1);
+  const armUnknown = Math.abs(d.p2 - d.pt);
+  const unknownLeft = d.p2 < d.p1;
+  const start = Math.max(step, Math.round((target * 0.35) / step) * step);
+  // A broken axis when one arm is much longer (salt: 2 vs 90), so the short arm stays touchable.
+  const ratio = Math.max(armKnown, armUnknown) / Math.max(1e-9, Math.min(armKnown, armUnknown));
+  return {
+    target,
+    step,
+    start: start === target ? target + step * 3 : start,
+    unknownLeft,
+    armKnown,
+    armUnknown,
+    broken: ratio > 4,
+    /** > 0 when the unknown side is heavier. */
+    torque: (w: number) => w * armUnknown - d.w1 * armKnown,
+    /** A release within two steps of the answer snaps to it; anything else stays where it is. */
+    snapTo: (w: number) => (Math.abs(w - target) <= 2 * step ? target : null),
+  };
+}
+
+/** 止める (road): k minute-blocks of the closing speed; it meets (toward) or catches up (chase) at the gap. */
+export function roadModel(d: Spec<'road'>, closing: number) {
+  const target = num(d.t);
+  return { target, chase: d.mode === 'chase', snaps: (k: number) => Math.round(k) === target, closed: (k: number) => k * closing >= d.d };
+}

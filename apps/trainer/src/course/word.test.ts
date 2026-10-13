@@ -1,9 +1,9 @@
 // WO-015: area and constant play by figure.diagram.family; each new drag snaps at the bundle's answer
 // and nowhere else, and that is exactly where the shapes match.
-import { allSceneCards, getCard, loadBundle, type LensCard, type WordDiagramSpec, type WordProblemFigure } from '@lens/scenes';
+import { afterEquals, allSceneCards, getCard, loadBundle, type LensCard, type WordDiagramSpec, type WordProblemFigure } from '@lens/scenes';
 import { describe, expect, it } from 'vitest';
 import { findLesson, findPass, isPlayable, lessonProblems } from './lessons';
-import { averageModel, barsModel, shortfallModel } from './scenes/word';
+import { averageModel, barsModel, leverModel, roadModel, shortfallModel } from './scenes/word';
 
 const bundle = loadBundle();
 const pass = findPass(bundle, 'chugaku_juken')!;
@@ -59,5 +59,44 @@ describe('snaps at the answer and nowhere else', () => {
       expect(m.snaps(k), `k=${k}`).toBe(d.r * small === big);
     }
     expect(Number.isInteger(m.target) && m.target > 0 && m.target <= m.kMax).toBe(true);
+  });
+});
+
+describe('WO-017: てんびん and 止める', () => {
+  it.each([
+    ['balance', [['balance-002', 'scene'], ['balance-001', 'scene'], ['balance-no-lens', 'walkthrough'], ['balance-003', 'scene'], ['balance-f01', 'walkthrough'], ['balance-004', 'walkthrough']]],
+    ['freeze', [['freeze-002', 'scene'], ['freeze-001', 'scene'], ['freeze-no-lens', 'walkthrough'], ['freeze-003', 'walkthrough'], ['freeze-f01', 'walkthrough'], ['freeze-004', 'walkthrough']]],
+  ] as const)('%s plays its 6 cards in catalog order, each in its mode', (lens, table) => {
+    expect(lessonProblems(pass, findLesson(pass, lens)!).map((p) => [p.card.id, p.mode])).toEqual(table);
+  });
+
+  it.each(ofFamily('lever'))('lever %s balances and snaps only at the answer', (_id, d) => {
+    const m = leverModel(d);
+    expect(m.torque(m.target), 'weight × arm is equal at the answer').toBe(0);
+    for (let w = m.step; w <= m.target * 2.4; w += m.step) {
+      expect(m.torque(w) === 0, `w=${w}`).toBe(w === m.target);
+      const snapped = m.snapTo(w);
+      expect(snapped === null || snapped === m.target).toBe(true);
+    }
+    expect(m.snapTo(m.target)).toBe(m.target);
+    expect(m.start).not.toBe(m.target);
+    expect(m.unknownLeft).toBe(d.p2 < d.p1);
+  });
+
+  it('draws water on the left and salt on the right, with a break on the long salt arm', () => {
+    const water = leverModel(diagram(getCard('balance-002')!) as Extract<WordDiagramSpec, { family: 'lever' }>);
+    const salt = leverModel(diagram(getCard('balance-003')!) as Extract<WordDiagramSpec, { family: 'lever' }>);
+    expect(water.unknownLeft).toBe(true);
+    expect(salt.unknownLeft).toBe(false);
+    expect(salt.broken).toBe(true);
+    expect(water.broken).toBe(false);
+  });
+
+  it.each(ofFamily('road'))('road %s snaps at the answer, where the blocks close the gap', (id, d) => {
+    const card = all.find((c) => c.id === id)!;
+    const closing = Number(afterEquals(card.lens_route.steps[0]));
+    const m = roadModel(d, closing);
+    for (let k = 0; k <= m.target * 2; k++) expect(m.snaps(k), `k=${k}`).toBe(k * closing === d.d);
+    expect(m.chase).toBe(d.mode === 'chase');
   });
 });
