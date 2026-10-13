@@ -63,3 +63,4 @@ total_area_given:     {ja: 面積の合計が分かっていて、長さを聞�
 points_opposite_sides: {ja: 2つの点が直線の反対側にある}
 along_edges_only:     {ja: 辺の上だけを通る}
 two_walls:            {ja: 直角に交わる2本の線に、1回ずつふれる}
+bridge_across:        {ja: 川に垂直な橋をわたる（長さは決まっている）}

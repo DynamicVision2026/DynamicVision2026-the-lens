@@ -421,6 +421,11 @@ def fig_text(fig):
         u = fig["unit"]
         return (f"直方体ABCD-EFGHがあり、AB＝{fig['a']}{u}、BC＝{fig['b']}{u}、AE＝{fig['h']}{u}です。"
                 f"辺の上だけを通って、頂点Aから頂点Gまで行きます。いちばん短い道のりは何{u}ですか。")
+    if t == "river_bridge":
+        u = fig.get("unit", "m")
+        return (f"川はば{fig['w']}{u}のまっすぐな川があります。点Pは北の岸から{fig['pa']}{u}、点Qは南の岸から{fig['qb']}{u}はなれたところにあります。"
+                f"PとQから岸に垂直にひいた線が北の岸、南の岸と交わる点をA、Bとすると、岸にそってはかったAとBの間は{fig['ab']}{u}です。"
+                f"川に垂直な橋を1本かけて、PからQまで行く道のりをいちばん短くします。橋は、北の岸のAから何{u}のところにかければよいですか。")
     if t == "mirror_corner":
         (px, py), (qx, qy) = fig["P"], fig["Q"]
         u = fig.get("unit", "m")
@@ -451,6 +456,24 @@ def unfold3_steps(fig):
         {"ja": "開いた図でAとHをまっすぐ結ぶ。辺BFと交わる点がP、辺CGと交わる点がQ", "op": "note"},
         {"ja": f"Aから横に{W}進む間に{h}上がるので、横に {a}+{b} = {a + b} 進んだCGでは {h}×{a + b}/{W} 上がる", "op": "note"},
         {"ja": f"CQ = {h}×{a + b}/{W} = {_fmt(cq)}", "value": str(cq), "op": "result"},
+    ]
+
+
+def bridge_x(fig):
+    """The bridge's length is fixed, so shift Q up by the river width (slide); then P–Q* is straight: AX = ab·pa/(pa+qb)."""
+    return S(fig["ab"]) * fig["pa"] / (fig["pa"] + fig["qb"])
+
+
+def bridge_steps(fig):
+    from math import gcd
+    pa, qb, ab, w = fig["pa"], fig["qb"], fig["ab"], fig["w"]
+    g = gcd(pa, qb)
+    x = bridge_x(fig)
+    return [
+        {"ja": f"橋の長さ{w}mは、どこにかけても同じ。橋をわたる分を先にすませたと考えて、Qを北へ{w}mずらした点Q'をとる（ずらしても道のりは同じ）", "op": "note"},
+        {"ja": "PとQ'をまっすぐ結ぶ。北の岸と交わる点に橋をかければよい（折り返しはいらない）", "op": "note"},
+        {"ja": f"同じ形の三角形で、AX:XB = {pa}:{qb}" + (f" = {pa // g}:{qb // g}" if g > 1 else ""), "op": "note"},
+        {"ja": f"AX = {ab}×{pa // g}/{(pa + qb) // g} = {_fmt(x)}（m）", "value": str(x), "op": "result"},
     ]
 
 
@@ -1285,6 +1308,16 @@ def run_check(card, check, pts) -> tuple[bool, str]:
     if t == "unfold_edges":
         ok = ans == fig["a"] + fig["b"] + fig["h"] and len({fig["a"], fig["b"], fig["h"]}) == 3
         return ok, f"along the edges every shortest route uses one of each length: {fig['a']}+{fig['b']}+{fig['h']}"
+    if t == "bridge_valid":
+        import math
+        pa, qb, ab, w = fig["pa"], fig["qb"], fig["ab"], fig["w"]
+        x = bridge_x(fig)
+        f = lambda z: math.hypot(z, pa) + w + math.hypot(ab - z, qb)
+        best = f(float(x))
+        grid = min(f(ab * i / 400) for i in range(401))
+        mirrored = S(ab) * pa / (pa + qb)  # same ratio, but folding P or Q across a bank adds the river twice: the lens picture is wrong
+        ok = x == ans and best <= grid + 1e-9 and pa != qb and S(x).is_integer
+        return ok, f"bridge at AX = {x}: shifting Q by the width makes the path straight; it is the shortest"
     if t == "corner_valid":
         import math
         X, Y = corner_touch(fig)
@@ -2224,6 +2257,22 @@ def make_variants(card):
         return make_wp_variants(card)
     if card["variants"]["generator"] in ("coord_triangle", "coord_equal_area", "coord_mirror_area", "triangle_cevians"):
         return make_coord_variants(card)
+    if card["variants"]["generator"] == "river_bridge":
+        v = card["variants"]; rng = random.Random(v["seed"]); fig0 = card["problem"]["figure"]
+        out, tries, used = [], 0, {sympify(card["answer"]["value"])}
+        while len(out) < v["count"] and tries < 20000:
+            tries += 1
+            fig = {**fig0, "pa": rng.randint(2, 12), "qb": rng.randint(2, 12), "ab": rng.randint(6, 30), "w": rng.randint(3, 15)}
+            x = bridge_x(fig)
+            if fig["pa"] == fig["qb"] or not S(x).is_integer or x in used:
+                continue
+            vcard = {**card, "answer": {**card["answer"], "value": str(x)}, "problem": {**card["problem"], "figure": fig}}
+            if not run_check(vcard, {"type": "bridge_valid"}, None)[0]:
+                continue
+            used.add(x)
+            out.append({"id": f"{card['id']}-v{len(out) + 1}", "text_ja": fig_text(fig), "figure": {k: fig[k] for k in ("pa", "qb", "ab", "w")},
+                        "answer": str(x), "lens_route": {"steps": bridge_steps(fig)}})
+        return out
     if card["variants"]["generator"] == "mirror_corner":
         v = card["variants"]; rng = random.Random(v["seed"]); fig0 = card["problem"]["figure"]
         out, seen, tries = [], {(tuple(fig0["P"]), tuple(fig0["Q"]))}, 0

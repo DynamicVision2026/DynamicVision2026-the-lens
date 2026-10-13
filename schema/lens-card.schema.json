@@ -664,6 +664,42 @@
                   "type": "string"
                 }
               }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "description": "Failure card for 折り返す: a river of width w, a bridge perpendicular to the banks; shift Q by w (slide), then join straight. Answer AX.",
+              "required": [
+                "type",
+                "pa",
+                "qb",
+                "ab",
+                "w"
+              ],
+              "properties": {
+                "type": {
+                  "const": "river_bridge"
+                },
+                "pa": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "qb": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "ab": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "w": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "unit": {
+                  "type": "string"
+                }
+              }
             }
           ]
         }
@@ -693,7 +729,8 @@
             "unfold_cross",
             "word_problem",
             "coordinate",
-            "corner_touch"
+            "corner_touch",
+            "bridge"
           ]
         }
       }
@@ -837,7 +874,8 @@
               "band_height_from_area",
               "unfold_edges",
               "corner_valid",
-              "unfold3_valid"
+              "unfold3_valid",
+              "bridge_valid"
             ]
           },
           "route": {
@@ -910,7 +948,8 @@
             "wp_trains_overtake",
             "wp_circle_meet",
             "wp_circle_lap",
-            "mirror_corner"
+            "mirror_corner",
+            "river_bridge"
           ]
         },
         "count": {
