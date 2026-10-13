@@ -727,6 +727,14 @@ html[data-theme='course'] body {
 .course svg .fade-op {
   transition: opacity 0.4s;
 }
+/* WO-015: the matched regions halo at the snap (halo timing from tokens 1.6). */
+.course svg .won {
+  animation: won var(--halo-ms) ease-in-out var(--halo-repeats);
+}
+@keyframes won {
+  0%, 100% { stroke-width: 3; filter: none; }
+  50% { stroke-width: 6; filter: drop-shadow(0 0 8px var(--lens)); }
+}
 @keyframes halo {
   0%, 100% { opacity: 0; stroke-width: 2; }
   50% { opacity: 0.95; stroke-width: 6; }

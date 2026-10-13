@@ -6,12 +6,18 @@ const PLAYABLE: Record<string, (card: LensCard) => boolean> = {
   enclose: (c) => c.problem.figure.type === 'grid_polygon' && verticesOnBox(c),
   slide: (c) => c.problem.figure.type === 'parallel_band',
   mirror: (c) => c.problem.figure.type === 'mirror_path',
-  area: (c) => isWord(c, 'two_kinds_total'),
-  constant: (c) => isWord(c, 'age_ratio'),
+  area: (c) => ['area_two_rect', 'area_average', 'area_shortfall'].includes(family(c) ?? ''),
+  constant: (c) => family(c) === 'diff_bars',
   balance: (c) => isWord(c, 'mixture'),
   freeze: (c) => isWord(c, 'meeting'),
   unfold: (c) => c.problem.figure.type === 'box_unfold',
 };
+
+/** The word problem's diagram family (WO-015: area and constant render by family, not by kind). */
+function family(card: LensCard): string | null {
+  const fig = card.problem.figure;
+  return fig.type === 'word_problem' ? (fig.diagram?.family ?? null) : null;
+}
 
 function isWord(card: LensCard, kind: string): boolean {
   const fig = card.problem.figure;

@@ -66,8 +66,18 @@ export function springTo(key: string, from: number, target: number, set: (x: num
   kick();
 }
 
+/**
+ * Finish running springs (a new grab interrupts them): each jumps to its target and runs its `done`,
+ * so a snap the child has already earned (e.g. the phase change after a line snaps) is never lost.
+ */
 export function stopSprings(prefix = '') {
-  for (const key of [...springs.keys()]) if (key.startsWith(prefix)) springs.delete(key);
+  for (const key of [...springs.keys()]) {
+    if (!key.startsWith(prefix)) continue;
+    const s = springs.get(key)!;
+    springs.delete(key);
+    s.set(s.target);
+    s.done?.();
+  }
 }
 
 /** Run `fn(dt)` every frame until the returned stop function is called. */
