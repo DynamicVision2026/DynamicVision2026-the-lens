@@ -1,0 +1,84 @@
+schema_version: "1.1"
+id: enclose-005
+kind: standard
+lens: enclose
+best_move: enclose
+stage: shogakko
+grades: [小5, 小6]
+level: 3             # 1 基礎 · 2 標準 · 3 応用 · 4 発展
+archetype: enclose.pentagon
+status: verified
+
+provenance:
+  original: true
+  built_from: "Archetype: lattice pentagon with two edges on the box and three tilted edges (box minus three right triangles)."
+  not_derived_from: "Coordinates, wording and figure are original. Not adapted from any 入試, textbook or 塾 problem."
+  author: "The Lens content team"
+
+grounding:
+  principle_ja: "面積の加法性：五角形も、囲んだ長方形から、はみ出した直角三角形だけを引けば求まる。"
+  principle_en: "Additivity of area: the shape is the enclosing rectangle minus the right triangles at its corners."
+
+problem:
+  text_ja: "方眼の1目もりは1cmです。五角形ABCDEの面積は何cm²ですか。"
+  unit: "cm²"
+  figure:
+    type: grid_polygon
+    grid: {width: 7, height: 6, cell_cm: 1}
+    points: [[0, 0], [4, 0], [7, 3], [5, 6], [0, 4]]
+
+answer:
+  value: "59/2"
+  display_ja: "29.5cm²"
+  expr: polygon_area
+
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+    - {ja: "五角形を三角形に分けようとする", op: note}
+    - {ja: "分けた三角形の底辺と高さが、どれも方眼から読めない", op: note}
+    - {ja: "分け方を何度も変えて、ここで約3分", op: note}
+
+lens_route:
+  time_cost_sec: 30
+  time_source: estimate
+  steps:
+    - {ja: "7×6の長方形で囲む", value: "42", op: start}
+    - {ja: "右下の三角形 3×3÷2", value: "9/2", op: sub}
+    - {ja: "右上の三角形 2×3÷2", value: "3", op: sub}
+    - {ja: "左上の三角形 5×2÷2", value: "5", op: sub}
+    - {ja: "42 − 12.5 = 29.5", value: "59/2", op: result}
+
+trigger:
+  ja: "頂点が外わくに乗った多角形は、分けずに囲んで、すみだけ引く。"
+  en: "A polygon with every vertex on its box: enclose it and subtract only the corners."
+  tags: [grid, vertices_on_box]
+
+fails_when: enclose-f01
+
+picker:
+  options: [enclose, slide, mirror, direct]
+  correct: enclose
+  clue_distractors: [base_on_grid_line, parallel_lines]
+  feedback_ja:
+    enclose: "そのとおり。頂点がすべて外側の長方形の辺に乗っている。"
+    slide: "平行な2本の線の間に三角形がならぶ形ではない。"
+    mirror: "最短の道すじを求める問題ではない。"
+    direct: "五角形の公式を使うには、方眼の線に乗った辺と高さが必要。ここではどちらも読めない。"
+
+animation:
+  keyframes: [show_shape, draw_box, shade_corners, label_corners, subtract, show_answer]
+
+checks:
+  - {type: lattice_only}
+  - {type: simple_polygon}
+  - {type: area_equals_answer}
+  - {type: enclose_clean}
+  - {type: route_steps_sum, route: lens_route}
+  - {type: lens_faster}
+
+variants:
+  generator: enclose_standard
+  count: 0                 # archetype generator to come; lesson practice uses the other Enclose cards' variants
+  seed: 1000
