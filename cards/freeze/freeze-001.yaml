@@ -5,6 +5,8 @@ lens: freeze
 best_move: freeze
 stage: shogakko
 grades: [小5, 小6]
+level: 2             # 1 基礎 · 2 標準 · 3 応用 · 4 発展
+archetype: freeze.meeting
 status: verified
 
 provenance:

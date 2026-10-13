@@ -39,12 +39,76 @@ def _load_labels():
 
 
 LABELS = _load_labels()
+CATALOG_PATH = ROOT / "catalog" / "passes.yaml"
+CATALOG = yaml.safe_load(CATALOG_PATH.read_text(encoding="utf-8")) if CATALOG_PATH.exists() else {}
+
+
+def catalog_check(entries, release=None):
+    """Check every Pass's lessons against the cards in this run and report progress.
+
+    Errors (always fail): a lesson lists an unknown card, a card of another lens or stage,
+    a card without level/archetype, a lens outside the Pass's lessons, or the same
+    archetype twice at the same level. Progress (fails only for the --release Pass):
+    target problem count, all levels covered, a failure card and a no-lens card per lesson.
+    Returns (ok, passes_for_bundle).
+    """
+    by_id = {c["id"]: (ok, c) for ok, c, _ in entries}
+    ok_all, out = True, []
+    print("\n== catalog/passes.yaml")
+    for pid, ps in CATALOG.items():
+        lessons, target = ps.get("lessons", []), ps.get("lesson_target", 10)
+        levels = set(ps.get("levels", {1: 0, 2: 0, 3: 0, 4: 0}))
+        complete = bool(lessons)
+        out_lessons = []
+        for ls in lessons:
+            errs, cards = [], []
+            if ls["lens"] not in LABELS["lenses"]:
+                errs.append(f"lens '{ls['lens']}' has no label")
+            seen = set()
+            for cid in ls["cards"]:
+                if cid not in by_id:
+                    errs.append(f"{cid} not found"); continue
+                okc, c = by_id[cid]
+                if c["lens"] != ls["lens"]:
+                    errs.append(f"{cid} is lens {c['lens']}")
+                if c["stage"] not in ps["card_stages"]:
+                    errs.append(f"{cid} is stage {c['stage']}")
+                if "level" not in c or "archetype" not in c:
+                    errs.append(f"{cid} needs level and archetype"); continue
+                key = (c["archetype"], c["level"])
+                if key in seen:
+                    errs.append(f"{cid} repeats {c['archetype']} at level {c['level']}")
+                seen.add(key)
+                if okc:
+                    cards.append(c)
+            n = len(cards)
+            lv = {c["level"] for c in cards}
+            has_fail = any(c["kind"] == "failure" for c in cards)
+            has_none = any(c["kind"] == "no_lens" for c in cards)
+            done = n >= target and levels <= lv and has_fail and has_none
+            complete &= done and not errs
+            ok_all &= not errs
+            missing = [f"{n}/{target} problems"] if n < target else []
+            missing += [f"levels {sorted(levels - lv)}"] if not levels <= lv else []
+            missing += ["failure card"] if not has_fail else []
+            missing += ["no-lens card"] if not has_none else []
+            tag = "FAIL" if errs else ("DONE" if done else "TODO")
+            print(f"  {tag}    {pid}/{ls['lens']}: " + ("; ".join(errs) if errs else ("complete" if done else "needs " + ", ".join(missing))))
+            out_lessons.append({"lens": ls["lens"], "video": ls.get("video"), "cards": [c["id"] for c in cards if c["status"] in PUBLISHABLE]})
+        print(f"  {'PASS' if complete else 'INFO'}    {pid}: {'complete' if complete else ps.get('status', 'planned')} ({len(lessons)} lessons)")
+        if release == pid and not complete:
+            print(f"  FAIL    --release {pid}: not every lesson is complete"); ok_all = False
+        meta = {k: v for k, v in ps.items() if k != "lessons"}
+        out.append({"id": pid, **meta, "lessons": out_lessons})
+    return ok_all, out
 
 
 def label_check(card):
     """Every picker option and clue chip must have a Japanese label; decoys must be real decoys."""
     errs = []
     lenses, tags = LABELS["lenses"], LABELS["tags"]
+    if card["lens"] not in lenses:
+        errs.append(f"lens '{card['lens']}' has no label in labels/lenses.yaml")
     for opt in card["picker"]["options"]:
         if opt not in lenses:
             errs.append(f"picker option '{opt}' has no label in labels/lenses.yaml")
@@ -920,7 +984,7 @@ def _annotate(card, vs):
 PUBLISHABLE = {"verified", "reviewed", "published"}
 
 
-def write_bundle(entries, include_drafts=False) -> Path:
+def write_bundle(entries, include_drafts=False, passes=None) -> Path:
     """build/bundle.json — the only file the trainer and the Shorts renderer import.
 
     Contains every card that passed this run and whose status is verified or later,
@@ -933,7 +997,8 @@ def write_bundle(entries, include_drafts=False) -> Path:
             card, vs = _annotate(card, vs)
             cards.append({**card, "variants": vs})
     cards.sort(key=lambda c: (c["lens"], c["id"]))
-    bundle = {"bundle_version": "1.2", "schema_version": "1.1", "tokens": tokens, "labels": LABELS, "cards": cards}
+    bundle = {"bundle_version": "1.3", "schema_version": "1.1", "tokens": tokens, "labels": LABELS,
+              "passes": passes or [], "cards": cards}
     out = ROOT / "build" / "bundle.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(bundle, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -941,13 +1006,20 @@ def write_bundle(entries, include_drafts=False) -> Path:
 
 
 if __name__ == "__main__":
-    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    argv = sys.argv[1:]
+    release_value = argv[argv.index("--release") + 1] if "--release" in argv else None
+    args = [a for a in argv if not a.startswith("--") and a != release_value]
     want_bundle = "--bundle" in sys.argv
     entries = [validate(Path(a), "--variants" in sys.argv or want_bundle) for a in args]
     all_ok = bool(entries) and all(ok for ok, _, _ in entries)
+    release = sys.argv[sys.argv.index("--release") + 1] if "--release" in sys.argv else None
+    passes = []
+    if want_bundle:
+        cat_ok, passes = catalog_check(entries, release)
+        all_ok &= cat_ok
     if want_bundle:
         if all_ok:
-            out = write_bundle(entries, include_drafts="--include-drafts" in sys.argv)
+            out = write_bundle(entries, include_drafts="--include-drafts" in sys.argv, passes=passes)
             n = len(json.loads(out.read_text(encoding="utf-8"))["cards"])
             print(f"\nbundle: {out.relative_to(ROOT)} ({n} cards{', drafts included' if '--include-drafts' in sys.argv else ''})")
         else:

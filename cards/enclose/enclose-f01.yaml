@@ -5,6 +5,8 @@ lens: enclose
 best_move: "split along a grid line (方眼の線で分ける)"
 stage: shogakko
 grades: [小5, 小6]
+level: 3             # 1 基礎 · 2 標準 · 3 応用 · 4 発展
+archetype: enclose.notch_failure
 status: verified
 
 provenance:

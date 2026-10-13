@@ -5,6 +5,8 @@ lens: balance
 best_move: balance
 stage: shogakko
 grades: [小5, 小6]
+level: 2             # 1 基礎 · 2 標準 · 3 応用 · 4 発展
+archetype: balance.mixture_two
 status: verified
 
 provenance:

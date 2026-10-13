@@ -5,6 +5,8 @@ lens: unfold
 best_move: unfold
 stage: shogakko
 grades: [小6]
+level: 2             # 1 基礎 · 2 標準 · 3 応用 · 4 発展
+archetype: unfold.box_one_edge
 status: verified
 
 provenance:
