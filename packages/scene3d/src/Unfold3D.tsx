@@ -3,12 +3,14 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useMemo, useRef, type MutableRefObject } from 'react';
 import * as THREE from 'three';
-import { fitScale, nearSnap, openEnough, vertices, type BoxDims, type V3 } from './geometry';
+import { fitScale, nearSnap, openEnough, vertices, type BoxDims, type V3, type VertexName } from './geometry';
 
 export type Anchor = 'face' | 'p';
 
 export interface Unfold3DProps {
   dims: BoxDims;
+  /** The validator's figure.mesh vertices, when the card has them. */
+  mesh?: Record<VertexName, V3>;
   /** BP from the card's answer: the only place P snaps. */
   answer: number;
   /** Printed labels: vertex letters, the three given lengths, and P's label after the snap. */
@@ -69,7 +71,7 @@ function Box(props: Unfold3DProps & { labelEls: MutableRefObject<Record<string, 
   const { dims, answer, colors, anchors, labelEls } = props;
   const { camera, gl, invalidate, size } = useThree();
   const k = fitScale(dims);
-  const v = vertices(dims, k);
+  const v = vertices(dims, k, props.mesh);
   const [a, b, h] = [dims.a * k, dims.b * k, dims.h * k];
   const pAns = answer * k;
 

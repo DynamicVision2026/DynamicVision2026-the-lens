@@ -98,6 +98,17 @@ export interface BoxUnfoldFigure {
   unit: string;
   point_labels: { A: string; B: string; C: string; D: string; E: string; F: string; G: string; H: string; P: string };
   net_width: string;
+  /** Drawing coordinates from the validator (bundle, tokens 1.6 / #51); never printed. */
+  mesh?: BoxMesh;
+}
+
+export interface BoxMesh {
+  units: string;
+  vertices: Record<'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H', [number, number, number]>;
+  faces: Record<string, string[]>;
+  hinge: { edge: [string, string]; face: string; open_deg: number };
+  net: Record<string, [number, number]>;
+  path: { from: string; via_edge: [string, string]; to: string };
 }
 
 /**
@@ -243,6 +254,12 @@ export interface Tokens {
       palette: ColorToken[];
       tint_opacity: number;
     };
+    /** Course-player surfaces and the countable grid (tokens 1.6; set in the short_dark theme). */
+    panel?: ColorToken;
+    raise?: ColorToken;
+    line?: ColorToken;
+    grid_minor?: ColorToken;
+    grid_major?: ColorToken;
   };
   stroke: {
     unit: string;
@@ -308,6 +325,8 @@ export interface Tokens {
       final_hold_ms: number;
     };
     reduce_motion: string;
+    /** Founder MVP feel (tokens 1.6): springs (stiffness k, damping c) and guide timings. */
+    tactile?: TactileToken;
   };
   themes?: Record<string, ThemeOverride>;
 }
@@ -367,6 +386,24 @@ export interface GlowToken {
 type DeepPartial<T> = { [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K] };
 
 /** A theme lists only what it changes; everything else falls back to the base tokens. */
+export interface SpringKC {
+  k: number;
+  c: number;
+}
+
+export interface TactileToken {
+  snap: SpringKC;
+  fold: SpringKC;
+  settle: SpringKC;
+  idle_ms: number;
+  halo_ms: number;
+  halo_repeats: number;
+  finger_ms: number;
+  finger_repeats: number;
+  aha_step_stagger_ms: number;
+  confetti_particles: number;
+}
+
 export interface ThemeOverride {
   color?: DeepPartial<Tokens['color']>;
   lens_tint_opacity?: number;

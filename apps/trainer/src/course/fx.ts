@@ -1,13 +1,20 @@
 // Feel (WO-012 §3): springs with overshoot, chimes, haptics where they exist, and the aha burst.
-// STUB(architect #46): spring/timing values below stand in for tokens.motion.tactile.
+import { tokens } from '@lens/scenes';
 
+const tactile = tokens.motion.tactile!;
+
+/** The feel, from tokens.motion.tactile (tokens 1.6): springs and guide timings. */
 export const TACTILE = {
-  snap: { k: 420, c: 16 },
-  open: { k: 300, c: 14 },
-  settle: { k: 260, c: 18 },
-  idleMs: 5000,
-  stepStaggerMs: 380,
-  fingerMs: 1500,
+  snap: tactile.snap,
+  open: tactile.fold,
+  settle: tactile.settle,
+  idleMs: tactile.idle_ms,
+  haloMs: tactile.halo_ms,
+  haloRepeats: tactile.halo_repeats,
+  stepStaggerMs: tactile.aha_step_stagger_ms,
+  fingerMs: tactile.finger_ms,
+  fingerRepeats: tactile.finger_repeats,
+  confetti: tactile.confetti_particles,
 } as const;
 
 /** Respect prefers-reduced-motion: springs jump, no bob/pop, no confetti. */
@@ -143,7 +150,7 @@ export function burst(host: HTMLElement, colours: string[]) {
   const g = cv.getContext('2d');
   if (!g) return cv.remove();
   g.scale(dpr, dpr);
-  const ps = Array.from({ length: 90 }, (_, i) => {
+  const ps = Array.from({ length: TACTILE.confetti }, (_, i) => {
     const a = Math.random() * Math.PI * 2;
     const sp = 3 + Math.random() * 7;
     return { x: r.width / 2, y: r.height * 0.45, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 3, s: 3 + Math.random() * 5, c: colours[i % colours.length]!, life: 1 };

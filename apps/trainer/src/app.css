@@ -300,10 +300,7 @@ html[data-theme='course'] body {
   -webkit-tap-highlight-color: transparent;
 }
 .course {
-  /* STUB(architect #46): panel shades derived from paper and ink until they are tokens. */
-  --panel: color-mix(in srgb, var(--paper) 94%, var(--ink));
-  --raise: color-mix(in srgb, var(--paper) 88%, var(--ink));
-  --line: color-mix(in srgb, var(--paper) 80%, var(--ink));
+  /* --panel / --raise / --line come from the course theme tokens (tokens 1.6), set on <html>. */
   max-width: 1280px;
   margin: 0 auto;
   padding: calc(var(--gutter) * 0.75) var(--gutter) var(--gutter);
@@ -722,7 +719,7 @@ html[data-theme='course'] body {
   opacity: 0;
 }
 .course svg .halo.pulse {
-  animation: halo 1.1s ease-in-out 3;
+  animation: halo var(--halo-ms, 1.1s) ease-in-out var(--halo-repeats, 3);
 }
 .course .nudge {
   animation: nudge 1.1s ease-in-out 2;

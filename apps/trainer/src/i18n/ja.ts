@@ -1,6 +1,6 @@
 // UI strings (ADR-002): components call t('key'); card text keeps coming from the bundle.
-// guide.*: STUB(architect #46) — copy owned by the Architect (WO-012 §3b), here until it has a home
-// in labels/. Shared lines are as written in §3b; per-lens play lines are the Founder MVP's.
+// guide.*: copy owned by the Architect (WO-012 §3b), kept here and reviewed by the Architect (#46).
+// Shared lines are as written in §3b; per-lens play lines are the Founder MVP's.
 export const ja = {
   'case.title': 'レンズケース',
   'case.lede': '8つの道具から1つ選んで、まず「どのレンズで見るか」を選び、それから図を指で動かして答えにたどり着こう。',

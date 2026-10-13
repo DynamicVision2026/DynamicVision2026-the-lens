@@ -1,6 +1,6 @@
 // Drawing coordinates for the cuboid ABCD-EFGH (E above A, F above B, G above C), scaled to fit
 // the viewport. Positions only: P's snap point is the card's answer (BP), never computed.
-// STUB(architect #46 / WO-012 §2): the validator will add figure.mesh; read it here when it lands.
+// The vertices come from the validator's figure.mesh when the card has one (bundle, #51).
 
 export interface BoxDims {
   a: number;
@@ -15,8 +15,14 @@ export function fitScale({ a, b, h }: BoxDims): number {
   return 5.4 / Math.max(a + b * 0.7, h * 1.3);
 }
 
-/** The eight vertices in model space (x along AB, y up, z back from the front face ABFE). */
-export function vertices({ a, b, h }: BoxDims, k: number): Record<'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H', V3> {
+export type VertexName = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H';
+
+/**
+ * The eight vertices in model space (x along AB, y up, z back from the front face ABFE): the mesh's
+ * coordinates scaled by k, or built from a, b, h for a card without a mesh.
+ */
+export function vertices({ a, b, h }: BoxDims, k: number, mesh?: Record<VertexName, V3>): Record<VertexName, V3> {
+  if (mesh) return Object.fromEntries(Object.entries(mesh).map(([n, [x, y, z]]) => [n, [x * k, y * k, z * k]])) as Record<VertexName, V3>;
   const [A, B, H] = [a * k, b * k, h * k];
   return {
     A: [0, 0, 0],
