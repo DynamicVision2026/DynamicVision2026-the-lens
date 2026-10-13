@@ -5,4 +5,6 @@ export const LAUNCH = {
   tokushohoUrl: 'https://TODO/policies/legal-notice', // 特定商取引法 page on the store
   cfAnalyticsToken: '', // Cloudflare Web Analytics; empty = no script
   lessonsPublic: false, // WO-010: lessons stay locked (preview with ?preview=1) until launch
+  passId: 'chugaku_juken', // the Pass the landing page sells (prices and seats from bundle.passes)
+  founderSeatsLeft: null as number | null, // founder updates as orders come in; null hides the line
 };

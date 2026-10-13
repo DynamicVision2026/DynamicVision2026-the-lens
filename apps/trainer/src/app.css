@@ -263,9 +263,6 @@ input {
   color: var(--lens-enclose);
   font-size: var(--type-trigger-size);
 }
-.preorder-block .price s {
-  color: var(--ink-quiet);
-}
 .preorder-block .price strong {
   color: var(--lens-enclose);
 }
@@ -887,4 +884,18 @@ html[data-theme='course'] body {
   font-weight: var(--type-title-weight);
   padding: 0 calc(var(--gutter) * 1.2);
   text-decoration: none;
+}
+
+.preorder-block .stage {
+  margin: 0;
+  color: var(--ink-quiet);
+}
+.preorder-block .seats {
+  font-weight: var(--type-title-weight);
+  color: var(--lens-enclose);
+}
+.preorder-block .includes {
+  margin: 0;
+  padding-left: 1.2em;
+  line-height: 1.8;
 }

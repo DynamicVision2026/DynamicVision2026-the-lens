@@ -1,3 +1,4 @@
+import { loadBundle } from '@lens/scenes';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { LAUNCH } from '../launch.config';
@@ -59,7 +60,7 @@ describe('signup form', () => {
 describe('landing and privacy copy', () => {
   it('renders every WO-009 line on the landing page', () => {
     const html = renderToStaticMarkup(<Landing short={null} />).replace(/<wbr\/>/g, '');
-    for (const line of [LANDING.eyebrow, LANDING.h1, LANDING.heroCaption, LANDING.start, ...LANDING.points, PREORDER.title, PREORDER.earlyPrice, PREORDER.delivery, PREORDER.button, FOOTER.privacy, FOOTER.tokushoho]) {
+    for (const line of [LANDING.eyebrow, LANDING.h1, LANDING.heroCaption, LANDING.start, ...LANDING.points, PREORDER.stage, PREORDER.delivery, PREORDER.button, FOOTER.privacy, FOOTER.tokushoho]) {
       expect(html).toContain(line.replace(/"/g, '&quot;'));
     }
     expect(html).toContain(LANDING.sub.replace(/"/g, '&quot;'));
@@ -77,6 +78,20 @@ describe('landing and privacy copy', () => {
     const html = renderToStaticMarkup(<Landing short={null} />);
     const h1 = /<h1>(.*?)<\/h1>/.exec(html)![1]!;
     expect(h1.split('<wbr/>')).toEqual(['計算する前に、', '「見方」を', '選ぶ。']);
+  });
+
+  it('shows the founder offer with the numbers from the bundle, and no struck-through price', () => {
+    const pass = loadBundle().passes!.find((p) => p.id === LAUNCH.passId)!;
+    const html = renderToStaticMarkup(<Landing short={null} />);
+    expect(html).not.toContain('<s>');
+    expect(html).toContain('創設メンバー募集（先着30家庭）');
+    expect(html).toContain('創設メンバー価格 ¥6,800（先着30家庭）。31家庭目からは通常価格 ¥9,800');
+    expect(html).toContain(PREORDER.price(pass.early_price_jpy!, pass.founder_seats!, pass.price_jpy!));
+    expect(html).toContain('1年間・3台まで利用できます');
+    for (const line of PREORDER.includes(pass.term_months!, pass.devices!)) expect(html).toContain(line);
+    // The seats-left line only shows once the founder sets the count.
+    expect(LAUNCH.founderSeatsLeft).toBeNull();
+    expect(html).not.toContain('残り');
   });
 
   it('renders the privacy note', () => {
