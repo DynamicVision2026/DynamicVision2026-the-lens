@@ -2,13 +2,19 @@
 // the countable grid, and a pointer-drag hook in SVG coordinates.
 import { color, cssVars, lensColor, themed, tokens, type LensOrDirect } from '@lens/scenes';
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, type ReactNode, type RefObject, type SVGProps } from 'react';
-import { sfx, stopSprings } from '../fx';
+import { sfx, stopSprings, TACTILE } from '../fx';
 import { useGuide, type GuideApi } from '../guide';
 
-/** The course player's palette: the Shorts' dark theme (STUB(architect #46): confirm for the trainer). */
+/** The course player's palette: the dark theme, which tokens 1.6 makes official for /pass and /lesson. */
 const dark = themed(tokens, 'short_dark').tokens;
+const opt = (c: typeof dark.color.panel, fallback: typeof dark.color.paper) => color(c ?? fallback);
 export const C = {
   paper: color(dark.color.paper),
+  panel: opt(dark.color.panel, dark.color.paper),
+  raise: opt(dark.color.raise, dark.color.paper),
+  line: opt(dark.color.line, dark.color.ink_quiet),
+  gridMinor: opt(dark.color.grid_minor, dark.color.ink_quiet),
+  gridMajor: opt(dark.color.grid_major, dark.color.ink),
   ink: color(dark.color.ink),
   quiet: color(dark.color.ink_quiet),
   flag: color(dark.color.trap.flag),
@@ -30,6 +36,11 @@ export function useCourseTheme() {
     const vars: Record<string, string> = { ...cssVars(dark) };
     C.palette.forEach((c, i) => (vars[`--s${i}`] = c));
     vars['--flag'] = C.flag;
+    vars['--panel'] = C.panel;
+    vars['--raise'] = C.raise;
+    vars['--line'] = C.line;
+    vars['--halo-ms'] = `${TACTILE.haloMs}ms`;
+    vars['--halo-repeats'] = String(TACTILE.haloRepeats);
     const before = Object.fromEntries(Object.keys(vars).map((k) => [k, root.style.getPropertyValue(k)]));
     for (const [k, v] of Object.entries(vars)) root.style.setProperty(k, v);
     root.dataset.theme = 'course';
@@ -100,7 +111,7 @@ export function Knob({ x, y, fill, r = 15, onDown }: { x: number; y: number; fil
 
 /**
  * The countable grid (Founder MVP, Oct 13): 1 square = 1 unit, brighter lines, a stronger line
- * every 5, numbered edges and a 1-unit scale bar. Colours are the ink at two strengths.
+ * every 5, numbered edges and a 1-unit scale bar. Colours: grid_minor / grid_major (tokens 1.6).
  */
 export function CountableGrid({ X, Y, w, h, unit }: { X: (x: number) => number; Y: (y: number) => number; w: number; h: number; unit: string }) {
   const major = (i: number) => i % 5 === 0;
@@ -110,10 +121,10 @@ export function CountableGrid({ X, Y, w, h, unit }: { X: (x: number) => number; 
   return (
     <g className="countable-grid">
       {xs.map((i) => (
-        <line key={`v${i}`} x1={X(i)} y1={Y(-1)} x2={X(i)} y2={Y(h + 1)} stroke={C.ink} strokeOpacity={major(i) ? 0.42 : 0.2} strokeWidth={major(i) ? 1.6 : 1} />
+        <line key={`v${i}`} x1={X(i)} y1={Y(-1)} x2={X(i)} y2={Y(h + 1)} stroke={major(i) ? C.gridMajor : C.gridMinor} strokeWidth={major(i) ? 1.6 : 1} />
       ))}
       {ys.map((j) => (
-        <line key={`h${j}`} x1={X(-1)} y1={Y(j)} x2={X(w + 1)} y2={Y(j)} stroke={C.ink} strokeOpacity={major(j) ? 0.42 : 0.2} strokeWidth={major(j) ? 1.6 : 1} />
+        <line key={`h${j}`} x1={X(-1)} y1={Y(j)} x2={X(w + 1)} y2={Y(j)} stroke={major(j) ? C.gridMajor : C.gridMinor} strokeWidth={major(j) ? 1.6 : 1} />
       ))}
       {Array.from({ length: w + 1 }, (_, i) => (
         <Txt key={`nx${i}`} x={X(i)} y={Y(-1) + 17} size={12} fill={major(i) ? C.ink : C.quiet} strokeWidth={3} fontWeight={500}>

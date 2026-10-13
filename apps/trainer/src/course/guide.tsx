@@ -103,7 +103,7 @@ export function GuideProvider({ lens, stageRef, children }: { lens: string; stag
       if (!a || !b) return;
       const id = ++demoId.current;
       setDemos((d) => [...d, { id, a, b }]);
-      window.setTimeout(() => setDemos((d) => d.filter((x) => x.id !== id)), TACTILE.fingerMs * 2 + 100);
+      window.setTimeout(() => setDemos((d) => d.filter((x) => x.id !== id)), TACTILE.fingerMs * TACTILE.fingerRepeats + 100);
     },
     [toStage],
   );
@@ -179,7 +179,7 @@ function Finger({ a, b }: { a: Pt; b: Pt }) {
         { ...at(b), opacity: 0.95, transform: 'scale(1)', offset: 0.78 },
         { ...at(b), opacity: 0, transform: 'scale(1.2)' },
       ],
-      { duration: TACTILE.fingerMs, iterations: 2, easing: 'ease-in-out' },
+      { duration: TACTILE.fingerMs, iterations: TACTILE.fingerRepeats, easing: 'ease-in-out' },
     );
     return () => anim.cancel();
   }, [a, b]);

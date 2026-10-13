@@ -18,6 +18,13 @@ describe('box geometry (drawing only)', () => {
     expect(z).toBeCloseTo(0);
   });
 
+  it('uses the mesh vertices when the card has them (scaled)', () => {
+    const mesh = { A: [0, 0, 0], B: [6, 0, 0], C: [6, 0, -4], D: [0, 0, -4], E: [0, 5, 0], F: [6, 5, 0], G: [6, 5, -4], H: [0, 5, -4] } as const;
+    const m = vertices({ a: 6, b: 4, h: 5 }, 2, mesh as unknown as Parameters<typeof vertices>[2]);
+    expect(m.G).toEqual([12, 10, -8]);
+    expect(m).toEqual(vertices({ a: 6, b: 4, h: 5 }, 2));
+  });
+
   it('snaps only near the answer height and opens past 62%', () => {
     expect(nearSnap(3.2, 3, 5)).toBe(true);
     expect(nearSnap(2.5, 3, 5)).toBe(false);

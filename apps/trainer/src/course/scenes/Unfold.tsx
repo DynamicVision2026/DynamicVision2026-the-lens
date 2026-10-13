@@ -54,6 +54,7 @@ function Unfold3DScene({ card, lens, onSolved, onLost }: SceneProps & { onLost: 
     <div className="stage3d">
       <Unfold3D
         dims={{ a: fig.a, b: fig.b, h: fig.h }}
+        mesh={fig.mesh?.vertices}
         answer={num(card.answer.value)}
         labels={{ points: fig.point_labels, ab: len(fig.a), bc: len(fig.b), bf: len(fig.h), solvedP: `${fig.point_labels.P}（${fig.point_labels.B}${fig.point_labels.P}=${formatExact(card.answer.value)}${fig.unit}）` }}
         colors={{ lens: C.lens(lens), ink: C.ink, front: C.palette[0]!, face: C.palette[1]!, paper: C.paper }}
@@ -120,9 +121,12 @@ function FlatUnfold({ card, lens, onSolved }: SceneProps) {
     },
   });
 
-  const A = [X(0), Y(0)];
+  // The flat net's corners: the validator's figure.mesh.net when present, else from a, b, h.
+  const net = fig.mesh?.net;
+  const at = (k: 'A' | 'G', fx: number, fy: number) => (net?.[k] ? [X(net[k]![0]), Y(net[k]![1])] : [X(fx), Y(fy)]);
+  const A = at('A', 0, 0);
   const P = [X(fig.a), Y(pY)];
-  const G = [X(fig.a + fig.b), Y(fig.h)];
+  const G = at('G', fig.a + fig.b, fig.h);
   return (
     <svg ref={svg} viewBox="0 0 600 440" className="fig" data-testid="scene-unfold-flat">
       <StripeDefs />
