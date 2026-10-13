@@ -5,18 +5,19 @@
 ## 1. Catalog: one folder per SKU
 
 ```
-catalog/elem/pass.yaml     chugaku_juken  · Elementary Sprint (中学受験)       stage_no 1 · LENS-CJ-12M
-catalog/middle/pass.yaml   koko_juken     · Middle School Breakthrough (高校受験) stage_no 2 · LENS-KJ-12M
-catalog/high/pass.yaml     daigaku_juken  · High School Analytical (大学受験)    stage_no 3 · LENS-DJ-12M
+catalog/chugaku_juken/pass.yaml  · Elementary Sprint (中学受験)       stage_no 1 · LENS-CJ-12M
+catalog/koukou_juken/pass.yaml   · Middle School Breakthrough (高校受験) stage_no 2 · LENS-KJ-12M
+catalog/daigaku_juken/pass.yaml  · High School Analytical (大学受験)    stage_no 3 · LENS-DJ-12M
 ```
 
-Each folder holds exactly one Pass. The validator loads them in elem → middle → high order and fails on any of these:
+Each folder holds exactly one Pass. The folder name is the Pass id. The validator loads them in Stage 1 → 2 → 3 order and fails on any of these:
+- a folder whose name isn't the Pass id it defines;
 - a file that defines anything other than one Pass;
 - a `stage_no` that doesn't match its folder;
 - a card listed in two Passes (**strict isolation**);
 - a card whose `stage` isn't in the Pass's `card_stages` (`shogakko` / `chugaku` / `koko`).
 
-The bundle's `passes[]` entries gain `catalog_dir`. Pass ids, SKUs and the apps are unchanged.
+The bundle's `passes[]` entries gain `catalog_dir`. Stage 2's id is now `koukou_juken` (was `koko_juken`; renamed before any order existed, Brian Oct 13). SKUs are unchanged.
 
 Shared, never forked: schema, validator, variant engine, picker, scene renderers, tokens and the lesson player. Owned per Pass: its lens set, lessons, problems, levels and traps.
 
@@ -50,7 +51,7 @@ Every existing check (answer, route sum, variants) still runs on the whole route
 
 **Lens set for Stage 2:** still to be decided from Stage 1 signup data (ADR-001). 回転 (rotate) would be a new lens with its own label and scene. Chains can combine any labelled lenses.
 
-## 3. Selling Stages 2 and 3 now
+## 3. Selling Stages 2 and 3 now (confirmed by Brian, Oct 13 17:57: 先行登録 only at launch)
 
 Until a Pass has playable, reviewed lessons, its storefront entry is a **waitlist (先行登録)**, not a paid preorder:
 - `status: planned` → shown as 「準備中・先行登録受付中」 with an email capture tagged `waitlist:<pass id>`;

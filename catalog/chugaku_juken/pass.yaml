@@ -1,4 +1,4 @@
-# Catalog: elem/ holds exactly one Pass (one Shopify SKU). Architect-owned.
+# Catalog: chugaku_juken/ holds exactly one Pass (one Shopify SKU). Architect-owned.
 # Strict isolation: a Pass lists only cards whose `stage` is in its card_stages, and no card id
 # may appear in two Passes. Shared engine, schema, picker and scene renderers (ADR-001, ADR-003).
 # The validator loads catalog/*/pass.yaml; `--release chugaku_juken` fails unless this Pass is complete.
@@ -21,10 +21,10 @@ chugaku_juken:
   review_set: {size: 10, no_lens_items: 2}   # mixed toolkit review: pick the lens, all lessons mixed
   lessons:
     - {lens: enclose,  video: lesson-enclose,  cards: [enclose-002, enclose-004, enclose-no-lens, enclose-001, enclose-003, enclose-008, enclose-005, enclose-006, enclose-f01, enclose-007]}
-    - {lens: slide,    video: lesson-slide,    cards: [slide-001]}
+    - {lens: slide,    video: lesson-slide,    cards: [slide-002, slide-001, slide-003]}
     - {lens: area,     video: lesson-area,     cards: [area-002, area-001, area-no-lens, area-004, area-003, area-f01, area-005]}
     - {lens: constant, video: lesson-constant, cards: [constant-004, constant-001, constant-no-lens, constant-002, constant-003, constant-f01, constant-005]}
     - {lens: balance,  video: lesson-balance,  cards: [balance-002, balance-001, balance-no-lens, balance-003, balance-f01, balance-004]}
     - {lens: freeze,   video: lesson-freeze,   cards: [freeze-002, freeze-001, freeze-no-lens, freeze-003, freeze-f01, freeze-004]}
-    - {lens: mirror,   video: lesson-mirror,   cards: [mirror-001]}
-    - {lens: unfold,   video: lesson-unfold,   cards: [unfold-001]}
+    - {lens: mirror,   video: lesson-mirror,   cards: [mirror-002, mirror-001, mirror-003]}
+    - {lens: unfold,   video: lesson-unfold,   cards: [unfold-002, unfold-001, unfold-003]}

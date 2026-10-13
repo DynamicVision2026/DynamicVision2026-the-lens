@@ -62,7 +62,7 @@ No score promises anywhere (ADR-001, last section).
 
 ## Acceptance
 
-- [ ] `/pass/chugaku_juken` shows 8 tiles from the bundle; `/pass/koko_juken` shows 準備中. No lens ids or counts hard-coded.
+- [ ] `/pass/chugaku_juken` shows 8 tiles from the bundle; `/pass/koukou_juken` shows 準備中. No lens ids or counts hard-coded.
 - [ ] `/lesson/chugaku_juken/enclose?preview=1` plays all 5 Enclose cards in catalog order with level tags, then practice, then marks the lesson done after 3 clean picks in a row.
 - [ ] Locked state without `?preview=1`; the Free Lens still works from the landing page.
 - [ ] Landing and preorder copy match this WO; numbers come from the bundle.
