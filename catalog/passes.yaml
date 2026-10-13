@@ -17,7 +17,7 @@ chugaku_juken:
   early_price_jpy: 6800
   term_months: 12
   devices: 3
-  lesson_target: 10           # graded problems per lesson (anchor + practice + failure + no-lens)
+  lesson_target: 5            # Founder MVP (Brian, Oct 13): 5 curated problems per lens, 40 total
   levels: {1: 基礎, 2: 標準, 3: 応用, 4: 発展}
   review_set: {size: 10, no_lens_items: 2}   # mixed toolkit review: pick the lens, all lessons mixed
   lessons:
