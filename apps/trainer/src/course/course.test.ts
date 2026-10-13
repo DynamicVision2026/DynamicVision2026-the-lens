@@ -30,8 +30,8 @@ describe('lesson problems (from bundle.passes)', () => {
   });
 
   it.each([
-    ['area', 7, ['area-no-lens', 'area-f01']],
-    ['constant', 7, ['constant-no-lens', 'constant-f01', 'constant-005']],
+    ['area', 10, ['area-no-lens', 'area-f01', 'area-006', 'area-008']],
+    ['constant', 10, ['constant-no-lens', 'constant-f01', 'constant-005', 'constant-007', 'constant-008']],
     ['enclose', 10, ['enclose-no-lens', 'enclose-f01']],
   ] as const)('%s: %i anchors; boundary and steps-only cards walk through (WO-016)', (lens, n, walk) => {
     const problems = lessonProblems(pass, findLesson(pass, lens)!);

@@ -1,0 +1,99 @@
+schema_version: '1.1'
+id: area-008
+kind: standard
+lens: area
+best_move: area
+stage: shogakko
+grades:
+- 小5
+- 小6
+level: 3
+archetype: area.score_penalty
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: quiz with points for right answers and a penalty for wrong ones (つるかめ算 with a deduction).'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 全部正解と考えて、本当の得点との差を見る。1問まちがえるごとにへる点は、もらえない点＋へらされる点。
+  principle_en: Assume all right; each wrong answer costs the lost points plus the deduction.
+problem:
+  text_ja: 20問のクイズで、1問正解すると5点もらえ、まちがえると2点へらされます。全部の問題に答えて、得点は72点でした。正解した問題は何問ですか。
+  unit: 問
+  figure:
+    type: word_problem
+    kind: score_penalty
+    params:
+      n: 20
+      a: 5
+      b: 2
+      t: 72
+answer:
+  value: '16'
+  display_ja: 16問
+  expr: word_problem
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: 正解が10問、11問…のときの得点を1つずつ計算する
+    op: note
+  - ja: まちがえたときに点がへるので、計算がややこしい
+    op: note
+  - ja: ここで約3分
+    op: note
+lens_route:
+  time_cost_sec: 40
+  time_source: estimate
+  steps:
+  - ja: 全部正解なら 5×20 = 100 点
+    op: note
+  - ja: 本当の得点との差 100−72 = 28 点
+    op: note
+  - ja: 1問まちがえるごとに、5点もらえず2点へるので 5+2 = 7 点ずつへる
+    op: note
+  - ja: まちがえた数 = 28÷7 = 4（問）
+    op: note
+  - ja: 正解 = 20−4 = 16（問）
+    value: '16'
+    op: result
+trigger:
+  ja: 全部の数と合計が分かり、まちがえると点がへるときは、「全部正解なら」から考える。
+  en: 'Total count and total known, a deduction for wrong answers: start from ''all right''.'
+  tags:
+  - points_lost_if_wrong
+  - total_count_and_total
+picker:
+  options:
+  - area
+  - balance
+  - constant
+  - direct
+  correct: area
+  clue_distractors:
+  - times_relation
+  - mixing
+  feedback_ja:
+    balance: こさや平均を混ぜる問題ではない。
+    constant: 差や合計が変わらないことを使う問題ではない。
+    area: そのとおり。全部正解なら100点。1問まちがえるごとに 5+2＝7点へる。
+    direct: 1問ずつためすと、20通りの計算が必要になる。
+animation:
+  keyframes:
+  - show_story
+  - show_steps
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_score_penalty
+  count: 4
+  seed: 2391

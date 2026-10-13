@@ -1,0 +1,94 @@
+schema_version: '1.1'
+id: constant-008
+kind: standard
+lens: constant
+best_move: constant
+stage: shogakko
+grades:
+- 小4
+level: 1
+archetype: constant.transfer_equal
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: one sibling gives stickers so both have the same: half the difference moves (the total is unchanged).'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: あげても合計は変わらない。同じになるとき、1人分は合計の半分。
+  principle_en: The total is unchanged; equal shares are half of it.
+problem:
+  text_ja: 姉はシールを46枚、妹は30枚持っています。姉が妹に何枚かあげると、2人の枚数が同じになりました。姉は妹に何枚あげましたか。
+  unit: 枚
+  figure:
+    type: word_problem
+    kind: transfer_equal
+    params:
+      x: 46
+      y: 30
+    names:
+      older: 姉
+      younger: 妹
+answer:
+  value: '8'
+  display_ja: 8枚
+  expr: word_problem
+trap_route:
+  time_cost_sec: 90
+  time_source: estimate
+  steps:
+  - ja: 差の16枚をあげればいい、と考えてしまう
+    op: note
+  - ja: 16枚あげると、こんどは妹のほうが多くなる
+    op: note
+  - ja: ためし直して約1分半
+    op: note
+lens_route:
+  time_cost_sec: 20
+  time_source: estimate
+  steps:
+  - ja: あげても2人の合計 46+30 = 76 は変わらない
+    op: note
+  - ja: 同じになるとき、1人分は 76÷2 = 38 枚
+    op: note
+  - ja: 46−38 = 8（枚）
+    value: '8'
+    op: result
+trigger:
+  ja: やりとりしても合計が変わらないときは、合計を等分して考える。
+  en: 'The total is unchanged: halve it.'
+  tags:
+  - total_unchanged
+picker:
+  options:
+  - constant
+  - area
+  - balance
+  - direct
+  correct: constant
+  clue_distractors:
+  - times_relation
+  - two_kinds_mixed
+  feedback_ja:
+    area: 2種類のものの数と合計の問題ではない。
+    balance: こさや平均を混ぜる問題ではない。
+    constant: そのとおり。合計76枚は変わらない。同じになるのは1人38枚。
+    direct: 差の16枚をそのままあげると、こんどは妹が多くなってしまう。
+animation:
+  keyframes:
+  - show_story
+  - show_steps
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_transfer_equal
+  count: 4
+  seed: 2491

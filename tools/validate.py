@@ -465,6 +465,26 @@ def wp_solve(fig):
         return S(q["d"] - q["v"] * q["T"]) / (q["u"] - q["v"])
     if k == "arrival_gap":           # no lens: same start, same goal, how many minutes earlier
         return S(q["d"]) / q["v"] - S(q["d"]) / q["u"]
+    if k == "shortfall_both_over":   # a each leaves s1 over, b each leaves s2 over (b > a, s1 > s2)
+        return S(q["s1"] - q["s2"]) / (q["b"] - q["a"])
+    if k == "score_penalty":         # n questions, +a right, -b wrong, total t: how many right?
+        return q["n"] - S(q["a"] * q["n"] - q["t"]) / (q["a"] + q["b"])
+    if k == "same_gain":             # x and y yen, both receive the same: then x' = r y'
+        return S(q["x"] - q["r"] * q["y"]) / (q["r"] - 1)
+    if k == "transfer_ratio":        # older x, younger y; older gives z so that older:younger = a:b
+        return q["x"] - S(q["x"] + q["y"]) * q["a"] / (q["a"] + q["b"])
+    if k == "transfer_equal":        # older gives z so both have the same
+        return S(q["x"] - q["y"]) / 2
+    if k == "mixture_unknown_strength":   # w1 g at p1 % + w2 g at ? % = pt %
+        return q["pt"] + S(q["pt"] - q["p1"]) * q["w1"] / q["w2"]
+    if k in ("mixture_total", "price_blend"):   # make W of pt from p1 and p2: how much of p1?
+        return S(q["W"]) * (q["p2"] - q["pt"]) / (q["p2"] - q["p1"])
+    if k == "trains_overtake":       # faster train overtakes: from front-meets-back to fully past
+        return S(q["l1"] + q["l2"]) / (q["s1"] - q["s2"])
+    if k == "circle_meet":           # pond of length c, opposite directions
+        return S(q["c"]) / (q["u"] + q["v"])
+    if k == "circle_lap":            # same direction, faster laps the slower
+        return S(q["c"]) / (q["u"] - q["v"])
     raise ValueError(k)
 
 
@@ -488,6 +508,38 @@ def _ratio_parts(q):
 def wp_text(fig, names):
     """The problem sentence for a word problem, generated from its numbers, so text and numbers can never disagree."""
     q = fig["params"]
+    if fig["kind"] == "two_kinds_total" and names.get("template") == "ticket":
+        A, B = names["a"], names["b"]
+        return f"ある博物館の入館料は、{A}1人{q['a']}円、{B}1人{q['b']}円です。{A}と{B}合わせて{q['n']}人で入館し、入館料は合計{q['t']}円でした。{A}は何人ですか。"
+    if fig["kind"] == "shortfall_both_over":
+        it = names["item"]
+        return f"何人かの子どもに{it}を配ります。1人に{q['a']}個ずつ配ると{q['s1']}個あまり、1人に{q['b']}個ずつ配っても{q['s2']}個あまります。子どもは何人ですか。"
+    if fig["kind"] == "score_penalty":
+        return f"{q['n']}問のクイズで、1問正解すると{q['a']}点もらえ、まちがえると{q['b']}点へらされます。全部の問題に答えて、得点は{q['t']}点でした。正解した問題は何問ですか。"
+    if fig["kind"] == "same_gain":
+        o, y = names["older"], names["younger"]
+        return f"{o}は{q['x']}円、{y}は{q['y']}円持っています。2人が同じ金額ずつおこづかいをもらったところ、{o}の金額は{y}の金額の{q['r']}倍になりました。1人何円もらいましたか。"
+    if fig["kind"] == "transfer_ratio":
+        o, y = names["older"], names["younger"]
+        return f"{o}はおはじきを{q['x']}個、{y}は{q['y']}個持っています。{o}が{y}に何個かあげると、{o}と{y}の個数の比が{q['a']}:{q['b']}になりました。{o}は{y}に何個あげましたか。"
+    if fig["kind"] == "transfer_equal":
+        o, y = names["older"], names["younger"]
+        return f"{o}はシールを{q['x']}枚、{y}は{q['y']}枚持っています。{o}が{y}に何枚かあげると、2人の枚数が同じになりました。{o}は{y}に何枚あげましたか。"
+    if fig["kind"] == "mixture_unknown_strength":
+        return f"{q['p1']}%の食塩水{q['w1']}gに、こさのわからない食塩水{q['w2']}gを混ぜると、{q['pt']}%の食塩水になりました。混ぜた食塩水のこさは何%ですか。"
+    if fig["kind"] == "mixture_total":
+        return f"{q['p1']}%の食塩水と{q['p2']}%の食塩水を混ぜて、{q['pt']}%の食塩水を{q['W']}g作ります。{q['p1']}%の食塩水は何g使いますか。"
+    if fig["kind"] == "price_blend":
+        return f"100gあたり{q['p1']}円のお茶と、100gあたり{q['p2']}円のお茶を混ぜて、100gあたり{q['pt']}円のお茶を{q['W']}g作ります。100gあたり{q['p1']}円のお茶は何g使いますか。"
+    if fig["kind"] == "trains_overtake":
+        return (f"長さ{q['l1']}mで秒速{q['s1']}mの列車Aが、同じ向きに走る長さ{q['l2']}mで秒速{q['s2']}mの列車Bに、うしろから追いつきました。"
+                f"Aの先頭がBの最後尾に追いついてから、AがBを完全に追いこすまで、何秒かかりますか。")
+    if fig["kind"] == "circle_meet":
+        A, B = names["a"], names["b"]
+        return f"1周{q['c']}mの池のまわりを、{A}は分速{q['u']}m、{B}は分速{q['v']}mで、同じ地点から反対向きに同時に歩き始めます。2人が初めて出会うのは何分後ですか。"
+    if fig["kind"] == "circle_lap":
+        A, B = names["a"], names["b"]
+        return f"1周{q['c']}mの池のまわりを、{A}は分速{q['u']}m、{B}は分速{q['v']}mで、同じ地点から同じ向きに同時に歩き始めます。{A}が{B}に初めて追いつくのは何分後ですか。"
     if fig["kind"] == "two_kinds_total" and names.get("template") == "count":
         A, B = names["a"], names["b"]
         return f"{A}と{B}が合わせて{q['n']}{names['counter']}あり、{names['part']}の数は合わせて{q['t']}{names['unit']}です。{A}は何{names['counter']}ありますか。"
@@ -615,6 +667,26 @@ def wp_brute(fig):
         return [x for x in range(0, q["T"] + 1) if q["u"] * x + q["v"] * (q["T"] - x) == q["d"]]
     if k == "arrival_gap":
         return [S(q["d"]) / q["v"] - S(q["d"]) / q["u"]]
+    if k == "shortfall_both_over":
+        return [n for n in range(1, 500) if q["a"] * n + q["s1"] == q["b"] * n + q["s2"]]
+    if k == "score_penalty":
+        return [c for c in range(0, q["n"] + 1) if q["a"] * c - q["b"] * (q["n"] - c) == q["t"]]
+    if k == "same_gain":
+        return [z for z in range(0, 20000) if q["x"] + z == q["r"] * (q["y"] + z)]
+    if k == "transfer_ratio":
+        return [z for z in range(0, q["x"] + 1) if (q["x"] - z) * q["b"] == (q["y"] + z) * q["a"]]
+    if k == "transfer_equal":
+        return [z for z in range(0, q["x"] + 1) if q["x"] - z == q["y"] + z]
+    if k == "mixture_unknown_strength":   # every whole percent: salt adds up
+        return [p for p in range(0, 101) if S(q["w1"] * q["p1"] + q["w2"] * p) / (q["w1"] + q["w2"]) == q["pt"]]
+    if k in ("mixture_total", "price_blend"):
+        return [x for x in range(0, q["W"] + 1) if S(x * q["p1"] + (q["W"] - x) * q["p2"]) / q["W"] == q["pt"]]
+    if k == "trains_overtake":
+        return [t for t in range(1, 2000) if (q["s1"] - q["s2"]) * t == q["l1"] + q["l2"]]
+    if k == "circle_meet":
+        return [t for t in range(1, 2000) if (q["u"] + q["v"]) * t == q["c"]]
+    if k == "circle_lap":
+        return [t for t in range(1, 2000) if (q["u"] - q["v"]) * t == q["c"]]
     if k == "ratio_shift":         # every older/younger pair now
         return [o for o in range(1, 120) for u in range(1, o)
                 if o * q["b1"] == u * q["a1"] and (o + q["y"]) * q["b2"] == (u + q["y"]) * q["a2"]]
@@ -650,6 +722,11 @@ def wp_diagram(fig):
     if k == "three_kinds_equal":
         avg = S(q["b"] + q["c"]) / 2
         return {"family": "area_two_rect", "unit": "円", "n": q["n"], "a": q["a"], "b": int(avg), "t": q["t"], "x": xs}
+    if k == "same_gain":
+        return {"family": "diff_bars", "measure": "yen", "step": 100, "big": q["x"], "small": q["y"], "r": q["r"], "dir": 1, "shift": xs}
+    if k in ("shortfall_both_over", "score_penalty", "transfer_ratio", "transfer_equal", "mixture_unknown_strength",
+             "mixture_total", "price_blend", "trains_overtake", "circle_meet", "circle_lap"):
+        return {"family": "steps_only"}
     if k in ("pair_offset", "two_kinds_known", "age_sum_later", "sum_catchup", "ratio_shift",
              "mix_then_water", "evaporate", "salt_total", "trains_pass", "clock_overlap", "arrival_gap"):
         return {"family": "steps_only"}
@@ -1033,6 +1110,33 @@ def run_check(card, check, pts) -> tuple[bool, str]:
         if fig["kind"] == "arrival_gap":
             ok = ans > 0 and (S(q["d"]) / q["u"]).is_integer and (S(q["d"]) / q["v"]).is_integer
             return ok, "both travel times are whole minutes; the two never meet, so no relative speed"
+        if fig["kind"] == "shortfall_both_over":
+            ok = q["b"] - q["a"] >= 2 and q["s1"] > q["s2"] > 0 and ans >= 3
+            return ok, "both ways leave some over; the difference per person is more than 1"
+        if fig["kind"] == "score_penalty":
+            ok = 0 < ans < q["n"] and q["t"] > 0 and 2 * ans != q["n"]
+            return ok, "some right, some wrong, positive score, not simply half"
+        if fig["kind"] == "same_gain":
+            ok = ans > 0 and q["r"] >= 2 and q["x"] > q["r"] * q["y"]
+            return ok, "both gain the same; the ratio falls to r, which is at least 2"
+        if fig["kind"] == "transfer_ratio":
+            ok = 0 < ans < q["x"] and q["a"] != q["b"] and q["x"] > q["y"]
+            return ok, "the total is unchanged and the new ratio is not equal shares"
+        if fig["kind"] == "transfer_equal":
+            ok = ans > 0 and q["x"] > q["y"]
+            return ok, "half the difference moves (a common slip is to move the whole difference)"
+        if fig["kind"] == "mixture_unknown_strength":
+            ok = ans > q["pt"] > q["p1"] and q["w1"] != q["w2"] and ans <= 30
+            return ok, "the unknown strength is past the mix on the lever, unequal weights, realistic strength"
+        if fig["kind"] in ("mixture_total", "price_blend"):
+            ok = q["p1"] < q["pt"] < q["p2"] and 0 < ans < q["W"] and 2 * ans != q["W"]
+            return ok, "the target lies between the two and the split is not half and half"
+        if fig["kind"] == "trains_overtake":
+            ok = q["s1"] > q["s2"] and ans >= 4 and q["l1"] != q["l2"]
+            return ok, "same direction, the faster train behind; both lengths count"
+        if fig["kind"] in ("circle_meet", "circle_lap"):
+            ok = q["u"] > q["v"] and ans >= 2
+            return ok, "different speeds; one lap of the pond is the gap to close"
         if fig["kind"] == "ratio_shift":
             d1, d2 = q["a1"] - q["b1"], q["a2"] - q["b2"]
             ok = d1 != d2 and q["a2"] * q["b1"] < q["a1"] * q["b2"] and ans > 0
@@ -1359,7 +1463,7 @@ def make_wp_variants(card):
             a, b = fig0["params"]["a"], fig0["params"]["b"]
             n = rng.randint(12, 36); x = rng.randint(3, n - 3)
             q = {"n": n, "a": a, "b": b, "t": a * x + b * (n - x)}
-        elif fig0["kind"] == "two_kinds_total":
+        elif fig0["kind"] == "two_kinds_total" and not names.get("template"):
             a, b = rng.choice([(50, 10), (100, 10), (100, 50), (10, 5), (50, 5)])
             n = rng.randint(12, 30); x = rng.randint(1, n - 1)
             q = {"n": n, "a": a, "b": b, "t": a * x + b * (n - x)}
@@ -1466,6 +1570,57 @@ def make_wp_variants(card):
             d = lcm(u, sv) * k
             q = {"d": d, "u": u, "v": sv}
             if not (600 <= d <= 4000):
+                continue
+        elif fig0["kind"] == "two_kinds_total" and names.get("template") == "ticket":
+            a, b = rng.choice([(1200, 800), (900, 500), (1000, 600), (1500, 700), (800, 300)])
+            n = rng.randint(10, 32); x = rng.randint(3, n - 3)
+            q = {"n": n, "a": a, "b": b, "t": a * x + b * (n - x)}
+        elif fig0["kind"] == "shortfall_both_over":
+            a = rng.randint(2, 6); b = a + rng.randint(2, 4); n = rng.randint(5, 16); s2 = rng.randint(1, 9)
+            q = {"a": a, "s1": (b - a) * n + s2, "b": b, "s2": s2}
+        elif fig0["kind"] == "score_penalty":
+            a, b = rng.choice([(5, 2), (5, 3), (4, 1), (10, 5), (6, 2)])
+            n = rng.randint(10, 25); c = rng.randint(n // 2 + 1, n - 1)
+            q = {"n": n, "a": a, "b": b, "t": a * c - b * (n - c)}
+        elif fig0["kind"] == "same_gain":
+            r = rng.randint(2, 4); after_small = rng.randint(3, 12) * 100; z = rng.randint(1, 8) * 100
+            q = {"x": r * after_small - z, "y": after_small - z, "r": r}
+            if q["y"] <= 0:
+                continue
+        elif fig0["kind"] == "transfer_ratio":
+            a, b = rng.choice([(3, 2), (4, 3), (5, 3), (5, 4), (2, 1), (7, 5)])
+            k = rng.randint(3, 8); T = (a + b) * k; after = a * k; z = rng.randint(2, 12)
+            q = {"x": after + z, "y": T - after - z, "a": a, "b": b}
+            if q["y"] <= 2:
+                continue
+        elif fig0["kind"] == "transfer_equal":
+            y = rng.randint(8, 40); z = rng.randint(3, 15)
+            q = {"x": y + 2 * z, "y": y}
+        elif fig0["kind"] == "mixture_unknown_strength":
+            p1 = rng.randint(2, 8); pt = p1 + rng.randint(1, 5); w1 = rng.choice([100, 150, 200, 300, 400]); w2 = rng.choice([100, 200, 300, 400, 600])
+            q = {"w1": w1, "p1": p1, "w2": w2, "pt": pt}
+            if (w1 * (pt - p1)) % w2:
+                continue
+        elif fig0["kind"] in ("mixture_total", "price_blend"):
+            if fig0["kind"] == "price_blend":
+                p1 = rng.randint(3, 8) * 100; p2 = p1 + rng.randint(2, 6) * 100; pt = rng.randint(p1 // 100 + 1, p2 // 100 - 1) * 100 + rng.choice([0, 50])
+                W = rng.choice([400, 500, 600, 800, 1000, 1200])
+            else:
+                p1 = rng.randint(2, 8); p2 = p1 + rng.randint(4, 10); pt = rng.randint(p1 + 1, p2 - 1); W = rng.choice([200, 300, 400, 500, 600])
+            q = {"p1": p1, "p2": p2, "pt": pt, "W": W}
+            if not (p1 < pt < p2) or (W * (p2 - pt)) % (p2 - p1):
+                continue
+        elif fig0["kind"] == "trains_overtake":
+            l1 = rng.randint(8, 25) * 10; l2 = rng.randint(8, 25) * 10; s2 = rng.randint(10, 20); s1 = s2 + rng.randint(3, 10)
+            q = {"l1": l1, "s1": s1, "l2": l2, "s2": s2}
+            if (l1 + l2) % (s1 - s2) or not (5 <= (l1 + l2) // (s1 - s2) <= 60):
+                continue
+        elif fig0["kind"] in ("circle_meet", "circle_lap"):
+            sv = rng.randint(5, 8) * 10; u = sv + rng.randint(1, 4) * 10
+            gap = u + sv if fig0["kind"] == "circle_meet" else u - sv
+            t = rng.randint(4, 25)
+            q = {"c": gap * t, "u": u, "v": sv}
+            if not (600 <= q["c"] <= 3000):
                 continue
         elif fig0["kind"] == "ratio_shift":
             a1, b1 = rng.choice([(5, 3), (7, 4), (3, 1), (5, 2), (7, 3), (4, 1), (9, 5)])
@@ -1695,6 +1850,99 @@ def wp_steps(fig, names):
             {"ja": f"{B}がかかる時間は {q['d']}÷{q['v']} = {_fmt(tb)}（分）", "op": "note"},
             {"ja": f"{_fmt(tb)}−{_fmt(ta)} = {_fmt(x)}（分）", "value": str(x), "op": "result"},
         ]
+    if fig["kind"] == "shortfall_both_over":
+        n = wp_solve(fig)
+        return [
+            {"ja": "たて＝1人あたりの個数、横＝人数の長方形で、2つの配り方をかさねる", "op": "note"},
+            {"ja": f"どちらもあまるので、2つの配り方の差は あまりの差 {q['s1']}−{q['s2']} = {q['s1'] - q['s2']}", "op": "note"},
+            {"ja": f"その差は、たて {q['b']}−{q['a']} = {q['b'] - q['a']}、横＝人数 の長方形の面積", "op": "note"},
+            {"ja": f"人数 = {q['s1'] - q['s2']}÷{q['b'] - q['a']} = {_fmt(n)}（人）", "value": str(n), "op": "result"},
+        ]
+    if fig["kind"] == "score_penalty":
+        full = q["a"] * q["n"]
+        w = S(full - q["t"]) / (q["a"] + q["b"])
+        c = wp_solve(fig)
+        return [
+            {"ja": f"全部正解なら {q['a']}×{q['n']} = {full} 点", "op": "note"},
+            {"ja": f"本当の得点との差 {full}−{q['t']} = {full - q['t']} 点", "op": "note"},
+            {"ja": f"1問まちがえるごとに、{q['a']}点もらえず{q['b']}点へるので {q['a']}+{q['b']} = {q['a'] + q['b']} 点ずつへる", "op": "note"},
+            {"ja": f"まちがえた数 = {full - q['t']}÷{q['a'] + q['b']} = {_fmt(w)}（問）", "op": "note"},
+            {"ja": f"正解 = {q['n']}−{_fmt(w)} = {_fmt(c)}（問）", "value": str(c), "op": "result"},
+        ]
+    if fig["kind"] == "same_gain":
+        o, y = names.get("older", "姉"), names.get("younger", "弟")
+        d = q["x"] - q["y"]
+        then_small = S(d) / (q["r"] - 1)
+        z = wp_solve(fig)
+        return [
+            {"ja": f"2人が同じ金額をもらっても、お金の差 {q['x']}−{q['y']} = {d} は変わらない", "op": "note"},
+            {"ja": f"{o}が{y}の{q['r']}倍のとき、差の{d}は{y}の {q['r']}−1 = {q['r'] - 1} つ分", "op": "note"},
+            {"ja": f"そのときの{y}は {d}÷{q['r'] - 1} = {_fmt(then_small)} 円", "op": "note"},
+            {"ja": f"{_fmt(then_small)}−{q['y']} = {_fmt(z)}（円）", "value": str(z), "op": "result"},
+        ]
+    if fig["kind"] == "transfer_ratio":
+        o, y = names.get("older", "兄"), names.get("younger", "弟")
+        T = q["x"] + q["y"]
+        after = S(T) * q["a"] / (q["a"] + q["b"])
+        z = wp_solve(fig)
+        return [
+            {"ja": f"あげたりもらったりしても、2人の合計 {q['x']}+{q['y']} = {T} は変わらない", "op": "note"},
+            {"ja": f"合計を {q['a']}:{q['b']} に分けると、{o}は {T}×{q['a']}/{q['a'] + q['b']} = {_fmt(after)} 個", "op": "note"},
+            {"ja": f"{q['x']}−{_fmt(after)} = {_fmt(z)}（個）", "value": str(z), "op": "result"},
+        ]
+    if fig["kind"] == "transfer_equal":
+        o, y = names.get("older", "姉"), names.get("younger", "妹")
+        T = q["x"] + q["y"]
+        z = wp_solve(fig)
+        return [
+            {"ja": f"あげても2人の合計 {q['x']}+{q['y']} = {T} は変わらない", "op": "note"},
+            {"ja": f"同じになるとき、1人分は {T}÷2 = {_fmt(S(T) / 2)} 枚", "op": "note"},
+            {"ja": f"{q['x']}−{_fmt(S(T) / 2)} = {_fmt(z)}（枚）", "value": str(z), "op": "result"},
+        ]
+    if fig["kind"] == "mixture_unknown_strength":
+        from math import gcd
+        g = gcd(q["w1"], q["w2"])
+        a1 = q["pt"] - q["p1"]
+        a2 = S(a1) * q["w1"] / q["w2"]
+        p2 = wp_solve(fig)
+        return [
+            {"ja": f"てんびんの左はしに{q['p1']}%（{q['w1']}g）、支点に{q['pt']}%、右はしに □%（{q['w2']}g）", "op": "note"},
+            {"ja": f"左のうでの長さは {q['pt']}−{q['p1']} = {a1}", "op": "note"},
+            {"ja": f"うでの長さの比は、重さの逆の比 {q['w2'] // g}:{q['w1'] // g}。右のうでは {a1}×{q['w1'] // g}/{q['w2'] // g} = {_fmt(a2)}", "op": "note"},
+            {"ja": f"□ = {q['pt']}+{_fmt(a2)} = {_fmt(p2)}（%）", "value": str(p2), "op": "result"},
+        ]
+    if fig["kind"] in ("mixture_total", "price_blend"):
+        from math import gcd
+        price = fig["kind"] == "price_blend"
+        u = "円" if price else "%"
+        a1, a2 = q["pt"] - q["p1"], q["p2"] - q["pt"]
+        g = gcd(a1, a2)
+        x = wp_solve(fig)
+        return [
+            {"ja": f"てんびんの両はしに{q['p1']}{u}と{q['p2']}{u}、支点に{q['pt']}{u}をおく", "op": "note"},
+            {"ja": f"うでの長さは {q['pt']}−{q['p1']} = {a1} と {q['p2']}−{q['pt']} = {a2}", "op": "note"},
+            {"ja": f"重さの比は、うでの長さの逆の比 {a2 // g}:{a1 // g}", "op": "note"},
+            {"ja": f"{q['p1']}{u}の方 = {q['W']}×{a2 // g}/{(a1 + a2) // g} = {_fmt(x)}（g）", "value": str(x), "op": "result"},
+        ]
+    if fig["kind"] == "trains_overtake":
+        c = q["s1"] - q["s2"]; L = q["l1"] + q["l2"]
+        t = wp_solve(fig)
+        return [
+            {"ja": f"列車Bを止めて考えると、列車Aは秒速 {q['s1']}−{q['s2']} = {c}m で近づく", "op": "note"},
+            {"ja": f"追いこすまでに進むのは、2つの列車の長さの和 {q['l1']}+{q['l2']} = {L}m", "op": "note"},
+            {"ja": f"{L}÷{c} = {_fmt(t)}（秒）", "value": str(t), "op": "result"},
+        ]
+    if fig["kind"] in ("circle_meet", "circle_lap"):
+        A, B = names.get("a", "兄"), names.get("b", "弟")
+        meet = fig["kind"] == "circle_meet"
+        c = q["u"] + q["v"] if meet else q["u"] - q["v"]
+        t = wp_solve(fig)
+        sp = f"{q['u']}+{q['v']}" if meet else f"{q['u']}−{q['v']}"
+        return [
+            {"ja": f"{B}を止めて考えると、{A}は1分に {sp} = {c}m ずつ{B}に近づく", "op": "note"},
+            {"ja": f"{'反対向きに' if meet else '同じ向きに'}進むので、出会う{'' if meet else '（追いつく）'}までに近づくきょりは池1周の{q['c']}m", "op": "note"},
+            {"ja": f"{q['c']}÷{c} = {_fmt(t)}（分後）", "value": str(t), "op": "result"},
+        ]
     if fig["kind"] == "ratio_shift":
         o = names.get("older", "兄")
         d1, d2 = q["a1"] - q["b1"], q["a2"] - q["b2"]
@@ -1748,7 +1996,9 @@ WP_GENERATORS = ("wp_two_kinds", "wp_age_ratio", "wp_mixture", "wp_meeting",
                  "wp_three_kinds_equal", "wp_pair_offset", "wp_two_kinds_known", "wp_age_sum_later",
                  "wp_sum_catchup", "wp_ratio_shift", "wp_mixture_water", "wp_mixture_salt", "wp_mix_then_water",
                  "wp_evaporate", "wp_salt_total", "wp_chase", "wp_trains_pass", "wp_clock_overlap", "wp_speed_change",
-                 "wp_arrival_gap")
+                 "wp_arrival_gap", "wp_shortfall_both_over", "wp_score_penalty", "wp_same_gain", "wp_transfer_ratio",
+                 "wp_transfer_equal", "wp_mixture_unknown_strength", "wp_mixture_total", "wp_price_blend", "wp_trains_overtake",
+                 "wp_circle_meet", "wp_circle_lap")
 
 
 def make_variants(card):

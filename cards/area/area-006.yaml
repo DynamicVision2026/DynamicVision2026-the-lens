@@ -1,0 +1,98 @@
+schema_version: '1.1'
+id: area-006
+kind: standard
+lens: area
+best_move: area
+stage: shogakko
+grades:
+- 小5
+- 小6
+level: 3
+archetype: area.shortfall_both_over
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: 過不足算 where both ways of sharing leave some over; the difference of the surpluses is the strip.'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 1人あたりの個数×人数は長方形。2つの配り方の長方形のちがいは、あまりの差になる。
+  principle_en: Per-person × people is a rectangle; the two ways differ by the difference of the surpluses.
+problem:
+  text_ja: 何人かの子どもにえんぴつを配ります。1人に5個ずつ配ると38個あまり、1人に8個ずつ配っても8個あまります。子どもは何人ですか。
+  unit: 人
+  figure:
+    type: word_problem
+    kind: shortfall_both_over
+    params:
+      a: 5
+      s1: 38
+      b: 8
+      s2: 8
+    names:
+      item: えんぴつ
+answer:
+  value: '10'
+  display_ja: 10人
+  expr: word_problem
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: 子どもが5人、6人…のときのえんぴつの数を2通りで計算してくらべる
+    op: note
+  - ja: 「あまり」と「あまり」の関係で手が止まる
+    op: note
+  - ja: ここで約3分
+    op: note
+lens_route:
+  time_cost_sec: 35
+  time_source: estimate
+  steps:
+  - ja: たて＝1人あたりの個数、横＝人数の長方形で、2つの配り方をかさねる
+    op: note
+  - ja: どちらもあまるので、2つの配り方の差は あまりの差 38−8 = 30
+    op: note
+  - ja: その差は、たて 8−5 = 3、横＝人数 の長方形の面積
+    op: note
+  - ja: 人数 = 30÷3 = 10（人）
+    value: '10'
+    op: result
+trigger:
+  ja: 2通りの配り方で、どちらもあまるときは、あまりの差を長方形のたての差でわる。
+  en: 'Both ways leave a surplus: divide the difference of the surpluses by the difference per person.'
+  tags:
+  - both_left_over
+picker:
+  options:
+  - area
+  - balance
+  - constant
+  - direct
+  correct: area
+  clue_distractors:
+  - two_ways_to_share
+  - times_relation
+  feedback_ja:
+    balance: こさや平均を混ぜる問題ではない。
+    constant: 差や合計が変わらないことを使う問題ではない。
+    area: そのとおり。どちらもあまるので、差は 38−8＝30。たて3の長方形の面積。
+    direct: 人数を1人ずつためすと、何回も計算することになる。
+animation:
+  keyframes:
+  - show_story
+  - show_steps
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_shortfall_both_over
+  count: 4
+  seed: 2371

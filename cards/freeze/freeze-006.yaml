@@ -1,0 +1,97 @@
+schema_version: '1.1'
+id: freeze-006
+kind: standard
+lens: freeze
+best_move: freeze
+stage: shogakko
+grades:
+- 小4
+- 小5
+level: 2
+archetype: freeze.circle_meet
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: two walkers start together and go opposite ways around a pond: freeze one, the other closes one lap at the sum of speeds.'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 反対向きに回ると、2人の間は1分に速さの和だけちぢむ。出会うまでに1周分ちぢめばよい。
+  principle_en: Opposite directions close at the sum of speeds; one lap must close.
+problem:
+  text_ja: 1周1800mの池のまわりを、兄は分速80m、弟は分速70mで、同じ地点から反対向きに同時に歩き始めます。2人が初めて出会うのは何分後ですか。
+  unit: 分後
+  figure:
+    type: word_problem
+    kind: circle_meet
+    params:
+      c: 1800
+      u: 80
+      v: 70
+    names:
+      a: 兄
+      b: 弟
+answer:
+  value: '12'
+  display_ja: 12分後
+  expr: word_problem
+trap_route:
+  time_cost_sec: 150
+  time_source: estimate
+  steps:
+  - ja: 2人が池のどこで出会うかを、1分ずつ図にかいて調べる
+    op: note
+  - ja: 池が丸いので、位置がわかりにくい
+    op: note
+  - ja: ここで約2分半
+    op: note
+lens_route:
+  time_cost_sec: 25
+  time_source: estimate
+  steps:
+  - ja: 弟を止めて考えると、兄は1分に 80+70 = 150m ずつ弟に近づく
+    op: note
+  - ja: 反対向きに進むので、出会うまでに近づくきょりは池1周の1800m
+    op: note
+  - ja: 1800÷150 = 12（分後）
+    value: '12'
+    op: result
+trigger:
+  ja: 池のまわりを反対向きに回るときは、片方を止めて、速さの和で1周を進むと考える。
+  en: 'Opposite ways around a loop: freeze one; the sum of speeds covers one lap.'
+  tags:
+  - around_a_loop
+  - moving_points
+picker:
+  options:
+  - freeze
+  - constant
+  - area
+  - direct
+  correct: freeze
+  clue_distractors:
+  - same_direction
+  - head_start
+  feedback_ja:
+    constant: 差や合計が変わらないことを使う問題ではない。
+    area: 2種類のものの数と合計の問題ではない。
+    freeze: そのとおり。弟を止めると、兄は1分に150mずつ近づく。1周1800m。
+    direct: 1分ずつ図にかくと、時間がかかる。
+animation:
+  keyframes:
+  - show_story
+  - show_steps
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_circle_meet
+  count: 4
+  seed: 2671

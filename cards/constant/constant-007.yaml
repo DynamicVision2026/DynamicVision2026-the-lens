@@ -1,0 +1,98 @@
+schema_version: '1.1'
+id: constant-007
+kind: standard
+lens: constant
+best_move: constant
+stage: shogakko
+grades:
+- 小5
+- 小6
+level: 3
+archetype: constant.transfer_ratio
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: one sibling gives marbles to the other; the total is unchanged (和一定), so split the total in the new ratio.'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: あげたりもらったりしても、2人の合計は変わらない。変わらない合計を、新しい比に分ければよい。
+  principle_en: Transfers keep the total; split the total in the new ratio.
+problem:
+  text_ja: 兄はおはじきを50個、弟は22個持っています。兄が弟に何個かあげると、兄と弟の個数の比が5:3になりました。兄は弟に何個あげましたか。
+  unit: 個
+  figure:
+    type: word_problem
+    kind: transfer_ratio
+    params:
+      x: 50
+      y: 22
+      a: 5
+      b: 3
+    names:
+      older: 兄
+      younger: 弟
+answer:
+  value: '5'
+  display_ja: 5個
+  expr: word_problem
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: 1個あげたら、2個あげたら…と、2人の個数を表にする
+    op: note
+  - ja: 毎回、比が5:3になったか確かめる
+    op: note
+  - ja: ここで約3分
+    op: note
+lens_route:
+  time_cost_sec: 30
+  time_source: estimate
+  steps:
+  - ja: あげたりもらったりしても、2人の合計 50+22 = 72 は変わらない
+    op: note
+  - ja: 合計を 5:3 に分けると、兄は 72×5/8 = 45 個
+    op: note
+  - ja: 50−45 = 5（個）
+    value: '5'
+    op: result
+trigger:
+  ja: やりとりしても合計が変わらないときは、変わらない「合計」を比で分ける。
+  en: 'Giving keeps the total: split the unchanged total in the new ratio.'
+  tags:
+  - total_unchanged
+  - times_relation
+picker:
+  options:
+  - constant
+  - area
+  - balance
+  - direct
+  correct: constant
+  clue_distractors:
+  - two_kinds_mixed
+  - mixing
+  feedback_ja:
+    area: 2種類のものの数と合計の問題ではない。
+    balance: こさや平均を混ぜる問題ではない。
+    constant: そのとおり。あげても合計72個は変わらない。72を5:3に分ける。
+    direct: 1個ずつためすと、比の計算が何回も必要になる。
+animation:
+  keyframes:
+  - show_story
+  - show_steps
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_transfer_ratio
+  count: 4
+  seed: 2481

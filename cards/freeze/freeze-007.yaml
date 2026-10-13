@@ -1,0 +1,97 @@
+schema_version: '1.1'
+id: freeze-007
+kind: standard
+lens: freeze
+best_move: freeze
+stage: shogakko
+grades:
+- 小5
+- 小6
+level: 3
+archetype: freeze.circle_lap
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: two walkers go the same way around a pond: freeze the slower, the faster gains one lap at the speed difference.'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 同じ向きに回ると、2人の間は1分に速さの差だけちぢむ。初めて追いつくのは、ちょうど1周分の差がついたとき。
+  principle_en: Same direction closes at the speed difference; the first catch is one lap ahead.
+problem:
+  text_ja: 1周1200mの池のまわりを、姉は分速90m、妹は分速60mで、同じ地点から同じ向きに同時に歩き始めます。姉が妹に初めて追いつくのは何分後ですか。
+  unit: 分後
+  figure:
+    type: word_problem
+    kind: circle_lap
+    params:
+      c: 1200
+      u: 90
+      v: 60
+    names:
+      a: 姉
+      b: 妹
+answer:
+  value: '40'
+  display_ja: 40分後
+  expr: word_problem
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: 姉が1周したとき、2周したとき…と、妹の位置と比べる
+    op: note
+  - ja: 同じ地点から出るので、どこで追いつくか分かりにくい
+    op: note
+  - ja: ここで約3分
+    op: note
+lens_route:
+  time_cost_sec: 25
+  time_source: estimate
+  steps:
+  - ja: 妹を止めて考えると、姉は1分に 90−60 = 30m ずつ妹に近づく
+    op: note
+  - ja: 同じ向きに進むので、出会う（追いつく）までに近づくきょりは池1周の1200m
+    op: note
+  - ja: 1200÷30 = 40（分後）
+    value: '40'
+    op: result
+trigger:
+  ja: 池のまわりを同じ向きに回るときは、遅い方を止めて、速さの差で1周を追いつくと考える。
+  en: 'Same way around a loop: freeze the slower; the speed difference must gain one lap.'
+  tags:
+  - around_a_loop
+  - same_direction
+picker:
+  options:
+  - freeze
+  - constant
+  - area
+  - direct
+  correct: freeze
+  clue_distractors:
+  - toward_each_other
+  - head_start
+  feedback_ja:
+    constant: 差や合計が変わらないことを使う問題ではない。
+    area: 2種類のものの数と合計の問題ではない。
+    freeze: そのとおり。妹を止めると、姉は1分に30mずつ近づく。追いつくには1周の1200m。
+    direct: 1周ずつ比べると、何周分も計算することになる。
+animation:
+  keyframes:
+  - show_story
+  - show_steps
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_circle_lap
+  count: 4
+  seed: 2681
