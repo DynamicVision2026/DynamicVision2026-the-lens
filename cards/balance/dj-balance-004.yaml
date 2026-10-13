@@ -1,0 +1,101 @@
+schema_version: '1.1'
+id: dj-balance-004
+kind: standard
+lens: balance
+best_move: balance
+stage: koko
+grades:
+- 高1
+level: 4
+archetype: balance.mass_point_area
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: two cevians of a triangle with given division ratios; find the ratio on one cevian by mass points (てんびん = 内分の重み).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 内分点は、両はしのおもりがつり合う支点。おもりは比の逆。辺ごとのてんびんをつなげば、交点での比が出る。
+  principle_en: A dividing point is the fulcrum where the end weights balance (weights inverse to the lengths); chain the levers.
+problem:
+  text_ja: △ABCで、辺BC上に点DをBD:DC＝2:5となるようにとり、辺CA上に点EをCE:EA＝3:4となるようにとります。ADとBEの交点をPとするとき、△PBCの面積は△ABCの面積の何倍ですか。
+  unit: ''
+  figure:
+    type: triangle_cevians
+    bd: 2
+    dc: 5
+    ce: 3
+    ea: 4
+    ask: area_pbc
+answer:
+  value: 3/17
+  display_ja: 3/17倍
+  expr: coordinate
+trap_route:
+  time_cost_sec: 240
+  time_source: estimate
+  steps:
+  - ja: △PBCの面積を、いくつもの小さな三角形の比から順にたどろうとする
+    op: note
+  - ja: 比を書き間違えやすく、何度もやり直す
+    op: note
+  - ja: ここで約4分
+    op: note
+lens_route:
+  time_cost_sec: 60
+  time_source: estimate
+  steps:
+  - ja: 辺BCのてんびん：BD:DC＝2:5 なので、おもりは B:C＝5:2
+    op: note
+  - ja: 辺CAのてんびん：CE:EA＝3:4 なので、おもりは C:A＝4:3
+    op: note
+  - ja: Cのおもりをそろえると A:B:C＝3:10:4
+    op: note
+  - ja: Dには B と C のおもりが集まる：10+4 = 14
+    op: note
+  - ja: ADのてんびん：AP:PD＝14:3 なので、PD は AD の 3/17
+    op: note
+  - ja: △PBC と △ABC は底辺BCが共通。高さの比は PD:AD なので、面積は 3/17 倍
+    value: 3/17
+    op: result
+trigger:
+  ja: 交点でできる三角形の面積比を聞かれたら、まずおもりで AP:PD を出し、底辺が共通な三角形の高さの比にする。
+  en: 'Two division ratios given, a cevian ratio asked: put weights on the vertices.'
+  tags:
+  - cevians_ratio
+picker:
+  options:
+  - balance
+  - area
+  - slide
+  - direct
+  correct: balance
+  clue_distractors:
+  - coordinates_given
+  - equal_area_asked
+  feedback_ja:
+    balance: そのとおり。辺ごとにてんびんを考えて、おもりをそろえる。
+    area: 面積比を直接つなぐ方法もあるが、たどる三角形が多く遠回り。てんびんで AP:PD を出せば1回で済む。
+    slide: 平行な線を使う問題ではない。
+    direct: ベクトルや座標で交点を出すこともできるが、連立方程式が重い。
+animation:
+  keyframes:
+  - show_triangle
+  - weights_bc
+  - weights_ca
+  - balance_ad
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: cevian_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: triangle_cevians
+  count: 4
+  seed: 3404
+  constraints:
+    max: 5
