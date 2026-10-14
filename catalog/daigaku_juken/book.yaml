@@ -1,0 +1,30 @@
+# Paperback companion for this Pass (Amazon.co.jp KDP). Architect-owned; WO-021 builds it. Chapters are assembled
+# from this Pass's lessons by the validator (bundle: passes[].book). Grows with the Pass (ADR-004); waitlist SKU.
+
+book:
+  id: lens-book-daigaku-1
+  status: planned
+  series_ja: 視点レンズ（The Lens）
+  title_ja: 視点レンズ 大学受験数学ワークブック
+  subtitle_ja: 次元を落とし、文字を止める
+  audience_ja: 高1〜高3・共通テスト／個別試験
+  author_ja: Brian Fu
+  publisher_ja: Beyond Culture 獨歩文化株式会社
+  interior: bw
+  amazon_url: null
+  practice_variants: 1
+  review: {count: 8, seed: 4103}
+  qr: "https://domo-ai.com/lesson/{pass}/{lens}?src=book"
+  front_matter:
+    hajimeni_ja: >-
+      大学入試の数学で差がつくのは、式を立てる前の「何を固定し、どこから見るか」の判断です。
+      この本は、内分の比をてんびんで見る、文字を1つ止めて考えるといった視点（レンズ）を、
+      座標や公式に頼る遠回りと並べて練習するための問題集です。
+    tsukaikata_ja:
+      - 章のはじめの例題で、左ページの「わな」と右ページの「レンズ」を見比べる
+      - 「使えないとき」で、そのレンズより直接計算が速い問題を知る
+      - 練習問題は、解く前に「どのレンズ？」を□に書いてから解く
+      - 最後の「どのレンズ？」総まとめで、単元をまぜて選ぶ練習をする
+    qr_ja: 各章のQRコードから、同じ考え方を動かして確かめられます（Webアプリ「視点レンズ」）。
+    honesty_ja: この本は点数を約束するものではありません。最初の一手を決めるまでの時間を短くするための練習帳です。
+    parent_ja: 1日1章の半分（20〜30分）が目安です。
