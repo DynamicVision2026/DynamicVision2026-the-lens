@@ -11,15 +11,16 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@lens/scene3d": "workspace:*",
     "@lens/scenes": "workspace:*",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "@lens/scene3d": "workspace:*"
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^6.0.0",
+    "happy-dom": "^21.0.1",
     "typescript": "~5.9.3",
     "vite": "^8.0.0",
     "vitest": "4.1.11"
