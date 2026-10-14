@@ -387,6 +387,12 @@
                     "edges"
                   ]
                 },
+                "ask": {
+                  "description": "WO-018 failure card: 'corner_volume' (volume of the corner pyramid cut off by plane BDE; unfolding does not help).",
+                  "enum": [
+                    "corner_volume"
+                  ]
+                },
                 "route": {
                   "description": "WO-018 L4: 'one_edge' (default, A→BF→G) or 'three_faces' (A→BF→CG→H).",
                   "enum": [
@@ -880,6 +886,7 @@
               "coord_enclose_clean",
               "coord_axis_base",
               "coord_mirror_opposite",
+              "unfold_corner_volume",
               "coord_equal_area_valid",
               "coord_mirror_valid",
               "cevian_valid",

@@ -13,7 +13,7 @@ import { allSceneCards } from './variant';
 // unfold-001 is a draft until WO-008 merges: CI runs these tests on a drafts-included bundle.
 const unfold = getCard('unfold-001');
 // The surface path over two faces; WO-018's edges-only and three-face cards have their own block below.
-const unfoldCards = allSceneCards(loadBundle()).filter((c) => c.problem.figure.type === 'box_unfold' && (c.problem.figure as { path?: string }).path !== 'edges' && (c.problem.figure as { route?: string }).route !== 'three_faces');
+const unfoldCards = allSceneCards(loadBundle()).filter((c) => c.problem.figure.type === 'box_unfold' && (c.problem.figure as { path?: string }).path !== 'edges' && (c.problem.figure as { route?: string }).route !== 'three_faces' && (c.problem.figure as { ask?: string }).ask !== 'corner_volume');
 const fig = (c: LensCard) => c.problem.figure as BoxUnfoldFigure;
 const last = (c: LensCard) => c.animation!.keyframes.length - 1;
 const dataY = (html: string, part: string) => Number(new RegExp(`data-part="${part}" data-y="([\\d.]+)"`).exec(html)?.[1]);
@@ -101,9 +101,11 @@ describe.skipIf(!unfold)('unfold-001 (box net)', () => {
 const all = allSceneCards(loadBundle());
 const edges = all.filter((c) => c.problem.figure.type === 'box_unfold' && fig(c).path === 'edges');
 const three = all.filter((c) => c.problem.figure.type === 'box_unfold' && fig(c).route === 'three_faces');
+// unfold-f01 (corner volume, failure card): the box and the trap unfold must render cleanly too.
+const volume = all.filter((c) => c.problem.figure.type === 'box_unfold' && (c.problem.figure as { ask?: string }).ask === 'corner_volume');
 
 describe.skipIf(edges.length + three.length === 0)('WO-018 展開 figures', () => {
-  it.each([...edges, ...three].map((c) => [c.id, c] as const))('%s renders every keyframe at t = 0, 0.5 and 1, both themes, purely and without warnings', (_id, card) => {
+  it.each([...edges, ...three, ...volume].map((c) => [c.id, c] as const))('%s renders every keyframe at t = 0, 0.5 and 1, both themes, purely and without warnings', (_id, card) => {
     const warn = vi.spyOn(console, 'warn');
     for (let k = 0; k <= last(card); k++) {
       for (const t of [0, 0.5, 1]) {

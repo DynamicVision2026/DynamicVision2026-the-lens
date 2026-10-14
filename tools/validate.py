@@ -498,6 +498,11 @@ def fig_text(fig):
         return (f"直方体ABCD-EFGHがあり、AB＝{fig['a']}{u}、BC＝{fig['b']}{u}、AE＝{fig['h']}{u}です。"
                 f"頂点Aから、辺BF上の点P、辺CG上の点Qを通って頂点Hまで、直方体の表面に糸をぴんとかけます。"
                 f"糸の長さがいちばん短くなるとき、CQは何{u}ですか。")
+    if t == "box_unfold" and fig.get("ask") == "corner_volume":
+        u = fig["unit"]
+        return (f"直方体ABCD-EFGHがあり、AB＝{fig['a']}{u}、BC＝{fig['b']}{u}、AE＝{fig['h']}{u}です。"
+                f"3つの頂点B、D、Eを通る平面でこの直方体を切り、頂点Aをふくむ小さい方の立体を切り取ります。"
+                f"切り取った立体の体積は何{u}³ですか。")
     if t == "box_unfold" and fig.get("path") == "edges":
         u = fig["unit"]
         return (f"直方体ABCD-EFGHがあり、AB＝{fig['a']}{u}、BC＝{fig['b']}{u}、AE＝{fig['h']}{u}です。"
@@ -519,6 +524,18 @@ def fig_text(fig):
                 f"頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。"
                 f"糸の長さがいちばん短くなるとき、BPは何{u}ですか。")
     return None
+
+
+def corner_volume_steps(fig):
+    """unfold-f01: a volume question about a box; opening the faces does not help (failure card for 展開)."""
+    a, b, h = fig["a"], fig["b"], fig["h"]
+    base = S(a * b) / 2
+    v = base * h / 3
+    return [
+        {"ja": "体積の問題なので、面を開いても答えは出ない。切り取ったのは、頂点Aに3本の辺が集まる三角すい", "op": "note"},
+        {"ja": f"底面は直角三角形ABD：{a}×{b}÷2 = {_fmt(base)}", "op": "note"},
+        {"ja": f"高さはAE＝{h}。三角すいの体積は 底面積×高さ÷3：{_fmt(base)}×{h}÷3 = {_fmt(v)}", "value": str(v), "op": "result"},
+    ]
 
 
 def unfold3(fig):
@@ -1474,6 +1491,11 @@ def run_check(card, check, pts) -> tuple[bool, str]:
         grid = min(L(i * h / 40, j * h / 40) for i in range(41) for j in range(41))
         ok = cq == ans and S(cq).is_integer and best <= grid + 1e-9 and 0 < bp < cq < h
         return ok, f"three faces opened: BP = {bp}, CQ = {cq}; the straight line is shortest"
+    if t == "unfold_corner_volume":
+        a, b, h = fig["a"], fig["b"], fig["h"]
+        v = S(a * b * h) / 6
+        ok = fig.get("ask") == "corner_volume" and ans == v and v.is_integer and len({a, b, h}) == 3 and v != S(a * b * h) / 2
+        return ok, f"corner pyramid A-BDE: {a}×{b}÷2×{h}÷3 = {v} (not the prism {S(a * b * h) / 2})"
     if t == "unfold_edges":
         ok = ans == fig["a"] + fig["b"] + fig["h"] and len({fig["a"], fig["b"], fig["h"]}) == 3
         return ok, f"along the edges every shortest route uses one of each length: {fig['a']}+{fig['b']}+{fig['h']}"
@@ -1826,7 +1848,7 @@ def make_unfold_variants(card):
         tries += 1
         a, b = rng.randint(c.get("min_side", 2), c.get("max_side", 12)), rng.randint(c.get("min_side", 2), c.get("max_side", 12))
         h = rng.randint(c.get("min_h", 3), c.get("max_h", 15))
-        special = fig0.get("route") == "three_faces" or fig0.get("path") == "edges"
+        special = fig0.get("route") == "three_faces" or fig0.get("path") == "edges" or fig0.get("ask") == "corner_volume"
         if not special:
             if a == b or (h * a) % (a + b) or ratio(a, b) in used_ratios or h in used_h or S(h * a) / (a + b) in used_ans:
                 continue
@@ -1845,6 +1867,14 @@ def make_unfold_variants(card):
             used_ratios.add(ratio(a, b)); used_h.add(h); used_ans.add(cq)
             out.append({"id": f"{card['id']}-v{len(out) + 1}", "text_ja": fig_text(fig), "figure": {"a": a, "b": b, "h": h},
                         "answer": str(cq), "lens_route": {"steps": unfold3_steps(fig)}})
+            continue
+        if fig0.get("ask") == "corner_volume":
+            x = S(a * b * h) / 6
+            if len({a, b, h}) < 3 or not x.is_integer or x in used_ans:
+                continue
+            used_ratios.add(ratio(a, b)); used_h.add(h); used_ans.add(x)
+            out.append({"id": f"{card['id']}-v{len(out) + 1}", "text_ja": fig_text(fig), "figure": {"a": a, "b": b, "h": h},
+                        "answer": str(x), "lens_route": {"steps": corner_volume_steps(fig)}})
             continue
         if fig0.get("path") == "edges":
             if len({a, b, h}) < 3:
@@ -2676,6 +2706,7 @@ def _annotate_unfold(fig):
         "hinge": {"edge": ["B", "F"], "face": "right", "open_deg": 90},
         "net": {"A": [0, 0], "B": [a, 0], "C": [a + b, 0], "G": [a + b, h], "F": [a, h], "E": [0, h]},
         "path": {"from": "A", "via_edge": ["B", "F"], "to": "G"},
+        **({"cut": ["B", "D", "E"], "cut_off": "A"} if fig.get("ask") == "corner_volume" else {}),
     }
     return {**fig, "net_width": str(S(a) + b), "mesh": mesh}
 
