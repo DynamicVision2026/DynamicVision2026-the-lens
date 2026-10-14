@@ -1,0 +1,95 @@
+schema_version: '1.1'
+id: kj-mirror-no-lens
+kind: no_lens
+lens: mirror
+best_move: 'direct: A and B are on opposite sides, so join them straight'
+stage: chugaku
+grades:
+- 中1
+- 中2
+level: 1
+archetype: mirror.coord_opposite_no_lens
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: P on the x-axis minimising AP+PB: reflect B across the x-axis and join A–B'' (single lens).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 折り返しても長さは変わらないので、AとB'を結ぶまっすぐな線が最短。
+  principle_en: Reflection keeps lengths; the straight line A–B' is shortest.
+problem:
+  text_ja: 座標平面上に2点A(−4, 3)、B(4, −5)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、点Pのx座標を求めなさい。
+  unit: ''
+  figure:
+    type: coord_mirror_area
+    A:
+    - -4
+    - 3
+    B:
+    - 4
+    - -5
+    ask: p_x
+    side: opposite
+answer:
+  value: '-1'
+  display_ja: x＝−1
+  expr: coordinate
+trap_route:
+  time_cost_sec: 90
+  time_source: estimate
+  steps:
+  - ja: 最短と聞いて、くせでBをx軸で折り返す
+    op: note
+  - ja: 折り返したB'はAと同じ側。結んでもx軸と交わらず、やり直す
+    op: note
+  - ja: ここで約1分半
+    op: note
+lens_route:
+  time_cost_sec: 25
+  time_source: estimate
+  steps:
+  - ja: AとBはx軸をはさんで反対側にある。折り返さずに、AとBをまっすぐ結ぶ
+    op: note
+  - ja: yが 3+5 = 8 下がる間にxは 4−(−4) = 8 進むので、Pのx座標は −4+8×3/8 = −1
+    value: '-1'
+    op: result
+trigger:
+  ja: 2点がx軸をはさんで反対側なら、折り返さない。そのまま結んだ線とx軸の交点がP。
+  en: 'Points on opposite sides of the axis: no reflection; join them.'
+  tags:
+  - points_opposite_sides
+picker:
+  options:
+  - mirror
+  - enclose
+  - slide
+  - direct
+  correct: direct
+  clue_distractors:
+  - equal_area_asked
+  - cevians_ratio
+  feedback_ja:
+    mirror: 折り返しはいらない。AとBはもうx軸の反対側にある。
+    enclose: 面積の問題ではない。
+    slide: 平行な線を使う問題ではない。
+    direct: そのとおり。反対側の2点は、まっすぐ結ぶのがいちばん短い。
+animation:
+  keyframes:
+  - show_points
+  - draw_straight
+  - mark_p
+  - show_answer
+  - ghost_reflect_struck_out
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: coord_mirror_opposite
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: coord_mirror_area
+  count: 4
+  seed: 3309
