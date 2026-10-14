@@ -1029,6 +1029,8 @@ def _pt(name, p) -> str:
 
 def coord_mirror_P(fig):
     (ax, ay), (bx, by) = fig["A"], fig["B"]
+    if fig.get("ask") == "max_diff":   # failure card: |PA−PB| is largest where line AB meets the axis (no reflection)
+        return S(ax) - S(ay) * (bx - ax) / (by - ay)
     by = abs(by)   # side: opposite stores B below the axis; the straight line crosses at the same point
     return S(ax) + S(bx - ax) * ay / (ay + by)
 
@@ -1094,6 +1096,9 @@ def coord_text(fig):
     if t == "coord_equal_area":
         return (f"座標平面上に3点{_pt('A', fig['A'])}、{_pt('B', fig['B'])}、{_pt('C', fig['C'])}があります。"
                 f"y軸上に点Pを、直線ABについて点Cと同じ側にとり、△ABPの面積が△ABCの面積と等しくなるようにします。点Pのy座標を求めなさい。")
+    if t == "coord_mirror_area" and fig.get("ask") == "max_diff":
+        return (f"座標平面上に2点{_pt('A', fig['A'])}、{_pt('B', fig['B'])}があります。x軸上に点Pをとり、PAとPBの長さの差がもっとも大きくなるようにします。"
+                f"このとき、点Pのx座標を求めなさい。")
     if t == "coord_mirror_area" and fig.get("ask") == "p_x":
         return (f"座標平面上に2点{_pt('A', fig['A'])}、{_pt('B', fig['B'])}があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。"
                 f"このとき、点Pのx座標を求めなさい。")
@@ -1117,7 +1122,7 @@ def coord_answer(fig):
         return shoelace([tuple(p) for p in fig["points"]])
     if t == "coord_equal_area":
         return coord_equal_area_k(fig)[0]
-    if t == "coord_mirror_area" and fig.get("ask") == "p_x":
+    if t == "coord_mirror_area" and fig.get("ask") in ("p_x", "max_diff"):
         return coord_mirror_P(fig)
     if t == "coord_mirror_area":
         P = (_num(coord_mirror_P(fig)), 0)
@@ -1150,6 +1155,17 @@ def coord_steps(fig):
             {"ja": f"ABの傾きは ({_cp(by)}−{_cp(ay)})÷({_cp(bx)}−{_cp(ax)}) = {mtxt}", "op": "note"},
             {"ja": f"Cを通り傾き{mtxt}の直線 y = {mtxt} x + b に C を代入：b = {_cp(cy)}−{_cp(m)}×{_cp(cx)} = {_c(k)}", "op": "note"},
             {"ja": f"この直線とy軸の交点がP。Pのy座標 = {_c(k)}", "value": str(k), "op": "result"},
+        ]
+    if t == "coord_mirror_area" and fig.get("ask") == "max_diff":
+        (ax, ay), (bx, by) = fig["A"], fig["B"]
+        px = coord_mirror_P(fig)
+        return [
+            {"ja": "和ではなく差の最大。折り返さない。三角形PABでは |PA−PB| ＜ AB なので、P・A・Bが一直線にならぶときにいちばん大きい", "op": "note"},
+            {"ja": "だから、直線ABをのばして、x軸と交わる点がP", "op": "note"},
+            {"ja": f"yが {ay}−{by} = {ay - by} 変わる間にxは {_cp(bx)}−{_cp(ax)} = {bx - ax} 変わる。y＝0 まで {ay} 下がるので、"
+                   f"Pのx座標は {_c(ax)}＋{bx - ax}×{ay}/{ay - by} = {_c(px)}" if ay > by else
+                   f"yが {by}−{ay} = {by - ay} 変わる間にxは {_cp(bx)}−{_cp(ax)} = {bx - ax} 変わる。Aからy＝0 まで {ay} 下がるので、"
+                   f"Pのx座標は {_c(ax)}−{bx - ax}×{ay}/{by - ay} = {_c(px)}", "value": str(px), "op": "result"},
         ]
     if t == "coord_mirror_area" and fig.get("ask") == "p_x" and fig.get("side") == "opposite":
         (ax, ay), (bx, by) = fig["A"], fig["B"]
@@ -1263,6 +1279,18 @@ def coord_check(card, t, ans, fig):
         others = [f(ax + (bx - ax) * i / 200) for i in range(201)]
         ok = ay > 0 and by > 0 and ay != by and ax < bx and px.is_integer and best <= min(others) + 1e-9 and px != S(ax + bx) / 2
         return ok, f"A, B above the x-axis, P = ({_c(px)}, 0) is a lattice point, AP+PB is minimal there and it is not the midpoint"
+    if t == "coord_mirror_max_diff":
+        (ax, ay), (bx, by) = fig["A"], fig["B"]
+        px = coord_mirror_P(fig)
+        import math
+        f = lambda x: abs(math.hypot(x - ax, ay) - math.hypot(x - bx, by))
+        best = f(float(px))
+        span = abs(float(px)) + abs(ax) + abs(bx) + 20
+        others = [f(-span + 2 * span * i / 400) for i in range(401)]
+        refl = S(ax) + S(bx - ax) * ay / (ay + by)   # the trap: reflect B as for PA+PB
+        ok = fig.get("ask") == "max_diff" and ay > 0 and by > 0 and ay != by and ax < bx and px.is_integer \
+            and best >= max(others) - 1e-9 and abs(best - math.hypot(bx - ax, by - ay)) < 1e-9 and refl != px
+        return ok, f"P = ({_c(px)}, 0) on line AB gives |PA−PB| = AB (the maximum); the reflection point {_c(refl)} is the trap"
     if t == "coord_mirror_opposite":
         (ax, ay), (bx, by) = fig["A"], fig["B"]
         px = coord_mirror_P(fig)
@@ -1333,6 +1361,13 @@ def make_coord_variants(card):
                 continue
             cy = int(m * cx) + rng.choice([-6, -5, -4, -3, 3, 4, 5, 6])
             fig = {**fig0, "A": [ax, ay], "B": [bx, by], "C": [cx, cy]}
+        elif t == "coord_mirror_area" and fig0.get("ask") == "max_diff":
+            ay, by = rng.randint(1, 6), rng.randint(1, 8)
+            ax = rng.randint(-6, 2)
+            bx = ax + rng.randint(1, 8)
+            fig = {**fig0, "A": [ax, ay], "B": [bx, by]}
+            if ay == by or not coord_mirror_P(fig).is_integer or abs(coord_mirror_P(fig)) > 14:
+                continue
         elif t == "coord_mirror_area" and fig0.get("side") == "opposite":
             ay, by = rng.randint(1, 6), -rng.randint(1, 8)
             ax = rng.randint(-6, 2)

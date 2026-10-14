@@ -598,7 +598,8 @@
                   "description": "'area' (default, chained) or 'p_x' (single-lens: P's x coordinate).",
                   "enum": [
                     "area",
-                    "p_x"
+                    "p_x",
+                    "max_diff"
                   ]
                 },
                 "side": {
@@ -886,6 +887,7 @@
               "coord_enclose_clean",
               "coord_axis_base",
               "coord_mirror_opposite",
+              "coord_mirror_max_diff",
               "unfold_corner_volume",
               "coord_equal_area_valid",
               "coord_mirror_valid",
