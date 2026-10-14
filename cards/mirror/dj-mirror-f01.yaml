@@ -1,0 +1,93 @@
+schema_version: '1.1'
+id: dj-mirror-f01
+kind: failure
+lens: mirror
+best_move: direct
+stage: koko
+grades:
+- 高2
+level: 3
+archetype: mirror.max_diff_failure
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: the LARGEST |PA − PB| on ℓ; reflecting is the trap, the answer is where line AB meets ℓ (failure card for 折り返す).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 直線上の点を通る2点間の最短は、一方の点を直線で折り返し、まっすぐ結ぶ。
+  principle_en: 'Shortest path via a point on a line: reflect one point across the line and join straight.'
+problem:
+  text_ja: '直線 ℓ: y = x と、2点A(0, 3)、B(1, 5)があります。ℓ上に点Pをとり、|PA − PB| がもっとも大きくなるようにします。このとき、点Pのx座標を求めなさい。'
+  unit: ''
+  figure:
+    type: line_mirror
+    line:
+    - 1
+    - 0
+    A:
+    - 0
+    - 3
+    B:
+    - 1
+    - 5
+    ask: max_diff
+answer:
+  value: '-3'
+  display_ja: −3
+  expr: stage3
+trap_route:
+  time_cost_sec: 120
+  time_source: estimate
+  steps:
+  - ja: 和の最小と同じように、Bをℓで折り返す
+    op: note
+  - ja: 折り返して得た点では、差は最大にならない
+    op: note
+  - ja: ここで約2分。答えがずれる
+    op: note
+lens_route:
+  time_cost_sec: 50
+  time_source: estimate
+  steps:
+  - ja: 和ではなく差の最大。折り返さない。|PA−PB| ≦ AB で、P・A・Bが一直線にならぶとき等号
+    op: note
+  - ja: 直線ABとℓの交点がP。AB：傾き (5−3)÷(1−0)、ℓと連立して x = −3
+    value: '-3'
+    op: result
+trigger:
+  ja: 差 |PA−PB| の最大は折り返さない。直線ABとℓの交点がP。
+  en: 'Largest |PA−PB|: do not reflect; P is where line AB meets ℓ.'
+  tags:
+  - difference_largest
+picker:
+  options:
+  - mirror
+  - slide
+  - freeze
+  - direct
+  correct: direct
+  clue_distractors:
+  - parameter_any_value
+  - fixed_sum
+  feedback_ja:
+    slide: 平行な線で頂点を動かす問題ではない。
+    freeze: 文字の値によらない点を求める問題ではない。
+    mirror: おしい。折り返すのは和の最小のとき。差の最大では折り返さない。
+    direct: そのとおり。差の最大は、P・A・Bが一直線にならぶとき。直線ABとℓの交点を求める。
+animation:
+  keyframes:
+  - show_graph
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: hs_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: hs
+  count: 4
+  seed: 5305

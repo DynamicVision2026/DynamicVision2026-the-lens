@@ -1,0 +1,90 @@
+schema_version: '1.1'
+id: dj-area-f01
+kind: failure
+lens: area
+best_move: direct
+stage: koko
+grades:
+- 高1
+level: 3
+archetype: area.three_dice_failure
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: three dice; the outcomes are a 6×6×6 cube, not a table, so fix one die and count the pairs (failure card for 面積図).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 2個のさいころは6×6の表（36マス）。条件をみたすマスの「面積」を、ななめの列や余事象でまとめて数える。
+  principle_en: Two dice make a 6×6 table; count the region of cells by diagonals or the complement.
+problem:
+  text_ja: 大中小3個のさいころを同時に投げるとき、出た目の和が10になる確率を求めなさい。
+  unit: ''
+  figure:
+    type: dice_grid
+    dice: 3
+    cond:
+      op: sum_eq
+      k: 10
+    expect: three_dice
+answer:
+  value: 1/8
+  display_ja: 1/8
+  expr: stage3
+trap_route:
+  time_cost_sec: 90
+  time_source: estimate
+  steps:
+  - ja: 6×6の表をかこうとする
+    op: note
+  - ja: 3個目の目を入れる場所がない
+    op: note
+  - ja: ここで約1分半。表が使えないと気づく
+    op: note
+lens_route:
+  time_cost_sec: 75
+  time_source: estimate
+  steps:
+  - ja: 3個なので、6×6の表（平面）にはならない。大の目を決めて、残り2個の和で場合分けする
+    op: note
+  - ja: 大が1〜6のとき、中＋小が 10−1〜10−6 になる数を順に数えて、合計 27 通り
+    op: note
+  - ja: 27/216 = 1/8
+    value: 1/8
+    op: result
+trigger:
+  ja: さいころが3個なら、6×6の表にはならない。1個の目を決めて、残り2個で場合分けする。
+  en: 'Three dice: not a table; fix one die and count the other two.'
+  tags:
+  - three_dice
+picker:
+  options:
+  - area
+  - constant
+  - balance
+  - direct
+  correct: direct
+  clue_distractors:
+  - fixed_sum
+  - parameter_any_value
+  feedback_ja:
+    constant: 和が一定のものを使う問題ではない。
+    balance: 比や平均を混ぜる問題ではない。
+    area: おしい。6×6の表は2個のときだけ。3個では立体になる。
+    direct: そのとおり。3個なので平面の表にならない。大の目を決めて、残り2個を数える。
+animation:
+  keyframes:
+  - show_grid
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: hs_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: hs
+  count: 4
+  seed: 5605

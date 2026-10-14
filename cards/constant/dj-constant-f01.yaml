@@ -1,0 +1,89 @@
+schema_version: '1.1'
+id: dj-constant-f01
+kind: failure
+lens: constant
+best_move: direct
+stage: koko
+grades:
+- 高1
+level: 3
+archetype: constant.range_failure
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: the allowed range excludes the centre, so the maximum is at the nearest end (failure card for 差一定).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 和が一定なら、まん中からのずれをtとおく。積は（まん中）²−t²、2乗の和は 2×（まん中）²＋2t²。t＝0 が最大・最小。
+  principle_en: 'Fixed sum: write both as centre ± t; the product is centre² − t², the sum of squares 2·centre² + 2t².'
+problem:
+  text_ja: x ＋ y = 10、x ≧ 8、y＞0 のとき、xy の最大値を求めなさい。
+  unit: ''
+  figure:
+    type: const_sum
+    s: 10
+    x_min: 8
+    ask: max_product
+answer:
+  value: '16'
+  display_ja: '16'
+  expr: stage3
+trap_route:
+  time_cost_sec: 90
+  time_source: estimate
+  steps:
+  - ja: 和が一定なので、まん中で最大と考える
+    op: note
+  - ja: まん中の値は、決められた範囲に入っていない
+    op: note
+  - ja: ここで約1分半。答えが範囲の外
+    op: note
+lens_route:
+  time_cost_sec: 40
+  time_source: estimate
+  steps:
+  - ja: 和が一定なら、まん中 x = 5 で積が最大。でも x ≧ 8 なので、まん中は使えない
+    op: note
+  - ja: まん中から遠ざかるほど積は小さくなる。いちばん近いのは x = 8
+    op: note
+  - ja: xy = 8×2 = 16
+    value: '16'
+    op: result
+trigger:
+  ja: 範囲にまん中が入っていないときは、まん中では最大にならない。まん中に一番近いはしを調べる。
+  en: 'Centre outside the range: check the nearest end.'
+  tags:
+  - fixed_sum
+  - restricted_range
+picker:
+  options:
+  - constant
+  - area
+  - freeze
+  - direct
+  correct: direct
+  clue_distractors:
+  - two_dice
+  - parameter_any_value
+  feedback_ja:
+    area: さいころの表で数える問題ではない。
+    freeze: 文字の値によらない点を求める問題ではない。
+    constant: おしい。和は一定だが、まん中は範囲の外。まん中では最大にならない。
+    direct: そのとおり。まん中が範囲の外なので、範囲のはしで最大になる。
+animation:
+  keyframes:
+  - show_sum
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: hs_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: hs
+  count: 4
+  seed: 5705

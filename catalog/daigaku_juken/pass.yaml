@@ -14,4 +14,11 @@ daigaku_juken:
   lesson_target: 5
   levels: {1: 基礎, 2: 標準, 3: 応用, 4: 発展}
   lessons:              # ADR-004: first seed lesson (数A 平面図形), Oct 13
-    - {lens: balance, cards: [dj-balance-001, dj-balance-002, dj-balance-no-lens, dj-balance-003, dj-balance-004]}   # mass points = てんびん on each side
+    - {lens: balance, cards: [dj-balance-001, dj-balance-002, dj-balance-no-lens, dj-balance-003, dj-balance-f01, dj-balance-004]}   # mass points = てんびん on each side
+    - {lens: enclose,  cards: [dj-enclose-001, dj-enclose-002, dj-enclose-no-lens, dj-enclose-003, dj-enclose-f01, dj-enclose-004]}   # 数II 積分: 1/6公式
+    - {lens: slide,    cards: [dj-slide-001, dj-slide-002, dj-slide-no-lens, dj-slide-003, dj-slide-f01, dj-slide-004]}         # 放物線と三角形の面積の最大
+    - {lens: mirror,   cards: [dj-mirror-001, dj-mirror-002, dj-mirror-no-lens, dj-mirror-003, dj-mirror-f01, dj-mirror-004]}   # 数II 図形と方程式: 直線に関する対称点
+    - {lens: freeze,   cards: [dj-freeze-001, dj-freeze-002, dj-freeze-no-lens, dj-freeze-003, dj-freeze-f01, dj-freeze-004]}   # 定点 (parameter freezing)
+    - {lens: unfold,   cards: [dj-unfold-001, dj-unfold-002, dj-unfold-no-lens, dj-unfold-003, dj-unfold-f01, dj-unfold-004]}   # 円すいの展開図
+    - {lens: area,     cards: [dj-area-001, dj-area-002, dj-area-no-lens, dj-area-003, dj-area-f01, dj-area-004]}               # 数A 確率: 6×6の表
+    - {lens: constant, cards: [dj-constant-001, dj-constant-002, dj-constant-no-lens, dj-constant-003, dj-constant-f01, dj-constant-004]}   # 数I 2次関数: 和が一定

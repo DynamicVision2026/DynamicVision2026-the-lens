@@ -1,0 +1,95 @@
+schema_version: '1.1'
+id: dj-enclose-004
+kind: standard
+lens: enclose
+best_move: enclose
+stage: koko
+grades:
+- 高2
+level: 4
+archetype: enclose.two_parabolas
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: two parabolas opening in opposite directions; the difference has x² coefficient −2, so the area is 2(β−α)³/6.'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 放物線と直線（放物線）で囲まれた部分は、交点のx座標α、βだけで面積が決まる：|a|(β−α)³/6。
+  principle_en: 'Area between a parabola and a line (or parabola): |a|(β−α)³/6 from the crossings alone.'
+problem:
+  text_ja: 2つの放物線 y = −x² + 2x + 3 と y = x² − 2x − 3 で囲まれた部分の面積を求めなさい。
+  unit: ''
+  figure:
+    type: parabola_area
+    f:
+    - -1
+    - 2
+    - 3
+    g:
+    - 1
+    - -2
+    - -3
+answer:
+  value: 64/3
+  display_ja: 64/3
+  expr: stage3
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: 2つのグラフの交点を求め、∫(上−下)dx を展開して計算する
+    op: note
+  - ja: 3乗の代入で、分数の計算が長くなる
+    op: note
+  - ja: ここで約3分。符号ミスが出やすい
+    op: note
+lens_route:
+  time_cost_sec: 45
+  time_source: estimate
+  steps:
+  - ja: 差をとると −2x² + 4x + 6 = −2(x ＋ 1)(x − 3)。交点のx座標は −1 と 3
+    op: note
+  - ja: 放物線と直線（放物線）で囲まれた部分は 1/6公式：|x²の係数|×(β−α)³÷6
+    op: note
+  - ja: 2×4³÷6 = 64/3
+    value: 64/3
+    op: result
+trigger:
+  ja: 放物線と直線（放物線）で囲まれた部分は、交点のx座標α、βだけで面積が決まる：|a|(β−α)³/6。
+  en: 'Area between a parabola and a line (or parabola): |a|(β−α)³/6 from the crossings alone.'
+  tags:
+  - parabola_and_line
+picker:
+  options:
+  - enclose
+  - slide
+  - constant
+  - direct
+  correct: enclose
+  clue_distractors:
+  - fixed_sum
+  - two_dice
+  feedback_ja:
+    slide: 平行な線で頂点を動かす問題ではない。
+    constant: 和が一定のものを使う問題ではない。
+    enclose: そのとおり。交点のx座標だけで、1/6公式から面積が出る。
+    direct: 交点を出して ∫(上−下)dx を展開しても出るが、3乗の計算が長くなる。
+animation:
+  keyframes:
+  - show_graph
+  - mark_crossings
+  - shade_region
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: hs_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: hs
+  count: 4
+  seed: 5106

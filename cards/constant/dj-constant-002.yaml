@@ -1,0 +1,88 @@
+schema_version: '1.1'
+id: dj-constant-002
+kind: standard
+lens: constant
+best_move: constant
+stage: koko
+grades:
+- 高1
+level: 2
+archetype: constant.sum_min_squares
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: fixed sum, smallest sum of squares: centre ± t again.'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 和が一定なら、まん中からのずれをtとおく。積は（まん中）²−t²、2乗の和は 2×（まん中）²＋2t²。t＝0 が最大・最小。
+  principle_en: 'Fixed sum: write both as centre ± t; the product is centre² − t², the sum of squares 2·centre² + 2t².'
+problem:
+  text_ja: x ＋ y = 8、x＞0、y＞0 のとき、x² ＋ y² の最小値を求めなさい。
+  unit: ''
+  figure:
+    type: const_sum
+    s: 8
+    ask: min_squares
+answer:
+  value: '32'
+  display_ja: '32'
+  expr: stage3
+trap_route:
+  time_cost_sec: 120
+  time_source: estimate
+  steps:
+  - ja: yを消去して、xだけの式にする
+    op: note
+  - ja: 平方完成して、最大（最小）を求める
+    op: note
+  - ja: ここで約2分。形が見えないまま計算する
+    op: note
+lens_route:
+  time_cost_sec: 30
+  time_source: estimate
+  steps:
+  - ja: 和 x＋y = 8 は一定。まん中 4 からのずれを t として x = 4＋t、y = 4−t
+    op: note
+  - ja: x²＋y² = 2×4²＋2t²。t = 0 のとき最小
+    op: note
+  - ja: 2×4² = 32
+    value: '32'
+    op: result
+trigger:
+  ja: 和が一定なら、まん中からのずれをtとおく。積は（まん中）²−t²、2乗の和は 2×（まん中）²＋2t²。t＝0 が最大・最小。
+  en: 'Fixed sum: write both as centre ± t; the product is centre² − t², the sum of squares 2·centre² + 2t².'
+  tags:
+  - fixed_sum
+picker:
+  options:
+  - constant
+  - area
+  - freeze
+  - direct
+  correct: constant
+  clue_distractors:
+  - two_dice
+  - parameter_any_value
+  feedback_ja:
+    area: さいころの表で数える問題ではない。
+    freeze: 文字の値によらない点を求める問題ではない。
+    constant: そのとおり。和が一定なので、まん中からのずれtで考える。
+    direct: yを消去して平方完成しても出るが、まん中からのずれを見る方が速い。
+animation:
+  keyframes:
+  - show_sum
+  - split_centre
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: hs_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: hs
+  count: 4
+  seed: 5702

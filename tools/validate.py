@@ -27,6 +27,8 @@ from jsonschema import Draft202012Validator
 from sympy import Rational, S, sympify
 from sympy.geometry import Point, Polygon
 
+from stage3 import HS_TYPES, display as hs_display, hs_answer, hs_check, hs_steps, hs_text, hs_variant
+
 ROOT = Path(__file__).resolve().parent.parent
 SCHEMA = json.loads((ROOT / "schema" / "lens-card.schema.json").read_text(encoding="utf-8"))
 
@@ -754,6 +756,8 @@ def wp_solve(fig):
         return S(q["l1"] + q["l2"]) / (q["s1"] - q["s2"])
     if k == "circle_meet":           # pond of length c, opposite directions
         return S(q["c"]) / (q["u"] + q["v"])
+    if k == "avg_speed":             # round trip at u and v: the average is total distance ÷ total time (not (u+v)/2)
+        return S(2 * q["u"] * q["v"]) / (q["u"] + q["v"])
     if k == "circle_lap":            # same direction, faster laps the slower
         return S(q["c"]) / (q["u"] - q["v"])
     raise ValueError(k)
@@ -808,6 +812,8 @@ def _wp_text_base(fig, names):
     if fig["kind"] == "circle_meet":
         A, B = names["a"], names["b"]
         return f"1周{q['c']}mの池のまわりを、{A}は分速{q['u']}m、{B}は分速{q['v']}mで、同じ地点から反対向きに同時に歩き始めます。2人が初めて出会うのは何分後ですか。"
+    if fig["kind"] == "avg_speed":
+        return f"A地点とB地点の間を、行きは時速{q['u']}km、帰りは時速{q['v']}kmで往復しました。往復の平均の速さは時速何kmですか。"
     if fig["kind"] == "circle_lap":
         A, B = names["a"], names["b"]
         return f"1周{q['c']}mの池のまわりを、{A}は分速{q['u']}m、{B}は分速{q['v']}mで、同じ地点から同じ向きに同時に歩き始めます。{A}が{B}に初めて追いつくのは何分後ですか。"
@@ -958,6 +964,9 @@ def wp_brute(fig):
         return [t for t in range(1, 2000) if (q["u"] + q["v"]) * t == q["c"]]
     if k == "circle_lap":
         return [t for t in range(1, 2000) if (q["u"] - q["v"]) * t == q["c"]]
+    if k == "avg_speed":           # try every one-way distance 1..lcm: the average never depends on it
+        from math import lcm
+        return sorted({S(2 * d) / (S(d) / q["u"] + S(d) / q["v"]) for d in range(1, lcm(q["u"], q["v"]) + 1)})
     if k == "ratio_shift":         # every older/younger pair now
         return [o for o in range(1, 120) for u in range(1, o)
                 if o * q["b1"] == u * q["a1"] and (o + q["y"]) * q["b2"] == (u + q["y"]) * q["a2"]]
@@ -996,7 +1005,7 @@ def wp_diagram(fig):
     if k == "same_gain":
         return {"family": "diff_bars", "measure": "yen", "step": 100, "big": q["x"], "small": q["y"], "r": q["r"], "dir": 1, "shift": xs}
     if k in ("shortfall_both_over", "score_penalty", "transfer_ratio", "transfer_equal", "mixture_unknown_strength",
-             "mixture_total", "price_blend", "trains_overtake", "circle_meet", "circle_lap"):
+             "mixture_total", "price_blend", "trains_overtake", "circle_meet", "circle_lap", "avg_speed"):
         return {"family": "steps_only"}
     if k in ("pair_offset", "two_kinds_known", "age_sum_later", "sum_catchup", "ratio_shift",
              "mix_then_water", "evaporate", "salt_total", "trains_pass", "clock_overlap", "arrival_gap"):
@@ -1163,6 +1172,8 @@ def quad_tri_E(fig):
 
 def coord_text(fig):
     t = fig["type"]
+    if t in HS_TYPES:
+        return hs_text(fig)
     u = fig.get("unit", "cm")
     if t == "coord_polygon":
         lab = fig.get("labels") or list("ABCDEF")[:len(fig["points"])]
@@ -1203,6 +1214,8 @@ def coord_text(fig):
 
 def coord_answer(fig):
     t = fig["type"]
+    if t in HS_TYPES:
+        return hs_answer(fig)
     if t == "coord_polygon":
         return shoelace([tuple(p) for p in fig["points"]])
     if t == "coord_equal_area":
@@ -1223,6 +1236,8 @@ def coord_answer(fig):
 
 def coord_steps(fig):
     t = fig["type"]
+    if t in HS_TYPES:
+        return hs_steps(fig)
     if t == "coord_polygon" and fig.get("shape") == "axis_base":
         (xa, _), (xb, _), (cx, cy) = fig["points"]
         lab = fig.get("labels") or ["A", "B", "C"]
@@ -1393,6 +1408,8 @@ def coord_check(card, t, ans, fig):
         need = fig.get("min_slanted", 2)
         ok = ok and (len(pts) - sides_on_grid) >= need
         return ok, f"lattice, counter-clockwise, encloses cleanly, {len(pts) - sides_on_grid} slanted sides (need ≥ {need})"
+    if t == "hs_valid":
+        return hs_check(fig, ans)
     if t == "coord_axis_diagonal":
         pts = [tuple(p) for p in fig["points"]]
         ok = fig.get("shape") == "axis_diagonal" and len(pts) == 4 and pts[1][0] == 0 and pts[3][0] == 0 and pts[0][0] < 0 < pts[2][0] \
@@ -1468,6 +1485,38 @@ def coord_check(card, t, ans, fig):
         ok = ratio == want and ratio > 0 and fig["bd"] != fig["dc"] and fig["ce"] != fig["ea"]
         return ok, f"coordinates give {ask} = {ratio}, mass points give {want}"
     return None
+
+
+def make_hs_variants(card):
+    """Stage 3 (tools/stage3.py): fresh numbers from the type's generator, every check re-run, a display text per variant."""
+    v = card["variants"]
+    rng = random.Random(v["seed"])
+    fig0 = card["problem"]["figure"]
+    out, seen, tries = [], {json.dumps(fig0, sort_keys=True, default=str)}, 0
+    used = {sympify(card["answer"]["value"])}
+    while len(out) < v["count"] and tries < 20000:
+        tries += 1
+        fig = hs_variant(rng, fig0)
+        if fig is None:
+            continue
+        key = json.dumps(fig, sort_keys=True, default=str)
+        try:
+            a = hs_answer(fig)
+            steps = hs_steps(fig)
+        except (ValueError, IndexError, ZeroDivisionError, TypeError, KeyError):
+            continue
+        if key in seen or a in used or steps is None or route_total({"steps": steps}) != a:
+            continue
+        text = hs_text(fig)
+        vcard = {**card, "answer": {**card["answer"], "value": str(a)}, "problem": {**card["problem"], "figure": fig, "text_ja": text},
+                 "lens_route": {**card["lens_route"], "steps": steps}}
+        if not all(run_check(vcard, ch, None)[0] for ch in card["checks"] if ch["type"] != "lens_faster"):
+            continue
+        seen.add(key); used.add(a)
+        figv = {k: fig[k] for k in fig if k not in ("type", "unit")}
+        out.append({"id": f"{card['id']}-v{len(out) + 1}", "text_ja": text, "figure": figv, "answer": str(a),
+                    "display_ja": hs_display(fig, a, card["problem"].get("unit", "")), "lens_route": {"steps": steps}})
+    return out
 
 
 def make_coord_variants(card):
@@ -1704,6 +1753,9 @@ def run_check(card, check, pts) -> tuple[bool, str]:
         if fig["kind"] == "trains_overtake":
             ok = q["s1"] > q["s2"] and ans >= 4 and q["l1"] != q["l2"]
             return ok, "same direction, the faster train behind; both lengths count"
+        if fig["kind"] == "avg_speed":
+            ok = q["u"] != q["v"] and ans != S(q["u"] + q["v"]) / 2
+            return ok, f"different speeds, so the plain average {S(q['u'] + q['v']) / 2} is the wrong answer"
         if fig["kind"] in ("circle_meet", "circle_lap"):
             ok = q["u"] > q["v"] and ans >= 2
             return ok, "different speeds; one lap of the pond is the gap to close"
@@ -2343,6 +2395,11 @@ def make_wp_variants(card):
             q = {"l1": l1, "s1": s1, "l2": l2, "s2": s2}
             if (l1 + l2) % (s1 - s2) or not (5 <= (l1 + l2) // (s1 - s2) <= 60):
                 continue
+        elif fig0["kind"] == "avg_speed":
+            u, v_ = rng.sample([2, 3, 4, 5, 6, 8, 10, 12, 15, 20, 30, 40, 60], 2)
+            q = {"u": u, "v": v_}
+            if (S(2 * u * v_) / (u + v_)).q > 5:
+                continue
         elif fig0["kind"] in ("circle_meet", "circle_lap"):
             sv = rng.randint(5, 8) * 10; u = sv + rng.randint(1, 4) * 10
             gap = u + sv if fig0["kind"] == "circle_meet" else u - sv
@@ -2660,6 +2717,17 @@ def _wp_steps_base(fig, names):
             {"ja": f"追いこすまでに進むのは、2つの列車の長さの和 {q['l1']}+{q['l2']} = {L}m", "op": "note"},
             {"ja": f"{L}÷{c} = {_fmt(t)}（秒）", "value": str(t), "op": "result"},
         ]
+    if fig["kind"] == "avg_speed":
+        from math import lcm
+        u, v = q["u"], q["v"]
+        d = lcm(u, v)
+        T = S(d) / u + S(d) / v
+        a = S(2 * d) / T
+        return [
+            {"ja": f"平均の速さ＝全体の道のり÷全体の時間。速さの平均 ({u}+{v})÷2 ではない（遅い帰りの方が時間が長い）", "op": "note"},
+            {"ja": f"片道を{u}と{v}の最小公倍数 {d}km とすると、行き {d}÷{u} = {_fmt(S(d) / u)}時間、帰り {d}÷{v} = {_fmt(S(d) / v)}時間", "op": "note"},
+            {"ja": f"往復 {2 * d}km を {_c(T)} 時間で進むので、{2 * d}÷{_c(T)} = {_c(a)}（km/時）", "value": str(a), "op": "result"},
+        ]
     if fig["kind"] in ("circle_meet", "circle_lap"):
         A, B = names.get("a", "兄"), names.get("b", "弟")
         meet = fig["kind"] == "circle_meet"
@@ -2726,12 +2794,14 @@ WP_GENERATORS = ("wp_two_kinds", "wp_age_ratio", "wp_mixture", "wp_meeting",
                  "wp_evaporate", "wp_salt_total", "wp_chase", "wp_trains_pass", "wp_clock_overlap", "wp_speed_change",
                  "wp_arrival_gap", "wp_shortfall_both_over", "wp_score_penalty", "wp_same_gain", "wp_transfer_ratio",
                  "wp_transfer_equal", "wp_mixture_unknown_strength", "wp_mixture_total", "wp_price_blend", "wp_trains_overtake",
-                 "wp_circle_meet", "wp_circle_lap")
+                 "wp_circle_meet", "wp_circle_lap", "wp_avg_speed")
 
 
 def make_variants(card):
     if card["variants"]["generator"] in WP_GENERATORS:
         return make_wp_variants(card)
+    if card["variants"]["generator"] == "hs":
+        return make_hs_variants(card)
     if card["variants"]["generator"] in ("coord_triangle", "coord_equal_area", "coord_mirror_area", "triangle_cevians", "coord_y_split", "coord_quad_tri"):
         return make_coord_variants(card)
     if card["variants"]["generator"] == "river_bridge":
@@ -2921,7 +2991,7 @@ def validate(path: Path, with_variants: bool) -> bool:
 
 
 _NUM = re.compile(r"\d+(?:\.\d+)?")
-_GENERIC_NUM = re.compile(r"約\d+(?:\.\d+)?分半?|\d+分半|[÷×]\d+|\d+(?=種類|つ|辺|回|通り|倍|点|組|行)")
+_GENERIC_NUM = re.compile(r"約\d+(?:\.\d+)?分半?|\d+分半|[÷×]\d+|\d+/\d+公式|\d+(?=種類|つ|辺|回|通り|倍|点|組|行|乗|次|本|個)")
 
 
 def variant_leaks(card, vs):
@@ -3030,8 +3100,8 @@ def _annotate(card, vs):
         card = {**card, "problem": {**card["problem"], "figure": fig}}
         vs = [{**v, "figure": _annotate_band({**fig, **v["figure"]})} for v in vs]
         return card, vs
-    if card["lens"] != "enclose" or card["kind"] != "standard":
-        return card, vs
+    if card["lens"] != "enclose" or card["kind"] != "standard" or "points" not in card["problem"]["figure"]:
+        return card, vs   # Stage 3 囲む (parabola_area) has no corner pieces to annotate
     pts = [tuple(p) for p in card["problem"]["figure"]["points"]]
     steps = annotate_enclose_steps(pts, card["lens_route"]["steps"])
     if steps is None:

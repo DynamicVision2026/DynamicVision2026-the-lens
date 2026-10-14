@@ -1,0 +1,90 @@
+schema_version: '1.1'
+id: dj-area-003
+kind: standard
+lens: area
+best_move: area
+stage: koko
+grades:
+- 高1
+level: 3
+archetype: area.dice_prod_le
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: a product condition; count each row of the table.'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 2個のさいころは6×6の表（36マス）。条件をみたすマスの「面積」を、ななめの列や余事象でまとめて数える。
+  principle_en: Two dice make a 6×6 table; count the region of cells by diagonals or the complement.
+problem:
+  text_ja: 大小2個のさいころを同時に投げるとき、出た目の積が6以下になる確率を求めなさい。
+  unit: ''
+  figure:
+    type: dice_grid
+    cond:
+      op: prod_le
+      k: 6
+answer:
+  value: 7/18
+  display_ja: 7/18
+  expr: stage3
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: 36通りをすべて書き出して、条件に合うものに印をつける
+    op: note
+  - ja: 書きもらしや重なりが出やすい
+    op: note
+  - ja: ここで約3分
+    op: note
+lens_route:
+  time_cost_sec: 45
+  time_source: estimate
+  steps:
+  - ja: 大を横、小を縦にした6×6の表（36マス）で考える。条件をみたすマスの面積を数える
+    op: note
+  - ja: 大の目ごとに、小の目が何マス入るか：6＋3＋2＋1＋1＋1 = 14マス
+    op: note
+  - ja: 14/36 = 7/18
+    value: 7/18
+    op: result
+trigger:
+  ja: 2個のさいころは6×6の表（36マス）。条件をみたすマスの「面積」を、ななめの列や余事象でまとめて数える。
+  en: Two dice make a 6×6 table; count the region of cells by diagonals or the complement.
+  tags:
+  - two_dice
+picker:
+  options:
+  - area
+  - constant
+  - balance
+  - direct
+  correct: area
+  clue_distractors:
+  - fixed_sum
+  - parameter_any_value
+  feedback_ja:
+    constant: 和が一定のものを使う問題ではない。
+    balance: 比や平均を混ぜる問題ではない。
+    area: そのとおり。さいころ2個の表で、条件をみたすマスをまとめて数える。
+    direct: 全部書き出しても出るが、36通りでもれやすい。
+animation:
+  keyframes:
+  - show_grid
+  - shade_cells
+  - count_cells
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: hs_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: hs
+  count: 4
+  seed: 5604

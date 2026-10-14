@@ -33,6 +33,20 @@ All 8 lenses are complete (≥ 5 problems each, levels 1–4, a failure and a no
 | 止める | — | 文字定数を固定する (parameter freezing) in 2次関数・軌跡 |
 | 囲む / 展開 | — | 座標・ベクトルでの面積, 空間図形の切断 |
 
+### Stage 3 status (Oct 14)
+All 8 lenses are complete (6 problems each, levels 1–4, a failure and a no-lens card), with a masterclass per lesson. The types live in `tools/stage3.py`; WO-023 draws them (until then they play as walkthroughs and the Pass stays a waitlist).
+
+| lens | archetype | failure / no-lens |
+|---|---|---|
+| てんびん | mass points (`triangle_cevians`) | 往復の平均の速さ (`avg_speed`: the plain average is the trap) / △ABD (decoy E) |
+| 囲む | 放物線と直線・放物線の面積, 1/6公式 (`parabola_area`) | ends at x = p, q: integrate / a line: trapezoid |
+| 等積変形 | △ABP on y = ax²: tangent ∥ AB, △ABP = △ABO (`parabola_tri`) | P's range excludes the tangent point / △OAB directly |
+| 折り返す | AP+PB on y = mx + k (`line_mirror`) | max \|PA−PB\| / opposite sides |
+| 止める | fixed point of a line / parabola family (`param_family`) | a for a given point / a given a |
+| 展開 | cone side as a sector: loop, to a point (`cone_unfold`) | sector ≥ 180°: through the apex / side area πrl |
+| 面積図 | two dice as a 6×6 table (`dice_grid`) | three dice / independent events |
+| 差一定 | fixed sum: centre ± t (`const_sum`) | centre outside the range / sum and difference given |
+
 ## What "verified" means here
 - Every Stage 2/3 card is generated and checked by the validator: exact answer, generated text and steps, a type-specific validity check, lens faster than the trap, and 4 variants.
 - The chain check (ADR-003) runs on chained cards.

@@ -1,0 +1,189 @@
+# Masterclass + practice onboarding for each lesson of the 大学受験パス (Step 1). Same player and standard as
+# chugaku_juken (WO-014, tokens motion.masterclass: 360 s = core 300 + onboarding 60). Architect-owned content.
+# Tone: the same mascot, for 高校生: short, and always naming the slow route (積分・距離の公式・場合分け) it replaces.
+# The Stage 3 figures are drawn under WO-023; until then this Pass stays a waitlist (planned) and previews only.
+# say / title ≤ 32 characters.
+
+balance:
+  example1: dj-balance-002
+  example2: dj-balance-003
+  boundary: dj-balance-f01
+  try: dj-balance-001
+  title:
+    principle: "座標やベクトルで交点を出したくなる"
+    example1: "辺ごとのてんびんをつなぐ"
+    example2: "BP:PEも、おもりの逆"
+    boundary: "速さの平均は、まん中ではない"
+    onboarding: "練習は3ステップ"
+  say:
+    principle: "2本の線の交点P。AP:PDは？"
+    principle_turn: "ベクトルで解くと式が長い…。どうする？"
+    principle_lens: "てんびんレンズ！ 辺ごとにおもりをのせよう"
+    example1: "BとCのおもりを、比の逆でのせよう"
+    example1_done: "Dに集まるおもりと、Aのおもりの比"
+    example2: "こんどはBEの上の比。同じ考え方で"
+    example2_done: "おもりをそろえれば、どの比も出る"
+    boundary: "でも、往復の平均の速さなら…"
+    onboarding: "手がかり → 道具 → ドラッグ。ヒントなしで"
+    onboarding_done: "準備OK！ 5問、ひとりでやってみよう"
+
+enclose:
+  example1: dj-enclose-002
+  example2: dj-enclose-003
+  boundary: dj-enclose-f01
+  try: dj-enclose-001
+  title:
+    principle: "∫を展開して計算したくなる"
+    example1: "交点だけで、面積が決まる"
+    example2: "放物線どうしでも、1/6公式"
+    boundary: "端が x = p なら、そのまま積分"
+    onboarding: "練習は3ステップ"
+  say:
+    principle: "放物線と直線で囲まれた面積は？"
+    principle_turn: "3乗の計算が長い…。どうする？"
+    principle_lens: "囲むレンズ！ 交点のαとβだけ見よう"
+    example1: "差をとって、交点のx座標を出そう"
+    example1_done: "|a|(β−α)³÷6 で、すぐ出る"
+    example2: "放物線2つでも、差は2次式"
+    example2_done: "x²の係数の差を使えばいい"
+    boundary: "でも、交点で囲まれていないなら…"
+    onboarding: "手がかり → 道具 → ドラッグ。ヒントなしで"
+    onboarding_done: "準備OK！ 5問、ひとりでやってみよう"
+
+slide:
+  example1: dj-slide-002
+  example2: dj-slide-003
+  boundary: dj-slide-f01
+  try: dj-slide-001
+  title:
+    principle: "点と直線の距離で高さを出したくなる"
+    example1: "ABに平行な接線で、高さが最大"
+    example2: "Oを通る平行線で、等しい面積"
+    boundary: "接点が範囲の外なら、はしで"
+    onboarding: "練習は3ステップ"
+  say:
+    principle: "放物線上のPで、△ABPの最大は？"
+    principle_turn: "根号と絶対値で重い…。どうする？"
+    principle_lens: "等積変形レンズ！ ABに平行な線を動かそう"
+    example1: "平行線を、放物線にふれるまで動かそう"
+    example1_done: "接点はAとBのまん中のx"
+    example2: "Oを通る平行線の上なら、高さは同じ"
+    example2_done: "平行線と放物線の交点がP"
+    boundary: "でも、Pの動ける範囲が決まっていたら…"
+    onboarding: "手がかり → 道具 → ドラッグ。ヒントなしで"
+    onboarding_done: "準備OK！ 5問、ひとりでやってみよう"
+
+mirror:
+  example1: dj-mirror-002
+  example2: dj-mirror-004
+  boundary: dj-mirror-f01
+  try: dj-mirror-001
+  title:
+    principle: "根号の和を、微分したくなる"
+    example1: "直線で折り返して、まっすぐ"
+    example2: "傾き2の直線でも、折り返す"
+    boundary: "差の最大なら、折り返さない"
+    onboarding: "練習は3ステップ"
+  say:
+    principle: "直線上のPで、AP＋PBの最小は？"
+    principle_turn: "根号の和は手ごわい…。どうする？"
+    principle_lens: "折り返すレンズ！ Bを直線で折り返そう"
+    example1: "BをB'へ。中点がℓ上、BB'はℓと垂直"
+    example1_done: "最小値は、AB'の長さそのもの"
+    example2: "傾き2でも、対称点の求め方は同じ"
+    example2_done: "折り返せば、三平方の定理だけ"
+    boundary: "でも、差が最大になる点なら…"
+    onboarding: "手がかり → 道具 → ドラッグ。ヒントなしで"
+    onboarding_done: "準備OK！ 5問、ひとりでやってみよう"
+
+freeze:
+  example1: dj-freeze-002
+  example2: dj-freeze-003
+  boundary: dj-freeze-f01
+  try: dj-freeze-001
+  title:
+    principle: "aに数を入れて試したくなる"
+    example1: "aでまとめて、両方を0に"
+    example2: "放物線の集まりでも、同じ"
+    boundary: "点が決まっているなら、代入"
+    onboarding: "練習は3ステップ"
+  say:
+    principle: "aの値によらず通る点はどこ？"
+    principle_turn: "aを2つ入れても、確かめが要る…"
+    principle_lens: "止めるレンズ！ aを止めて、整理しよう"
+    example1: "aの係数のかっこと、残りに分けよう"
+    example1_done: "両方0になる点が、定点"
+    example2: "放物線でも、aでまとめれば同じ"
+    example2_done: "どんなaでも通る点が、すぐ出る"
+    boundary: "でも、通る点が先に決まっていたら…"
+    onboarding: "手がかり → 道具 → ドラッグ。ヒントなしで"
+    onboarding_done: "準備OK！ 5問、ひとりでやってみよう"
+
+unfold:
+  example1: dj-unfold-002
+  example2: dj-unfold-003
+  boundary: dj-unfold-f01
+  try: dj-unfold-001
+  title:
+    principle: "曲面のまま長さを出したくなる"
+    example1: "側面を開いて、おうぎ形に"
+    example2: "母線上の点まで、余弦定理"
+    boundary: "180°以上なら、頂点を通る"
+    onboarding: "練習は3ステップ"
+  say:
+    principle: "円すいを1周する糸。最短は？"
+    principle_turn: "曲面のままでは測れない…。どうする？"
+    principle_lens: "展開レンズ！ 側面を開いてみよう"
+    example1: "中心角は 360°×半径÷母線"
+    example1_done: "開いた図の弦が、最短の糸"
+    example2: "こんどは母線の途中まで。結んでみよう"
+    example2_done: "余弦定理で、長さが出る"
+    boundary: "でも、開いた角が180°をこえたら…"
+    onboarding: "手がかり → 道具 → ドラッグ。ヒントなしで"
+    onboarding_done: "準備OK！ 5問、ひとりでやってみよう"
+
+area:
+  example1: dj-area-002
+  example2: dj-area-003
+  boundary: dj-area-f01
+  try: dj-area-001
+  title:
+    principle: "36通りを書き出したくなる"
+    example1: "表の三角形を、まとめて数える"
+    example2: "積の条件は、行ごとに数える"
+    boundary: "3個なら、表にならない"
+    onboarding: "練習は3ステップ"
+  say:
+    principle: "さいころ2個。差が3以上の確率は？"
+    principle_turn: "全部書くと、もれが出る…。どうする？"
+    principle_lens: "面積図レンズ！ 6×6の表で見よう"
+    example1: "対角線から3本はなれたマスをぬろう"
+    example1_done: "2つの三角形の面積を数えるだけ"
+    example2: "こんどは積。行ごとに何マス？"
+    example2_done: "表なら、条件が形になって見える"
+    boundary: "でも、さいころが3個なら…"
+    onboarding: "手がかり → 道具 → ドラッグ。ヒントなしで"
+    onboarding_done: "準備OK！ 5問、ひとりでやってみよう"
+
+constant:
+  example1: dj-constant-002
+  example2: dj-constant-003
+  boundary: dj-constant-f01
+  try: dj-constant-001
+  title:
+    principle: "代入して平方完成したくなる"
+    example1: "まん中からのずれtで見る"
+    example2: "2xとyの和でも、まん中"
+    boundary: "まん中が範囲の外なら、はし"
+    onboarding: "練習は3ステップ"
+  say:
+    principle: "x＋y＝8 で、x²＋y²の最小は？"
+    principle_turn: "代入すると式が長い…。どうする？"
+    principle_lens: "差一定レンズ！ 和が一定、まん中を見よう"
+    example1: "x＝4＋t、y＝4−t と動かしてみよう"
+    example1_done: "t＝0 のまん中で、最小"
+    example2: "2xとyを、和が一定の2つと見よう"
+    example2_done: "まん中で、積が最大"
+    boundary: "でも、まん中が使えない範囲なら…"
+    onboarding: "手がかり → 道具 → ドラッグ。ヒントなしで"
+    onboarding_done: "準備OK！ 5問、ひとりでやってみよう"

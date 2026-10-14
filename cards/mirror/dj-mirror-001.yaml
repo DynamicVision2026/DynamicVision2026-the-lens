@@ -1,0 +1,98 @@
+schema_version: '1.1'
+id: dj-mirror-001
+kind: standard
+lens: mirror
+best_move: mirror
+stage: koko
+grades:
+- 高2
+level: 1
+archetype: mirror.line_yx
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: P on y = x minimising AP+PB; reflect B across y = x by swapping its coordinates.'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 直線上の点を通る2点間の最短は、一方の点を直線で折り返し、まっすぐ結ぶ。
+  principle_en: 'Shortest path via a point on a line: reflect one point across the line and join straight.'
+problem:
+  text_ja: '直線 ℓ: y = x と、2点A(1, 4)、B(2, 5)があります。ℓ上に点Pをとり、AP＋PB がもっとも小さくなるようにします。このとき、点Pのx座標を求めなさい。'
+  unit: ''
+  figure:
+    type: line_mirror
+    line:
+    - 1
+    - 0
+    A:
+    - 1
+    - 4
+    B:
+    - 2
+    - 5
+    ask: p_x
+answer:
+  value: '3'
+  display_ja: '3'
+  expr: stage3
+trap_route:
+  time_cost_sec: 240
+  time_source: estimate
+  steps:
+  - ja: Pを(t, mt＋k)とおき、AP＋PBを根号2つの和で表す
+    op: note
+  - ja: 根号の和の最小は、平方完成でも微分でも出しにくい
+    op: note
+  - ja: ここで約4分。手が止まる
+    op: note
+lens_route:
+  time_cost_sec: 60
+  time_source: estimate
+  steps:
+  - ja: Bをℓで折り返した点B'をとる（PB＝PB'）。BB'の中点がℓ上、BB'⊥ℓ から B'(5, 2)
+    op: note
+  - ja: AとB'をまっすぐ結んだ線分が、AP＋PBの最小
+    op: note
+  - ja: 直線AB'とℓを連立すると、Pのx座標 = 3
+    value: '3'
+    op: result
+trigger:
+  ja: 直線上の点を通る2点間の最短は、一方の点を直線で折り返し、まっすぐ結ぶ。
+  en: 'Shortest path via a point on a line: reflect one point across the line and join straight.'
+  tags:
+  - sum_of_distances
+  - slanted_line
+picker:
+  options:
+  - mirror
+  - slide
+  - freeze
+  - direct
+  correct: mirror
+  clue_distractors:
+  - parameter_any_value
+  - fixed_sum
+  feedback_ja:
+    slide: 平行な線で頂点を動かす問題ではない。
+    freeze: 文字の値によらない点を求める問題ではない。
+    mirror: そのとおり。Bを直線ℓで折り返し、AとB'をまっすぐ結ぶ。
+    direct: Pを文字でおいて根号の和の最小を求めるのは、計算がとても重い。
+animation:
+  keyframes:
+  - show_graph
+  - reflect_point
+  - draw_straight
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: hs_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: hs
+  count: 4
+  seed: 5301

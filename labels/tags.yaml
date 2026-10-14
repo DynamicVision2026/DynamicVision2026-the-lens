@@ -73,3 +73,22 @@ along_edges_only:     {ja: 辺の上だけを通る}
 volume_asked:         {ja: 体積を聞いている}
 two_walls:            {ja: 直角に交わる2本の線に、1回ずつふれる}
 bridge_across:        {ja: 川に垂直な橋をわたる（長さは決まっている）}
+parabola_and_line:    {ja: 放物線と直線（放物線）で囲まれた部分}
+bounded_by_vertical_lines: {ja: 端が直線 x = p、x = q で区切られている}
+line_not_parabola:    {ja: グラフが直線（放物線ではない）}
+point_on_parabola:    {ja: 放物線の上を点が動く}
+max_area_asked:       {ja: 面積の最大を聞いている}
+vertex_at_origin:     {ja: 原点が三角形の頂点}
+restricted_range:     {ja: 動ける範囲が決められている}
+slanted_line:         {ja: ななめの直線の上に点をとる}
+parameter_any_value:  {ja: 「aの値にかかわらず」}
+parameter_given:      {ja: aの値が1つに決まっている}
+point_given:          {ja: 通る点が決まっている}
+cone_surface:         {ja: 円すいの表面}
+wide_sector:          {ja: 開くと中心角が180°以上}
+two_dice:             {ja: 2個のさいころ}
+three_dice:           {ja: 3個のさいころ}
+independent_events:   {ja: 大と小で条件が別々}
+fixed_sum:            {ja: 和が一定}
+sum_and_difference_given: {ja: 和と差が両方分かっている}
+round_trip_speeds:    {ja: 行きと帰りで速さがちがう往復}

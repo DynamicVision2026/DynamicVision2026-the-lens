@@ -1,0 +1,95 @@
+schema_version: '1.1'
+id: dj-unfold-002
+kind: standard
+lens: unfold
+best_move: unfold
+stage: koko
+grades:
+- 高1
+level: 2
+archetype: unfold.cone_loop
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: the same loop with a 120° sector (chord l√3).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 円すいの側面は、開くとおうぎ形。中心角は 360°×半径/母線。開いた図で、まっすぐ結んだ線が最短。
+  principle_en: A cone's side opens into a sector of angle 360°×r/l; the shortest path is the straight segment on it.
+problem:
+  text_ja: 底面の半径が3cm、母線の長さが9cmの円すいがあります。底面の円周上の点Aから、側面を1周してAにもどるように糸をかけます。糸の長さの最小値を求めなさい。
+  unit: cm
+  figure:
+    type: cone_unfold
+    r: 3
+    l: 9
+    ask: loop
+    angles:
+    - 60
+    - 90
+    - 120
+answer:
+  value: 9*sqrt(3)
+  display_ja: 9√3cm
+  expr: stage3
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: 立体のまま、糸の通る点の位置を文字でおく
+    op: note
+  - ja: 曲面の上の長さは、そのままでは式にできない
+    op: note
+  - ja: ここで約3分。決め手がない
+    op: note
+lens_route:
+  time_cost_sec: 45
+  time_source: estimate
+  steps:
+  - ja: 側面を開くと、半径9のおうぎ形。中心角は 360°×3/9 = 120°
+    op: note
+  - ja: 1周してもどる糸は、開いた図で両はしのAとA'を結ぶ線分（弦）
+    op: note
+  - ja: 中心角120°の二等辺三角形の底辺：2×9×sin60° = 9√3
+    value: 9*sqrt(3)
+    op: result
+trigger:
+  ja: 円すいの側面は、開くとおうぎ形。中心角は 360°×半径/母線。開いた図で、まっすぐ結んだ線が最短。
+  en: A cone's side opens into a sector of angle 360°×r/l; the shortest path is the straight segment on it.
+  tags:
+  - cone_surface
+  - shortest_path
+picker:
+  options:
+  - unfold
+  - mirror
+  - enclose
+  - direct
+  correct: unfold
+  clue_distractors:
+  - sum_of_distances
+  - fixed_sum
+  feedback_ja:
+    mirror: 最短の道すじを求める問題ではない。
+    enclose: 囲まれた部分の面積を求める問題ではない。
+    unfold: そのとおり。側面を開いておうぎ形にし、まっすぐ結ぶ。
+    direct: 立体のままでは、曲面上の長さが計算できない。
+animation:
+  keyframes:
+  - show_cone
+  - open_sector
+  - draw_straight
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: hs_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: hs
+  count: 4
+  seed: 5502
