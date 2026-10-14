@@ -9,7 +9,7 @@ grades:
 - 小5
 level: 1
 archetype: slide.single_no_lens
-status: draft
+status: verified
 provenance:
   original: true
   built_from: 'Archetype: one triangle between parallel lines with base and height stated (negative control for 等積変形).'

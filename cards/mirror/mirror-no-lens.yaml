@@ -9,7 +9,7 @@ grades:
 - 小6
 level: 1
 archetype: mirror.opposite_no_lens
-status: draft
+status: verified
 provenance:
   original: true
   built_from: 'Archetype: P and Q on opposite sides of the river; the straight line already crosses it, so no reflection (negative control for 折り返す).'

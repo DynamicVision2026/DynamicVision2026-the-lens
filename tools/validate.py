@@ -1536,7 +1536,8 @@ def run_check(card, check, pts) -> tuple[bool, str]:
     if t == "band_height_from_area":
         L = S(fig["bottom_x"][-1] - fig["bottom_x"][0])
         h = sympify(fig["total_area"]) * 2 / L
-        return h == ans, f"height = {fig['total_area']}×2÷{L} = {h}, answer = {ans}"
+        whole = sympify(fig["total_area"]).is_integer
+        return h == ans and whole, f"height = {fig['total_area']}×2÷{L} = {h}, answer = {ans}" + ("" if whole else "; the given total must be a whole number")
     if t == "lattice_only":
         ok = all(0 <= x <= g["width"] and 0 <= y <= g["height"] for x, y in pts)
         return ok, "all vertices are grid points inside the drawn grid"
@@ -1747,6 +1748,8 @@ def make_band_variants(card):
             hs = rng.sample(range(c.get("min_height", 3), c.get("max_height", 8) + 1), k)
             fig["apex_heights"] = hs
         if mode == "ask_height":
+            if (L * h) % 2:
+                continue   # the given total is printed in the text: keep it a whole number (no 135/2cm²)
             fig["total_area"] = str(S(L) * h / 2)
         area = band_answer(fig)
         vcard = {**card, "answer": {**card["answer"], "value": str(area)}, "problem": {**card["problem"], "figure": fig}}
