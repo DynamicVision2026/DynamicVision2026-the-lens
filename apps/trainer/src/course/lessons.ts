@@ -3,14 +3,17 @@ import { getCard, withVariant, type Bundle, type LensCard, type Lesson, type Pas
 
 /** Lenses with a hands-on interaction in the course player, and the figures each can play. */
 const PLAYABLE: Record<string, (card: LensCard) => boolean> = {
-  enclose: (c) => (c.problem.figure.type === 'grid_polygon' || (c.problem.figure.type === 'coord_polygon' && c.problem.figure.shape !== 'axis_base')) && verticesOnBox(c),
-  slide: (c) => ['parallel_band', 'coord_equal_area', 'coord_quad_tri'].includes(c.problem.figure.type),
-  mirror: (c) => ['mirror_path', 'mirror_corner'].includes(c.problem.figure.type) || (c.problem.figure.type === 'coord_mirror_area' && c.problem.figure.side !== 'opposite'),
-  area: (c) => ['area_two_rect', 'area_average', 'area_shortfall'].includes(family(c) ?? ''),
-  constant: (c) => family(c) === 'diff_bars',
-  balance: (c) => family(c) === 'lever',
-  freeze: (c) => family(c) === 'road',
-  unfold: (c) => c.problem.figure.type === 'box_unfold',
+  enclose: (c) => ((c.problem.figure.type === 'grid_polygon' || (c.problem.figure.type === 'coord_polygon' && c.problem.figure.shape !== 'axis_base')) && verticesOnBox(c)) || (c.problem.figure.type === 'parabola_area' && !c.problem.figure.bounds),
+  slide: (c) => ['parallel_band', 'coord_equal_area', 'coord_quad_tri'].includes(c.problem.figure.type) || (c.problem.figure.type === 'parabola_tri' && ['px', 'max_area', 'equal_o'].includes(c.problem.figure.ask)),
+  mirror: (c) =>
+    ['mirror_path', 'mirror_corner'].includes(c.problem.figure.type) ||
+    (c.problem.figure.type === 'coord_mirror_area' && c.problem.figure.side !== 'opposite') ||
+    (c.problem.figure.type === 'line_mirror' && c.problem.figure.ask !== 'max_diff' && c.problem.figure.side !== 'opposite'),
+  area: (c) => ['area_two_rect', 'area_average', 'area_shortfall'].includes(family(c) ?? '') || (c.problem.figure.type === 'dice_grid' && (c.problem.figure.dice ?? 2) === 2),
+  constant: (c) => family(c) === 'diff_bars' || (c.problem.figure.type === 'const_sum' && c.problem.figure.x_min === undefined && c.problem.figure.ask !== 'given_diff'),
+  balance: (c) => family(c) === 'lever' || (c.problem.figure.type === 'triangle_cevians' && c.problem.figure.ask !== 'area_abd'),
+  freeze: (c) => family(c) === 'road' || (c.problem.figure.type === 'param_family' && (c.problem.figure.ask ?? 'point') === 'point'),
+  unfold: (c) => c.problem.figure.type === 'box_unfold' || (c.problem.figure.type === 'cone_unfold' && c.problem.figure.ask !== 'side_area' && c.problem.figure.expect !== 'through_apex'),
 };
 
 /** The word problem's diagram family (WO-015: area and constant render by family, not by kind). */

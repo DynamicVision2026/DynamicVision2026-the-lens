@@ -21,10 +21,9 @@ describe('area and constant by diagram family', () => {
     }
   });
 
-  it('plays every standard area/constant card that has a drag family', () => {
-    // Word-problem cards only: Stage 3 area/constant cards (dice_grid, const_sum) get their figures in WO-023.
-    for (const card of bundle.cards.filter((c) => (c.lens === 'area' || c.lens === 'constant') && c.kind === 'standard' && c.problem.figure.type === 'word_problem')) {
-      expect(isPlayable(card, card.lens), card.id).toBe(diagram(card)?.family !== 'steps_only');
+  it('plays every standard area/constant card that has a drag family (WO-023: dice tables and fixed sums too)', () => {
+    for (const card of bundle.cards.filter((c) => (c.lens === 'area' || c.lens === 'constant') && c.kind === 'standard')) {
+      expect(isPlayable(card, card.lens), card.id).toBe(card.problem.figure.type !== 'word_problem' || diagram(card)?.family !== 'steps_only');
     }
   });
 
