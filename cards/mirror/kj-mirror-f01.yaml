@@ -1,0 +1,95 @@
+schema_version: '1.1'
+id: kj-mirror-f01
+kind: failure
+lens: mirror
+best_move: 'direct: extend line AB to the axis (|PA−PB| ≤ AB, equal when P, A, B line up)'
+stage: chugaku
+grades:
+- 中1
+- 中2
+level: 3
+archetype: mirror.coord_max_diff_failure
+status: draft
+provenance:
+  original: true
+  built_from: 'Archetype: P on the x-axis maximising |PA−PB| for A, B on the same side; reflection (the PA+PB habit) gives the wrong point; extend AB instead (failure card for 折り返す).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 折り返しは「和」を最小にする道具。「差」を最大にするときは、三角形の2辺の差は残りの1辺より小さいことを使い、3点を一直線にする。
+  principle_en: Reflection minimises a sum; to maximise a difference, line the three points up (|PA−PB| ≤ AB).
+problem:
+  text_ja: 座標平面上に2点A(1, 6)、B(4, 3)があります。x軸上に点Pをとり、PAとPBの長さの差がもっとも大きくなるようにします。このとき、点Pのx座標を求めなさい。
+  unit: ''
+  figure:
+    type: coord_mirror_area
+    A:
+    - 1
+    - 6
+    B:
+    - 4
+    - 3
+    ask: max_diff
+answer:
+  value: '7'
+  display_ja: x＝7
+  expr: coordinate
+trap_route:
+  time_cost_sec: 150
+  time_source: estimate
+  steps:
+  - ja: x軸上の点Pと2点の問題なので、くせでBをx軸で折り返す
+    op: note
+  - ja: 折り返しで出るのは PA＋PB が最小の点。差が最大の点ではない
+    op: note
+  - ja: 答えが合わず、考え直して約2分半
+    op: note
+lens_route:
+  time_cost_sec: 40
+  time_source: estimate
+  steps:
+  - ja: 和ではなく差の最大。折り返さない。三角形PABでは |PA−PB| ＜ AB なので、P・A・Bが一直線にならぶときにいちばん大きい
+    op: note
+  - ja: だから、直線ABをのばして、x軸と交わる点がP
+    op: note
+  - ja: yが 6−3 = 3 変わる間にxは 4−1 = 3 変わる。y＝0 まで 6 下がるので、Pのx座標は 1＋3×6/3 = 7
+    value: '7'
+    op: result
+trigger:
+  ja: 「長さの差がもっとも大きい」なら折り返さない。2点を結ぶ直線をのばして、軸との交点をとる。
+  en: 'Largest difference: no reflection; extend the line through the two points.'
+  tags:
+  - difference_largest
+picker:
+  options:
+  - mirror
+  - enclose
+  - slide
+  - direct
+  correct: direct
+  clue_distractors:
+  - equal_area_asked
+  - cevians_ratio
+  feedback_ja:
+    mirror: おしい。折り返すのは「和」を最小にするとき。ここは「差」を最大にする。
+    enclose: 面積の問題ではない。
+    slide: 平行な線を使う問題ではない。
+    direct: そのとおり。|PA−PB| は AB より大きくならない。P、A、Bが一直線のとき、ちょうどABになる。
+animation:
+  keyframes:
+  - show_points
+  - draw_straight
+  - mark_p
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: coord_mirror_max_diff
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: coord_mirror_area
+  count: 4
+  seed: 3319
