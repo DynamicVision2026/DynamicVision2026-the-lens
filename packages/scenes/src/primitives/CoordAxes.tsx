@@ -21,7 +21,10 @@ interface Props {
   part?: 'lines' | 'labels';
 }
 
-/** WO-020: x/y axes through the origin with tick numbers, O, and the vertices' coordinate labels. */
+/**
+ * WO-020: x/y axes through the origin with tick numbers, O, and the vertices' coordinate labels. Tick
+ * numbers are the axes' scale (marked data-tick), not values of the problem.
+ */
 export function CoordAxes({ frame, origin, tokens, mode, t = 1, labels, points, every, part }: Props) {
   const ink = color(tokens.color.ink, mode);
   const quiet = color(tokens.color.ink_quiet, mode);
@@ -58,12 +61,12 @@ export function CoordAxes({ frame, origin, tokens, mode, t = 1, labels, points, 
       {numbers && (
         <g fill={quiet} fontFamily={font} fontSize={small} textAnchor="middle" dominantBaseline="central">
           {xs.map((v) => (
-            <text key={`x${v}`} x={ox + v * frame.cell} y={oy + small * 0.95}>
+            <text key={`x${v}`} data-tick="" x={ox + v * frame.cell} y={oy + small * 0.95}>
               {n(v)}
             </text>
           ))}
           {ys.map((v) => (
-            <text key={`y${v}`} x={ox - small * 0.95} y={oy - v * frame.cell}>
+            <text key={`y${v}`} data-tick="" x={ox - small * 0.95} y={oy - v * frame.cell}>
               {n(v)}
             </text>
           ))}
