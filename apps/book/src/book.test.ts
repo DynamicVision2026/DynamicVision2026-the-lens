@@ -2,9 +2,11 @@
 // estimate, prints no number that is not in the problem, and prints each answer from the bundle.
 import { describe, expect, it } from 'vitest';
 import { answerText, withVariant, type LensCard } from '@lens/scenes';
+import { titleLines } from './copy';
+import type { KdpConfig } from './Cover';
 import { renderFigure } from './figure';
 import { planBook } from './plan';
-import { bookBundle, renderInterior } from './render';
+import { bookBundle, renderCover, renderInterior } from './render';
 
 const bundle = bookBundle();
 const passes = (bundle.passes ?? []).filter((p) => p.book);
@@ -105,5 +107,39 @@ describe('paperback books', () => {
     plan.pages.forEach((pg, i) => {
       if (pg.kind === 'spread') expect((i + 1) % 2 === 0).toBe(pg.side === 'left');
     });
+  });
+
+  it('draws every Stage 1 figure: no 「図（準備中）」 placeholder in chugaku_juken', () => {
+    const { html, log } = renderInterior(bundle, 'chugaku_juken');
+    expect([...log.placeholders.keys()]).toEqual([]);
+    expect(html).not.toContain('class="fig-pending"');
+  });
+
+  it('draws the water/salt lever and the chase road solved (WO-015/017 end states)', () => {
+    for (const id of ['balance-002', 'balance-003', 'freeze-002']) {
+      const card = resolve(id);
+      const solved = renderFigure(card, 'solved', bundle.tokens);
+      expect(solved.svg, id).toContain('<svg');
+      expect(solved.svg).toContain(answerText(card).replace(/[^0-9]/g, '').slice(0, 1));
+      // Like every word problem, the problem itself is only its sentence.
+      expect(renderFigure(card, 'problem', bundle.tokens).none).toBe(true);
+    }
+  });
+
+  it('cover: title breaks before ワークブック, and the front figure prints no answer or formula', () => {
+    expect(titleLines('視点レンズ 中学受験算数ワークブック')).toEqual(['視点レンズ 中学受験算数', 'ワークブック']);
+    expect(titleLines('次元を落とす')).toEqual(['次元を落とす']);
+    const plan = planBook(bundle, 'chugaku_juken');
+    const kdp: KdpConfig = { spine_mm_per_page: 0.0572, spine_mm: null, spine_text_min_pages: 80, barcode_mm: { width: 50.8, height: 30.5, margin: 6.35 } };
+    const { html } = renderCover(bundle, plan, kdp);
+    const first = plan.chapters[0]!.examples[0]!;
+    const front = html.slice(html.indexOf('class="panel front"'));
+    const texts = [...front.matchAll(/<text[^>]*>([\s\S]*?)<\/text>/g)].map((m) => m[1]!.replace(/<[^>]+>/g, ''));
+    expect(texts.length).toBeGreaterThan(0);
+    for (const t of texts) {
+      expect(t).not.toMatch(/[=＝]/);
+      expect(t).not.toBe(answerText(first));
+    }
+    expect(front).toContain('<span class="line">ワークブック</span>');
   });
 });

@@ -2,9 +2,10 @@
 // becomes a 「図（準備中）」 placeholder so the book still builds; the build log lists those cards.
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { hasScene, LensScene, type LensCard } from '@lens/scenes';
+import { answerText, formatExact, hasScene, LensScene, type LensCard } from '@lens/scenes';
 import { printColor } from './print';
 import type { BookTokens } from './types';
+import { BookWordFigure, bookWordFamily } from './wordFigures';
 
 export type FigureMoment = 'problem' | 'solved';
 
@@ -55,9 +56,15 @@ export function keyframeFor(card: LensCard, moment: FigureMoment): number {
   return moment === 'problem' ? 0 : Math.max(0, n - 1);
 }
 
-export function renderFigure(card: LensCard, moment: FigureMoment, t: BookTokens, opts: { color?: boolean; paper?: string } = {}): FigureResult {
+export function renderFigure(card: LensCard, moment: FigureMoment, t: BookTokens, opts: FigureOpts = {}): FigureResult {
   const f = card.problem.figure as { type: string; diagram?: { family?: string } };
   if (f.type === 'word_problem' && f.diagram?.family === 'steps_only') return { svg: null, none: true };
+  if (!hasScene(card) && bookWordFamily(card)) {
+    // Like every word problem, the problem itself is its sentence; the diagram is the lens's solution.
+    if (moment === 'problem') return { svg: null, none: true };
+    const svg = renderToStaticMarkup(createElement(BookWordFigure, { card, tokens: t }));
+    return finish(svg, t, opts);
+  }
   if (!hasScene(card)) {
     const fig = card.problem.figure as { type: string; diagram?: { family?: string } };
     return { svg: null, reason: fig.type === 'word_problem' ? `word_problem/${fig.diagram?.family ?? '?'}` : fig.type };
@@ -65,10 +72,33 @@ export function renderFigure(card: LensCard, moment: FigureMoment, t: BookTokens
   try {
     const svg = renderToStaticMarkup(createElement(LensScene, { card, keyframe: keyframeFor(card, moment), t: 1, reducedMotion: true, tokens: t }));
     if (!/<svg[^>]*>[\s\S]*<\/svg>/.test(svg) || /<svg[^>]*\/>$|<svg[^>]*><\/svg>$/.test(svg)) return { svg: null, reason: 'empty scene' };
-    if (!opts.color) return { svg: toPrint(svg, t) };
-    // Colour (cover): keep the hues, but put the figure on the print paper.
-    return { svg: opts.paper ? svg.split(t.color.paper.value).join(opts.paper) : svg };
+    return finish(svg, t, opts);
   } catch (err) {
     return { svg: null, reason: err instanceof Error ? err.message : String(err) };
   }
+}
+
+export interface FigureOpts {
+  /** Keep the screen hues (the cover). */
+  color?: boolean;
+  /** With `color`, the paper colour to draw on. */
+  paper?: string;
+  /** Drop the printed answer and any formula line (a 「=」), e.g. for the cover. */
+  noAnswer?: LensCard;
+}
+
+/** Removes every <text> that prints the answer or a formula ("36 − (…) = 19.5", "19.5cm²"). */
+export function withoutAnswer(svg: string, card: LensCard): string {
+  const answers = [answerText(card), formatExact(card.answer.value)].map((s) => s.replace(/\s/g, ''));
+  return svg.replace(/<text\b[^>]*>([\s\S]*?)<\/text>/g, (m, inner: string) => {
+    const text = inner.replace(/<[^>]+>/g, '').replace(/&[a-z#0-9]+;/gi, ' ').replace(/\s/g, '');
+    return /[=＝]/.test(text) || answers.includes(text) ? '' : m;
+  });
+}
+
+function finish(raw: string, t: BookTokens, opts: FigureOpts): FigureResult {
+  const svg = opts.noAnswer ? withoutAnswer(raw, opts.noAnswer) : raw;
+  if (!opts.color) return { svg: toPrint(svg, t) };
+  // Colour (cover): keep the hues, but put the figure on the print paper.
+  return { svg: opts.paper ? svg.split(t.color.paper.value).join(opts.paper) : svg };
 }

@@ -52,7 +52,8 @@ section.verso .folio { left: ${m.outer}mm; }
 
 .title-page { justify-content: center; text-align: left; }
 .series { font-family: ${sans}; font-size: ${pt(s.title.size - 4)}; font-weight: 500; color: ${c.quiet}; margin-bottom: 8mm; }
-.book-title { font-size: ${pt(s.display.size + 4)}; font-weight: ${s.display.weight}; line-height: ${s.display.line}; margin-bottom: 6mm; }
+.book-title { font-size: ${pt(s.display.size + 4)}; font-weight: ${s.display.weight}; line-height: ${s.display.line}; margin-bottom: 6mm; word-break: keep-all; }
+.book-title .line { display: block; }
 .book-subtitle { font-family: ${sans}; font-size: ${pt(s.title.size - 2)}; font-weight: 500; margin-bottom: 14mm; }
 .audience { display: inline-block; font-family: ${sans}; font-size: ${pt(s.label.size + 1)}; border: ${figW} solid ${c.ink}; padding: 1.5mm 4mm; align-self: flex-start; }
 .title-foot { margin-top: auto; font-family: ${sans}; font-size: ${pt(s.label.size)}; color: ${c.quiet}; line-height: 1.6; }
