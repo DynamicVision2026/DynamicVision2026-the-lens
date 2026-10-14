@@ -252,6 +252,101 @@ export interface CoordQuadTriFigure {
   unit?: string;
 }
 
+/** A quadratic y = ax² + bx + c as [a, b, c] (a may be 0 for a line). Numbers may be fractions ("1/2"). */
+export type Quadratic = [number, number, number];
+
+/**
+ * WO-023 囲む (tools/stage3.py): the region between y = f and y = g (the x-axis when g is absent), area by the
+ * 1/6 formula. `bounds` [p, q]: the failure / no-lens cards, bounded by x = p and x = q instead of crossings.
+ */
+export interface ParabolaAreaFigure {
+  type: 'parabola_area';
+  f: Quadratic;
+  g?: Quadratic;
+  bounds?: [number, number];
+}
+
+/**
+ * WO-023 等積変形: y = ax² with A (x = alpha) and B (x = beta); P on the parabola. `px` / `max_area`: P where the
+ * tangent ∥ AB; `equal_o`: △ABP = △ABO (P on the parallel through O); `range_max`: P limited to `range`
+ * (failure); `oab`: △OAB directly (no-lens).
+ */
+export interface ParabolaTriFigure {
+  type: 'parabola_tri';
+  a: number | string;
+  alpha: number;
+  beta: number;
+  ask: 'px' | 'max_area' | 'equal_o' | 'range_max' | 'oab';
+  range?: [number, number];
+}
+
+/**
+ * WO-023 折り返す: ℓ: y = mx + k (`line` [m, k]), A and B; P on ℓ minimising AP + PB (reflect B to B′). `max_diff`
+ * (failure): |PA − PB| is largest on line AB; `side: opposite` (no-lens): A and B already on opposite sides.
+ */
+export interface LineMirrorFigure {
+  type: 'line_mirror';
+  line: [number, number];
+  A: Point;
+  B: Point;
+  ask: 'p_x' | 'min_len' | 'max_diff';
+  side?: 'opposite';
+}
+
+/**
+ * WO-023 止める: a family through a fixed point. `line`: c = [[p1, q1], [p2, q2], [p3, q3]] for
+ * (p1·a + q1)x + (p2·a + q2)y + (p3·a + q3) = 0; `parabola`: c = [[p, q], [r, s]] for y = x² + (p·a + q)x + (r·a + s).
+ * `a_for_point` (failure): the a through `point`; `slope_at` (no-lens): the slope at a = `a0`.
+ */
+export interface ParamFamilyFigure {
+  type: 'param_family';
+  family: 'line' | 'parabola';
+  c: number[][];
+  ask?: 'point' | 'a_for_point' | 'slope_at';
+  point?: Point;
+  a0?: number;
+}
+
+/**
+ * WO-023 展開: a cone (base radius r, slant l) opened into a sector of angle 360r/l. `loop`: A round to A′;
+ * `to_point`: A round to B′ (OB′ = d); `side_area` (no-lens). `expect: through_apex` (failure): the sector is
+ * 180° or more, so the shortest path goes through the apex O.
+ */
+export interface ConeUnfoldFigure {
+  type: 'cone_unfold';
+  r: number;
+  l: number;
+  ask: 'loop' | 'to_point' | 'side_area';
+  d?: number;
+  expect?: 'through_apex';
+  angles?: number[];
+}
+
+export type DiceOp = 'sum_le' | 'sum_eq' | 'diff_ge' | 'prod_le' | 'prod_mult' | 'both_even' | 'both_le' | 'both_ge' | 'even_le';
+
+/** WO-023 面積図: two dice as a 6×6 table (big die across, small down); `dice: 3` is the failure card. */
+export interface DiceGridFigure {
+  type: 'dice_grid';
+  dice?: 2 | 3;
+  cond: { op: DiceOp; k?: number };
+  expect?: 'three_dice';
+}
+
+/**
+ * WO-023 差一定: px + qy = s (p, q default 1). `max_product` (with `shift` [u, v]: (x + u)(y + v)), `min_squares`;
+ * `x_min` (failure): x ≧ x_min past the centre; `given_diff` (no-lens): x − y = d also given.
+ */
+export interface ConstSumFigure {
+  type: 'const_sum';
+  s: number;
+  p?: number;
+  q?: number;
+  ask: 'max_product' | 'min_squares' | 'given_diff';
+  shift?: [number, number];
+  x_min?: number;
+  d?: number;
+}
+
 /** Stage 3: △ABC with D on BC (BD:DC) and E on CA (CE:EA); AD and BE meet at P (mass points). */
 export interface TriangleCeviansFigure {
   type: 'triangle_cevians';
@@ -276,7 +371,14 @@ export type Figure =
   | CoordMirrorAreaFigure
   | CoordYSplitFigure
   | CoordQuadTriFigure
-  | TriangleCeviansFigure;
+  | TriangleCeviansFigure
+  | ParabolaAreaFigure
+  | ParabolaTriFigure
+  | LineMirrorFigure
+  | ParamFamilyFigure
+  | ConeUnfoldFigure
+  | DiceGridFigure
+  | ConstSumFigure;
 
 export interface Picker {
   /** Exactly four move ids, e.g. "enclose" or "direct". */

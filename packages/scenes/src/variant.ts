@@ -37,8 +37,15 @@ export function allSceneCards(bundle: Bundle): LensCard[] {
   return bundle.cards.flatMap((card) => [card, ...card.variants.map((v) => withVariant(card, v))]);
 }
 
+/** WO-023: the Stage 3 figure types (tools/stage3.py HS_TYPES), drawn by the graph and shape figures. */
+export const STAGE3_TYPES = ['parabola_area', 'parabola_tri', 'line_mirror', 'param_family', 'cone_unfold', 'dice_grid', 'const_sum'] as const;
+
+export function isStage3(type: string): type is (typeof STAGE3_TYPES)[number] {
+  return (STAGE3_TYPES as readonly string[]).includes(type);
+}
+
 /** Figure types that have a scene. Later lenses' drafts may carry others until their WO lands. */
-export const SCENE_FIGURE_TYPES = ['grid_polygon', 'parallel_band', 'mirror_path', 'mirror_corner', 'river_bridge', 'word_problem', 'box_unfold', 'coord_polygon', 'coord_equal_area', 'coord_mirror_area', 'coord_y_split', 'coord_quad_tri', 'triangle_cevians'] as const;
+export const SCENE_FIGURE_TYPES = ['grid_polygon', 'parallel_band', 'mirror_path', 'mirror_corner', 'river_bridge', 'word_problem', 'box_unfold', 'coord_polygon', 'coord_equal_area', 'coord_mirror_area', 'coord_y_split', 'coord_quad_tri', 'triangle_cevians', ...STAGE3_TYPES] as const;
 
 export function hasScene(card: LensCard): boolean {
   const figure = card.problem.figure;

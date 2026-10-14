@@ -51,6 +51,8 @@ export function CoordAxes({ frame, origin, tokens, mode, t = 1, labels, points, 
   const pts = points ?? [];
   const cw = pts.reduce((a, q, i) => a + q[0] * pts[(i + 1) % pts.length]![1] - pts[(i + 1) % pts.length]![0] * q[1], 0) < 0;
   const numbers = part !== 'lines';
+  // Is the figure above the x-axis? (A vertex on the axis then labels below the tick numbers.)
+  const above = pts.length > 0 && pts.reduce((a, q) => a + q[1], 0) / pts.length > origin[1];
   return (
     <g opacity={t}>
       {lines && (
@@ -103,7 +105,8 @@ export function CoordAxes({ frame, origin, tokens, mode, t = 1, labels, points, 
             const lx = Math.min(right - half, Math.max(left + half, want));
             // Pushed in from the edge, the label would cover its own vertex: put it below (or above) instead.
             const clamped = Math.abs(lx - want) > 0.5;
-            const ly = clamped ? y + (dy > 0 ? -1 : 1) * size * 1.7 : y - dy * off * 0.7 - (p[1] === origin[1] ? size * 0.9 : 0);
+            const onAxis = p[1] === origin[1];
+            const ly = clamped ? y + (dy > 0 ? -1 : 1) * size * 1.7 : onAxis ? (above ? y + small * 0.95 + size * 1.05 : y - size * 0.9) : y - dy * off * 0.7;
             return (
               <text key={i} x={lx} y={ly}>
                 {labels[i] ?? ''}

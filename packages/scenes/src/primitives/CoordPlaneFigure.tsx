@@ -360,7 +360,7 @@ export function QuadTriFigure(p: QuadTriFigureProps) {
         <g key={i}>{dot(q, p.ink, r)}</g>
       ))}
       {p.slide > 0 && dot(Cs, p.accent, r * 1.2)}
-      {p.slide >= 1 && tag(p, E, eLabel, 0, 1.2, p.accent, 'middle')}
+      {p.slide >= 1 && tag(p, E, eLabel, 0, 2.3, p.accent, 'middle')}
     </Plane>
   );
 }
