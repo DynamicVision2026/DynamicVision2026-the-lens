@@ -1,4 +1,4 @@
-import { apexXAt, bandTriangles, meetingX, type BandLayout } from '../band';
+import { apexXAt, bandMode, bandTriangles, meetingX, type BandLayout } from '../band';
 import { formatExact } from '../format';
 import type { ParallelBandFigure, Tokens } from '../types';
 import { Bracket } from './Bracket';
@@ -35,7 +35,11 @@ export interface BandFigureProps {
   idPrefix: string;
   glowFilter?: string;
   glowOpacity?: number;
+  /** WO-018 ask_height: the gap's label, 「?cm」 until the answer is shown (then the answer). */
+  gapLabel?: string;
 }
+
+const COPY = { unknown: '?cm', total: '合計 ', area: 'cm²' } as const;
 
 const PARALLEL_MARK = 0.9; // chevron size, in label sizes
 /** Room to keep at each end of the lines (in label sizes) for the ∥ chevron and the line names. */
@@ -50,8 +54,14 @@ export function BandFigure(p: BandFigureProps) {
   const { fig, layout: L, ink, accent, palette, labelSize: size } = p;
   if (p.show <= 0) return null;
   const n = bandTriangles(fig);
-  const apexX = (i: number) => L.x(apexXAt(fig, i, p.slid[i] ?? 0));
-  const tri = (i: number) => `${L.x(fig.bottom_x[i]!)},${L.mY} ${L.x(fig.bottom_x[i + 1]!)},${L.mY} ${apexX(i)},${L.lY}`;
+  const mode = bandMode(fig);
+  // A tilted ℓ (WO-018 failure card): nothing slides or merges; each apex keeps its own height.
+  const tilted = mode === 'nonparallel';
+  const slid = (i: number) => (tilted ? 0 : (p.slid[i] ?? 0));
+  const merged = tilted ? 0 : p.merged;
+  const apexX = (i: number) => L.x(apexXAt(fig, i, slid(i)));
+  const apexY = (i: number) => L.lAt(apexX(i));
+  const tri = (i: number) => `${L.x(fig.bottom_x[i]!)},${L.mY} ${L.x(fig.bottom_x[i + 1]!)},${L.mY} ${apexX(i)},${apexY(i)}`;
   const colour = (i: number) => palette[i % palette.length]!;
   const chevron = (y: number) => {
     const cx = L.lineRight - size * 2.4;
@@ -59,6 +69,8 @@ export function BandFigure(p: BandFigureProps) {
     return `M ${cx - c / 2} ${y - c / 2} L ${cx + c / 2} ${y} L ${cx - c / 2} ${y + c / 2}`;
   };
   const left = Math.min(...fig.bottom_x.map(L.x), ...fig.apex_x.map(L.x));
+  // The gap is a given length, or the asked one (「?cm」, then the answer).
+  const gap = fig.ask === 'band_height' ? (p.gapLabel ?? COPY.unknown) : String(fig.band_height);
   const labelGap = size * 0.9;
 
   return (
@@ -84,21 +96,31 @@ export function BandFigure(p: BandFigureProps) {
         );
       })}
 
-      {/* The two parallel lines, full width, with ∥ chevrons and their names. */}
+      {/* The two lines, full width, with ∥ chevrons (only when they are parallel) and their names. */}
       <g stroke={ink} strokeWidth={p.figureStroke} strokeLinecap="round" fill="none">
-        <line x1={L.lineLeft} y1={L.lY} x2={L.lineRight} y2={L.lY} />
+        <line x1={L.lineLeft} y1={L.lAt(L.lineLeft)} x2={L.lineRight} y2={L.lAt(L.lineRight)} />
         <line x1={L.lineLeft} y1={L.mY} x2={L.lineRight} y2={L.mY} />
-        <path d={chevron(L.lY)} stroke={p.parallel > 0 ? accent : ink} />
-        <path d={chevron(L.mY)} stroke={p.parallel > 0 ? accent : ink} />
+        {!tilted && <path d={chevron(L.lY)} stroke={p.parallel > 0 ? accent : ink} />}
+        {!tilted && <path d={chevron(L.mY)} stroke={p.parallel > 0 ? accent : ink} />}
       </g>
+      {/* Each apex's own height on a tilted ℓ (given in the problem), as a dashed drop to m. */}
+      {tilted &&
+        fig.apex_heights!.slice(0, n).map((h, i) => (
+          <g key={`h${i}`}>
+            <line x1={apexX(i)} y1={apexY(i)} x2={apexX(i)} y2={L.mY} stroke={ink} strokeWidth={p.figureStroke} strokeDasharray={p.tokens.stroke.trap.dash} />
+            <text x={apexX(i) + size * 0.35} y={(apexY(i) + L.mY) / 2} fill={ink} fontFamily={p.font} fontSize={size} fontWeight={p.weight} dominantBaseline="central">
+              {String(h)}
+            </text>
+          </g>
+        ))}
       <g fill={ink} fontFamily={p.font} fontSize={size} fontStyle="italic" dominantBaseline="central">
-        <text x={L.lineRight - size * 0.4} y={L.lY - size * 0.8} textAnchor="end">ℓ</text>
+        <text x={L.lineRight - size * 0.4} y={L.lAt(L.lineRight) - size * 0.8} textAnchor="end">ℓ</text>
         <text x={L.lineRight - size * 0.4} y={L.mY + size * 0.8} textAnchor="end">m</text>
       </g>
 
       {/* The merged triangle: base AD, apex at the meeting point. */}
-      {p.merged > 0 && (
-        <g filter={p.glowFilter} opacity={p.merged * (p.glowFilter ? (p.glowOpacity ?? 1) : 1)}>
+      {merged > 0 && (
+        <g filter={p.glowFilter} opacity={merged * (p.glowFilter ? (p.glowOpacity ?? 1) : 1)}>
           <polygon
             points={`${L.x(fig.bottom_x[0]!)},${L.mY} ${L.x(fig.bottom_x[n]!)},${L.mY} ${L.x(meetingX(fig))},${L.lY}`}
             fill="none"
@@ -108,14 +130,14 @@ export function BandFigure(p: BandFigureProps) {
           />
         </g>
       )}
-      {p.merged > 0 && p.glowFilter && (
+      {merged > 0 && p.glowFilter && (
         <polygon
           points={`${L.x(fig.bottom_x[0]!)},${L.mY} ${L.x(fig.bottom_x[n]!)},${L.mY} ${L.x(meetingX(fig))},${L.lY}`}
           fill="none"
           stroke={accent}
           strokeWidth={p.lensStroke}
           strokeLinejoin="round"
-          opacity={p.merged}
+          opacity={merged}
         />
       )}
 
@@ -127,13 +149,31 @@ export function BandFigure(p: BandFigureProps) {
           </text>
         ))}
         {fig.apex_x.slice(0, n).map((_, i) => (
-          <text key={`a${i}`} x={apexX(i)} y={L.lY - labelGap} opacity={i === 0 ? 1 : 1 - (p.slid[i] ?? 0)}>
+          <text key={`a${i}`} x={apexX(i)} y={apexY(i) - labelGap} opacity={i === 0 ? 1 : 1 - slid(i)}>
             {fig.point_labels.apex[i] ?? ''}
           </text>
         ))}
       </g>
 
-      {/* Only the lengths the problem gives. */}
+      {/* Only the lengths the problem gives. Each base when given (WO-018), nearest to m; AD below them. */}
+      {fig.shown.each_base &&
+        n > 1 &&
+        Array.from({ length: n }, (_, i) => (
+          <Bracket
+            key={`eb${i}`}
+            from={[L.x(fig.bottom_x[i]!), L.mY]}
+            to={[L.x(fig.bottom_x[i + 1]!), L.mY]}
+            normal={[0, 1]}
+            // The sentence gives these as the gaps between the points (validator fig_text), so they are read the same way.
+            label={formatExact(String(fig.bottom_x[i + 1]! - fig.bottom_x[i]!))}
+            color={ink}
+            tokens={p.tokens}
+            offset={Math.max(p.bracket.offset, labelGap + size)}
+            tick={p.bracket.tick}
+            numberSize={p.bracket.numberSize}
+            strokeWidth={p.bracket.strokeWidth}
+          />
+        ))}
       {fig.shown.total_base && (
         <Bracket
           from={[L.x(fig.bottom_x[0]!), L.mY]}
@@ -142,20 +182,28 @@ export function BandFigure(p: BandFigureProps) {
           label={formatExact(fig.total_base)}
           color={ink}
           tokens={p.tokens}
-          offset={Math.max(p.bracket.offset, labelGap + size)}
+          offset={Math.max(p.bracket.offset, labelGap + size) + (fig.shown.each_base && n > 1 ? size * 2.2 : 0)}
           tick={p.bracket.tick}
           numberSize={p.bracket.numberSize}
           strokeWidth={p.bracket.strokeWidth}
         />
       )}
-      {fig.shown.band_height && (
+      {/* The given total area (WO-018 L4), in the corner above ℓ. */}
+      {fig.total_area !== undefined && (
+        <text x={L.lineLeft} y={L.lY - labelGap - size * 1.4} fill={ink} fontFamily={p.font} fontSize={size} fontWeight={p.weight} dominantBaseline="central">
+          {COPY.total}
+          {formatExact(fig.total_area)}
+          {COPY.area}
+        </text>
+      )}
+      {(fig.shown.band_height || fig.ask === 'band_height') && (
         <g>
           <g opacity={1 - p.parallel}>
-            <Bracket from={[left, L.mY]} to={[left, L.lY]} normal={[-1, 0]} label={String(fig.band_height)} color={ink} tokens={p.tokens} offset={p.bracket.offset} tick={p.bracket.tick} numberSize={p.bracket.numberSize} strokeWidth={p.bracket.strokeWidth} />
+            <Bracket from={[left, L.mY]} to={[left, L.lY]} normal={[-1, 0]} label={gap} color={ink} tokens={p.tokens} offset={p.bracket.offset} tick={p.bracket.tick} numberSize={p.bracket.numberSize} strokeWidth={p.bracket.strokeWidth} />
           </g>
           {p.parallel > 0 && (
             <g opacity={p.parallel}>
-              <Bracket from={[left, L.mY]} to={[left, L.lY]} normal={[-1, 0]} label={String(fig.band_height)} color={accent} tokens={p.tokens} offset={p.bracket.offset} tick={p.bracket.tick} numberSize={p.bracket.numberSize} strokeWidth={p.bracket.strokeWidth * 1.5} />
+              <Bracket from={[left, L.mY]} to={[left, L.lY]} normal={[-1, 0]} label={gap} color={accent} tokens={p.tokens} offset={p.bracket.offset} tick={p.bracket.tick} numberSize={p.bracket.numberSize} strokeWidth={p.bracket.strokeWidth * 1.5} />
             </g>
           )}
         </g>

@@ -36,7 +36,7 @@ export function allSceneCards(bundle: Bundle): LensCard[] {
 }
 
 /** Figure types that have a scene. Later lenses' drafts may carry others until their WO lands. */
-export const SCENE_FIGURE_TYPES = ['grid_polygon', 'parallel_band', 'mirror_path', 'word_problem', 'box_unfold'] as const;
+export const SCENE_FIGURE_TYPES = ['grid_polygon', 'parallel_band', 'mirror_path', 'mirror_corner', 'river_bridge', 'word_problem', 'box_unfold'] as const;
 
 export function hasScene(card: LensCard): boolean {
   const figure = card.problem.figure;

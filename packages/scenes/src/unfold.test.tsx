@@ -3,7 +3,8 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { getCard, loadBundle } from './bundle';
 import { LensScene } from './LensScene';
 import { motionPreviewTimeline, shortTimeline } from './motion/timeline';
-import { UnfoldFigure } from './primitives';
+import { planeLayout } from './corner';
+import { NetThreeFigure, UnfoldFigure } from './primitives';
 import { tokens } from './tokens';
 import type { BoxUnfoldFigure, LensCard } from './types';
 import { unfoldLayout } from './unfold';
@@ -11,7 +12,7 @@ import { allSceneCards } from './variant';
 
 // unfold-001 is a draft until WO-008 merges: CI runs these tests on a drafts-included bundle.
 const unfold = getCard('unfold-001');
-// WO-018 path: 'edges' (the no-lens case) is drawn in its own PR; these tests cover the surface path.
+// The surface path over two faces; WO-018's edges-only and three-face cards have their own block below.
 const unfoldCards = allSceneCards(loadBundle()).filter((c) => c.problem.figure.type === 'box_unfold' && (c.problem.figure as { path?: string }).path !== 'edges' && (c.problem.figure as { route?: string }).route !== 'three_faces');
 const fig = (c: LensCard) => c.problem.figure as BoxUnfoldFigure;
 const last = (c: LensCard) => c.animation!.keyframes.length - 1;
@@ -93,5 +94,47 @@ describe.skipIf(!unfold)('unfold-001 (box net)', () => {
     for (const v of unfoldCards.filter((c) => c.id.startsWith('unfold-001-v'))) expect(v.problem.text_ja).not.toBe(unfold!.problem.text_ja);
     const v1 = unfoldCards.find((c) => c.id === 'unfold-001-v1')!;
     expect(textNodes(renderToStaticMarkup(<LensScene card={v1} keyframe={0} t={1} />))).toContain(`${v1.problem.figure.type === 'box_unfold' ? v1.problem.figure.a : ''}cm`);
+  });
+});
+
+// WO-018: unfold-no-lens (edges only, nothing opens) and unfold-004 (three faces, Q on CG).
+const all = allSceneCards(loadBundle());
+const edges = all.filter((c) => c.problem.figure.type === 'box_unfold' && fig(c).path === 'edges');
+const three = all.filter((c) => c.problem.figure.type === 'box_unfold' && fig(c).route === 'three_faces');
+
+describe.skipIf(edges.length + three.length === 0)('WO-018 展開 figures', () => {
+  it.each([...edges, ...three].map((c) => [c.id, c] as const))('%s renders every keyframe at t = 0, 0.5 and 1, both themes, purely and without warnings', (_id, card) => {
+    const warn = vi.spyOn(console, 'warn');
+    for (let k = 0; k <= last(card); k++) {
+      for (const t of [0, 0.5, 1]) {
+        for (const theme of ['base', 'short_dark'] as const) {
+          const a = renderToStaticMarkup(<LensScene card={card} keyframe={k} t={t} theme={theme} />);
+          expect(renderToStaticMarkup(<LensScene card={card} keyframe={k} t={t} theme={theme} />)).toBe(a);
+        }
+      }
+    }
+    expect(warn).not.toHaveBeenCalled();
+  });
+
+  it.each(edges.map((c) => [c.id, c] as const))('%s: nothing opens and no net width is shown; the edges A→B→C→G light up', (_id, card) => {
+    const f = fig(card);
+    const html = renderToStaticMarkup(<LensScene card={card} keyframe={card.animation!.keyframes.indexOf('draw_straight')} t={1} />);
+    if (![f.a, f.b, f.h].map(String).includes(f.net_width)) expect(textNodes(html)).not.toContain(`${f.net_width}${f.unit}`);
+    for (const v of [f.a, f.b, f.h]) expect(textNodes(html)).toContain(`${v}${f.unit}`);
+    expect([...html.matchAll(/<polyline points="([^"]+)"/g)].some((m) => m[1]!.split(' ').length === 4)).toBe(true);
+  });
+
+  it.each(three.map((c) => [c.id, c] as const))('%s: three faces open; Q sits at the answer on CG; the given lengths are printed', (_id, card) => {
+    const f = fig(card);
+    const layout = planeLayout(0, 2 * f.a + f.b, 0, f.h, 0, 0, 1000, 1000, 0);
+    const html = renderToStaticMarkup(
+      <svg>
+        <NetThreeFigure fig={f} layout={layout} crossY={Number(card.answer.value)} answerText="ans" tokens={tokens} ink="ink" chalk="chalk" accent="lens" palette={['p0', 'p1']} font="f" weight={400} labelSize={16} figureStroke={1} lensStroke={2} dash="3 2" bracket={{ offset: 20, tick: 5, numberSize: 16, strokeWidth: 1 }} tint={0.2} show={1} tryPath={1} tryDim={1} unfold={1} straight={1} similar={1} answer={1} />
+      </svg>,
+    );
+    const [qx, qy] = layout.at(f.a + f.b, Number(card.answer.value));
+    expect(html).toContain(`<circle cx="${qx}" cy="${qy}"`);
+    for (const v of [f.a, f.b, f.h, f.net_width]) expect(textNodes(html)).toContain(`${v}${f.unit}`);
+    for (const l of ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'P', 'Q']) expect(textNodes(html)).toContain(l);
   });
 });

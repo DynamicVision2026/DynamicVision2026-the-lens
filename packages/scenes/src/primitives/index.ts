@@ -12,3 +12,6 @@ export { BAND_END_ROOM, BandFigure, type BandFigureProps } from './BandFigure';
 export { MirrorFigure, type MirrorFigureProps } from './MirrorFigure';
 export { StoryText, storyHeight, WordDiagram, type WordDiagramProps } from './WordDiagram';
 export { UnfoldFigure, type UnfoldFigureProps } from './UnfoldFigure';
+export { CornerFigure, type CornerFigureProps, type CornerFigureStyle } from './CornerFigure';
+export { BridgeFigure, type BridgeFigureProps } from './BridgeFigure';
+export { NetThreeFigure, type NetThreeFigureProps } from './NetThreeFigure';

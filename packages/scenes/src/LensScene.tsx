@@ -13,10 +13,12 @@ import { mirrorState } from './keyframes/mirror';
 import { unfoldState } from './keyframes/unfold';
 import { wordState } from './keyframes/word';
 import { mirrorLayout, touchX } from './mirror';
+import { bridgeLayout, cornerLayout, planeLayout } from './corner';
+import { cornerState } from './keyframes/corner';
 import { unfoldLayout } from './unfold';
 import { hasScene } from './variant';
-import { BAND_END_ROOM, BandFigure, MirrorFigure, StoryText, storyHeight, UnfoldFigure, WordDiagram } from './primitives';
-import type { BoxUnfoldFigure, GlowToken, GridPolygonFigure, LensCard, MirrorPathFigure, ParallelBandFigure, Point, Tokens, WordProblemFigure } from './types';
+import { BAND_END_ROOM, BandFigure, BridgeFigure, CornerFigure, MirrorFigure, NetThreeFigure, StoryText, storyHeight, UnfoldFigure, WordDiagram } from './primitives';
+import type { BoxUnfoldFigure, GlowToken, GridPolygonFigure, LensCard, MirrorCornerFigure as CornerFig, MirrorPathFigure, ParallelBandFigure, Point, RiverBridgeFigure as BridgeFig, Tokens, WordProblemFigure } from './types';
 
 /** Scene viewBox in px at 1x. Video renders it at 2x (1080 px wide frame ≈ 2.25x). */
 export const SCENE_WIDTH = 480;
@@ -114,6 +116,13 @@ export function LensScene({
     return (
       <svg {...svgProps}>
         <MirrorKeyframeScene card={card} fig={figure} keyframes={keyframes} keyframe={keyframe} t={progress} tokens={tokens} glow={glow} mode={mode} />
+      </svg>
+    );
+  }
+  if (figure.type === 'mirror_corner' || figure.type === 'river_bridge') {
+    return (
+      <svg {...svgProps}>
+        <CornerKeyframeScene card={card} fig={figure} keyframes={keyframes} keyframe={keyframe} t={progress} tokens={tokens} glow={glow} mode={mode} />
       </svg>
     );
   }
@@ -315,6 +324,7 @@ function BandKeyframeScene({ card, fig, keyframes, keyframe, t, tokens, glow, mo
         idPrefix={`lens-${card.id}`}
         glowFilter={glow ? `url(#${glowId})` : undefined}
         glowOpacity={glow?.opacity}
+        gapLabel={state.answer > 0 ? answerText(card) : undefined}
       />
       <TextBand
         card={card}
@@ -396,6 +406,74 @@ function MirrorKeyframeScene({ card, fig, keyframes, keyframe, t, tokens, glow, 
   );
 }
 
+interface CornerKeyframeSceneProps extends Omit<MirrorKeyframeSceneProps, 'fig'> {
+  fig: CornerFig | BridgeFig;
+}
+
+/** WO-018: the two new 折り返す figures (reflect twice in a corner; the river bridge), keyframe by keyframe. */
+function CornerKeyframeScene({ card, fig, keyframes, keyframe, t, tokens, glow, mode }: CornerKeyframeSceneProps) {
+  const state = cornerState(keyframes, keyframe, t, card);
+  const label = fontSize(tokens, 'label', mode);
+  const region = [PAD, PAD, SCENE_WIDTH - 2 * PAD, FIGURE_HEIGHT - 2 * PAD] as const;
+  const accent = lensColor(tokens, card.lens, mode);
+  const glowId = `lens-glow-${card.id}`;
+  const style = {
+    tokens,
+    ink: color(tokens.color.ink, mode),
+    chalk: color(tokens.color.trap.ink, mode),
+    accent,
+    font: fontFamily(tokens, undefined, 'family_num'),
+    weight: tokens.type.scale.label.weight,
+    labelSize: label,
+    figureStroke: tokens.stroke.figure.width,
+    lensStroke: tokens.stroke.lens.width,
+    dash: tokens.stroke.trap.dash,
+    bracket: { offset: label * 1.4, tick: 5, numberSize: label, strokeWidth: tokens.stroke.lens_construction.width },
+    glowFilter: glow ? `url(#${glowId})` : undefined,
+    glowOpacity: glow?.opacity,
+  };
+  return (
+    <g>
+      {glow && (
+        <defs>
+          <filter id={glowId} x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation={glow.blur_px / 2} />
+          </filter>
+        </defs>
+      )}
+      {fig.type === 'mirror_corner' ? (
+        <CornerFigure {...style} fig={fig} layout={cornerLayout(fig, ...region, label * 2.4)} touchX={touchX(card)} answerText={answerText(card)} show={state.show} first={state.first} second={state.second} straight={state.straight} touch={state.touch} answer={state.answer} />
+      ) : (
+        <BridgeFigure
+          {...style}
+          fig={fig}
+          layout={bridgeLayout(fig, ...region, label * 2.6)}
+          bridgeX={touchX(card)}
+          answerText={answerText(card)}
+          water={lensColor(tokens, card.lens, mode)}
+          tint={tokens.color.step.tint_opacity}
+          show={state.show}
+          tryPath={state.tryPath}
+          tryDim={state.tryDim}
+          first={state.first}
+          second={state.second}
+          straight={state.straight}
+          answer={state.answer}
+        />
+      )}
+      <TextBand
+        card={card}
+        tokens={tokens}
+        mode={mode}
+        caption={state.caption ? { text: state.caption.step.ja, t: state.caption.t, size: 'step' } : null}
+        answer={state.answer}
+        ink={color(tokens.color.ink, mode)}
+        accent={accent}
+      />
+    </g>
+  );
+}
+
 interface UnfoldKeyframeSceneProps extends Omit<MirrorKeyframeSceneProps, 'fig'> {
   fig: BoxUnfoldFigure;
 }
@@ -416,36 +494,67 @@ function UnfoldKeyframeScene({ card, fig, keyframes, keyframe, t, tokens, glow, 
           </filter>
         </defs>
       )}
-      <UnfoldFigure
-        fig={fig}
-        layout={layout}
-        crossY={touchX(card)}
-        answerText={answerText(card)}
-        halo={color(tokens.color.paper, mode)}
-        tokens={tokens}
-        ink={color(tokens.color.ink, mode)}
-        chalk={color(tokens.color.trap.ink, mode)}
-        accent={accent}
-        palette={tokens.color.step.palette.map((c) => color(c, mode))}
-        font={fontFamily(tokens, undefined, 'family_num')}
-        weight={tokens.type.scale.label.weight}
-        labelSize={label}
-        figureStroke={tokens.stroke.figure.width}
-        lensStroke={tokens.stroke.lens.width}
-        dash={tokens.stroke.trap.dash}
-        bracket={{ offset: label * 0.6, tick: 5, numberSize: label, strokeWidth: tokens.stroke.lens_construction.width }}
-        show={state.show}
-        tryPath={state.tryPath}
-        tryDim={state.tryDim}
-        unfold={state.unfold}
-        straight={state.straight}
-        similar={state.similar}
-        answer={state.answer}
-        tint={tokens.color.step.tint_opacity}
-        idPrefix={`lens-${card.id}`}
-        glowFilter={glow ? `url(#${glowId})` : undefined}
-        glowOpacity={glow?.opacity}
-      />
+      {fig.route === 'three_faces' ? (
+        <NetThreeFigure
+          fig={fig}
+          layout={planeLayout(0, 2 * fig.a + fig.b, -fig.h * 0.45, fig.h, PAD, PAD, SCENE_WIDTH - 2 * PAD, FIGURE_HEIGHT - 2 * PAD, label * 2.2)}
+          crossY={touchX(card)}
+          answerText={answerText(card)}
+          tokens={tokens}
+          ink={color(tokens.color.ink, mode)}
+          chalk={color(tokens.color.trap.ink, mode)}
+          accent={accent}
+          palette={tokens.color.step.palette.map((c) => color(c, mode))}
+          font={fontFamily(tokens, undefined, 'family_num')}
+          weight={tokens.type.scale.label.weight}
+          labelSize={label}
+          figureStroke={tokens.stroke.figure.width}
+          lensStroke={tokens.stroke.lens.width}
+          dash={tokens.stroke.trap.dash}
+          bracket={{ offset: label * 0.6, tick: 5, numberSize: label, strokeWidth: tokens.stroke.lens_construction.width }}
+          show={state.show}
+          tryPath={state.tryPath}
+          tryDim={state.tryDim}
+          unfold={state.unfold}
+          straight={state.straight}
+          similar={state.similar}
+          answer={state.answer}
+          tint={tokens.color.step.tint_opacity}
+          glowFilter={glow ? `url(#${glowId})` : undefined}
+          glowOpacity={glow?.opacity}
+        />
+      ) : (
+        <UnfoldFigure
+          fig={fig}
+          layout={layout}
+          crossY={touchX(card)}
+          answerText={answerText(card)}
+          halo={color(tokens.color.paper, mode)}
+          tokens={tokens}
+          ink={color(tokens.color.ink, mode)}
+          chalk={color(tokens.color.trap.ink, mode)}
+          accent={accent}
+          palette={tokens.color.step.palette.map((c) => color(c, mode))}
+          font={fontFamily(tokens, undefined, 'family_num')}
+          weight={tokens.type.scale.label.weight}
+          labelSize={label}
+          figureStroke={tokens.stroke.figure.width}
+          lensStroke={tokens.stroke.lens.width}
+          dash={tokens.stroke.trap.dash}
+          bracket={{ offset: label * 0.6, tick: 5, numberSize: label, strokeWidth: tokens.stroke.lens_construction.width }}
+          show={state.show}
+          tryPath={state.tryPath}
+          tryDim={state.tryDim}
+          unfold={state.unfold}
+          straight={state.straight}
+          similar={state.similar}
+          answer={state.answer}
+          tint={tokens.color.step.tint_opacity}
+          idPrefix={`lens-${card.id}`}
+          glowFilter={glow ? `url(#${glowId})` : undefined}
+          glowOpacity={glow?.opacity}
+        />
+      )}
       <TextBand
         card={card}
         tokens={tokens}

@@ -70,6 +70,11 @@ export interface ParallelBandFigure {
   shown: { total_base: boolean; band_height: boolean; each_base: boolean };
   /** AD as an exact string, added by the validator so scenes never subtract coordinates. */
   total_base: ExactNumber;
+  /** WO-018 failure card: ℓ is not parallel to m; apex i sits this high above m (drawn on a tilted ℓ). */
+  apex_heights?: number[];
+  /** WO-018 L4: the gap is asked (「?cm」 until the answer); the total shaded area is given. */
+  ask?: 'band_height';
+  total_area?: ExactNumber;
 }
 
 /**
@@ -83,6 +88,34 @@ export interface MirrorPathFigure {
   qb: number;
   unit: string;
   point_labels: { P: string; Q: string; A: string; B: string; X: string; Q_reflected: string };
+  /** WO-018 no-lens card: Q is on the other side of the river (below it); no reflection needed. */
+  side?: 'opposite';
+}
+
+/**
+ * WO-018 折り返す L4: lines ℓ (horizontal) and m (vertical) meet at right angles at O; P and Q lie in
+ * that corner, [distance from m, distance from ℓ]. The path touches m, then ℓ. The touch point on ℓ
+ * is drawn at the card's answer (its distance from O), never computed.
+ */
+export interface MirrorCornerFigure {
+  type: 'mirror_corner';
+  P: [number, number];
+  Q: [number, number];
+  unit: string;
+}
+
+/**
+ * WO-018 折り返す failure card: a river of width w between a north and a south bank; P is pa above
+ * the north bank (foot A), Q is qb below the south bank (foot B); A to B along the banks is ab. The
+ * bridge (perpendicular to the banks) is drawn at the card's answer (its distance from A).
+ */
+export interface RiverBridgeFigure {
+  type: 'river_bridge';
+  pa: number;
+  qb: number;
+  ab: number;
+  w: number;
+  unit: string;
 }
 
 /**
@@ -100,6 +133,10 @@ export interface BoxUnfoldFigure {
   net_width: string;
   /** Drawing coordinates from the validator (bundle, tokens 1.6 / #51); never printed. */
   mesh?: BoxMesh;
+  /** WO-018 no-lens card: the path runs along the edges A→B→C→G; nothing opens. */
+  path?: 'edges';
+  /** WO-018 L4: A → P (on BF) → Q (on CG) → H over three faces; Q is drawn at the answer (CQ). */
+  route?: 'three_faces';
 }
 
 export interface BoxMesh {
@@ -141,7 +178,7 @@ export interface WordProblemFigure {
 }
 
 /** Figures with a scene. Other types in the bundle (later lenses' drafts) have none yet. */
-export type Figure = GridPolygonFigure | ParallelBandFigure | MirrorPathFigure | WordProblemFigure | BoxUnfoldFigure;
+export type Figure = GridPolygonFigure | ParallelBandFigure | MirrorPathFigure | MirrorCornerFigure | RiverBridgeFigure | WordProblemFigure | BoxUnfoldFigure;
 
 export interface Picker {
   /** Exactly four move ids, e.g. "enclose" or "direct". */

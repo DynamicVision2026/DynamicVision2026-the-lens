@@ -2,7 +2,7 @@ import { loadBundle } from '@lens/scenes';
 import { describe, expect, it } from 'vitest';
 import { t } from '../i18n/ja';
 import { flowReducer, initialFlow } from './flow';
-import { findLesson, findPass, hasInteraction, isPlayable, lessonProblems } from './lessons';
+import { findLesson, findPass, hasInteraction, isPlayable, lessonProblems, problemMode } from './lessons';
 
 const bundle = loadBundle();
 const pass = findPass(bundle, 'chugaku_juken')!;
@@ -90,3 +90,12 @@ describe('planned Passes stay closed without preview (ADR-003 §3, ADR-004)', ()
   });
 });
 
+
+describe('WO-018 geometry cards (drafts until the Architect verifies them)', () => {
+  const card = (id: string) => loadBundle().cards.find((c) => c.id === id);
+  const present = ['slide-004', 'mirror-004', 'unfold-004'].every((id) => card(id));
+  it.skipIf(!present)('plays the three L4 cards as drag scenes and walks through the boundary cards', () => {
+    for (const id of ['slide-004', 'mirror-004', 'unfold-004']) expect(problemMode(card(id)!, card(id)!.lens)).toBe('scene');
+    for (const id of ['slide-no-lens', 'slide-f01', 'mirror-no-lens', 'mirror-f01', 'unfold-no-lens']) expect(problemMode(card(id)!, card(id)!.lens)).toBe('walkthrough');
+  });
+});

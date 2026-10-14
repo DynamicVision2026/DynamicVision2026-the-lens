@@ -12,6 +12,18 @@ export interface BandLayout {
   lineLeft: number;
   lineRight: number;
   scale: number;
+  /** SVG y of ℓ at an SVG x: lY, or on the tilted ℓ of a non-parallel figure (WO-018). */
+  lAt: (sx: number) => number;
+}
+
+/** How a band figure reads (the validator's band_mode): WO-018 adds one triangle, a tilted ℓ and the asked gap. */
+export type BandMode = 'standard' | 'single' | 'nonparallel' | 'ask_height';
+
+export function bandMode(fig: ParallelBandFigure): BandMode {
+  if (fig.apex_heights?.length) return 'nonparallel';
+  if (fig.ask === 'band_height') return 'ask_height';
+  if (fig.apex_x.length === 1) return 'single';
+  return 'standard';
 }
 
 /** Uniform scale (so the figure keeps its true shape), centred in the region x, y, w, h. */
@@ -19,11 +31,24 @@ export function bandLayout(fig: ParallelBandFigure, x: number, y: number, w: num
   const xs = [...fig.bottom_x, ...fig.apex_x];
   const minX = Math.min(...xs);
   const span = Math.max(1e-9, Math.max(...xs) - minX);
-  const scale = Math.min((w - 2 * inset) / span, h / fig.band_height);
+  const tall = Math.max(fig.band_height, ...(fig.apex_heights ?? []));
+  const scale = Math.min((w - 2 * inset) / span, h / tall);
   const left = x + (w - span * scale) / 2;
-  const height = fig.band_height * scale;
+  const height = tall * scale;
   const lY = y + (h - height) / 2;
-  return { x: (v) => left + (v - minX) * scale, lY, mY: lY + height, lineLeft: x, lineRight: x + w, scale };
+  const mY = lY + height;
+  const X = (v: number) => left + (v - minX) * scale;
+  const hs = fig.apex_heights;
+  // A tilted ℓ (WO-018): the straight line through the first and the last apex at their given heights.
+  let lAt = (_sx: number) => lY;
+  if (hs?.length) {
+    const n = Math.min(hs.length, fig.apex_x.length);
+    const [x0, y0] = [X(fig.apex_x[0]!), mY - hs[0]! * scale];
+    const [x1, y1] = [X(fig.apex_x[n - 1]!), mY - hs[n - 1]! * scale];
+    const k = x1 === x0 ? 0 : (y1 - y0) / (x1 - x0);
+    lAt = (sx) => y0 + (sx - x0) * k;
+  }
+  return { x: X, lY, mY, lineLeft: x, lineRight: x + w, scale, lAt };
 }
 
 /** Where every apex slides to: the first apex (the spec's default meeting point). */
