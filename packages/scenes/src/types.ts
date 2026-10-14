@@ -177,8 +177,69 @@ export interface WordProblemFigure {
   diagram: WordDiagramSpec;
 }
 
+/** One stage of a chained problem: its lens, its slice of lens_route.steps [from, to] (inclusive), and its goal. */
+export interface ChainStage {
+  lens: LensId;
+  steps: [number, number];
+  goal_ja: string;
+  snap?: string;
+}
+
+/** Stage 2 (ADR-004): a lattice polygon on a coordinate plane with axes through the origin. */
+export interface CoordPolygonFigure {
+  type: 'coord_polygon';
+  points: Point[];
+  unit?: string;
+  min_slanted?: number;
+  /** `axis_base`: one side lies on the x-axis (the no-lens card); `quad`: a quadrilateral. */
+  shape?: 'axis_base' | 'quad';
+}
+
+/** Stage 2: P on the y-axis with △ABP = △ABC (P on the line through C parallel to AB); the answer is P's y. */
+export interface CoordEqualAreaFigure {
+  type: 'coord_equal_area';
+  A: Point;
+  B: Point;
+  C: Point;
+}
+
+/**
+ * Stage 2: P on the x-axis minimising AP + PB (reflect B across the x-axis). `ask: p_x` asks for P's x;
+ * otherwise the chained card asks for △ABP. `side: opposite`: A and B already on opposite sides.
+ */
+export interface CoordMirrorAreaFigure {
+  type: 'coord_mirror_area';
+  A: Point;
+  B: Point;
+  unit?: string;
+  min_slanted?: number;
+  ask?: 'p_x';
+  side?: 'opposite';
+}
+
+/** Stage 3: △ABC with D on BC (BD:DC) and E on CA (CE:EA); AD and BE meet at P (mass points). */
+export interface TriangleCeviansFigure {
+  type: 'triangle_cevians';
+  bd: number;
+  dc: number;
+  ce: number;
+  ea: number;
+  ask?: 'ap_pd' | 'bp_pe' | 'area_pbc' | 'area_abd';
+}
+
 /** Figures with a scene. Other types in the bundle (later lenses' drafts) have none yet. */
-export type Figure = GridPolygonFigure | ParallelBandFigure | MirrorPathFigure | MirrorCornerFigure | RiverBridgeFigure | WordProblemFigure | BoxUnfoldFigure;
+export type Figure =
+  | GridPolygonFigure
+  | ParallelBandFigure
+  | MirrorPathFigure
+  | MirrorCornerFigure
+  | RiverBridgeFigure
+  | WordProblemFigure
+  | BoxUnfoldFigure
+  | CoordPolygonFigure
+  | CoordEqualAreaFigure
+  | CoordMirrorAreaFigure
+  | TriangleCeviansFigure;
 
 export interface Picker {
   /** Exactly four move ids, e.g. "enclose" or "direct". */
@@ -247,10 +308,12 @@ export interface LensCard {
   answer: {
     value: ExactNumber;
     display_ja?: string;
-    expr: 'polygon_area';
+    expr: 'polygon_area' | (string & {});
   };
   trap_route: Route;
   lens_route: Route;
+  /** ADR-003 §2: a chained-lens problem plays stage by stage on one figure (Stage 2+). */
+  chain?: ChainStage[];
   trigger: {
     ja: string;
     en?: string;

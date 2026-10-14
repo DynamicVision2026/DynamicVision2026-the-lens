@@ -6,9 +6,11 @@ export { motionPreviewTimeline, shortTimeline, timelineDuration, beatAt, beatLab
 export { formatExact, countUp, answerText, timeLabel } from './format';
 export { clamp01, parseEasing, stagger } from './easing';
 export { withVariant, allSceneCards, hasScene, SCENE_FIGURE_TYPES } from './variant';
-export { enclosureGaps, notchPieces, boundingBox } from './geometry';
+export { enclosureGaps, notchPieces, boundingBox, counterClockwise } from './geometry';
 export { KEYFRAMES, sceneState } from './keyframes';
 export * from './primitives';
 export { motionViewBox, SHORT_COPY } from './motion/MotionScene';
 export { LensScene, SCENE_WIDTH, SCENE_HEIGHT, type LensSceneProps } from './LensScene';
 export { afterEquals, allAfterEquals, ratioIn, expressionIn, answerNumber, WORD_CAPTIONS, wordFamily, wordCaptions } from './wordProblem';
+export { stageSteps } from './chain';
+export { coordFrame, coordText, crossXAxis, parallelAtYAxis, type CoordFrame } from './coord';

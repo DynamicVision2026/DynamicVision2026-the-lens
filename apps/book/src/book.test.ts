@@ -91,7 +91,8 @@ describe('paperback books', () => {
         expect(html).toContain(card.problem.text_ja.replace(/&/g, '&amp;'));
         const fig = renderFigure(card, 'problem', bundle.tokens);
         if (!fig.svg) continue;
-        const texts = [...fig.svg.matchAll(/<text[^>]*>([\s\S]*?)<\/text>/g)].map((m) => unescape(m[1]!.replace(/<[^>]+>/g, '')));
+        // Axis tick numbers (data-tick, WO-020 coordinate figures) are the scale, not values of the problem.
+        const texts = [...fig.svg.matchAll(/<text(?![^>]*data-tick)[^>]*>([\s\S]*?)<\/text>/g)].map((m) => unescape(m[1]!.replace(/<[^>]+>/g, '')));
         for (const n of texts.flatMap(numbers)) expect(source, `${p.id} prints ${n}`).toContain(n);
       }
     });

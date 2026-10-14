@@ -99,3 +99,31 @@ describe('WO-018 geometry cards (drafts until the Architect verifies them)', () 
     for (const id of ['slide-no-lens', 'slide-f01', 'mirror-no-lens', 'mirror-f01', 'unfold-no-lens']) expect(problemMode(card(id)!, card(id)!.lens)).toBe('walkthrough');
   });
 });
+
+describe('WO-020: Stage 2/3 lessons and the chain runner (ADR-003)', () => {
+  const planned = ['koukou_juken', 'daigaku_juken'].map((id) => findPass(bundle, id)).filter((p) => !!p);
+  const problems = planned.flatMap((p) => p!.lessons.flatMap((l) => lessonProblems(p!, l).map((x) => ({ ...x, lens: l.lens }))));
+  it.skipIf(problems.length === 0)('plays every Stage 2/3 card: chained cards as chains, coordinate cards as scenes, the rest as walkthroughs', () => {
+    for (const { card, mode, lens } of problems) {
+      if (card.chain?.length) expect(mode, card.id).toBe('chain');
+      else if (card.kind === 'standard' && card.problem.figure.type !== 'triangle_cevians') expect(mode, card.id).toBe('scene');
+      else expect(mode, card.id).toBe('walkthrough');
+      expect(problemMode(card, lens)).toBe(mode);
+    }
+    expect(problems.some((p) => p.mode === 'chain')).toBe(true);
+  });
+
+  it.skipIf(problems.length === 0)('a chained card asks only for its first lens: the picker accepts chain[0].lens and nothing else', () => {
+    for (const { card } of problems.filter((p) => p.mode === 'chain')) {
+      expect(card.picker.correct).toBe(card.chain![0]!.lens);
+      for (const o of card.picker.options) {
+        const s = flowReducer(initialFlow(card.picker.correct), { type: 'pick', option: o });
+        expect(s.phase).toBe(o === card.chain![0]!.lens ? 'clue' : 'pick');
+      }
+    }
+  });
+
+  it('leaves the Stage 1 lessons as they were (no chains, same modes)', () => {
+    for (const lesson of pass.lessons) for (const p of lessonProblems(pass, lesson)) expect(p.mode).not.toBe('chain');
+  });
+});

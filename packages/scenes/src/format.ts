@@ -50,7 +50,16 @@ export function countUp(value: string, t: number): string {
 
 /** The answer as shown to a child: `display_ja` if present, else the exact value plus the unit. */
 export function answerText(card: LensCard): string {
-  return card.answer.display_ja ?? `${formatExact(card.answer.value)}${card.problem.unit}`;
+  if (card.answer.display_ja) return card.answer.display_ja;
+  const f = card.problem.figure;
+  // WO-020 mass points: a variant has no display_ja, so it reads like its anchor's (「AP:PD＝5:1」, 「3/17倍」).
+  // The exact value n/d is rewritten as n:d, never recomputed.
+  if (f.type === 'triangle_cevians') {
+    if (f.ask === 'area_pbc' || f.ask === 'area_abd') return `${formatExact(card.answer.value)}倍`;
+    const [n, d = '1'] = card.answer.value.split('/');
+    return `${f.ask === 'bp_pe' ? 'BP:PE' : 'AP:PD'}＝${n}:${d}`;
+  }
+  return `${formatExact(card.answer.value)}${card.problem.unit}`;
 }
 
 /** Fills a time_cost label template such as "+{min}分{sec}秒". Without {min}, {sec} is the total. */

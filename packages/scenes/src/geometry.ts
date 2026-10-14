@@ -167,3 +167,9 @@ export function partialPolyline(points: Point[], t: number): Point[] {
   }
   return out;
 }
+
+/** The points in counter-clockwise order (reversed when clockwise), as enclosureGaps expects. */
+export function counterClockwise(points: Point[]): Point[] {
+  const a2 = points.reduce((a, p, i) => a + p[0] * points[(i + 1) % points.length]![1] - points[(i + 1) % points.length]![0] * p[1], 0);
+  return a2 < 0 ? [...points].reverse() : points;
+}

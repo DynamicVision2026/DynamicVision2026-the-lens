@@ -1,30 +1,107 @@
 // 囲む: drag the box's corners until they snap onto the shape; then the corner triangles appear,
-// each with its value from the step (positions from step.detail, never recomputed).
-import { formatExact, type GridPolygonFigure, type Point } from '@lens/scenes';
+// each with its value from the step (positions from step.detail, never recomputed). WO-020: the same
+// gesture on a coordinate plane (coord_polygon), and as stage 2 of the chain on △ABP (coord_mirror_area).
+import { counterClockwise, enclosureGaps, formatExact, mirrorAreaP, stageSteps, type CoordMirrorAreaFigure, type CoordPolygonFigure, type GridPolygonFigure, type LensCard, type Point, type Step } from '@lens/scenes';
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { t } from '../../i18n/ja';
 import { sfx, springTo, TACTILE } from '../fx';
+import { coordLabel, CoordPlane, plane, type Plane } from './coordkit';
 import { C, clamp, CountableGrid, Knob, SceneLock, StripeDefs, Txt, useDrag, useSceneGuide, type SceneProps } from './kit';
 
 const W = 600;
 const H = 440;
 const LETTERS = 'ABCDEFGHIJ';
 
-export function EncloseScene({ card, lens, onSolved }: SceneProps) {
-  const fig = card.problem.figure as GridPolygonFigure;
-  const { width: gw, height: gh } = fig.grid;
-  const unit = card.problem.unit.replace('²', '');
-  const pts = fig.points;
-  const xs = pts.map((p) => p[0]);
-  const ys = pts.map((p) => p[1]);
-  const target = { x0: Math.min(...xs), y0: Math.min(...ys), x1: Math.max(...xs), y1: Math.max(...ys) };
+interface EncloseView {
+  pts: Point[];
+  names: string[];
+  /** Corner triangles and their printed values (from the steps). */
+  corners: { tri: Point[]; value: string }[];
+  /** The box may move within [lo, hi] on each axis. */
+  lo: Point;
+  hi: Point;
+  X: (x: number) => number;
+  Y: (y: number) => number;
+  gx: (px: number) => number;
+  gy: (py: number) => number;
+  s: number;
+  /** The grid as before, or the coordinate plane. */
+  plane: Plane | null;
+  gw: number;
+  gh: number;
+}
+
+/** Twice the signed area (shoelace), to tell which step belongs to which corner (matching only; nothing printed). */
+const area2 = (t: Point[]) => Math.abs(t.reduce((a, p, i) => a + p[0] * t[(i + 1) % t.length]![1] - t[(i + 1) % t.length]![0] * p[1], 0));
+const stepValue = (st: Step) => {
+  const [n, d] = (st.value ?? '').split('/');
+  return Number(n) / (d ? Number(d) : 1);
+};
+
+/** Corner triangles from the steps' detail (edge + corner point), or, without detail, the enclosure gaps matched to the steps by value. */
+function cornersOf(steps: Step[], pts: Point[], names: string[]): EncloseView['corners'] {
+  const subs = steps.filter((st) => st.op === 'sub');
+  if (subs.every((st) => st.detail?.kind === 'corner')) {
+    return subs.map((st) => {
+      const d = st.detail as { edge: string; corner: Point };
+      const a = pts[names.indexOf(d.edge[0]!)]!;
+      const b = pts[names.indexOf(d.edge[1]!)]!;
+      return { tri: [a, b, d.corner] as Point[], value: formatExact(st.value ?? '') };
+    });
+  }
+  const left = [...subs];
+  return enclosureGaps(pts).map((tri) => {
+    const i = left.findIndex((st) => Math.abs(stepValue(st) * 2 - area2(tri)) < 1e-6);
+    const st = i >= 0 ? left.splice(i, 1)[0] : undefined;
+    return { tri, value: st ? formatExact(st.value ?? '') : '' };
+  });
+}
+
+function encloseView(card: LensCard, steps: Step[]): EncloseView {
+  const fig = card.problem.figure;
+  if (fig.type === 'coord_polygon' || fig.type === 'coord_mirror_area') {
+    const m = fig.type === 'coord_mirror_area' ? (fig as CoordMirrorAreaFigure) : null;
+    // △ABP counter-clockwise (A → P → B), as enclosureGaps expects.
+    const tri: [string, Point][] = m ? [['A', m.A], ['P', mirrorAreaP(card, m)], ['B', m.B]] : [];
+    const raw = tri.map(([, q]) => q);
+    const ccw = m && counterClockwise(raw) !== raw ? [...tri].reverse() : tri;
+    const pts: Point[] = m ? ccw.map(([, q]) => q) : (fig as CoordPolygonFigure).points;
+    const names = m ? ccw.map(([n]) => n) : LETTERS.slice(0, pts.length).split('');
+    // Stage 2 of the chain keeps stage 1's plane (B′ below the axis), so the figure doesn't jump.
+    const P = plane(m ? [...pts, [m.B[0], -m.B[1]]] : pts);
+    return { pts, names, corners: cornersOf(steps, pts, names), lo: [P.x0, P.y0], hi: [P.x1, P.y1], X: P.X, Y: P.Y, gx: P.ux, gy: P.uy, s: P.s, plane: P, gw: P.x1 - P.x0, gh: P.y1 - P.y0 };
+  }
+  const g = fig as GridPolygonFigure;
+  const { width: gw, height: gh } = g.grid;
   const s = Math.min(470 / (gw + 3), 350 / (gh + 3));
   const ox = (W - gw * s) / 2;
   const oy = (H + gh * s) / 2 - 6;
-  const X = (x: number) => ox + x * s;
-  const Y = (y: number) => oy - y * s;
-  const gx = (px: number) => (px - ox) / s;
-  const gy = (py: number) => (oy - py) / s;
+  const names = LETTERS.slice(0, g.points.length).split('');
+  return {
+    pts: g.points,
+    names,
+    corners: cornersOf(steps, g.points, names),
+    lo: [-0.5, -0.5],
+    hi: [gw + 0.5, gh + 0.5],
+    X: (x) => ox + x * s,
+    Y: (y) => oy - y * s,
+    gx: (px) => (px - ox) / s,
+    gy: (py) => (oy - py) / s,
+    s,
+    plane: null,
+    gw,
+    gh,
+  };
+}
+
+export function EncloseScene({ card, lens, onSolved, stage }: SceneProps) {
+  const steps = stage?.steps ?? stageSteps(card, null);
+  const view = useMemo(() => encloseView(card, steps), [card, steps]);
+  const { pts, X, Y, gx, gy, s, gw, gh } = view;
+  const unit = card.problem.unit.replace('²', '');
+  const xs = pts.map((p) => p[0]);
+  const ys = pts.map((p) => p[1]);
+  const target = { x0: Math.min(...xs), y0: Math.min(...ys), x1: Math.max(...xs), y1: Math.max(...ys) };
   const color = C.lens(lens);
 
   const svg = useRef<SVGSVGElement>(null);
@@ -39,19 +116,7 @@ export function EncloseScene({ card, lens, onSolved }: SceneProps) {
   const [done, setDone] = useState(false);
   const [shown, setShown] = useState(0);
 
-  // Corner triangles from the steps: the edge's two vertices plus the step's corner point.
-  const corners = useMemo(
-    () =>
-      card.lens_route.steps
-        .filter((st) => st.op === 'sub' && st.detail?.kind === 'corner')
-        .map((st) => {
-          const d = st.detail as { edge: string; corner: Point };
-          const a = pts[LETTERS.indexOf(d.edge[0]!)]!;
-          const b = pts[LETTERS.indexOf(d.edge[1]!)]!;
-          return { tri: [a, b, d.corner] as Point[], value: formatExact(st.value ?? '') };
-        }),
-    [card, pts],
-  );
+  const corners = view.corners;
 
   useEffect(() => {
     guide.coach({
@@ -77,10 +142,10 @@ export function EncloseScene({ card, lens, onSolved }: SceneProps) {
   }, [done, corners, onSolved]);
 
   const snapAll = () => {
-    const lim = { x0: gw, x1: gw, y0: gh, y1: gh } as const;
+    const lim = { x0: [view.lo[0], view.hi[0]], x1: [view.lo[0], view.hi[0]], y0: [view.lo[1], view.hi[1]], y1: [view.lo[1], view.hi[1]] } as const;
     const snapped = { ...boxRef.current };
     (Object.keys(lim) as (keyof typeof lim)[]).forEach((k) => {
-      const to = clamp(Math.round(boxRef.current[k]), 0, lim[k]);
+      const to = clamp(Math.round(boxRef.current[k]), Math.ceil(lim[k][0]), Math.floor(lim[k][1]));
       snapped[k] = to;
       springTo(`enclose-${k}`, boxRef.current[k], to, (v) => setBox((b) => ({ ...b, [k]: v })), TACTILE.snap);
     });
@@ -98,7 +163,7 @@ export function EncloseScene({ card, lens, onSolved }: SceneProps) {
     drag({
       move: (p) => {
         if (done) return;
-        setBox((b) => ({ ...b, [kx]: clamp(gx(p.x), -0.5, gw + 0.5), [ky]: clamp(gy(p.y), -0.5, gh + 0.5) }));
+        setBox((b) => ({ ...b, [kx]: clamp(gx(p.x), view.lo[0], view.hi[0]), [ky]: clamp(gy(p.y), view.lo[1], view.hi[1]) }));
       },
       end: () => {
         if (!done) snapAll();
@@ -112,7 +177,7 @@ export function EncloseScene({ card, lens, onSolved }: SceneProps) {
   return (
     <svg ref={svg} viewBox={`0 0 ${W} ${H}`} className="fig" data-testid="scene-enclose">
       <StripeDefs />
-      <CountableGrid X={X} Y={Y} w={gw} h={gh} unit={unit} />
+      {view.plane ? <CoordPlane P={view.plane} /> : <CountableGrid X={X} Y={Y} w={gw} h={gh} unit={unit} />}
       <g>
         {corners.slice(0, shown).map(({ tri, value }, i) => {
           const mx = (tri[0]![0] + tri[1]![0] + tri[2]![0]) / 3;
@@ -133,8 +198,9 @@ export function EncloseScene({ card, lens, onSolved }: SceneProps) {
         const dy = p[1] - centroid[1]!;
         const d = Math.hypot(dx, dy) || 1;
         return (
-          <Txt key={i} x={X(p[0]) + (dx / d) * 20} y={Y(p[1]) - (dy / d) * 20 + 6} size={16} fill={C.quiet}>
-            {LETTERS[i]}
+          <Txt key={i} x={X(p[0]) + (dx / d) * (view.plane ? 34 : 20)} y={Y(p[1]) - (dy / d) * 20 + 6} size={view.plane ? 14 : 16} fill={C.quiet}>
+            {/* Given points print their coordinates; P (found in stage 1) prints its name only. */}
+            {view.plane && view.names[i] !== 'P' ? coordLabel(view.names[i]!, p) : view.names[i]}
           </Txt>
         );
       })}

@@ -7,6 +7,7 @@ function mergeFigure(figure: Figure, variant: Variant): Figure {
   if (figure.type === 'grid_polygon') {
     return { ...figure, grid: variant.grid ?? figure.grid, points: variant.points ?? figure.points };
   }
+  if (figure.type === 'coord_polygon' && variant.points) return { ...figure, points: variant.points };
   return figure;
 }
 
@@ -36,7 +37,7 @@ export function allSceneCards(bundle: Bundle): LensCard[] {
 }
 
 /** Figure types that have a scene. Later lenses' drafts may carry others until their WO lands. */
-export const SCENE_FIGURE_TYPES = ['grid_polygon', 'parallel_band', 'mirror_path', 'mirror_corner', 'river_bridge', 'word_problem', 'box_unfold'] as const;
+export const SCENE_FIGURE_TYPES = ['grid_polygon', 'parallel_band', 'mirror_path', 'mirror_corner', 'river_bridge', 'word_problem', 'box_unfold', 'coord_polygon', 'coord_equal_area', 'coord_mirror_area', 'triangle_cevians'] as const;
 
 export function hasScene(card: LensCard): boolean {
   const figure = card.problem.figure;

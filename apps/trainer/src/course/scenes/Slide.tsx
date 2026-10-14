@@ -4,12 +4,19 @@ import { answerText, formatExact, type ParallelBandFigure } from '@lens/scenes';
 import { useEffect, useRef, useState } from 'react';
 import { t } from '../../i18n/ja';
 import { sfx, springTo, TACTILE } from '../fx';
+import { SlideCoordScene } from './SlideCoord';
 import { C, clamp, Knob, StripeDefs, Txt, useDrag, useSceneGuide, type SceneProps } from './kit';
 
 const W = 600;
 const H = 440;
 
-export function SlideScene({ card, lens, onSolved }: SceneProps) {
+export function SlideScene(props: SceneProps) {
+  // WO-020: the same slide on the coordinate plane, snapping at the y-axis.
+  if (props.card.problem.figure.type === 'coord_equal_area') return <SlideCoordScene {...props} />;
+  return <BandScene {...props} />;
+}
+
+function BandScene({ card, lens, onSolved }: SceneProps) {
   const fig = card.problem.figure as ParallelBandFigure;
   const bx = fig.bottom_x;
   const lo = bx[0]! - 1;

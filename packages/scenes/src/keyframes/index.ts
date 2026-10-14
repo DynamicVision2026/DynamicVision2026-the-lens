@@ -58,6 +58,10 @@ export const KEYFRAMES: Record<string, KeyframeReducer> = {
   drop_height: (s, t, ctx) => ({ ...s, height: t, caption: caption(ctx.card.lens_route.steps[1], t) }),
 
   ghost_box_struck_out: (s, t) => ({ ...s, ghostBox: t }),
+  // WO-020 coord_polygon (axis_base, the no-lens card): the same beats under their Stage 2 names.
+  show_grid: (s, t) => ({ ...s, shape: t }),
+  base_on_axis: (s, t, ctx) => ({ ...s, base: t, caption: caption(ctx.card.lens_route.steps[0], t) }),
+  height: (s, t, ctx) => ({ ...s, height: t, caption: caption(ctx.card.lens_route.steps[1], t) }),
 };
 
 const warned = new Set<string>();

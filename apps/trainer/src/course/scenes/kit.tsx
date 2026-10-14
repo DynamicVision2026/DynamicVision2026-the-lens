@@ -60,6 +60,8 @@ export interface SceneProps {
   lens: string;
   /** Called once when the child reaches the verified snap point. */
   onSolved: () => void;
+  /** ADR-003 chained problems: this stage's index and its slice of lens_route.steps (stageSteps). */
+  stage?: { index: number; steps: import('@lens/scenes').Step[] };
 }
 
 /** While the child picks the lens, the figure shows at rest: no knobs, no coaching. */

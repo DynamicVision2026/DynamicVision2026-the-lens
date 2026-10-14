@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { t } from '../../i18n/ja';
 import { sfx, springTo, TACTILE } from '../fx';
 import { MirrorCornerScene } from './MirrorCorner';
+import { MirrorCoordScene } from './MirrorCoord';
 import { C, clamp, Knob, num, StripeDefs, Txt, useDrag, useSceneGuide, type SceneProps } from './kit';
 
 const W = 600;
@@ -13,6 +14,8 @@ const H = 480;
 export function MirrorScene(props: SceneProps) {
   // WO-018 L4: two walls at right angles, reflect twice.
   if (props.card.problem.figure.type === 'mirror_corner') return <MirrorCornerScene {...props} />;
+  // WO-020: on the coordinate plane (also stage 1 of the chained 折り返す → 囲む).
+  if (props.card.problem.figure.type === 'coord_mirror_area') return <MirrorCoordScene {...props} />;
   return <RiverScene {...props} />;
 }
 
