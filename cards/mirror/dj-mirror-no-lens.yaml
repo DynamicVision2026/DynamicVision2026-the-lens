@@ -1,0 +1,94 @@
+schema_version: '1.1'
+id: dj-mirror-no-lens
+kind: no_lens
+lens: mirror
+best_move: direct
+stage: koko
+grades:
+- 高2
+level: 1
+archetype: mirror.opposite_sides
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: A and B on opposite sides of ℓ; the segment AB already crosses ℓ, so no reflection (negative control for 折り返す).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 直線上の点を通る2点間の最短は、一方の点を直線で折り返し、まっすぐ結ぶ。
+  principle_en: 'Shortest path via a point on a line: reflect one point across the line and join straight.'
+problem:
+  text_ja: '直線 ℓ: y = x と、2点A(0, 3)、B(4, 1)があります。ℓ上に点Pをとるとき、AP＋PB の最小値を求めなさい。'
+  unit: ''
+  figure:
+    type: line_mirror
+    line:
+    - 1
+    - 0
+    A:
+    - 0
+    - 3
+    B:
+    - 4
+    - 1
+    ask: min_len
+    side: opposite
+answer:
+  value: 2*sqrt(5)
+  display_ja: 2√5
+  expr: stage3
+trap_route:
+  time_cost_sec: 240
+  time_source: estimate
+  steps:
+  - ja: Pを(t, mt＋k)とおき、AP＋PBを根号2つの和で表す
+    op: note
+  - ja: 根号の和の最小は、平方完成でも微分でも出しにくい
+    op: note
+  - ja: ここで約4分。手が止まる
+    op: note
+lens_route:
+  time_cost_sec: 60
+  time_source: estimate
+  steps:
+  - ja: AとBはℓをはさんで反対側にある。折り返さずに、AとBをまっすぐ結ぶ
+    op: note
+  - ja: 最小値 = AB = √(4²＋(−2)²) = √20 = 2√5
+    value: 2*sqrt(5)
+    op: result
+trigger:
+  ja: 2点が直線をはさんで反対側にあるときは、折り返さずにそのまま結ぶ。
+  en: 'Points on opposite sides: join them directly, no reflection.'
+  tags:
+  - points_opposite_sides
+picker:
+  options:
+  - mirror
+  - slide
+  - freeze
+  - direct
+  correct: direct
+  clue_distractors:
+  - parameter_any_value
+  - fixed_sum
+  feedback_ja:
+    slide: 平行な線で頂点を動かす問題ではない。
+    freeze: 文字の値によらない点を求める問題ではない。
+    mirror: 折り返す必要はない。AとBはすでにℓの反対側にある。
+    direct: そのとおり。AとBはℓをはさんで反対側。ABをまっすぐ結べば、それが最短。
+animation:
+  keyframes:
+  - show_graph
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: hs_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: hs
+  count: 4
+  seed: 5303

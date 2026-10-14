@@ -1,0 +1,93 @@
+schema_version: '1.1'
+id: dj-freeze-no-lens
+kind: no_lens
+lens: freeze
+best_move: direct
+stage: koko
+grades:
+- 高2
+level: 1
+archetype: freeze.slope_at_value
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: the slope for one given value of a; substitute, nothing to freeze (negative control for 止める).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 「aの値にかかわらず」は、aを止めて考える合図。aについて整理し、aの係数と残りがともに0になる点を求める。
+  principle_en: '''For every a'': freeze a; collect the terms in a, and set both the coefficient of a and the rest to zero.'
+problem:
+  text_ja: 直線 (a + 1)x ＋ (a − 1)y ＋ (−2a) = 0 について、a = 2 のときの傾きを求めなさい。
+  unit: ''
+  figure:
+    type: param_family
+    family: line
+    c:
+    - - 1
+      - 1
+    - - 1
+      - -1
+    - - -2
+      - 0
+    ask: slope_at
+    a0: 2
+answer:
+  value: '-3'
+  display_ja: −3
+  expr: stage3
+trap_route:
+  time_cost_sec: 150
+  time_source: estimate
+  steps:
+  - ja: aに2つの値を代入して、2本のグラフの交点を求める
+    op: note
+  - ja: それが本当にすべてのaで通るか、もう一度確かめる
+    op: note
+  - ja: ここで約2分半。代入する値の選び方で計算が変わる
+    op: note
+lens_route:
+  time_cost_sec: 40
+  time_source: estimate
+  steps:
+  - ja: aの値が決まっているので、a = 2 を代入するだけ
+    op: note
+  - ja: 3x ＋ 1y ＋ (−4) = 0 → 傾き = −3
+    value: '-3'
+    op: result
+trigger:
+  ja: aの値が1つに決まっているときは、代入するだけ。aでまとめなくてよい。
+  en: 'a is given: substitute; nothing to freeze.'
+  tags:
+  - parameter_given
+picker:
+  options:
+  - freeze
+  - constant
+  - slide
+  - direct
+  correct: direct
+  clue_distractors:
+  - fixed_sum
+  - max_area_asked
+  feedback_ja:
+    constant: 和が一定のものを使う問題ではない。
+    slide: 平行な線で頂点を動かす問題ではない。
+    freeze: aの値はもう決まっている。すべてのaで成り立つ点を探す問題ではない。
+    direct: そのとおり。aの値が決まっているので、代入するだけ。
+animation:
+  keyframes:
+  - show_family
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: hs_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: hs
+  count: 4
+  seed: 5403

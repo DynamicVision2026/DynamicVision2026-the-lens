@@ -1,0 +1,95 @@
+schema_version: '1.1'
+id: dj-freeze-f01
+kind: failure
+lens: freeze
+best_move: direct
+stage: koko
+grades:
+- 高2
+level: 3
+archetype: freeze.a_for_point_failure
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: which a makes the line pass through a GIVEN point; the point is fixed, a is the unknown, so substitute (failure card for 止める).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 「aの値にかかわらず」は、aを止めて考える合図。aについて整理し、aの係数と残りがともに0になる点を求める。
+  principle_en: '''For every a'': freeze a; collect the terms in a, and set both the coefficient of a and the rest to zero.'
+problem:
+  text_ja: 直線 (2a + 1)x ＋ (a − 3)y ＋ (−3a − 5) = 0 が点(0, 1)を通るとき、定数 a の値を求めなさい。
+  unit: ''
+  figure:
+    type: param_family
+    family: line
+    c:
+    - - 2
+      - 1
+    - - 1
+      - -3
+    - - -3
+      - -5
+    ask: a_for_point
+    point:
+    - 0
+    - 1
+answer:
+  value: '-4'
+  display_ja: −4
+  expr: stage3
+trap_route:
+  time_cost_sec: 90
+  time_source: estimate
+  steps:
+  - ja: aについて整理して、定点を求めてしまう
+    op: note
+  - ja: 求めたいのは定点ではなく、aの値だと気づく
+    op: note
+  - ja: ここで約1分半。遠回り
+    op: note
+lens_route:
+  time_cost_sec: 30
+  time_source: estimate
+  steps:
+  - ja: 通る点が決まっているので、x = 0、y = 1 を代入するだけ（aでまとめなくてよい）
+    op: note
+  - ja: aの1次方程式を解いて a = −4
+    value: '-4'
+    op: result
+trigger:
+  ja: 通る点が決まっていて、aを求めるときは、代入してaの方程式を解く。
+  en: 'The point is given and a is asked: substitute and solve for a.'
+  tags:
+  - point_given
+picker:
+  options:
+  - freeze
+  - constant
+  - slide
+  - direct
+  correct: direct
+  clue_distractors:
+  - fixed_sum
+  - max_area_asked
+  feedback_ja:
+    constant: 和が一定のものを使う問題ではない。
+    slide: 平行な線で頂点を動かす問題ではない。
+    freeze: おしい。aを止めて求まるのは、すべてのaで通る定点。ここでは点が決まっていて、aを求める。
+    direct: そのとおり。通る点が決まっているので、代入してaの方程式を解く。
+animation:
+  keyframes:
+  - show_family
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: hs_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: hs
+  count: 4
+  seed: 5405

@@ -452,7 +452,8 @@
                     "price_blend",
                     "trains_overtake",
                     "circle_meet",
-                    "circle_lap"
+                    "circle_lap",
+                    "avg_speed"
                   ]
                 },
                 "params": {
@@ -818,6 +819,26 @@
                   "type": "string"
                 }
               }
+            },
+            {
+              "type": "object",
+              "description": "Stage 3 (ADR-004, tools/stage3.py): parabola_area, parabola_tri, line_mirror, param_family, cone_unfold, dice_grid, const_sum. Each type's fields are checked by its generator and the hs_valid check.",
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "type": {
+                  "enum": [
+                    "parabola_area",
+                    "parabola_tri",
+                    "line_mirror",
+                    "param_family",
+                    "cone_unfold",
+                    "dice_grid",
+                    "const_sum"
+                  ]
+                }
+              }
             }
           ]
         }
@@ -832,7 +853,7 @@
       ],
       "properties": {
         "value": {
-          "description": "Exact answer as a SymPy-parsable string, e.g. '39/2'.",
+          "description": "Exact answer as a SymPy-parsable string, e.g. '39/2', '6*sqrt(3)', '15*pi', '(2, 1)'.",
           "type": "string"
         },
         "display_ja": {
@@ -848,7 +869,8 @@
             "word_problem",
             "coordinate",
             "corner_touch",
-            "bridge"
+            "bridge",
+            "stage3"
           ]
         }
       }
@@ -1001,7 +1023,8 @@
               "bridge_valid",
               "coord_axis_diagonal",
               "coord_y_split_valid",
-              "coord_quad_tri_valid"
+              "coord_quad_tri_valid",
+              "hs_valid"
             ]
           },
           "route": {
@@ -1077,7 +1100,9 @@
             "mirror_corner",
             "river_bridge",
             "coord_y_split",
-            "coord_quad_tri"
+            "coord_quad_tri",
+            "hs",
+            "wp_avg_speed"
           ]
         },
         "count": {

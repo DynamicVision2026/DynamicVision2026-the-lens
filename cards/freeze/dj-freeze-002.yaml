@@ -1,0 +1,95 @@
+schema_version: '1.1'
+id: dj-freeze-002
+kind: standard
+lens: freeze
+best_move: freeze
+stage: koko
+grades:
+- 高2
+level: 2
+archetype: freeze.line_fixed_point
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: the same freezing with larger coefficients; both brackets give two linear equations.'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 「aの値にかかわらず」は、aを止めて考える合図。aについて整理し、aの係数と残りがともに0になる点を求める。
+  principle_en: '''For every a'': freeze a; collect the terms in a, and set both the coefficient of a and the rest to zero.'
+problem:
+  text_ja: 直線 (2a + 1)x ＋ (a − 3)y ＋ (−3a − 5) = 0 は、定数 a の値にかかわらず定点を通ります。その定点の座標を求めなさい。
+  unit: ''
+  figure:
+    type: param_family
+    family: line
+    c:
+    - - 2
+      - 1
+    - - 1
+      - -3
+    - - -3
+      - -5
+answer:
+  value: (2, -1)
+  display_ja: (2, −1)
+  expr: stage3
+trap_route:
+  time_cost_sec: 150
+  time_source: estimate
+  steps:
+  - ja: aに2つの値を代入して、2本のグラフの交点を求める
+    op: note
+  - ja: それが本当にすべてのaで通るか、もう一度確かめる
+    op: note
+  - ja: ここで約2分半。代入する値の選び方で計算が変わる
+    op: note
+lens_route:
+  time_cost_sec: 40
+  time_source: estimate
+  steps:
+  - ja: aを止めて考える：aについて整理すると a×(…) ＋ (…) = 0。どんなaでも成り立つのは、2つのかっこが両方0のとき
+    op: note
+  - ja: a(2x + y − 3) ＋ (x − 3y − 5) = 0
+    op: note
+  - ja: 2x + y − 3 = 0 と x − 3y − 5 = 0 を連立して、定点 (2, −1)
+    value: (2, -1)
+    op: result
+trigger:
+  ja: 「aの値にかかわらず」は、aを止めて考える合図。aについて整理し、aの係数と残りがともに0になる点を求める。
+  en: '''For every a'': freeze a; collect the terms in a, and set both the coefficient of a and the rest to zero.'
+  tags:
+  - parameter_any_value
+picker:
+  options:
+  - freeze
+  - constant
+  - slide
+  - direct
+  correct: freeze
+  clue_distractors:
+  - fixed_sum
+  - max_area_asked
+  feedback_ja:
+    constant: 和が一定のものを使う問題ではない。
+    slide: 平行な線で頂点を動かす問題ではない。
+    freeze: そのとおり。aについて整理し、aの係数と残りがどちらも0になる点を求める。
+    direct: aに値を2つ代入して交点を出しても答えは出るが、すべてのaで成り立つか確かめが要る。
+animation:
+  keyframes:
+  - show_family
+  - freeze_param
+  - solve_both
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: hs_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: hs
+  count: 4
+  seed: 5402

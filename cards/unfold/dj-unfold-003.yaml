@@ -1,0 +1,94 @@
+schema_version: '1.1'
+id: dj-unfold-003
+kind: standard
+lens: unfold
+best_move: unfold
+stage: koko
+grades:
+- 高1
+level: 3
+archetype: unfold.cone_to_point
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: from a base point once around to a point on the same generatrix; on the opened sector use the cosine rule.'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 円すいの側面は、開くとおうぎ形。中心角は 360°×半径/母線。開いた図で、まっすぐ結んだ線が最短。
+  principle_en: A cone's side opens into a sector of angle 360°×r/l; the shortest path is the straight segment on it.
+problem:
+  text_ja: 底面の半径が1cm、母線の長さが4cmの円すいがあります。頂点をOとし、母線OA上にOB＝3cmとなる点Bをとります。点Aから側面を1周して点Bまで糸をかけるとき、糸の長さの最小値を求めなさい。
+  unit: cm
+  figure:
+    type: cone_unfold
+    r: 1
+    l: 4
+    ask: to_point
+    d: 3
+answer:
+  value: '5'
+  display_ja: 5cm
+  expr: stage3
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: 立体のまま、糸の通る点の位置を文字でおく
+    op: note
+  - ja: 曲面の上の長さは、そのままでは式にできない
+    op: note
+  - ja: ここで約3分。決め手がない
+    op: note
+lens_route:
+  time_cost_sec: 45
+  time_source: estimate
+  steps:
+  - ja: 側面を開くと、半径4のおうぎ形。中心角は 360°×1/4 = 90°
+    op: note
+  - ja: 開いた図で、Aと、反対のはしの半径上のB'（OB'＝3）を結ぶ線分が最短
+    op: note
+  - ja: 余弦定理：AB'² = 4²＋3²−2×4×3×cos90° = 25
+    op: note
+  - ja: AB' = 5
+    value: '5'
+    op: result
+trigger:
+  ja: 円すいの側面は、開くとおうぎ形。中心角は 360°×半径/母線。開いた図で、まっすぐ結んだ線が最短。
+  en: A cone's side opens into a sector of angle 360°×r/l; the shortest path is the straight segment on it.
+  tags:
+  - cone_surface
+  - shortest_path
+picker:
+  options:
+  - unfold
+  - mirror
+  - enclose
+  - direct
+  correct: unfold
+  clue_distractors:
+  - sum_of_distances
+  - fixed_sum
+  feedback_ja:
+    mirror: 最短の道すじを求める問題ではない。
+    enclose: 囲まれた部分の面積を求める問題ではない。
+    unfold: そのとおり。側面を開いておうぎ形にし、まっすぐ結ぶ。
+    direct: 立体のままでは、曲面上の長さが計算できない。
+animation:
+  keyframes:
+  - show_cone
+  - open_sector
+  - draw_straight
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: hs_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: hs
+  count: 4
+  seed: 5504

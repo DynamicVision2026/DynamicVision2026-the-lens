@@ -1,0 +1,92 @@
+schema_version: '1.1'
+id: dj-enclose-f01
+kind: failure
+lens: enclose
+best_move: direct
+stage: koko
+grades:
+- 高2
+level: 3
+archetype: enclose.bounds_failure
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: a parabola above the x-axis between two vertical lines; the ends are not crossings, so the 1/6 formula does not apply (failure card for 囲む).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 放物線と直線（放物線）で囲まれた部分は、交点のx座標α、βだけで面積が決まる：|a|(β−α)³/6。
+  principle_en: 'Area between a parabola and a line (or parabola): |a|(β−α)³/6 from the crossings alone.'
+problem:
+  text_ja: 放物線 y = x² − 2x + 3 と x軸、および 2直線 x = 0、x = 2 で囲まれた部分の面積を求めなさい。
+  unit: ''
+  figure:
+    type: parabola_area
+    f:
+    - 1
+    - -2
+    - 3
+    bounds:
+    - 0
+    - 2
+answer:
+  value: 14/3
+  display_ja: 14/3
+  expr: stage3
+trap_route:
+  time_cost_sec: 90
+  time_source: estimate
+  steps:
+  - ja: 1/6公式を使おうとして、放物線とx軸の交点を探す
+    op: note
+  - ja: x軸と交わらないので、αとβが出てこない
+    op: note
+  - ja: ここで約1分半。公式が使えないと気づく
+    op: note
+lens_route:
+  time_cost_sec: 60
+  time_source: estimate
+  steps:
+  - ja: 放物線はx軸と交わらない。端は直線 x = 0、x = 2 なので、1/6公式は使えない
+    op: note
+  - ja: そのまま積分する：∫[0→2] (x² − 2x + 3) dx
+    op: note
+  - ja: 原始関数 1/3x³ − x² + 3x に代入：14/3 − 0 = 14/3
+    value: 14/3
+    op: result
+trigger:
+  ja: 端が直線 x = p、x = q のときは、交点で囲まれていないので1/6公式は使えない。そのまま積分する。
+  en: 'Ends at x = p, q are not crossings: integrate directly; the 1/6 formula does not apply.'
+  tags:
+  - bounded_by_vertical_lines
+picker:
+  options:
+  - enclose
+  - slide
+  - constant
+  - direct
+  correct: direct
+  clue_distractors:
+  - fixed_sum
+  - two_dice
+  feedback_ja:
+    slide: 平行な線で頂点を動かす問題ではない。
+    constant: 和が一定のものを使う問題ではない。
+    enclose: おしい。1/6公式は、2つのグラフの交点で囲まれたときだけ。ここは端が直線 x = p、x = q。
+    direct: そのとおり。端が交点ではないので、そのまま積分する。
+animation:
+  keyframes:
+  - show_graph
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: hs_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: hs
+  count: 4
+  seed: 5105

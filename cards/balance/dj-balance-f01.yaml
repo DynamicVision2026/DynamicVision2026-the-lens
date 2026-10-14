@@ -1,0 +1,89 @@
+schema_version: '1.1'
+id: dj-balance-f01
+kind: failure
+lens: balance
+best_move: direct
+stage: koko
+grades:
+- 高1
+level: 3
+archetype: balance.avg_speed_failure
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: the average speed of a round trip; the plain average of the two speeds (a lever with equal weights) is the trap, the weights are the TIMES, not the distances (failure card for てんびん).'
+  not_derived_from: Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 平均は、何に対する平均かで重みが変わる。速さの平均は時間が重み。往復では遅い方に長くいるので、ちょうどまん中にはならない。
+  principle_en: An average's weights depend on what it averages over; speed is averaged over time, and the slower leg takes longer.
+problem:
+  text_ja: A地点とB地点の間を、行きは時速4km、帰りは時速6kmで往復しました。往復の平均の速さは時速何kmですか。
+  unit: km/時
+  figure:
+    type: word_problem
+    kind: avg_speed
+    params:
+      u: 4
+      v: 6
+answer:
+  value: 24/5
+  display_ja: 時速24/5km
+  expr: word_problem
+trap_route:
+  time_cost_sec: 60
+  time_source: estimate
+  steps:
+  - ja: 2つの速さをてんびんの両はしにおき、まん中を平均とする
+    op: note
+  - ja: 道のりは同じでも、かかる時間がちがうので、重みは同じではない
+    op: note
+  - ja: まん中の値は答えにならない
+    op: note
+lens_route:
+  time_cost_sec: 40
+  time_source: estimate
+  steps:
+  - ja: 平均の速さ＝全体の道のり÷全体の時間。速さの平均 (4+6)÷2 ではない（遅い帰りの方が時間が長い）
+    op: note
+  - ja: 片道を4と6の最小公倍数 12km とすると、行き 12÷4 = 3時間、帰り 12÷6 = 2時間
+    op: note
+  - ja: 往復 24km を 5 時間で進むので、24÷5 = 24/5（km/時）
+    value: 24/5
+    op: result
+trigger:
+  ja: 往復の平均の速さは、全体の道のり÷全体の時間。速さをそのまま平均しない。
+  en: 'Round-trip average speed: total distance ÷ total time; never average the speeds.'
+  tags:
+  - round_trip_speeds
+picker:
+  options:
+  - balance
+  - area
+  - constant
+  - direct
+  correct: direct
+  clue_distractors:
+  - mixing
+  - two_dice
+  feedback_ja:
+    balance: おしい。てんびんの重みは時間。行きと帰りで時間がちがうので、まん中ではない。
+    area: さいころの表で数える問題ではない。
+    constant: 和が一定のものを使う問題ではない。
+    direct: そのとおり。片道の道のりを決めて、全体の道のり÷全体の時間。
+animation:
+  keyframes:
+  - show_story
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_avg_speed
+  count: 4
+  seed: 5801

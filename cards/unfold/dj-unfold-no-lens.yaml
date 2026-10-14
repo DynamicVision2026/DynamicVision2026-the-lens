@@ -1,0 +1,86 @@
+schema_version: '1.1'
+id: dj-unfold-no-lens
+kind: no_lens
+lens: unfold
+best_move: direct
+stage: koko
+grades:
+- 高1
+level: 1
+archetype: unfold.cone_side_area
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: the cone''s side area by the formula πrl; no path, nothing to open (negative control for 展開).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 円すいの側面は、開くとおうぎ形。中心角は 360°×半径/母線。開いた図で、まっすぐ結んだ線が最短。
+  principle_en: A cone's side opens into a sector of angle 360°×r/l; the shortest path is the straight segment on it.
+problem:
+  text_ja: 底面の半径が3cm、母線の長さが5cmの円すいがあります。この円すいの側面積を求めなさい。
+  unit: cm²
+  figure:
+    type: cone_unfold
+    r: 3
+    l: 5
+    ask: side_area
+answer:
+  value: 15*pi
+  display_ja: 15πcm²
+  expr: stage3
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: 立体のまま、糸の通る点の位置を文字でおく
+    op: note
+  - ja: 曲面の上の長さは、そのままでは式にできない
+    op: note
+  - ja: ここで約3分。決め手がない
+    op: note
+lens_route:
+  time_cost_sec: 45
+  time_source: estimate
+  steps:
+  - ja: 側面積は公式 π×半径×母線 でそのまま出る（最短の道の問題ではない）
+    op: note
+  - ja: π×3×5 = 15π
+    value: 15*pi
+    op: result
+trigger:
+  ja: 面積や体積を聞かれたら、公式でそのまま。展開するのは、表面の道すじを聞かれたとき。
+  en: 'Area or volume: use the formula; open the surface only for a path.'
+  tags:
+  - cone_surface
+picker:
+  options:
+  - unfold
+  - mirror
+  - enclose
+  - direct
+  correct: direct
+  clue_distractors:
+  - sum_of_distances
+  - fixed_sum
+  feedback_ja:
+    mirror: 最短の道すじを求める問題ではない。
+    enclose: 囲まれた部分の面積を求める問題ではない。
+    unfold: 道すじの問題ではない。側面積は公式で出る。
+    direct: そのとおり。側面積は π×半径×母線 の公式でそのまま出る。
+animation:
+  keyframes:
+  - show_cone
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: hs_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: hs
+  count: 4
+  seed: 5503

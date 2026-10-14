@@ -1,0 +1,87 @@
+schema_version: '1.1'
+id: dj-slide-no-lens
+kind: no_lens
+lens: slide
+best_move: direct
+stage: koko
+grades:
+- 高2
+level: 1
+archetype: slide.oab_direct
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: △OAB with O the origin; the formula 1/2|x₁y₂ − x₂y₁| gives it directly (negative control for 等積変形).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 底辺ABが決まっているときは、ABに平行な直線を動かす。放物線にふれる点（接点）で高さが最大、平行線上なら面積は同じ。
+  principle_en: 'Fixed base AB: slide a line parallel to AB; the touching point gives the largest height, any point on a parallel gives the same area.'
+problem:
+  text_ja: 放物線 y = x² 上に2点A(−2, 4)、B(3, 9)があります。原点をOとするとき、△OABの面積を求めなさい。
+  unit: ''
+  figure:
+    type: parabola_tri
+    a: 1
+    alpha: -2
+    beta: 3
+    ask: oab
+answer:
+  value: '15'
+  display_ja: '15'
+  expr: stage3
+trap_route:
+  time_cost_sec: 240
+  time_source: estimate
+  steps:
+  - ja: Pを(t, at²)とおき、点と直線の距離の公式で高さを出す
+    op: note
+  - ja: tの2次関数にして、平方完成で最大を求める
+    op: note
+  - ja: ここで約4分。根号と絶対値の処理が重い
+    op: note
+lens_route:
+  time_cost_sec: 50
+  time_source: estimate
+  steps:
+  - ja: Oが頂点なので、△OAB = 1/2|x₁y₂ − x₂y₁| をそのまま使う
+    op: note
+  - ja: = 1/2|(−2)×9 − 3×4| = 15
+    value: '15'
+    op: result
+trigger:
+  ja: 原点Oが頂点の三角形は、1/2|x₁y₂ − x₂y₁| でそのまま面積が出る。
+  en: 'A triangle with a vertex at the origin: 1/2|x₁y₂ − x₂y₁| directly.'
+  tags:
+  - vertex_at_origin
+picker:
+  options:
+  - slide
+  - enclose
+  - mirror
+  - direct
+  correct: direct
+  clue_distractors:
+  - sum_of_distances
+  - two_dice
+  feedback_ja:
+    enclose: 囲まれた部分の面積を求める問題ではない。
+    mirror: 最短の道すじを求める問題ではない。
+    slide: 動く点がないので、平行線をひく必要はない。
+    direct: そのとおり。Oが頂点なので、1/2|x₁y₂ − x₂y₁| をそのまま使う。
+animation:
+  keyframes:
+  - show_graph
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: hs_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: hs
+  count: 4
+  seed: 5203

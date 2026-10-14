@@ -1,0 +1,85 @@
+schema_version: '1.1'
+id: dj-area-no-lens
+kind: no_lens
+lens: area
+best_move: direct
+stage: koko
+grades:
+- 高1
+level: 1
+archetype: area.dice_independent
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: both dice even; independent events, multiply the probabilities (negative control for 面積図).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 2個のさいころは6×6の表（36マス）。条件をみたすマスの「面積」を、ななめの列や余事象でまとめて数える。
+  principle_en: Two dice make a 6×6 table; count the region of cells by diagonals or the complement.
+problem:
+  text_ja: 大小2個のさいころを同時に投げるとき、2個とも偶数の目になる確率を求めなさい。
+  unit: ''
+  figure:
+    type: dice_grid
+    cond:
+      op: both_even
+answer:
+  value: 1/4
+  display_ja: 1/4
+  expr: stage3
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: 36通りをすべて書き出して、条件に合うものに印をつける
+    op: note
+  - ja: 書きもらしや重なりが出やすい
+    op: note
+  - ja: ここで約3分
+    op: note
+lens_route:
+  time_cost_sec: 45
+  time_source: estimate
+  steps:
+  - ja: 大と小は別々に決まる（独立）。表をかかなくても、確率をかければよい
+    op: note
+  - ja: 3/6 × 3/6 = 1/4
+    value: 1/4
+    op: result
+trigger:
+  ja: 2つの条件が大と小で別々なら、確率をかけるだけ。表をかかなくてよい。
+  en: 'Separate conditions on each die: multiply; no table needed.'
+  tags:
+  - independent_events
+picker:
+  options:
+  - area
+  - constant
+  - balance
+  - direct
+  correct: direct
+  clue_distractors:
+  - fixed_sum
+  - parameter_any_value
+  feedback_ja:
+    constant: 和が一定のものを使う問題ではない。
+    balance: 比や平均を混ぜる問題ではない。
+    area: 表でも数えられるが、大と小で条件が分かれているので、かけ算の方が速い。
+    direct: そのとおり。大と小は独立なので、それぞれの確率をかけるだけ。
+animation:
+  keyframes:
+  - show_grid
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: hs_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: hs
+  count: 4
+  seed: 5603
