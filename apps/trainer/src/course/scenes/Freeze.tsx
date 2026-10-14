@@ -11,6 +11,9 @@ import { C, clamp, Knob, StripeDefs, Txt, useDrag, useSceneGuide, type SceneProp
 const W = 600;
 const H = 440;
 
+/** The walk preview before 止める coaches its tap (WO-022: the finger still starts within 3 s). */
+export const FREEZE_PREVIEW_MS = 1900;
+
 export function FreezeScene({ card, lens, onSolved }: SceneProps) {
   const fig = card.problem.figure as WordProblemFigure;
   const dg = fig.diagram as Extract<WordDiagramSpec, { family: 'road' }>;
@@ -54,7 +57,7 @@ export function FreezeScene({ card, lens, onSolved }: SceneProps) {
     const stop = everyFrame((dt) => {
       tt += dt;
       setWalk(Math.min(1, tt / 1.4));
-      if (tt > 1.9) {
+      if (tt > FREEZE_PREVIEW_MS / 1000) {
         stop();
         setWalk(0);
         setPhase(1);
@@ -130,6 +133,8 @@ export function FreezeScene({ card, lens, onSolved }: SceneProps) {
       </g>
       <g transform={`translate(${bx},${Y})`} onPointerDown={freeze} style={{ cursor: phase === 1 ? 'pointer' : undefined }} className="knob">
         <circle r={30} fill="transparent" />
+        {/* WO-022: the tap target pulses on the idle prompt (it is the one coached target in phase 1). */}
+        {phase === 1 && <circle key={guide.pulse} r={28} fill="none" stroke={C.palette[1]} className={guide.pulse > 0 && guide.isTarget(bx, Y) ? 'halo pulse' : 'halo'} />}
         <circle r={16} fill={C.palette[1]} />
         <Txt x={0} y={7} size={16} fill={C.paper} stroke="none">
           {nm.b ?? ''}

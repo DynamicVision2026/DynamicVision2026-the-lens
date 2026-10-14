@@ -1,3 +1,4 @@
+import { t } from '../i18n/ja';
 import { getCard, LensScene, loadBundle } from '@lens/scenes';
 import { LAUNCH } from '../launch.config';
 import { FOOTER, LANDING, PREORDER, PRIVACY, PROPOSED, WAITLIST } from './copy';
@@ -105,6 +106,9 @@ export function Footer() {
       <a href="/privacy">{FOOTER.privacy}</a>
       <span aria-hidden>・</span>
       <a href={LAUNCH.tokushohoUrl}>{FOOTER.tokushoho}</a>
+      <span aria-hidden>・</span>
+      {/* WO-022: required by VOICEVOX's terms. */}
+      <span className="credit">{t('voice.credit')}</span>
     </footer>
   );
 }

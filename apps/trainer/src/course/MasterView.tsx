@@ -3,7 +3,7 @@
 // passes[].lessons[].masterclass, timings from tokens.motion.masterclass. Beats advance on tap only;
 // the bar fills at target pace and never moves a beat on by itself.
 import { hasScene, LensIcon, LensScene, loadBundle, tokens, type LensCard, type LensOrDirect, type Masterclass, type MasterclassToken } from '@lens/scenes';
-import { useCallback, useEffect, useRef, useState, type ReactNode, type RefObject } from 'react';
+import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode, type RefObject } from 'react';
 import { t } from '../i18n/ja';
 import { navigate } from '../launch/navigate';
 import { Aha } from './Aha';
@@ -17,6 +17,8 @@ import { markMasterclassSeen } from './progress';
 import { SCENES } from './scenes';
 import { C, useCourseTheme, useFigScale } from './scenes/kit';
 import { StepNav } from './StepNav';
+import { clipFor, MuteButton, useVoiceSession, voice, VoiceCredit } from './voice';
+import { TACTILE } from './fx';
 import { WalkBoard } from './Walkthrough';
 
 export function MasterView({ passId, lens }: { passId: string; lens: string }) {
@@ -38,6 +40,7 @@ export function MasterView({ passId, lens }: { passId: string; lens: string }) {
     if (beat === m.beats.length - 1) markMasterclassSeen(passId, lens);
   }, [beat, m.beats.length, passId, lens]);
   const scope = useAttemptScope('lesson', passId);
+  useVoiceSession();
   if (!lesson || !cards || !SCENES[lens]) return <main className="course">{t('lesson.notFound')}</main>;
   const next = () => {
     beatAt.current = performance.now();
@@ -53,6 +56,7 @@ export function MasterView({ passId, lens }: { passId: string; lens: string }) {
           {t('lesson.back')}
         </button>
         <StepNav passId={passId} lens={lens} current={1} />
+        <MuteButton />
       </div>
       <MasterBar m={m} beat={beat} beatSec={(now - beatAt.current) / 1000} totalSec={(now - startAt.current) / 1000} />
       <h2 className="beat-title">
@@ -60,6 +64,7 @@ export function MasterView({ passId, lens }: { passId: string; lens: string }) {
         {cards.mc.title[id]}
       </h2>
       <MasterBeat key={beat} beat={id} cards={cards} lens={lens} passId={passId} m={m} onNext={next} scope={scope} />
+      <VoiceCredit />
     </main>
   );
 }
@@ -89,7 +94,17 @@ interface BeatProps {
   onNext: () => void;
 }
 
-export function MasterBeat({ beat, scope, ...p }: BeatProps & { beat: string; scope: AttemptScope | null }) {
+export function MasterBeat({ beat, scope, idle = false, ...p }: BeatProps & { beat: string; scope: AttemptScope | null; idle?: boolean }) {
+  // Leaving the beat stops its voice.
+  useEffect(() => () => voice.stop(), []);
+  return (
+    <IdleForced.Provider value={idle}>
+      <BeatBody beat={beat} scope={scope} {...p} />
+    </IdleForced.Provider>
+  );
+}
+
+function BeatBody({ beat, scope, ...p }: BeatProps & { beat: string; scope: AttemptScope | null }) {
   const { cards } = p;
   const { mc } = cards;
   switch (beat) {
@@ -111,14 +126,16 @@ export function MasterBeat({ beat, scope, ...p }: BeatProps & { beat: string; sc
 }
 
 /** The question, then the stage + side under one guide. */
-function Shell({ card, lens, onCoach, children }: { card: LensCard; lens: string; onCoach?: (phase: string) => void; children: (stage: RefObject<HTMLDivElement | null>) => ReactNode }) {
+function Shell({ card, lens, mc, onCoach, finger = false, children }: { card: LensCard; lens: string; mc: Masterclass; onCoach?: (phase: string) => void; finger?: boolean; children: (stage: RefObject<HTMLDivElement | null>) => ReactNode }) {
   const stage = useRef<HTMLDivElement>(null);
   useFigScale(stage);
+  // WO-022: each bubble plays its line's clip (when the bundle has one); other lines stop the last clip.
+  const onSay = useCallback((text: string) => voice.say(clipFor(text, mc.say, mc.audio)), [mc]);
   return (
     <>
       <p className="qtext">{card.problem.text_ja}</p>
       <div className="main">
-        <GuideProvider lens={lens} stageRef={stage} onCoach={onCoach}>
+        <GuideProvider lens={lens} stageRef={stage} onCoach={onCoach} guaranteeFinger={finger} onSay={onSay}>
           {children(stage)}
         </GuideProvider>
       </div>
@@ -139,10 +156,38 @@ function Still({ card, kf = 0 }: { card: LensCard; kf?: number }) {
 
 const say = (guide: ReturnType<typeof useGuide>, text: string, pose: 'q' | 'd' = 'q') => guide.say(text, pose);
 
+/** For tests: render a beat as if the child had been idle (the one target pulses). */
+const IdleForced = createContext(false);
+
+/**
+ * WO-022: after idle_ms with no touch, the beat's one next target pulses (`nudge`); a touch stops it and
+ * re-arms. `target` names it (null: nothing to touch yet, or a drag scene whose knob the guide pulses).
+ */
+export function useIdleNudge(target: string | null): (name: string) => boolean {
+  const forced = useContext(IdleForced);
+  const [on, setOn] = useState(false);
+  useEffect(() => {
+    setOn(false);
+    if (!target) return;
+    let id = window.setTimeout(() => setOn(true), TACTILE.idleMs);
+    const touch = () => {
+      setOn(false);
+      window.clearTimeout(id);
+      id = window.setTimeout(() => setOn(true), TACTILE.idleMs);
+    };
+    document.addEventListener('pointerdown', touch, { capture: true });
+    return () => {
+      window.clearTimeout(id);
+      document.removeEventListener('pointerdown', touch, { capture: true });
+    };
+  }, [target]);
+  return (name) => (forced || on) && target === name;
+}
+
 // ---------- 1 わなとレンズ ----------
 
 function Principle(p: BeatProps) {
-  return <Shell card={p.cards.example1} lens={p.lens}>{(stage) => <PrincipleIn {...p} stage={stage} />}</Shell>;
+  return <Shell card={p.cards.example1} lens={p.lens} mc={p.cards.mc}>{(stage) => <PrincipleIn {...p} stage={stage} />}</Shell>;
 }
 
 function PrincipleIn({ cards, m, onNext, stage }: BeatProps & { stage: RefObject<HTMLDivElement | null> }) {
@@ -169,6 +214,7 @@ function PrincipleIn({ cards, m, onNext, stage }: BeatProps & { stage: RefObject
     const id = window.setTimeout(() => setKf((k) => k + 1), m.lens_step_min_ms);
     return () => window.clearTimeout(id);
   }, [lensOn, kf, kfs, m.lens_step_min_ms]);
+  const pulse = useIdleNudge(lensOn ? 'try' : lines >= trap.length ? 'lensLook' : null);
   const look = () => {
     sfx.snap();
     setLensOn(true);
@@ -193,14 +239,14 @@ function PrincipleIn({ cards, m, onNext, stage }: BeatProps & { stage: RefObject
           <div className="timeleft" style={{ animationDuration: `${trap.length * m.trap_line_stagger_ms}ms` }} />
         </div>
         {!lensOn && lines >= trap.length && (
-          <button type="button" className="go" onClick={look}>
+          <button type="button" className={`go${pulse('lensLook') ? ' nudge' : ''}`} data-target="lensLook" onClick={look}>
             {t('master.lensLook')}
           </button>
         )}
         {lensOn && (
           <>
             {card.grounding && <div className="card idea in">{card.grounding.principle_ja}</div>}
-            <button type="button" className="go" onClick={() => (sfx.tap(), onNext())}>
+            <button type="button" className={`go${pulse('try') ? ' nudge' : ''}`} data-target="try" onClick={() => (sfx.tap(), onNext())}>
               {t('master.try')}
             </button>
           </>
@@ -216,7 +262,7 @@ function Example(p: BeatProps & { card: LensCard; mode: Masterclass['example2_mo
   const [phases, setPhases] = useState<string[]>([]);
   const onCoach = useCallback((ph: string) => setPhases((xs) => (xs.includes(ph) ? xs : [...xs, ph])), []);
   return (
-    <Shell card={p.card} lens={p.lens} onCoach={onCoach}>
+    <Shell card={p.card} lens={p.lens} mc={p.cards.mc} onCoach={onCoach} finger>
       {(stage) => (p.mode === 'scene' ? <SceneExample {...p} stage={stage} phases={phases.length} /> : <WalkExample {...p} stage={stage} />)}
     </Shell>
   );
@@ -246,6 +292,8 @@ function SceneExample(p: ExampleIn & { phases: number }) {
   const onSolved = useCallback(() => solveRef.current(), []);
   // After the scene's own coaching line (child effects run first): what this example is about.
   useEffect(() => say(guide, start), []); // eslint-disable-line react-hooks/exhaustive-deps
+  // Before the snap the guide pulses the coached knob; after it, the next button.
+  const pulse = useIdleNudge(solved ? 'next' : null);
   const Scene = SCENES[lens]!;
   const steps = card.lens_route.steps;
   const shown = captionsShown(card, phases, solved);
@@ -267,7 +315,7 @@ function SceneExample(p: ExampleIn & { phases: number }) {
             ))}
           </ol>
         )}
-        {solved && <Aha card={card} last={false} onNext={onNext} onAgain={() => {}} listSteps={false} again={false} nextLabel={nextLabel} />}
+        {solved && <Aha card={card} last={false} onNext={onNext} onAgain={() => {}} listSteps={false} again={false} nextLabel={nextLabel} nudge={pulse('next')} />}
       </aside>
     </>
   );
@@ -280,7 +328,9 @@ function WalkExample(p: ExampleIn) {
   const steps = card.lens_route.steps;
   const result = Math.max(0, steps.findIndex((st) => st.op === 'result'));
   const [shown, setShown] = useState(0);
+  // Before the result the guide pulses 「次へ」 (tap to reveal); after it, the next button.
   const [nudge, setNudge] = useState(0);
+  const pulse = useIdleNudge(solved ? 'next' : null);
   useEffect(() => {
     say(guide, start);
     guide.idle(() => setNudge((n) => n + 1));
@@ -307,7 +357,7 @@ function WalkExample(p: ExampleIn) {
       </div>
       <aside className="side">
         <LensChip lens={lens} trigger={card.trigger.ja} />
-        {solved && <Aha card={card} last={false} onNext={onNext} onAgain={() => {}} listSteps={false} again={false} nextLabel={nextLabel} />}
+        {solved && <Aha card={card} last={false} onNext={onNext} onAgain={() => {}} listSteps={false} again={false} nextLabel={nextLabel} nudge={pulse('next')} />}
       </aside>
     </>
   );
@@ -331,13 +381,14 @@ function LensChip({ lens, trigger }: { lens: string; trigger?: string }) {
 // ---------- 4 使えないとき ----------
 
 function Boundary(p: BeatProps) {
-  return <Shell card={p.cards.boundary} lens={p.lens}>{(stage) => <BoundaryIn {...p} stage={stage} />}</Shell>;
+  return <Shell card={p.cards.boundary} lens={p.lens} mc={p.cards.mc}>{(stage) => <BoundaryIn {...p} stage={stage} />}</Shell>;
 }
 
 function BoundaryIn({ cards, onNext, stage }: BeatProps & { stage: RefObject<HTMLDivElement | null> }) {
   const guide = useGuide();
   const card = cards.boundary;
   const head = boundaryHeading(card);
+  const pulse = useIdleNudge('got');
   useEffect(() => say(guide, cards.mc.say.boundary), []); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <>
@@ -351,7 +402,7 @@ function BoundaryIn({ cards, onNext, stage }: BeatProps & { stage: RefObject<HTM
           {head.kind === 'other' && <LensChip lens={head.lens} />}
           <p className="boundary-line">{cards.mc.boundary_line}</p>
         </div>
-        <button type="button" className="go" onClick={() => (sfx.tap(), onNext())}>
+        <button type="button" className={`go${pulse('got') ? ' nudge' : ''}`} data-target="got" onClick={() => (sfx.tap(), onNext())}>
           {t('master.got')}
         </button>
       </aside>
@@ -362,7 +413,7 @@ function BoundaryIn({ cards, onNext, stage }: BeatProps & { stage: RefObject<HTM
 // ---------- 5 練習のしかた ----------
 
 function Onboarding(p: BeatProps) {
-  return <Shell card={p.cards.try} lens={p.lens}>{(stage) => <OnboardingIn {...p} stage={stage} />}</Shell>;
+  return <Shell card={p.cards.try} lens={p.lens} mc={p.cards.mc}>{(stage) => <OnboardingIn {...p} stage={stage} />}</Shell>;
 }
 
 function OnboardingIn({ cards, passId, lens, m, stage }: BeatProps & { stage: RefObject<HTMLDivElement | null> }) {
@@ -374,6 +425,9 @@ function OnboardingIn({ cards, passId, lens, m, stage }: BeatProps & { stage: Re
   const clues = cards.mc.clues;
   const ready = clues.every((c) => tapped.includes(c));
   const done = pc.s.phase !== 'pick';
+  // The one next thing: the first clue chip not yet tapped, then the options (as one), then the start button.
+  const nextClue = clues.find((c) => !tapped.includes(c));
+  const pulse = useIdleNudge(!ready ? `clue:${nextClue}` : !done ? 'options' : 'start');
   // The real practice routine, with no hints: no glow, no ghost finger, only this beat's lines.
   useEffect(() => {
     guide.idle(null);
@@ -401,15 +455,15 @@ function OnboardingIn({ cards, passId, lens, m, stage }: BeatProps & { stage: Re
           <b className="clues-label">{t('master.clues')}</b>
           <div className="chips">
             {clues.map((c) => (
-              <button key={c} type="button" className={`cl${tapped.includes(c) ? ' yes' : ''}`} onClick={() => tap(c)}>
+              <button key={c} type="button" className={`cl${tapped.includes(c) ? ' yes' : ''}${pulse(`clue:${c}`) ? ' nudge' : ''}`} data-target={`clue:${c}`} onClick={() => tap(c)}>
                 {labels.tags[c]?.ja ?? c}
               </button>
             ))}
           </div>
         </div>
-        {ready && !done && <PickCard card={card} pc={pc} />}
+        {ready && !done && <PickCard card={card} pc={pc} nudge={pulse('options')} />}
         {done && (
-          <button type="button" className="go" onClick={() => (sfx.tap(), navigate(`/lesson/${passId}/${lens}/practice`))}>
+          <button type="button" className={`go${pulse('start') ? ' nudge' : ''}`} data-target="start" onClick={() => (sfx.tap(), navigate(`/lesson/${passId}/${lens}/practice`))}>
             {t('master.start', { n: m.practice_round })}
           </button>
         )}

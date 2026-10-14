@@ -48,6 +48,8 @@ export function CoordAxes({ frame, origin, tokens, mode, t = 1, labels, points, 
   const xs = Array.from({ length: grid.width - 1 }, (_, i) => i + 1 - origin[0]).filter((v) => v !== 0 && v % step === 0 && !onX.has(v));
   const ys = Array.from({ length: grid.height - 1 }, (_, i) => i + 1 - origin[1]).filter((v) => v !== 0 && v % step === 0 && !onY.has(v));
   const lines = part !== 'labels';
+  const pts = points ?? [];
+  const cw = pts.reduce((a, q, i) => a + q[0] * pts[(i + 1) % pts.length]![1] - pts[(i + 1) % pts.length]![0] * q[1], 0) < 0;
   const numbers = part !== 'lines';
   return (
     <g opacity={t}>
@@ -90,11 +92,18 @@ export function CoordAxes({ frame, origin, tokens, mode, t = 1, labels, points, 
         <g fill={ink} fontFamily={font} fontSize={size * 0.85} fontWeight={tokens.type.scale.label.weight} textAnchor="middle" dominantBaseline="central">
           {points.map((p, i) => {
             const [x, y] = toSvg(frame, p);
-            const [dx, dy] = outwardDirection(points, i);
+            // outwardDirection expects counter-clockwise points; flip it for a clockwise figure.
+            const [ox0, oy0] = outwardDirection(points, i);
+            const [dx, dy] = cw ? [-ox0, -oy0] : [ox0, oy0];
             const off = size * 1.6;
             // A vertex on an axis keeps its label off that axis's tick numbers.
-            const lx = x + dx * off + (p[0] === origin[0] ? size * 1.4 : 0);
-            const ly = y - dy * off * 0.7 - (p[1] === origin[1] ? size * 0.9 : 0);
+            // Kept inside the grid's width, so a label at the edge is never clipped by the viewBox.
+            const half = (labels[i] ?? '').length * size * 0.85 * 0.3;
+            const want = x + dx * off + (p[0] === origin[0] ? size * 1.4 : 0);
+            const lx = Math.min(right - half, Math.max(left + half, want));
+            // Pushed in from the edge, the label would cover its own vertex: put it below (or above) instead.
+            const clamped = Math.abs(lx - want) > 0.5;
+            const ly = clamped ? y + (dy > 0 ? -1 : 1) * size * 1.7 : y - dy * off * 0.7 - (p[1] === origin[1] ? size * 0.9 : 0);
             return (
               <text key={i} x={lx} y={ly}>
                 {labels[i] ?? ''}

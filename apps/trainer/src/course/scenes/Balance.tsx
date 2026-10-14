@@ -69,8 +69,12 @@ export function BalanceScene({ card, lens, onSolved }: SceneProps) {
   const knobDx = m.unknownLeft ? -44 : 44;
   const knobAt = (): [number, number] => [end(Xu)[0] + knobDx, end(Xu)[1] + 40 + size(w2Ref.current) / 2];
 
+  // Through a ref: the beam is still settling when the coaching starts, so the finger and the idle
+  // pulse read the knob where it is now, not where it was on the first render.
+  const knobRef = useRef(knobAt);
+  knobRef.current = knobAt;
   useEffect(() => {
-    guide.coach({ phase: 'weight', text: t(`guide.balance.weight${side}`), svg, from: knobAt, to: () => [knobAt()[0], knobAt()[1] + 50] });
+    guide.coach({ phase: 'weight', text: t(`guide.balance.weight${side}`), svg, from: () => knobRef.current(), to: () => [knobRef.current()[0], knobRef.current()[1] + 50] });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [card.id, guide.coach]);
 
