@@ -6,7 +6,8 @@ import { navigate } from '../launch/navigate';
 import { lessonsOpen, previewOn } from './access';
 import { sfx } from './fx';
 import { findPass, lessonProblems } from './lessons';
-import { masteryOf } from './progress';
+import { lessonEntry } from './masterclass';
+import { masterclassSeen, masteryOf } from './progress';
 import { baseline, readAttempts, week4, week4Open } from './attempts';
 import { solvedIn } from './progress';
 import { SCENES } from './scenes';
@@ -53,7 +54,8 @@ export function CaseView({ passId }: { passId: string }) {
               disabled={!playable}
               onClick={() => {
                 sfx.tap();
-                navigate(`/lesson/${pass.id}/${lesson.lens}`);
+                // Step 1 the first time (WO-014), then Step 2.
+                navigate(lessonEntry(pass.id, lesson, masterclassSeen(pass.id, lesson.lens)));
               }}
             >
               <span className="ring">

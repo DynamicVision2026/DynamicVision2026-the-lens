@@ -345,6 +345,7 @@ export interface Tokens {
     reduce_motion: string;
     /** Founder MVP feel (tokens 1.6): springs (stiffness k, damping c) and guide timings. */
     tactile?: TactileToken;
+    masterclass?: MasterclassToken;
   };
   themes?: Record<string, ThemeOverride>;
 }
@@ -443,7 +444,35 @@ export interface Lesson {
   lens: LensId;
   video: string;
   cards: string[];
+  /** Step 1, the 6-minute masterclass (WO-014, bundle 1.8). */
+  masterclass?: Masterclass;
 }
+
+/** One lesson's masterclass content (WO-014): card ids, the boundary sentence and ナゼホリ's lines. */
+export interface Masterclass {
+  example1: string;
+  example2: string;
+  boundary: string;
+  try: string;
+  example2_mode: 'scene' | 'walkthrough';
+  boundary_line: string;
+  /** Tag ids from example1's trigger: the words to look for. */
+  clues: string[];
+  title: Record<'principle' | 'example1' | 'example2' | 'boundary' | 'onboarding', string>;
+  say: Record<'principle' | 'principle_turn' | 'principle_lens' | 'example1' | 'example1_done' | 'example2' | 'example2_done' | 'boundary' | 'onboarding' | 'onboarding_done', string>;
+}
+
+/** The masterclass standard (tokens 1.8, motion.masterclass): beats and their target seconds. */
+export interface MasterclassToken {
+  total_sec: number;
+  core_sec: number;
+  beats: { id: MasterBeatId; ja: string; sec: number; part: 'core' | 'onboarding' }[];
+  practice_round: number;
+  trap_line_stagger_ms: number;
+  lens_step_min_ms: number;
+}
+
+export type MasterBeatId = 'principle' | 'example1' | 'example2' | 'boundary' | 'onboarding';
 
 /** A Pass (ADR-001). Planned Passes have no lessons yet. */
 export interface Pass {

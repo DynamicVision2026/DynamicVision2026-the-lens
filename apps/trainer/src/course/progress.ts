@@ -4,6 +4,7 @@ const SOLVED_KEY = 'lens.v1.course';
 const ONBOARD_KEY = 'lens.v1.onboard';
 const MASTERY_KEY = 'lens.v1.mastery';
 const TIMED_KEY = 'lens.v1.timed';
+const MASTER_KEY = 'lens.v1.master';
 /** Timed runs kept per lesson (the latest first). */
 const TIMED_KEEP = 10;
 
@@ -67,4 +68,15 @@ export function saveTimedRun(passId: string, lens: string, run: TimedRun) {
   const key = `${passId}:${lens}`;
   all[key] = [run, ...(all[key] ?? [])].slice(0, TIMED_KEEP);
   write(TIMED_KEY, all);
+}
+
+/** Step 1 (WO-014): the masterclass was seen through to its last beat, per `${passId}:${lens}`. */
+export function masterclassSeen(passId: string, lens: string): boolean {
+  return !!read<Record<string, 1>>(MASTER_KEY, {})[`${passId}:${lens}`];
+}
+
+export function markMasterclassSeen(passId: string, lens: string) {
+  const all = read<Record<string, 1>>(MASTER_KEY, {});
+  all[`${passId}:${lens}`] = 1;
+  write(MASTER_KEY, all);
 }

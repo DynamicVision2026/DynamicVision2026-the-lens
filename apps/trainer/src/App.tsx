@@ -3,6 +3,7 @@ import { CaseView } from './course/CaseView';
 import { CheckView } from './course/CheckView';
 import { passOpen } from './course/access';
 import { LessonView } from './course/LessonView';
+import { MasterView } from './course/MasterView';
 import { PracticeView, TimedView } from './course/StepsView';
 import { ReportView } from './course/ReportView';
 import { DevScenes } from './dev/DevScenes';
@@ -36,11 +37,12 @@ export function App() {
   // The course player (WO-012): the lens case and a lesson.
   const pass = /^\/pass\/([\w-]+)\/?$/.exec(path);
   if (pass) return <CaseView passId={pass[1]!} />;
-  // A lesson: the ladder (step 2), then /practice (step 3) and /timed (step 4).
-  const lesson = /^\/lesson\/([\w-]+)\/([\w-]+)(?:\/(practice|timed))?\/?$/.exec(path);
+  // A lesson: /master (step 1), the ladder (step 2), then /practice (step 3) and /timed (step 4).
+  const lesson = /^\/lesson\/([\w-]+)\/([\w-]+)(?:\/(master|practice|timed))?\/?$/.exec(path);
   if (lesson) {
     if (!passOpen(lesson[1]!)) return <CaseView passId={lesson[1]!} />;
     const [, passId, lens, step] = lesson as unknown as [string, string, string, string | undefined];
+    if (step === 'master') return <MasterView key={path} passId={passId} lens={lens} />;
     if (step === 'practice') return <PracticeView key={path} passId={passId} lens={lens} />;
     if (step === 'timed') return <TimedView key={path} passId={passId} lens={lens} />;
     return <LessonView key={path} passId={passId} lens={lens} />;
