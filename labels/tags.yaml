@@ -47,6 +47,9 @@ never_meet:           {ja: 2人は出会わない・追いつかない（それ�
 coordinates_given:    {ja: 頂点の座標が分かっている}
 side_on_axis:         {ja: 1辺が座標軸の上にある}
 point_on_axis:        {ja: 軸の上に点をとる}
+diagonal_on_axis:     {ja: 対角線が座標軸の上にある}
+area_given:           {ja: 面積の値が分かっている（そろえる相手の図形がない）}
+quad_to_triangle:     {ja: 四角形と面積が等しい三角形をつくる}
 equal_area_asked:     {ja: 面積が等しくなる点を聞いている}
 sum_of_distances:     {ja: 2つのきょりの和がいちばん短い}
 points_opposite_sides: {ja: 2点が軸をはさんで反対側にある}

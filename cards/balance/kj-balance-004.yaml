@@ -1,0 +1,103 @@
+schema_version: '1.1'
+id: kj-balance-004
+kind: standard
+lens: balance
+best_move: balance
+stage: chugaku
+grades:
+- 中2
+level: 4
+archetype: balance.mix_then_water
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: mix two solutions, then dilute with water; two levers in a row.'
+  not_derived_from: Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: てんびんは何回でも使える。1回目で混ぜた濃度を出し、2回目で水（0%）とのてんびんにする。
+  principle_en: 'Use the lever twice: first the mix, then the mix against water.'
+problem:
+  text_ja: 6%の食塩水200gと11%の食塩水300gを混ぜ、さらに水を加えて5%の食塩水にします。水を何g加えればよいですか。
+  unit: g
+  figure:
+    type: word_problem
+    kind: mix_then_water
+    params:
+      w1: 200
+      p1: 6
+      w2: 300
+      p2: 11
+      pt: 5
+    names:
+      register: chugaku
+answer:
+  value: '400'
+  display_ja: 400g
+  expr: word_problem
+trap_route:
+  time_cost_sec: 200
+  time_source: estimate
+  steps:
+  - ja: 食塩の重さをxを使った式で表し、方程式を立てる
+    op: note
+  - ja: '%を小数や分数に直すので、式が長くなる'
+    op: note
+  - ja: ここで約3分。分母をはらう計算でミスが出やすい
+    op: note
+lens_route:
+  time_cost_sec: 70
+  time_source: estimate
+  steps:
+  - ja: まず6%と11%をてんびんで混ぜる。重さの比 200:300 = 2:3 なので、うでの長さの比は 3:2
+    op: note
+  - ja: うでの長さ 11−6 = 5 を 3:2 に分ける。6%からのうでは 5÷5×3 = 3
+    op: note
+  - ja: 混ぜた食塩水は 6+3 = 9%、重さは 200+300 = 500g
+    op: note
+  - ja: 次に水（0%）を混ぜる。うでの長さは 9−5 = 4 と 5−0 = 5
+    op: note
+  - ja: 500g と 水xg の比は 5:4。水 = 500×4÷5 = 400（g）
+    value: '400'
+    op: result
+trigger:
+  ja: 混ぜてからさらに水を加えるときは、てんびんを2回つなげる。
+  en: 'Mix, then add water: chain two levers.'
+  tags:
+  - mix_then_dilute
+  - mixing
+picker:
+  options:
+  - balance
+  - area
+  - constant
+  - direct
+  correct: balance
+  clue_distractors:
+  - two_kinds_mixed
+  - evaporate_water
+  feedback_ja:
+    balance: そのとおり。1回目のてんびんで混ぜたあとの濃度、2回目はその濃度と0%のてんびん。
+    area: 2種類のものの数と合計の問題ではない。
+    constant: 食塩の量は変わらない、を使っても解けるが、手順が長くなる。
+    direct: 方程式を1本で立てると、間違えやすい。
+animation:
+  keyframes:
+  - show_story
+  - first_lever
+  - show_mix
+  - second_lever
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_mix_then_water
+  count: 4
+  seed: 4206

@@ -1,0 +1,97 @@
+schema_version: '1.1'
+id: kj-freeze-004
+kind: standard
+lens: freeze
+best_move: freeze
+stage: chugaku
+grades:
+- 中1
+level: 4
+archetype: freeze.clock_overlap
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: clock hands overlapping (中1 一次方程式の定番); freeze the hour hand, the minute hand gains 5.5 degrees a minute.'
+  not_derived_from: Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 短針を止めて考えると、長針は1分に5.5度ずつ近づく。時計の問題も、追いかける問題と同じ。
+  principle_en: 'Freeze the hour hand: the minute hand gains 5.5° a minute, a chase.'
+problem:
+  text_ja: 4時と5時の間で、時計の長針と短針が重なるのは、4時何分ですか。
+  unit: 分
+  figure:
+    type: word_problem
+    kind: clock_overlap
+    params:
+      h: 4
+    names:
+      register: chugaku
+answer:
+  value: 240/11
+  display_ja: 4時21と9/11分
+  expr: word_problem
+trap_route:
+  time_cost_sec: 150
+  time_source: estimate
+  steps:
+  - ja: 出会う（追いつく）時間をx分として、2人の進んだ距離をxの式で表す
+    op: note
+  - ja: 2人の位置関係を図にかき直して、距離の方程式を立てる
+    op: note
+  - ja: ここで約2分半。どの距離を足すのか引くのかで迷う
+    op: note
+lens_route:
+  time_cost_sec: 45
+  time_source: estimate
+  steps:
+  - ja: 長針は1分に6度、短針は1分に0.5度進む
+    op: note
+  - ja: 短針を止めて考えると、長針は1分に 6−0.5 = 5.5 度ずつ近づく
+    op: note
+  - ja: 4時ちょうどのとき、長針は短針より 4×30 = 120 度うしろにいる
+    op: note
+  - ja: 120÷5.5 = 21と9/11（分）
+    value: 240/11
+    op: result
+trigger:
+  ja: 時計の2本の針は、短針を止めて、長針が追いかけると考える。
+  en: 'Clock hands: freeze the hour hand; the minute hand chases.'
+  tags:
+  - clock_hands
+  - moving_points
+picker:
+  options:
+  - freeze
+  - constant
+  - mirror
+  - direct
+  correct: freeze
+  clue_distractors:
+  - toward_each_other
+  - shortest_path
+  feedback_ja:
+    freeze: そのとおり。短針を止めると、長針は1分に5.5度ずつ、90度の差を追いかける。
+    constant: 差は変わる。1分に5.5度ずつちぢむ。
+    mirror: 折り返す問題ではない。
+    direct: 長針だけ動くと考えた答えは、短針が動くのを忘れている。
+animation:
+  keyframes:
+  - show_story
+  - draw_clock
+  - freeze_hour_hand
+  - combine_speeds
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_clock_overlap
+  count: 4
+  seed: 4406

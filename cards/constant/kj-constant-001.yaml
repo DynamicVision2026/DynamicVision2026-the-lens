@@ -1,0 +1,102 @@
+schema_version: '1.1'
+id: kj-constant-001
+kind: standard
+lens: constant
+best_move: constant
+stage: chugaku
+grades:
+- 中1
+level: 1
+archetype: constant.age_ratio
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: years until one age is r times another; the age difference never changes (中1 一次方程式), solved with difference bars.'
+  not_derived_from: Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 2人は同じだけ年をとるので、年齢の差はずっと同じ。変わらないものに目をつけると、1回のわり算で答えが出る。
+  principle_en: Both ages grow by the same amount, so their difference never changes; anchoring on that invariant turns the search into one division.
+problem:
+  text_ja: 現在、父は44歳、健太は12歳です。父の年齢が健太の年齢の3倍になるのは何年後ですか。
+  unit: 年後
+  figure:
+    type: word_problem
+    kind: age_ratio
+    params:
+      p: 44
+      c: 12
+      r: 3
+    names:
+      older: 父
+      younger: 健太
+      register: chugaku
+answer:
+  value: '4'
+  display_ja: 4年後
+  expr: word_problem
+trap_route:
+  time_cost_sec: 150
+  time_source: estimate
+  steps:
+  - ja: 現在からx年後（前）として、両方の量をxの式で表す
+    op: note
+  - ja: 「何倍」の関係から方程式を立て、かっこをはずして解く
+    op: note
+  - ja: ここで約2分半。式の立て方で迷いやすい
+    op: note
+lens_route:
+  time_cost_sec: 25
+  time_source: estimate
+  steps:
+  - ja: 年齢の差は 44−12 = 32 で、何年たっても変わらない
+    op: note
+  - ja: 父が健太の3倍のとき、差の32は健太の 3−1 = 2 つ分
+    op: note
+  - ja: そのときの健太は 32÷2 = 16 歳
+    op: note
+  - ja: 16−12 = 4（年後）
+    value: '4'
+    op: result
+trigger:
+  ja: 2人の年齢が同じだけふえるときは、変わらない「差」に目をつける。
+  en: 'Two ages growing together: anchor on the difference, which never changes.'
+  tags:
+  - ages_both_increase
+  - times_relation
+picker:
+  options:
+  - constant
+  - area
+  - freeze
+  - direct
+  correct: constant
+  clue_distractors:
+  - two_kinds_mixed
+  - moving_points
+  feedback_ja:
+    constant: そのとおり。年齢の差はずっと同じなので、その差を「いくつ分」で考えられる。
+    area: 2種類のものの数と合計の問題ではない。
+    freeze: 動く点の速さの問題ではない。
+    direct: x年後として方程式を立てても解けるが、差を見ればかけ算とわり算だけ。
+animation:
+  keyframes:
+  - show_story
+  - draw_age_bars
+  - mark_difference
+  - grow_bars
+  - split_difference
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_age_ratio
+  count: 4
+  seed: 4301

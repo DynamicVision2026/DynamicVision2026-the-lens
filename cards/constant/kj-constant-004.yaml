@@ -1,0 +1,104 @@
+schema_version: '1.1'
+id: kj-constant-004
+kind: standard
+lens: constant
+best_move: constant
+stage: chugaku
+grades:
+- 中2
+level: 4
+archetype: constant.ratio_shift
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: two ratios at two times; scale both so the unchanging difference has the same number of parts.'
+  not_derived_from: Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 年齢の差は何年たっても同じ。2つの比を、差が同じ数になるようにそろえると、1つ分の大きさが分かる。
+  principle_en: The difference is the same in both ratios; scale them so the difference has the same number of parts, then one part is found.
+problem:
+  text_ja: 現在、姉と妹の年齢の比は7:3です。10年後には、姉と妹の年齢の比は3:2になります。現在、姉は何歳ですか。
+  unit: 歳
+  figure:
+    type: word_problem
+    kind: ratio_shift
+    params:
+      a1: 7
+      b1: 3
+      y: 10
+      a2: 3
+      b2: 2
+    names:
+      older: 姉
+      younger: 妹
+      register: chugaku
+answer:
+  value: '14'
+  display_ja: 14歳
+  expr: word_problem
+trap_route:
+  time_cost_sec: 150
+  time_source: estimate
+  steps:
+  - ja: 現在からx年後（前）として、両方の量をxの式で表す
+    op: note
+  - ja: 「何倍」の関係から方程式を立て、かっこをはずして解く
+    op: note
+  - ja: ここで約2分半。式の立て方で迷いやすい
+    op: note
+lens_route:
+  time_cost_sec: 60
+  time_source: estimate
+  steps:
+  - ja: 年齢の差は変わらない。差は、現在の比で 7−3 = 4、10年後の比で 3−2 = 1
+    op: note
+  - ja: 差が同じ数になるように比をそろえる。現在 7:3、10年後 3:2 → 12:8
+    op: note
+  - ja: 姉は 7 から 12 へ、12−7 = 5 つ分ふえた。それが10年なので、1つ分は 10÷5 = 2
+    op: note
+  - ja: 現在の姉 = 2×7 = 14（歳）
+    value: '14'
+    op: result
+trigger:
+  ja: 2つの時点の比が分かるときは、変わらない「差」の部分の数をそろえる。
+  en: 'Ratios at two moments: line up the unchanging difference.'
+  tags:
+  - two_ratios_known
+  - both_change_same
+picker:
+  options:
+  - constant
+  - balance
+  - area
+  - direct
+  correct: constant
+  clue_distractors:
+  - two_kinds_mixed
+  - mixing
+  feedback_ja:
+    constant: そのとおり。差はどちらの比でも同じなので、差の数をそろえて比べる。
+    balance: 比は出てくるが、濃度や平均を混ぜる問題ではない。
+    area: 2種類のものの数と合計の問題ではない。
+    direct: 現在の年齢をxとおくと、分数の方程式になり時間がかかる。
+animation:
+  keyframes:
+  - show_story
+  - draw_age_bars
+  - mark_difference
+  - scale_ratios
+  - find_one_part
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_ratio_shift
+  count: 4
+  seed: 4306

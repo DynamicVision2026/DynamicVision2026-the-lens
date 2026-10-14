@@ -1,0 +1,102 @@
+schema_version: '1.1'
+id: kj-area-f01
+kind: failure
+lens: area
+best_move: 'direct: remove the extra items first, then count pairs (差の分を取りのぞいてそろえる)'
+stage: chugaku
+grades:
+- 中2
+level: 3
+archetype: area.pair_offset_failure
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: two kinds with unit prices and a total, but the count DIFFERENCE is given instead of the total count; the area diagram has no width (failure card for 面積図).'
+  not_derived_from: Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 全部の数が分からないと、面積図の横の長さが決まらない。多い分を先に取りのぞけば、残りは「1組ずつ」になる。
+  principle_en: Without the total count the area diagram has no width; removing the surplus first leaves matched pairs.
+problem:
+  text_ja: 1個130円のドーナツと1個80円のクッキーを買現在した。ドーナツはクッキーより4個多く、代金は合わせて2200円でした。クッキーは何個買現在したか。
+  unit: 個
+  figure:
+    type: word_problem
+    kind: pair_offset
+    params:
+      a: 130
+      b: 80
+      k: 4
+      t: 2200
+    names:
+      a: ドーナツ
+      b: クッキー
+      register: chugaku
+answer:
+  value: '8'
+  display_ja: 8個
+  expr: word_problem
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: xとyを使って、個数の式と合計の式の2本を立てる
+    op: note
+  - ja: 加減法でyを消そうとするが、係数が大きくて計算がふくらむ
+    op: note
+  - ja: ここで約3分。符号や桁のミスが出やすい
+    op: note
+lens_route:
+  time_cost_sec: 40
+  time_source: estimate
+  steps:
+  - ja: ドーナツの多い4個分 130×4 = 520 を先に取りのぞく
+    op: note
+  - ja: 残り 2200−520 = 1680 は、ドーナツとクッキーが同じ数
+    op: note
+  - ja: ドーナツ1個とクッキー1個の組は 130+80 = 210 円
+    op: note
+  - ja: クッキーの数 = 1680÷210 = 8（個）
+    value: '8'
+    op: result
+trigger:
+  ja: 全部の数ではなく「数の差」が分かるときは、面積図ではなく、多い分を取りのぞいて1組ずつにする。
+  en: 'Count difference instead of total count: drop the surplus and count pairs, not an area diagram.'
+  tags:
+  - count_difference_given
+picker:
+  options:
+  - area
+  - constant
+  - balance
+  - direct
+  correct: direct
+  clue_distractors:
+  - total_count_and_total
+  - times_relation
+  feedback_ja:
+    area: おしい。2種類がまざっているが、全部の個数が分からないので、面積図の横の長さが決まらない。
+    constant: 差は出てくるが、時間で変わらない差を使う問題ではない。
+    balance: 濃度や平均を混ぜる問題ではない。
+    direct: そのとおり。多い分を先に取りのぞくと、残りはドーナツとクッキーが同じ数ずつの組になる。
+animation:
+  keyframes:
+  - show_story
+  - try_area_diagram
+  - flash_no_width
+  - remove_extra
+  - make_pairs
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_pair_offset
+  count: 4
+  seed: 4105

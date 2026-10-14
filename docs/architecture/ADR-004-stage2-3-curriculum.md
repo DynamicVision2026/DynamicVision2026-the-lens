@@ -17,6 +17,13 @@ Coordinate-plane geometry (中1〜中2, 一次関数・図形) first, because it
 
 **Chained lenses** (ADR-003 §2) are what make Stage 2 its own product. The first chained archetype is 折り返す → 囲む. 回転 → 等積変形 (Brian's example) needs a new 回転 lens and scene; it comes after the runner exists (WO-020).
 
+### Stage 2 status (Oct 14, Brian: "build Middle and High first, then the Shopify legal and landing page")
+All 8 lenses are complete (≥ 5 problems each, levels 1–4, a failure and a no-lens card), with a masterclass per lesson:
+- 囲む / 等積変形 / 折り返す on the coordinate plane, plus new modes: `coord_polygon.shape: axis_diagonal` (failure: split along the diagonal on the axis), `coord_y_split` (failure and no-lens: P on the y-axis with a given area, cut along the axis), `coord_quad_tri` (L4: 四角形→三角形の等積変形).
+- 面積図 / てんびん / 差一定 / 止める: the Stage 1 word-problem models with `names.register: chugaku` (中学生の表記: 年齢・濃度・x …). The trap is 連立方程式・一次方程式; the lens is the faster picture.
+- 展開: cuboid nets, plus `box_unfold.ask: length` (三平方, 中3; draft until WO-023 draws it).
+- New figure modes play as walkthroughs until WO-023 adds their figures.
+
 ## Stage 3: High School Analytical (`daigaku_juken`, card stage `koko`)
 "Dimensional reduction and parameter freezing." The seed is plane figures (数A), exact and auto-checkable.
 

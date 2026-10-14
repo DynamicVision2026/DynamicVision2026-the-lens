@@ -1,0 +1,99 @@
+schema_version: '1.1'
+id: kj-enclose-f01
+kind: failure
+lens: enclose
+best_move: direct
+stage: chugaku
+grades:
+- 中2
+level: 3
+archetype: enclose.axis_diagonal_failure
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: quadrilateral whose diagonal lies on the y-axis; enclosing works but needs four corner pieces, splitting along the diagonal is one line (failure card for 囲む on the coordinate plane).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 座標平面でも、外わくの長方形の面積から、すみの直角三角形を引けばよい。直角三角形の辺は座標の差で読める。
+  principle_en: On the coordinate plane, box minus corner right triangles; their legs are coordinate differences.
+problem:
+  text_ja: 座標平面上に4点A(−3, 1)、B(0, −4)、C(4, 2)、D(0, 6)があります。四角形ABCDの面積を求めなさい。ただし、座標の1目もりを1cmとします。
+  unit: cm²
+  figure:
+    type: coord_polygon
+    points:
+    - - -3
+      - 1
+    - - 0
+      - -4
+    - - 4
+      - 2
+    - - 0
+      - 6
+    unit: cm
+    shape: axis_diagonal
+answer:
+  value: '35'
+  display_ja: 35cm²
+  expr: coordinate
+trap_route:
+  time_cost_sec: 120
+  time_source: estimate
+  steps:
+  - ja: 外わくの長方形で囲む
+    op: note
+  - ja: すみの直角三角形を4つ、1つずつ計算して引く
+    op: note
+  - ja: ここで約2分。引く三角形が多く、ミスが出やすい
+    op: note
+lens_route:
+  time_cost_sec: 40
+  time_source: estimate
+  steps:
+  - ja: 対角線BDはy軸の上にある。四角形をBDで△ABDと△CBDに分ける
+    op: note
+  - ja: 共通の底辺 BD = 6−(−4) = 10
+    op: note
+  - ja: 高さはAからy軸まで 3、Cからy軸まで 4。高さの和は 3+4 = 7
+    op: note
+  - ja: 10×7÷2 = 35
+    value: '35'
+    op: result
+trigger:
+  ja: 対角線がy軸（x軸）の上にある四角形は、囲まずに対角線で2つの三角形に分ける。底辺は共通で、高さの和をかけて÷2。
+  en: 'A diagonal on an axis: split along it instead of enclosing; common base × sum of heights ÷ 2.'
+  tags:
+  - diagonal_on_axis
+  - coordinates_given
+picker:
+  options:
+  - enclose
+  - slide
+  - mirror
+  - direct
+  correct: direct
+  clue_distractors:
+  - sum_of_distances
+  - point_on_axis
+  feedback_ja:
+    enclose: おしい。囲んでも答えは出るが、すみの三角形が4つになる。対角線がy軸の上にあるので、2つに分ける方が速い。
+    slide: 平行な線で頂点を動かす問題ではない。
+    mirror: 最短の道すじを求める問題ではない。
+    direct: そのとおり。y軸の上の対角線を共通の底辺にして、2つの三角形に分ける。
+animation:
+  keyframes:
+  - show_shape
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: coord_axis_diagonal
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: coord_triangle
+  count: 4
+  seed: 4601

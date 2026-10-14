@@ -388,9 +388,10 @@
                   ]
                 },
                 "ask": {
-                  "description": "WO-018 failure card: 'corner_volume' (volume of the corner pyramid cut off by plane BDE; unfolding does not help).",
+                  "description": "WO-018 failure card: 'corner_volume' (volume of the corner pyramid cut off by plane BDE; unfolding does not help). Stage 2: 'length' (the shortest string's length A→BF→G, 三平方 on the opened rectangle).",
                   "enum": [
-                    "corner_volume"
+                    "corner_volume",
+                    "length"
                   ]
                 },
                 "route": {
@@ -510,7 +511,8 @@
                     "triangle",
                     "square",
                     "quad",
-                    "axis_base"
+                    "axis_base",
+                    "axis_diagonal"
                   ]
                 }
               }
@@ -642,7 +644,12 @@
                   "minimum": 1
                 },
                 "ask": {
-                  "enum": ["ap_pd", "bp_pe", "area_pbc", "area_abd"],
+                  "enum": [
+                    "ap_pd",
+                    "bp_pe",
+                    "area_pbc",
+                    "area_abd"
+                  ],
                   "description": "What is asked: AP:PD (default), BP:PE, △PBC/△ABC, or △ABD/△ABC (no-lens: E is a decoy)."
                 }
               }
@@ -713,6 +720,99 @@
                 "w": {
                   "type": "integer",
                   "minimum": 1
+                },
+                "unit": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "description": "Stage 2: P on the y-axis with △ABP (or △OPA with origin: true) of a given area; cut along the y-axis.",
+              "required": [
+                "type",
+                "A",
+                "S"
+              ],
+              "properties": {
+                "type": {
+                  "const": "coord_y_split"
+                },
+                "A": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "B": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "S": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "origin": {
+                  "type": "boolean"
+                },
+                "unit": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "description": "Stage 2: quadrilateral ABCD (A, B on the x-axis) turned into △AED of equal area by sliding C parallel to DB.",
+              "required": [
+                "type",
+                "A",
+                "B",
+                "C",
+                "D"
+              ],
+              "properties": {
+                "type": {
+                  "const": "coord_quad_tri"
+                },
+                "A": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "B": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "C": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "D": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
                 },
                 "unit": {
                   "type": "string"
@@ -897,7 +997,11 @@
               "unfold_edges",
               "corner_valid",
               "unfold3_valid",
-              "bridge_valid"
+              "unfold_length_valid",
+              "bridge_valid",
+              "coord_axis_diagonal",
+              "coord_y_split_valid",
+              "coord_quad_tri_valid"
             ]
           },
           "route": {
@@ -971,7 +1075,9 @@
             "wp_circle_meet",
             "wp_circle_lap",
             "mirror_corner",
-            "river_bridge"
+            "river_bridge",
+            "coord_y_split",
+            "coord_quad_tri"
           ]
         },
         "count": {

@@ -1,0 +1,100 @@
+schema_version: '1.1'
+id: kj-area-004
+kind: standard
+lens: area
+best_move: area
+stage: chugaku
+grades:
+- 中2
+level: 4
+archetype: area.score_penalty
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: points for right answers and a penalty for wrong ones, total score known (中2 連立方程式), solved by assuming all right and trading.'
+  not_derived_from: Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 全部正解と考えて、本当の得点との差を見る。1問間違えるごとにへる点は、もらえない点＋へらされる点。
+  principle_en: Assume all right; each wrong answer costs the lost points plus the deduction.
+problem:
+  text_ja: 30問のクイズで、1問正解すると5点もらえ、間違えると3点減点されます。全部の問題に答えて、得点は94点でした。正解した問題は何問ですか。
+  unit: 問
+  figure:
+    type: word_problem
+    kind: score_penalty
+    params:
+      n: 30
+      a: 5
+      b: 3
+      t: 94
+    names:
+      register: chugaku
+answer:
+  value: '23'
+  display_ja: 23問
+  expr: word_problem
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: xとyを使って、個数の式と合計の式の2本を立てる
+    op: note
+  - ja: 加減法でyを消そうとするが、係数が大きくて計算がふくらむ
+    op: note
+  - ja: ここで約3分。符号や桁のミスが出やすい
+    op: note
+lens_route:
+  time_cost_sec: 40
+  time_source: estimate
+  steps:
+  - ja: 全部正解なら 5×30 = 150 点
+    op: note
+  - ja: 本当の得点との差 150−94 = 56 点
+    op: note
+  - ja: 1問間違えるごとに、5点もらえず3点へるので 5+3 = 8 点ずつへる
+    op: note
+  - ja: 間違えた数 = 56÷8 = 7（問）
+    op: note
+  - ja: 正解 = 30−7 = 23（問）
+    value: '23'
+    op: result
+trigger:
+  ja: 全部の数と合計が分かり、間違えると点がへるときは、「全部正解なら」から考える。
+  en: 'Total count and total known, a deduction for wrong answers: start from ''all right''.'
+  tags:
+  - points_lost_if_wrong
+  - total_count_and_total
+picker:
+  options:
+  - area
+  - balance
+  - constant
+  - direct
+  correct: area
+  clue_distractors:
+  - times_relation
+  - mixing
+  feedback_ja:
+    balance: 濃度や平均を混ぜる問題ではない。
+    constant: 差や合計が変わらないことを使う問題ではない。
+    area: そのとおり。全問正解としたときの点数から考える。1問間違えるごとに、もらえない点と引かれる点の両方が減る。
+    direct: 正解をx問として方程式を立てると、かっこと符号の処理でミスが出やすい。
+animation:
+  keyframes:
+  - show_story
+  - show_steps
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_score_penalty
+  count: 4
+  seed: 4106

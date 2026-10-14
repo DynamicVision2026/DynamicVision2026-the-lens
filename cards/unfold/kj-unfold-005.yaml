@@ -1,0 +1,111 @@
+schema_version: '1.1'
+id: kj-unfold-005
+kind: standard
+lens: unfold
+best_move: unfold
+stage: chugaku
+grades:
+- 中3
+level: 4
+archetype: unfold.box_length
+status: draft
+provenance:
+  original: true
+  built_from: 'Archetype: shortest string on a cuboid surface across one edge, asking its LENGTH: open the two faces and use 三平方の定理 on the rectangle (中3).'
+  not_derived_from: Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 立体の表面を通る道は、面を開いて平面にしても長さは変わらない。平面では、2点を結ぶいちばん短い線はまっすぐな線。
+  principle_en: Opening faces flat preserves path length; on the flat net the straight segment is the shortest path.
+problem:
+  text_ja: 直方体ABCD-EFGHがあり、AB＝5cm、BC＝3cm、AE＝6cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をかけます。糸の長さが最も短くなるとき、その糸の長さを求めなさい。
+  unit: cm
+  figure:
+    type: box_unfold
+    a: 5
+    b: 3
+    h: 6
+    unit: cm
+    point_labels:
+      A: A
+      B: B
+      C: C
+      D: D
+      E: E
+      F: F
+      G: G
+      H: H
+      P: P
+    ask: length
+answer:
+  value: '10'
+  display_ja: 10cm
+  expr: unfold_cross
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: AとGを立体の中でまっすぐ結び、空間の対角線の長さを出してしまう
+    op: note
+  - ja: それは立体の中を通る線で、表面の糸ではないと気づく
+    op: note
+  - ja: BP の位置をxとおいて、2つの斜辺の和を式にするが、最小を出せない
+    op: note
+  - ja: ここで約3分。決め手がない
+    op: note
+lens_route:
+  time_cost_sec: 40
+  time_source: estimate
+  steps:
+  - ja: 辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 5+3 = 8、縦 6）
+    op: note
+  - ja: 開いた図でAとGをまっすぐ結んだ線分AGが、最も短い糸
+    op: note
+  - ja: 三平方の定理：AG² = 8²+6² = 64+36 = 100
+    op: note
+  - ja: AG = √100 = 10
+    value: '10'
+    op: result
+trigger:
+  ja: 立体の表面を通る糸の長さの最小値は、面を開いた展開図の直線の長さ。三平方の定理で求める。
+  en: 'Shortest path on the surface of a solid: open the faces into a net and join with a straight line.'
+  tags:
+  - solid_3d
+  - path_on_surface
+  - shortest_path
+picker:
+  options:
+  - unfold
+  - mirror
+  - enclose
+  - direct
+  correct: unfold
+  clue_distractors:
+  - two_points_same_side
+  - parallel_lines
+  feedback_ja:
+    unfold: そのとおり。面を開いても糸の長さは変わらない。開いた長方形の対角線が最短で、三平方の定理で長さが出る。
+    mirror: おしい。まっすぐにする発想は同じだが、ここでは直線で折り返すのではなく、立体の面を開く。
+    enclose: 方眼の上の図形の面積ではない。立体の表面の道すじの問題。
+    direct: 立体のままAとGを結ぶと、表面ではなく中を通る線になってしまう。
+animation:
+  keyframes:
+  - show_box
+  - unfold_faces
+  - draw_straight
+  - show_answer
+checks:
+- type: text_matches
+- type: unfold_length_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: box_unfold
+  count: 4
+  seed: 4507
+  constraints:
+    min_side: 2
+    max_side: 12
+    min_h: 3
+    max_h: 15

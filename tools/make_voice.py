@@ -10,8 +10,9 @@ Then, from the repo root:
   python3 tools/make_voice.py            # only lines that are new or changed
   python3 tools/make_voice.py --all      # regenerate everything
   python3 tools/make_voice.py --lens freeze --key example1   # one clip, for listening
+  python3 tools/make_voice.py --lens koukou_juken/freeze      # one lesson of another Pass
 
-Writes apps/trainer/public/audio/mc/<lens>/<key>.m4a and apps/trainer/public/audio/mc/manifest.json.
+Writes apps/trainer/public/audio/mc/<lens>/<key>.m4a (chugaku_juken) or mc/<pass>/<lens>/<key>.m4a (other Passes) and apps/trainer/public/audio/mc/manifest.json.
 The manifest records the exact text of each clip: the validator only ships a clip whose text still matches
 the masterclass line (an edited line is reported as stale until you run this again), then
 `pnpm bundle` adds masterclass.audio for the trainer.
@@ -39,7 +40,7 @@ CHARACTER, STYLE = "春日部つむぎ", "ノーマル"
 # Sample A (genki): a little faster and brighter than the default. VOICEVOX ranges: speed 0.5–2.0, pitch ±0.15.
 TUNING = {"speedScale": 1.12, "pitchScale": 0.03, "intonationScale": 1.25, "volumeScale": 1.0,
           "prePhonemeLength": 0.05, "postPhonemeLength": 0.15}
-CATALOGS = ["chugaku_juken"]          # passes with a masterclass.yaml
+CATALOGS = ["chugaku_juken", "koukou_juken", "daigaku_juken"]   # passes; those without a masterclass.yaml are skipped
 OUT = ROOT / "apps" / "trainer" / "public" / "audio" / "mc"
 MANIFEST = OUT / "manifest.json"
 
@@ -93,10 +94,14 @@ def lines():
     except ImportError:
         sys.exit("PyYAML is missing: run  pip3 install pyyaml  and try again.")
     for pid in CATALOGS:
-        mc = yaml.safe_load((ROOT / "catalog" / pid / "masterclass.yaml").read_text(encoding="utf-8")) or {}
+        f = ROOT / "catalog" / pid / "masterclass.yaml"
+        if not f.exists():
+            continue
+        mc = yaml.safe_load(f.read_text(encoding="utf-8")) or {}
         for lens, m in mc.items():
+            folder = lens if pid == "chugaku_juken" else f"{pid}/{lens}"   # same rule as validate.voice_dir
             for key, text in (m.get("say") or {}).items():
-                yield lens, key, text
+                yield folder, key, text
 
 
 def main() -> None:

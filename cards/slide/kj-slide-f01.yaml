@@ -1,0 +1,97 @@
+schema_version: '1.1'
+id: kj-slide-f01
+kind: failure
+lens: slide
+best_move: direct
+stage: chugaku
+grades:
+- 中2
+level: 3
+archetype: slide.y_split_failure
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: P on the y-axis with △ABP of a GIVEN area (no second triangle to match), so there is no vertex to slide; cut the triangle along the y-axis instead (failure card for 等積変形).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 底辺ABが同じで、高さが同じなら面積は同じ。高さが同じ点は、ABに平行な直線の上にならぶ。
+  principle_en: Same base AB and same height give the same area; points at the same height lie on a line parallel to AB.
+problem:
+  text_ja: 座標平面上に2点A(−4, 1)、B(2, 4)があります。y軸上に点Pを直線ABより上側にとり、△ABPの面積が15になるようにします。点Pのy座標を求めなさい。
+  unit: ''
+  figure:
+    type: coord_y_split
+    A:
+    - -4
+    - 1
+    B:
+    - 2
+    - 4
+    S: 15
+answer:
+  value: '8'
+  display_ja: '8'
+  expr: coordinate
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: 「面積が等しい」問題と同じように、平行な直線をひこうとする
+    op: note
+  - ja: 動かす頂点も、面積をそろえる相手の三角形もないと気づく
+    op: note
+  - ja: Pを(0, p)とおいて面積を囲んで出そうとし、約3分かかる
+    op: note
+lens_route:
+  time_cost_sec: 60
+  time_source: estimate
+  steps:
+  - ja: △ABPをy軸で2つに分ける。直線ABとy軸の交点をQとすると、PQが2つの三角形の共通の底辺
+    op: note
+  - ja: ABの傾きは (4−1)÷(2−(−4)) = 1/2。Qのy座標は 1−1/2×(−4) = 3
+    op: note
+  - ja: 高さはAからy軸まで 4、Bからy軸まで 2。高さの和は 2−(−4) = 6
+    op: note
+  - ja: PQ×6÷2 = 15 より、PQ = 15×2÷6 = 5
+    op: note
+  - ja: Pのy座標 = 3＋5 = 8
+    value: '8'
+    op: result
+trigger:
+  ja: 頂点Pがy軸上で、面積の値が与えられたときは、三角形をy軸で2つに切る。y軸上の辺が共通の底辺、高さの和は左右のx座標の差。
+  en: 'P on the y-axis with a given area: cut the triangle along the y-axis; common base on the axis, heights add up to the x-span.'
+  tags:
+  - area_given
+  - point_on_axis
+picker:
+  options:
+  - slide
+  - enclose
+  - mirror
+  - direct
+  correct: direct
+  clue_distractors:
+  - sum_of_distances
+  - tilted_polygon
+  feedback_ja:
+    slide: おしい。面積をそろえる相手の三角形がないので、平行に動かす頂点がない。
+    enclose: Pの位置が分からないので、まだ囲めない。
+    mirror: 最短の道すじを求める問題ではない。
+    direct: そのとおり。y軸で2つに切ると、y軸の上の辺が共通の底辺になり、高さの和は左右のx座標の差。
+animation:
+  keyframes:
+  - show_shape
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: coord_y_split_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: coord_y_split
+  count: 4
+  seed: 4603

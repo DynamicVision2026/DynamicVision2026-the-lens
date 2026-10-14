@@ -1,0 +1,100 @@
+schema_version: '1.1'
+id: kj-freeze-001
+kind: standard
+lens: freeze
+best_move: freeze
+stage: chugaku
+grades:
+- 中1
+level: 1
+archetype: freeze.meeting
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: two walkers toward each other (中1 一次方程式・速さ); freeze one, the other closes at the sum of speeds.'
+  not_derived_from: Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 相手を止めて見ると、自分は2人の速さの和で近づいて見える（相対速度）。動くものが1つになると、わり算1回で出会う時間が分かる。
+  principle_en: Freezing one walker, the other approaches at the sum of the speeds (relative motion); one mover means one division.
+problem:
+  text_ja: 3600m離れた道の両はしから、健太は分速90m、陽菜は分速60mで、向かい合って同時に歩き始めます。2人が出会うのは何分後ですか。
+  unit: 分後
+  figure:
+    type: word_problem
+    kind: meeting
+    params:
+      d: 3600
+      u: 90
+      v: 60
+    names:
+      a: 健太
+      b: 陽菜
+      register: chugaku
+answer:
+  value: '24'
+  display_ja: 24分後
+  expr: word_problem
+trap_route:
+  time_cost_sec: 150
+  time_source: estimate
+  steps:
+  - ja: 出会う（追いつく）時間をx分として、2人の進んだ距離をxの式で表す
+    op: note
+  - ja: 2人の位置関係を図にかき直して、距離の方程式を立てる
+    op: note
+  - ja: ここで約2分半。どの距離を足すのか引くのかで迷う
+    op: note
+lens_route:
+  time_cost_sec: 20
+  time_source: estimate
+  steps:
+  - ja: 陽菜を止めて考えると、健太は1分に 90+60 = 150m ずつ近づく
+    op: note
+  - ja: はじめの距離は3600m
+    op: note
+  - ja: 3600÷150 = 24（分後）
+    value: '24'
+    op: result
+trigger:
+  ja: 2つのものが同時に動くときは、片方を止めて、2人の速さをまとめる。
+  en: 'Two things moving at once: freeze one and combine the speeds.'
+  tags:
+  - moving_points
+  - toward_each_other
+picker:
+  options:
+  - freeze
+  - constant
+  - mirror
+  - direct
+  correct: freeze
+  clue_distractors:
+  - ages_both_increase
+  - shortest_path
+  feedback_ja:
+    freeze: そのとおり。一方を止めると、もう一方が速さの和で近づくだけになる。
+    constant: 年齢の差のように、変わらない差を使う問題ではない。
+    mirror: 最短の道すじを求める問題ではない。
+    direct: x分後として距離の方程式を立てても解けるが、止めて考えればわり算1回。
+animation:
+  keyframes:
+  - show_story
+  - draw_road
+  - both_walk
+  - freeze_one
+  - combine_speeds
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_meeting
+  count: 4
+  seed: 4401

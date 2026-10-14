@@ -1,0 +1,97 @@
+schema_version: '1.1'
+id: kj-balance-no-lens
+kind: no_lens
+lens: balance
+best_move: 'direct: weight × percent ÷ 100 for each, then add'
+stage: chugaku
+grades:
+- 中1
+level: 1
+archetype: balance.salt_total
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: total salt in two solutions; direct multiplication, no unknown amount (negative control for てんびん).'
+  not_derived_from: Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 食塩の量は「食塩水の重さ×濃度」。濃度を聞いていなければ、てんびんはいらない。
+  principle_en: Salt = weight × strength; no strength asked, no lever.
+problem:
+  text_ja: 6%の食塩水250gと、8%の食塩水350gにふくまれる食塩は、合わせて何gですか。
+  unit: g
+  figure:
+    type: word_problem
+    kind: salt_total
+    params:
+      w1: 250
+      p1: 6
+      w2: 350
+      p2: 8
+    names:
+      register: chugaku
+answer:
+  value: '43'
+  display_ja: 43g
+  expr: word_problem
+trap_route:
+  time_cost_sec: 200
+  time_source: estimate
+  steps:
+  - ja: 食塩の重さをxを使った式で表し、方程式を立てる
+    op: note
+  - ja: '%を小数や分数に直すので、式が長くなる'
+    op: note
+  - ja: ここで約3分。分母をはらう計算でミスが出やすい
+    op: note
+lens_route:
+  time_cost_sec: 20
+  time_source: estimate
+  steps:
+  - ja: 6%の方の食塩は 250×6÷100 = 15（g）
+    op: note
+  - ja: 8%の方の食塩は 350×8÷100 = 28（g）
+    op: note
+  - ja: 15+28 = 43（g）
+    value: '43'
+    op: result
+trigger:
+  ja: 濃度ではなく食塩の量を聞いているときは、てんびんはいらない。それぞれかけて、たす。
+  en: 'Amount of salt, not strength: no lever; multiply each and add.'
+  tags:
+  - amount_not_strength
+picker:
+  options:
+  - balance
+  - area
+  - constant
+  - direct
+  correct: direct
+  clue_distractors:
+  - three_strengths_known
+  - add_water_or_salt
+  feedback_ja:
+    balance: てんびんでも出せるが、ここでは遠回り。濃度ではなく食塩の量を聞いている。
+    area: 2種類のものの数と合計の問題ではない。
+    constant: 変わらないものを使う問題ではない。
+    direct: そのとおり。それぞれ 重さ×濃度÷100 で食塩の重さを出して、たすだけ。
+animation:
+  keyframes:
+  - show_story
+  - salt_each
+  - add_together
+  - show_answer
+  - ghost_lever_struck_out
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_salt_total
+  count: 4
+  seed: 4203

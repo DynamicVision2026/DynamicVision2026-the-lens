@@ -14,6 +14,11 @@ koukou_juken:
   lesson_target: 5
   levels: {1: 基礎, 2: 標準, 3: 応用, 4: 発展}
   lessons:              # ADR-004: first coordinate-plane lessons (中1〜中2), Oct 13; more lenses follow
-    - {lens: enclose, cards: [kj-enclose-001, kj-enclose-no-lens, kj-enclose-002, kj-enclose-003, kj-enclose-004]}
-    - {lens: slide,   cards: [kj-slide-003, kj-slide-001, kj-slide-002]}
+    - {lens: enclose, cards: [kj-enclose-001, kj-enclose-no-lens, kj-enclose-002, kj-enclose-003, kj-enclose-f01, kj-enclose-004]}
+    - {lens: slide,   cards: [kj-slide-003, kj-slide-001, kj-slide-no-lens, kj-slide-002, kj-slide-f01, kj-slide-004]}
     - {lens: mirror,  cards: [kj-mirror-003, kj-mirror-no-lens, kj-mirror-f01, kj-mirror-004, kj-mirror-001, kj-mirror-002]}     # chained: 折り返す → 囲む (ADR-003)
+    - {lens: area,     cards: [kj-area-001, kj-area-002, kj-area-no-lens, kj-area-003, kj-area-f01, kj-area-004]}           # 連立方程式の文章題 → 面積図
+    - {lens: constant, cards: [kj-constant-001, kj-constant-002, kj-constant-no-lens, kj-constant-003, kj-constant-f01, kj-constant-004]}
+    - {lens: balance,  cards: [kj-balance-001, kj-balance-002, kj-balance-no-lens, kj-balance-003, kj-balance-f01, kj-balance-004]}   # 食塩水 → てんびん
+    - {lens: freeze,   cards: [kj-freeze-001, kj-freeze-002, kj-freeze-no-lens, kj-freeze-003, kj-freeze-f01, kj-freeze-004]}     # 速さ → 止める
+    - {lens: unfold,   cards: [kj-unfold-001, kj-unfold-002, kj-unfold-no-lens, kj-unfold-003, kj-unfold-f01, kj-unfold-004, kj-unfold-005]}     # 空間図形 (中1) → 三平方 (中3)

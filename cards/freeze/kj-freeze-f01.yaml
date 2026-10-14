@@ -1,0 +1,105 @@
+schema_version: '1.1'
+id: kj-freeze-f01
+kind: failure
+lens: freeze
+best_move: 'area: speed × time = distance as rectangles (面積図)'
+stage: chugaku
+grades:
+- 中1
+- 中2
+level: 3
+archetype: freeze.speed_change_failure
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: one traveller changes speed; there is no second mover to freeze, the area diagram does it (failure card for 止める).'
+  not_derived_from: Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 速さ×時間＝道のりは長方形の面積。2つの速さを長方形2つでならべると、つるかめ算と同じになる。
+  principle_en: Speed × time = distance is a rectangle; two speeds make a two-rectangle area diagram.
+problem:
+  text_ja: 家から3000m離れた公園まで行きます。はじめは分速150mで走り、途中から分速60mで歩いたところ、全部で32分かかりました。分速150mで走ったのは何分間ですか。
+  unit: 分
+  figure:
+    type: word_problem
+    kind: speed_change
+    params:
+      d: 3000
+      u: 150
+      v: 60
+      T: 32
+    names:
+      register: chugaku
+answer:
+  value: '12'
+  display_ja: 12分
+  expr: word_problem
+trap_route:
+  time_cost_sec: 150
+  time_source: estimate
+  steps:
+  - ja: 出会う（追いつく）時間をx分として、2人の進んだ距離をxの式で表す
+    op: note
+  - ja: 2人の位置関係を図にかき直して、距離の方程式を立てる
+    op: note
+  - ja: ここで約2分半。どの距離を足すのか引くのかで迷う
+    op: note
+lens_route:
+  time_cost_sec: 40
+  time_source: estimate
+  steps:
+  - ja: 縦＝速さ、横＝時間の長方形2つで表す（面積＝道のり）
+    op: note
+  - ja: 全部歩いたとすると 60×32 = 1920
+    op: note
+  - ja: 本当の道のりとの差 3000−1920 = 1080 が、上にはみ出した長方形の面積
+    op: note
+  - ja: その長方形の縦は 150−60 = 90
+    op: note
+  - ja: 走った時間 = 1080÷90 = 12（分）
+    value: '12'
+    op: result
+trigger:
+  ja: 1人が途中で速さを変え、合計の時間と道のりが分かるときは、面積図にする。
+  en: 'One mover changing speed, total time and distance known: area diagram.'
+  tags:
+  - speed_changes_midway
+  - total_time_and_distance
+picker:
+  options:
+  - freeze
+  - constant
+  - area
+  - direct
+  correct: area
+  clue_distractors:
+  - moving_points
+  - head_start
+  feedback_ja:
+    freeze: おしい。速さの問題だが、動くのは1人だけ。止める相手がいない。
+    constant: 差が変わらないものを使う問題ではない。
+    area: そのとおり。縦＝速さ、横＝時間。全部歩いたとした距離と、実際の距離の差がはみ出した部分。
+    direct: 連立方程式でも解けるが、面積図なら引き算とわり算だけ。
+animation:
+  keyframes:
+  - show_story
+  - try_freeze
+  - flash_one_mover
+  - draw_rectangles
+  - assume_all_b
+  - divide_strip
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_speed_change
+  count: 4
+  seed: 4405

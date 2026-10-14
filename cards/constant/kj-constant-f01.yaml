@@ -1,0 +1,100 @@
+schema_version: '1.1'
+id: kj-constant-f01
+kind: failure
+lens: constant
+best_move: 'freeze: the gap shrinks by a fixed amount each year (差が1年にいくつちぢむか)'
+stage: chugaku
+grades:
+- 中1
+level: 3
+archetype: constant.sum_catchup_failure
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: father vs the sum of three children; the gap shrinks by two a year, so the difference is NOT fixed (failure card for 差一定).'
+  not_derived_from: Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 3人の和は1年に3歳、1人は1歳ふえるので、差は変わらないのではなく、1年に2ずつちぢむ。ちぢむ速さで割ればよい。
+  principle_en: A sum of three grows by 3 a year and one person by 1, so the gap shrinks by 2 a year; divide by that closing rate.
+problem:
+  text_ja: 現在、お父さんは46歳で、3人の子どもは13歳、10歳、7歳です。お父さんの年齢が、子ども3人の年齢の和と等しくなるのは何年後ですか。
+  unit: 年後
+  figure:
+    type: word_problem
+    kind: sum_catchup
+    params:
+      p: 46
+      c1: 13
+      c2: 10
+      c3: 7
+    names:
+      register: chugaku
+answer:
+  value: '8'
+  display_ja: 8年後
+  expr: word_problem
+trap_route:
+  time_cost_sec: 150
+  time_source: estimate
+  steps:
+  - ja: 現在からx年後（前）として、両方の量をxの式で表す
+    op: note
+  - ja: 「何倍」の関係から方程式を立て、かっこをはずして解く
+    op: note
+  - ja: ここで約2分半。式の立て方で迷いやすい
+    op: note
+lens_route:
+  time_cost_sec: 35
+  time_source: estimate
+  steps:
+  - ja: 子ども3人の年齢の和は 13+10+7 = 30
+    op: note
+  - ja: お父さんとの差は 46−30 = 16
+    op: note
+  - ja: 1年で、子ども3人の和は3歳、お父さんは1歳ふえる。差は1年に 3−1 = 2 ずつちぢむ
+    op: note
+  - ja: 16÷2 = 8（年後）
+    value: '8'
+    op: result
+trigger:
+  ja: 1人と何人かの合計をくらべるときは、差は変わらない。1年にいくつちぢむかを見る。
+  en: 'One person against a sum of several: the gap is not constant; find how fast it shrinks.'
+  tags:
+  - one_vs_sum_of_many
+picker:
+  options:
+  - constant
+  - freeze
+  - area
+  - direct
+  correct: freeze
+  clue_distractors:
+  - ages_both_increase
+  - two_kinds_mixed
+  feedback_ja:
+    constant: おしい。2人どうしなら差は変わらないが、ここは1人と3人の合計。差は毎年ちぢむ。
+    freeze: そのとおり。父を止めて考えると、子ども3人の和は1年に「人数−1」ずつ近づいてくる。
+    area: 2種類のものの数と合計の問題ではない。
+    direct: x年後として方程式を立てれば解けるが、近づく速さを見る方が速い。
+animation:
+  keyframes:
+  - show_story
+  - draw_bars
+  - try_constant_gap
+  - flash_gap_shrinks
+  - closing_rate
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_sum_catchup
+  count: 4
+  seed: 4305

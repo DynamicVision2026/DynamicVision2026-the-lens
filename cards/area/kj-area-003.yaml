@@ -1,0 +1,102 @@
+schema_version: '1.1'
+id: kj-area-003
+kind: standard
+lens: area
+best_move: area
+stage: chugaku
+grades:
+- 中1
+- 中2
+level: 3
+archetype: area.average_groups
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: two classes with known averages and the combined average; find the size of one class (area diagram: excess above the line = dent below).'
+  not_derived_from: Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 「平均点×人数＝合計点」は長方形の面積。全体の平均の線より上にはみ出した面積と、下にへこんだ面積は等しい。
+  principle_en: Average × head count = total points is a rectangle area; above the overall-average line, the excess area equals the dent below it.
+problem:
+  text_ja: 1組28人のテストの平均点は71点、2組の平均点は60点で、2つの組を合わせた平均点は67点でした。2組は何人ですか。
+  unit: 人
+  figure:
+    type: word_problem
+    kind: average_groups
+    params:
+      m: 28
+      p: 71
+      q: 60
+      r: 67
+    names:
+      register: chugaku
+answer:
+  value: '16'
+  display_ja: 16人
+  expr: word_problem
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: xとyを使って、個数の式と合計の式の2本を立てる
+    op: note
+  - ja: 加減法でyを消そうとするが、係数が大きくて計算がふくらむ
+    op: note
+  - ja: ここで約3分。符号や桁のミスが出やすい
+    op: note
+lens_route:
+  time_cost_sec: 45
+  time_source: estimate
+  steps:
+  - ja: 縦＝平均点、横＝人数の長方形2つをならべる（面積＝合計点）
+    op: note
+  - ja: 全体の平均67点の線を引く。1組がはみ出す部分の縦は 71−67 = 4、面積は 28×4 = 112
+    op: note
+  - ja: 2組の、線より下のへこみも同じ面積。へこみの縦は 67−60 = 7
+    op: note
+  - ja: 2組の人数 = 112÷7 = 16（人）
+    value: '16'
+    op: result
+trigger:
+  ja: 2つの組の平均と全体の平均が分かるときは、平均の線より上と下の面積が等しい面積図にする。
+  en: 'Two group averages and the overall average: draw an area diagram where the excess above the line equals the dent below.'
+  tags:
+  - two_averages_known
+picker:
+  options:
+  - area
+  - balance
+  - constant
+  - direct
+  correct: area
+  clue_distractors:
+  - two_kinds_mixed
+  - mixing
+  feedback_ja:
+    area: そのとおり。平均の線より上にはみ出した面積と、下のへこみの面積が等しくなる。
+    balance: おしい。てんびんでも解けるが、ここでは人数と点数の長方形で、はみ出しとへこみを比べると見えやすい。
+    constant: 差が変わらないものを使う問題ではない。
+    direct: 人数をxとおくと、合計点の方程式になる。解けるが、面積図なら引き算とわり算だけ。
+animation:
+  keyframes:
+  - show_story
+  - draw_rectangles
+  - draw_average_line
+  - show_excess
+  - fill_dent
+  - divide_dent
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_average_groups
+  count: 4
+  seed: 4104

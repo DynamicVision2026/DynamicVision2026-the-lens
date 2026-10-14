@@ -106,8 +106,9 @@ describe('WO-020: Stage 2/3 lessons and the chain runner (ADR-003)', () => {
   it.skipIf(problems.length === 0)('plays every Stage 2/3 card: chained cards as chains, coordinate cards as scenes, the rest as walkthroughs', () => {
     for (const { card, mode, lens } of problems) {
       if (card.chain?.length) expect(mode, card.id).toBe('chain');
-      else if (card.kind === 'standard' && card.problem.figure.type !== 'triangle_cevians') expect(mode, card.id).toBe('scene');
-      else expect(mode, card.id).toBe('walkthrough');
+      else if (card.kind === 'standard' && ['coord_polygon', 'coord_equal_area', 'coord_mirror_area'].includes(card.problem.figure.type)) expect(mode, card.id).toBe('scene');
+      // Stage 2 word problems and box nets play by the Stage 1 rules for their figure (tested there).
+      else if (!['word_problem', 'box_unfold'].includes(card.problem.figure.type)) expect(mode, card.id).toBe('walkthrough');
       expect(problemMode(card, lens)).toBe(mode);
     }
     expect(problems.some((p) => p.mode === 'chain')).toBe(true);

@@ -1,0 +1,111 @@
+schema_version: '1.1'
+id: kj-area-001
+kind: standard
+lens: area
+best_move: area
+stage: chugaku
+grades:
+- 中1
+- 中2
+level: 1
+archetype: area.two_kinds_count
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: two kinds with a fixed count per item (legs), total items and total legs known; area diagram instead of a system of two equations (連立方程式).'
+  not_derived_from: Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 「1台あたりのタイヤ×台数＝タイヤの数」は長方形の面積と同じ形。全部を少ないほうと考えると、はみ出した部分だけが残る。
+  principle_en: Wheels per vehicle × vehicles = wheels has the shape of rectangle area; assume all are the smaller kind and only the extra strip is left.
+problem:
+  text_ja: クモとカブトムシが合わせて15匹あり、足の数は合わせて104本です。クモは何匹ありますか。
+  unit: 匹
+  figure:
+    type: word_problem
+    kind: two_kinds_total
+    params:
+      n: 15
+      a: 8
+      b: 6
+      t: 104
+    names:
+      template: count
+      a: クモ
+      b: カブトムシ
+      counter: 匹
+      part: 足
+      unit: 本
+      measure: 足の数
+      register: chugaku
+answer:
+  value: '7'
+  display_ja: 7匹
+  expr: word_problem
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: xとyを使って、個数の式と合計の式の2本を立てる
+    op: note
+  - ja: 加減法でyを消そうとするが、係数が大きくて計算がふくらむ
+    op: note
+  - ja: ここで約3分。符号や桁のミスが出やすい
+    op: note
+lens_route:
+  time_cost_sec: 35
+  time_source: estimate
+  steps:
+  - ja: 縦＝1匹あたりの足の数、横＝匹数の長方形2つで表す（面積＝足の数）
+    op: note
+  - ja: 全部カブトムシだとすると 6×15 = 90
+    op: note
+  - ja: 本当の足の数との差 104−90 = 14 が、上にはみ出した長方形の面積
+    op: note
+  - ja: その長方形の縦は 8−6 = 2
+    op: note
+  - ja: クモの数 = 14÷2 = 7
+    value: '7'
+    op: result
+trigger:
+  ja: 2種類がまざっていて、全部の数と合計だけ分かるときは、長方形2つの面積図にする。
+  en: 'Two kinds mixed, only the total count and total known: two rectangles as an area diagram.'
+  tags:
+  - two_kinds_mixed
+  - total_count_and_total
+picker:
+  options:
+  - area
+  - constant
+  - balance
+  - direct
+  correct: area
+  clue_distractors:
+  - times_relation
+  - mixing
+  feedback_ja:
+    area: そのとおり。1匹あたりの足の数×匹数を長方形で表すと、はみ出した部分だけで答えが出る。
+    constant: 差が変わらないものを使う問題ではない。
+    balance: 濃度や平均を混ぜる問題ではない。
+    direct: 連立方程式でも解けるが、2本の式を立てて消去するより、面積図の方が速い。
+animation:
+  keyframes:
+  - show_story
+  - draw_rectangles
+  - assume_all_b
+  - show_gap_strip
+  - divide_strip
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_two_kinds
+  count: 4
+  seed: 4101
