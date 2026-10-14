@@ -50,6 +50,7 @@ point_on_axis:        {ja: 軸の上に点をとる}
 equal_area_asked:     {ja: 面積が等しくなる点を聞いている}
 sum_of_distances:     {ja: 2つのきょりの和がいちばん短い}
 points_opposite_sides: {ja: 2点が軸をはさんで反対側にある}
+difference_largest:   {ja: 長さの差がもっとも大きい}
 cevians_ratio:        {ja: 三角形の辺を分ける比が2つ分かる}
 area_ratio_same_height: {ja: 聞かれた三角形が交点を使わず、高さが共通}
 both_left_over:       {ja: 2通りの配り方で、どちらもあまる}
@@ -64,6 +65,7 @@ base_and_height_given: {ja: 底辺と高さがもう分かっている}
 lines_not_parallel:   {ja: 2本の直線が平行ではない}
 total_area_given:     {ja: 面積の合計が分かっていて、長さを聞いている}
 points_opposite_sides: {ja: 2つの点が直線の反対側にある}
+difference_largest:   {ja: 長さの差がもっとも大きい}
 along_edges_only:     {ja: 辺の上だけを通る}
 volume_asked:         {ja: 体積を聞いている}
 two_walls:            {ja: 直角に交わる2本の線に、1回ずつふれる}

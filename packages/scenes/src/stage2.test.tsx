@@ -57,7 +57,8 @@ describe.skipIf(cards.length === 0)('WO-020 figures', () => {
     for (const [n, p] of [['A', f.A], ['B', f.B], ['C', f.C]] as const) expect(end).toContain(`${n}${coordText(p)}`);
   });
 
-  it.each(of('coord_mirror_area'))('%s prints P with a coordinate only when the answer is its x', (_id, card) => {
+  // ask: max_diff (kj-mirror-f01, draft) has its own drawing: line AB extended to the axis, no B'. Builder adds it with its test.
+  it.each(of('coord_mirror_area').filter(([, c]) => (c.problem.figure as { ask?: string }).ask !== 'max_diff'))('%s prints P with a coordinate only when the answer is its x', (_id, card) => {
     const f = card.problem.figure as CoordMirrorAreaFigure;
     const end = words(renderToStaticMarkup(<LensScene card={card} keyframe={last(card)} t={1} />));
     const withCoord = end.filter((w) => /^P\(/.test(w));

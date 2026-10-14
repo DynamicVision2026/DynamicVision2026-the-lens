@@ -16,4 +16,4 @@ koukou_juken:
   lessons:              # ADR-004: first coordinate-plane lessons (中1〜中2), Oct 13; more lenses follow
     - {lens: enclose, cards: [kj-enclose-001, kj-enclose-no-lens, kj-enclose-002, kj-enclose-003, kj-enclose-004]}
     - {lens: slide,   cards: [kj-slide-003, kj-slide-001, kj-slide-002]}
-    - {lens: mirror,  cards: [kj-mirror-003, kj-mirror-no-lens, kj-mirror-004, kj-mirror-001, kj-mirror-002]}     # chained: 折り返す → 囲む (ADR-003)
+    - {lens: mirror,  cards: [kj-mirror-003, kj-mirror-no-lens, kj-mirror-004, kj-mirror-001, kj-mirror-002]}     # chained: 折り返す → 囲む (ADR-003)   # draft (drawing pending): kj-mirror-f01 (ask: max_diff)
