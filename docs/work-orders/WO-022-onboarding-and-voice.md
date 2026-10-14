@@ -19,7 +19,11 @@ The ghost finger (`tactile.finger_ms` 1500 × `finger_repeats` 2) and the 5 s id
   - after `idle_ms` with no input, exactly one element has the pulse class, and it is the expected target for that beat.
 
 ## 2. Mascot voice (TTS), playback side
-- **Audio files:** `apps/trainer/public/audio/mc/<lens>/<key>.m4a`, one per masterclass `say` key (`principle`, `principle_turn`, … `onboarding_done`). The Architect generates them; the voice is being chosen by Brian now. The bundle will list them per lesson as `masterclass.audio: { <key>: "/audio/mc/<lens>/<key>.m4a" }`. Until then the field is absent and **nothing plays** (build for the absent case first).
+- **Voice (Brian, Oct 14 10:17):** VOICEVOX 春日部つむぎ, energetic pace (sample A).
+  - Brian generates the clips on his Mac with `pnpm voice` (`tools/make_voice.py`, which runs against the VOICEVOX app's local engine) and commits them.
+  - The validator only ships a clip whose recorded text still matches the line, so an edited line stays silent until it is regenerated.
+- **Credit (required by VOICEVOX's terms):** show 「音声：VOICEVOX:春日部つむぎ」 in the app footer (landing, legal, and lesson pages), in small quiet text.
+- **Audio files:** `apps/trainer/public/audio/mc/<lens>/<key>.m4a`, one per masterclass `say` key (`principle`, `principle_turn`, … `onboarding_done`). The bundle will list them per lesson as `masterclass.audio: { <key>: "/audio/mc/<lens>/<key>.m4a" }`. Until then the field is absent and **nothing plays** (build for the absent case first).
 - **Sync:** when the mascot bubble shows a `say` line, play that line's clip.
   - A new bubble stops the previous clip.
   - Leaving the beat stops audio.
