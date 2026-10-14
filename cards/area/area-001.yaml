@@ -1,83 +1,106 @@
-schema_version: "1.1"
+schema_version: '1.1'
 id: area-001
 kind: standard
 lens: area
 best_move: area
 stage: shogakko
-grades: [小4, 小5]
-level: 2             # 1 基礎 · 2 標準 · 3 応用 · 4 発展
+grades:
+- 小4
+- 小5
+level: 2
 archetype: area.two_kinds_total
 status: verified
-
 provenance:
   original: true
-  built_from: "Archetype: two kinds of items with known unit values, known total count and known total value (つるかめ算), solved with an area diagram."
-  not_derived_from: "Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem."
-  author: "The Lens content team"
-
+  built_from: 'Archetype: two kinds of items with known unit values, known total count and known total value (つるかめ算), solved with an area diagram.'
+  not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
 grounding:
-  principle_ja: "「1枚あたりの金額×枚数＝金額」は長方形の面積と同じ形。2種類を長方形2つでならべると、ちがいの部分だけが見える。"
-  principle_en: "Unit value × count = total has the shape of rectangle area; two rectangles side by side expose the difference as one strip."
-
+  principle_ja: 「1枚あたりの金額×枚数＝金額」は長方形の面積と同じ形。2種類を長方形2つでならべると、ちがいの部分だけが見える。
+  principle_en: Unit value × count = total has the shape of rectangle area; two rectangles side by side expose the difference as one strip.
 problem:
-  text_ja: "50円玉と10円玉が合わせて20枚あり、合計金額は640円です。50円玉は何枚ありますか。"
-  unit: "枚"
+  text_ja: 50円玉と10円玉が合わせて20枚あり、合計金額は640円です。50円玉は何枚ありますか。
+  unit: 枚
   figure:
     type: word_problem
     kind: two_kinds_total
-    params: {n: 20, a: 50, b: 10, t: 640}
-    names: {a: 50円玉, b: 10円玉, counter: 枚, measure: 金額}
-
+    params:
+      n: 20
+      a: 50
+      b: 10
+      t: 640
+    names:
+      a: 50円玉
+      b: 10円玉
+      counter: 枚
+      measure: 金額
 answer:
-  value: "11"
-  display_ja: "11枚"
+  value: '11'
+  display_ja: 11枚
   expr: word_problem
-
 trap_route:
   time_cost_sec: 200
   time_source: estimate
   steps:
-    - {ja: "50円玉が1枚、2枚、3枚…のときの合計を表にして、1つずつ調べる", op: note}
-    - {ja: "20通りまであり、計算が多くてまちがえやすい", op: note}
-    - {ja: "ここで約3分。表の途中で手が止まる", op: note}
-
+  - ja: 一方の硬貨が1枚、2枚、3枚…のときの合計を表にして、1つずつ調べる
+    op: note
+  - ja: 20通りまであり、計算が多くてまちがえやすい
+    op: note
+  - ja: ここで約3分。表の途中で手が止まる
+    op: note
 lens_route:
   time_cost_sec: 40
   time_source: estimate
   steps:
-    - {ja: "たて＝1枚あたりの金額、横＝枚数の長方形2つで表す（面積＝金額）", op: note}
-    - {ja: "全部10円玉だとすると 10×20 = 200", op: note}
-    - {ja: "本当の金額との差 640−200 = 440 が、上にはみ出した長方形の面積", op: note}
-    - {ja: "その長方形のたては 50−10 = 40", op: note}
-    - {ja: "50円玉の数 = 440÷40 = 11", value: "11", op: result}
-
+  - ja: たて＝1枚あたりの金額、横＝枚数の長方形2つで表す（面積＝金額）
+    op: note
+  - ja: 全部10円玉だとすると 10×20 = 200
+    op: note
+  - ja: 本当の金額との差 640−200 = 440 が、上にはみ出した長方形の面積
+    op: note
+  - ja: その長方形のたては 50−10 = 40
+    op: note
+  - ja: 50円玉の数 = 440÷40 = 11
+    value: '11'
+    op: result
 trigger:
-  ja: "2種類がまざっていて、全部の数と合計だけ分かるときは、長方形2つの面積図にする。"
-  en: "Two kinds mixed, only the total count and total value known: draw two rectangles as an area diagram."
-  tags: [two_kinds_mixed, total_count_and_total]
-
+  ja: 2種類がまざっていて、全部の数と合計だけ分かるときは、長方形2つの面積図にする。
+  en: 'Two kinds mixed, only the total count and total value known: draw two rectangles as an area diagram.'
+  tags:
+  - two_kinds_mixed
+  - total_count_and_total
 picker:
-  options: [area, constant, balance, direct]
+  options:
+  - area
+  - constant
+  - balance
+  - direct
   correct: area
-  clue_distractors: [times_relation, mixing]
+  clue_distractors:
+  - times_relation
+  - mixing
   feedback_ja:
-    area: "そのとおり。1枚あたりの金額×枚数を長方形で表すと、ちがいの部分だけで答えが出る。"
-    constant: "年れいのように、差が変わらないものを使う問題ではない。"
-    balance: "こさや平均を混ぜる問題ではない。"
-    direct: "1つずつ調べると20通りもあり、時間がかかる。"
-
+    area: そのとおり。1枚あたりの金額×枚数を長方形で表すと、ちがいの部分だけで答えが出る。
+    constant: 年れいのように、差が変わらないものを使う問題ではない。
+    balance: こさや平均を混ぜる問題ではない。
+    direct: 1つずつ調べると20通りもあり、時間がかかる。
 animation:
-  keyframes: [show_story, draw_rectangles, assume_all_b, show_gap_strip, divide_strip, show_answer]
-
+  keyframes:
+  - show_story
+  - draw_rectangles
+  - assume_all_b
+  - show_gap_strip
+  - divide_strip
+  - show_answer
 checks:
-  - {type: wp_formula}
-  - {type: wp_unique}
-  - {type: wp_nontrivial}
-  - {type: wp_text_matches}
-  - {type: wp_names_match}
-  - {type: route_steps_sum, route: lens_route}
-  - {type: lens_faster}
-
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
 variants:
   generator: wp_two_kinds
   count: 4

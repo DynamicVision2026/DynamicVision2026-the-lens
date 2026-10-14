@@ -37,7 +37,7 @@ trap_route:
   time_cost_sec: 180
   time_source: estimate
   steps:
-  - ja: 400円のお茶を□gとして、代金の式を立てようとする
+  - ja: 一方のお茶の重さを□gとして、代金の式を立てようとする
     op: note
   - ja: 100gあたりの値段と重さがまざって、式が合わない
     op: note

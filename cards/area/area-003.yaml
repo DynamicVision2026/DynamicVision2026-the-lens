@@ -41,7 +41,7 @@ trap_route:
     op: note
   - ja: わり算が毎回あり、小数になって手が止まる
     op: note
-  - ja: ここで約3分半。どこで70点になるか見えない
+  - ja: ここで約3分半。どこで全体の平均になるか見えない
     op: note
 lens_route:
   time_cost_sec: 45

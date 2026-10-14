@@ -12,8 +12,7 @@ archetype: area.pair_offset_failure
 status: verified
 provenance:
   original: true
-  built_from: 'Archetype: two kinds with unit prices and a total value, but the count DIFFERENCE is given instead of the total count; the area diagram has no width, so remove the extra items and count pairs
-    (failure card for 面積図).'
+  built_from: 'Archetype: two kinds with unit prices and a total value, but the count DIFFERENCE is given instead of the total count; the area diagram has no width, so remove the extra items and count pairs (failure card for 面積図).'
   not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
   author: The Lens content team
 grounding:
@@ -79,7 +78,7 @@ picker:
     area: おしい。2種類がまざっているが、全部の個数が分からないので、面積図の横の長さが決まらない。
     constant: 差は出てくるが、時間で変わらない差を使う問題ではない。
     balance: こさや平均を混ぜる問題ではない。
-    direct: そのとおり。多い3個分を先に取りのぞくと、残りはりんごとみかんが1組ずつ。
+    direct: そのとおり。多い分を先に取りのぞくと、残りはりんごとみかんが同じ数ずつの組になる。
 animation:
   keyframes:
   - show_story

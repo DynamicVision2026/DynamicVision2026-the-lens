@@ -64,8 +64,8 @@ describe('snaps at the answer and nowhere else', () => {
 
 describe('WO-017: てんびん and 止める', () => {
   it.each([
-    ['balance', [['balance-002', 'scene'], ['balance-001', 'scene'], ['balance-no-lens', 'walkthrough'], ['balance-003', 'scene'], ['balance-006', 'walkthrough'], ['balance-f01', 'walkthrough'], ['balance-005', 'walkthrough'], ['balance-007', 'walkthrough'], ['balance-004', 'walkthrough']]],
-    ['freeze', [['freeze-002', 'scene'], ['freeze-001', 'scene'], ['freeze-no-lens', 'walkthrough'], ['freeze-003', 'walkthrough'], ['freeze-006', 'walkthrough'], ['freeze-f01', 'walkthrough'], ['freeze-005', 'walkthrough'], ['freeze-007', 'walkthrough'], ['freeze-004', 'walkthrough']]],
+    ['balance', [['balance-002', 'scene'], ['balance-001', 'scene'], ['balance-no-lens', 'walkthrough'], ['balance-003', 'scene'], ['balance-006', 'walkthrough'], ['balance-f01', 'walkthrough'], ['balance-005', 'walkthrough'], ['balance-007', 'walkthrough'], ['balance-004', 'walkthrough'], ['balance-008', 'walkthrough']]],
+    ['freeze', [['freeze-002', 'scene'], ['freeze-001', 'scene'], ['freeze-no-lens', 'walkthrough'], ['freeze-003', 'walkthrough'], ['freeze-006', 'walkthrough'], ['freeze-f01', 'walkthrough'], ['freeze-005', 'walkthrough'], ['freeze-007', 'walkthrough'], ['freeze-004', 'walkthrough'], ['freeze-008', 'walkthrough']]],
   ] as const)('%s plays its cards in catalog order, each in its mode', (lens, table) => {
     expect(lessonProblems(pass, findLesson(pass, lens)!).map((p) => [p.card.id, p.mode])).toEqual(table);
   });

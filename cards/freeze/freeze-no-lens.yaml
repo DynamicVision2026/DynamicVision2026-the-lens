@@ -39,9 +39,9 @@ trap_route:
   time_cost_sec: 90
   time_source: estimate
   steps:
-  - ja: くせで弟を止め、速さの差 90−60 = 30 を出す
+  - ja: くせで弟を止め、2人の速さの差を出す
     op: note
-  - ja: 1800÷30 = 60 は、何の時間でもない
+  - ja: 道のりを速さの差でわっても、何の時間でもない
     op: note
   - ja: 遠回りで約1分半
     op: note

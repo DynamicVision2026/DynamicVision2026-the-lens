@@ -44,7 +44,7 @@ trap_route:
   time_cost_sec: 240
   time_source: estimate
   steps:
-  - ja: 80円のお菓子が1個、2個…と決め、残りを60円と40円に半分ずつ分けて代金を計算する
+  - ja: 1種類目の個数を1個、2個…と決め、残りを2種類に半分ずつ分けて代金を計算する
     op: note
   - ja: 残りが奇数のときは分けられず、ためし直しが多い
     op: note
@@ -82,7 +82,7 @@ picker:
   - times_relation
   - count_difference_given
   feedback_ja:
-    area: そのとおり。60円と40円を組にすると平均50円。あとは2種類の面積図。
+    area: そのとおり。同じ個数ずつの2種類を組にして平均の値段にすると、あとは2種類の面積図。
     balance: 平均は使うが、こさを混ぜる問題ではない。
     constant: 差が変わらないものを使う問題ではない。
     direct: 1つずつためすと、組み合わせが多すぎる。
