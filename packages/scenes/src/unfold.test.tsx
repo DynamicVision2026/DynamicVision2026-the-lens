@@ -7,13 +7,15 @@ import { planeLayout } from './corner';
 import { NetThreeFigure, UnfoldFigure } from './primitives';
 import { tokens } from './tokens';
 import type { BoxUnfoldFigure, LensCard } from './types';
-import { unfoldLayout } from './unfold';
+import { unfoldLayout, unfoldP } from './unfold';
 import { allSceneCards } from './variant';
 
 // unfold-001 is a draft until WO-008 merges: CI runs these tests on a drafts-included bundle.
 const unfold = getCard('unfold-001');
 // The surface path over two faces; WO-018's edges-only and three-face cards have their own block below.
-const unfoldCards = allSceneCards(loadBundle()).filter((c) => c.problem.figure.type === 'box_unfold' && (c.problem.figure as { path?: string }).path !== 'edges' && (c.problem.figure as { route?: string }).route !== 'three_faces' && !['corner_volume', 'length'].includes((c.problem.figure as { ask?: string }).ask ?? ''));
+const unfoldCards = allSceneCards(loadBundle()).filter((c) => c.problem.figure.type === 'box_unfold' && (c.problem.figure as { path?: string }).path !== 'edges' && (c.problem.figure as { route?: string }).route !== 'three_faces' && (c.problem.figure as { ask?: string }).ask !== 'corner_volume');
+// WO-023 ask: length: P is where the straight A→G crosses BF (unfoldP); the answer is the string's length.
+const asksLength = (c: LensCard) => (c.problem.figure as BoxUnfoldFigure).ask === 'length';
 const fig = (c: LensCard) => c.problem.figure as BoxUnfoldFigure;
 const last = (c: LensCard) => c.animation!.keyframes.length - 1;
 const dataY = (html: string, part: string) => Number(new RegExp(`data-part="${part}" data-y="([\\d.]+)"`).exec(html)?.[1]);
@@ -27,22 +29,24 @@ describe.skipIf(!unfold)('unfold-001 (box net)', () => {
     expect(unfoldCards.filter((c) => c.id.startsWith('unfold-001')).map((c) => c.answer.value)).toEqual(['3', '8', '6', '5', '11']);
   });
 
-  it.each(unfoldCards.map((c) => [c.id, c] as const))('%s draws P at the answer height on BF, apart from the midpoint guess', (_id, card) => {
+  it.each(unfoldCards.map((c) => [c.id, c] as const))('%s draws P at the answer height on BF (or where A→G crosses it), apart from the midpoint guess', (_id, card) => {
     const f = fig(card);
     const layout = unfoldLayout(f, 0, 0, 1000, 1000, 0, 0);
+    const bp = unfoldP(card);
+    if (!asksLength(card)) expect(bp).toBe(Number(card.answer.value));
     const html = renderToStaticMarkup(
       <svg>
-        <UnfoldFigure fig={f} layout={layout} crossY={Number(card.answer.value)} answerText="" tokens={tokens} ink="ink" chalk="chalk" accent="lens" palette={['p0', 'p1']} font="f" weight={400} labelSize={16} figureStroke={1} lensStroke={2} dash="3 2" bracket={{ offset: 20, tick: 5, numberSize: 16, strokeWidth: 1 }} show={1} tryPath={1} tryDim={1} unfold={1} straight={1} similar={1} answer={1} tint={0.2} idPrefix="t" />
+        <UnfoldFigure fig={f} layout={layout} crossY={bp} answerText="" tokens={tokens} ink="ink" chalk="chalk" accent="lens" palette={['p0', 'p1']} font="f" weight={400} labelSize={16} figureStroke={1} lensStroke={2} dash="3 2" bracket={{ offset: 20, tick: 5, numberSize: 16, strokeWidth: 1 }} show={1} tryPath={1} tryDim={1} unfold={1} straight={1} similar={1} answer={1} tint={0.2} idPrefix="t" />
       </svg>,
     );
-    const [px, py] = layout.at(f.a, Number(card.answer.value));
+    const [px, py] = layout.at(f.a, bp);
     expect(html).toContain(`<circle cx="${px}" cy="${py}"`);
     expect(dataY(html, 'cross')).toBeCloseTo(py);
     // The midpoint guess is a different point from P.
-    expect(f.h / 2).not.toBe(Number(card.answer.value));
+    if (card.animation!.keyframes.includes('try_midpoint')) expect(f.h / 2).not.toBe(bp);
   });
 
-  it.each(unfoldCards.map((c) => [c.id, c] as const))('%s: the midpoint "?" is visibly not where the straight line crosses BF', (_id, card) => {
+  it.each(unfoldCards.filter((c) => c.animation!.keyframes.includes('try_midpoint')).map((c) => [c.id, c] as const))('%s: the midpoint "?" is visibly not where the straight line crosses BF', (_id, card) => {
     const k = card.animation!.keyframes.indexOf('draw_straight');
     const html = renderToStaticMarkup(<LensScene card={card} keyframe={k} t={1} />);
     expect(Math.abs(dataY(html, 'midpoint') - dataY(html, 'cross'))).toBeGreaterThan(10);
@@ -77,7 +81,7 @@ describe.skipIf(!unfold)('unfold-001 (box net)', () => {
   it('runs the study-pace beat engine on the Mirror straight-line and similar-triangle beats', () => {
     for (const card of unfoldCards) {
       const beats = motionPreviewTimeline(card, tokens)!;
-      expect(beats.map((b) => b.name)).toEqual(['trap', 'lens_activate', 'unfold_faces', 'draw_straight', 'mark_similar', 'answer']);
+      expect(beats.map((b) => b.name)).toEqual(['trap', 'lens_activate', 'unfold_faces', 'draw_straight', ...(asksLength(card) ? [] : ['mark_similar']), 'answer']);
       for (let k = 0; k < beats.length; k++) {
         for (const theme of ['base', 'short_dark'] as const) {
           const html = renderToStaticMarkup(<LensScene card={card} keyframe={k} t={0.5} motion={beats} theme={theme} />);
@@ -88,6 +92,15 @@ describe.skipIf(!unfold)('unfold-001 (box net)', () => {
       expect(end).toContain(card.answer.display_ja ?? `${card.answer.value}${card.problem.unit}`);
       expect(shortTimeline(card, tokens)).not.toBeNull();
     }
+  });
+
+  it.each(unfoldCards.filter(asksLength).map((c) => [c.id, c] as const))('%s (ask: length) labels the straight A–G with the answer once it is shown', (_id, card) => {
+    const k = card.animation!.keyframes.indexOf('show_answer');
+    const L = fig(card).point_labels;
+    expect(renderToStaticMarkup(<LensScene card={card} keyframe={k - 1} t={1} />)).not.toContain('data-part="length"');
+    const html = renderToStaticMarkup(<LensScene card={card} keyframe={k} t={1} />);
+    expect(html).toContain('data-part="length"');
+    expect(textNodes(html)).toContain(`${L.A}${L.G}＝${card.answer.display_ja ?? `${card.answer.value}${card.problem.unit}`}`);
   });
 
   it('shows each variant with its own sentence', () => {

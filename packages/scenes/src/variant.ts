@@ -13,7 +13,8 @@ function mergeFigure(figure: Figure, variant: Variant): Figure {
 
 /**
  * A variant drawn as a card: its figure, answer and lens steps replace the parent's.
- * The variant has no display_ja, so scenes show its exact answer plus the unit (see answerText). A variant
+ * A variant's display_ja (Stage 3: 「8√2cm」, 「(2, −1)」) is kept; without one, scenes show its exact answer plus the
+ * unit (see answerText). A variant
  * with its own sentence (text_ja) replaces the card's, since its numbers differ.
  * Trap steps and timings stay the parent's.
  */
@@ -26,7 +27,7 @@ export function withVariant(card: LensCard, variant: Variant): LensCard {
       text_ja: variant.text_ja ?? card.problem.text_ja,
       figure: mergeFigure(card.problem.figure, variant),
     },
-    answer: { value: variant.answer, expr: card.answer.expr },
+    answer: { value: variant.answer, expr: card.answer.expr, ...(variant.display_ja ? { display_ja: variant.display_ja } : {}) },
     lens_route: { ...card.lens_route, steps: variant.lens_route.steps },
   };
 }
@@ -37,7 +38,7 @@ export function allSceneCards(bundle: Bundle): LensCard[] {
 }
 
 /** Figure types that have a scene. Later lenses' drafts may carry others until their WO lands. */
-export const SCENE_FIGURE_TYPES = ['grid_polygon', 'parallel_band', 'mirror_path', 'mirror_corner', 'river_bridge', 'word_problem', 'box_unfold', 'coord_polygon', 'coord_equal_area', 'coord_mirror_area', 'triangle_cevians'] as const;
+export const SCENE_FIGURE_TYPES = ['grid_polygon', 'parallel_band', 'mirror_path', 'mirror_corner', 'river_bridge', 'word_problem', 'box_unfold', 'coord_polygon', 'coord_equal_area', 'coord_mirror_area', 'coord_y_split', 'coord_quad_tri', 'triangle_cevians'] as const;
 
 export function hasScene(card: LensCard): boolean {
   const figure = card.problem.figure;

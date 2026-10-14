@@ -11,8 +11,8 @@ const W = 600;
 const H = 440;
 
 export function SlideScene(props: SceneProps) {
-  // WO-020: the same slide on the coordinate plane, snapping at the y-axis.
-  if (props.card.problem.figure.type === 'coord_equal_area') return <SlideCoordScene {...props} />;
+  // WO-020 / WO-023: the same slide on the coordinate plane, snapping on an axis.
+  if (props.card.problem.figure.type === 'coord_equal_area' || props.card.problem.figure.type === 'coord_quad_tri') return <SlideCoordScene {...props} />;
   return <BandScene {...props} />;
 }
 

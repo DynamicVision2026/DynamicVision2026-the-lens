@@ -142,7 +142,8 @@ function unfoldTimeline(card: LensCard, tokens: Tokens): Beat[] | null {
     { name: 'lens_activate', durationMs: BEAT_MS.lens_activate },
     { name: 'unfold_faces', durationMs: step },
     { name: 'draw_straight', durationMs: step },
-    { name: 'mark_similar', durationMs: step + study.step_hold_ms },
+    // WO-023 ask: length: the straight line is the answer (三平方), no similar triangles.
+    ...((card.problem.figure as { ask?: string }).ask === 'length' ? [] : [{ name: 'mark_similar' as const, durationMs: step + study.step_hold_ms }]),
     { name: 'answer', durationMs: 500 + study.final_hold_ms },
   ];
 }

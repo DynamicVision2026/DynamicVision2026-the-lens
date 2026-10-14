@@ -13,4 +13,5 @@ export { motionViewBox, SHORT_COPY } from './motion/MotionScene';
 export { LensScene, SCENE_WIDTH, SCENE_HEIGHT, type LensSceneProps } from './LensScene';
 export { afterEquals, allAfterEquals, ratioIn, expressionIn, answerNumber, WORD_CAPTIONS, wordFamily, wordCaptions } from './wordProblem';
 export { stageSteps } from './chain';
+export { unfoldP } from './unfold';
 export { coordFrame, coordText, crossXAxis, parallelAtYAxis, type CoordFrame } from './coord';

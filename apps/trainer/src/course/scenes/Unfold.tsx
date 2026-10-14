@@ -1,12 +1,19 @@
 // 展開: the 3D box (lazy-loaded, WO-012 §2) — open face BCGF, then slide P until the string is
 // straight. Without WebGL, after a lost context or with reduced motion, the flat net (SVG) plays
 // the same final step. P snaps only at the card's answer.
-import { formatExact, LensScene, type BoxUnfoldFigure } from '@lens/scenes';
+import { answerText, formatExact, LensScene, unfoldP, type BoxUnfoldFigure, type LensCard } from '@lens/scenes';
 import { lazy, Suspense, useContext, useEffect, useRef, useState } from 'react';
 import { t } from '../../i18n/ja';
 import { reducedMotion, sfx, springTo, TACTILE } from '../fx';
 import { UnfoldThreeScene } from './UnfoldThree';
-import { C, clamp, Knob, num, SceneLock, StripeDefs, Txt, useDrag, useSceneGuide, type SceneProps } from './kit';
+import { C, clamp, Knob, SceneLock, StripeDefs, Txt, useDrag, useSceneGuide, type SceneProps } from './kit';
+
+/** What P says once it snaps: BP (the answer), or for `ask: length` (WO-023) the string's length A–G. */
+function solvedP(card: LensCard): string {
+  const fig = card.problem.figure as BoxUnfoldFigure;
+  const L = fig.point_labels;
+  return fig.ask === 'length' ? `${L.P}（${L.A}${L.G}=${answerText(card)}）` : `${L.P}（${L.B}${L.P}=${formatExact(card.answer.value)}${fig.unit}）`;
+}
 
 const Unfold3D = lazy(() => import('@lens/scene3d').then((m) => ({ default: m.Unfold3D })));
 
@@ -59,8 +66,8 @@ function Unfold3DScene({ card, lens, onSolved, onLost }: SceneProps & { onLost: 
       <Unfold3D
         dims={{ a: fig.a, b: fig.b, h: fig.h }}
         mesh={fig.mesh?.vertices}
-        answer={num(card.answer.value)}
-        labels={{ points: fig.point_labels, ab: len(fig.a), bc: len(fig.b), bf: len(fig.h), solvedP: `${fig.point_labels.P}（${fig.point_labels.B}${fig.point_labels.P}=${formatExact(card.answer.value)}${fig.unit}）` }}
+        answer={unfoldP(card)}
+        labels={{ points: fig.point_labels, ab: len(fig.a), bc: len(fig.b), bf: len(fig.h), solvedP: solvedP(card) }}
         colors={{ lens: C.lens(lens), ink: C.ink, front: C.palette[0]!, face: C.palette[1]!, paper: C.paper }}
         anchors={anchors}
         onTouch={() => sfx.tap()}
@@ -86,7 +93,7 @@ function Unfold3DScene({ card, lens, onSolved, onLost }: SceneProps & { onLost: 
 function FlatUnfold({ card, lens, onSolved }: SceneProps) {
   const fig = card.problem.figure as BoxUnfoldFigure;
   const L = fig.point_labels;
-  const ans = num(card.answer.value);
+  const ans = unfoldP(card);
   const s = Math.min(480 / (fig.a + fig.b), 300 / fig.h);
   const x0 = (600 - (fig.a + fig.b) * s) / 2;
   const y0 = 360;
@@ -156,7 +163,7 @@ function FlatUnfold({ card, lens, onSolved }: SceneProps) {
       <Txt x={X(fig.a + fig.b / 2)} y={Y(0) + 44} size={16} fill={C.palette[1]}>{`${fig.b}${fig.unit}`}</Txt>
       <Txt x={X(0) - 30} y={Y(fig.h / 2)} size={16} fill={C.quiet}>{`${fig.h}${fig.unit}`}</Txt>
       <Txt x={P[0]! + 34} y={P[1]! + 6} fill={color}>
-        {done ? `${L.P}（${L.B}${L.P}=${formatExact(card.answer.value)}${fig.unit}）` : L.P}
+        {done ? solvedP(card) : L.P}
       </Txt>
       {!done && <Knob x={P[0]!} y={P[1]!} fill={color} r={13} onDown={down} />}
     </svg>

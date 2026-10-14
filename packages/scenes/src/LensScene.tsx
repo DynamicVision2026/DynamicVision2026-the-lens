@@ -19,9 +19,9 @@ import { coordFrame, coordText } from './coord';
 import { cornerState } from './keyframes/corner';
 import { coordPlaneState } from './keyframes/coordplane';
 import { ceviansState } from './keyframes/cevians';
-import { unfoldLayout } from './unfold';
+import { unfoldLayout, unfoldP } from './unfold';
 import { hasScene } from './variant';
-import { BAND_END_ROOM, BandFigure, BridgeFigure, CeviansFigure, CoordAxes, EqualAreaFigure, MirrorAreaFigure, CornerFigure, MirrorFigure, NetThreeFigure, StoryText, storyHeight, UnfoldFigure, WordDiagram } from './primitives';
+import { BAND_END_ROOM, BandFigure, BridgeFigure, CeviansFigure, CoordAxes, EqualAreaFigure, MirrorAreaFigure, QuadTriFigure, YSplitFigure, CornerFigure, MirrorFigure, NetThreeFigure, StoryText, storyHeight, UnfoldFigure, WordDiagram } from './primitives';
 import type { BoxUnfoldFigure, GlowToken, GridPolygonFigure, LensCard, MirrorCornerFigure as CornerFig, MirrorPathFigure, ParallelBandFigure, Point, RiverBridgeFigure as BridgeFig, Tokens, WordProblemFigure } from './types';
 
 /** Scene viewBox in px at 1x. Video renders it at 2x (1080 px wide frame ≈ 2.25x). */
@@ -147,7 +147,7 @@ export function LensScene({
       </svg>
     );
   }
-  if (figure.type === 'coord_equal_area' || figure.type === 'coord_mirror_area' || figure.type === 'triangle_cevians') {
+  if (figure.type === 'coord_equal_area' || figure.type === 'coord_mirror_area' || figure.type === 'coord_y_split' || figure.type === 'coord_quad_tri' || figure.type === 'triangle_cevians') {
     return (
       <svg {...svgProps}>
         <PlaneKeyframeScene card={card} keyframes={keyframes} keyframe={keyframe} t={progress} tokens={tokens} glow={glow} mode={mode} />
@@ -170,7 +170,7 @@ export function LensScene({
           tokens={tokens}
           glow={glow}
           mode={mode}
-          coord={{ origin: cf.g([0, 0]), labels: figure.points.map((p, i) => `${'ABCDEFGH'[i]}${coordText(p)}`) }}
+          coord={{ origin: cf.g([0, 0]), labels: figure.points.map((p, i) => `${'ABCDEFGH'[i]}${coordText(p)}`), diagonal: figure.shape === 'axis_diagonal' ? axisDiagonal(pts, cf.g([0, 0])) : undefined }}
         />
       </svg>
     );
@@ -198,8 +198,17 @@ interface GridSceneProps {
   tokens: Tokens;
   glow: GlowToken | null;
   mode: RenderMode;
-  /** WO-020 coord_polygon: axes through `origin` (grid units) and coordinate labels per vertex. */
-  coord?: { origin: Point; labels: string[] };
+  /**
+   * WO-020 coord_polygon: axes through `origin` (grid units) and coordinate labels per vertex. WO-023
+   * axis_diagonal: the diagonal on the y-axis (vertex indices), drawn bold; show_answer tints its two triangles.
+   */
+  coord?: { origin: Point; labels: string[]; diagonal?: [number, number] };
+}
+
+/** The two vertices on the y-axis (grid units: x = origin's x), as indices; null if there aren't two. */
+function axisDiagonal(points: Point[], origin: Point): [number, number] | undefined {
+  const on = points.flatMap((p, i) => (p[0] === origin[0] ? [i] : []));
+  return on.length === 2 ? [on[0]!, on[1]!] : undefined;
 }
 
 /** The Enclose lens on a lattice polygon, keyframe by keyframe (grid_polygon, and coord_polygon on a shifted grid). */
@@ -227,6 +236,10 @@ function GridScene({ card, grid, points, keyframes, keyframe, t, tokens, glow, m
   const irregular = ctx.gaps.find((g) => g.length > 3);
   const strikeLen = Math.min(box.x1 - box.x0, box.y1 - box.y0) * 0.25;
   const ghostStrike: Point[] = [[box.x1 - strikeLen, box.y1], [box.x1, box.y1 - strikeLen]];
+  // WO-023 axis_diagonal: the polygon cut along its diagonal into two triangles (two step tints).
+  const diag = coord?.diagonal;
+  const halves = diag ? [points.slice(diag[0], diag[1] + 1), [...points.slice(diag[1]), ...points.slice(0, diag[0] + 1)]] : null;
+  const palette = tokens.color.step.palette.map((c) => color(c, mode));
 
   return (
     <g>
@@ -255,6 +268,9 @@ function GridScene({ card, grid, points, keyframes, keyframe, t, tokens, glow, m
           strength={2 + 2 * Math.abs(Math.sin(state.irregularGap * Math.PI * 3))}
         />
       )}
+      {halves?.map((half, i) => (
+        <RegionShade key={`half${i}`} frame={frame} points={half} lens={lens} tokens={tokens} mode={mode} color={palette[i % palette.length]} t={state.answerTint} strength={1.6} />
+      ))}
       {ctx.pieces?.map((piece, i) => (
         <RegionShade key={`piece${i}`} frame={frame} points={piece} lens={lens} tokens={tokens} mode={mode} t={state.pieces[i] ?? 0} strength={i === 0 ? 1 : 1.6} />
       ))}
@@ -266,7 +282,7 @@ function GridScene({ card, grid, points, keyframes, keyframe, t, tokens, glow, m
         mode={mode}
         showLabels={!coord}
         t={state.shape}
-        tint={state.answerTint > 0 ? { color: accent, opacity: tokens.color.lens_tint_opacity * 2 * state.answerTint } : undefined}
+        tint={state.answerTint > 0 && !halves ? { color: accent, opacity: tokens.color.lens_tint_opacity * 2 * state.answerTint } : undefined}
       />
 
       {glow && state.box > 0 && state.boxFade > 0 && (
@@ -284,6 +300,11 @@ function GridScene({ card, grid, points, keyframes, keyframe, t, tokens, glow, m
         t={state.cut}
         stroke={tokens.stroke.lens}
       />
+      {diag && (
+        <g data-part="diagonal">
+          <ConstructionLine frame={frame} path={[points[diag[0]]!, points[diag[1]]!]} lens={lens} tokens={tokens} mode={mode} t={state.shape} color={ink} stroke={{ ...tokens.stroke.lens, width: tokens.stroke.figure.width * 2.2 }} />
+        </g>
+      )}
       {base && (
         <ConstructionLine frame={frame} path={base} lens={lens} tokens={tokens} mode={mode} t={state.base} stroke={tokens.stroke.lens} />
       )}
@@ -575,6 +596,10 @@ function PlaneKeyframeScene({ card, keyframes, keyframe, t, tokens, glow, mode }
     body =
       figure.type === 'coord_equal_area' ? (
         <EqualAreaFigure {...style} card={card} fig={figure} show={s.show} parallel={s.first} slide={s.second} answer={s.answer} />
+      ) : figure.type === 'coord_quad_tri' ? (
+        <QuadTriFigure {...style} card={card} fig={figure} show={s.show} parallel={s.first} slide={s.second} answer={s.answer} />
+      ) : figure.type === 'coord_y_split' ? (
+        <YSplitFigure {...style} card={card} fig={figure} show={s.show} answer={s.answer} />
       ) : figure.type === 'coord_mirror_area' ? (
         <MirrorAreaFigure {...style} card={card} fig={figure} idPrefix={`lens-${card.id}`} show={s.show} reflect={s.first} straight={s.second} mark={s.mark} box={s.box} corners={s.corners} ghost={s.ghost} answer={s.answer} />
       ) : null;
@@ -648,7 +673,7 @@ function UnfoldKeyframeScene({ card, fig, keyframes, keyframe, t, tokens, glow, 
         <UnfoldFigure
           fig={fig}
           layout={layout}
-          crossY={touchX(card)}
+          crossY={unfoldP(card)}
           answerText={answerText(card)}
           halo={color(tokens.color.paper, mode)}
           tokens={tokens}

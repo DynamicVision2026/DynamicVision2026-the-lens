@@ -137,8 +137,8 @@ export interface BoxUnfoldFigure {
   path?: 'edges';
   /** WO-018 L4: A → P (on BF) → Q (on CG) → H over three faces; Q is drawn at the answer (CQ). */
   route?: 'three_faces';
-  /** WO-018 failure card: the volume of the corner pyramid cut off at mesh.cut_off. */
-  ask?: 'corner_volume';
+  /** WO-018 failure card: the volume of the corner pyramid cut off at mesh.cut_off. WO-023 `length`: the string's length A–G. */
+  ask?: 'corner_volume' | 'length';
 }
 
 export interface BoxMesh {
@@ -196,8 +196,11 @@ export interface CoordPolygonFigure {
   points: Point[];
   unit?: string;
   min_slanted?: number;
-  /** `axis_base`: one side lies on the x-axis (the no-lens card); `quad`: a quadrilateral. */
-  shape?: 'axis_base' | 'quad';
+  /**
+   * `axis_base`: one side lies on the x-axis (the no-lens card); `quad`: a quadrilateral; `axis_diagonal`
+   * (WO-023, the failure card): a quadrilateral whose diagonal lies on the y-axis (cut there, no box needed).
+   */
+  shape?: 'axis_base' | 'quad' | 'axis_diagonal';
 }
 
 /** Stage 2: P on the y-axis with △ABP = △ABC (P on the line through C parallel to AB); the answer is P's y. */
@@ -223,6 +226,32 @@ export interface CoordMirrorAreaFigure {
   side?: 'opposite';
 }
 
+/**
+ * WO-023 (Stage 2): P on the y-axis with △ABP of area S, cut along the y-axis at Q (AB ∩ y-axis).
+ * `origin: true`: △OPA with O the origin (OP is on the axis; B is absent). The answer is P's y.
+ */
+export interface CoordYSplitFigure {
+  type: 'coord_y_split';
+  A: Point;
+  B?: Point;
+  S: number;
+  origin?: boolean;
+  unit?: string;
+}
+
+/**
+ * WO-023 (Stage 2): quadrilateral ABCD with A, B on the x-axis; C slides parallel to DB to E on the
+ * x-axis, so △AED = ABCD. The answer is E's x.
+ */
+export interface CoordQuadTriFigure {
+  type: 'coord_quad_tri';
+  A: Point;
+  B: Point;
+  C: Point;
+  D: Point;
+  unit?: string;
+}
+
 /** Stage 3: △ABC with D on BC (BD:DC) and E on CA (CE:EA); AD and BE meet at P (mass points). */
 export interface TriangleCeviansFigure {
   type: 'triangle_cevians';
@@ -245,6 +274,8 @@ export type Figure =
   | CoordPolygonFigure
   | CoordEqualAreaFigure
   | CoordMirrorAreaFigure
+  | CoordYSplitFigure
+  | CoordQuadTriFigure
   | TriangleCeviansFigure;
 
 export interface Picker {
@@ -265,6 +296,8 @@ export interface Variant {
   figure?: Partial<Figure>;
   text_ja?: string;
   answer: ExactNumber;
+  /** Stage 3 answers that are not plain numbers (「8√2cm」, 「15πcm²」, 「(2, −1)」). */
+  display_ja?: string;
   lens_route: VariantRoute;
 }
 

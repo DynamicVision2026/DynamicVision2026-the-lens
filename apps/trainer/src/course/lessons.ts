@@ -4,7 +4,7 @@ import { getCard, withVariant, type Bundle, type LensCard, type Lesson, type Pas
 /** Lenses with a hands-on interaction in the course player, and the figures each can play. */
 const PLAYABLE: Record<string, (card: LensCard) => boolean> = {
   enclose: (c) => (c.problem.figure.type === 'grid_polygon' || (c.problem.figure.type === 'coord_polygon' && c.problem.figure.shape !== 'axis_base')) && verticesOnBox(c),
-  slide: (c) => c.problem.figure.type === 'parallel_band' || c.problem.figure.type === 'coord_equal_area',
+  slide: (c) => ['parallel_band', 'coord_equal_area', 'coord_quad_tri'].includes(c.problem.figure.type),
   mirror: (c) => ['mirror_path', 'mirror_corner'].includes(c.problem.figure.type) || (c.problem.figure.type === 'coord_mirror_area' && c.problem.figure.side !== 'opposite'),
   area: (c) => ['area_two_rect', 'area_average', 'area_shortfall'].includes(family(c) ?? ''),
   constant: (c) => family(c) === 'diff_bars',
