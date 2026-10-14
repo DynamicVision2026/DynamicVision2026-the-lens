@@ -8,7 +8,7 @@ grades:
 - 小6
 level: 4
 archetype: slide.band_height_from_area
-status: draft
+status: verified
 provenance:
   original: true
   built_from: 'Archetype: triangles between parallel lines with the total area given; find the gap by merging into one triangle (等積変形, inverse).'

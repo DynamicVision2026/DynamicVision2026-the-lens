@@ -9,7 +9,7 @@ grades:
 - 小6
 level: 3
 archetype: slide.not_parallel_failure
-status: draft
+status: verified
 provenance:
   original: true
   built_from: 'Archetype: triangles between two lines that are NOT parallel; sliding changes heights, so the lens fails (failure card for 等積変形).'

@@ -8,7 +8,7 @@ grades:
 - 小6
 level: 4
 archetype: mirror.two_lines
-status: draft
+status: verified
 provenance:
   original: true
   built_from: 'Archetype: shortest path touching two perpendicular lines in a given order; reflect once across each line (折り返す twice).'

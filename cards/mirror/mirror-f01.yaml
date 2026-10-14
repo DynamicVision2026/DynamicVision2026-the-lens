@@ -8,7 +8,7 @@ grades:
 - 小6
 level: 3
 archetype: mirror.bridge_failure
-status: draft
+status: verified
 provenance:
   original: true
   built_from: 'Archetype: river with a perpendicular bridge between P and Q on opposite banks; the fixed bridge length is removed by shifting Q (translation), not by reflecting (failure card for 折り返す).'
