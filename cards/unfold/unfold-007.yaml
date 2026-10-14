@@ -1,0 +1,108 @@
+schema_version: '1.1'
+id: unfold-007
+kind: no_lens
+lens: unfold
+best_move: 'direct: add the three edge lengths (辺をたす)'
+stage: shogakko
+grades:
+- 小5
+- 小6
+level: 2
+archetype: unfold.edges_no_lens
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: shortest route along the edges of a cuboid; no face is crossed, so nothing needs unfolding (negative control for 展開).'
+  not_derived_from: Lengths, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 辺の上だけを通るなら、面を開く必要はない。横・おく・たてを1回ずつ通る道がいちばん短い。
+  principle_en: 'Along the edges only: no unfolding; one of each length is shortest.'
+problem:
+  text_ja: 直方体ABCD-EFGHがあり、AB＝6cm、BC＝9cm、AE＝7cmです。辺の上だけを通って、頂点Aから頂点Gまで行きます。いちばん短い道のりは何cmですか。
+  unit: cm
+  figure:
+    type: box_unfold
+    a: 6
+    b: 9
+    h: 7
+    unit: cm
+    point_labels:
+      A: A
+      B: B
+      C: C
+      D: D
+      E: E
+      F: F
+      G: G
+      H: H
+      P: P
+    path: edges
+answer:
+  value: '22'
+  display_ja: 22cm
+  expr: unfold_cross
+trap_route:
+  time_cost_sec: 90
+  time_source: estimate
+  steps:
+  - ja: くせで面を開いて、AとGをまっすぐ結ぼうとする
+    op: note
+  - ja: でも、通れるのは辺の上だけ。ななめの線は通れない
+    op: note
+  - ja: 遠回りで約1分半
+    op: note
+lens_route:
+  time_cost_sec: 15
+  time_source: estimate
+  steps:
+  - ja: 辺の上だけを通るので、面を開く必要はない
+    op: note
+  - ja: どの最短の道も、横・おく・たての辺を1回ずつ通る
+    op: note
+  - ja: 6+9+7 = 22
+    value: '22'
+    op: result
+trigger:
+  ja: 辺の上だけを通るなら、展開はいらない。3つの辺の長さをたす。
+  en: 'Edges only: no unfolding; add the three lengths.'
+  tags:
+  - along_edges_only
+picker:
+  options:
+  - unfold
+  - mirror
+  - enclose
+  - direct
+  correct: direct
+  clue_distractors:
+  - path_on_surface
+  - shortest_path
+  feedback_ja:
+    unfold: 面を開くのは、表面の上をななめに通るとき。ここは辺の上だけ。
+    mirror: 折り返す問題ではない。
+    enclose: 面積の問題ではない。
+    direct: そのとおり。横・おく・たての辺を1回ずつ通る。
+animation:
+  keyframes:
+  - show_box
+  - try_midpoint
+  - unfold_faces
+  - draw_straight
+  - mark_similar
+  - show_answer
+checks:
+- type: text_matches
+- type: unfold_edges
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: box_unfold
+  count: 4
+  seed: 5322
+  constraints:
+    min_side: 2
+    max_side: 12
+    min_h: 3
+    max_h: 15

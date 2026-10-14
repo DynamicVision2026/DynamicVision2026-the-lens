@@ -40,7 +40,7 @@ trap_route:
   time_cost_sec: 240
   time_source: estimate
   steps:
-  - ja: 兄の年れいを5の倍数で決め、弟の年れいと6年後の比を1つずつ確かめる
+  - ja: 兄の年れいを1つずつ決めて、弟の年れいと何年後かの比を確かめる
     op: note
   - ja: 比の計算が毎回あり、まちがえやすい
     op: note

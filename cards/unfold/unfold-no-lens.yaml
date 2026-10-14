@@ -82,7 +82,7 @@ picker:
     unfold: 面を開くのは、表面の上をななめに通るとき。ここは辺の上だけ。
     mirror: 折り返す問題ではない。
     enclose: 面積の問題ではない。
-    direct: そのとおり。横6、おく4、たて5を1回ずつ通る。
+    direct: そのとおり。横・おく・たての辺を1回ずつ通る。
 animation:
   keyframes:
   - show_box

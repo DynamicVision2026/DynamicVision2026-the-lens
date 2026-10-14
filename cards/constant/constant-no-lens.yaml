@@ -39,7 +39,7 @@ trap_route:
   time_cost_sec: 60
   time_source: estimate
   steps:
-  - ja: 年れいの問題なので、くせで差 13−9 を出す
+  - ja: 年れいの問題なので、くせで2人の年れいの差を出す
     op: note
   - ja: 差は答えに使わないのに、図をかき始める
     op: note
@@ -75,7 +75,7 @@ picker:
     constant: 差は変わらないが、ここでは差を使わなくても答えが出る。
     area: 2種類のものの数と合計の問題ではない。
     freeze: 動く点の速さの問題ではない。
-    direct: そのとおり。5年後の姉と妹の年れいをそれぞれ出して、たすだけ。
+    direct: そのとおり。何年後の2人の年れいをそれぞれ出して、たすだけ。
 animation:
   keyframes:
   - show_story

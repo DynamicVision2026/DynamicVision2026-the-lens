@@ -36,7 +36,7 @@ trap_route:
   time_cost_sec: 180
   time_source: estimate
   steps:
-  - ja: 4%を□g、12%を(400−□)gとおいて食塩の式を立てる
+  - ja: 一方の重さを□g、もう一方を（全体−□）gとおいて食塩の式を立てる
     op: note
   - ja: かっこの計算でまちがえやすい
     op: note
@@ -74,7 +74,7 @@ picker:
   feedback_ja:
     area: 2種類のものの数と合計の問題ではない。
     constant: 差や合計が変わらないことを使う問題ではない。
-    balance: そのとおり。うでの長さ5と3の逆の比 3:5 で、400gを分ける。
+    balance: そのとおり。うでの長さの逆の比で、全体の重さを分ける。
     direct: 式を立てると、かっこと分数が出てきて時間がかかる。
 animation:
   keyframes:

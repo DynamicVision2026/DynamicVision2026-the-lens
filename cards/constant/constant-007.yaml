@@ -42,7 +42,7 @@ trap_route:
   steps:
   - ja: 1個あげたら、2個あげたら…と、2人の個数を表にする
     op: note
-  - ja: 毎回、比が5:3になったか確かめる
+  - ja: 毎回、あとの比になったか確かめる
     op: note
   - ja: ここで約3分
     op: note
@@ -76,7 +76,7 @@ picker:
   feedback_ja:
     area: 2種類のものの数と合計の問題ではない。
     balance: こさや平均を混ぜる問題ではない。
-    constant: そのとおり。あげても合計72個は変わらない。72を5:3に分ける。
+    constant: そのとおり。やりとりしても合計は変わらない。合計を、あとの比に分ける。
     direct: 1個ずつためすと、比の計算が何回も必要になる。
 animation:
   keyframes:

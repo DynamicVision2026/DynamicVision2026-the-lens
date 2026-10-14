@@ -21,10 +21,10 @@ chugaku_juken:
   review_set: {size: 10, no_lens_items: 2}   # mixed toolkit review: pick the lens, all lessons mixed
   lessons:
     - {lens: enclose,  video: lesson-enclose,  cards: [enclose-002, enclose-004, enclose-no-lens, enclose-001, enclose-003, enclose-008, enclose-005, enclose-006, enclose-f01, enclose-007]}
-    - {lens: slide,    video: lesson-slide,    cards: [slide-002, slide-001, slide-no-lens, slide-003, slide-f01, slide-004]}
+    - {lens: slide,    video: lesson-slide,    cards: [slide-002, slide-001, slide-no-lens, slide-007, slide-f02, slide-003, slide-005, slide-f01, slide-004, slide-006]}
     - {lens: area,     video: lesson-area,     cards: [area-002, area-001, area-no-lens, area-004, area-003, area-007, area-f01, area-008, area-006, area-005]}
     - {lens: constant, video: lesson-constant, cards: [constant-004, constant-001, constant-no-lens, constant-002, constant-003, constant-008, constant-006, constant-f01, constant-007, constant-005]}
-    - {lens: balance,  video: lesson-balance,  cards: [balance-002, balance-001, balance-no-lens, balance-003, balance-006, balance-f01, balance-005, balance-007, balance-004]}
-    - {lens: freeze,   video: lesson-freeze,   cards: [freeze-002, freeze-001, freeze-no-lens, freeze-003, freeze-006, freeze-f01, freeze-005, freeze-007, freeze-004]}
-    - {lens: mirror,   video: lesson-mirror,   cards: [mirror-002, mirror-001, mirror-no-lens, mirror-003, mirror-f01, mirror-004]}
-    - {lens: unfold,   video: lesson-unfold,   cards: [unfold-002, unfold-001, unfold-no-lens, unfold-003, unfold-f01, unfold-004]}
+    - {lens: balance,  video: lesson-balance,  cards: [balance-002, balance-001, balance-no-lens, balance-003, balance-006, balance-f01, balance-005, balance-007, balance-004, balance-008]}
+    - {lens: freeze,   video: lesson-freeze,   cards: [freeze-002, freeze-001, freeze-no-lens, freeze-003, freeze-006, freeze-f01, freeze-005, freeze-007, freeze-004, freeze-008]}
+    - {lens: mirror,   video: lesson-mirror,   cards: [mirror-002, mirror-001, mirror-no-lens, mirror-007, mirror-f02, mirror-003, mirror-005, mirror-f01, mirror-004, mirror-006]}
+    - {lens: unfold,   video: lesson-unfold,   cards: [unfold-002, unfold-001, unfold-no-lens, unfold-007, unfold-f02, unfold-003, unfold-005, unfold-f01, unfold-004, unfold-006]}

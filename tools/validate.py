@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import json
 import random
+import re
 import sys
 from pathlib import Path
 
@@ -1553,8 +1554,11 @@ def run_check(card, check, pts) -> tuple[bool, str]:
         total = sum((abs(shoelace(tr)) for tr in tris), S(0))
         L = S(fig["bottom_x"][-1] - fig["bottom_x"][0])
         wrong = {L * h / 2 for h in fig["apex_heights"]}
-        ok = len(set(fig["apex_heights"])) > 1 and total not in wrong
-        return ok, f"heights differ, so merging into one triangle (any single height) gives a wrong total; true total {total}"
+        ax, hs = fig["apex_x"], fig["apex_heights"]
+        straight = ax[-1] != ax[0] and all(S(hs[i] - hs[0]) * (ax[-1] - ax[0]) == S(hs[-1] - hs[0]) * (ax[i] - ax[0]) for i in range(len(hs)))
+        ok = len(set(hs)) > 1 and total not in wrong and straight
+        return ok, (f"heights differ and the apexes lie on one straight tilted ℓ, so merging into one triangle (any given height) "
+                    f"gives a wrong total; true total {total}" + ("" if straight else "; the apex heights are not on one straight line"))
     if t == "band_height_from_area":
         L = S(fig["bottom_x"][-1] - fig["bottom_x"][0])
         h = sympify(fig["total_area"]) * 2 / L
@@ -1766,9 +1770,16 @@ def make_band_variants(card):
             continue
         mode = band_mode(fig0)
         fig = {**fig0, "bottom_x": bottom, "apex_x": apex, "band_height": h}
-        if mode == "nonparallel":
-            hs = rng.sample(range(c.get("min_height", 3), c.get("max_height", 8) + 1), k)
-            fig["apex_heights"] = hs
+        if mode == "nonparallel":   # ℓ is one straight tilted line: heights change linearly along it (Builder, #95)
+            h0 = rng.randint(c.get("min_height", 3), c.get("max_height", 8))
+            dx = apex[-1] - apex[0]
+            if dx == 0:
+                continue
+            dh = rng.choice([d for d in range(-6, 7) if d])
+            hs = [S(h0) + S(dh) * (x - apex[0]) / dx for x in apex]
+            if not all(v.is_integer and v >= 2 for v in hs) or len(set(hs)) < k:
+                continue
+            fig["apex_heights"] = [int(v) for v in hs]
         if mode == "ask_height":
             if (L * h) % 2:
                 continue   # the given total is printed in the text: keep it a whole number (no 135/2cm²)
@@ -2634,11 +2645,38 @@ def validate(path: Path, with_variants: bool) -> bool:
         enough = len(vs) == card["variants"]["count"]
         ok_all &= enough
         print(f"  {'PASS' if enough else 'FAIL'}    variants: {len(vs)}/{card['variants']['count']} generated, re-checked, lens steps sum to answer")
+        leaks = variant_leaks(card, vs)
+        ok_all &= not leaks
+        print(f"  {'FAIL' if leaks else 'PASS'}    variant_text: " + ("; ".join(leaks) if leaks else
+              "picker feedback and trap lines quote no number that changes in a variant"))
         out = ROOT / "build" / "variants" / f"{card['id']}.json"
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(json.dumps(vs, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"  => {'VERIFIED' if ok_all else 'NOT VERIFIED'}")
     return ok_all, card, vs
+
+
+_NUM = re.compile(r"\d+(?:\.\d+)?")
+_GENERIC_NUM = re.compile(r"約\d+(?:\.\d+)?分半?|\d+分半|[÷×]\d+|\d+(?=種類|つ|辺|回|通り|倍|点|組|行)")
+
+
+def variant_leaks(card, vs):
+    """Variants show the parent's picker feedback and trap lines (withVariant). Those lines must not quote a number
+    from the problem that a variant changes, or a child sees the anchor's numbers next to different ones.
+    Worked trap calculations (steps with a value) are the anchor's own route and are exempt."""
+    if not vs:
+        return []
+    nums = lambda t: set(_NUM.findall(t or ""))
+    anchor = nums(card["problem"]["text_ja"])
+    lines = [(f"feedback {k}", v) for k, v in card["picker"]["feedback_ja"].items()]
+    lines += [(f"trap step {i + 1}", st["ja"]) for i, st in enumerate(card["trap_route"]["steps"]) if "value" not in st]
+    out = []
+    for where, text in lines:
+        bad = sorted(n for n in set(_NUM.findall(_GENERIC_NUM.sub("", text)))
+                     if n in anchor and any(n not in nums(v.get("text_ja")) for v in vs))
+        if bad:
+            out.append(f"{where} quotes {', '.join(bad)}")
+    return out
 
 
 def annotate_enclose_steps(pts, steps):

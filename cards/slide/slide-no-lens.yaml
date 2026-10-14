@@ -81,7 +81,7 @@ picker:
     slide: 動かしても面積は変わらないが、底辺も高さももう分かっている。動かす必要がない。
     enclose: 方眼の上の図形ではない。
     mirror: 最短の道すじを求める問題ではない。
-    direct: そのとおり。底辺7cm、高さ5cm。7×5÷2でおしまい。
+    direct: そのとおり。三角形は1つだけ。底辺×高さ÷2でおしまい。
 animation:
   keyframes:
   - show_band

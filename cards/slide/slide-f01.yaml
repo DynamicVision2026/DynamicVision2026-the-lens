@@ -19,7 +19,7 @@ grounding:
   principle_ja: 等積変形は、高さが変わらないときだけ使える。平行でない線の上では、頂点を動かすと高さも変わる。
   principle_en: Sliding keeps area only when the height is kept; on a non-parallel line it is not.
 problem:
-  text_ja: 直線m上に点A、B、C、Dがこの順にあり、AB＝3cm、BC＝4cm、CD＝3cmです。P、Q、Rは直線ℓ上の点ですが、直線ℓと直線mは平行ではなく、P、Q、Rから直線mまでの高さはそれぞれ4cm、5cm、8cmです。かげをつけた三角形ABP、BCQ、CDRの面積の合計は何cm²ですか。
+  text_ja: 直線m上に点A、B、C、Dがこの順にあり、AB＝3cm、BC＝4cm、CD＝3cmです。P、Q、Rは直線ℓ上の点ですが、直線ℓと直線mは平行ではなく、P、Q、Rから直線mまでの高さはそれぞれ4cm、8cm、10cmです。かげをつけた三角形ABP、BCQ、CDRの面積の合計は何cm²ですか。
   unit: cm²
   figure:
     type: parallel_band
@@ -32,11 +32,11 @@ problem:
     apex_x:
     - 1
     - 5
-    - 9
+    - 7
     apex_heights:
     - 4
-    - 5
     - 8
+    - 10
     point_labels:
       bottom:
       - A
@@ -52,8 +52,8 @@ problem:
       band_height: false
       each_base: true
 answer:
-  value: '28'
-  display_ja: 28cm²
+  value: '37'
+  display_ja: 37cm²
   expr: band_area
 trap_route:
   time_cost_sec: 180
@@ -61,7 +61,7 @@ trap_route:
   steps:
   - ja: くせで頂点を1点に集めて、底辺ADの1つの三角形にする
     op: note
-  - ja: でも、どの高さを使えばいいか決まらない（4cm？ 5cm？ 8cm？）
+  - ja: でも、高さがばらばらで、どの高さを使えばいいか決まらない
     op: note
   - ja: 集めると面積が変わってしまい、答えが合わない。約3分むだになる
     op: note
@@ -74,14 +74,14 @@ lens_route:
   - ja: 三角形ABP：3×4÷2 = 6
     value: '6'
     op: start
-  - ja: 三角形BCQ：4×5÷2 = 10
-    value: '10'
+  - ja: 三角形BCQ：4×8÷2 = 16
+    value: '16'
     op: add
-  - ja: 三角形CDR：3×8÷2 = 12
-    value: '12'
+  - ja: 三角形CDR：3×10÷2 = 15
+    value: '15'
     op: add
-  - ja: 6 + 10 + 12 = 28
-    value: '28'
+  - ja: 6 + 16 + 15 = 37
+    value: '37'
     op: result
 trigger:
   ja: 2本の直線が平行でなければ、頂点を動かすと高さが変わる。1つずつ計算する。

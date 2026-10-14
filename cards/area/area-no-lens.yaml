@@ -42,7 +42,7 @@ trap_route:
   steps:
   - ja: 2種類がまざっているので、くせで面積図をかく
     op: note
-  - ja: 「全部10円玉だったら」から始めるが、答えは同じなのに手順が多い
+  - ja: 「全部が安い方の硬貨だったら」から始めるが、答えは同じなのに手順が多い
     op: note
   - ja: ここで約1分半。遠回り
     op: note
@@ -73,10 +73,10 @@ picker:
   - total_count_and_total
   - count_difference_given
   feedback_ja:
-    area: 面積図でも答えは出るが、ここでは遠回り。50円玉の数がもう分かっている。
+    area: 面積図でも答えは出るが、ここでは遠回り。それぞれの枚数がもう分かっている。
     constant: 差が変わらないものを使う問題ではない。
     balance: こさや平均を混ぜる問題ではない。
-    direct: そのとおり。50円玉7枚、10円玉13枚と分かっているので、かけてたすだけ。
+    direct: そのとおり。どちらの枚数も分かっているので、かけてたすだけ。
 animation:
   keyframes:
   - show_story

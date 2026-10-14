@@ -1,0 +1,129 @@
+schema_version: '1.1'
+id: slide-006
+kind: standard
+lens: slide
+best_move: slide
+stage: shogakko
+grades:
+- 小5
+- 小6
+level: 4
+archetype: slide.band_triangles
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: 5 triangles between parallel lines, only the total base given; slide the apexes into one triangle (等積変形, level 3).'
+  not_derived_from: Lengths, wording and figure are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 底辺と高さが同じ三角形は、形がちがっても面積が等しい。平行線の上で頂点を動かしても、高さは変わらない。
+  principle_en: Triangles with the same base and height have equal area; sliding an apex along a parallel line keeps the height, so the area is unchanged.
+problem:
+  text_ja: 直線ℓと直線mは平行で、その間は4cmです。直線m上のAFの長さは13cmで、B、C、D、EはAとFの間の点です。P、Q、R、S、Tは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDR、DES、EFTの面積の合計は何cm²ですか。
+  unit: cm²
+  figure:
+    type: parallel_band
+    band_height: 4
+    bottom_x:
+    - 0
+    - 2
+    - 3
+    - 5
+    - 9
+    - 13
+    apex_x:
+    - 3
+    - 4
+    - 5
+    - 7
+    - 9
+    point_labels:
+      bottom:
+      - A
+      - B
+      - C
+      - D
+      - E
+      - F
+      apex:
+      - P
+      - Q
+      - R
+      - S
+      - T
+    shown:
+      total_base: true
+      band_height: true
+      each_base: false
+answer:
+  value: '26'
+  display_ja: 26cm²
+  expr: band_area
+trap_route:
+  time_cost_sec: 300
+  time_source: estimate
+  steps:
+  - ja: 5つの三角形の底辺を1つずつ知ろうとする
+    op: note
+  - ja: 1つ1つの底辺の長さは書かれていない
+    op: note
+  - ja: ここで約5分。決め手がない
+    op: note
+lens_route:
+  time_cost_sec: 25
+  time_source: estimate
+  steps:
+  - ja: 頂点を直線ℓにそって1点に集める（面積は変わらない）
+    op: note
+  - ja: 底辺13、高さ4の1つの三角形になる
+    op: note
+  - ja: 13×4÷2 = 26
+    value: '26'
+    op: result
+trigger:
+  ja: 平行線の間に三角形がならび、長さが合計しか分からないときは、頂点をすべらせて1つにまとめる。
+  en: 'Triangles between parallel lines with only the total length given: slide the apexes together into one triangle.'
+  tags:
+  - parallel_lines
+  - triangles_between_parallels
+  - apexes_on_one_line
+  - only_total_given
+picker:
+  options:
+  - slide
+  - enclose
+  - mirror
+  - direct
+  correct: slide
+  clue_distractors:
+  - vertices_on_box
+  - solid_3d
+  feedback_ja:
+    slide: そのとおり。頂点は平行線の上を動かしても、高さが変わらないので面積も変わらない。
+    enclose: 方眼の上の図形ではないので、囲んで引くための長さが分からない。
+    mirror: 最短の道すじを求める問題ではない。
+    direct: 1つずつ計算したいが、AB、BC、CDの長さが分からない。
+animation:
+  keyframes:
+  - show_band
+  - mark_parallel
+  - slide_apexes
+  - merge_triangle
+  - show_answer
+checks:
+- type: text_matches
+- type: band_triangles_disjoint
+- type: band_total_only
+- type: band_area_equals_answer
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: slide_band
+  count: 4
+  seed: 5112
+  constraints:
+    min_base: 12
+    max_base: 18
+    min_height: 4
+    max_height: 9

@@ -75,7 +75,7 @@ picker:
   feedback_ja:
     area: 2種類のものの数と合計の問題ではない。
     constant: 差や合計が変わらないことを使う問題ではない。
-    balance: そのとおり。重さの比400:200の逆の比が、うでの長さの比。
+    balance: そのとおり。重さの比の逆の比が、うでの長さの比。
     direct: 式を立てると□が分数で出てきて、時間がかかる。
 animation:
   keyframes:
