@@ -51,14 +51,19 @@ interface Demo {
   b: Pt;
 }
 
-/** Provides the guide to a stage; renders the mascot, bubble and fingers over `stageRef`. */
-export function GuideProvider({ lens, stageRef, children }: { lens: string; stageRef: RefObject<HTMLElement | null>; children: ReactNode }) {
+/**
+ * Provides the guide to a stage; renders the mascot, bubble and fingers over `stageRef`. `onCoach`
+ * hears each interaction phase a scene coaches (the masterclass shows a lens step per phase).
+ */
+export function GuideProvider({ lens, stageRef, onCoach, children }: { lens: string; stageRef: RefObject<HTMLElement | null>; onCoach?: (phase: string) => void; children: ReactNode }) {
   const [line, setLine] = useState({ text: '', pose: 'q' as Pose, n: 0 });
   const [pulse, setPulse] = useState(0);
   const [demos, setDemos] = useState<Demo[]>([]);
   const idleFn = useRef<(() => void) | null>(null);
   const timer = useRef<number | undefined>(undefined);
   const demoId = useRef(0);
+  const onCoachRef = useRef(onCoach);
+  onCoachRef.current = onCoach;
 
   const arm = useCallback(() => {
     window.clearTimeout(timer.current);
@@ -118,6 +123,7 @@ export function GuideProvider({ lens, stageRef, children }: { lens: string; stag
 
   const coach = useCallback(
     (spec: CoachSpec) => {
+      onCoachRef.current?.(spec.phase);
       say(spec.text);
       setIdle(() => {
         setPulse((p) => p + 1);

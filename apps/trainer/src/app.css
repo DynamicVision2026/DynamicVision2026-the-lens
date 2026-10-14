@@ -1313,3 +1313,169 @@ html[data-theme='course'] body {
     font-size: 11px;
   }
 }
+
+/* ---- Step 1 さわって学ぶ: the masterclass (WO-014) ---- */
+.course .mbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.course .mbar .segs {
+  flex: 1;
+  display: flex;
+  gap: 4px;
+  min-width: 0;
+}
+.course .mbar .seg {
+  flex-basis: 0;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--line);
+  overflow: hidden;
+}
+.course .mbar .seg i {
+  display: block;
+  height: 100%;
+  background: var(--lens);
+  transition: width 0.5s linear;
+}
+.course .mbar .seg.cur {
+  outline: 1px solid var(--lens);
+  outline-offset: 1px;
+}
+/* The 5th segment is the practice onboarding: 練習の準備. */
+.course .mbar .seg.onboarding {
+  background: repeating-linear-gradient(135deg, var(--line) 0 4px, var(--raise) 4px 8px);
+}
+.course .mbar .seg.onboarding i {
+  background: var(--flag);
+}
+.course .mbar .mclock {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-quiet);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.course .beat-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin: 2px 0 0;
+  font-size: clamp(17px, 2.2vw, 22px);
+}
+.course .beat-title b {
+  color: var(--lens);
+  font-size: 0.8em;
+}
+.course .master .trapbeat ol {
+  margin: 6px 0 8px;
+  padding-left: 1.3em;
+}
+.course .master .trapbeat li.in {
+  animation: rise 0.26s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+/* The "time running out" strip under the usual way. */
+.course .master .timeleft {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--flag);
+  transform-origin: left center;
+  animation: timeleft linear both;
+}
+@keyframes timeleft {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+.course .master .idea {
+  border-left: 4px solid var(--lens);
+  font-weight: 700;
+  line-height: 1.7;
+}
+.course .master .idea.in {
+  animation: rise 0.3s ease both;
+}
+.course .master .captions {
+  margin: 0;
+  padding: 10px 14px 10px 2em;
+  display: grid;
+  gap: 4px;
+  line-height: 1.6;
+}
+.course .master .captions:empty {
+  display: none;
+}
+.course .master .captions li.in {
+  animation: rise 0.26s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+.course .master .captions li.result {
+  color: var(--lens);
+  font-weight: 900;
+}
+.course .master .boundary-beat h3 {
+  margin: 0 0 8px;
+  color: var(--flag);
+}
+.course .master .boundary-beat .card {
+  padding: 0;
+  border: 0;
+  background: none;
+  margin-bottom: 8px;
+}
+.course .master .boundary-line {
+  margin: 0;
+  line-height: 1.8;
+  font-weight: 700;
+}
+.course .master .how-steps {
+  margin: 0 0 10px;
+  padding-left: 1.4em;
+  display: grid;
+  gap: 4px;
+  color: var(--ink-quiet);
+}
+.course .master .how-steps li.cur {
+  color: var(--ink);
+  font-weight: 700;
+}
+.course .master .how-steps li.ok {
+  color: var(--lens);
+}
+.course .master .clues-label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+/* ---- Step 3: the round of 5 (WO-014) ---- */
+.course .streak .round {
+  font-variant-numeric: tabular-nums;
+  margin-right: 4px;
+}
+.course .round-result {
+  display: grid;
+  gap: 10px;
+}
+.course .round-result h2,
+.course .round-result p {
+  margin: 0;
+}
+.course .round-result .round-marks {
+  display: flex;
+  gap: 8px;
+  margin: 0;
+  font-size: 22px;
+  font-weight: 900;
+}
+.course .round-result .ok {
+  color: var(--lens);
+}
+.course .round-result .miss {
+  color: var(--ink-quiet);
+}

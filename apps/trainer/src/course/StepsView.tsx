@@ -1,5 +1,5 @@
 // Steps 3–4 of a lesson (/lesson/:passId/:lens/practice and …/timed). Step 3 ひとりで練習 plays the
-// lesson's variants with no hints and counts clean problems in a row (3 = mastered). Step 4
+// lesson's variants with no hints in rounds of 5 (WO-014) and counts clean problems in a row (3 = mastered). Step 4
 // 時間をはかって確認 times a short set and keeps the record, so the child sees how much faster they got.
 import { loadBundle } from '@lens/scenes';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -11,6 +11,7 @@ import { Problem } from './LessonView';
 import { AttemptContext, useAttemptScope } from './attemptContext';
 import type { PlayResult } from './play';
 import { applyPractice, fasterBy, MASTERY_STREAK, practiceQueue, summarizeTimed, timedSet, trapMinutes, type TimedItem, type TimedRun } from './practice';
+import { masterToken, withoutMasterCards } from './masterclass';
 import { masteryOf, saveMastery, saveTimedRun, timedRuns } from './progress';
 import { SCENES } from './scenes';
 import { C, useCourseTheme } from './scenes/kit';
@@ -29,8 +30,14 @@ function useLesson(passId: string, lens: string) {
 export function PracticeView({ passId, lens }: { passId: string; lens: string }) {
   useCourseTheme();
   const { lesson, problems } = useLesson(passId, lens);
-  const queue = useMemo(() => (lesson ? practiceQueue(problems, lesson) : []), [problems, lesson]);
+  // WO-014: never the masterclass's own example1, example2 or try cards.
+  const queue = useMemo(() => (lesson ? withoutMasterCards(practiceQueue(problems, lesson), lesson) : []), [problems, lesson]);
+  const roundN = masterToken().practice_round;
   const [i, setI] = useState(0);
+  // The round of 5 (WO-014): where it started in the queue, and each problem's clean / not clean.
+  const [roundAt, setRoundAt] = useState(0);
+  const [results, setResults] = useState<boolean[]>([]);
+  const [roundDone, setRoundDone] = useState(false);
   const [m, setM] = useState(() => masteryOf(passId, lens));
   const [justMastered, setJustMastered] = useState(false);
   const [lastMs, setLastMs] = useState<number | null>(null);
@@ -42,12 +49,24 @@ export function PracticeView({ passId, lens }: { passId: string; lens: string })
   const scope = useAttemptScope('lesson', passId);
   if (!lesson || queue.length === 0 || !SCENES[lens]) return <main className="course">{t('lesson.notFound')}</main>;
   const p = queue[i % queue.length]!;
+  const k = i - roundAt;
+  const lastOfRound = k >= roundN - 1;
   const onResult = ({ clean }: PlayResult) => {
     setLastMs(performance.now() - shownAt.current);
+    setResults((xs) => [...xs, clean]);
     const next = applyPractice(m, clean);
     saveMastery(next);
     if (!m.done && next.done) setJustMastered(true);
     setM(next);
+  };
+  const next = () => {
+    if (lastOfRound) setRoundDone(true);
+    setI(i + 1);
+  };
+  const again = () => {
+    setRoundAt(i);
+    setResults([]);
+    setRoundDone(false);
   };
   return (
     <AttemptContext.Provider value={scope}>
@@ -58,13 +77,14 @@ export function PracticeView({ passId, lens }: { passId: string; lens: string })
         </button>
         <StepNav passId={passId} lens={lens} current={3} />
         <span className="streak" aria-label={t('practice.streak', { n: m.streak, m: MASTERY_STREAK })}>
-          {Array.from({ length: MASTERY_STREAK }, (_, k) => (
-            <i key={k} className={k < Math.min(m.streak, MASTERY_STREAK) ? 'on' : ''} />
+          {!roundDone && <b className="round">{t('practice.round', { i: k + 1, n: roundN })}</b>}
+          {Array.from({ length: MASTERY_STREAK }, (_, j) => (
+            <i key={j} className={j < Math.min(m.streak, MASTERY_STREAK) ? 'on' : ''} />
           ))}
-          {lastMs !== null && <b>{t('practice.time', { s: seconds(lastMs) })}</b>}
+          {lastMs !== null && !roundDone && <b>{t('practice.time', { s: seconds(lastMs) })}</b>}
         </span>
       </div>
-      {(justMastered || m.done) && (
+      {(justMastered || m.done) && !roundDone && (
         <div className={`mastered${justMastered ? ' in' : ''}`}>
           <span>★ {t('practice.mastered')}</span>
           <button type="button" className="go" onClick={() => (sfx.tap(), navigate(`/lesson/${passId}/${lens}/timed`))}>
@@ -72,17 +92,39 @@ export function PracticeView({ passId, lens }: { passId: string; lens: string })
           </button>
         </div>
       )}
-      <Problem
-        key={`${p.card.id}-${i}`}
-        card={p.card}
-        mode={p.mode}
-        lens={lens}
-        passId={passId}
-        last={false}
-        onNext={() => setI(i + 1)}
-        onAgain={() => setI(i + 1)}
-        opts={{ practice: true, record: false, onResult, again: false, nextLabel: t('practice.next') }}
-      />
+      {roundDone ? (
+        <section className="card round-result">
+          <h2>{t('practice.roundTitle')}</h2>
+          <p className="why">{t('practice.roundClean')}</p>
+          <div className="answer in">{t('practice.roundCount', { c: results.filter(Boolean).length, n: results.length })}</div>
+          <p className="round-marks">
+            {results.map((c, j) => (
+              <span key={j} className={c ? 'ok' : 'miss'}>
+                {c ? '✓' : '△'}
+              </span>
+            ))}
+          </p>
+          {m.done && <p className="why">★ {t('practice.mastered')}</p>}
+          <button type="button" className="go" onClick={() => (sfx.tap(), again())}>
+            {t('practice.roundAgain')}
+          </button>
+          <button type="button" className="go ghost" onClick={() => (sfx.tap(), navigate(`/lesson/${passId}/${lens}/timed`))}>
+            {t('practice.roundTimed')}
+          </button>
+        </section>
+      ) : (
+        <Problem
+          key={`${p.card.id}-${i}`}
+          card={p.card}
+          mode={p.mode}
+          lens={lens}
+          passId={passId}
+          last={false}
+          onNext={next}
+          onAgain={next}
+          opts={{ practice: true, record: false, onResult, again: false, nextLabel: lastOfRound ? t('practice.toResult') : t('practice.next') }}
+        />
+      )}
     </main>
     </AttemptContext.Provider>
   );
