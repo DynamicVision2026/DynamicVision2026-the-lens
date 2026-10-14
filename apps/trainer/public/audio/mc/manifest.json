@@ -1,0 +1,432 @@
+{
+  "enclose": {
+    "principle": {
+      "text": "ななめの図形。面積は、どう出す？",
+      "file": "principle.m4a",
+      "sha1": "8e03edf73a19"
+    },
+    "principle_turn": {
+      "text": "ここで手が止まる…。どうする？",
+      "file": "principle_turn.m4a",
+      "sha1": "cf35b6236b3c"
+    },
+    "principle_lens": {
+      "text": "囲むレンズ！ 外わくで囲んでみよう",
+      "file": "principle_lens.m4a",
+      "sha1": "1a501312b71b"
+    },
+    "example1": {
+      "text": "ゴーストの指をまねして、やってみよう",
+      "file": "example1.m4a",
+      "sha1": "94c24c043533"
+    },
+    "example1_done": {
+      "text": "ななめの長さは、はからなくていい",
+      "file": "example1_done.m4a",
+      "sha1": "2cafc624c077"
+    },
+    "example2": {
+      "text": "こんどは五角形。囲めるかな？",
+      "file": "example2.m4a",
+      "sha1": "6f5af0064475"
+    },
+    "example2_done": {
+      "text": "どんな形でも、囲んですみを引く",
+      "file": "example2_done.m4a",
+      "sha1": "c738e2232335"
+    },
+    "boundary": {
+      "text": "でも注意！ こんなときは囲まない",
+      "file": "boundary.m4a",
+      "sha1": "382b4a482b5c"
+    },
+    "onboarding": {
+      "text": "手がかり → 道具 → ドラッグ。ヒントなしでね",
+      "file": "onboarding.m4a",
+      "sha1": "7baadc5b9997"
+    },
+    "onboarding_done": {
+      "text": "準備OK！ 5問、ひとりでやってみよう",
+      "file": "onboarding_done.m4a",
+      "sha1": "ef57f545d924"
+    }
+  },
+  "slide": {
+    "principle": {
+      "text": "三角形がいくつも。面積の合計は？",
+      "file": "principle.m4a",
+      "sha1": "6ab202bebaf4"
+    },
+    "principle_turn": {
+      "text": "底辺が1つずつ分からない…。どうする？",
+      "file": "principle_turn.m4a",
+      "sha1": "d5e5c43d369a"
+    },
+    "principle_lens": {
+      "text": "等積変形レンズ！ 頂点を平行線にそって動かそう",
+      "file": "principle_lens.m4a",
+      "sha1": "844b7c872450"
+    },
+    "example1": {
+      "text": "頂点を1か所に集めてみよう",
+      "file": "example1.m4a",
+      "sha1": "c6d94c87d7b6"
+    },
+    "example1_done": {
+      "text": "高さが同じなら、面積は変わらない",
+      "file": "example1_done.m4a",
+      "sha1": "0ee1c0476754"
+    },
+    "example2": {
+      "text": "こんどは三角形が5つ。同じ考え方で！",
+      "file": "example2.m4a",
+      "sha1": "e43a0a4238b5"
+    },
+    "example2_done": {
+      "text": "いくつあっても、1つにまとめられる",
+      "file": "example2_done.m4a",
+      "sha1": "8aaa3bde04d5"
+    },
+    "boundary": {
+      "text": "でも、もう底辺と高さが見えているなら…",
+      "file": "boundary.m4a",
+      "sha1": "a2dbd794b1e0"
+    },
+    "onboarding": {
+      "text": "手がかり → 道具 → ドラッグ。ヒントなしでね",
+      "file": "onboarding.m4a",
+      "sha1": "7baadc5b9997"
+    },
+    "onboarding_done": {
+      "text": "準備OK！ 5問、ひとりでやってみよう",
+      "file": "onboarding_done.m4a",
+      "sha1": "ef57f545d924"
+    }
+  },
+  "area": {
+    "principle": {
+      "text": "2種類がまざっている。どう数える？",
+      "file": "principle.m4a",
+      "sha1": "30f62326ee62"
+    },
+    "principle_turn": {
+      "text": "表がどんどん長くなる…。どうする？",
+      "file": "principle_turn.m4a",
+      "sha1": "b2c04573db6c"
+    },
+    "principle_lens": {
+      "text": "面積図レンズ！ 1枚あたり×枚数を長方形に",
+      "file": "principle_lens.m4a",
+      "sha1": "67941ef8cc07"
+    },
+    "example1": {
+      "text": "点線をつかんで、下へ動かそう",
+      "file": "example1.m4a",
+      "sha1": "44cf1ead19a9"
+    },
+    "example1_done": {
+      "text": "はみ出した部分だけで、答えが出る",
+      "file": "example1_done.m4a",
+      "sha1": "76a197a8ccaa"
+    },
+    "example2": {
+      "text": "こんどは平均の問題。これも面積図！",
+      "file": "example2.m4a",
+      "sha1": "f444d38c1502"
+    },
+    "example2_done": {
+      "text": "はみ出しとへこみが、同じ広さ",
+      "file": "example2_done.m4a",
+      "sha1": "d6a724409daf"
+    },
+    "boundary": {
+      "text": "でも注意！ 全部の数が分からないときは…",
+      "file": "boundary.m4a",
+      "sha1": "15f710e557e9"
+    },
+    "onboarding": {
+      "text": "手がかり → 道具 → ドラッグ。ヒントなしでね",
+      "file": "onboarding.m4a",
+      "sha1": "7baadc5b9997"
+    },
+    "onboarding_done": {
+      "text": "準備OK！ 5問、ひとりでやってみよう",
+      "file": "onboarding_done.m4a",
+      "sha1": "ef57f545d924"
+    }
+  },
+  "constant": {
+    "principle": {
+      "text": "何年後に3倍？ どう考える？",
+      "file": "principle.m4a",
+      "sha1": "5d54e11d175e"
+    },
+    "principle_turn": {
+      "text": "表が長くなる…。どうする？",
+      "file": "principle_turn.m4a",
+      "sha1": "18e79205556c"
+    },
+    "principle_lens": {
+      "text": "差一定レンズ！ 年れいの差はずっと同じ",
+      "file": "principle_lens.m4a",
+      "sha1": "94e4392260ba"
+    },
+    "example1": {
+      "text": "● を動かして、差を見よう",
+      "file": "example1.m4a",
+      "sha1": "3b5328dd9fca"
+    },
+    "example1_done": {
+      "text": "差を「何つ分」で見れば、わり算1回",
+      "file": "example1_done.m4a",
+      "sha1": "616ca7f592d9"
+    },
+    "example2": {
+      "text": "こんどはお金。差は変わる？",
+      "file": "example2.m4a",
+      "sha1": "b2eb6a4937aa"
+    },
+    "example2_done": {
+      "text": "お金でも年れいでも、差は同じ",
+      "file": "example2_done.m4a",
+      "sha1": "cddd3d6d2200"
+    },
+    "boundary": {
+      "text": "でも注意！ 1人と何人かの合計だと…",
+      "file": "boundary.m4a",
+      "sha1": "2c98cd56f4e2"
+    },
+    "onboarding": {
+      "text": "手がかり → 道具 → ドラッグ。ヒントなしでね",
+      "file": "onboarding.m4a",
+      "sha1": "7baadc5b9997"
+    },
+    "onboarding_done": {
+      "text": "準備OK！ 5問、ひとりでやってみよう",
+      "file": "onboarding_done.m4a",
+      "sha1": "ef57f545d924"
+    }
+  },
+  "balance": {
+    "principle": {
+      "text": "こさのちがう食塩水。何g混ぜる？",
+      "file": "principle.m4a",
+      "sha1": "531e814cf77a"
+    },
+    "principle_turn": {
+      "text": "式が分数だらけ…。どうする？",
+      "file": "principle_turn.m4a",
+      "sha1": "ee0b6c7b0741"
+    },
+    "principle_lens": {
+      "text": "てんびんレンズ！ こさを位置、重さをおもりに",
+      "file": "principle_lens.m4a",
+      "sha1": "485ca34cbda9"
+    },
+    "example1": {
+      "text": "おもりを動かして、水平にしよう",
+      "file": "example1.m4a",
+      "sha1": "87504f185c5f"
+    },
+    "example1_done": {
+      "text": "うでの長さの逆の比が、重さの比",
+      "file": "example1_done.m4a",
+      "sha1": "e660eebb2d66"
+    },
+    "example2": {
+      "text": "こんどは食塩を加える。てんびんは？",
+      "file": "example2.m4a",
+      "sha1": "2d91b9579802"
+    },
+    "example2_done": {
+      "text": "食塩は100%。てんびんの右はしへ",
+      "file": "example2_done.m4a",
+      "sha1": "331ac63ef8a1"
+    },
+    "boundary": {
+      "text": "でも注意！ 何も混ぜていないときは…",
+      "file": "boundary.m4a",
+      "sha1": "df2a262f9a80"
+    },
+    "onboarding": {
+      "text": "手がかり → 道具 → ドラッグ。ヒントなしでね",
+      "file": "onboarding.m4a",
+      "sha1": "7baadc5b9997"
+    },
+    "onboarding_done": {
+      "text": "準備OK！ 5問、ひとりでやってみよう",
+      "file": "onboarding_done.m4a",
+      "sha1": "ef57f545d924"
+    }
+  },
+  "freeze": {
+    "principle": {
+      "text": "2人が向かい合って歩く。いつ出会う？",
+      "file": "principle.m4a",
+      "sha1": "7dbb1684eb46"
+    },
+    "principle_turn": {
+      "text": "まん中で出会う…とは限らない。どうする？",
+      "file": "principle_turn.m4a",
+      "sha1": "a2c4cdd8cbac"
+    },
+    "principle_lens": {
+      "text": "止めるレンズ！ 片方を止めてみよう",
+      "file": "principle_lens.m4a",
+      "sha1": "c0d714402cec"
+    },
+    "example1": {
+      "text": "弟をタップして、止めてみよう！",
+      "file": "example1.m4a",
+      "sha1": "12f0f5481431"
+    },
+    "example1_done": {
+      "text": "近づく速さで、きょりをわるだけ",
+      "file": "example1_done.m4a",
+      "sha1": "de2b79002b02"
+    },
+    "example2": {
+      "text": "こんどは列車のすれちがい！",
+      "file": "example2.m4a",
+      "sha1": "8ef20c42e3b6"
+    },
+    "example2_done": {
+      "text": "列車でも、片方を止めれば同じ",
+      "file": "example2_done.m4a",
+      "sha1": "fe61cfaa537e"
+    },
+    "boundary": {
+      "text": "でも注意！ 動くのが1人だけなら…",
+      "file": "boundary.m4a",
+      "sha1": "74ebd8acb46c"
+    },
+    "onboarding": {
+      "text": "手がかり → 道具 → ドラッグ。ヒントなしでね",
+      "file": "onboarding.m4a",
+      "sha1": "7baadc5b9997"
+    },
+    "onboarding_done": {
+      "text": "準備OK！ 5問、ひとりでやってみよう",
+      "file": "onboarding_done.m4a",
+      "sha1": "ef57f545d924"
+    }
+  },
+  "mirror": {
+    "principle": {
+      "text": "川によって水をくむ。いちばん短い道は？",
+      "file": "principle.m4a",
+      "sha1": "94f7a4099874"
+    },
+    "principle_turn": {
+      "text": "まん中では最短にならない…。どうする？",
+      "file": "principle_turn.m4a",
+      "sha1": "915015f84cfb"
+    },
+    "principle_lens": {
+      "text": "折り返すレンズ！ Qを川で折り返そう",
+      "file": "principle_lens.m4a",
+      "sha1": "f15cb13d6c76"
+    },
+    "example1": {
+      "text": "点を川の反対がわへ折り返そう",
+      "file": "example1.m4a",
+      "sha1": "05afb8f820d2"
+    },
+    "example1_done": {
+      "text": "まっすぐな線が、いちばん短い",
+      "file": "example1_done.m4a",
+      "sha1": "ccbbdf736f04"
+    },
+    "example2": {
+      "text": "数が大きくなっても、同じ考え方",
+      "file": "example2.m4a",
+      "sha1": "ec2ee014a9eb"
+    },
+    "example2_done": {
+      "text": "比をかんたんにしてから計算",
+      "file": "example2_done.m4a",
+      "sha1": "c22b7480d770"
+    },
+    "boundary": {
+      "text": "でも、立体の表面の道なら…",
+      "file": "boundary.m4a",
+      "sha1": "2bf73f89b006"
+    },
+    "onboarding": {
+      "text": "手がかり → 道具 → ドラッグ。ヒントなしでね",
+      "file": "onboarding.m4a",
+      "sha1": "7baadc5b9997"
+    },
+    "onboarding_done": {
+      "text": "準備OK！ 5問、ひとりでやってみよう",
+      "file": "onboarding_done.m4a",
+      "sha1": "ef57f545d924"
+    }
+  },
+  "unfold": {
+    "principle": {
+      "text": "箱の表面に糸をかける。いちばん短いのは？",
+      "file": "principle.m4a",
+      "sha1": "b8fdce076a86"
+    },
+    "principle_turn": {
+      "text": "ななめの長さが計算できない…。どうする？",
+      "file": "principle_turn.m4a",
+      "sha1": "ff19ea5c00b2"
+    },
+    "principle_lens": {
+      "text": "展開レンズ！ 2つの面を開いて平らに",
+      "file": "principle_lens.m4a",
+      "sha1": "58010c9a89fa"
+    },
+    "example1": {
+      "text": "面をつかんで、開いてみよう",
+      "file": "example1.m4a",
+      "sha1": "1df6b151eb8a"
+    },
+    "example1_done": {
+      "text": "開いても、糸の長さは変わらない",
+      "file": "example1_done.m4a",
+      "sha1": "5a9fa4d9e610"
+    },
+    "example2": {
+      "text": "箱の大きさが変わっても、開けば同じ",
+      "file": "example2.m4a",
+      "sha1": "6a22fe39c53e"
+    },
+    "example2_done": {
+      "text": "開いて、同じ形の三角形を見る",
+      "file": "example2_done.m4a",
+      "sha1": "131856fa0894"
+    },
+    "boundary": {
+      "text": "でも、平面の上の道なら…",
+      "file": "boundary.m4a",
+      "sha1": "0b29c1629b36"
+    },
+    "onboarding": {
+      "text": "手がかり → 道具 → ドラッグ。ヒントなしでね",
+      "file": "onboarding.m4a",
+      "sha1": "7baadc5b9997"
+    },
+    "onboarding_done": {
+      "text": "準備OK！ 5問、ひとりでやってみよう",
+      "file": "onboarding_done.m4a",
+      "sha1": "ef57f545d924"
+    }
+  },
+  "_voice": {
+    "engine": "VOICEVOX",
+    "character": "春日部つむぎ",
+    "style": "ノーマル",
+    "tuning": {
+      "speedScale": 1.12,
+      "pitchScale": 0.03,
+      "intonationScale": 1.25,
+      "volumeScale": 1.0,
+      "prePhonemeLength": 0.05,
+      "postPhonemeLength": 0.15
+    },
+    "credit": "VOICEVOX:春日部つむぎ"
+  }
+}
