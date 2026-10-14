@@ -191,6 +191,10 @@ export const ja = {
   'balance.water': '水 0%',
   'balance.salt': '食塩 100%',
   'area.age': '才',
+  // WO-022: the mascot's voice. The credit is required by VOICEVOX's terms.
+  'voice.mute': '音を消す',
+  'voice.unmute': '音を出す',
+  'voice.credit': '音声：VOICEVOX:春日部つむぎ',
   'slide.askGap': '?cm',
   'slide.totalArea': '合計 {a}cm²',
   // WO-014: Step 1 さわって学ぶ (the masterclass) and the Step 3 round.

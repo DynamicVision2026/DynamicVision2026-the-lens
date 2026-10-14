@@ -16,6 +16,7 @@ import { masteryOf, saveMastery, saveTimedRun, timedRuns } from './progress';
 import { SCENES } from './scenes';
 import { C, useCourseTheme } from './scenes/kit';
 import { StepNav } from './StepNav';
+import { MuteButton, VoiceCredit } from './voice';
 
 const seconds = (ms: number) => (ms / 1000).toFixed(1);
 
@@ -76,6 +77,7 @@ export function PracticeView({ passId, lens }: { passId: string; lens: string })
           {t('lesson.back')}
         </button>
         <StepNav passId={passId} lens={lens} current={3} />
+        <MuteButton />
         <span className="streak" aria-label={t('practice.streak', { n: m.streak, m: MASTERY_STREAK })}>
           {!roundDone && <b className="round">{t('practice.round', { i: k + 1, n: roundN })}</b>}
           {Array.from({ length: MASTERY_STREAK }, (_, j) => (
@@ -125,6 +127,7 @@ export function PracticeView({ passId, lens }: { passId: string; lens: string })
           opts={{ practice: true, record: false, onResult, again: false, nextLabel: lastOfRound ? t('practice.toResult') : t('practice.next') }}
         />
       )}
+      <VoiceCredit />
     </main>
     </AttemptContext.Provider>
   );
@@ -178,6 +181,7 @@ export function TimedView({ passId, lens }: { passId: string; lens: string }) {
           {t('lesson.back')}
         </button>
         <StepNav passId={passId} lens={lens} current={4} />
+        <MuteButton />
         {!run && (
           <span className="clock">
             {t('timed.progress', { i: i + 1, n: set.length })} ⏱ {t('practice.time', { s: seconds(now) })}
@@ -199,6 +203,7 @@ export function TimedView({ passId, lens }: { passId: string; lens: string }) {
           opts={{ practice: true, record: false, onResult, again: false, nextLabel: i >= set.length - 1 ? t('timed.finish') : t('practice.next') }}
         />
       )}
+      <VoiceCredit />
     </main>
     </AttemptContext.Provider>
   );

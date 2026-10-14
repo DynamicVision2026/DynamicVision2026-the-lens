@@ -26,13 +26,28 @@ export interface GuideApi {
   coach: (spec: CoachSpec) => void;
   /** What the idle prompt does during pick/clue (glow the options) instead of the finger. */
   idle: (fn: (() => void) | null) => void;
-  /** Bumps on every idle prompt; knobs restart their halo when it changes. */
+  /** Bumps on every idle prompt; knobs restart their halo when it changes; 0 again on the next touch. */
   pulse: number;
+  /** WO-022: the idle prompt pulses one thing only, the coached target: is (x, y) it (in the coach's coordinates)? */
+  isTarget: (x: number, y: number, tol?: number) => boolean;
+}
+
+/** WO-022: the ghost finger starts this long after the coaching line (well within 3 s). */
+export const FINGER_DELAY_MS = 700;
+
+/** Whether a coaching line shows the finger now: on first use of a phase, or always where it is guaranteed (masterclass). */
+export const showsFinger = (firstUse: boolean, guaranteed: boolean) => guaranteed || firstUse;
+
+/** Is a point the coached target, within `tol` (pure, for the knobs and the tests). */
+export function onTarget(target: Pt | null, x: number, y: number, tol = 20): boolean {
+  return !!target && Math.abs(target[0] - x) <= tol && Math.abs(target[1] - y) <= tol;
 }
 
 interface OverlayState {
   line: { text: string; pose: Pose; n: number };
   demos: Demo[];
+  /** WO-022: the idle pulse for a target that is not an SVG knob (the 3D box's face): a ring over the stage. */
+  ring: { at: Pt; n: number } | null;
 }
 
 const OverlayContext = createContext<OverlayState | null>(null);
@@ -55,9 +70,29 @@ interface Demo {
  * Provides the guide to a stage; renders the mascot, bubble and fingers over `stageRef`. `onCoach`
  * hears each interaction phase a scene coaches (the masterclass shows a lens step per phase).
  */
-export function GuideProvider({ lens, stageRef, onCoach, children }: { lens: string; stageRef: RefObject<HTMLElement | null>; onCoach?: (phase: string) => void; children: ReactNode }) {
+export function GuideProvider({
+  lens,
+  stageRef,
+  onCoach,
+  guaranteeFinger = false,
+  onSay,
+  children,
+}: {
+  lens: string;
+  stageRef: RefObject<HTMLElement | null>;
+  onCoach?: (phase: string) => void;
+  /** WO-022: show the finger on every coaching line, not only the first time (masterclass examples). */
+  guaranteeFinger?: boolean;
+  /** WO-022: every bubble's text (the masterclass plays its clip). */
+  onSay?: (text: string) => void;
+  children: ReactNode;
+}) {
   const [line, setLine] = useState({ text: '', pose: 'q' as Pose, n: 0 });
   const [pulse, setPulse] = useState(0);
+  const [target, setTarget] = useState<Pt | null>(null);
+  const [ring, setRing] = useState<{ at: Pt; n: number } | null>(null);
+  const onSayRef = useRef(onSay);
+  onSayRef.current = onSay;
   const [demos, setDemos] = useState<Demo[]>([]);
   const idleFn = useRef<(() => void) | null>(null);
   const timer = useRef<number | undefined>(undefined);
@@ -74,7 +109,12 @@ export function GuideProvider({ lens, stageRef, onCoach, children }: { lens: str
   }, []);
 
   useEffect(() => {
-    const onTouch = () => arm();
+    // A touch stops the pulse and re-arms the idle prompt.
+    const onTouch = () => {
+      setPulse(0);
+      setRing(null);
+      arm();
+    };
     document.addEventListener('pointerdown', onTouch, { capture: true });
     return () => {
       document.removeEventListener('pointerdown', onTouch, { capture: true });
@@ -82,7 +122,10 @@ export function GuideProvider({ lens, stageRef, onCoach, children }: { lens: str
     };
   }, [arm]);
 
-  const say = useCallback((text: string, pose: Pose = 'q') => setLine((l) => ({ text, pose, n: l.n + 1 })), []);
+  const say = useCallback((text: string, pose: Pose = 'q') => {
+    setLine((l) => ({ text, pose, n: l.n + 1 }));
+    onSayRef.current?.(text);
+  }, []);
 
   const toStage = useCallback(
     (p: PtSource, svg?: RefObject<SVGSVGElement | null>): Pt | null => {
@@ -126,19 +169,26 @@ export function GuideProvider({ lens, stageRef, onCoach, children }: { lens: str
       onCoachRef.current?.(spec.phase);
       say(spec.text);
       setIdle(() => {
+        // The one target: where the coaching points (its knob), at the time of the prompt.
+        const from = typeof spec.from === 'function' ? spec.from() : spec.from;
+        setTarget(from);
         setPulse((p) => p + 1);
+        // Without an SVG (no knob to pulse), the overlay rings the target instead.
+        const at = !spec.svg && from ? toStage(from) : null;
+        setRing(at ? (r) => ({ at, n: (r?.n ?? 0) + 1 }) : null);
         demo(spec);
       });
-      if (firstTime(lens, spec.phase)) window.setTimeout(() => demo(spec), 700);
+      if (showsFinger(firstTime(lens, spec.phase), guaranteeFinger)) window.setTimeout(() => demo(spec), FINGER_DELAY_MS);
     },
-    [say, setIdle, demo, lens],
+    [say, setIdle, demo, lens, guaranteeFinger, toStage],
   );
 
-  const api = useMemo<GuideApi>(() => ({ say, coach, idle: setIdle, pulse }), [say, coach, setIdle, pulse]);
+  const isTarget = useCallback((x: number, y: number, tol?: number) => onTarget(target, x, y, tol), [target]);
+  const api = useMemo<GuideApi>(() => ({ say, coach, idle: setIdle, pulse, isTarget }), [say, coach, setIdle, pulse, isTarget]);
 
   return (
     <GuideContext.Provider value={api}>
-      <OverlayContext.Provider value={{ line, demos }}>{children}</OverlayContext.Provider>
+      <OverlayContext.Provider value={{ line, demos, ring }}>{children}</OverlayContext.Provider>
     </GuideContext.Provider>
   );
 }
@@ -153,6 +203,7 @@ export function GuideOverlay() {
       {o.demos.map((d) => (
         <Finger key={d.id} a={d.a} b={d.b} />
       ))}
+      {o.ring && <div key={o.ring.n} className="target-ring pulse" style={{ left: o.ring.at[0], top: o.ring.at[1] }} />}
     </>
   );
 }

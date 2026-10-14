@@ -565,6 +565,8 @@ export interface Masterclass {
   clues: string[];
   title: Record<'principle' | 'example1' | 'example2' | 'boundary' | 'onboarding', string>;
   say: Record<'principle' | 'principle_turn' | 'principle_lens' | 'example1' | 'example1_done' | 'example2' | 'example2_done' | 'boundary' | 'onboarding' | 'onboarding_done', string>;
+  /** WO-022: the mascot's clip per `say` key (only clips matching the current line; absent until recorded). */
+  audio?: Partial<Record<string, string>>;
 }
 
 /** The masterclass standard (tokens 1.8, motion.masterclass): beats and their target seconds. */

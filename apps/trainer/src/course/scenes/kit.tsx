@@ -123,13 +123,15 @@ export function Txt({ x, y, children, size = 18, fill = C.ink, anchor = 'middle'
 
 /** A grabbable ● with a generous hit area and a halo that pulses on the idle prompt. */
 export function Knob({ x, y, fill, r = 15, onDown }: { x: number; y: number; fill: string; r?: number; onDown: (e: React.PointerEvent) => void }) {
-  const { pulse } = useGuide();
+  const { pulse, isTarget } = useGuide();
   if (useContext(SceneLock)) return null;
+  // WO-022: only the coached knob pulses (never several at once).
+  const on = pulse > 0 && isTarget(x, y, r + 8);
   return (
     <g transform={`translate(${x},${y})`} onPointerDown={onDown} style={{ cursor: 'grab', touchAction: 'none' }} className="knob">
       <circle r={r + 14} fill="transparent" />
       <circle r={r + 6} fill={fill} opacity={0.16} />
-      <circle key={pulse} r={r + 12} fill="none" stroke={fill} className={pulse ? 'halo pulse' : 'halo'} />
+      <circle key={pulse} r={r + 12} fill="none" stroke={fill} className={on ? 'halo pulse' : 'halo'} />
       <circle r={r} fill={C.paper} stroke={fill} strokeWidth={3} />
       <circle r={4} fill={fill} />
     </g>

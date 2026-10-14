@@ -103,7 +103,7 @@ export function usePickClue(card: LensCard, onPick?: (option: string) => void): 
   return { s, dispatch, options, chips, glow, pickMs, markVisible, pick, chip };
 }
 
-export function PickCard({ card, pc, trap }: { card: LensCard; pc: PickClue; trap?: string }) {
+export function PickCard({ card, pc, trap, nudge = false }: { card: LensCard; pc: PickClue; trap?: string; nudge?: boolean }) {
   const { labels } = loadBundle();
   const { s, options, glow, pick } = pc;
   const opts = useRef<HTMLDivElement>(null);
@@ -130,7 +130,8 @@ export function PickCard({ card, pc, trap }: { card: LensCard; pc: PickClue; tra
           {trap}
         </div>
       )}
-      <div className="opts" ref={opts}>
+      {/* WO-022: on the masterclass dry run the idle prompt pulses the options as one target (no hint which). */}
+      <div className={`opts${nudge ? ' nudge' : ''}`} data-target={nudge ? 'options' : undefined} ref={opts}>
         {options.map((o) => (
           <button key={`${o}-${glow}`} type="button" className={`opt${s.tried.includes(o) ? ' tried' : ''}${s.tryOn === o ? ' shake' : ''}${glow && !s.tried.includes(o) ? ' nudge' : ''}`} onClick={() => pick(o)}>
             <svg viewBox="0 0 24 24" aria-hidden>

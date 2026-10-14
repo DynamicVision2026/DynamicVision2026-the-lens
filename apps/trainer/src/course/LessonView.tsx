@@ -18,6 +18,7 @@ import { ClueCard, PickCard, usePickClue } from './PickClue';
 import { SCENES } from './scenes';
 import { C, SceneLock, useCourseTheme, useFigScale } from './scenes/kit';
 import { StepNav } from './StepNav';
+import { MuteButton, VoiceCredit } from './voice';
 import { boundaryChip, WalkFlow } from './Walkthrough';
 
 export function LessonView({ passId, lens }: { passId: string; lens: string }) {
@@ -45,6 +46,7 @@ export function LessonView({ passId, lens }: { passId: string; lens: string }) {
           {t('lesson.back')}
         </button>
         <StepNav passId={passId} lens={lens} current={2} />
+        <MuteButton />
         <span className="pdots">
           {problems.map((p, i) => (
             <i key={p.card.id} className={i === index ? 'cur' : solvedIn(passId, lens).includes(p.card.id) ? 'on' : ''} />
@@ -53,6 +55,7 @@ export function LessonView({ passId, lens }: { passId: string; lens: string }) {
         {chip && <span className="chip boundary">{chip}</span>}
       </div>
       <Problem key={`${card.id}-${round}`} card={card} mode={mode} lens={lens} passId={passId} last={index >= problems.length - 1} onNext={next} onAgain={() => setRound(round + 1)} opts={index >= problems.length - 1 ? LAST_OPTS : NO_OPTS} />
+      <VoiceCredit />
     </main>
     </AttemptContext.Provider>
   );
