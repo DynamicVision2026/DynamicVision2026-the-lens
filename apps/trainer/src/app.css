@@ -1370,15 +1370,15 @@ html[data-theme='course'] body {
   color: var(--lens);
   font-size: 0.8em;
 }
-.course .master .trapbeat ol {
+.course.master .trapbeat ol {
   margin: 6px 0 8px;
   padding-left: 1.3em;
 }
-.course .master .trapbeat li.in {
+.course.master .trapbeat li.in {
   animation: rise 0.26s cubic-bezier(0.2, 1.4, 0.4, 1) both;
 }
 /* The "time running out" strip under the usual way. */
-.course .master .timeleft {
+.course.master .timeleft {
   height: 4px;
   border-radius: 2px;
   background: var(--flag);
@@ -1393,61 +1393,61 @@ html[data-theme='course'] body {
     transform: scaleX(0);
   }
 }
-.course .master .idea {
+.course.master .idea {
   border-left: 4px solid var(--lens);
   font-weight: 700;
   line-height: 1.7;
 }
-.course .master .idea.in {
+.course.master .idea.in {
   animation: rise 0.3s ease both;
 }
-.course .master .captions {
+.course.master .captions {
   margin: 0;
   padding: 10px 14px 10px 2em;
   display: grid;
   gap: 4px;
   line-height: 1.6;
 }
-.course .master .captions:empty {
+.course.master .captions:empty {
   display: none;
 }
-.course .master .captions li.in {
+.course.master .captions li.in {
   animation: rise 0.26s cubic-bezier(0.2, 1.4, 0.4, 1) both;
 }
-.course .master .captions li.result {
+.course.master .captions li.result {
   color: var(--lens);
   font-weight: 900;
 }
-.course .master .boundary-beat h3 {
+.course.master .boundary-beat h3 {
   margin: 0 0 8px;
   color: var(--flag);
 }
-.course .master .boundary-beat .card {
+.course.master .boundary-beat .card {
   padding: 0;
   border: 0;
   background: none;
   margin-bottom: 8px;
 }
-.course .master .boundary-line {
+.course.master .boundary-line {
   margin: 0;
   line-height: 1.8;
   font-weight: 700;
 }
-.course .master .how-steps {
+.course.master .how-steps {
   margin: 0 0 10px;
   padding-left: 1.4em;
   display: grid;
   gap: 4px;
   color: var(--ink-quiet);
 }
-.course .master .how-steps li.cur {
+.course.master .how-steps li.cur {
   color: var(--ink);
   font-weight: 700;
 }
-.course .master .how-steps li.ok {
+.course.master .how-steps li.ok {
   color: var(--lens);
 }
-.course .master .clues-label {
+.course.master .clues-label {
   display: block;
   font-size: 13px;
   margin-bottom: 6px;
@@ -1520,5 +1520,12 @@ html[data-theme='course'] body {
   }
   50% {
     box-shadow: 0 0 0 5px var(--lens);
+  }
+}
+
+/* WO-020 polish: on a phone the tick numbers grow (--fig-k), so the plane labels every 2. */
+@media (max-width: 700px) {
+  .course .coord-plane .tick.odd {
+    display: none;
   }
 }

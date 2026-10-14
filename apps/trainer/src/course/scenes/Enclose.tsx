@@ -5,7 +5,7 @@ import { counterClockwise, enclosureGaps, formatExact, mirrorAreaP, stageSteps, 
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { t } from '../../i18n/ja';
 import { sfx, springTo, TACTILE } from '../fx';
-import { coordLabel, CoordPlane, plane, type Plane } from './coordkit';
+import { coordLabel, CoordPlane, labelAt, plane, type Plane } from './coordkit';
 import { C, clamp, CountableGrid, Knob, SceneLock, StripeDefs, Txt, useDrag, useSceneGuide, type SceneProps } from './kit';
 
 const W = 600;
@@ -194,13 +194,23 @@ export function EncloseScene({ card, lens, onSolved, stage }: SceneProps) {
       </g>
       <polygon points={pts.map((p) => `${X(p[0])},${Y(p[1])}`).join(' ')} fill={C.ink} fillOpacity={0.07} stroke={C.ink} strokeWidth={2.5} strokeLinejoin="round" />
       {pts.map((p, i) => {
+        const name = view.names[i]!;
+        // On the plane: coordinates for given points, clear of the axes and ticks; P (found in stage 1) by name.
+        if (view.plane) {
+          const text = name !== 'P' ? coordLabel(name, p) : name;
+          const at = labelAt(view.plane, p, centroid as Point, text);
+          return (
+            <Txt key={i} x={at.x} y={at.y} size={14} anchor={at.anchor} fill={C.quiet}>
+              {text}
+            </Txt>
+          );
+        }
         const dx = p[0] - centroid[0]!;
         const dy = p[1] - centroid[1]!;
         const d = Math.hypot(dx, dy) || 1;
         return (
-          <Txt key={i} x={X(p[0]) + (dx / d) * (view.plane ? 34 : 20)} y={Y(p[1]) - (dy / d) * 20 + 6} size={view.plane ? 14 : 16} fill={C.quiet}>
-            {/* Given points print their coordinates; P (found in stage 1) prints its name only. */}
-            {view.plane && view.names[i] !== 'P' ? coordLabel(view.names[i]!, p) : view.names[i]}
+          <Txt key={i} x={X(p[0]) + (dx / d) * 20} y={Y(p[1]) - (dy / d) * 20 + 6} size={16} fill={C.quiet}>
+            {name}
           </Txt>
         );
       })}

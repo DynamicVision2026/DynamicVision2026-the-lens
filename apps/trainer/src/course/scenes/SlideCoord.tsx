@@ -1,10 +1,10 @@
 // 等積変形 on the plane (WO-020, coord_equal_area): drag C along the line through C parallel to AB;
 // △ABC keeps its area. It snaps where the line meets the y-axis: P, drawn at the card's answer (its y).
-import { answerNumber, formatExact, type CoordEqualAreaFigure } from '@lens/scenes';
+import { answerNumber, formatExact, type CoordEqualAreaFigure, type Point } from '@lens/scenes';
 import { useEffect, useRef, useState } from 'react';
 import { t } from '../../i18n/ja';
 import { sfx, springTo, TACTILE } from '../fx';
-import { coordLabel, CoordPlane, plane } from './coordkit';
+import { coordLabel, CoordPlane, labelAt, plane } from './coordkit';
 import { C, clamp, Knob, StripeDefs, Txt, useDrag, useSceneGuide, type SceneProps } from './kit';
 
 /** How close (in x) to the y-axis the slide snaps. */
@@ -20,6 +20,8 @@ export function SlideCoordScene({ card, lens, onSolved }: SceneProps) {
   // The parallel through C, as x ↦ y (AB is never vertical in these cards; a vertical AB keeps x fixed).
   const k = B[0] === A[0] ? 0 : (B[1] - A[1]) / (B[0] - A[0]);
   const lineY = (x: number) => Cp[1] + k * (x - Cp[0]);
+  const ps: Point[] = [A, B, Cp];
+  const centre: Point = [ps.reduce((a, q) => a + q[0], 0) / ps.length, ps.reduce((a, q) => a + q[1], 0) / ps.length];
   const svg = useRef<SVGSVGElement>(null);
   const drag = useDrag(svg);
   const guide = useSceneGuide();
@@ -74,9 +76,15 @@ export function SlideCoordScene({ card, lens, onSolved }: SceneProps) {
       ).map(([n, q]) => (
         <g key={n}>
           <circle cx={X(q[0])} cy={Y(q[1])} r={6} fill={C.ink} />
-          <Txt x={X(q[0]) + 6} y={Y(q[1]) - 14} size={14} anchor="start" fill={C.quiet}>
-            {coordLabel(n, q)}
-          </Txt>
+          {(() => {
+            const text = coordLabel(n, q);
+            const at = labelAt(P, q, centre, text);
+            return (
+              <Txt x={at.x} y={at.y} size={14} anchor={at.anchor} fill={C.quiet}>
+                {text}
+              </Txt>
+            );
+          })()}
         </g>
       ))}
       {done && (

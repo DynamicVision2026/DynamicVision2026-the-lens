@@ -5,7 +5,7 @@ import { formatExact, mirrorAreaP, type CoordMirrorAreaFigure, type Point } from
 import { useEffect, useRef, useState } from 'react';
 import { t } from '../../i18n/ja';
 import { sfx, springTo, TACTILE } from '../fx';
-import { coordLabel, CoordPlane, plane } from './coordkit';
+import { coordLabel, CoordPlane, labelAt, plane } from './coordkit';
 import { C, clamp, Knob, StripeDefs, Txt, useDrag, useSceneGuide, type SceneProps } from './kit';
 
 const SNAP = 0.6;
@@ -18,6 +18,8 @@ export function MirrorCoordScene({ card, lens, onSolved }: SceneProps) {
   const P = plane([A, B, Br, Pp]);
   const { X, Y } = P;
   const color = C.lens(lens);
+  const ps: Point[] = [A, B];
+  const centre: Point = [ps.reduce((a, q) => a + q[0], 0) / ps.length, ps.reduce((a, q) => a + q[1], 0) / ps.length];
   const svg = useRef<SVGSVGElement>(null);
   const drag = useDrag(svg);
   const guide = useSceneGuide();
@@ -92,9 +94,15 @@ export function MirrorCoordScene({ card, lens, onSolved }: SceneProps) {
       ).map(([n, q]) => (
         <g key={n}>
           <circle cx={X(q[0])} cy={Y(q[1])} r={6} fill={C.ink} />
-          <Txt x={X(q[0]) + 6} y={Y(q[1]) - 14} size={14} anchor="start" fill={C.quiet}>
-            {coordLabel(n, q)}
-          </Txt>
+          {(() => {
+            const text = coordLabel(n, q);
+            const at = labelAt(P, q, centre, text);
+            return (
+              <Txt x={at.x} y={at.y} size={14} anchor={at.anchor} fill={C.quiet}>
+                {text}
+              </Txt>
+            );
+          })()}
         </g>
       ))}
       {phase === 1 && <Knob x={X(B[0])} y={Y(by)} fill={color} r={13} onDown={down} />}

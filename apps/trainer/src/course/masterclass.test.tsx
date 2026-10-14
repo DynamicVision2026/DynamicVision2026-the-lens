@@ -1,6 +1,6 @@
 // WO-014: the masterclass for all 8 lessons (beats from the bundle, timings from tokens) and the
 // Step 3 round of 5.
-import { loadBundle, tokens } from '@lens/scenes';
+import { hasScene, loadBundle, tokens } from '@lens/scenes';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { flowReducer, initialFlow } from './flow';
@@ -106,6 +106,20 @@ describe.each(lenses)('%s masterclass', (lens) => {
     expect(q.length).toBeGreaterThanOrEqual(m.practice_round);
     const own = [cards.mc.example1, cards.mc.example2, cards.mc.try];
     for (const p of q) expect(own).not.toContain(p.card.id);
+  });
+
+  it('polish: no empty captions card before the first step; every beat has a figure or the sentence; the sentence is never printed twice', () => {
+    const raw = (id: string) => renderToStaticMarkup(<MasterBeat beat={id} cards={cards} lens={lens} passId={pass.id} m={m} onNext={() => {}} scope={null} />);
+    expect(raw('example1')).not.toContain('captions');
+    for (const id of ['principle', 'example1', 'example2', 'boundary', 'onboarding']) {
+      const html = raw(id);
+      // The figure panel holds a figure, the sentence (no figure at all) or the short prompt.
+      expect(/class="fig walkfig"|class="walk-text no-figure"|data-testid="scene-/.test(html), `${lens} ${id}`).toBe(true);
+      const card = id === 'principle' || id === 'example1' ? cards.example1 : id === 'example2' ? cards.example2 : id === 'boundary' ? cards.boundary : cards.try;
+      const sentence = card.problem.text_ja.replace(/&/g, '&amp;');
+      const shown = html.replace(/<[^>]+>/g, '');
+      expect(shown.split(sentence).length - 1, `${lens} ${id} prints its sentence once`).toBeLessThanOrEqual(hasScene(card) ? 1 : 2);
+    }
   });
 
   it('the first visit opens Step 1, then Step 2', () => {

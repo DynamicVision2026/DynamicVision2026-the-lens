@@ -69,6 +69,10 @@ export function UnfoldFigure(p: UnfoldFigureProps) {
   const M = at(a, h / 2);
   const P = at(a, p.crossY);
   const boxOnly = 1 - unfold;
+  // The box's corners by name, for the corner-volume cut (drawing positions only).
+  const corner: Record<string, XY> = { A, B, C: back(a, 0, box), D, E, F, G: G0, H };
+  const cut = fig.mesh?.cut?.map((k) => corner[k]).filter((q): q is XY => !!q);
+  const cutOff = fig.mesh?.cut_off ? corner[fig.mesh.cut_off] : undefined;
   const len = (v: number | string) => `${v}${fig.unit}`;
   const pts = (ps: XY[]) => ps.map((q) => q.join(',')).join(' ');
   // Where A→G crosses BF on the net, as a fraction of the segment (drawing only: P itself comes from the answer).
@@ -125,6 +129,19 @@ export function UnfoldFigure(p: UnfoldFigureProps) {
           {label(D, labels.D, -0.6, -0.7)}
           {label(H, labels.H, -0.6, -0.7)}
           {label([(B[0] + C[0]) / 2, (B[1] + C[1]) / 2], len(b), 0.7, 1.1, Math.max(0, 1 - unfold * 3))}
+        </g>
+      )}
+
+      {/* WO-018 corner-volume card: the cut through mesh.cut (B, D, E) shaded, and the corner it cuts off marked. */}
+      {cut && boxOnly > 0 && (
+        <g data-part="cut" opacity={boxOnly}>
+          <polygon points={pts(cut)} fill={p.palette[2 % p.palette.length]} fillOpacity={p.tint * 2} stroke={accent} strokeWidth={p.lensStroke} strokeLinejoin="round" />
+          {cutOff && (
+            <g data-part="cut-off">
+              <circle cx={cutOff[0]} cy={cutOff[1]} r={size * 0.7} fill="none" stroke={accent} strokeWidth={p.figureStroke * 1.5} />
+              {dot(cutOff, accent)}
+            </g>
+          )}
         </g>
       )}
 
