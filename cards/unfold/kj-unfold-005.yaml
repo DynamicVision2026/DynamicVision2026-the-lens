@@ -8,7 +8,7 @@ grades:
 - 中3
 level: 4
 archetype: unfold.box_length
-status: draft
+status: verified
 provenance:
   original: true
   built_from: 'Archetype: shortest string on a cuboid surface across one edge, asking its LENGTH: open the two faces and use 三平方の定理 on the rectangle (中3).'

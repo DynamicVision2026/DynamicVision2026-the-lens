@@ -8,7 +8,7 @@ import { timeLabel } from '../format';
 import type { BoxUnfoldFigure, GlowToken, GridPolygonFigure, LensCard, MirrorPathFigure, ParallelBandFigure, WordProblemFigure, Point, ShortLayout, Step, StepDetail, Tokens } from '../types';
 import { bandLayout, bandTriangles } from '../band';
 import { mirrorLayout, touchX } from '../mirror';
-import { unfoldLayout } from '../unfold';
+import { unfoldLayout, unfoldP } from '../unfold';
 import { motionState, type MotionState } from './beats';
 import { titleBandText } from './titleBand';
 import type { Beat } from './timeline';
@@ -639,7 +639,7 @@ function UnfoldLayer({ card, fig, state, layout: L, tokens, ink, chalk, accent, 
   const common = {
     fig,
     layout,
-    crossY: touchX(card),
+    crossY: unfoldP(card),
     answerText: answerText(card),
     halo: color(tokens.color.paper),
     tokens,

@@ -6,9 +6,9 @@ import { Bracket } from './Bracket';
 export interface UnfoldFigureProps {
   fig: BoxUnfoldFigure;
   layout: UnfoldLayout;
-  /** BP, read from the card's answer: P is drawn here, never computed. */
+  /** BP, read from the card's answer: P is drawn here, never computed (see unfoldP; `ask: length` places it on A→G). */
   crossY: number;
-  /** Printed beside BP once the answer is shown (display_ja, or the exact value + unit). */
+  /** Printed beside BP once the answer is shown (display_ja, or the exact value + unit); beside A–G for `ask: length`. */
   answerText: string;
   tokens: Tokens;
   ink: string;
@@ -52,6 +52,7 @@ export function UnfoldFigure(p: UnfoldFigureProps) {
   const labels = fig.point_labels;
   // WO-018 no-lens card: the path runs along the edges, so nothing opens; draw_straight traces A→B→C→G.
   const edges = fig.path === 'edges';
+  const asksLength = fig.ask === 'length';
   const unfold = edges ? 0 : p.unfold;
   const box = L.depth(0);
   const open = L.depth(unfold);
@@ -198,7 +199,20 @@ export function UnfoldFigure(p: UnfoldFigureProps) {
 
       {/* CG (= AE) beside the similar triangles; BP once the answer is shown. */}
       {!edges && label([(C[0] + G[0]) / 2, (C[1] + G[1]) / 2], len(h), 1.6, 0, p.similar)}
-      {!edges && label([(B[0] + P[0]) / 2, (B[1] + P[1]) / 2], p.answerText, -1.7, 0, p.answer, accent)}
+      {!edges && !asksLength && label([(B[0] + P[0]) / 2, (B[1] + P[1]) / 2], p.answerText, -1.7, 0, p.answer, accent)}
+      {/* WO-023 ask: length: the straight A–G is the answer, labelled along it (above the line, on the net's left face). */}
+      {asksLength && p.answer > 0 && (
+        <g data-part="length">
+          {p.halo && (
+            <text x={(A[0] + P[0]) / 2} y={(A[1] + P[1]) / 2 - size * 0.9} fill="none" stroke={p.halo} strokeWidth={size * 0.3} strokeLinejoin="round" opacity={p.answer} fontFamily={p.font} fontSize={size} fontWeight={p.weight} textAnchor="end" dominantBaseline="central">
+              {`${labels.A}${labels.G}＝${p.answerText}`}
+            </text>
+          )}
+          <text x={(A[0] + P[0]) / 2} y={(A[1] + P[1]) / 2 - size * 0.9} fill={accent} opacity={p.answer} fontFamily={p.font} fontSize={size} fontWeight={p.weight} textAnchor="end" dominantBaseline="central">
+            {`${labels.A}${labels.G}＝${p.answerText}`}
+          </text>
+        </g>
+      )}
 
       {/* Points and their labels. */}
       {[A, B, E, F].map((q, i) => <g key={i}>{dot(q, ink)}</g>)}

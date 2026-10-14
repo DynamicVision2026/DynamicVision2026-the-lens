@@ -71,6 +71,8 @@ export const ja = {
   'guide.mirror.coordLine': 'タップして、A と B′ をまっすぐ結ぼう',
   'guide.slide.coord': 'C を、点線（ABに平行）にそって y軸まで すべらせよう',
   'guide.slide.toAxis': 'y軸の上まで、点線にそって動かそう',
+  'guide.slide.coordX': 'C を、点線（DBに平行）にそって x軸まで すべらせよう',
+  'guide.slide.toAxisX': 'x軸の上まで、点線にそって動かそう',
   'guide.mirror.flip': 'Q の ● をつかんで、川の向こうへ折り返そう',
   'guide.mirror.x': 'X を動かして、P から Q′ までを まっすぐにしよう',
   'guide.mirror.right': 'もう少し右。折れ線がまっすぐになる所',

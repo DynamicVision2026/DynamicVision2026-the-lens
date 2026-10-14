@@ -2,13 +2,13 @@ import { coordFrame, coordText, crossXAxis, type CoordFrame } from '../coord';
 import { formatExact } from '../format';
 import { counterClockwise, enclosureGaps, partialPolyline } from '../geometry';
 import type { RenderMode } from '../tokens';
-import type { CoordEqualAreaFigure, CoordMirrorAreaFigure, LensCard, Point, Tokens } from '../types';
+import type { CoordEqualAreaFigure, CoordMirrorAreaFigure, CoordQuadTriFigure, CoordYSplitFigure, LensCard, Point, Tokens } from '../types';
 import { answerNumber } from '../wordProblem';
 import { CoordAxes } from './CoordAxes';
 import { GridLayer } from './GridLayer';
 import { RegionShade } from './RegionShade';
 
-const COPY = { P: 'P', Br: "B'", no: '✕' } as const;
+const COPY = { P: 'P', Q: 'Q', E: 'E', O: 'O', Br: "B'", no: '✕' } as const;
 
 export interface CoordPlaneStyle {
   tokens: Tokens;
@@ -219,6 +219,148 @@ export function MirrorAreaFigure(p: MirrorAreaFigureProps) {
           </text>
         </g>
       )}
+    </Plane>
+  );
+}
+
+/** A point label in the figure's label style. */
+function tag(p: CoordPlaneStyle, q: XY, text: string, dx: number, dy: number, c = p.accent, anchor: 'start' | 'middle' | 'end' = 'start') {
+  return (
+    <text x={q[0] + dx * p.labelSize} y={q[1] + dy * p.labelSize} fill={c} fontFamily={p.font} fontSize={p.labelSize * 0.9} fontWeight={p.weight} textAnchor={anchor} dominantBaseline="central">
+      {text}
+    </text>
+  );
+}
+
+export interface YSplitFigureProps extends CoordPlaneStyle {
+  card: LensCard;
+  fig: CoordYSplitFigure;
+  show: number;
+  answer: number;
+}
+
+/** Where line AB crosses the y-axis (drawing only; its y is printed only by the steps). */
+export function ySplitQ(fig: CoordYSplitFigure): Point {
+  if (fig.origin || !fig.B) return [0, 0];
+  const [a, b] = [fig.A, fig.B];
+  return [0, a[1] + ((b[1] - a[1]) / (b[0] - a[0])) * (0 - a[0])];
+}
+
+/**
+ * WO-023 coord_y_split: A, B and line AB (or O and A), P on the y-axis at the answer, Q = AB ∩ y-axis, and
+ * △ABP cut by the y-axis into two triangles on the common base PQ (two tints on show_answer).
+ */
+export function YSplitFigure(p: YSplitFigureProps) {
+  const { fig, card } = p;
+  if (p.show <= 0) return null;
+  const Py = answerNumber(card);
+  const Bp: Point = fig.origin || !fig.B ? [0, 0] : fig.B;
+  const Qp = ySplitQ(fig);
+  const cf = coordFrame([fig.A, Bp, [0, Py], Qp], ...p.region);
+  const A = cf.at(fig.A);
+  const B = cf.at(Bp);
+  const P = cf.at([0, Py]);
+  const Q = cf.at(Qp);
+  const r = p.figureStroke * 2.4;
+  const given = fig.origin ? [fig.A] : [fig.A, Bp];
+  const labels = fig.origin ? [`A${coordText(fig.A)}`] : [`A${coordText(fig.A)}`, `B${coordText(Bp)}`];
+  // Line AB across the whole grid (it is the side the y-axis cuts).
+  const d: XY = [B[0] - A[0], B[1] - A[1]];
+  const k = (cf.frame.cell * (cf.frame.grid.width + cf.frame.grid.height)) / Math.max(1e-6, Math.hypot(d[0], d[1]));
+  const clip = `${card.id}-ysplit-clip`;
+  const pLabel = p.answer > 0 ? `${COPY.P}(0, ${fromAnswer(card.answer.value)})` : COPY.P;
+  return (
+    <Plane cf={cf} s={p} points={given} labels={labels} t={p.show}>
+      <defs>
+        <clipPath id={clip}>
+          <rect x={cf.frame.left} y={cf.frame.top} width={cf.frame.grid.width * cf.frame.cell} height={cf.frame.grid.height * cf.frame.cell} />
+        </clipPath>
+      </defs>
+      {/* The two triangles either side of the y-axis (one when O is a vertex). */}
+      {fig.origin ? (
+        <polygon points={pts([B, P, A])} fill={p.palette[0]} fillOpacity={p.tint * (1 + p.answer)} stroke="none" />
+      ) : (
+        <g>
+          <polygon points={pts([A, P, Q])} fill={p.palette[0]} fillOpacity={p.tint * (0.6 + p.answer)} stroke="none" />
+          <polygon points={pts([B, P, Q])} fill={p.palette[1]} fillOpacity={p.tint * (0.6 + p.answer)} stroke="none" />
+        </g>
+      )}
+      {!fig.origin && (
+        <g clipPath={`url(#${clip})`}>
+          <line x1={A[0] - d[0] * k} y1={A[1] - d[1] * k} x2={A[0] + d[0] * k} y2={A[1] + d[1] * k} stroke={p.ink} strokeWidth={p.figureStroke} opacity={0.5} />
+        </g>
+      )}
+      <polygon points={pts([A, B, P])} fill="none" stroke={p.ink} strokeWidth={p.figureStroke * 1.4} strokeLinejoin="round" />
+      {/* PQ: the common base on the y-axis. */}
+      <line data-part="base" x1={P[0]} y1={P[1]} x2={Q[0]} y2={Q[1]} stroke={p.accent} strokeWidth={p.lensStroke} strokeLinecap="round" />
+      {dot(A, p.ink, r)}
+      {!fig.origin && dot(B, p.ink, r)}
+      {!fig.origin && dot(Q, p.accent, r)}
+      {!fig.origin && tag(p, Q, COPY.Q, 0.6, Q[1] < P[1] ? 0.9 : -0.9)}
+      {dot(P, p.accent, r * 1.2)}
+      {tag(p, P, pLabel, 0.6, -0.9)}
+    </Plane>
+  );
+}
+
+export interface QuadTriFigureProps extends CoordPlaneStyle {
+  card: LensCard;
+  fig: CoordQuadTriFigure;
+  show: number;
+  /** Diagonal DB and the line through C parallel to it. */
+  parallel: number;
+  /** C sliding along it to E on the x-axis. */
+  slide: number;
+  answer: number;
+}
+
+/**
+ * WO-023 coord_quad_tri: quadrilateral ABCD, diagonal DB, the parallel through C, and C sliding to E on the
+ * x-axis (△DBE = △DBC, so △AED = ABCD). E is drawn at the answer (its x), never computed.
+ */
+export function QuadTriFigure(p: QuadTriFigureProps) {
+  const { fig, card } = p;
+  if (p.show <= 0) return null;
+  const Ex = answerNumber(card);
+  const cf = coordFrame([fig.A, fig.B, fig.C, fig.D, [Ex, 0]], ...p.region);
+  const A = cf.at(fig.A);
+  const B = cf.at(fig.B);
+  const C = cf.at(fig.C);
+  const D = cf.at(fig.D);
+  const E = cf.at([Ex, 0]);
+  const Cs: XY = [C[0] + (E[0] - C[0]) * p.slide, C[1] + (E[1] - C[1]) * p.slide];
+  const d: XY = [B[0] - D[0], B[1] - D[1]];
+  const k = (cf.frame.cell * (cf.frame.grid.width + cf.frame.grid.height)) / Math.hypot(d[0], d[1]);
+  const clip = `${card.id}-quadtri-clip`;
+  const r = p.figureStroke * 2.4;
+  const labels = [`A${coordText(fig.A)}`, `B${coordText(fig.B)}`, `C${coordText(fig.C)}`, `D${coordText(fig.D)}`];
+  const eLabel = p.answer > 0 ? `${COPY.E}(${fromAnswer(card.answer.value)}, 0)` : COPY.E;
+  return (
+    <Plane cf={cf} s={p} points={[fig.A, fig.B, fig.C, fig.D]} labels={labels} t={p.show}>
+      <defs>
+        <clipPath id={clip}>
+          <rect x={cf.frame.left} y={cf.frame.top} width={cf.frame.grid.width * cf.frame.cell} height={cf.frame.grid.height * cf.frame.cell} />
+        </clipPath>
+      </defs>
+      <polygon points={pts([A, B, C, D])} fill={p.palette[0]} fillOpacity={p.tint * (1 - 0.6 * p.slide)} stroke={p.ink} strokeWidth={p.figureStroke * 1.4} strokeLinejoin="round" strokeOpacity={1 - 0.5 * p.slide} />
+      {/* △DBC, the part that slides. */}
+      {p.parallel > 0 && <polygon points={pts([D, B, C])} fill={p.palette[1]} fillOpacity={p.tint * p.parallel * (1 - p.slide)} stroke="none" />}
+      {p.parallel > 0 && (
+        <g opacity={p.parallel}>
+          <line data-part="diagonal" x1={D[0]} y1={D[1]} x2={B[0]} y2={B[1]} stroke={p.ink} strokeWidth={p.figureStroke * 1.6} />
+          <g clipPath={`url(#${clip})`}>
+            <line x1={C[0] - d[0] * k} y1={C[1] - d[1] * k} x2={C[0] + d[0] * k} y2={C[1] + d[1] * k} stroke={p.accent} strokeWidth={p.figureStroke * 1.4} strokeDasharray={p.dash} />
+          </g>
+        </g>
+      )}
+      {p.slide > 0 && <polygon points={pts([D, B, Cs])} fill={p.palette[1]} fillOpacity={p.tint} stroke={p.accent} strokeWidth={p.lensStroke} strokeLinejoin="round" />}
+      {/* △AED, the answer's triangle. */}
+      {p.slide >= 1 && <polygon data-part="aed" points={pts([A, E, D])} fill="none" stroke={p.accent} strokeWidth={p.lensStroke} strokeLinejoin="round" />}
+      {[A, B, C, D].map((q, i) => (
+        <g key={i}>{dot(q, p.ink, r)}</g>
+      ))}
+      {p.slide > 0 && dot(Cs, p.accent, r * 1.2)}
+      {p.slide >= 1 && tag(p, E, eLabel, 0, 1.2, p.accent, 'middle')}
     </Plane>
   );
 }

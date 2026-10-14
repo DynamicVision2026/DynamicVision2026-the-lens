@@ -1,6 +1,16 @@
 // Drawing geometry for a box_unfold figure: positions only. Printed lengths come from the figure
 // fields (a, b, h, net_width) and the steps; P is placed at the card's answer value (BP).
-import type { BoxUnfoldFigure } from './types';
+import { touchX } from './mirror';
+import type { BoxUnfoldFigure, LensCard } from './types';
+
+/**
+ * Where P sits on BF (BP): the card's answer, except when the card asks for the string's length
+ * (`ask: length`, WO-023), where P is just where the straight A→G crosses BF on the net (drawing only).
+ */
+export function unfoldP(card: LensCard): number {
+  const fig = card.problem.figure as BoxUnfoldFigure;
+  return fig.ask === 'length' ? (fig.h * fig.a) / (fig.a + fig.b) : touchX(card);
+}
 
 /** The receding edges of the cabinet projection: half length, at this angle. */
 const DEPTH_SCALE = 0.5;
