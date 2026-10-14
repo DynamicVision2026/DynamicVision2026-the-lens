@@ -6,12 +6,13 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { t } from '../i18n/ja';
 import { navigate } from '../launch/navigate';
 import { Aha } from './Aha';
+import { ChainFlow } from './Chain';
 import { readAttempts, todayMedian } from './attempts';
 import { AttemptContext, useAttemptScope } from './attemptContext';
 import { isClean, type PlayOpts } from './play';
 import { burst, sfx } from './fx';
 import { GuideOverlay, GuideProvider, useGuide } from './guide';
-import { findLesson, findPass, isPlayable, lessonProblems, type LessonProblem, type ProblemMode } from './lessons';
+import { findLesson, findPass, lessonProblems, problemMode, type LessonProblem, type ProblemMode } from './lessons';
 import { markSolved, solvedIn } from './progress';
 import { ClueCard, PickCard, usePickClue } from './PickClue';
 import { SCENES } from './scenes';
@@ -68,7 +69,7 @@ function oneCard(lens: string): LessonProblem[] | null {
   const id = new URLSearchParams(window.location.search).get('card');
   const card = id ? allSceneCards(loadBundle()).find((c) => c.id === id) : undefined;
   if (!card || card.lens !== lens) return null;
-  return [{ card, mode: isPlayable(card, lens) ? 'scene' : 'walkthrough' }];
+  return [{ card, mode: problemMode(card, lens) }];
 }
 
 /** One problem: the question, then the scene flow or the walkthrough (the ladder, Steps 3 and 4). */
@@ -82,6 +83,8 @@ export function Problem({ card, mode, lens, passId, last, onNext, onAgain, opts 
         <GuideProvider lens={lens} stageRef={stage}>
           {mode === 'scene' ? (
             <Flow card={card} lens={lens} passId={passId} last={last} onNext={onNext} onAgain={onAgain} stage={stage} opts={opts} />
+          ) : mode === 'chain' ? (
+            <ChainFlow card={card} lens={lens} passId={passId} last={last} onNext={onNext} onAgain={onAgain} stage={stage} opts={opts} />
           ) : (
             <WalkFlow card={card} lens={lens} passId={passId} last={last} onNext={onNext} onAgain={onAgain} stage={stage} opts={opts} />
           )}

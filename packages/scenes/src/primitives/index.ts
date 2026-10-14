@@ -15,3 +15,6 @@ export { UnfoldFigure, type UnfoldFigureProps } from './UnfoldFigure';
 export { CornerFigure, type CornerFigureProps, type CornerFigureStyle } from './CornerFigure';
 export { BridgeFigure, type BridgeFigureProps } from './BridgeFigure';
 export { NetThreeFigure, type NetThreeFigureProps } from './NetThreeFigure';
+export { CoordAxes } from './CoordAxes';
+export { EqualAreaFigure, MirrorAreaFigure, mirrorAreaP, type CoordPlaneStyle, type EqualAreaFigureProps, type MirrorAreaFigureProps } from './CoordPlaneFigure';
+export { CeviansFigure, weightsIn, type CeviansFigureProps } from './CeviansFigure';

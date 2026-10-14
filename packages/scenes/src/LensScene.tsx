@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { clamp01, parseEasing } from './easing';
 import { answerText } from './format';
 import { apexFor, boundingBox, boxCorners, centroid, cutX, enclosureGaps, horizontalBase, notchPieces } from './geometry';
@@ -14,10 +15,13 @@ import { unfoldState } from './keyframes/unfold';
 import { wordState } from './keyframes/word';
 import { mirrorLayout, touchX } from './mirror';
 import { bridgeLayout, cornerLayout, planeLayout } from './corner';
+import { coordFrame, coordText } from './coord';
 import { cornerState } from './keyframes/corner';
+import { coordPlaneState } from './keyframes/coordplane';
+import { ceviansState } from './keyframes/cevians';
 import { unfoldLayout } from './unfold';
 import { hasScene } from './variant';
-import { BAND_END_ROOM, BandFigure, BridgeFigure, CornerFigure, MirrorFigure, NetThreeFigure, StoryText, storyHeight, UnfoldFigure, WordDiagram } from './primitives';
+import { BAND_END_ROOM, BandFigure, BridgeFigure, CeviansFigure, CoordAxes, EqualAreaFigure, MirrorAreaFigure, CornerFigure, MirrorFigure, NetThreeFigure, StoryText, storyHeight, UnfoldFigure, WordDiagram } from './primitives';
 import type { BoxUnfoldFigure, GlowToken, GridPolygonFigure, LensCard, MirrorCornerFigure as CornerFig, MirrorPathFigure, ParallelBandFigure, Point, RiverBridgeFigure as BridgeFig, Tokens, WordProblemFigure } from './types';
 
 /** Scene viewBox in px at 1x. Video renders it at 2x (1080 px wide frame ≈ 2.25x). */
@@ -140,12 +144,63 @@ export function LensScene({
       </svg>
     );
   }
+  if (figure.type === 'coord_equal_area' || figure.type === 'coord_mirror_area' || figure.type === 'triangle_cevians') {
+    return (
+      <svg {...svgProps}>
+        <PlaneKeyframeScene card={card} keyframes={keyframes} keyframe={keyframe} t={progress} tokens={tokens} glow={glow} mode={mode} />
+      </svg>
+    );
+  }
+  if (figure.type === 'coord_polygon') {
+    // A lattice polygon on a coordinate plane: the Enclose scene on a grid shifted to hold the origin.
+    const cf = coordFrame(figure.points, 0, 0, 1, 1);
+    const pts = figure.points.map(cf.g);
+    return (
+      <svg {...svgProps}>
+        <GridScene
+          card={card}
+          grid={cf.frame.grid}
+          points={pts}
+          keyframes={keyframes}
+          keyframe={keyframe}
+          t={progress}
+          tokens={tokens}
+          glow={glow}
+          mode={mode}
+          coord={{ origin: cf.g([0, 0]), labels: figure.points.map((p, i) => `${'ABCDEFGH'[i]}${coordText(p)}`) }}
+        />
+      </svg>
+    );
+  }
   if (figure.type !== 'grid_polygon') {
     warnNoScene(figure.type === 'word_problem' ? `word_problem/${figure.diagram?.family ?? figure.kind}` : (figure as { type: string }).type);
     return <svg {...svgProps} />;
   }
 
   const { grid, points } = figure as GridPolygonFigure;
+  return (
+    <svg {...svgProps}>
+      <GridScene card={card} grid={grid} points={points} keyframes={keyframes} keyframe={keyframe} t={progress} tokens={tokens} glow={glow} mode={mode} />
+    </svg>
+  );
+}
+
+interface GridSceneProps {
+  card: LensCard;
+  grid: GridPolygonFigure['grid'];
+  points: Point[];
+  keyframes: string[];
+  keyframe: number;
+  t: number;
+  tokens: Tokens;
+  glow: GlowToken | null;
+  mode: RenderMode;
+  /** WO-020 coord_polygon: axes through `origin` (grid units) and coordinate labels per vertex. */
+  coord?: { origin: Point; labels: string[] };
+}
+
+/** The Enclose lens on a lattice polygon, keyframe by keyframe (grid_polygon, and coord_polygon on a shifted grid). */
+function GridScene({ card, grid, points, keyframes, keyframe, t, tokens, glow, mode, coord }: GridSceneProps) {
   const ctx: SceneContext = {
     card,
     points,
@@ -154,7 +209,7 @@ export function LensScene({
     pieces: notchPieces(points),
     pieceSteps: card.lens_route.steps.filter((s) => s.op === 'start' || s.op === 'add'),
   };
-  const state = sceneState(keyframes, keyframe, progress, ctx);
+  const state = sceneState(keyframes, keyframe, t, ctx);
 
   const frame = makeFrame(grid, PAD, PAD, SCENE_WIDTH - 2 * PAD, FIGURE_HEIGHT - 2 * PAD);
   const lens = card.lens;
@@ -171,7 +226,7 @@ export function LensScene({
   const ghostStrike: Point[] = [[box.x1 - strikeLen, box.y1], [box.x1, box.y1 - strikeLen]];
 
   return (
-    <svg {...svgProps}>
+    <g>
       {glow && (
         <defs>
           <filter id={`lens-glow-${card.id}`} x="-50%" y="-50%" width="200%" height="200%">
@@ -180,6 +235,7 @@ export function LensScene({
         </defs>
       )}
       <GridLayer frame={frame} tokens={tokens} mode={mode} />
+      {coord && <CoordAxes part="lines" frame={frame} origin={coord.origin} tokens={tokens} mode={mode} />}
 
       {ctx.gaps.map((gap, i) => (
         <RegionShade key={`gap${i}`} frame={frame} points={gap} lens={lens} tokens={tokens} mode={mode} t={(state.gapShade[i] ?? 0) * state.boxFade} />
@@ -205,6 +261,7 @@ export function LensScene({
         points={points}
         tokens={tokens}
         mode={mode}
+        showLabels={!coord}
         t={state.shape}
         tint={state.answerTint > 0 ? { color: accent, opacity: tokens.color.lens_tint_opacity * 2 * state.answerTint } : undefined}
       />
@@ -260,8 +317,10 @@ export function LensScene({
         return <StepLabel key={`pl${i}`} step={step} x={x} y={y} tokens={tokens} mode={mode} t={state.pieces[i] ?? 0} />;
       })}
 
+      {coord && <CoordAxes part="labels" frame={frame} origin={coord.origin} labels={coord.labels} points={points} tokens={tokens} mode={mode} t={state.shape} />}
+
       <TextBand card={card} tokens={tokens} mode={mode} caption={state.caption} answer={state.answer} ink={ink} accent={accent} />
-    </svg>
+    </g>
   );
 }
 
@@ -470,6 +529,63 @@ function CornerKeyframeScene({ card, fig, keyframes, keyframe, t, tokens, glow, 
         ink={color(tokens.color.ink, mode)}
         accent={accent}
       />
+    </g>
+  );
+}
+
+/** WO-020: the Stage 2 coordinate figures (等積変形, 折り返す → 囲む) and the Stage 3 mass-point triangle. */
+function PlaneKeyframeScene({ card, keyframes, keyframe, t, tokens, glow, mode }: Omit<MirrorKeyframeSceneProps, 'fig'>) {
+  const figure = card.problem.figure;
+  const label = fontSize(tokens, 'label', mode);
+  const accent = lensColor(tokens, card.lens, mode);
+  const glowId = `lens-glow-${card.id}`;
+  const style = {
+    tokens,
+    mode,
+    ink: color(tokens.color.ink, mode),
+    chalk: color(tokens.color.trap.ink, mode),
+    flag: color(tokens.color.trap.flag, mode),
+    accent,
+    palette: tokens.color.step.palette.map((c) => color(c, mode)),
+    font: fontFamily(tokens, undefined, 'family_num'),
+    weight: tokens.type.scale.label.weight,
+    labelSize: label,
+    figureStroke: tokens.stroke.figure.width,
+    lensStroke: tokens.stroke.lens.width,
+    dash: tokens.stroke.trap.dash,
+    tint: tokens.color.step.tint_opacity,
+    glowFilter: glow ? `url(#${glowId})` : undefined,
+    glowOpacity: glow?.opacity,
+    region: [PAD, PAD, SCENE_WIDTH - 2 * PAD, FIGURE_HEIGHT - 2 * PAD] as [number, number, number, number],
+  };
+  let body: ReactNode = null;
+  let caption: { step: { ja: string }; t: number } | null = null;
+  let answer = 0;
+  if (figure.type === 'triangle_cevians') {
+    const s = ceviansState(keyframes, keyframe, t, card);
+    body = <CeviansFigure {...style} card={card} fig={figure} paper={color(tokens.color.paper, mode)} show={s.show} wbc={s.wbc} wca={s.wca} balance={s.balance} on={s.on} height={s.height} base={s.base} ghost={s.ghost} answer={s.answer} />;
+    ({ caption, answer } = s);
+  } else {
+    const s = coordPlaneState(keyframes, keyframe, t, card);
+    body =
+      figure.type === 'coord_equal_area' ? (
+        <EqualAreaFigure {...style} card={card} fig={figure} show={s.show} parallel={s.first} slide={s.second} answer={s.answer} />
+      ) : figure.type === 'coord_mirror_area' ? (
+        <MirrorAreaFigure {...style} card={card} fig={figure} idPrefix={`lens-${card.id}`} show={s.show} reflect={s.first} straight={s.second} mark={s.mark} box={s.box} corners={s.corners} ghost={s.ghost} answer={s.answer} />
+      ) : null;
+    ({ caption, answer } = s);
+  }
+  return (
+    <g>
+      {glow && (
+        <defs>
+          <filter id={glowId} x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation={glow.blur_px / 2} />
+          </filter>
+        </defs>
+      )}
+      {body}
+      <TextBand card={card} tokens={tokens} mode={mode} caption={caption ? { text: caption.step.ja, t: caption.t, size: 'step' } : null} answer={answer} ink={color(tokens.color.ink, mode)} accent={accent} />
     </g>
   );
 }

@@ -3,9 +3,9 @@ import { getCard, withVariant, type Bundle, type LensCard, type Lesson, type Pas
 
 /** Lenses with a hands-on interaction in the course player, and the figures each can play. */
 const PLAYABLE: Record<string, (card: LensCard) => boolean> = {
-  enclose: (c) => c.problem.figure.type === 'grid_polygon' && verticesOnBox(c),
-  slide: (c) => c.problem.figure.type === 'parallel_band',
-  mirror: (c) => c.problem.figure.type === 'mirror_path' || c.problem.figure.type === 'mirror_corner',
+  enclose: (c) => (c.problem.figure.type === 'grid_polygon' || (c.problem.figure.type === 'coord_polygon' && c.problem.figure.shape !== 'axis_base')) && verticesOnBox(c),
+  slide: (c) => c.problem.figure.type === 'parallel_band' || c.problem.figure.type === 'coord_equal_area',
+  mirror: (c) => ['mirror_path', 'mirror_corner'].includes(c.problem.figure.type) || (c.problem.figure.type === 'coord_mirror_area' && c.problem.figure.side !== 'opposite'),
   area: (c) => ['area_two_rect', 'area_average', 'area_shortfall'].includes(family(c) ?? ''),
   constant: (c) => family(c) === 'diff_bars',
   balance: (c) => family(c) === 'lever',
@@ -23,7 +23,7 @@ function family(card: LensCard): string | null {
 /** Every vertex lies on the enclosing box (the corner-triangle Enclose interaction needs that). */
 function verticesOnBox(card: LensCard): boolean {
   const fig = card.problem.figure;
-  if (fig.type !== 'grid_polygon') return false;
+  if (fig.type !== 'grid_polygon' && fig.type !== 'coord_polygon') return false;
   const xs = fig.points.map((p) => p[0]);
   const ys = fig.points.map((p) => p[1]);
   const [x0, x1, y0, y1] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
@@ -47,8 +47,8 @@ export function findLesson(pass: Pass, lens: string): Lesson | undefined {
   return pass.lessons.find((l) => l.lens === lens);
 }
 
-/** How a problem plays: a drag interaction, or the step-by-step walkthrough (WO-016). */
-export type ProblemMode = 'scene' | 'walkthrough';
+/** How a problem plays: a drag interaction, the step-by-step walkthrough (WO-016), or stage by stage (ADR-003 chain). */
+export type ProblemMode = 'scene' | 'walkthrough' | 'chain';
 
 export interface LessonProblem {
   card: LensCard;
@@ -57,7 +57,8 @@ export interface LessonProblem {
 
 /** Cards with a drag interaction for this lens play as scenes; failure, no-lens and steps-only cards walk through. */
 export function problemMode(card: LensCard, lens: string): ProblemMode {
-  return isPlayable(card, lens) ? 'scene' : 'walkthrough';
+  if (!isPlayable(card, lens)) return 'walkthrough';
+  return card.chain?.length ? 'chain' : 'scene';
 }
 
 /**

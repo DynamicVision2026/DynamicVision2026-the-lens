@@ -1,7 +1,7 @@
 // 差一定: drag the ● forward in time (dir 1) or back / spend (dir −1, WO-015 §3C); both bars change
 // together and the difference never changes. The smaller bar's r copies line up with the bigger bar
 // at the answer. Printed: the text's numbers, step values, and the child's count × the fixed step.
-import { afterEquals, type WordDiagramSpec, type WordProblemFigure } from '@lens/scenes';
+import { afterEquals, stageSteps, type WordDiagramSpec, type WordProblemFigure } from '@lens/scenes';
 import { useEffect, useRef, useState } from 'react';
 import { t } from '../../i18n/ja';
 import { sfx, springTo, TACTILE } from '../fx';
@@ -18,8 +18,10 @@ export function ConstantScene({ card, lens, onSolved }: SceneProps) {
   const { r, dir, step } = d;
   const nm = fig.names ?? {};
   const unit = d.measure === 'yen' ? t('area.yen') : t('area.age');
-  const diff = afterEquals(card.lens_route.steps[0]);
-  const last = card.lens_route.steps[3];
+  // ADR-003: steps through stageSteps (the whole route; this scene is never a chain stage).
+  const route = stageSteps(card, null);
+  const diff = afterEquals(route[0]);
+  const last = route[3];
   const end = m.at(dir < 0 ? 0 : m.kMax);
   const maxL = Math.max(end.big, r * end.small, d.big, r * d.small) * 1.06;
   const u = 500 / maxL;
