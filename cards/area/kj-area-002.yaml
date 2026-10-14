@@ -1,0 +1,109 @@
+schema_version: '1.1'
+id: kj-area-002
+kind: standard
+lens: area
+best_move: area
+stage: chugaku
+grades:
+- 中2
+level: 2
+archetype: area.two_kinds_ticket
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: admission for two kinds of visitors, total people and total fee known (中2 連立方程式の文章題), solved with an area diagram.'
+  not_derived_from: Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 1人あたりの入館料×人数は長方形の面積。全部を安いほうと考えると、はみ出した部分だけが残る。
+  principle_en: Fee per person × people is a rectangle; assume all at the lower fee and the strip remains.
+problem:
+  text_ja: ある博物館の入館料は、大人1人900円、中学生1人500円です。大人と中学生合わせて24人で入館し、入館料は合計15600円でした。大人は何人ですか。
+  unit: 人
+  figure:
+    type: word_problem
+    kind: two_kinds_total
+    params:
+      n: 24
+      a: 900
+      b: 500
+      t: 15600
+    names:
+      template: ticket
+      a: 大人
+      b: 中学生
+      counter: 人
+      measure: 入館料
+      unit: 円
+      register: chugaku
+answer:
+  value: '9'
+  display_ja: 9人
+  expr: word_problem
+trap_route:
+  time_cost_sec: 180
+  time_source: estimate
+  steps:
+  - ja: xとyを使って、個数の式と合計の式の2本を立てる
+    op: note
+  - ja: 加減法でyを消そうとするが、係数が大きくて計算がふくらむ
+    op: note
+  - ja: ここで約3分。符号や桁のミスが出やすい
+    op: note
+lens_route:
+  time_cost_sec: 40
+  time_source: estimate
+  steps:
+  - ja: 縦＝1人あたりの入館料、横＝人数の長方形2つで表す（面積＝入館料）
+    op: note
+  - ja: 全部中学生だとすると 500×24 = 12000
+    op: note
+  - ja: 本当の入館料との差 15600−12000 = 3600 が、上にはみ出した長方形の面積
+    op: note
+  - ja: その長方形の縦は 900−500 = 400
+    op: note
+  - ja: 大人の数 = 3600÷400 = 9
+    value: '9'
+    op: result
+trigger:
+  ja: 2種類がまざっていて、全部の人数と合計金額だけ分かるときは、長方形2つの面積図にする。
+  en: 'Two kinds mixed, only the total count and total value: two rectangles.'
+  tags:
+  - two_kinds_mixed
+  - total_count_and_total
+picker:
+  options:
+  - area
+  - balance
+  - constant
+  - direct
+  correct: area
+  clue_distractors:
+  - times_relation
+  - mixing
+  feedback_ja:
+    balance: 濃度や平均を混ぜる問題ではない。
+    constant: 差や合計が変わらないことを使う問題ではない。
+    area: そのとおり。全員を中学生として計算し、実際の合計との差の分だけ大人がいる。
+    direct: 連立方程式でも解けるが、係数が大きく、加減法の計算が重い。
+animation:
+  keyframes:
+  - show_story
+  - draw_rectangles
+  - assume_all_b
+  - show_gap_strip
+  - divide_strip
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_two_kinds
+  count: 4
+  seed: 4102

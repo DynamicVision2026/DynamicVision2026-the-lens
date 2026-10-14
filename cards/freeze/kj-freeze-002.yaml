@@ -1,0 +1,99 @@
+schema_version: '1.1'
+id: kj-freeze-002
+kind: standard
+lens: freeze
+best_move: freeze
+stage: chugaku
+grades:
+- 中1
+level: 2
+archetype: freeze.chase
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: a head start and a chase; freeze the slower one, the gap closes at the difference of speeds.'
+  not_derived_from: Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 追いかける問題も、前を歩く人を止めて考えると、後ろの人は「速さの差」で近づく。
+  principle_en: Freeze the one in front; the chaser closes at the speed difference.
+problem:
+  text_ja: 弟が家を出て、分速70mで歩き始めました。その12分後に、兄が家を出て、分速190mで同じ道を追いかけます。兄が弟に追いつくのは、兄が家を出てから何分後ですか。
+  unit: 分後
+  figure:
+    type: word_problem
+    kind: chase
+    params:
+      v: 70
+      h: 12
+      u: 190
+    names:
+      a: 兄
+      b: 弟
+      register: chugaku
+answer:
+  value: '7'
+  display_ja: 7分後
+  expr: word_problem
+trap_route:
+  time_cost_sec: 150
+  time_source: estimate
+  steps:
+  - ja: 出会う（追いつく）時間をx分として、2人の進んだ距離をxの式で表す
+    op: note
+  - ja: 2人の位置関係を図にかき直して、距離の方程式を立てる
+    op: note
+  - ja: ここで約2分半。どの距離を足すのか引くのかで迷う
+    op: note
+lens_route:
+  time_cost_sec: 25
+  time_source: estimate
+  steps:
+  - ja: 弟を止めて考えると、兄は1分に 190−70 = 120m ずつ近づく
+    op: note
+  - ja: 兄が家を出るとき、弟は 70×12 = 840m 先にいる
+    op: note
+  - ja: 840÷120 = 7（分後）
+    value: '7'
+    op: result
+trigger:
+  ja: あとから追いかけるときは、前の人を止めて、速さの差で近づくと考える。
+  en: 'Chasing: freeze the one in front; close at the speed difference.'
+  tags:
+  - head_start
+  - moving_points
+picker:
+  options:
+  - freeze
+  - constant
+  - area
+  - direct
+  correct: freeze
+  clue_distractors:
+  - ages_both_increase
+  - toward_each_other
+  feedback_ja:
+    freeze: そのとおり。弟を止めると、兄は速さの差で近づく。はじめの差は、弟が先に進んだ距離。
+    constant: 年齢の問題ではない。2人の間の距離は変わる。
+    area: 2種類のものの数と合計の問題ではない。
+    direct: x分後として方程式を立てると、出発時刻のずれでミスが出やすい。
+animation:
+  keyframes:
+  - show_story
+  - draw_road
+  - freeze_one
+  - combine_speeds
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_chase
+  count: 4
+  seed: 4402

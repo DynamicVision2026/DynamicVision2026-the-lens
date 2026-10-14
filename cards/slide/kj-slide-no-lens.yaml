@@ -1,0 +1,92 @@
+schema_version: '1.1'
+id: kj-slide-no-lens
+kind: no_lens
+lens: slide
+best_move: direct
+stage: chugaku
+grades:
+- 中1
+- 中2
+level: 1
+archetype: slide.origin_base
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: P on the y-axis with a given area of △OPA; OP already lies on the axis, so base × height ÷ 2 gives OP directly (negative control for 等積変形).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 底辺ABが同じで、高さが同じなら面積は同じ。高さが同じ点は、ABに平行な直線の上にならぶ。
+  principle_en: Same base AB and same height give the same area; points at the same height lie on a line parallel to AB.
+problem:
+  text_ja: 座標平面上に原点Oと点A(5, 3)があります。y軸の正の部分に点Pをとり、△OPAの面積が15になるようにします。点Pのy座標を求めなさい。
+  unit: ''
+  figure:
+    type: coord_y_split
+    origin: true
+    A:
+    - 5
+    - 3
+    S: 15
+answer:
+  value: '6'
+  display_ja: '6'
+  expr: coordinate
+trap_route:
+  time_cost_sec: 90
+  time_source: estimate
+  steps:
+  - ja: Pを(0, p)とおいて、△OPAの面積を囲んで求めようとする
+    op: note
+  - ja: pの式で面積を表し、方程式を立てる
+    op: note
+  - ja: ここで約1分半。遠回り
+    op: note
+lens_route:
+  time_cost_sec: 20
+  time_source: estimate
+  steps:
+  - ja: OPはy軸の上にあるので、OPを底辺と見る
+    op: note
+  - ja: 高さは、Aからy軸までの 5
+    op: note
+  - ja: OP×5÷2 = 15 より、OP = 15×2÷5 = 6
+    value: '6'
+    op: result
+trigger:
+  ja: 1辺がy軸の上にある三角形は、その辺を底辺にすれば高さはx座標。面積からすぐに底辺の長さが出る。
+  en: 'One side on the y-axis: that side is the base, the height is the x-coordinate; the area gives the base directly.'
+  tags:
+  - side_on_axis
+  - area_given
+picker:
+  options:
+  - slide
+  - enclose
+  - mirror
+  - direct
+  correct: direct
+  clue_distractors:
+  - sum_of_distances
+  - tilted_polygon
+  feedback_ja:
+    slide: 平行な線で動かす頂点がない。OPがy軸の上にあるので、そのまま底辺にできる。
+    enclose: 囲む必要はない。OPを底辺にすれば、高さはAのx座標。
+    mirror: 最短の道すじを求める問題ではない。
+    direct: そのとおり。OPを底辺、Aからy軸までを高さにして、面積の式からOPを出す。
+animation:
+  keyframes:
+  - show_shape
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: coord_y_split_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: coord_y_split
+  count: 4
+  seed: 4602

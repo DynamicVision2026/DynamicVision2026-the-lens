@@ -1,0 +1,101 @@
+schema_version: '1.1'
+id: kj-balance-002
+kind: standard
+lens: balance
+best_move: balance
+stage: chugaku
+grades:
+- 中2
+level: 2
+archetype: balance.mixture_two
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: mix two salt solutions to reach a target strength (中2 連立方程式・食塩水), solved on a lever.'
+  not_derived_from: Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 混ぜた濃度は、てんびんがつり合う点。うでの長さ×重さが左右で等しいので、重さの比はうでの長さの逆の比になる。
+  principle_en: 'The mixed strength is the balance point of a lever: arm × weight is equal on both sides, so the amounts are in the inverse ratio of the arms.'
+problem:
+  text_ja: 4%の食塩水300gに、12%の食塩水を何g混ぜると、9%の食塩水になりますか。
+  unit: g
+  figure:
+    type: word_problem
+    kind: mixture
+    params:
+      w1: 300
+      p1: 4
+      p2: 12
+      pt: 9
+    names:
+      register: chugaku
+answer:
+  value: '500'
+  display_ja: 500g
+  expr: word_problem
+trap_route:
+  time_cost_sec: 200
+  time_source: estimate
+  steps:
+  - ja: 食塩の重さをxを使った式で表し、方程式を立てる
+    op: note
+  - ja: '%を小数や分数に直すので、式が長くなる'
+    op: note
+  - ja: ここで約3分。分母をはらう計算でミスが出やすい
+    op: note
+lens_route:
+  time_cost_sec: 35
+  time_source: estimate
+  steps:
+  - ja: てんびんの左はしに4%、右はしに12%、支点に9%をおく
+    op: note
+  - ja: うでの長さは 9−4 = 5 と 12−9 = 3
+    op: note
+  - ja: 300g と xg の比は、うでの長さの逆の比 3:5
+    op: note
+  - ja: 300×5÷3 = 500（g）
+    value: '500'
+    op: result
+trigger:
+  ja: 濃度のちがう2つを混ぜる問題は、濃度をてんびんのうでにして、重さの比を逆にする。
+  en: 'Mixing two strengths: put the strengths on a lever; the amounts are in the inverse ratio of the arms.'
+  tags:
+  - mixing
+  - three_strengths_known
+picker:
+  options:
+  - balance
+  - area
+  - constant
+  - direct
+  correct: balance
+  clue_distractors:
+  - two_kinds_mixed
+  - times_relation
+  feedback_ja:
+    balance: そのとおり。混ぜた濃度が支点。うでの長さの逆の比が、重さの比になる。
+    area: 2種類の「数と合計」ではなく、「濃度」を混ぜる問題。
+    constant: 差が変わらないものを使う問題ではない。
+    direct: 食塩の重さで方程式を立てると、%の計算で式が長くなる。
+animation:
+  keyframes:
+  - show_story
+  - draw_lever
+  - place_strengths
+  - mark_arms
+  - invert_ratio
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_mixture
+  count: 4
+  seed: 4202

@@ -1,0 +1,104 @@
+schema_version: '1.1'
+id: kj-slide-004
+kind: standard
+lens: slide
+best_move: slide
+stage: chugaku
+grades:
+- 中2
+level: 4
+archetype: slide.quad_to_triangle
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: quadrilateral ABCD turned into a triangle of equal area by sliding C parallel to the diagonal DB onto the x-axis (四角形→三角形の等積変形).'
+  not_derived_from: Numbers, figure and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 底辺ABが同じで、高さが同じなら面積は同じ。高さが同じ点は、ABに平行な直線の上にならぶ。
+  principle_en: Same base AB and same height give the same area; points at the same height lie on a line parallel to AB.
+problem:
+  text_ja: 座標平面上に4点A(−3, 0)、B(3, 0)、C(5, 3)、D(−1, 6)があります。x軸上で点Bより右側に点Eをとり、△AEDの面積が四角形ABCDの面積と等しくなるようにします。点Eのx座標を求めなさい。
+  unit: ''
+  figure:
+    type: coord_quad_tri
+    A:
+    - -3
+    - 0
+    B:
+    - 3
+    - 0
+    C:
+    - 5
+    - 3
+    D:
+    - -1
+    - 6
+answer:
+  value: '7'
+  display_ja: '7'
+  expr: coordinate
+trap_route:
+  time_cost_sec: 240
+  time_source: estimate
+  steps:
+  - ja: 四角形ABCDの面積を、囲んで先に求める
+    op: note
+  - ja: Eを(e, 0)とおいて△AEDの面積をeの式で表し、方程式を立てる
+    op: note
+  - ja: ここで約4分。計算が2段になる
+    op: note
+lens_route:
+  time_cost_sec: 60
+  time_source: estimate
+  steps:
+  - ja: 対角線DBをひく。△DBCの頂点Cを、DBに平行に動かしても面積は変わらない（等積変形）
+    op: note
+  - ja: Cを、DBに平行な直線にそってx軸まで動かした点がE。このとき △DBE＝△DBC なので、△AED＝四角形ABCD
+    op: note
+  - ja: DBの傾きは (0−6)÷(3−(−1)) = −3/2
+    op: note
+  - ja: Cからyが 3 下がる間に、xは 3×4/6 = 2 進む
+    op: note
+  - ja: Eのx座標 = 5＋2 = 7
+    value: '7'
+    op: result
+trigger:
+  ja: 四角形を同じ面積の三角形にするときは、対角線をひき、残りの頂点を対角線に平行に動かす。
+  en: 'Quadrilateral to a triangle of equal area: draw a diagonal and slide the remaining vertex parallel to it.'
+  tags:
+  - quad_to_triangle
+  - equal_area_asked
+picker:
+  options:
+  - slide
+  - enclose
+  - mirror
+  - direct
+  correct: slide
+  clue_distractors:
+  - sum_of_distances
+  - tilted_polygon
+  feedback_ja:
+    slide: そのとおり。対角線DBをひき、Cを、DBに平行にx軸まで動かす。△DBCの面積は変わらない。
+    enclose: 四角形の面積は囲めば出るが、Eの位置を決めるには方程式がもう1本いる。
+    mirror: 最短の道すじを求める問題ではない。
+    direct: Eを(e, 0)とおいて面積の方程式を立てると、計算が2段になる。
+animation:
+  keyframes:
+  - show_shape
+  - draw_parallel
+  - slide_vertex
+  - show_answer
+checks:
+- type: coord_text_matches
+- type: coord_answer
+- type: coord_steps_match
+- type: coord_quad_tri_valid
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: coord_quad_tri
+  count: 4
+  seed: 4604

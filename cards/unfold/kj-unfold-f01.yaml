@@ -1,0 +1,103 @@
+schema_version: '1.1'
+id: kj-unfold-f01
+kind: failure
+lens: unfold
+best_move: 'direct: the cut-off piece is a triangular pyramid, so base area × height ÷ 3'
+stage: chugaku
+grades:
+- 中1
+level: 3
+archetype: unfold.corner_volume_failure
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: a cuboid with one corner cut off by the plane through three vertices; the volume is asked, so unfolding the faces does not help (failure card for 展開).'
+  not_derived_from: Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 展開は、表面の上の長さ（最短の道）を平面で見るための道具。体積は面を開いても変わらないので、立体のまま底面積と高さで考える。
+  principle_en: 'Unfolding is for lengths on the surface; volume needs the solid itself: base area × height.'
+problem:
+  text_ja: 直方体ABCD-EFGHがあり、AB＝8cm、BC＝6cm、AE＝9cmです。3つの頂点B、D、Eを通る平面でこの直方体を切り、頂点Aをふくむ小さい方の立体を切り取ります。切り取った立体の体積は何cm³ですか。
+  unit: cm³
+  figure:
+    type: box_unfold
+    a: 8
+    b: 6
+    h: 9
+    unit: cm
+    point_labels:
+      A: A
+      B: B
+      C: C
+      D: D
+      E: E
+      F: F
+      G: G
+      H: H
+      P: P
+    ask: corner_volume
+answer:
+  value: '72'
+  display_ja: 72cm³
+  expr: unfold_cross
+trap_route:
+  time_cost_sec: 150
+  time_source: estimate
+  steps:
+  - ja: 直方体と頂点の名前を見て、くせで展開図をかく
+    op: note
+  - ja: 面を開いても、切り取った立体の体積はどこにも出てこない
+    op: note
+  - ja: 立体にもどって考え直すので、約2分半
+    op: note
+lens_route:
+  time_cost_sec: 40
+  time_source: estimate
+  steps:
+  - ja: 体積の問題なので、面を開いても答えは出ない。切り取ったのは、頂点Aに3本の辺が集まる三角すい
+    op: note
+  - ja: 底面は直角三角形ABD：8×6÷2 = 24
+    op: note
+  - ja: 高さはAE＝9。三角すいの体積は 底面積×高さ÷3：24×9÷3 = 72
+    value: '72'
+    op: result
+trigger:
+  ja: 聞かれているのが体積なら、展開しない。立体のまま、底面積×高さ（すいなら÷3）で考える。
+  en: 'Volume asked: do not unfold; base area × height (÷3 for a pyramid).'
+  tags:
+  - volume_asked
+picker:
+  options:
+  - unfold
+  - enclose
+  - slide
+  - direct
+  correct: direct
+  clue_distractors:
+  - path_on_surface
+  - shortest_path
+  feedback_ja:
+    unfold: おしい。直方体の問題だが、聞いているのは体積。面を開いても体積は出ない。
+    enclose: 方眼の上の面積の問題ではない。
+    slide: 平行な線で頂点を動かす問題ではない。
+    direct: そのとおり。切り取ったのは三角すい。底面積×高さ÷3で求める。
+animation:
+  keyframes:
+  - show_box
+  - unfold_faces
+checks:
+- type: text_matches
+- type: unfold_corner_volume
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: box_unfold
+  count: 4
+  seed: 4505
+  constraints:
+    min_side: 2
+    max_side: 12
+    min_h: 3
+    max_h: 12

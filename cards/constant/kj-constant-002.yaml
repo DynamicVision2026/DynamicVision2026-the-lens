@@ -1,0 +1,102 @@
+schema_version: '1.1'
+id: kj-constant-002
+kind: standard
+lens: constant
+best_move: constant
+stage: chugaku
+grades:
+- 中1
+level: 2
+archetype: constant.age_ratio_past
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: years ago when one age was r times another; the difference is fixed.'
+  not_derived_from: Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 何年前にさかのぼっても、2人の年齢の差は同じ。差を「何つ分」で考えると、1回のわり算でそのときの年齢が出る。
+  principle_en: Going back in time, the age difference stays the same; splitting it into (r−1) parts gives the younger age at that moment.
+problem:
+  text_ja: 現在、母は46歳、美咲は18歳です。母の年齢が美咲の年齢の5倍だったのは何年前ですか。
+  unit: 年前
+  figure:
+    type: word_problem
+    kind: age_ratio_past
+    params:
+      p: 46
+      c: 18
+      r: 5
+    names:
+      older: 母
+      younger: 美咲
+      register: chugaku
+answer:
+  value: '11'
+  display_ja: 11年前
+  expr: word_problem
+trap_route:
+  time_cost_sec: 150
+  time_source: estimate
+  steps:
+  - ja: 現在からx年後（前）として、両方の量をxの式で表す
+    op: note
+  - ja: 「何倍」の関係から方程式を立て、かっこをはずして解く
+    op: note
+  - ja: ここで約2分半。式の立て方で迷いやすい
+    op: note
+lens_route:
+  time_cost_sec: 25
+  time_source: estimate
+  steps:
+  - ja: 年齢の差は 46−18 = 28 で、何年前でも変わらない
+    op: note
+  - ja: 母が美咲の5倍のとき、差の28は美咲の 5−1 = 4 つ分
+    op: note
+  - ja: そのときの美咲は 28÷4 = 7 歳
+    op: note
+  - ja: 18−7 = 11（年前）
+    value: '11'
+    op: result
+trigger:
+  ja: 2人の年齢が同じだけ変わるときは、変わらない「差」に目をつける。前にさかのぼっても同じ。
+  en: 'Two ages changing together, forward or back: anchor on the difference.'
+  tags:
+  - both_change_same
+  - times_relation
+picker:
+  options:
+  - constant
+  - area
+  - freeze
+  - direct
+  correct: constant
+  clue_distractors:
+  - two_kinds_mixed
+  - moving_points
+  feedback_ja:
+    constant: そのとおり。年齢の差は、何年前でも同じ。
+    area: 2種類のものの数と合計の問題ではない。
+    freeze: 動く点の速さの問題ではない。
+    direct: x年前として方程式を立てると、引き算の向きを間違えやすい。
+animation:
+  keyframes:
+  - show_story
+  - draw_age_bars
+  - mark_difference
+  - shrink_bars
+  - split_difference
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_age_ratio_past
+  count: 4
+  seed: 4302

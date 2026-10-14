@@ -23,7 +23,8 @@ afterEach(() => vi.restoreAllMocks());
 
 describe.skipIf(!balance || !freeze)('word problems (てんびん, 止める)', () => {
   it('has both cards and their 4 variants each', () => {
-    expect(cards.map((c) => c.id)).toEqual([
+    // Stage 2 (高校受験パス) word cards of the same models are drawn by the same scenes; they are checked by every test below.
+    expect(cards.filter((c) => !c.id.startsWith('kj-')).map((c) => c.id)).toEqual([
       'balance-001', 'balance-001-v1', 'balance-001-v2', 'balance-001-v3', 'balance-001-v4',
       'freeze-001', 'freeze-001-v1', 'freeze-001-v2', 'freeze-001-v3', 'freeze-001-v4',
     ]);

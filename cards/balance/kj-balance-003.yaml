@@ -1,0 +1,99 @@
+schema_version: '1.1'
+id: kj-balance-003
+kind: standard
+lens: balance
+best_move: balance
+stage: chugaku
+grades:
+- 中2
+level: 3
+archetype: balance.add_salt
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: add pure salt (a 100% solution on the lever) to reach a target strength.'
+  not_derived_from: Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 食塩は「100%の食塩水」。てんびんの右はしを100%にすれば、食塩を加える問題も混ぜる問題と同じになる。
+  principle_en: 'Salt is a 100 % solution: the lever''s far end sits at 100.'
+problem:
+  text_ja: 5%の食塩水380gに食塩を何g加えると、24%の食塩水になりますか。
+  unit: g
+  figure:
+    type: word_problem
+    kind: mixture_salt
+    params:
+      w1: 380
+      p1: 5
+      pt: 24
+    names:
+      register: chugaku
+answer:
+  value: '95'
+  display_ja: 95g
+  expr: word_problem
+trap_route:
+  time_cost_sec: 200
+  time_source: estimate
+  steps:
+  - ja: 食塩の重さをxを使った式で表し、方程式を立てる
+    op: note
+  - ja: '%を小数や分数に直すので、式が長くなる'
+    op: note
+  - ja: ここで約3分。分母をはらう計算でミスが出やすい
+    op: note
+lens_route:
+  time_cost_sec: 40
+  time_source: estimate
+  steps:
+  - ja: 食塩は「100%の食塩水」と考える。てんびんの両はしに5%と100%、支点に24%をおく
+    op: note
+  - ja: うでの長さは 24−5 = 19 と 100−24 = 76
+    op: note
+  - ja: 380g と 食塩xg の比は、うでの長さの逆の比 4:1
+    op: note
+  - ja: 380×1÷4 = 95（g）
+    value: '95'
+    op: result
+trigger:
+  ja: 食塩を加えるときは、食塩を100%の食塩水としててんびんにのせる。
+  en: 'Adding salt: put salt on the lever as a 100 % solution.'
+  tags:
+  - add_water_or_salt
+  - mixing
+picker:
+  options:
+  - balance
+  - area
+  - constant
+  - direct
+  correct: balance
+  clue_distractors:
+  - two_kinds_mixed
+  - evaporate_water
+  feedback_ja:
+    balance: そのとおり。食塩は濃度100%の食塩水。もとの濃度と100%のてんびんで、できた濃度が支点。
+    area: 2種類のものの数と合計の問題ではない。
+    constant: 水の量は変わらないので、それでも解ける。でも、てんびんの比の方が速い。
+    direct: xが分母にも入る方程式になり、時間がかかる。
+animation:
+  keyframes:
+  - show_story
+  - place_strengths
+  - mark_arms
+  - invert_ratio
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_mixture_salt
+  count: 4
+  seed: 4204

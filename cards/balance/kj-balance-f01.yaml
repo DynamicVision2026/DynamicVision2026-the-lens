@@ -1,0 +1,99 @@
+schema_version: '1.1'
+id: kj-balance-f01
+kind: failure
+lens: balance
+best_move: 'constant: the salt amount does not change (食塩の量は変わらない)'
+stage: chugaku
+grades:
+- 中2
+level: 3
+archetype: balance.evaporate_failure
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: evaporate water to raise the strength; nothing is mixed, so the lever has no second weight; the salt is what stays the same (failure card for てんびん).'
+  not_derived_from: Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 水が蒸発しても食塩の量は変わらない。変わらないものに目をつければ、1回のわり算で残りの重さが出る。
+  principle_en: Evaporation keeps the salt amount fixed; anchor on it.
+problem:
+  text_ja: 4%の食塩水450gから水を何g蒸発させると、9%の食塩水になりますか。
+  unit: g
+  figure:
+    type: word_problem
+    kind: evaporate
+    params:
+      w1: 450
+      p1: 4
+      pt: 9
+    names:
+      register: chugaku
+answer:
+  value: '250'
+  display_ja: 250g
+  expr: word_problem
+trap_route:
+  time_cost_sec: 200
+  time_source: estimate
+  steps:
+  - ja: 食塩の重さをxを使った式で表し、方程式を立てる
+    op: note
+  - ja: '%を小数や分数に直すので、式が長くなる'
+    op: note
+  - ja: ここで約3分。分母をはらう計算でミスが出やすい
+    op: note
+lens_route:
+  time_cost_sec: 35
+  time_source: estimate
+  steps:
+  - ja: 水が蒸発しても、食塩の量は変わらない
+    op: note
+  - ja: 食塩は 450×4÷100 = 18（g）
+    op: note
+  - ja: 9%で食塩が18gなら、食塩水は 18÷9×100 = 200（g）
+    op: note
+  - ja: 450−200 = 250（g）
+    value: '250'
+    op: result
+trigger:
+  ja: 水を蒸発させる問題は、てんびんではなく、変わらない食塩の量に目をつける。
+  en: 'Evaporation: not a lever; anchor on the unchanged salt.'
+  tags:
+  - evaporate_water
+picker:
+  options:
+  - balance
+  - constant
+  - area
+  - direct
+  correct: constant
+  clue_distractors:
+  - add_water_or_salt
+  - mixing
+  feedback_ja:
+    balance: おしい。何も混ぜていないので、てんびんの片方におくものがない。
+    constant: そのとおり。水を蒸発させても食塩の重さは変わらない。その重さとあとの濃度から、全体の重さが出る。
+    area: 2種類のものの数と合計の問題ではない。
+    direct: xを使った方程式でも解けるが、変わらない食塩の量を見る方が速い。
+animation:
+  keyframes:
+  - show_story
+  - try_lever
+  - flash_no_partner
+  - keep_salt
+  - divide
+  - show_answer
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_evaporate
+  count: 4
+  seed: 4205

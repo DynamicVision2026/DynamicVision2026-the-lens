@@ -1,0 +1,98 @@
+schema_version: '1.1'
+id: kj-freeze-no-lens
+kind: no_lens
+lens: freeze
+best_move: 'direct: each travel time, then subtract'
+stage: chugaku
+grades:
+- 中1
+level: 1
+archetype: freeze.arrival_gap
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: same start and goal, compare arrival times; each time is direct division (negative control for 止める).'
+  not_derived_from: Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 2人が出会ったり追いついたりしないなら、相対的な速さはいらない。それぞれの時間を出して引く。
+  principle_en: 'No meeting or catching up: just each travel time, then subtract.'
+problem:
+  text_ja: 姉は分速90m、妹は分速60mで、家から1800m離れた駅に向かって、同時に家を出ました。姉は妹より何分早く駅に着きますか。
+  unit: 分
+  figure:
+    type: word_problem
+    kind: arrival_gap
+    params:
+      d: 1800
+      u: 90
+      v: 60
+    names:
+      a: 姉
+      b: 妹
+      register: chugaku
+answer:
+  value: '10'
+  display_ja: 10分
+  expr: word_problem
+trap_route:
+  time_cost_sec: 150
+  time_source: estimate
+  steps:
+  - ja: 出会う（追いつく）時間をx分として、2人の進んだ距離をxの式で表す
+    op: note
+  - ja: 2人の位置関係を図にかき直して、距離の方程式を立てる
+    op: note
+  - ja: ここで約2分半。どの距離を足すのか引くのかで迷う
+    op: note
+lens_route:
+  time_cost_sec: 20
+  time_source: estimate
+  steps:
+  - ja: 姉がかかる時間は 1800÷90 = 20（分）
+    op: note
+  - ja: 妹がかかる時間は 1800÷60 = 30（分）
+    op: note
+  - ja: 30−20 = 10（分）
+    value: '10'
+    op: result
+trigger:
+  ja: 出会う・追いつくではなく、それぞれの時間を聞いているときは、止めなくていい。
+  en: 'Not meeting or catching up: no freeze; compare the two times.'
+  tags:
+  - never_meet
+picker:
+  options:
+  - freeze
+  - constant
+  - area
+  - direct
+  correct: direct
+  clue_distractors:
+  - head_start
+  - toward_each_other
+  feedback_ja:
+    freeze: 速さの差を出しても、ここでは使い道がない。2人は追いかけっこをしていない。
+    constant: 差が変わらないものを使う問題ではない。
+    area: 2種類のものの数と合計の問題ではない。
+    direct: そのとおり。それぞれ距離÷速さで時間を出して、引くだけ。
+animation:
+  keyframes:
+  - show_story
+  - time_each
+  - subtract
+  - show_answer
+  - ghost_freeze_struck_out
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_arrival_gap
+  count: 4
+  seed: 4403

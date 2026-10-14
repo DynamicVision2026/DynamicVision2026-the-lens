@@ -1,0 +1,187 @@
+# Masterclass + practice onboarding for each lesson of the 高校受験パス (Step 1). Same player and standard as
+# chugaku_juken (WO-014, tokens motion.masterclass: 360 s = core 300 + onboarding 60). Architect-owned content.
+# Tone: the same mascot, a little older: 中学生に向けて、短く、方程式との対比で。say / title ≤ 32 characters.
+
+enclose:
+  example1: kj-enclose-002
+  example2: kj-enclose-004
+  boundary: kj-enclose-f01
+  try: kj-enclose-001
+  title:
+    principle: "辺の長さを三平方で出したくなる"
+    example1: "座標でも、囲んですみを引く"
+    example2: "どの辺もななめでも、同じ"
+    boundary: "対角線が軸の上なら、分ける"
+    onboarding: "練習は3ステップ"
+  say:
+    principle: "座標の四角形。面積はどう出す？"
+    principle_turn: "辺も高さもななめ…。どうする？"
+    principle_lens: "囲むレンズ！ 軸に平行な長方形で囲もう"
+    example1: "ゴーストの指をまねして、囲んでみよう"
+    example1_done: "すみの三角形は、座標の差で読める"
+    example2: "こんどは四角形。同じ手順でいける？"
+    example2_done: "形が変わっても、囲んで引くだけ"
+    boundary: "でも、対角線が軸の上にあるなら…"
+    onboarding: "手がかり → 道具 → ドラッグ。ヒントなしで"
+    onboarding_done: "準備OK！ 5問、ひとりでやってみよう"
+
+slide:
+  example1: kj-slide-001
+  example2: kj-slide-002
+  boundary: kj-slide-f01
+  try: kj-slide-003
+  title:
+    principle: "Pを(0, p)とおきたくなる"
+    example1: "平行線の上なら、面積は同じ"
+    example2: "傾きが変わっても、平行線"
+    boundary: "そろえる相手がないときは"
+    onboarding: "練習は3ステップ"
+  say:
+    principle: "面積が等しくなる点P。どこにある？"
+    principle_turn: "方程式は場合分けで重い…。どうする？"
+    principle_lens: "等積変形レンズ！ 平行な直線をひこう"
+    example1: "Cを、ABに平行にすべらせてみよう"
+    example1_done: "底辺が同じで高さが同じなら、同じ面積"
+    example2: "ちがう座標でも、同じ考え方"
+    example2_done: "平行線の式を出せば、Pが決まる"
+    boundary: "でも、面積の値だけ分かるなら…"
+    onboarding: "手がかり → 道具 → ドラッグ。ヒントなしで"
+    onboarding_done: "準備OK！ 5問、ひとりでやってみよう"
+
+mirror:
+  example1: kj-mirror-004
+  example2: kj-mirror-001
+  boundary: kj-mirror-f01
+  try: kj-mirror-003
+  title:
+    principle: "AとBのまん中をとりたくなる"
+    example1: "x軸で折り返して、まっすぐ"
+    example2: "折り返したら、次は囲む"
+    boundary: "差の最大なら、折り返さない"
+    onboarding: "練習は3ステップ"
+  say:
+    principle: "AP＋PBが最短になるP。どこ？"
+    principle_turn: "まん中では最短にならない…。どうする？"
+    principle_lens: "折り返すレンズ！ Bをx軸で折り返そう"
+    example1: "BをB'に折り返して、Aとまっすぐ結ぼう"
+    example1_done: "まっすぐな線とx軸の交点がP"
+    example2: "Pが決まったら、△ABPの面積も出せる"
+    example2_done: "レンズは2つ続けて使える"
+    boundary: "でも、差が最大になる点なら…"
+    onboarding: "手がかり → 道具 → ドラッグ。ヒントなしで"
+    onboarding_done: "準備OK！ 5問、ひとりでやってみよう"
+
+area:
+  example1: kj-area-002
+  example2: kj-area-003
+  boundary: kj-area-f01
+  try: kj-area-001
+  title:
+    principle: "連立方程式を立てたくなる"
+    example1: "長方形2つで、差を読む"
+    example2: "平均も、面積図で"
+    boundary: "全体の数がないときは"
+    onboarding: "練習は3ステップ"
+  say:
+    principle: "大人と中学生、合わせて何人？"
+    principle_turn: "xとyの式を2本…重い。どうする？"
+    principle_lens: "面積図レンズ！ 長方形2つでならべよう"
+    example1: "全部中学生だとして、はみ出しを見よう"
+    example1_done: "はみ出した面積÷縦の差で、答え"
+    example2: "平均の線の上と下を比べてみよう"
+    example2_done: "はみ出しとへこみは、同じ面積"
+    boundary: "でも、全体の数が分からないなら…"
+    onboarding: "手がかり → 道具 → ドラッグ。ヒントなしで"
+    onboarding_done: "準備OK！ 5問、ひとりでやってみよう"
+
+constant:
+  example1: kj-constant-002
+  example2: kj-constant-003
+  boundary: kj-constant-f01
+  try: kj-constant-001
+  title:
+    principle: "x年前とおいて式を立てたくなる"
+    example1: "変わらない差を、いくつ分で見る"
+    example2: "お金でも、差は変わらない"
+    boundary: "差が変わるときは使わない"
+    onboarding: "練習は3ステップ"
+  say:
+    principle: "母の年齢が5倍だったのは何年前？"
+    principle_turn: "式の向きで迷う…。どうする？"
+    principle_lens: "差一定レンズ！ 年齢の差は変わらない"
+    example1: "差のテープを、いくつ分に分けよう"
+    example1_done: "差÷（倍−1）で、そのときの年齢"
+    example2: "同じ金額を使っても、差はそのまま"
+    example2_done: "変わらないものを見つければ速い"
+    boundary: "でも、3人の合計と比べるなら…"
+    onboarding: "手がかり → 道具 → ドラッグ。ヒントなしで"
+    onboarding_done: "準備OK！ 5問、ひとりでやってみよう"
+
+balance:
+  example1: kj-balance-002
+  example2: kj-balance-003
+  boundary: kj-balance-f01
+  try: kj-balance-001
+  title:
+    principle: "食塩の重さで方程式を立てたくなる"
+    example1: "濃度をてんびんのうでにする"
+    example2: "食塩は100%の食塩水"
+    boundary: "何も混ぜないときは"
+    onboarding: "練習は3ステップ"
+  say:
+    principle: "濃度のちがう食塩水。何g混ぜる？"
+    principle_turn: "%の式が長くなる…。どうする？"
+    principle_lens: "てんびんレンズ！ 濃度をうでにのせよう"
+    example1: "支点を混ぜたあとの濃度に合わせよう"
+    example1_done: "重さの比は、うでの長さの逆の比"
+    example2: "食塩だけ加えるなら、100%とてんびん"
+    example2_done: "水は0%、食塩は100%と考える"
+    boundary: "でも、水を蒸発させるだけなら…"
+    onboarding: "手がかり → 道具 → ドラッグ。ヒントなしで"
+    onboarding_done: "準備OK！ 5問、ひとりでやってみよう"
+
+freeze:
+  example1: kj-freeze-002
+  example2: kj-freeze-003
+  boundary: kj-freeze-f01
+  try: kj-freeze-001
+  title:
+    principle: "x分後の位置を式にしたくなる"
+    example1: "弟を止めて、差で近づく"
+    example2: "列車も、片方を止める"
+    boundary: "動くのが1人なら使わない"
+    onboarding: "練習は3ステップ"
+  say:
+    principle: "兄が弟に追いつくのは何分後？"
+    principle_turn: "出発時刻がずれて迷う…。どうする？"
+    principle_lens: "止めるレンズ！ 弟を止めてみよう"
+    example1: "弟をタップして、止めてみよう！"
+    example1_done: "近づく速さは、速さの差"
+    example2: "すれちがう列車も、片方を止める"
+    example2_done: "長さの和を、速さの和で進む"
+    boundary: "でも、1人が速さを変えるだけなら…"
+    onboarding: "手がかり → 道具 → ドラッグ。ヒントなしで"
+    onboarding_done: "準備OK！ 5問、ひとりでやってみよう"
+
+unfold:
+  example1: kj-unfold-002
+  example2: kj-unfold-003
+  boundary: kj-unfold-f01
+  try: kj-unfold-001
+  title:
+    principle: "BFのまん中を通りたくなる"
+    example1: "面を開いて、まっすぐ結ぶ"
+    example2: "3つの面も、開けば同じ"
+    boundary: "体積なら、開かない"
+    onboarding: "練習は3ステップ"
+  say:
+    principle: "表面を通る最短の糸。Pはどこ？"
+    principle_turn: "立体のままでは比べられない…。どうする？"
+    principle_lens: "展開レンズ！ 面を開いて平らにしよう"
+    example1: "2つの面を開いて、AとGを結ぼう"
+    example1_done: "相似な三角形で、BPが出る"
+    example2: "こんどは3つの面。開いて1本の直線"
+    example2_done: "何面通っても、開けばまっすぐ"
+    boundary: "でも、切り取った立体の体積なら…"
+    onboarding: "手がかり → 道具 → ドラッグ。ヒントなしで"
+    onboarding_done: "準備OK！ 5問、ひとりでやってみよう"

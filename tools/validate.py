@@ -136,7 +136,7 @@ def masterclass_check(pid, ps, lens, by_id):
     entry = {"example1": m.get("example1"), "example2": m.get("example2"), "boundary": m.get("boundary"), "try": m.get("try"),
              "example2_mode": ("scene" if e2 and _has_drag_scene(e2) else "walkthrough"),
              "boundary_line": line, "clues": clues, "say": m.get("say"), "title": m.get("title")}
-    audio, stale = voice_clips(lens, m.get("say") or {})
+    audio, stale = voice_clips(pid, lens, m.get("say") or {})
     if audio:
         entry["audio"] = audio
     if stale:
@@ -148,12 +148,19 @@ def masterclass_check(pid, ps, lens, by_id):
 VOICE_DIR = ROOT / "apps" / "trainer" / "public" / "audio" / "mc"
 
 
-def voice_clips(lens, say):
+def voice_dir(pid, lens):
+    """Clip folder (and manifest key) for a lesson's masterclass: chugaku_juken keeps its original <lens>/ folders,
+    later Passes use <pass>/<lens>/ so the same lens in two Passes never shares a clip. make_voice.py uses the same rule."""
+    return lens if pid == "chugaku_juken" else f"{pid}/{lens}"
+
+
+def voice_clips(pid, lens, say):
     """WO-022: mascot clips made by tools/make_voice.py. A clip ships only if the text it was made from is still the
     line's text, so an edited line never plays old audio. Returns ({key: url}, [stale keys])."""
     mf = VOICE_DIR / "manifest.json"
     if not mf.exists():
         return {}, []
+    lens = voice_dir(pid, lens)
     made = json.loads(mf.read_text(encoding="utf-8")).get(lens, {})
     audio, stale = {}, []
     for key, text in say.items():
@@ -532,6 +539,11 @@ def fig_text(fig):
         return (f"直方体ABCD-EFGHがあり、AB＝{fig['a']}{u}、BC＝{fig['b']}{u}、AE＝{fig['h']}{u}です。"
                 f"3つの頂点B、D、Eを通る平面でこの直方体を切り、頂点Aをふくむ小さい方の立体を切り取ります。"
                 f"切り取った立体の体積は何{u}³ですか。")
+    if t == "box_unfold" and fig.get("ask") == "length":
+        u = fig["unit"]
+        return (f"直方体ABCD-EFGHがあり、AB＝{fig['a']}{u}、BC＝{fig['b']}{u}、AE＝{fig['h']}{u}です。"
+                f"頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をかけます。"
+                f"糸の長さが最も短くなるとき、その糸の長さを求めなさい。")
     if t == "box_unfold" and fig.get("path") == "edges":
         u = fig["unit"]
         return (f"直方体ABCD-EFGHがあり、AB＝{fig['a']}{u}、BC＝{fig['b']}{u}、AE＝{fig['h']}{u}です。"
@@ -623,6 +635,25 @@ def corner_steps(fig):
         {"ja": "P'とQ'をまっすぐ結ぶ。直線m、直線ℓと交わる点が、ふれる点", "op": "note"},
         {"ja": f"P'からQ'へ、横に {px}+{qx} = {W} 進む間に、たてに {py}+{qy} = {H} 下がる。ℓまで（たて{py}下がる間）に横へ {W}×{py}/{H} = {_fmt(s_)} 進む", "op": "note"},
         {"ja": f"Oからのきょり = {_fmt(s_)}−{px} = {_fmt(X)}", "value": str(X), "op": "result"},
+    ]
+
+
+def unfold_length_ag(fig):
+    """Stage 2 (三平方): the shortest string A→BF→G is the diagonal of the opened rectangle (a+b) × h."""
+    from sympy import sqrt
+    return sqrt(S(fig["a"] + fig["b"]) ** 2 + S(fig["h"]) ** 2)
+
+
+def unfold_length_steps(fig):
+    a, b, h = fig["a"], fig["b"], fig["h"]
+    w = a + b
+    n = w * w + h * h
+    L = unfold_length_ag(fig)
+    return [
+        {"ja": f"辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 {a}+{b} = {w}、縦 {h}）", "op": "note"},
+        {"ja": "開いた図でAとGをまっすぐ結んだ線分AGが、最も短い糸", "op": "note"},
+        {"ja": f"三平方の定理：AG² = {w}²+{h}² = {w * w}+{h * h} = {n}", "op": "note"},
+        {"ja": f"AG = √{n} = {_fmt(L)}", "value": str(L), "op": "result"},
     ]
 
 
@@ -745,7 +776,7 @@ def _ratio_parts(q):
     return q["a1"] * L // d1, q["a2"] * L // d2
 
 
-def wp_text(fig, names):
+def _wp_text_base(fig, names):
     """The problem sentence for a word problem, generated from its numbers, so text and numbers can never disagree."""
     q = fig["params"]
     if fig["kind"] == "two_kinds_total" and names.get("template") == "ticket":
@@ -985,6 +1016,33 @@ def wp_diagram(fig):
     raise ValueError(k)
 
 
+# Stage 2 wording (高校受験パス): the same word-problem models, written for 中学生. `names.register: chugaku` turns the
+# kid-friendly kana into the kanji a middle-school text uses and the unknown □ into x. Text, steps and variants all go
+# through here, so a card and its variants always read the same way.
+CHUGAKU_WORDS = [("年れい", "年齢"), ("何才", "何歳"), ("才", "歳"), ("こさ", "濃度"), ("きょり", "距離"),
+                 ("はなれた", "離れた"), ("はなれる", "離れる"), ("はなれ", "離れ"), ("まちがえ", "間違え"),
+                 ("へらされます", "減点されます"), ("たりません", "足りません"), ("あまり", "余り"), ("あまる", "余る"),
+                 ("たて", "縦"), ("いま", "現在"), ("□", "x"),
+                 ("とちゅう", "途中"), ("おこづかい", "お金")]
+
+
+def register(text, names):
+    if (names or {}).get("register") != "chugaku":
+        return text
+    for a, b in CHUGAKU_WORDS:
+        text = text.replace(a, b)
+    return text
+
+
+def wp_text(fig, names):
+    return register(_wp_text_base(fig, names), names)
+
+
+def wp_steps(fig, names):
+    return [{**st, "ja": register(st["ja"], names)} for st in _wp_steps_base(fig, names)]
+
+
+
 # ------------------------------------------------------------------ checks ---
 
 def route_total(route) -> Rational | None:
@@ -1085,6 +1143,24 @@ def mass_weights(fig):
     return mA // g, mB // g, mC // g
 
 
+def y_split(fig):
+    """coord_y_split: P on the y-axis above line AB with △ABP = S. Cut along the y-axis: PQ × (xB − xA) ÷ 2 = S,
+    Q = where AB meets the y-axis. With `origin`, the triangle is △OPA and OP is the base. Returns (P_y, Q_y, PQ)."""
+    if fig.get("origin"):
+        d = S(2 * fig["S"]) / abs(fig["A"][0])
+        return d, S(0), d
+    (ax, ay), (bx, by) = fig["A"], fig["B"]
+    q = S(ay) - S(by - ay) / (bx - ax) * ax
+    d = S(2 * fig["S"]) / (bx - ax)
+    return q + d, q, d
+
+
+def quad_tri_E(fig):
+    """coord_quad_tri: line through C parallel to DB meets the x-axis at E; △AED = ABCD."""
+    (xb, _), (xc, yc), (xd, yd) = fig["B"], fig["C"], fig["D"]
+    return S(xc) + S(yc) * (xb - xd) / yd
+
+
 def coord_text(fig):
     t = fig["type"]
     u = fig.get("unit", "cm")
@@ -1093,6 +1169,15 @@ def coord_text(fig):
         pts = "、".join(_pt(n, p) for n, p in zip(lab, fig["points"]))
         shape = "△" + "".join(lab) if len(lab) == 3 else "四角形" + "".join(lab)
         return f"座標平面上に{len(lab)}点{pts}があります。{shape}の面積を求めなさい。ただし、座標の1目もりを1{u}とします。"
+    if t == "coord_y_split" and fig.get("origin"):
+        return (f"座標平面上に原点Oと点{_pt('A', fig['A'])}があります。y軸の正の部分に点Pをとり、△OPAの面積が{fig['S']}になるようにします。"
+                f"点Pのy座標を求めなさい。")
+    if t == "coord_y_split":
+        return (f"座標平面上に2点{_pt('A', fig['A'])}、{_pt('B', fig['B'])}があります。y軸上に点Pを直線ABより上側にとり、"
+                f"△ABPの面積が{fig['S']}になるようにします。点Pのy座標を求めなさい。")
+    if t == "coord_quad_tri":
+        return (f"座標平面上に4点{_pt('A', fig['A'])}、{_pt('B', fig['B'])}、{_pt('C', fig['C'])}、{_pt('D', fig['D'])}があります。"
+                f"x軸上で点Bより右側に点Eをとり、△AEDの面積が四角形ABCDの面積と等しくなるようにします。点Eのx座標を求めなさい。")
     if t == "coord_equal_area":
         return (f"座標平面上に3点{_pt('A', fig['A'])}、{_pt('B', fig['B'])}、{_pt('C', fig['C'])}があります。"
                 f"y軸上に点Pを、直線ABについて点Cと同じ側にとり、△ABPの面積が△ABCの面積と等しくなるようにします。点Pのy座標を求めなさい。")
@@ -1122,6 +1207,10 @@ def coord_answer(fig):
         return shoelace([tuple(p) for p in fig["points"]])
     if t == "coord_equal_area":
         return coord_equal_area_k(fig)[0]
+    if t == "coord_y_split":
+        return y_split(fig)[0]
+    if t == "coord_quad_tri":
+        return quad_tri_E(fig)
     if t == "coord_mirror_area" and fig.get("ask") in ("p_x", "max_diff"):
         return coord_mirror_P(fig)
     if t == "coord_mirror_area":
@@ -1144,8 +1233,51 @@ def coord_steps(fig):
             {"ja": f"高さは{lab[2]}からx軸までの {h}", "op": "note"},
             {"ja": f"{base}×{h}÷2 = {_fmt(area)}", "value": str(area), "op": "result"},
         ]
+    if t == "coord_polygon" and fig.get("shape") == "axis_diagonal":
+        (ax, ay), (bx, by), (cx, cy), (dx, dy) = fig["points"]
+        lab = fig.get("labels") or ["A", "B", "C", "D"]
+        n, w = dy - by, cx - ax
+        area = S(n) * w / 2
+        return [
+            {"ja": f"対角線{lab[1]}{lab[3]}はy軸の上にある。四角形を{lab[1]}{lab[3]}で△{lab[0]}{lab[1]}{lab[3]}と△{lab[2]}{lab[1]}{lab[3]}に分ける", "op": "note"},
+            {"ja": f"共通の底辺 {lab[1]}{lab[3]} = {_cp(dy)}−{_cp(by)} = {n}", "op": "note"},
+            {"ja": f"高さは{lab[0]}からy軸まで {-ax}、{lab[2]}からy軸まで {cx}。高さの和は {-ax}+{cx} = {w}", "op": "note"},
+            {"ja": f"{n}×{w}÷2 = {_fmt(area)}", "value": str(area), "op": "result"},
+        ]
     if t == "coord_polygon":
         return steps_enclose([tuple(p) for p in fig["points"]])
+    if t == "coord_y_split" and fig.get("origin"):
+        ax = fig["A"][0]
+        d = y_split(fig)[0]
+        return [
+            {"ja": "OPはy軸の上にあるので、OPを底辺と見る", "op": "note"},
+            {"ja": f"高さは、Aからy軸までの {abs(ax)}", "op": "note"},
+            {"ja": f"OP×{abs(ax)}÷2 = {fig['S']} より、OP = {fig['S']}×2÷{abs(ax)} = {_c(d)}", "value": str(d), "op": "result"},
+        ]
+    if t == "coord_y_split":
+        (ax, ay), (bx, by) = fig["A"], fig["B"]
+        py, q, d = y_split(fig)
+        m = S(by - ay) / (bx - ax)
+        w = bx - ax
+        return [
+            {"ja": "△ABPをy軸で2つに分ける。直線ABとy軸の交点をQとすると、PQが2つの三角形の共通の底辺", "op": "note"},
+            {"ja": f"ABの傾きは ({_cp(by)}−{_cp(ay)})÷({_cp(bx)}−{_cp(ax)}) = {_c(m)}。Qのy座標は {_cp(ay)}−{_cp(m)}×{_cp(ax)} = {_c(q)}", "op": "note"},
+            {"ja": f"高さはAからy軸まで {-ax}、Bからy軸まで {bx}。高さの和は {bx}−{_cp(ax)} = {w}", "op": "note"},
+            {"ja": f"PQ×{w}÷2 = {fig['S']} より、PQ = {fig['S']}×2÷{w} = {_c(d)}", "op": "note"},
+            {"ja": f"Pのy座標 = {_c(q)}＋{_c(d)} = {_c(py)}", "value": str(py), "op": "result"},
+        ]
+    if t == "coord_quad_tri":
+        (xa, _), (xb, _), (xc, yc), (xd, yd) = fig["A"], fig["B"], fig["C"], fig["D"]
+        m = S(0 - yd) / (xb - xd)
+        e = quad_tri_E(fig)
+        run = S(yc) * (xb - xd) / yd
+        return [
+            {"ja": "対角線DBをひく。△DBCの頂点Cを、DBに平行に動かしても面積は変わらない（等積変形）", "op": "note"},
+            {"ja": f"Cを、DBに平行な直線にそってx軸まで動かした点がE。このとき △DBE＝△DBC なので、△AED＝四角形ABCD", "op": "note"},
+            {"ja": f"DBの傾きは (0−{_cp(yd)})÷({_cp(xb)}−{_cp(xd)}) = {_c(m)}", "op": "note"},
+            {"ja": f"Cからyが {yc} 下がる間に、xは {yc}×{xb - xd}/{yd} = {_c(run)} 進む", "op": "note"},
+            {"ja": f"Eのx座標 = {_c(xc)}＋{_c(run)} = {_c(e)}", "value": str(e), "op": "result"},
+        ]
     if t == "coord_equal_area":
         (ax, ay), (bx, by), (cx, cy) = fig["A"], fig["B"], fig["C"]
         k, m = coord_equal_area_k(fig)
@@ -1261,6 +1393,32 @@ def coord_check(card, t, ans, fig):
         need = fig.get("min_slanted", 2)
         ok = ok and (len(pts) - sides_on_grid) >= need
         return ok, f"lattice, counter-clockwise, encloses cleanly, {len(pts) - sides_on_grid} slanted sides (need ≥ {need})"
+    if t == "coord_axis_diagonal":
+        pts = [tuple(p) for p in fig["points"]]
+        ok = fig.get("shape") == "axis_diagonal" and len(pts) == 4 and pts[1][0] == 0 and pts[3][0] == 0 and pts[0][0] < 0 < pts[2][0] \
+            and pts[1][1] < pts[3][1] and is_simple_ccw(pts)[0]
+        bd = enclose_breakdown(pts) if ok else None
+        area = S(pts[3][1] - pts[1][1]) * (pts[2][0] - pts[0][0]) / 2
+        ok = ok and area == shoelace(pts) == ans and bd is not None and len(bd[1]) >= 4
+        return ok, f"diagonal on the y-axis: {pts[3][1] - pts[1][1]}×{pts[2][0] - pts[0][0]}÷2 = {area}; the box needs {len(bd[1]) if bd else '?'} corner pieces"
+    if t == "coord_y_split_valid":
+        py, q, d = y_split(fig)
+        if fig.get("origin"):
+            A = tuple(fig["A"])
+            ok = A[0] != 0 and A[1] != 0 and d > 0 and abs(shoelace([(0, 0), (0, py), A])) == fig["S"] and S(py).is_integer
+            return ok, f"OP = {d} on the y-axis, △OPA = {fig['S']}"
+        A, B = tuple(fig["A"]), tuple(fig["B"])
+        P = (0, py)
+        ok = A[0] < 0 < B[0] and d > 0 and abs(shoelace([A, B, P])) == fig["S"] and S(py).is_integer and S(q).is_integer \
+            and A[1] != B[1] and P[1] > q
+        return ok, f"Q = (0, {q}), PQ = {d}, P = (0, {py}) above AB with △ABP = {fig['S']}"
+    if t == "coord_quad_tri_valid":
+        A, B, C, D = (tuple(fig[k]) for k in "ABCD")
+        e = quad_tri_E(fig)
+        quad = shoelace([A, B, C, D])
+        ok = A[1] == 0 and B[1] == 0 and A[0] < B[0] and C[1] > 0 and D[1] > 0 and is_simple_ccw([A, B, C, D])[0] and is_convex([A, B, C, D]) \
+            and S(e).is_integer and e > B[0] and shoelace([A, (e, 0), D]) == quad and C[0] > B[0]
+        return ok, f"E = ({e}, 0): △AED = {shoelace([A, (_num(e), 0), D])} = ABCD {quad}"
     if t == "coord_equal_area_valid":
         k, m = coord_equal_area_k(fig)
         A, B, C = tuple(fig["A"]), tuple(fig["B"]), tuple(fig["C"])
@@ -1330,6 +1488,36 @@ def make_coord_variants(card):
             if not is_simple_ccw([tuple(p) for p in pts])[0]:
                 pts = [pts[1], pts[0], pts[2]]
             fig = {**fig0, "points": pts}
+        elif t == "coord_polygon" and fig0.get("shape") == "axis_diagonal":
+            ax, cx = -rng.randint(2, 7), rng.randint(2, 7)
+            by, dy = rng.randint(-7, -1), rng.randint(2, 8)
+            ay, cy = rng.randint(by + 1, dy - 1), rng.randint(by + 1, dy - 1)
+            if ax == -cx or ((dy - by) * (cx - ax)) % 2:
+                continue
+            fig = {**fig0, "points": [[ax, ay], [0, by], [cx, cy], [0, dy]]}
+        elif t == "coord_y_split" and fig0.get("origin"):
+            ax = rng.choice([-1, 1]) * rng.randint(2, 8); ay = rng.randint(1, 8) * rng.choice([-1, 1])
+            d = rng.randint(2, 12)
+            if (d * abs(ax)) % 2:
+                continue
+            fig = {**fig0, "A": [ax, ay], "S": d * abs(ax) // 2}
+        elif t == "coord_y_split":
+            ax, bx = -rng.randint(1, 6), rng.randint(1, 6)
+            k = rng.choice([-2, -1, 1, 2]); w = bx - ax
+            ay = rng.randint(-3, 4); by = ay + k * w
+            if by > 12 or by < -8:
+                continue
+            d = rng.randint(2, 10)
+            if (d * w) % 2:
+                continue
+            fig = {**fig0, "A": [ax, ay], "B": [bx, by], "S": d * w // 2}
+        elif t == "coord_quad_tri":
+            xa = -rng.randint(1, 6); xb = rng.randint(1, 5)
+            xd = rng.randint(xa, xb - 1); yd = rng.randint(3, 8)
+            xc = rng.randint(xb + 1, xb + 5); yc = rng.randint(1, 7)
+            fig = {**fig0, "A": [xa, 0], "B": [xb, 0], "C": [xc, yc], "D": [xd, yd]}
+            if not S(quad_tri_E(fig)).is_integer or quad_tri_E(fig) > 20:
+                continue
         elif t == "coord_polygon" and fig0.get("shape") == "quad":   # general convex quadrilateral, one vertex on each side of the box
             w, h = rng.randint(5, 10), rng.randint(5, 10)
             base = [(0, rng.randint(1, h - 1)), (rng.randint(1, w - 1), 0), (w, rng.randint(1, h - 1)), (rng.randint(1, w - 1), h)]
@@ -1437,8 +1625,8 @@ def run_check(card, check, pts) -> tuple[bool, str]:
             ok = q["p1"] < q["pt"] < q["p2"] and ans > 0 and (q["pt"] - q["p1"]) != (q["p2"] - q["pt"])
             return ok, "target strength lies between the two, and the arms are unequal (not simply equal amounts)"
         if fig["kind"] == "meeting":
-            ok = ans > 1 and q["u"] != q["v"]
-            return ok, "different speeds, so meeting at the halfway point is a wrong guess"
+            ok = ans > 1 and q["u"] != q["v"] and abs(q["u"] - q["v"]) * 16 >= q["u"] + q["v"]   # meeting point visibly off the halfway mark
+            return ok, "speeds differ by at least 1/16 of their sum, so meeting at the halfway point is a visibly wrong guess"
         if fig["kind"] == "average_groups":
             ok = q["q"] < q["r"] < q["p"] and ans > 0 and ans != q["m"] and 2 * q["r"] != q["p"] + q["q"]
             return ok, "overall average lies between the two and is not their midpoint (classes differ in size)"
@@ -1555,6 +1743,11 @@ def run_check(card, check, pts) -> tuple[bool, str]:
         grid = min(L(i * h / 40, j * h / 40) for i in range(41) for j in range(41))
         ok = cq == ans and S(cq).is_integer and best <= grid + 1e-9 and 0 < bp < cq < h
         return ok, f"three faces opened: BP = {bp}, CQ = {cq}; the straight line is shortest"
+    if t == "unfold_length_valid":
+        L = unfold_length_ag(fig)
+        ok = fig.get("ask") == "length" and ans == L and S(L).is_integer and fig["a"] != fig["b"] \
+            and L < fig["a"] + fig["b"] + fig["h"]
+        return ok, f"opened rectangle {fig['a'] + fig['b']}×{fig['h']}: AG = {L}, a whole number, shorter than along the edges"
     if t == "unfold_corner_volume":
         a, b, h = fig["a"], fig["b"], fig["h"]
         v = S(a * b * h) / 6
@@ -1922,7 +2115,7 @@ def make_unfold_variants(card):
         tries += 1
         a, b = rng.randint(c.get("min_side", 2), c.get("max_side", 12)), rng.randint(c.get("min_side", 2), c.get("max_side", 12))
         h = rng.randint(c.get("min_h", 3), c.get("max_h", 15))
-        special = fig0.get("route") == "three_faces" or fig0.get("path") == "edges" or fig0.get("ask") == "corner_volume"
+        special = fig0.get("route") == "three_faces" or fig0.get("path") == "edges" or fig0.get("ask") in ("corner_volume", "length")
         if not special:
             if a == b or (h * a) % (a + b) or ratio(a, b) in used_ratios or h in used_h or S(h * a) / (a + b) in used_ans:
                 continue
@@ -1941,6 +2134,14 @@ def make_unfold_variants(card):
             used_ratios.add(ratio(a, b)); used_h.add(h); used_ans.add(cq)
             out.append({"id": f"{card['id']}-v{len(out) + 1}", "text_ja": fig_text(fig), "figure": {"a": a, "b": b, "h": h},
                         "answer": str(cq), "lens_route": {"steps": unfold3_steps(fig)}})
+            continue
+        if fig0.get("ask") == "length":
+            x = unfold_length_ag(fig)
+            if a == b or not S(x).is_integer or x in used_ans:
+                continue
+            used_ratios.add(ratio(a, b)); used_h.add(h); used_ans.add(x)
+            out.append({"id": f"{card['id']}-v{len(out) + 1}", "text_ja": fig_text(fig), "figure": {"a": a, "b": b, "h": h},
+                        "answer": str(x), "lens_route": {"steps": unfold_length_steps(fig)}})
             continue
         if fig0.get("ask") == "corner_volume":
             x = S(a * b * h) / 6
@@ -2187,7 +2388,7 @@ def make_wp_variants(card):
     return out
 
 
-def wp_steps(fig, names):
+def _wp_steps_base(fig, names):
     q = fig["params"]
     if fig["kind"] == "two_kinds_total":
         A, B = names.get("a", "A"), names.get("b", "B")
@@ -2531,7 +2732,7 @@ WP_GENERATORS = ("wp_two_kinds", "wp_age_ratio", "wp_mixture", "wp_meeting",
 def make_variants(card):
     if card["variants"]["generator"] in WP_GENERATORS:
         return make_wp_variants(card)
-    if card["variants"]["generator"] in ("coord_triangle", "coord_equal_area", "coord_mirror_area", "triangle_cevians"):
+    if card["variants"]["generator"] in ("coord_triangle", "coord_equal_area", "coord_mirror_area", "triangle_cevians", "coord_y_split", "coord_quad_tri"):
         return make_coord_variants(card)
     if card["variants"]["generator"] == "river_bridge":
         v = card["variants"]; rng = random.Random(v["seed"]); fig0 = card["problem"]["figure"]
@@ -2671,7 +2872,7 @@ def validate(path: Path, with_variants: bool) -> bool:
     for e in errors:
         print(f"  SCHEMA  {'/'.join(map(str, e.path)) or '(root)'}: {e.message}")
     if errors:
-        return False
+        return False, card, []
     ok_all = True
     if card["picker"]["correct"] not in card["picker"]["options"]:
         print("  FAIL    picker.correct is not one of the options"); ok_all = False

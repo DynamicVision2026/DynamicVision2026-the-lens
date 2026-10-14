@@ -13,7 +13,7 @@ import { allSceneCards } from './variant';
 // unfold-001 is a draft until WO-008 merges: CI runs these tests on a drafts-included bundle.
 const unfold = getCard('unfold-001');
 // The surface path over two faces; WO-018's edges-only and three-face cards have their own block below.
-const unfoldCards = allSceneCards(loadBundle()).filter((c) => c.problem.figure.type === 'box_unfold' && (c.problem.figure as { path?: string }).path !== 'edges' && (c.problem.figure as { route?: string }).route !== 'three_faces' && (c.problem.figure as { ask?: string }).ask !== 'corner_volume');
+const unfoldCards = allSceneCards(loadBundle()).filter((c) => c.problem.figure.type === 'box_unfold' && (c.problem.figure as { path?: string }).path !== 'edges' && (c.problem.figure as { route?: string }).route !== 'three_faces' && !['corner_volume', 'length'].includes((c.problem.figure as { ask?: string }).ask ?? ''));
 const fig = (c: LensCard) => c.problem.figure as BoxUnfoldFigure;
 const last = (c: LensCard) => c.animation!.keyframes.length - 1;
 const dataY = (html: string, part: string) => Number(new RegExp(`data-part="${part}" data-y="([\\d.]+)"`).exec(html)?.[1]);

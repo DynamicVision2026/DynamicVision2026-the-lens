@@ -1,0 +1,98 @@
+schema_version: '1.1'
+id: kj-constant-no-lens
+kind: no_lens
+lens: constant
+best_move: 'direct: add the years to each age (それぞれにたす)'
+stage: chugaku
+grades:
+- 中1
+level: 1
+archetype: constant.age_sum_later
+status: verified
+provenance:
+  original: true
+  built_from: 'Archetype: sum of two ages some years later; direct addition (negative control for 差一定).'
+  not_derived_from: Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem.
+  author: The Lens content team
+grounding:
+  principle_ja: 「何倍」を聞いていなければ、差を使う必要はない。それぞれの年齢に年数をたすだけ。
+  principle_en: 'No ratio asked, so the difference is not needed: add the years to each age.'
+problem:
+  text_ja: 現在、父は45歳、拓海は15歳です。6年後、2人の年齢の和は何歳ですか。
+  unit: 歳
+  figure:
+    type: word_problem
+    kind: age_sum_later
+    params:
+      p: 45
+      c: 15
+      y: 6
+    names:
+      older: 父
+      younger: 拓海
+      register: chugaku
+answer:
+  value: '72'
+  display_ja: 72歳
+  expr: word_problem
+trap_route:
+  time_cost_sec: 150
+  time_source: estimate
+  steps:
+  - ja: 現在からx年後（前）として、両方の量をxの式で表す
+    op: note
+  - ja: 「何倍」の関係から方程式を立て、かっこをはずして解く
+    op: note
+  - ja: ここで約2分半。式の立て方で迷いやすい
+    op: note
+lens_route:
+  time_cost_sec: 15
+  time_source: estimate
+  steps:
+  - ja: 6年後の父は 45+6 = 51
+    op: note
+  - ja: 6年後の拓海は 15+6 = 21
+    op: note
+  - ja: 51+21 = 72（歳）
+    value: '72'
+    op: result
+trigger:
+  ja: 「何倍」ではなく「和」を聞いているときは、差はいらない。それぞれにたす。
+  en: 'A sum, not a ratio: no need for the difference; add to each.'
+  tags:
+  - asks_sum_later
+picker:
+  options:
+  - constant
+  - area
+  - freeze
+  - direct
+  correct: direct
+  clue_distractors:
+  - times_relation
+  - two_kinds_mixed
+  feedback_ja:
+    constant: 差は変わらないが、ここでは差を使わなくても答えが出る。
+    area: 2種類のものの数と合計の問題ではない。
+    freeze: 動く点の速さの問題ではない。
+    direct: そのとおり。何年後の2人の年齢をそれぞれ出して、たすだけ。
+animation:
+  keyframes:
+  - show_story
+  - add_years_each
+  - add_together
+  - show_answer
+  - ghost_bars_struck_out
+checks:
+- type: wp_formula
+- type: wp_unique
+- type: wp_nontrivial
+- type: wp_text_matches
+- type: wp_names_match
+- type: route_steps_sum
+  route: lens_route
+- type: lens_faster
+variants:
+  generator: wp_age_sum_later
+  count: 4
+  seed: 4303
