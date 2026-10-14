@@ -87,6 +87,22 @@ describe.skipIf(cards.length === 0)('WO-020 figures', () => {
     else expect(end).toMatch(f.ask === 'bp_pe' ? /BP:PE＝\d+:\d+/ : /AP:PD＝\d+:\d+/);
   });
 
+  it.each(of('coord_mirror_area').filter(([, c]) => (c.problem.figure as CoordMirrorAreaFigure).ask === 'max_diff'))('%s (max_diff): line AB extended to P, no reflection', (_id, card) => {
+    const kfs = card.animation!.keyframes;
+    const end = renderToStaticMarkup(<LensScene card={card} keyframe={kfs.length - 1} t={1} />);
+    expect(words(end)).not.toContain("B'");
+    expect(words(end).some((w) => w.startsWith('P('))).toBe(true);
+  });
+
+  it.each(cards.filter((c) => c.problem.figure.type.startsWith('coord_')).map((c) => [c.id, c] as const))('%s keeps every vertex label inside the figure', (_id, card) => {
+    const html = renderToStaticMarkup(<LensScene card={card} keyframe={0} t={1} />);
+    for (const m of html.matchAll(/<text x="([\d.-]+)"[^>]*>([A-Z]\([^<]+\))<\/text>/g)) {
+      const half = m[2]!.length * 4;
+      expect(Number(m[1]) - half, `${card.id} ${m[2]}`).toBeGreaterThan(0);
+      expect(Number(m[1]) + half, `${card.id} ${m[2]}`).toBeLessThan(480);
+    }
+  });
+
   it('reads the one-scale weights as the step writes them', () => {
     expect(weightsIn({ ja: 'Cのおもりをそろえると A:B:C＝6:20:15' })).toEqual({ A: '6', B: '20', C: '15' });
     expect(weightsIn({ ja: '辺BCのてんびん' })).toBeNull();

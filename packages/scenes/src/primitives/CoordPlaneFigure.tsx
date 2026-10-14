@@ -135,7 +135,7 @@ export interface MirrorAreaFigureProps extends CoordPlaneStyle {
 
 /** Where P is drawn: at the answer when the card asks for its x, else where A→B′ meets the x-axis (drawing only). */
 export function mirrorAreaP(card: LensCard, fig: CoordMirrorAreaFigure): Point {
-  if (fig.ask === 'p_x') return [answerNumber(card), 0];
+  if (fig.ask === 'p_x' || fig.ask === 'max_diff') return [answerNumber(card), 0];
   const Bt: Point = fig.side === 'opposite' ? fig.B : [fig.B[0], -fig.B[1]];
   return [crossXAxis(fig.A, Bt), 0];
 }
@@ -148,7 +148,9 @@ export function MirrorAreaFigure(p: MirrorAreaFigureProps) {
   const { fig, card } = p;
   if (p.show <= 0) return null;
   const opposite = fig.side === 'opposite';
-  const Bt: Point = opposite ? fig.B : [fig.B[0], -fig.B[1]];
+  // The failure card (max_diff): no reflection; line AB is extended to P on the axis.
+  const maxDiff = fig.ask === 'max_diff';
+  const Bt: Point = opposite || maxDiff ? fig.B : [fig.B[0], -fig.B[1]];
   const Pp = mirrorAreaP(card, fig);
   const ghostB: Point = [fig.B[0], -fig.B[1]];
   const cf = coordFrame([fig.A, fig.B, Bt, Pp, ...(opposite ? [ghostB] : [])], ...p.region);
@@ -161,7 +163,7 @@ export function MirrorAreaFigure(p: MirrorAreaFigureProps) {
   const size = p.labelSize;
   const [ax0, ay] = cf.at([cf.x0, 0]);
   const ax1 = cf.at([cf.x0 + cf.frame.grid.width, 0])[0];
-  const straight = partialPolyline([A, Br] as Point[], p.straight) as XY[];
+  const straight = partialPolyline((maxDiff ? [A, P] : [A, Br]) as Point[], p.straight) as XY[];
   // △ABP counter-clockwise (A → P → B), as enclosureGaps expects.
   const tri = counterClockwise([fig.A, Pp, fig.B].map(cf.g));
   const xs = tri.map((q) => q[0]);
@@ -169,7 +171,7 @@ export function MirrorAreaFigure(p: MirrorAreaFigureProps) {
   const box = [cf.at([Math.min(...xs) + cf.x0, Math.min(...ys) + cf.y0]), cf.at([Math.max(...xs) + cf.x0, Math.max(...ys) + cf.y0])];
   const gaps = enclosureGaps(tri);
   const labels = [`A${coordText(fig.A)}`, `B${coordText(fig.B)}`];
-  const pLabel = fig.ask === 'p_x' && p.answer > 0 ? `${COPY.P}(${fromAnswer(card.answer.value)}, 0)` : COPY.P;
+  const pLabel = (fig.ask === 'p_x' || maxDiff) && p.answer > 0 ? `${COPY.P}(${fromAnswer(card.answer.value)}, 0)` : COPY.P;
   return (
     <Plane cf={cf} s={p} points={[fig.A, fig.B]} labels={labels} t={p.show}>
       {/* The x-axis is the mirror: it lights while B folds across. */}
@@ -181,7 +183,7 @@ export function MirrorAreaFigure(p: MirrorAreaFigureProps) {
       {p.box > 0 && <rect x={box[0]![0]} y={box[1]![1]} width={box[1]![0] - box[0]![0]} height={box[0]![1] - box[1]![1]} fill="none" stroke={p.accent} strokeWidth={p.lensStroke} strokeDasharray={p.dash} opacity={p.box} />}
       {p.box > 0 && <polygon points={pts([A, B, P])} fill="none" stroke={p.ink} strokeWidth={p.figureStroke} opacity={p.box} />}
       {/* B → B′ across the mirror. */}
-      {!opposite && p.reflect > 0 && (
+      {!opposite && !maxDiff && p.reflect > 0 && (
         <g opacity={p.reflect}>
           <line x1={B[0]} y1={B[1]} x2={Br[0]} y2={Br[1]} stroke={p.accent} strokeWidth={p.figureStroke} strokeDasharray={p.dash} />
           {dot(Br, p.accent, r)}
@@ -203,10 +205,10 @@ export function MirrorAreaFigure(p: MirrorAreaFigureProps) {
       {p.straight > 0 && (
         <g>
           {p.glowFilter && <polyline points={pts(straight)} fill="none" stroke={p.accent} strokeWidth={p.lensStroke} filter={p.glowFilter} opacity={p.glowOpacity ?? 1} />}
-          <polyline points={pts(straight)} fill="none" stroke={p.accent} strokeWidth={p.lensStroke} strokeLinecap="round" opacity={p.mark > 0 && !opposite ? 0.45 : 1} />
+          <polyline points={pts(straight)} fill="none" stroke={p.accent} strokeWidth={p.lensStroke} strokeLinecap="round" opacity={p.mark > 0 && !opposite && !maxDiff ? 0.45 : 1} />
         </g>
       )}
-      {p.mark > 0 && !opposite && <polyline points={pts([A, P, B])} fill="none" stroke={p.accent} strokeWidth={p.lensStroke} strokeLinejoin="round" opacity={p.mark} />}
+      {p.mark > 0 && !opposite && !maxDiff && <polyline points={pts([A, P, B])} fill="none" stroke={p.accent} strokeWidth={p.lensStroke} strokeLinejoin="round" opacity={p.mark} />}
       {dot(A, p.ink, r)}
       {dot(B, p.ink, r)}
       {p.mark > 0 && (

@@ -211,6 +211,7 @@ export interface CoordEqualAreaFigure {
 /**
  * Stage 2: P on the x-axis minimising AP + PB (reflect B across the x-axis). `ask: p_x` asks for P's x;
  * otherwise the chained card asks for △ABP. `side: opposite`: A and B already on opposite sides.
+ * `ask: max_diff` (the failure card): P maximises |PA − PB|, on line AB extended (no reflection).
  */
 export interface CoordMirrorAreaFigure {
   type: 'coord_mirror_area';
@@ -218,7 +219,7 @@ export interface CoordMirrorAreaFigure {
   B: Point;
   unit?: string;
   min_slanted?: number;
-  ask?: 'p_x';
+  ask?: 'p_x' | 'max_diff';
   side?: 'opposite';
 }
 
