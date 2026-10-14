@@ -7,9 +7,10 @@ import { coordFrame, coordText } from './coord';
 import { LensScene } from './LensScene';
 import { weightsIn } from './primitives';
 import type { CoordEqualAreaFigure, CoordMirrorAreaFigure, CoordPolygonFigure, LensCard, TriangleCeviansFigure } from './types';
-import { allSceneCards, hasScene } from './variant';
+import { allSceneCards, hasScene, STAGE3_TYPES } from './variant';
 
-const TYPES = ['coord_polygon', 'coord_equal_area', 'coord_mirror_area', 'triangle_cevians'];
+// WO-023 adds the Middle School modes and the Stage 3 graph and shape figures.
+const TYPES = ['coord_polygon', 'coord_equal_area', 'coord_mirror_area', 'triangle_cevians', 'coord_y_split', 'coord_quad_tri', ...STAGE3_TYPES];
 const cards = allSceneCards(loadBundle()).filter((c) => TYPES.includes(c.problem.figure.type));
 const of = (type: string) => cards.filter((c) => c.problem.figure.type === type).map((c) => [c.id, c] as const);
 const words = (html: string) => [...html.matchAll(/>([^<>]+)</g)].map((m) => m[1]!.trim().replace(/&#x27;/g, "'"));
@@ -18,8 +19,8 @@ const last = (c: LensCard) => c.animation!.keyframes.length - 1;
 afterEach(() => vi.restoreAllMocks());
 
 describe.skipIf(cards.length === 0)('WO-020 figures', () => {
-  it('covers all four figure types', () => {
-    for (const t of TYPES) expect(of(t).length).toBeGreaterThan(1);
+  it('covers every Stage 2/3 figure type', () => {
+    for (const t of TYPES) expect(of(t).length, t).toBeGreaterThan(1);
     for (const [, c] of cards.map((c) => [c.id, c] as const)) expect(hasScene(c)).toBe(true);
   });
 

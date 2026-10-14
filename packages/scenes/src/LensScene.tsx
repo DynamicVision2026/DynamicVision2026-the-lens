@@ -19,9 +19,10 @@ import { coordFrame, coordText } from './coord';
 import { cornerState } from './keyframes/corner';
 import { coordPlaneState } from './keyframes/coordplane';
 import { ceviansState } from './keyframes/cevians';
+import { stage3State } from './keyframes/stage3';
 import { unfoldLayout, unfoldP } from './unfold';
-import { hasScene } from './variant';
-import { BAND_END_ROOM, BandFigure, BridgeFigure, CeviansFigure, CoordAxes, EqualAreaFigure, MirrorAreaFigure, QuadTriFigure, YSplitFigure, CornerFigure, MirrorFigure, NetThreeFigure, StoryText, storyHeight, UnfoldFigure, WordDiagram } from './primitives';
+import { hasScene, isStage3 } from './variant';
+import { BAND_END_ROOM, BandFigure, BridgeFigure, CeviansFigure, CoordAxes, EqualAreaFigure, MirrorAreaFigure, QuadTriFigure, YSplitFigure, CornerFigure, ConeFigure, DiceFigure, LineMirrorGraph, ParabolaAreaGraph, ParabolaTriGraph, ParamFamilyGraph, SumBarFigure, MirrorFigure, NetThreeFigure, StoryText, storyHeight, UnfoldFigure, WordDiagram } from './primitives';
 import type { BoxUnfoldFigure, GlowToken, GridPolygonFigure, LensCard, MirrorCornerFigure as CornerFig, MirrorPathFigure, ParallelBandFigure, Point, RiverBridgeFigure as BridgeFig, Tokens, WordProblemFigure } from './types';
 
 /** Scene viewBox in px at 1x. Video renders it at 2x (1080 px wide frame ≈ 2.25x). */
@@ -147,7 +148,7 @@ export function LensScene({
       </svg>
     );
   }
-  if (figure.type === 'coord_equal_area' || figure.type === 'coord_mirror_area' || figure.type === 'coord_y_split' || figure.type === 'coord_quad_tri' || figure.type === 'triangle_cevians') {
+  if (figure.type === 'coord_equal_area' || figure.type === 'coord_mirror_area' || figure.type === 'coord_y_split' || figure.type === 'coord_quad_tri' || figure.type === 'triangle_cevians' || isStage3(figure.type)) {
     return (
       <svg {...svgProps}>
         <PlaneKeyframeScene card={card} keyframes={keyframes} keyframe={keyframe} t={progress} tokens={tokens} glow={glow} mode={mode} />
@@ -587,7 +588,27 @@ function PlaneKeyframeScene({ card, keyframes, keyframe, t, tokens, glow, mode }
   let body: ReactNode = null;
   let caption: { step: { ja: string }; t: number } | null = null;
   let answer = 0;
-  if (figure.type === 'triangle_cevians') {
+  if (isStage3(figure.type)) {
+    const s = stage3State(keyframes, keyframe, t, card);
+    const props = { ...style, card, show: s.show, first: s.first, second: s.second, answer: s.answer };
+    body =
+      figure.type === 'parabola_area' ? (
+        <ParabolaAreaGraph {...props} fig={figure} />
+      ) : figure.type === 'parabola_tri' ? (
+        <ParabolaTriGraph {...props} fig={figure} />
+      ) : figure.type === 'line_mirror' ? (
+        <LineMirrorGraph {...props} fig={figure} />
+      ) : figure.type === 'param_family' ? (
+        <ParamFamilyGraph {...props} fig={figure} />
+      ) : figure.type === 'cone_unfold' ? (
+        <ConeFigure {...props} fig={figure} />
+      ) : figure.type === 'dice_grid' ? (
+        <DiceFigure {...props} fig={figure} />
+      ) : figure.type === 'const_sum' ? (
+        <SumBarFigure {...props} fig={figure} />
+      ) : null;
+    ({ caption, answer } = s);
+  } else if (figure.type === 'triangle_cevians') {
     const s = ceviansState(keyframes, keyframe, t, card);
     body = <CeviansFigure {...style} card={card} fig={figure} paper={color(tokens.color.paper, mode)} show={s.show} wbc={s.wbc} wca={s.wca} balance={s.balance} on={s.on} height={s.height} base={s.base} ghost={s.ghost} answer={s.answer} />;
     ({ caption, answer } = s);

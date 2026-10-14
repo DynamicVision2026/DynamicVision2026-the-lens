@@ -11,6 +11,8 @@ export interface Plane {
   s: number;
   X: (x: number) => number;
   Y: (y: number) => number;
+  /** The scene's width (SVG units). */
+  width: number;
   /** Inverse of X / Y, for pointer positions. */
   ux: (px: number) => number;
   uy: (py: number) => number;
@@ -27,7 +29,7 @@ export function plane(points: Point[], w = 600, h = 440, margin = 36): Plane {
   const s = Math.min((w - 2 * margin) / (x1 - x0), (h - 2 * margin) / (y1 - y0));
   const ox = (w - (x1 - x0) * s) / 2 - x0 * s;
   const oy = (h + (y1 - y0) * s) / 2 + y0 * s;
-  return { x0, y0, x1, y1, s, X: (x) => ox + x * s, Y: (y) => oy - y * s, ux: (px) => (px - ox) / s, uy: (py) => (oy - py) / s };
+  return { x0, y0, x1, y1, s, width: w, X: (x) => ox + x * s, Y: (y) => oy - y * s, ux: (px) => (px - ox) / s, uy: (py) => (oy - py) / s };
 }
 
 const minus = (v: number) => (v < 0 ? `−${-v}` : String(v));
@@ -45,16 +47,25 @@ export function labelAt(P: Plane, q: Point, centre: Point, text: string): { x: n
   let x = P.X(q[0]) + (right ? 10 : -10);
   let y = P.Y(q[1]) + (q[1] >= centre[1] ? -12 : 24);
   const axisY = P.Y(0);
-  // Below the x-axis are its tick numbers (to about +24): keep clear of the axis and that band.
-  if (y > axisY - 6 && y < axisY + 30) y = q[1] >= 0 ? axisY - 10 : axisY + 42;
+  // Below the x-axis are its tick numbers (to about +24): keep clear of the axis and that band. A vertex on the
+  // axis puts its label on the side away from the figure: below the tick row when the figure is above.
+  if (y > axisY - 6 && y < axisY + 30) y = q[1] === 0 ? (centre[1] > 0 ? axisY + 42 : axisY - 10) : q[1] > 0 ? axisY - 10 : axisY + 42;
+  // Never past the scene's edges (a vertex near the left or right edge of the plane).
+  if (!right && x - w < 2) x = w + 2;
+  if (right && x + w > P.width - 2) x = P.width - 2 - w;
   // Left of the y-axis are its tick numbers (about 26 wide): move the label off that column.
   const [x0, x1] = right ? [x, x + w] : [x - w, x];
   const axisX = P.X(0);
+  let side = right;
   if (x1 > axisX - 28 && x0 < axisX + 4) {
-    if (right) x = axisX + 8;
-    else x = axisX - 30;
+    // Left of the tick column if it fits on the scene; otherwise just right of the axis.
+    if (!right && axisX - 30 - w >= 2) x = axisX - 30;
+    else {
+      side = true;
+      x = axisX + 8;
+    }
   }
-  return { x, y, anchor: right ? 'start' : 'end' };
+  return { x, y, anchor: side ? 'start' : 'end' };
 }
 
 /** Grid lines, the x/y axes through the origin and their tick numbers (every 2 when cells are small; odd ones hide on a phone). */

@@ -18,3 +18,5 @@ export { NetThreeFigure, type NetThreeFigureProps } from './NetThreeFigure';
 export { CoordAxes } from './CoordAxes';
 export { EqualAreaFigure, MirrorAreaFigure, mirrorAreaP, QuadTriFigure, YSplitFigure, ySplitQ, type CoordPlaneStyle, type EqualAreaFigureProps, type MirrorAreaFigureProps, type QuadTriFigureProps, type YSplitFigureProps } from './CoordPlaneFigure';
 export { CeviansFigure, weightsIn, type CeviansFigureProps } from './CeviansFigure';
+export { LineMirrorGraph, ParabolaAreaGraph, ParabolaTriGraph, ParamFamilyGraph, quadText, type GraphProps } from './GraphFigures';
+export { ConeFigure, DiceFigure, SumBarFigure, type ShapeProps } from './ShapeFigures';

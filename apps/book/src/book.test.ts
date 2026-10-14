@@ -116,6 +116,13 @@ describe('paperback books', () => {
     expect(html).not.toContain('class="fig-pending"');
   });
 
+  // WO-023: the Stage 2/3 figures are drawn too (the steps-only word problem prints no picture by design).
+  it.each(['koukou_juken', 'daigaku_juken'])('draws every figure: no 「図（準備中）」 placeholder in %s', (passId) => {
+    const { html, log } = renderInterior(bundle, passId);
+    expect([...log.placeholders.keys()]).toEqual([]);
+    expect(html).not.toContain('class="fig-pending"');
+  });
+
   it('draws the water/salt lever and the chase road solved (WO-015/017 end states)', () => {
     for (const id of ['balance-002', 'balance-003', 'freeze-002']) {
       const card = resolve(id);
