@@ -136,7 +136,35 @@ def masterclass_check(pid, ps, lens, by_id):
     entry = {"example1": m.get("example1"), "example2": m.get("example2"), "boundary": m.get("boundary"), "try": m.get("try"),
              "example2_mode": ("scene" if e2 and _has_drag_scene(e2) else "walkthrough"),
              "boundary_line": line, "clues": clues, "say": m.get("say"), "title": m.get("title")}
+    audio, stale = voice_clips(lens, m.get("say") or {})
+    if audio:
+        entry["audio"] = audio
+    if stale:
+        print(f"  INFO    {pid}/{lens} voice: {len(stale)} line(s) changed since the clips were made ({', '.join(stale)}); "
+              f"run python3 tools/make_voice.py. Those lines stay silent until then.")
     return errs, (None if errs else entry)
+
+
+VOICE_DIR = ROOT / "apps" / "trainer" / "public" / "audio" / "mc"
+
+
+def voice_clips(lens, say):
+    """WO-022: mascot clips made by tools/make_voice.py. A clip ships only if the text it was made from is still the
+    line's text, so an edited line never plays old audio. Returns ({key: url}, [stale keys])."""
+    mf = VOICE_DIR / "manifest.json"
+    if not mf.exists():
+        return {}, []
+    made = json.loads(mf.read_text(encoding="utf-8")).get(lens, {})
+    audio, stale = {}, []
+    for key, text in say.items():
+        clip = made.get(key)
+        if not clip:
+            continue
+        if clip["text"] != text or not (VOICE_DIR / lens / clip["file"]).exists():
+            stale.append(key)
+            continue
+        audio[key] = f"/audio/mc/{lens}/{clip['file']}"
+    return audio, stale
 
 
 BOOK_STATUS = ("planned", "building", "proof", "live")
