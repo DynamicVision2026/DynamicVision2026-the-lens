@@ -1,0 +1,9 @@
+{
+  "note": "KDP print settings for the cover. PLACEHOLDER: replace spine_mm_per_page (or set spine_mm directly) with the value from KDP's cover calculator (https://kdp.amazon.co.jp/cover-calculator) for the final page count and paper type before upload. 0.0572 mm/page is KDP's published white-paper figure (0.002252 in).",
+  "paper": "white",
+  "interior": "bw",
+  "spine_mm_per_page": 0.0572,
+  "spine_mm": null,
+  "spine_text_min_pages": 80,
+  "barcode_mm": { "width": 50.8, "height": 30.5, "margin": 6.35 }
+}
