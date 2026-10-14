@@ -127,3 +127,12 @@ describe.each(lenses)('%s masterclass', (lens) => {
     expect(lessonEntry(pass.id, lesson, true)).toBe(`/lesson/${pass.id}/${lens}`);
   });
 });
+
+// WO-023: every daigaku_juken (and koukou_juken) masterclass plays its example 1 as a drag scene.
+describe.each(['koukou_juken', 'daigaku_juken'])('%s masterclasses', (passId) => {
+  const p = findPass(bundle, passId);
+  it.skipIf(!p).each(p?.lessons.map((l) => l.lens) ?? [])('%s plays example 1 as a drag scene', (lens) => {
+    const cards = masterCards(findLesson(p!, lens)!)!;
+    expect(isPlayable(cards.example1, lens), cards.example1.id).toBe(true);
+  });
+});

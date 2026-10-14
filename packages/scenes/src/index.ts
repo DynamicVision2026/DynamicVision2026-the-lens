@@ -6,7 +6,7 @@ export { motionPreviewTimeline, shortTimeline, timelineDuration, beatAt, beatLab
 export { formatExact, countUp, answerText, timeLabel } from './format';
 export { clamp01, parseEasing, stagger } from './easing';
 export { withVariant, allSceneCards, hasScene, isStage3, SCENE_FIGURE_TYPES, STAGE3_TYPES } from './variant';
-export { areaSpan, diceCells, diceMatch, diffQ, evalQ, familyBrackets, familyMember, familyPoint, fieldNumber, mirrorPoints, reflectAcross, rootsQ, sectorAngle, sumBar, triPoints } from './stage3';
+export { areaPoints, areaSpan, diceCells, diceMatch, diffQ, evalQ, familyBrackets, familyMember, familyPoint, fieldNumber, mirrorPoints, reflectAcross, rootsQ, sectorAngle, sumBar, triPoints } from './stage3';
 export { enclosureGaps, notchPieces, boundingBox, counterClockwise } from './geometry';
 export { KEYFRAMES, sceneState } from './keyframes';
 export * from './primitives';
