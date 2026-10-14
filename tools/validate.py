@@ -58,7 +58,9 @@ def _load_catalog():
         if ps.get("stage_no") != CATALOG_DIRS[d]:
             raise SystemExit(f"catalog/{d}/pass.yaml: {pid} has stage_no {ps.get('stage_no')}, expected {CATALOG_DIRS[d]}")
         mc = ROOT / "catalog" / d / "masterclass.yaml"
-        out[pid] = {**ps, "catalog_dir": d, "masterclass": (yaml.safe_load(mc.read_text(encoding="utf-8")) or {}) if mc.exists() else {}}
+        bk = ROOT / "catalog" / d / "book.yaml"
+        out[pid] = {**ps, "catalog_dir": d, "masterclass": (yaml.safe_load(mc.read_text(encoding="utf-8")) or {}) if mc.exists() else {},
+                    "book": ((yaml.safe_load(bk.read_text(encoding="utf-8")) or {}).get("book") if bk.exists() else None)}
     return out
 
 
@@ -136,6 +138,74 @@ def masterclass_check(pid, ps, lens, by_id):
     return errs, (None if errs else entry)
 
 
+BOOK_STATUS = ("planned", "building", "proof", "live")
+BOOK_FRONT = ("hajimeni_ja", "tsukaikata_ja", "qr_ja", "honesty_ja", "parent_ja")
+KDP_MIN_PAGES = 24
+
+
+def book_check(pid, ps, lessons_resolved, vmap, complete):
+    """WO-021: the paperback companion of a Pass, assembled from its lessons (never hand-copied).
+    lessons_resolved: [(lens, [verified card dicts in lesson order], masterclass entry or None)].
+    Returns (errors, bundle entry or None, page estimate)."""
+    b = ps.get("book")
+    if not b:
+        return [], None, 0
+    errs = []
+    for k in ("id", "status", "title_ja", "subtitle_ja", "author_ja", "publisher_ja", "qr", "front_matter"):
+        if not b.get(k):
+            errs.append(f"book.{k} is missing")
+    if b.get("status") not in BOOK_STATUS:
+        errs.append(f"book.status must be one of {BOOK_STATUS}")
+    for k in BOOK_FRONT:
+        if not (b.get("front_matter") or {}).get(k):
+            errs.append(f"book.front_matter.{k} is missing")
+    if b.get("status") in ("proof", "live") and not complete:
+        errs.append(f"book.status {b['status']} needs every lesson of {pid} complete")
+    if b.get("status") == "live" and not b.get("amazon_url"):
+        errs.append("book.status live needs amazon_url")
+    nv = int(b.get("practice_variants", 1))
+    chapters, used, items = [], set(), 0
+    for lens, cards, mc in lessons_resolved:
+        if not cards:
+            continue
+        ids = [c["id"] for c in cards]
+        std = [c for c in cards if c["kind"] == "standard"]
+        if mc:
+            e1, e2, bd, line = mc["example1"], mc["example2"], mc["boundary"], mc["boundary_line"]
+        else:
+            e1 = std[0]["id"] if std else None
+            e2 = std[1]["id"] if len(std) > 1 else None
+            bdc = next((c for c in cards if c["kind"] in ("failure", "no_lens")), None)
+            bd, line = (bdc["id"], bdc["trigger"]["ja"]) if bdc else (None, None)
+        if not e1:
+            errs.append(f"chapter {lens}: no standard card for the opening example"); continue
+        principle = next(c for c in cards if c["id"] == e1)["grounding"]["principle_ja"] if e1 in ids else None
+        practice = []
+        for c in cards:
+            if c["id"] in (e1, e2, bd):
+                continue
+            vs = [v["id"] for v in vmap.get(c["id"], [])][:nv]
+            practice.append({"card": c["id"], "variants": vs})
+            used.update(vs)
+            items += 1 + len(vs)
+        chapters.append({"lens": lens, "principle_ja": principle, "example1": e1, "example2": e2,
+                         "boundary": bd, "boundary_line": line, "practice": practice,
+                         "qr": b["qr"].replace("{pass}", pid).replace("{lens}", lens) if b.get("qr") else None})
+    rv = b.get("review", {})
+    pool = sorted((cid, v["id"]) for ch in chapters for cid in [ch["example1"]] + [p["card"] for p in ch["practice"]]
+                  for v in vmap.get(cid, []) if v["id"] not in used)
+    rng = random.Random(rv.get("seed", 0))
+    review = [{"card": c, "variant": v} for c, v in rng.sample(pool, min(rv.get("count", 0), len(pool)))]
+    if rv.get("count") and len(review) < rv["count"]:
+        print(f"  INFO    {pid} book: review has {len(review)}/{rv['count']} items (not enough unused variants yet)")
+    pages = 4 + sum(6 + -(-(len(ch["practice"]) * (1 + nv)) // 2) for ch in chapters) \
+        + 1 + -(-len(review) // 4) + -(-(items + len(review) + 2 * len(chapters)) // 6)
+    pages += pages % 2
+    entry = {k: v for k, v in b.items() if k not in ("review", "qr")}
+    entry.update({"chapters": chapters, "review": review, "page_estimate": pages})
+    return errs, (None if errs else entry), pages
+
+
 CATALOG = _load_catalog()
 
 
@@ -149,6 +219,7 @@ def catalog_check(entries, release=None):
     Returns (ok, passes_for_bundle).
     """
     by_id = {c["id"]: (ok, c) for ok, c, _ in entries}
+    vmap = {c["id"]: vs for ok, c, vs in entries}
     ok_all, out = True, []
     print("\n== catalog/<pass id>/pass.yaml")
     owner = {}
@@ -160,6 +231,7 @@ def catalog_check(entries, release=None):
                 owner[cid] = pid
     for pid, ps in CATALOG.items():
         lessons, target = ps.get("lessons", []), ps.get("lesson_target", 10)
+        resolved = []
         levels = set(ps.get("levels", {1: 0, 2: 0, 3: 0, 4: 0}))
         complete = bool(lessons)
         out_lessons = []
@@ -203,13 +275,22 @@ def catalog_check(entries, release=None):
             ok_all &= not mc_errs
             if mc:
                 print(f"  PASS    {pid}/{ls['lens']} masterclass: {mc['example1']} → {mc['example2']} ({mc['example2_mode']}), boundary {mc['boundary']}, dry run {mc['try']}")
+            resolved.append((ls["lens"], [c for c in cards if c["status"] in PUBLISHABLE], mc))
             out_lessons.append({"lens": ls["lens"], "video": ls.get("video"), "cards": [c["id"] for c in cards if c["status"] in PUBLISHABLE],
                                 **({"masterclass": mc} if mc else {})})
         print(f"  {'PASS' if complete else 'INFO'}    {pid}: {'complete' if complete else ps.get('status', 'planned')} ({len(lessons)} lessons)")
         if release == pid and not complete:
             print(f"  FAIL    --release {pid}: not every lesson is complete"); ok_all = False
-        meta = {k: v for k, v in ps.items() if k not in ("lessons", "masterclass")}
-        out.append({"id": pid, **meta, "lessons": out_lessons})
+        b_errs, book, pages = book_check(pid, ps, resolved, vmap, complete)
+        for e in b_errs:
+            print(f"  FAIL    {pid} book: {e}")
+        ok_all &= not b_errs
+        if book:
+            short = " (below the KDP minimum of 24; grows with the Pass)" if pages < KDP_MIN_PAGES else ""
+            print(f"  PASS    {pid} book: {book['status']}, {len(book['chapters'])} chapters, "
+                  f"{sum(len(c['practice']) for c in book['chapters'])} practice cards, {len(book['review'])} review items, ~{pages} pages{short}")
+        meta = {k: v for k, v in ps.items() if k not in ("lessons", "masterclass", "book")}
+        out.append({"id": pid, **meta, "lessons": out_lessons, **({"book": book} if book else {})})
     return ok_all, out
 
 

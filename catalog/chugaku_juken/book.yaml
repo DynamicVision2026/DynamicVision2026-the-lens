@@ -1,0 +1,32 @@
+# Paperback companion for this Pass (Amazon.co.jp KDP, print on demand). Architect-owned content; WO-021 builds it.
+# Content is NOT copied here: every chapter is assembled from this Pass's lesson and masterclass by the validator
+# (bundle: passes[].book), so the book and the app can never disagree. This file holds only the book's own copy and choices.
+# Brian, Oct 14 08:30: one book per SKU, linked from the app.
+
+book:
+  id: lens-book-chugaku-1
+  status: building             # building → proof → live (live needs amazon_url)
+  series_ja: 視点レンズ（The Lens）
+  title_ja: 視点レンズ 中学受験算数ワークブック
+  subtitle_ja: 8つの視点で「最初の一手」が見える
+  audience_ja: 小4〜小6・中学受験
+  author_ja: Brian Fu
+  publisher_ja: Beyond Culture 獨歩文化株式会社
+  interior: bw                 # black-and-white first (tokens: every distinction survives B&W); colour only if KDP JP offers it
+  amazon_url: null             # set after KDP publishing; the trainer links to it (WO-021 §4)
+  practice_variants: 1         # extra 類題 per practice card, from its validated variants
+  review: {count: 16, seed: 4101}    # final chapter 「どのレンズ？」: mixed variants, pick the lens before solving
+  qr: "https://domo-ai.com/lesson/{pass}/{lens}?src=book"
+  front_matter:
+    hajimeni_ja: >-
+      算数の入試問題で時間がかかるのは、計算そのものより「どう解き始めるか」で手が止まる時間です。
+      この本は、図形と特殊算をまたいで使える8つの視点（レンズ）を、1つずつ身につけるための問題集です。
+      各章では同じ問題を「くせでやると（わな）」と「レンズで見ると」の2通りで並べ、どこで遠回りになるかを見比べられるようにしました。
+    tsukaikata_ja:
+      - 章のはじめの例題で、左ページの「わな」と右ページの「レンズ」を見比べる
+      - 「使えないとき」で、そのレンズが向かない問題を知る
+      - 練習問題は、解く前に「どのレンズ？」を□に書いてから解く
+      - 最後の「どのレンズ？」総まとめで、単元をまぜて選ぶ練習をする
+    qr_ja: 各章のQRコードから、同じ考え方を指で動かして確かめられます（Webアプリ「視点レンズ」）。
+    honesty_ja: この本は点数を約束するものではありません。最初の一手を決めるまでの時間を短くするための練習帳です。
+    parent_ja: おうちの方へ：1日1章の半分（15〜20分）が目安です。4週間の進め方は、Webアプリの「4週間完成スケジュール」をご覧ください。

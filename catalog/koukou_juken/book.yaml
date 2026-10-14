@@ -1,0 +1,30 @@
+# Paperback companion for this Pass (Amazon.co.jp KDP). Architect-owned; WO-021 builds it. Chapters are assembled
+# from this Pass's lessons by the validator (bundle: passes[].book). Grows with the Pass (ADR-004); waitlist SKU.
+
+book:
+  id: lens-book-koukou-1
+  status: planned              # the Pass is planned (waitlist only): no proof until its lessons are complete
+  series_ja: 視点レンズ（The Lens）
+  title_ja: 視点レンズ 高校受験数学ワークブック
+  subtitle_ja: 座標と図形を「つなぐ視点」で解く
+  audience_ja: 中1〜中3・高校受験
+  author_ja: Brian Fu
+  publisher_ja: Beyond Culture 獨歩文化株式会社
+  interior: bw
+  amazon_url: null
+  practice_variants: 1
+  review: {count: 12, seed: 4102}
+  qr: "https://domo-ai.com/lesson/{pass}/{lens}?src=book"
+  front_matter:
+    hajimeni_ja: >-
+      高校入試の図形・関数の問題は、1つの考え方では終わらず、2つの視点をつなげて解くものが増えます。
+      この本では、中学受験でも使う8つの視点（レンズ）を座標平面の上で使い直し、
+      「折り返して最短の点を出す → 囲んで面積を出す」のように、レンズをつなぐ順番を練習します。
+    tsukaikata_ja:
+      - 章のはじめの例題で、左ページの「わな」と右ページの「レンズ」を見比べる
+      - つなぐ問題では、1つ目のレンズで何が分かれば2つ目に進めるかを確かめる
+      - 練習問題は、解く前に「どのレンズ？」を□に書いてから解く
+      - 最後の「どのレンズ？」総まとめで、単元をまぜて選ぶ練習をする
+    qr_ja: 各章のQRコードから、同じ考え方を指で動かして確かめられます（Webアプリ「視点レンズ」）。
+    honesty_ja: この本は点数を約束するものではありません。最初の一手を決めるまでの時間を短くするための練習帳です。
+    parent_ja: おうちの方へ：1日1章の半分（20分）が目安です。
