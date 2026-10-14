@@ -594,6 +594,12 @@
                     "area",
                     "p_x"
                   ]
+                },
+                "side": {
+                  "description": "'opposite': B is below the x-axis (no-lens card: join A and B directly).",
+                  "enum": [
+                    "opposite"
+                  ]
                 }
               }
             },
@@ -873,6 +879,7 @@
               "coord_steps_match",
               "coord_enclose_clean",
               "coord_axis_base",
+              "coord_mirror_opposite",
               "coord_equal_area_valid",
               "coord_mirror_valid",
               "cevian_valid",

@@ -902,6 +902,7 @@ def _pt(name, p) -> str:
 
 def coord_mirror_P(fig):
     (ax, ay), (bx, by) = fig["A"], fig["B"]
+    by = abs(by)   # side: opposite stores B below the axis; the straight line crosses at the same point
     return S(ax) + S(bx - ax) * ay / (ay + by)
 
 
@@ -1023,6 +1024,14 @@ def coord_steps(fig):
             {"ja": f"Cを通り傾き{mtxt}の直線 y = {mtxt} x + b に C を代入：b = {_cp(cy)}−{_cp(m)}×{_cp(cx)} = {_c(k)}", "op": "note"},
             {"ja": f"この直線とy軸の交点がP。Pのy座標 = {_c(k)}", "value": str(k), "op": "result"},
         ]
+    if t == "coord_mirror_area" and fig.get("ask") == "p_x" and fig.get("side") == "opposite":
+        (ax, ay), (bx, by) = fig["A"], fig["B"]
+        px = coord_mirror_P(fig)
+        return [
+            {"ja": "AとBはx軸をはさんで反対側にある。折り返さずに、AとBをまっすぐ結ぶ", "op": "note"},
+            {"ja": f"yが {ay}+{-by} = {ay - by} 下がる間にxは {_cp(bx)}−{_cp(ax)} = {bx - ax} 進むので、Pのx座標は {_c(ax)}+{bx - ax}×{ay}/{ay - by} = {_c(px)}",
+             "value": str(px), "op": "result"},
+        ]
     if t == "coord_mirror_area" and fig.get("ask") == "p_x":
         (ax, ay), (bx, by) = fig["A"], fig["B"]
         px = coord_mirror_P(fig)
@@ -1127,6 +1136,16 @@ def coord_check(card, t, ans, fig):
         others = [f(ax + (bx - ax) * i / 200) for i in range(201)]
         ok = ay > 0 and by > 0 and ay != by and ax < bx and px.is_integer and best <= min(others) + 1e-9 and px != S(ax + bx) / 2
         return ok, f"A, B above the x-axis, P = ({_c(px)}, 0) is a lattice point, AP+PB is minimal there and it is not the midpoint"
+    if t == "coord_mirror_opposite":
+        (ax, ay), (bx, by) = fig["A"], fig["B"]
+        px = coord_mirror_P(fig)
+        import math
+        f = lambda x: math.hypot(x - ax, ay) + math.hypot(bx - x, by)
+        best = f(float(px))
+        others = [f(ax + (bx - ax) * i / 200) for i in range(201)]
+        ok = fig.get("side") == "opposite" and ay > 0 and by < 0 and ay != -by and ax < bx and px.is_integer \
+            and best <= min(others) + 1e-9 and px != S(ax + bx) / 2
+        return ok, f"A above, B below the x-axis, P = ({_c(px)}, 0) is a lattice point on segment AB and AP+PB is minimal there"
     if t == "cevian_valid":
         ratio = mass_point(fig)
         mA, mB, mC = mass_weights(fig)
@@ -1187,6 +1206,13 @@ def make_coord_variants(card):
                 continue
             cy = int(m * cx) + rng.choice([-6, -5, -4, -3, 3, 4, 5, 6])
             fig = {**fig0, "A": [ax, ay], "B": [bx, by], "C": [cx, cy]}
+        elif t == "coord_mirror_area" and fig0.get("side") == "opposite":
+            ay, by = rng.randint(1, 6), -rng.randint(1, 8)
+            ax = rng.randint(-6, 2)
+            bx = ax + rng.randint(3, 12)
+            fig = {**fig0, "A": [ax, ay], "B": [bx, by]}
+            if not coord_mirror_P(fig).is_integer:
+                continue
         elif t == "coord_mirror_area":
             ay, by = rng.randint(1, 6), rng.randint(1, 8)
             ax = rng.randint(-6, 2)
