@@ -1,5 +1,5 @@
 // KDP full-wrap cover: back + spine + front with bleed (WO-021 §3). Spine width comes from kdp.json.
-import { COPY, SITE_URL } from './copy';
+import { COPY, SITE_URL, titleLines } from './copy';
 import { renderFigure } from './figure';
 import { BODY_FAMILY } from './fonts';
 import type { BookPlan } from './plan';
@@ -59,7 +59,8 @@ html, body { margin: 0; padding: 0; background: ${c.paper}; color: ${c.ink}; -we
   display: flex; align-items: center; justify-content: center; writing-mode: vertical-rl; font-size: ${Math.min(10, Math.max(5, g.spine * 0.55))}pt; font-weight: 700; letter-spacing: 0.1em; }
 .band { position: absolute; left: 0; right: -${g.bleed}mm; top: -${g.bleed}mm; height: ${g.bleed + 22}mm; background: ${c.ink}; }
 .front .series { font-size: ${s.label.size + 1}pt; font-weight: 500; color: ${c.paper}; margin-top: -${safe - 1}mm; height: 16mm; display: flex; align-items: center; position: relative; }
-.front h1 { font-size: ${s.display.size + 2}pt; line-height: 1.25; margin: 6mm 0 3mm; }
+.front h1 { font-size: ${s.display.size + 2}pt; line-height: 1.25; margin: 6mm 0 3mm; word-break: keep-all; }
+.front h1 .line { display: block; }
 .front .sub { font-size: ${s.title.size - 4}pt; font-weight: 500; margin-bottom: 4mm; }
 .front .aud { align-self: flex-start; border: ${t.stroke.figure.width}pt solid ${c.ink}; padding: 1mm 3mm; font-size: ${s.label.size}pt; font-weight: 700; }
 .front .fig { margin: auto auto 0; width: 112mm; }
@@ -81,7 +82,7 @@ export function Cover({ bundle, plan, g }: { bundle: BookBundle; plan: BookPlan;
   const c = printPalette(t);
   const { book } = plan;
   const first = plan.chapters[0]?.examples[0];
-  const fig = first ? renderFigure(first, 'solved', t, { color: true, paper: c.paper }) : null;
+  const fig = first ? renderFigure(first, 'solved', t, { color: true, paper: c.paper, noAnswer: first }) : null;
   return (
     <div className="cover">
       <div className="panel back">
@@ -105,7 +106,13 @@ export function Cover({ bundle, plan, g }: { bundle: BookBundle; plan: BookPlan;
       <div className="panel front">
         <div className="band" />
         <div className="series">{book.series_ja}</div>
-        <h1>{book.title_ja}</h1>
+        <h1>
+          {titleLines(book.title_ja).map((line) => (
+            <span key={line} className="line">
+              {line}
+            </span>
+          ))}
+        </h1>
         <div className="sub">{book.subtitle_ja}</div>
         <div className="aud">{book.audience_ja}</div>
         {fig?.svg ? <div className="fig" dangerouslySetInnerHTML={{ __html: fig.svg }} /> : <div className="fig" />}

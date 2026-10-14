@@ -1,7 +1,7 @@
 // The interior, page by page (WO-021 §2). Every problem, number and answer comes from the bundle.
 import { renderToStaticMarkup } from 'react-dom/server';
 import { LensIcon, timeLabel, type LensCard, type LensOrDirect } from '@lens/scenes';
-import { COPY } from './copy';
+import { COPY, titleLines } from './copy';
 import { renderFigure, type FigureMoment } from './figure';
 import { answerOf, lensName, solvingLens, type BookPlan, type ChapterPlan, type Page, type Problem } from './plan';
 import { printColor, printPalette } from './print';
@@ -205,7 +205,13 @@ function PageBody({ ctx, page }: { ctx: Ctx; page: Page }) {
         <div className="body title-page">
           <div className="series">{book.series_ja}</div>
           <div className="title-rule" />
-          <h1 className="book-title">{book.title_ja}</h1>
+          <h1 className="book-title">
+            {titleLines(book.title_ja).map((line) => (
+              <span key={line} className="line">
+                {line}
+              </span>
+            ))}
+          </h1>
           <div className="book-subtitle">{book.subtitle_ja}</div>
           <div className="audience">{book.audience_ja}</div>
           <div className="title-foot">

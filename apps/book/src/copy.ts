@@ -31,6 +31,10 @@ export const COPY = {
   copyright: '© Beyond Culture',
   draftDate: '（発行日未定）',
   figurePending: '図（準備中）',
+  // Lever end labels and the frozen walker, as in the trainer (apps/trainer i18n balance.* / guide.freeze.stopped).
+  water: '水 0%',
+  salt: '食塩 100%',
+  stopped: '止める',
   backQrCaption: 'Webアプリ「視点レンズ」',
 } as const;
 
@@ -44,3 +48,13 @@ export function circled(n: number): string {
 
 /** The back-cover QR target (WO-021 §3). */
 export const SITE_URL = 'https://domo-ai.com/lens/';
+
+/** Where a long book title breaks onto a second line (the cover and title page never break mid-word). */
+export const TITLE_BREAK_BEFORE = 'ワークブック';
+
+/** 「視点レンズ 中学受験算数ワークブック」 → [「視点レンズ 中学受験算数」, 「ワークブック」]. */
+export function titleLines(title: string): string[] {
+  const i = title.indexOf(TITLE_BREAK_BEFORE);
+  if (i <= 0) return [title];
+  return [title.slice(0, i).trim(), title.slice(i)];
+}
