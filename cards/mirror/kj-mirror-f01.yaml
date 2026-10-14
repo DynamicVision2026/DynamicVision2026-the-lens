@@ -9,7 +9,7 @@ grades:
 - 中2
 level: 3
 archetype: mirror.coord_max_diff_failure
-status: draft
+status: verified
 provenance:
   original: true
   built_from: 'Archetype: P on the x-axis maximising |PA−PB| for A, B on the same side; reflection (the PA+PB habit) gives the wrong point; extend AB instead (failure card for 折り返す).'
