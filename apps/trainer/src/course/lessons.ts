@@ -5,7 +5,7 @@ import { getCard, withVariant, type Bundle, type LensCard, type Lesson, type Pas
 const PLAYABLE: Record<string, (card: LensCard) => boolean> = {
   enclose: (c) => c.problem.figure.type === 'grid_polygon' && verticesOnBox(c),
   slide: (c) => c.problem.figure.type === 'parallel_band',
-  mirror: (c) => c.problem.figure.type === 'mirror_path',
+  mirror: (c) => c.problem.figure.type === 'mirror_path' || c.problem.figure.type === 'mirror_corner',
   area: (c) => ['area_two_rect', 'area_average', 'area_shortfall'].includes(family(c) ?? ''),
   constant: (c) => family(c) === 'diff_bars',
   balance: (c) => family(c) === 'lever',

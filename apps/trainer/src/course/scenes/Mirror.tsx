@@ -4,12 +4,19 @@ import { formatExact, type MirrorPathFigure } from '@lens/scenes';
 import { useEffect, useRef, useState } from 'react';
 import { t } from '../../i18n/ja';
 import { sfx, springTo, TACTILE } from '../fx';
+import { MirrorCornerScene } from './MirrorCorner';
 import { C, clamp, Knob, num, StripeDefs, Txt, useDrag, useSceneGuide, type SceneProps } from './kit';
 
 const W = 600;
 const H = 480;
 
-export function MirrorScene({ card, lens, onSolved }: SceneProps) {
+export function MirrorScene(props: SceneProps) {
+  // WO-018 L4: two walls at right angles, reflect twice.
+  if (props.card.problem.figure.type === 'mirror_corner') return <MirrorCornerScene {...props} />;
+  return <RiverScene {...props} />;
+}
+
+function RiverScene({ card, lens, onSolved }: SceneProps) {
   const fig = card.problem.figure as MirrorPathFigure;
   const { ab, pa, qb, unit } = fig;
   const ansX = num(card.answer.value);

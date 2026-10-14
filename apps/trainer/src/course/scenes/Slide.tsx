@@ -1,6 +1,6 @@
 // 等積変形: slide the apexes along ℓ; the triangles keep their area. When they meet, they merge
 // into one triangle on the whole base. Lengths shown only where the figure says they are given.
-import { formatExact, type ParallelBandFigure } from '@lens/scenes';
+import { answerText, formatExact, type ParallelBandFigure } from '@lens/scenes';
 import { useEffect, useRef, useState } from 'react';
 import { t } from '../../i18n/ja';
 import { sfx, springTo, TACTILE } from '../fx';
@@ -83,6 +83,20 @@ export function SlideScene({ card, lens, onSolved }: SceneProps) {
             {formatExact(String(fig.band_height))}
           </Txt>
         </>
+      )}
+      {/* WO-018 L4: the gap is the question: 「?cm」 until the apexes merge, then the answer. */}
+      {fig.ask === 'band_height' && (
+        <>
+          <line x1={24} y1={yL} x2={24} y2={yM} stroke={merged !== null ? color : C.quiet} strokeWidth={2} />
+          <Txt x={30} y={(yL + yM) / 2 + 6} anchor="start" size={20} fill={merged !== null ? color : C.ink} className={merged !== null ? 'appear' : undefined}>
+            {merged !== null ? answerText(card) : t('slide.askGap')}
+          </Txt>
+        </>
+      )}
+      {fig.total_area !== undefined && (
+        <Txt x={30} y={yL - 30} anchor="start" size={18}>
+          {t('slide.totalArea', { a: formatExact(fig.total_area) })}
+        </Txt>
       )}
       {bx.map((x, i) => (
         <Txt key={i} x={X(x)} y={yM + 26} size={16} fill={C.quiet}>

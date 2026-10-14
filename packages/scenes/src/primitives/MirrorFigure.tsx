@@ -41,8 +41,10 @@ export interface MirrorFigureProps {
 export function MirrorFigure(p: MirrorFigureProps) {
   const { fig, layout: L, ink, accent, labelSize: size } = p;
   if (p.show <= 0) return null;
+  // WO-018 no-lens card: Q is across the river already, so P→Q is straight with no reflection.
+  const opposite = fig.side === 'opposite';
   const P = L.at(0, fig.pa);
-  const Q = L.at(fig.ab, fig.qb);
+  const Q = L.at(fig.ab, opposite ? -fig.qb : fig.qb);
   const A = L.at(0, 0);
   const B = L.at(fig.ab, 0);
   const Qr = L.at(fig.ab, -fig.qb);
@@ -53,7 +55,8 @@ export function MirrorFigure(p: MirrorFigureProps) {
   const len = (v: number) => `${v}${fig.unit}`;
   // Where P→Q′ crosses the river, as a fraction of the segment (drawing only: X itself comes from the answer).
   const crossAt = fig.pa / (fig.pa + fig.qb);
-  const straightPath = partialPolyline([P, Qr] as Point[], p.straight) as [number, number][];
+  const end = opposite ? Q : Qr;
+  const straightPath = partialPolyline([P, end] as Point[], p.straight) as [number, number][];
   const xLit = p.straight >= crossAt ? Math.min(1, (p.straight - crossAt) / Math.max(1e-6, 1 - crossAt) * 2) : 0;
   const tri = (ps: [number, number][], i: number) => {
     const c = p.palette[i % p.palette.length]!;
@@ -95,7 +98,7 @@ export function MirrorFigure(p: MirrorFigureProps) {
     <g opacity={p.show}>
       {/* Similar triangles first, under the lines. */}
       {tri([P, A, X], 0)}
-      {tri([Qr, B, X], 1)}
+      {tri([end, B, X], 1)}
 
       {/* River ℓ, full width. */}
       <line x1={L.left} y1={L.riverY} x2={L.right} y2={L.riverY} stroke={ink} strokeWidth={p.figureStroke * 1.5} strokeLinecap="round" />
@@ -127,7 +130,7 @@ export function MirrorFigure(p: MirrorFigureProps) {
       )}
 
       {/* Q′: the reflection, with the fold line and equal-length marks. */}
-      {p.reflect > 0 && (
+      {p.reflect > 0 && !opposite && (
         <g opacity={p.reflect}>
           <line x1={Q[0]} y1={Q[1]} x2={Qr[0]} y2={Qr[1]} stroke={accent} strokeWidth={p.figureStroke} strokeDasharray={p.dash} />
           {tick(Q, B)}
@@ -144,7 +147,7 @@ export function MirrorFigure(p: MirrorFigureProps) {
             <polyline points={pts(straightPath)} fill="none" stroke={accent} strokeWidth={p.lensStroke} filter={p.glowFilter} opacity={p.glowOpacity ?? 1} />
           )}
           <polyline points={pts(straightPath)} fill="none" stroke={accent} strokeWidth={p.lensStroke} strokeLinecap="round" />
-          {p.straight >= 1 && <polyline points={pts([P, X, Q])} fill="none" stroke={accent} strokeWidth={p.lensStroke} strokeLinejoin="round" opacity={0.85} />}
+          {p.straight >= 1 && !opposite && <polyline points={pts([P, X, Q])} fill="none" stroke={accent} strokeWidth={p.lensStroke} strokeLinejoin="round" opacity={0.85} />}
         </g>
       )}
 
@@ -154,9 +157,9 @@ export function MirrorFigure(p: MirrorFigureProps) {
       {dot(A, ink)}
       {dot(B, ink)}
       {label(P, labels.P, -0.9, -0.8)}
-      {label(Q, labels.Q, 0.9, -0.8)}
+      {label(Q, labels.Q, 0.9, opposite ? 0.8 : -0.8)}
       {label(A, labels.A, -0.9, 0.9)}
-      {label(B, labels.B, 0.9, 0.9)}
+      {label(B, labels.B, 0.9, opposite ? -0.9 : 0.9)}
       {xLit > 0 && (
         <g>
           {dot(X, accent, xLit)}

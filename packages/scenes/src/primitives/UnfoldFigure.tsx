@@ -50,8 +50,11 @@ export function UnfoldFigure(p: UnfoldFigureProps) {
   if (p.show <= 0) return null;
   const { a, b, h } = fig;
   const labels = fig.point_labels;
+  // WO-018 no-lens card: the path runs along the edges, so nothing opens; draw_straight traces A→B→C→G.
+  const edges = fig.path === 'edges';
+  const unfold = edges ? 0 : p.unfold;
   const box = L.depth(0);
-  const open = L.depth(p.unfold);
+  const open = L.depth(unfold);
   const at = (x: number, y: number) => L.at(x, y);
   const back = (x: number, y: number, d: [number, number]) => at(x + b * d[0], y + b * d[1]);
   const A = at(0, 0);
@@ -65,7 +68,7 @@ export function UnfoldFigure(p: UnfoldFigureProps) {
   const G0 = back(a, h, box);
   const M = at(a, h / 2);
   const P = at(a, p.crossY);
-  const boxOnly = 1 - p.unfold;
+  const boxOnly = 1 - unfold;
   const len = (v: number | string) => `${v}${fig.unit}`;
   const pts = (ps: XY[]) => ps.map((q) => q.join(',')).join(' ');
   // Where A→G crosses BF on the net, as a fraction of the segment (drawing only: P itself comes from the answer).
@@ -107,8 +110,8 @@ export function UnfoldFigure(p: UnfoldFigureProps) {
   return (
     <g opacity={p.show}>
       {/* Similar triangles first, under the lines: ACG, then ABP on top. */}
-      {tri([A, C, G], 1, false, p.tint * 0.5)}
-      {tri([A, B, P], 0, true, p.tint)}
+      {!edges && tri([A, C, G], 1, false, p.tint * 0.5)}
+      {!edges && tri([A, B, P], 0, true, p.tint)}
 
       {/* The parts of the box that are not on the net fade as the face opens. */}
       {boxOnly > 0 && (
@@ -121,32 +124,37 @@ export function UnfoldFigure(p: UnfoldFigureProps) {
           </g>
           {label(D, labels.D, -0.6, -0.7)}
           {label(H, labels.H, -0.6, -0.7)}
-          {label([(B[0] + C[0]) / 2, (B[1] + C[1]) / 2], len(b), 0.7, 1.1, Math.max(0, 1 - p.unfold * 3))}
+          {label([(B[0] + C[0]) / 2, (B[1] + C[1]) / 2], len(b), 0.7, 1.1, Math.max(0, 1 - unfold * 3))}
         </g>
       )}
 
       {/* Face ABFE and the hinged face BCGF (a parallelogram on the box, a rectangle on the net). */}
       <polygon points={pts([A, B, F, E])} fill="none" stroke={ink} strokeWidth={p.figureStroke} strokeLinejoin="round" />
-      <polygon points={pts([B, C, G, F])} fill={accent} fillOpacity={p.tint * 0.6 * Math.min(1, p.unfold * 4) * (1 - p.similar)} stroke={ink} strokeWidth={p.figureStroke} strokeLinejoin="round" />
+      <polygon points={pts([B, C, G, F])} fill={accent} fillOpacity={p.tint * 0.6 * Math.min(1, unfold * 4) * (1 - p.similar)} stroke={ink} strokeWidth={p.figureStroke} strokeLinejoin="round" />
       {/* BF, the hinge, in the lens colour while the face opens. */}
-      {p.unfold > 0 && <line x1={B[0]} y1={B[1]} x2={F[0]} y2={F[1]} stroke={accent} strokeWidth={p.lensStroke} opacity={Math.min(1, p.unfold * 4)} />}
+      {unfold > 0 && <line x1={B[0]} y1={B[1]} x2={F[0]} y2={F[1]} stroke={accent} strokeWidth={p.lensStroke} opacity={Math.min(1, unfold * 4)} />}
 
       {/* Given lengths: AB below, AE on the left; BC below it on the net, then the net's width. */}
       <Bracket from={A} to={B} normal={[0, 1]} label={len(a)} color={ink} offset={drop} {...bk} />
       {label([(A[0] + E[0]) / 2, (A[1] + E[1]) / 2], len(h), -1.6, 0)}
-      {p.unfold > 0.6 && (
-        <g opacity={(p.unfold - 0.6) / 0.4}>
+      {unfold > 0.6 && (
+        <g opacity={(unfold - 0.6) / 0.4}>
           <Bracket from={B} to={C} normal={[0, 1]} label={len(b)} color={ink} offset={drop} {...bk} />
         </g>
       )}
-      {p.unfold > 0.8 && (
-        <g opacity={(p.unfold - 0.8) / 0.2}>
+      {unfold > 0.8 && (
+        <g opacity={(unfold - 0.8) / 0.2}>
           <Bracket from={A} to={C} normal={[0, 1]} label={len(fig.net_width)} color={accent} offset={drop + p.bracket.numberSize * 2.2} {...bk} />
         </g>
       )}
 
+      {/* Edges only: A → B → C → G along the box, in the lens colour. */}
+      {edges && p.straight > 0 && (
+        <polyline points={pts(partialPolyline([A, B, C, G] as Point[], p.straight) as XY[])} fill="none" stroke={accent} strokeWidth={p.lensStroke} strokeLinejoin="round" strokeLinecap="round" />
+      )}
+
       {/* The trap: the middle of BF. */}
-      {p.tryPath > 0 && (
+      {!edges && p.tryPath > 0 && (
         <g opacity={p.tryDim}>
           <polyline points={pts(partialPolyline([A, M, G] as Point[], p.tryPath) as XY[])} fill="none" stroke={p.chalk} strokeWidth={p.figureStroke * 1.5} strokeDasharray={p.dash} strokeLinejoin="round" />
           {p.tryPath >= 0.5 && (
@@ -160,7 +168,7 @@ export function UnfoldFigure(p: UnfoldFigureProps) {
       )}
 
       {/* The straight line A→G on the net, P where it crosses BF. */}
-      {p.straight > 0 && (
+      {!edges && p.straight > 0 && (
         <g>
           {p.glowFilter && <polyline points={pts(straightPath)} fill="none" stroke={accent} strokeWidth={p.lensStroke} filter={p.glowFilter} opacity={p.glowOpacity ?? 1} />}
           <polyline points={pts(straightPath)} fill="none" stroke={accent} strokeWidth={p.lensStroke} strokeLinecap="round" />
@@ -168,12 +176,12 @@ export function UnfoldFigure(p: UnfoldFigureProps) {
       )}
 
       {/* The two similar triangles' outlines, above the edges: ABP, then the whole of ACG. */}
-      {p.similar > 0 && outline([A, B, P], 0, p.lensStroke)}
-      {p.similar > 0 && outline([A, C, G], 1, p.lensStroke)}
+      {!edges && p.similar > 0 && outline([A, B, P], 0, p.lensStroke)}
+      {!edges && p.similar > 0 && outline([A, C, G], 1, p.lensStroke)}
 
       {/* CG (= AE) beside the similar triangles; BP once the answer is shown. */}
-      {label([(C[0] + G[0]) / 2, (C[1] + G[1]) / 2], len(h), 1.6, 0, p.similar)}
-      {label([(B[0] + P[0]) / 2, (B[1] + P[1]) / 2], p.answerText, -1.7, 0, p.answer, accent)}
+      {!edges && label([(C[0] + G[0]) / 2, (C[1] + G[1]) / 2], len(h), 1.6, 0, p.similar)}
+      {!edges && label([(B[0] + P[0]) / 2, (B[1] + P[1]) / 2], p.answerText, -1.7, 0, p.answer, accent)}
 
       {/* Points and their labels. */}
       {[A, B, E, F].map((q, i) => <g key={i}>{dot(q, ink)}</g>)}
@@ -186,7 +194,7 @@ export function UnfoldFigure(p: UnfoldFigureProps) {
       {label(C, labels.C, 0.9, 0)}
       {label(G, labels.G, 0.8, -0.7)}
       {/* P last, with a paper halo so the stripes never cover it. */}
-      {pLit > 0 && (
+      {!edges && pLit > 0 && (
         <g data-part="cross" data-y={P[1]}>
           {dot(P, accent, pLit)}
           {p.halo && (

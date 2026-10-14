@@ -7,10 +7,11 @@ import { motionPreviewTimeline, shortTimeline } from './motion/timeline';
 import { tokens } from './tokens';
 import type { LensCard, ParallelBandFigure } from './types';
 import { allSceneCards } from './variant';
+import { bandMode } from './band';
 
 // slide-001 is a draft until WO-004 merges: CI runs these tests on a drafts-included bundle.
 const slide = getCard('slide-001');
-// WO-018 modes (one triangle, non-parallel lines, ask for the gap) are drawn in their own PR; these tests cover the classic band.
+// The classic band; the WO-018 modes (one triangle, non-parallel lines, ask for the gap) have their own block below.
 const classicBand = (f: Record<string, unknown>) => !f.apex_heights && f.ask !== 'band_height' && (f.apex_x as unknown[]).length > 1;
 const bandCards = allSceneCards(loadBundle()).filter((c) => c.problem.figure.type === 'parallel_band' && classicBand(c.problem.figure as unknown as Record<string, unknown>));
 const band = (c: LensCard) => c.problem.figure as ParallelBandFigure;
@@ -92,5 +93,62 @@ describe.skipIf(!slide)('slide-001 (parallel band)', () => {
       expect(v.problem.text_ja).toBe(original.text_ja);
       expect(v.problem.text_ja).not.toBe(slide!.problem.text_ja);
     }
+  });
+});
+
+// WO-018: slide-no-lens (one triangle), slide-f01 (ℓ not parallel), slide-004 (the gap is asked).
+const wo18 = allSceneCards(loadBundle()).filter((c) => c.problem.figure.type === 'parallel_band' && !classicBand(c.problem.figure as unknown as Record<string, unknown>));
+const numbersIn = (html: string) => texts(html).flatMap((s) => s.match(/\d+(?:\.\d+)?/g) ?? []);
+
+describe.skipIf(wo18.length === 0)('WO-018 band modes', () => {
+  it('covers the three draft cards and their variants', () => {
+    for (const id of ['slide-no-lens', 'slide-f01', 'slide-004']) expect(wo18.filter((c) => c.id.startsWith(id)).length).toBeGreaterThan(1);
+  });
+
+  it.each(wo18.map((c) => [c.id, c] as const))('%s renders every keyframe at t = 0 and 1, both themes, purely and without warnings', (_id, card) => {
+    const warn = vi.spyOn(console, 'warn');
+    for (let k = 0; k < card.animation!.keyframes.length; k++) {
+      for (const t of [0, 1]) {
+        for (const theme of ['base', 'short_dark'] as const) {
+          const a = renderToStaticMarkup(<LensScene card={card} keyframe={k} t={t} theme={theme} />);
+          expect(renderToStaticMarkup(<LensScene card={card} keyframe={k} t={t} theme={theme} />)).toBe(a);
+        }
+      }
+    }
+    expect(warn).not.toHaveBeenCalled();
+  });
+
+  it.each(wo18.filter((c) => bandMode(band(c)) === 'nonparallel').map((c) => [c.id, c] as const))('%s: ℓ is tilted through the apexes, has no ∥ marks, nothing slides; each base and height is printed', (_id, card) => {
+    const fig = band(card);
+    const kfs = card.animation!.keyframes;
+    const html = (k: number, t = 1) => renderToStaticMarkup(<LensScene card={card} keyframe={k} t={t} />);
+    const lines = [...html(0).matchAll(/<line x1="([\d.]+)" y1="([\d.]+)" x2="([\d.]+)" y2="([\d.]+)"/g)].map((m) => m.slice(1).map(Number));
+    expect(lines.some(([, y1, , y2]) => Math.abs(y1! - y2!) > 5)).toBe(true);
+    expect(html(0)).not.toMatch(/<path d="M [^"]+ L [^"]+ L [^"]+"/);
+    const tris = (h: string) => [...h.matchAll(/<polygon points="([^"]+)" fill="[^"]+" fill-opacity/g)].map((m) => m[1]);
+    const k = kfs.indexOf('slide_apexes');
+    expect(tris(html(k, 1))).toEqual(tris(html(k, 0)));
+    const allowed = new Set([...fig.apex_heights!.map(String), formatExact(fig.total_base), ...fig.bottom_x.slice(1).map((x, i) => String(x - fig.bottom_x[i]!))]);
+    for (const n of numbersIn(html(0))) expect(allowed).toContain(n);
+    for (const h of fig.apex_heights!) expect(texts(html(0))).toContain(String(h));
+  });
+
+  it.each(wo18.filter((c) => bandMode(band(c)) === 'ask_height').map((c) => [c.id, c] as const))('%s: the gap reads 「?cm」 until the answer, with the given total area', (_id, card) => {
+    const fig = band(card);
+    const kfs = card.animation!.keyframes;
+    const before = renderToStaticMarkup(<LensScene card={card} keyframe={kfs.indexOf('merge_triangle')} t={1} />);
+    expect(texts(before)).toContain('?cm');
+    expect(before).toContain(`${formatExact(fig.total_area!)}cm²`);
+    expect(texts(before).filter((s) => s.includes('cm')).some((s) => s.startsWith(String(fig.band_height)))).toBe(false);
+    const after = renderToStaticMarkup(<LensScene card={card} keyframe={kfs.indexOf('show_answer')} t={1} />);
+    expect(texts(after)).not.toContain('?cm');
+    expect(after).toContain(card.answer.display_ja ?? `${card.answer.value}cm`);
+  });
+
+  it.each(wo18.filter((c) => bandMode(band(c)) === 'single').map((c) => [c.id, c] as const))('%s: one triangle with its base and height, nothing else', (_id, card) => {
+    const fig = band(card);
+    const html = renderToStaticMarkup(<LensScene card={card} keyframe={0} t={1} />);
+    expect([...html.matchAll(/fill-opacity/g)].length).toBe(1);
+    expect(new Set(numbersIn(html))).toEqual(new Set([formatExact(fig.total_base), String(fig.band_height)]));
   });
 });

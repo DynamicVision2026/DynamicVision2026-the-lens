@@ -5,6 +5,7 @@ import { formatExact, LensScene, type BoxUnfoldFigure } from '@lens/scenes';
 import { lazy, Suspense, useContext, useEffect, useRef, useState } from 'react';
 import { t } from '../../i18n/ja';
 import { reducedMotion, sfx, springTo, TACTILE } from '../fx';
+import { UnfoldThreeScene } from './UnfoldThree';
 import { C, clamp, Knob, num, SceneLock, StripeDefs, Txt, useDrag, useSceneGuide, type SceneProps } from './kit';
 
 const Unfold3D = lazy(() => import('@lens/scene3d').then((m) => ({ default: m.Unfold3D })));
@@ -20,8 +21,11 @@ function webglAvailable(): boolean {
 
 export function UnfoldScene(props: SceneProps) {
   const locked = useContext(SceneLock);
-  const [flat, setFlat] = useState(() => reducedMotion() || !webglAvailable());
+  // Three-face cards always play flat, so they never probe WebGL.
+  const [flat, setFlat] = useState(() => (props.card.problem.figure as BoxUnfoldFigure).route === 'three_faces' || reducedMotion() || !webglAvailable());
   if (locked) return <LensScene card={props.card} keyframe={0} t={1} theme="short_dark" />;
+  // WO-018 L4: three faces open flat (the 3D box opens one face only).
+  if ((props.card.problem.figure as BoxUnfoldFigure).route === 'three_faces') return <UnfoldThreeScene {...props} />;
   if (flat) return <FlatUnfold {...props} />;
   return (
     <Suspense fallback={<Loading />}>

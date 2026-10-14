@@ -15,7 +15,8 @@ export interface MirrorLayout {
 
 /** Uniform scale (true shape) for A..B horizontally, from the higher of P/Q down to Q′ vertically. */
 export function mirrorLayout(fig: MirrorPathFigure, x: number, y: number, w: number, h: number, inset: number): MirrorLayout {
-  const above = Math.max(fig.pa, fig.qb);
+  // Q above the river (its reflection Q′ below), or Q itself below it (WO-018 side: opposite).
+  const above = fig.side === 'opposite' ? fig.pa : Math.max(fig.pa, fig.qb);
   const below = fig.qb;
   const scale = Math.min((w - 2 * inset) / fig.ab, h / (above + below));
   const left = x + (w - fig.ab * scale) / 2;
