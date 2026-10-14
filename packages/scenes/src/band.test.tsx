@@ -131,6 +131,10 @@ describe.skipIf(wo18.length === 0)('WO-018 band modes', () => {
     const allowed = new Set([...fig.apex_heights!.map(String), formatExact(fig.total_base), ...fig.bottom_x.slice(1).map((x, i) => String(x - fig.bottom_x[i]!))]);
     for (const n of numbersIn(html(0))) expect(allowed).toContain(n);
     for (const h of fig.apex_heights!) expect(texts(html(0))).toContain(String(h));
+    // The heights are collinear in the data (PR 101), so ℓ passes exactly through every apex.
+    const apexes = tris(html(0)).map((pts) => pts!.split(' ')[2]!.split(',').map(Number) as [number, number]);
+    const [a, b] = [apexes[0]!, apexes[apexes.length - 1]!];
+    for (const q of apexes) expect(Math.abs((b[0] - a[0]) * (q[1] - a[1]) - (b[1] - a[1]) * (q[0] - a[0]))).toBeLessThan(1e-6 * Math.hypot(b[0] - a[0], b[1] - a[1]) * 1000);
   });
 
   it.each(wo18.filter((c) => bandMode(band(c)) === 'ask_height').map((c) => [c.id, c] as const))('%s: the gap reads 「?cm」 until the answer, with the given total area', (_id, card) => {

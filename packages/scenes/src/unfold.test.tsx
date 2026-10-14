@@ -140,3 +140,17 @@ describe.skipIf(edges.length + three.length === 0)('WO-018 展開 figures', () =
     for (const l of ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'P', 'Q']) expect(textNodes(html)).toContain(l);
   });
 });
+
+// WO-018 failure cards (ask: corner_volume): the cut through mesh.cut is shaded and the cut-off corner marked.
+const cornerCards = all.filter((c) => c.problem.figure.type === 'box_unfold' && fig(c).ask === 'corner_volume');
+describe.skipIf(cornerCards.length === 0)('corner-volume cards', () => {
+  it.each(cornerCards.map((c) => [c.id, c] as const))('%s shades the cut triangle and marks the corner on the box', (_id, card) => {
+    const f = fig(card);
+    const html = renderToStaticMarkup(<LensScene card={card} keyframe={0} t={1} />);
+    expect(html).toContain('data-part="cut"');
+    expect(html).toContain('data-part="cut-off"');
+    expect(f.mesh?.cut).toHaveLength(3);
+    const cut = /data-part="cut"[^>]*>\s*<polygon points="([^"]+)"/.exec(html)![1]!.split(' ');
+    expect(cut).toHaveLength(3);
+  });
+});

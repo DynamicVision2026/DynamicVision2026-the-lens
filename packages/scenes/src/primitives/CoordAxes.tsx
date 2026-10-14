@@ -35,7 +35,8 @@ export function CoordAxes({ frame, origin, tokens, mode, t = 1, labels, points, 
   const [ox, oy] = toSvg(frame, origin);
   const [left, top] = toSvg(frame, [0, grid.height]);
   const [right, bottom] = toSvg(frame, [grid.width, 0]);
-  const step = every ?? (frame.cell < small * 1.9 ? 2 : 1);
+  // Every 2 when cramped: a tick number needs about two digits' width plus a gap per cell.
+  const step = every ?? (frame.cell < small * 2.6 ? 2 : 1);
   const n = (v: number) => (v < 0 ? `−${-v}` : String(v));
   const arrow = (x: number, y: number, dx: number, dy: number) => {
     const a = size * 0.35;

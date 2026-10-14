@@ -126,9 +126,15 @@ function Shell({ card, lens, onCoach, children }: { card: LensCard; lens: string
   );
 }
 
-/** A card at rest: its figure at keyframe `kf`, or its sentence when it has no figure. */
+/**
+ * A card at rest: its figure at keyframe `kf`, or its sentence when it has no figure. A word problem's
+ * figure leaves out the story (the sentence is printed just above); at its first keyframe nothing is
+ * drawn yet, so a short prompt stands in for it.
+ */
 function Still({ card, kf = 0 }: { card: LensCard; kf?: number }) {
-  return hasScene(card) && (card.animation?.keyframes.length ?? 0) > 0 ? <LensScene card={card} keyframe={kf} t={1} theme="short_dark" className="fig walkfig" /> : <p className="walk-text no-figure">{card.problem.text_ja}</p>;
+  if (!hasScene(card) || (card.animation?.keyframes.length ?? 0) === 0) return <p className="walk-text no-figure">{card.problem.text_ja}</p>;
+  if (card.problem.figure.type === 'word_problem' && kf === 0) return <p className="walk-text no-figure">{t('drill.noFigure')}</p>;
+  return <LensScene card={card} keyframe={kf} t={1} theme="short_dark" className="fig walkfig" hideStory />;
 }
 
 const say = (guide: ReturnType<typeof useGuide>, text: string, pose: 'q' | 'd' = 'q') => guide.say(text, pose);
@@ -251,13 +257,16 @@ function SceneExample(p: ExampleIn & { phases: number }) {
       </div>
       <aside className="side">
         <LensChip lens={lens} trigger={card.trigger.ja} />
-        <ol className="card captions">
-          {steps.slice(0, shown).map((st, i) => (
-            <li key={i} className={`in${st.op === 'result' ? ' result' : ''}`}>
-              {st.ja}
-            </li>
-          ))}
-        </ol>
+        {/* No empty card before the first step is reached. */}
+        {shown > 0 && (
+          <ol className="card captions">
+            {steps.slice(0, shown).map((st, i) => (
+              <li key={i} className={`in${st.op === 'result' ? ' result' : ''}`}>
+                {st.ja}
+              </li>
+            ))}
+          </ol>
+        )}
         {solved && <Aha card={card} last={false} onNext={onNext} onAgain={() => {}} listSteps={false} again={false} nextLabel={nextLabel} />}
       </aside>
     </>
@@ -291,7 +300,8 @@ function WalkExample(p: ExampleIn) {
   return (
     <>
       <div className="stage walk live" ref={stage} data-card={card.id} data-beat="example" data-mode="walkthrough" onClick={advance}>
-        {hasScene(card) && kfs > 0 && <Still card={card} kf={kf} />}
+        {/* The figure, or (steps-only cards) the problem's sentence, so the panel is never empty. */}
+        <Still card={card} kf={kf} />
         <WalkBoard card={card} shown={shown} next={!solved} nudge={nudge} />
         <GuideOverlay />
       </div>

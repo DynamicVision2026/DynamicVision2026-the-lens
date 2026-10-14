@@ -137,6 +137,8 @@ export interface BoxUnfoldFigure {
   path?: 'edges';
   /** WO-018 L4: A → P (on BF) → Q (on CG) → H over three faces; Q is drawn at the answer (CQ). */
   route?: 'three_faces';
+  /** WO-018 failure card: the volume of the corner pyramid cut off at mesh.cut_off. */
+  ask?: 'corner_volume';
 }
 
 export interface BoxMesh {
@@ -146,6 +148,9 @@ export interface BoxMesh {
   hinge: { edge: [string, string]; face: string; open_deg: number };
   net: Record<string, [number, number]>;
   path: { from: string; via_edge: [string, string]; to: string };
+  /** WO-018 failure card (ask: corner_volume): the cut's vertices (e.g. B, D, E) and the corner cut off (A). */
+  cut?: string[];
+  cut_off?: string;
 }
 
 /**

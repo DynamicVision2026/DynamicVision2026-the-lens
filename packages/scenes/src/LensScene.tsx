@@ -54,6 +54,8 @@ export interface LensSceneProps {
   /** Button text per picker option, for the Short's freeze beat (from bundle.labels). */
   optionLabels?: Record<string, string>;
   className?: string;
+  /** Word problems: leave out the story text (when the sentence is already printed beside the figure). */
+  hideStory?: boolean;
 }
 
 const DEFAULT_KEYFRAMES = ['show_shape'];
@@ -74,6 +76,7 @@ export function LensScene({
   lensLabel,
   optionLabels,
   className,
+  hideStory = false,
 }: LensSceneProps) {
   const { tokens, glow } = themed(baseTokens, theme);
   const svgProps = {
@@ -140,7 +143,7 @@ export function LensScene({
   if (figure.type === 'word_problem' && hasScene(card)) {
     return (
       <svg {...svgProps}>
-        <WordKeyframeScene card={card} fig={figure} keyframes={keyframes} keyframe={keyframe} t={progress} tokens={tokens} mode={mode} />
+        <WordKeyframeScene card={card} fig={figure} keyframes={keyframes} keyframe={keyframe} t={progress} tokens={tokens} mode={mode} hideStory={hideStory} />
       </svg>
     );
   }
@@ -348,7 +351,9 @@ interface BandKeyframeSceneProps {
 function BandKeyframeScene({ card, fig, keyframes, keyframe, t, tokens, glow, mode }: BandKeyframeSceneProps) {
   const state = bandState(keyframes, keyframe, t, card, fig);
   const label = fontSize(tokens, 'label', mode);
-  const layout = bandLayout(fig, PAD, PAD, SCENE_WIDTH - 2 * PAD, FIGURE_HEIGHT - 2 * PAD - 30, Math.max(34, label * BAND_END_ROOM));
+  // A second bracket row (each base above AD, WO-018) needs its room below m.
+  const rows = fig.shown.each_base && fig.apex_x.length > 1 ? label * 2.4 : 0;
+  const layout = bandLayout(fig, PAD, PAD, SCENE_WIDTH - 2 * PAD, FIGURE_HEIGHT - 2 * PAD - 30 - rows, Math.max(34, label * BAND_END_ROOM));
   const accent = lensColor(tokens, card.lens, mode);
   const glowId = `lens-glow-${card.id}`;
   return (
@@ -692,21 +697,22 @@ interface WordKeyframeSceneProps {
   t: number;
   tokens: Tokens;
   mode: RenderMode;
+  hideStory?: boolean;
 }
 
 /** A word problem: the story on top, the diagram the lens draws below (trainer and /dev/scenes). */
-function WordKeyframeScene({ card, fig, keyframes, keyframe, t, tokens, mode }: WordKeyframeSceneProps) {
+function WordKeyframeScene({ card, fig, keyframes, keyframe, t, tokens, mode, hideStory = false }: WordKeyframeSceneProps) {
   const state = wordState(keyframes, keyframe, t, card, fig);
   const ink = color(tokens.color.ink, mode);
   const accent = lensColor(tokens, card.lens, mode);
   const size = fontSize(tokens, 'problem', mode);
   const label = fontSize(tokens, 'label', mode);
   const width = SCENE_WIDTH - 2 * PAD;
-  const top = storyHeight(card.problem.text_ja, width, size);
+  const top = hideStory ? 0 : storyHeight(card.problem.text_ja, width, size);
   const ja = fontFamily(tokens, tokens.type.scale.problem);
   return (
     <g>
-      <StoryText text={card.problem.text_ja} x={PAD} y={PAD / 2} width={width} size={size} ink={ink} accent={accent} font={ja} weight={tokens.type.scale.title.weight} highlight={state.story} opacity={Math.max(0.25, state.story)} />
+      {!hideStory && <StoryText text={card.problem.text_ja} x={PAD} y={PAD / 2} width={width} size={size} ink={ink} accent={accent} font={ja} weight={tokens.type.scale.title.weight} highlight={state.story} opacity={Math.max(0.25, state.story)} />}
       <WordDiagram
         card={card}
         fig={fig}
