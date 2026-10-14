@@ -9,7 +9,7 @@ grades:
 - 小6
 level: 1
 archetype: unfold.edges_no_lens
-status: draft
+status: verified
 provenance:
   original: true
   built_from: 'Archetype: shortest route along the edges of a cuboid; no face is crossed, so nothing needs unfolding (negative control for 展開).'

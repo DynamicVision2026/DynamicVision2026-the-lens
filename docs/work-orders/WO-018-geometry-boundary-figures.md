@@ -35,4 +35,4 @@ Until a field is drawn, cards that use it stay `draft`, so a wrong picture can't
 | unfold-no-lens | `box_unfold.path: edges`: highlight the edges A→B→C→G (any shortest edge path); no net | walkthrough (no-lens) |
 
 - Scenes tests (`band.test.tsx`, `mirror.test.tsx`) cover the classic figures only. Extend them to these modes in your drawing PR.
-- When that PR merges, I flip the cards to `verified` and add them to the catalog. Still to come from me: the 展開 failure card (open question for Brian).
+- **Done (Oct 14):** Builder PR #95 merged and the 8 cards are `verified` in the catalog. 等積変形 and 折り返す are complete; 展開 still needs its failure card (open question for Brian).
