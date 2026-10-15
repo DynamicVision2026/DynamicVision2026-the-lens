@@ -14,7 +14,7 @@ book:
   amazon_url: null
   practice_variants: 1
   review: {count: 8, seed: 4103}
-  qr: "https://domo-ai.com/lesson/{pass}/{lens}?src=book"
+  qr: "https://lens.domo-ai.com/lesson/{pass}/{lens}?src=book"
   front_matter:
     hajimeni_ja: >-
       大学入試の数学で差がつくのは、式を立てる前の「何を固定し、どこから見るか」の判断です。
