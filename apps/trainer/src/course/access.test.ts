@@ -27,7 +27,7 @@ describe('access links (WO-024)', () => {
   it('has one distinct 16-character key per Pass', () => {
     const keys = Object.values(LAUNCH.passes).map((p) => p.key);
     expect(Object.keys(LAUNCH.passes).sort()).toEqual(['chugaku_juken', 'daigaku_juken', 'koukou_juken']);
-    for (const k of keys) expect(k).toMatch(/^[A-Za-z0-9]{16}$/);
+    for (const k of keys) expect(k).toMatch(/^[A-Za-z0-9_-]{16}$/);
     expect(new Set(keys).size).toBe(3);
   });
 

@@ -12,9 +12,9 @@ export const LAUNCH = {
    * /open?p=<pass>&k=<key>, which unlocks that Pass on the device (a soft lock: no server, no account).
    */
   passes: {
-    chugaku_juken: { shopUrl: 'https://soul-id-2.myshopify.com/products/lens-chugaku', key: 'lU10SnCeU4RpgZ6V' },
-    koukou_juken: { shopUrl: 'https://soul-id-2.myshopify.com/products/lens-koukou', key: 'HBG7TQ4Jnt4804OD' },
-    daigaku_juken: { shopUrl: 'https://soul-id-2.myshopify.com/products/lens-daigaku', key: 'sviD6C7uRGo3zUSs' },
+    chugaku_juken: { shopUrl: 'https://soul-id-2.myshopify.com/products/lens-chugaku', key: 'HS771AmBoRnfQt7-' },
+    koukou_juken: { shopUrl: 'https://soul-id-2.myshopify.com/products/lens-koukou', key: 'C8mpgQUwhXpwKWxm' },
+    daigaku_juken: { shopUrl: 'https://soul-id-2.myshopify.com/products/lens-daigaku', key: 'frymep1_SqyTFzZo' },
   } as Record<string, { shopUrl: string; key: string }>,
   founderSeatsLeft: null as number | null, // founder updates as orders come in; null hides the line
 };
