@@ -1172,51 +1172,6 @@ html[data-theme='course'] body {
   justify-content: flex-end;
 }
 
-/* ---- Waitlist cards for planned Passes (ADR-003 §3) ---- */
-.waitlist h2 {
-  margin: 0 0 12px;
-}
-.waitlist-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--gutter);
-}
-.waitlist-card {
-  border: var(--stroke-figure) solid var(--grid);
-  border-radius: var(--gutter);
-  padding: var(--gutter);
-  display: grid;
-  gap: 6px;
-  align-content: start;
-}
-.waitlist-card .badge {
-  justify-self: start;
-  font-size: var(--type-label-size);
-  font-weight: var(--type-title-weight);
-  color: var(--ink-quiet);
-  border: 1px solid var(--grid);
-  border-radius: 999px;
-  padding: 2px 10px;
-}
-.waitlist-card h3 {
-  margin: 4px 0 0;
-}
-.waitlist-card .audience {
-  margin: 0;
-  color: var(--ink-quiet);
-}
-.waitlist-card .waitlist-form h2 {
-  font-size: var(--type-label-size);
-  font-weight: normal;
-  margin: 6px 0;
-}
-.waitlist-card .waitlist-form {
-  border: 0;
-  padding: 0;
-  background: none;
-  margin: 0;
-}
-
 /* ---- WO-019: decision time, measure entry points, parent report ---- */
 .course .pick-time {
   margin: 4px 0 0;
@@ -1584,5 +1539,197 @@ html[data-theme='course'] body {
   50% {
     opacity: 0.95;
     transform: scale(1.1);
+  }
+}
+
+/* ---- WO-024 landing page: one column of white cards on the Lens tokens; stacks at phone width ---- */
+.lp {
+  max-width: 820px;
+  margin: 0 auto;
+  gap: calc(var(--gutter) * 2.5);
+}
+.lp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.lp-header .logo {
+  font-size: var(--type-title-size);
+  font-weight: var(--type-display-weight);
+}
+.lp-header .owned {
+  color: var(--ink-quiet);
+  font-size: var(--type-label-size);
+  text-decoration: none;
+  border: 1px solid var(--grid);
+  border-radius: var(--tap-target);
+  padding: 8px 14px;
+}
+.lp-hero {
+  display: grid;
+  gap: var(--gutter);
+}
+.lp-hero mark {
+  background: none;
+  color: var(--lens-enclose);
+  box-shadow: inset 0 -0.35em 0 color-mix(in srgb, var(--lens-enclose) 22%, transparent);
+}
+.lp-hero .sub {
+  font-size: var(--type-title-size);
+  font-weight: var(--type-title-weight);
+  margin: 0;
+}
+.lp-hero .lead {
+  line-height: 1.9;
+  color: var(--ink-quiet);
+  margin: 0;
+}
+.lp-band {
+  background: var(--band-bg);
+  color: var(--band-ink);
+  border-radius: var(--gutter);
+  padding: calc(var(--gutter) * 1.5);
+  display: grid;
+  gap: calc(var(--gutter) / 2);
+}
+.lp-band h2 {
+  margin: 0;
+}
+.lp-band .road {
+  margin: 0;
+  font-size: var(--type-trigger-size);
+}
+.lp-band .road.trap {
+  color: var(--band-quiet);
+}
+.lp-band .road.lens {
+  font-weight: var(--type-title-weight);
+}
+.lp-band .point {
+  margin: calc(var(--gutter) / 2) 0 0;
+}
+.lp-section h2 {
+  margin: 0 0 var(--gutter);
+}
+.lp-card {
+  background: var(--paper);
+  border: 1px solid var(--grid);
+  border-radius: var(--gutter);
+  padding: var(--gutter);
+  box-shadow: 0 2px 10px color-mix(in srgb, var(--ink) 6%, transparent);
+}
+.lp-lenses,
+.lp-steps,
+.lp-checks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.lp-lenses {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: calc(var(--gutter) / 1.5);
+}
+.lp-lenses .lp-card,
+.lp-steps .lp-card {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+}
+.lp-lenses span,
+.lp-steps span {
+  font-size: var(--type-label-size);
+  color: var(--ink-quiet);
+  line-height: 1.6;
+}
+.lp-steps {
+  display: grid;
+  gap: calc(var(--gutter) / 1.5);
+}
+.lp-steps .num {
+  color: var(--lens-enclose);
+  font-size: var(--type-title-size);
+}
+.lp-courses {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gutter);
+}
+.lp-course {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+}
+.lp-course h3,
+.lp-course p {
+  margin: 0;
+}
+.lp-course .badge {
+  justify-self: start;
+  font-size: var(--type-label-size);
+  font-weight: var(--type-title-weight);
+  color: var(--lens-enclose);
+  border: 1px solid var(--lens-enclose);
+  border-radius: 999px;
+  padding: 2px 10px;
+}
+.lp-course .audience,
+.lp-course .size,
+.lp-course .list,
+.lp-course .term {
+  font-size: var(--type-label-size);
+  color: var(--ink-quiet);
+}
+.lp-course .price strong {
+  color: var(--ink);
+}
+.lp-course .primary {
+  margin-top: calc(var(--gutter) / 2);
+}
+.lp-text p {
+  margin: 0 0 8px;
+  line-height: 1.8;
+}
+.lp-text p:last-child {
+  margin: 0;
+}
+.lp-checks li {
+  padding-left: 1.6em;
+  position: relative;
+  line-height: 2;
+}
+.lp-checks li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--lens-enclose);
+  font-weight: var(--type-title-weight);
+}
+.lp-faq {
+  display: grid;
+  gap: calc(var(--gutter) / 2);
+}
+.lp-faq summary {
+  cursor: pointer;
+  font-weight: var(--type-title-weight);
+  min-height: 28px;
+}
+.lp-faq p {
+  margin: 8px 0 0;
+  line-height: 1.8;
+  color: var(--ink-quiet);
+}
+.lp .site-footer {
+  flex-wrap: wrap;
+}
+.lp.open .wrong {
+  color: var(--trap-flag);
+}
+@media (max-width: 700px) {
+  .lp-lenses {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .lp-courses {
+    grid-template-columns: 1fr;
   }
 }

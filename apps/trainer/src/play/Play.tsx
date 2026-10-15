@@ -29,12 +29,12 @@ const COPY = {
   reportTitle: '時間の比べ',
   first: 'はじめの問題',
   seconds: '秒',
-  preorder: '先行予約（¥6,800）',
+  preorder: 'コースを選ぶ',
   previous: '前回の記録',
   notFound: 'この問題は見つかりません',
 } as const;
-/** Forwards to the store's preorder product (and counts the click); see launch/Landing.tsx. */
-const PREORDER_PATH = '/go/preorder';
+/** WO-024: the landing page's courses (three Passes, each with its own Shopify product). */
+const PREORDER_PATH = '/#courses';
 
 /** Whole seconds, with tenths under 10 s. */
 const secondsText = (s: number) => (s < 10 ? s.toFixed(1) : String(Math.round(s)));

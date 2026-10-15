@@ -1,101 +1,180 @@
-import { t } from '../i18n/ja';
-import { getCard, LensScene, loadBundle } from '@lens/scenes';
-import { LAUNCH } from '../launch.config';
-import { FOOTER, LANDING, PREORDER, PRIVACY, PROPOSED, WAITLIST } from './copy';
-import { preorderHref, waitlistTags } from './tracking';
+// WO-024: the 視点レンズ landing page at /. Sections in the ナゼホリ landing page's order (header, hero,
+// navy band, 8 lenses, one lesson, courses, parents, safety, access, FAQ, footer); one column of white
+// cards on the Lens tokens. Copy from launch/copy.ts; the trap/lens times, lenses and course numbers
+// from the bundle; prices and terms from the Architect's copy; Shopify links from launch.config.ts.
+import { color, getCard, LensIcon, lensColor, loadBundle, themed, tokens, type LensOrDirect, type Pass } from '@lens/scenes';
 import { Fragment, useEffect } from 'react';
-import { Signup } from './Signup';
+import { t } from '../i18n/ja';
+import { LAUNCH } from '../launch.config';
+import { FOOTER, LANDING, PRIVACY, PROPOSED } from './copy';
+import { preorderHref } from './tracking';
 
-/** Small line icons for the three points (drawn in the lens colour via currentColor). */
-const POINT_ICONS = [
-  ['M10 4a6 6 0 1 0 0 12a6 6 0 1 0 0-12z', 'M14.5 14.5L20 20'],
-  ['M4 4h7v7H4z', 'M13 4h7v7h-7z', 'M4 13h7v7H4z', 'M14 16.5l2 2 4-4'],
-  ['M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18z', 'M12 7v5l3 2'],
-];
+/** The navy band (the course player's dark theme), as CSS variables: no colour literals here. */
+const dark = themed(tokens, 'short_dark').tokens;
+const BAND = { ['--band-bg' as string]: color(dark.color.paper), ['--band-ink' as string]: color(dark.color.ink), ['--band-quiet' as string]: color(dark.color.ink_quiet) };
 
-const PREORDER_PATH = '/go/preorder';
+/** 「約4分」, 「約30秒」 from a card's time_cost_sec (whole minutes from a minute up). */
+export function aboutTime(sec: number): string {
+  return sec >= 60 ? `約${Math.round(sec / 60)}分` : `約${sec}秒`;
+}
 
-export function Landing({ short }: { short: string | null }) {
-  // Not the Free Lens problem (enclose-001), so the hero doesn't give its answer away. Shown with every
-  // corner triangle shaded and labelled, so the numbers read as their areas.
-  const hero = getCard('enclose-002');
-  const keyframes = hero?.animation?.keyframes ?? [];
-  const heroKeyframe = keyframes.includes('label_corners') ? keyframes.indexOf('label_corners') : Math.max(0, keyframes.length - 1);
+/** The card the navy band quotes: chugaku_juken's enclose masterclass example 1. */
+export function roadsCard() {
+  const pass = loadBundle().passes?.find((p) => p.id === 'chugaku_juken');
+  const id = pass?.lessons.find((l) => l.lens === 'enclose')?.masterclass?.example1;
+  return id ? getCard(id) : undefined;
+}
+
+/** A Pass's size on its card: lessons and problems (anchor cards), from bundle.passes. */
+export const passSize = (p: Pass) => ({ lessons: p.lessons.length, problems: p.lessons.reduce((n, l) => n + l.cards.length, 0) });
+
+export function Landing() {
+  const bundle = loadBundle();
+  const lenses = Object.entries(bundle.labels.lenses).filter(([id]) => id !== 'direct');
+  const roads = roadsCard();
   return (
-    <main className="launch">
-      <header className="hero">
-        <div className="hero-text">
-          <p className="eyebrow">{LANDING.eyebrow}</p>
-          <h1>
-            {/* Break only after 「、」 and 「を」 (h1 is keep-all), so 「選ぶ。」 stays together. */}
-            {LANDING.h1.split(/(?<=[、を])/).map((part, i) => (
-              <Fragment key={i}>
-                {i > 0 && <wbr />}
-                {part}
-              </Fragment>
-            ))}
-          </h1>
-          <p className="sub">{LANDING.sub}</p>
-          <div className="ctas">
-            <a className="primary start" href="/play/enclose-001">
-              {LANDING.start}
-            </a>
-            <a className="secondary" href="/check">
-              {PROPOSED.checkLink}
-            </a>
-          </div>
-        </div>
-        {hero && (
-          <figure className="hero-figure">
-            <LensScene card={hero} keyframe={heroKeyframe} t={1} />
-            <figcaption>{LANDING.heroCaption}</figcaption>
-          </figure>
-        )}
+    <main className="launch lp">
+      <header className="lp-header">
+        <span className="logo">{LANDING.logo}</span>
+        <a href="#access" className="owned">
+          {LANDING.owned}
+        </a>
       </header>
 
-      <ul className="points">
-        {LANDING.points.map((text, i) => (
-          <li key={i}>
-            <svg viewBox="0 0 24 24" width={32} height={32} aria-hidden fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-              {POINT_ICONS[i]!.map((d) => (
-                <path key={d} d={d} />
-              ))}
-            </svg>
-            <span>{text}</span>
-          </li>
-        ))}
-      </ul>
+      <section className="lp-hero">
+        <h1>
+          {LANDING.h1[0]}
+          <wbr />
+          <mark>{LANDING.h1[1]}</mark>
+          {LANDING.h1[2]}
+        </h1>
+        <p className="sub">{LANDING.sub}</p>
+        <p className="lead">{LANDING.lead}</p>
+        <div className="ctas">
+          <a className="primary" href="#courses">
+            {LANDING.choose}
+          </a>
+          <a className="secondary" href="/check">
+            {LANDING.check}
+          </a>
+        </div>
+      </section>
 
-      <Signup short={short} />
-      <Preorder />
-      <Waitlist />
+      {roads && (
+        <section className="lp-band" style={BAND} data-card={roads.id}>
+          <h2>{LANDING.twoRoads}</h2>
+          <p className="road trap">{LANDING.trapRoad(aboutTime(roads.trap_route.time_cost_sec))}</p>
+          <p className="road lens">{LANDING.lensRoad(aboutTime(roads.lens_route.time_cost_sec))}</p>
+          <p className="point">{LANDING.roadsPoint}</p>
+        </section>
+      )}
+
+      <section className="lp-section">
+        <h2>{LANDING.lenses}</h2>
+        <ul className="lp-lenses">
+          {lenses.map(([id, label]) => (
+            <li key={id} className="lp-card" data-lens={id}>
+              <svg viewBox="0 0 24 24" width={32} height={32} aria-hidden>
+                <LensIcon lens={id as LensOrDirect} tokens={tokens} color={lensColor(tokens, id as LensOrDirect)} />
+              </svg>
+              <strong>{label.ja}</strong>
+              <span>{label.hint_ja}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="lp-section">
+        <h2>{LANDING.lesson}</h2>
+        <ol className="lp-steps">
+          {LANDING.lessonSteps.map(([title, body], i) => (
+            <li key={title} className="lp-card">
+              <span className="num">{'①②③'[i]}</span>
+              <strong>{title}</strong>
+              <span>{body}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <Courses />
+
+      <section className="lp-section">
+        <h2>{LANDING.parents}</h2>
+        <div className="lp-card lp-text">
+          {LANDING.parentsLines.map((line) => (
+            <p key={line}>{line}</p>
+          ))}
+        </div>
+      </section>
+
+      <section className="lp-section">
+        <h2>{LANDING.safety}</h2>
+        <ul className="lp-card lp-checks">
+          {LANDING.safetyLines.map((line) => (
+            <li key={line}>{line}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="lp-section" id="access">
+        <h2>{LANDING.access}</h2>
+        <div className="lp-card lp-text">
+          <p>{LANDING.accessLine}</p>
+        </div>
+      </section>
+
+      <section className="lp-section">
+        <h2>{LANDING.faq}</h2>
+        <div className="lp-faq">
+          {LANDING.faqs.map(([q, a]) => (
+            <details key={q} className="lp-card">
+              <summary>{q}</summary>
+              <p>
+                {a.split('特商法ページ').map((part, i) => (
+                  <Fragment key={i}>
+                    {i > 0 && <a href={LAUNCH.tokushohoUrl}>特商法ページ</a>}
+                    {part}
+                  </Fragment>
+                ))}
+              </p>
+            </details>
+          ))}
+        </div>
+      </section>
+
       <Footer />
     </main>
   );
 }
 
-/** The founder offer; numbers from bundle.passes and the seats-left count from launch.config.ts. */
-export function Preorder() {
-  const pass = loadBundle().passes?.find((p) => p.id === LAUNCH.passId);
-  if (!pass?.price_jpy || !pass.early_price_jpy || !pass.founder_seats) return null;
-  const seatsLeft = LAUNCH.founderSeatsLeft;
+/** The three courses, one card per Pass in bundle.passes, each with its Shopify product. */
+export function Courses() {
+  const passes = (loadBundle().passes ?? []).filter((p) => LAUNCH.passes[p.id]);
   return (
-    <section className="preorder-block">
-      <h2>{PREORDER.title(pass.founder_seats)}</h2>
-      <p className="pass-stage">{PREORDER.stage}</p>
-      <p className="price">
-        <strong>{PREORDER.price(pass.early_price_jpy, pass.founder_seats, pass.price_jpy)}</strong>
-      </p>
-      {seatsLeft !== null && <p className="seats">{PREORDER.seatsLeft(seatsLeft)}</p>}
-      <ul className="includes">
-        {PREORDER.includes(pass.term_months ?? 12, pass.devices ?? 1).map((line) => (
-          <li key={line}>{line}</li>
-        ))}
-      </ul>
-      <p>{PREORDER.delivery}</p>
-      <a className="primary" href={PREORDER_PATH}>
-        {PREORDER.button}
-      </a>
+    <section className="lp-section" id="courses">
+      <h2>{LANDING.courses}</h2>
+      <div className="lp-courses">
+        {passes.map((p) => {
+          const size = passSize(p);
+          return (
+            <article key={p.id} className="lp-card lp-course" data-pass={p.id}>
+              <span className="badge">{LANDING.badge}</span>
+              <h3>{p.title_ja}</h3>
+              {p.audience_ja && <p className="audience">{p.audience_ja}</p>}
+              <p className="size">{LANDING.size(size.lessons, size.problems)}</p>
+              <p className="price">
+                <strong>{LANDING.founder}</strong>
+              </p>
+              <p className="list">{LANDING.list}</p>
+              <p className="term">{LANDING.term}</p>
+              <a className="primary" href={LAUNCH.passes[p.id]!.shopUrl}>
+                {LANDING.buy}
+              </a>
+            </article>
+          );
+        })}
+      </div>
     </section>
   );
 }
@@ -103,9 +182,13 @@ export function Preorder() {
 export function Footer() {
   return (
     <footer className="site-footer">
-      <a href="/privacy">{FOOTER.privacy}</a>
-      <span aria-hidden>・</span>
       <a href={LAUNCH.tokushohoUrl}>{FOOTER.tokushoho}</a>
+      <span aria-hidden>・</span>
+      <a href={`mailto:${LAUNCH.supportEmail}`}>{FOOTER.contact}</a>
+      <span aria-hidden>・</span>
+      <a href={LAUNCH.companyUrl}>{FOOTER.company}</a>
+      <span aria-hidden>・</span>
+      <a href="/privacy">{FOOTER.privacy}</a>
       <span aria-hidden>・</span>
       {/* WO-022: required by VOICEVOX's terms. */}
       <span className="credit">{t('voice.credit')}</span>
@@ -127,23 +210,23 @@ export function Privacy() {
   );
 }
 
-/** After a signup: the confirmation line and the preorder block (this path counts the signup). */
+/** After a signup: the confirmation line and the courses (this path counts the signup). */
 export function Thanks() {
   return (
-    <main className="launch">
+    <main className="launch lp">
       <p className="sent">{PROPOSED.signupSent}</p>
-      <Preorder />
+      <Courses />
       <Footer />
     </main>
   );
 }
 
 /**
- * /go/preorder: counts the preorder click as a page view, then forwards to the store's preorder
- * product with the Short as UTM parameters. The link is there too, in case the forward is blocked.
+ * /go/preorder (links in older Shorts): counts the click, then forwards to the 中学受験パス product with
+ * the Short as UTM parameters. The link is there too, in case the forward is blocked.
  */
 export function GoPreorder({ short }: { short: string | null }) {
-  const href = preorderHref(LAUNCH.preorderUrl, short);
+  const href = preorderHref(LAUNCH.passes.chugaku_juken!.shopUrl, short);
   useEffect(() => {
     // A short pause lets the analytics beacon send before the page changes.
     const id = window.setTimeout(() => window.location.replace(href), 300);
@@ -152,32 +235,8 @@ export function GoPreorder({ short }: { short: string | null }) {
   return (
     <main className="launch">
       <a className="primary" href={href}>
-        {PREORDER.button}
+        {LANDING.buy}
       </a>
     </main>
-  );
-}
-
-/**
- * Planned Passes (status: planned in bundle.passes) as waitlist cards: 「準備中・先行登録受付中」 and an
- * email form tagged waitlist:<pass id>. No price, no checkout, no delivery date (ADR-003 §3).
- */
-export function Waitlist() {
-  const planned = (loadBundle().passes ?? []).filter((p) => p.status === 'planned');
-  if (planned.length === 0) return null;
-  return (
-    <section className="waitlist">
-      <h2>{WAITLIST.heading}</h2>
-      <div className="waitlist-cards">
-        {planned.map((p) => (
-          <article key={p.id} className="waitlist-card" data-pass={p.id}>
-            <span className="badge">{WAITLIST.badge}</span>
-            <h3>{p.title_ja}</h3>
-            {p.audience_ja && <p className="audience">{p.audience_ja}</p>}
-            <Signup short={null} title={WAITLIST.lead} tags={waitlistTags(p.id)} stay button={WAITLIST.button} className="signup waitlist-form" />
-          </article>
-        ))}
-      </div>
-    </section>
   );
 }

@@ -9,7 +9,7 @@ koukou_juken:
   product_en: Middle School Breakthrough
   audience_ja: 中1〜中3・高校受験
   card_stages: [chugaku]
-  status: planned             # waitlist (先行登録) until reviewed lessons exist; ADR-004 lens map is provisional
+  status: live                # WO-024: on sale Oct 16
   sku: LENS-KJ-12M
   lesson_target: 5
   levels: {1: 基礎, 2: 標準, 3: 応用, 4: 発展}

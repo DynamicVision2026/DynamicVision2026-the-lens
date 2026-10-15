@@ -1,9 +1,10 @@
 // /pass/:passId — the lens case: one tile per lesson (lens icon, name, hint, problem dots).
-// Everything from bundle.passes; planned Passes show 準備中.
+// Everything from bundle.passes. A Pass not unlocked on this device (WO-024 access link) shows its
+// lessons locked, with the way to buy or open it.
 import { LensIcon, loadBundle, tokens, type LensOrDirect } from '@lens/scenes';
 import { t } from '../i18n/ja';
 import { navigate } from '../launch/navigate';
-import { lessonsOpen, previewOn } from './access';
+import { passOpen } from './access';
 import { sfx } from './fx';
 import { findPass, lessonProblems } from './lessons';
 import { lessonEntry } from './masterclass';
@@ -18,9 +19,8 @@ export function CaseView({ passId }: { passId: string }) {
   const bundle = loadBundle();
   const pass = findPass(bundle, passId);
   if (!pass) return <main className="course">{t('lesson.notFound')}</main>;
-  const open = lessonsOpen();
-  // A planned Pass (waitlist, ADR-003 §3) shows 準備中 to the public even once its first lessons exist; preview sees them.
-  if (pass.lessons.length === 0 || (pass.status === 'planned' && !previewOn()))
+  const open = passOpen(pass.id);
+  if (pass.lessons.length === 0)
     return (
       <main className="course">
         <div className="brand">
@@ -36,6 +36,16 @@ export function CaseView({ passId }: { passId: string }) {
         <span className="tag">{pass.title_ja}</span>
       </div>
       <p className="lede">{open ? t('case.lede') : t('case.locked')}</p>
+      {!open && (
+        <p className="lede">
+          <a className="go" href="/#courses">
+            {t('case.buy')}
+          </a>{' '}
+          <a className="go ghost" href="/#access">
+            {t('case.owned')}
+          </a>
+        </p>
+      )}
       {open && <Measure passId={pass.id} />}
       <div className="case">
         {pass.lessons.map((lesson) => {

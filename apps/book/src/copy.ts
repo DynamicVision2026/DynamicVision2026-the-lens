@@ -47,7 +47,7 @@ export function circled(n: number): string {
 }
 
 /** The back-cover QR target (WO-021 §3). */
-export const SITE_URL = 'https://domo-ai.com/lens/';
+export const SITE_URL = 'https://lens.domo-ai.com/';
 
 /** Where a long book title breaks onto a second line (the cover and title page never break mid-word). */
 export const TITLE_BREAK_BEFORE = 'ワークブック';

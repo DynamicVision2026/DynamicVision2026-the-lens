@@ -9,7 +9,7 @@ daigaku_juken:
   product_en: High School Analytical
   audience_ja: 高1〜高3・共通テスト／個別試験
   card_stages: [koko]
-  status: planned
+  status: live                # WO-024: on sale Oct 16
   sku: LENS-DJ-12M
   lesson_target: 5
   levels: {1: 基礎, 2: 標準, 3: 応用, 4: 発展}

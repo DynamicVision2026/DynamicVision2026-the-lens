@@ -9,7 +9,7 @@ chugaku_juken:
   product_en: Elementary Sprint
   audience_ja: 小4〜小6・中学受験
   card_stages: [shogakko]
-  status: building            # building → preorder → live
+  status: live                # building → preorder → live (WO-024: on sale Oct 16)
   sku: LENS-CJ-12M            # Shopify variant SKU; the access Worker maps SKU → pass
   price_jpy: 9800
   early_price_jpy: 6800        # founder edition: first 30 families only; then price_jpy (Brian, Oct 13)
