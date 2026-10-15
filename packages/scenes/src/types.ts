@@ -496,6 +496,23 @@ export interface TypeScaleToken {
   family?: 'family_ja' | 'family_num' | 'family_hand';
 }
 
+export interface LandingColors {
+  ground: ColorToken;
+  card: ColorToken;
+  navy: ColorToken;
+  navy_soft: ColorToken;
+  text: ColorToken;
+  muted: ColorToken;
+  on_navy: ColorToken;
+  line: ColorToken;
+  accent: ColorToken;
+  trap_time: ColorToken;
+  band_chugaku: ColorToken;
+  band_koukou: ColorToken;
+  band_daigaku: ColorToken;
+  lens_tint_opacity: number;
+}
+
 export interface Tokens {
   version: string;
   color: {
@@ -519,6 +536,8 @@ export interface Tokens {
     line?: ColorToken;
     grid_minor?: ColorToken;
     grid_major?: ColorToken;
+    /** WO-024: the landing page (approved Lens.dc.html artboard). Screen only. */
+    landing?: LandingColors;
   };
   stroke: {
     unit: string;
@@ -535,6 +554,8 @@ export interface Tokens {
     family_ja: string;
     family_num: string;
     family_hand: string;
+    /** WO-024: the landing page's font (Zen Kaku Gothic New), loaded on that route only. */
+    family_landing?: string;
     scale: Record<
       'display' | 'title' | 'problem' | 'step' | 'scratch' | 'label' | 'trigger',
       TypeScaleToken

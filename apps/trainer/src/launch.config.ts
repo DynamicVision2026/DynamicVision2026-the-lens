@@ -5,6 +5,7 @@ export const LAUNCH = {
   tokushohoUrl: 'https://soul-id-2.myshopify.com/policies/legal-notice', // 特定商取引法 page on the store
   supportEmail: 'info@domo-ai.com', // お問い合わせ (footer, wrong access link)
   companyUrl: 'https://beyondculture.ai', // 運営会社
+  coverUrl: 'https://domo-ai.com', // the cover page with both products (footer 「domo-ai.com トップへ」)
   cfAnalyticsToken: '', // Cloudflare Web Analytics; empty = no script
   lessonsPublic: false, // WO-024: kept for the free /check only; lessons open per Pass (access links) or with ?preview=1
   /**

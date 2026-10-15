@@ -7,6 +7,13 @@ export const ja = {
   'case.planned': '準備中',
   'case.locked': 'このコースは、ご購入後のメールのリンクをこの端末で一度ひらくと使えます。',
   'case.buy': 'コースを選ぶ',
+  // WO-024 §3a: the 3-day free trial of the first lesson.
+  'case.buyThis': 'このコースを買う',
+  'case.trialStart': '無料ではじめる（3日間）',
+  'case.trialDays': '無料体験：あと{n}日',
+  'case.trialHours': '無料体験：あと{n}時間',
+  'case.trialMore': '購入すると8つのレンズすべてがひらきます',
+  'case.trialEnded': '無料体験は終わりました',
   'case.owned': '購入済みの方',
   'case.count': '{n}問',
   'lesson.back': '← ケース',

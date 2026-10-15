@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { CaseView } from './course/CaseView';
 import { CheckView } from './course/CheckView';
-import { passOpen } from './course/access';
+import { lessonOpen, passOpen } from './course/access';
 import { LessonView } from './course/LessonView';
 import { MasterView } from './course/MasterView';
 import { PracticeView, TimedView } from './course/StepsView';
@@ -9,6 +9,7 @@ import { ReportView } from './course/ReportView';
 import { DevScenes } from './dev/DevScenes';
 import { GoPreorder, Landing, Privacy, Thanks } from './launch/Landing';
 import { Open } from './launch/Open';
+import { TrialStart } from './launch/Trial';
 import { usePath } from './launch/navigate';
 import { rememberShort } from './launch/tracking';
 import { Play } from './play/Play';
@@ -41,13 +42,17 @@ export function App() {
   // A lesson: /master (step 1), the ladder (step 2), then /practice (step 3) and /timed (step 4).
   const lesson = /^\/lesson\/([\w-]+)\/([\w-]+)(?:\/(master|practice|timed))?\/?$/.exec(path);
   if (lesson) {
-    if (!passOpen(lesson[1]!)) return <CaseView passId={lesson[1]!} />;
+    // WO-024 §3a: a bought Pass opens every lesson; the free trial opens its first lesson only.
+    if (!lessonOpen(lesson[1]!, lesson[2]!)) return <CaseView passId={lesson[1]!} />;
     const [, passId, lens, step] = lesson as unknown as [string, string, string, string | undefined];
     if (step === 'master') return <MasterView key={path} passId={passId} lens={lens} />;
     if (step === 'practice') return <PracticeView key={path} passId={passId} lens={lens} />;
     if (step === 'timed') return <TimedView key={path} passId={passId} lens={lens} />;
     return <LessonView key={path} passId={passId} lens={lens} />;
   }
+  // WO-024 §3a: 「無料ではじめる（3日間）」 starts that Pass's free trial and opens its first lesson.
+  const trial = /^\/trial\/([\w-]+)\/?$/.exec(path);
+  if (trial) return <TrialStart passId={trial[1]!} />;
   // WO-024: the order email's access link.
   if (path === '/open') return <Open />;
   if (path === '/privacy') return <Privacy />;

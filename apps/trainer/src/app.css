@@ -1542,194 +1542,564 @@ html[data-theme='course'] body {
   }
 }
 
-/* ---- WO-024 landing page: one column of white cards on the Lens tokens; stacks at phone width ---- */
-.lp {
-  max-width: 820px;
-  margin: 0 auto;
-  gap: calc(var(--gutter) * 2.5);
-}
-.lp-header {
+/* ---- WO-024 landing page: the approved Lens.dc.html artboard. Colours and font arrive as --l-* variables
+   from tokens.json (color.landing, the lens colours, type.family_landing); --c is the element's lens colour. ---- */
+.lp2 {
+  background: var(--l-ground);
+  color: var(--l-navy);
+  font-family: var(--l-font);
+  min-height: 100vh;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
 }
-.lp-header .logo {
-  font-size: var(--type-title-size);
-  font-weight: var(--type-display-weight);
-}
-.lp-header .owned {
-  color: var(--ink-quiet);
-  font-size: var(--type-label-size);
-  text-decoration: none;
-  border: 1px solid var(--grid);
-  border-radius: var(--tap-target);
-  padding: 8px 14px;
-}
-.lp-hero {
-  display: grid;
-  gap: var(--gutter);
-}
-.lp-hero mark {
-  background: none;
-  color: var(--lens-enclose);
-  box-shadow: inset 0 -0.35em 0 color-mix(in srgb, var(--lens-enclose) 22%, transparent);
-}
-.lp-hero .sub {
-  font-size: var(--type-title-size);
-  font-weight: var(--type-title-weight);
-  margin: 0;
-}
-.lp-hero .lead {
-  line-height: 1.9;
-  color: var(--ink-quiet);
-  margin: 0;
-}
-.lp-band {
-  background: var(--band-bg);
-  color: var(--band-ink);
-  border-radius: var(--gutter);
-  padding: calc(var(--gutter) * 1.5);
-  display: grid;
-  gap: calc(var(--gutter) / 2);
-}
-.lp-band h2 {
-  margin: 0;
-}
-.lp-band .road {
-  margin: 0;
-  font-size: var(--type-trigger-size);
-}
-.lp-band .road.trap {
-  color: var(--band-quiet);
-}
-.lp-band .road.lens {
-  font-weight: var(--type-title-weight);
-}
-.lp-band .point {
-  margin: calc(var(--gutter) / 2) 0 0;
-}
-.lp-section h2 {
-  margin: 0 0 var(--gutter);
-}
-.lp-card {
-  background: var(--paper);
-  border: 1px solid var(--grid);
-  border-radius: var(--gutter);
-  padding: var(--gutter);
-  box-shadow: 0 2px 10px color-mix(in srgb, var(--ink) 6%, transparent);
-}
-.lp-lenses,
-.lp-steps,
-.lp-checks {
-  list-style: none;
+.lp2 main {
+  max-width: none;
   margin: 0;
   padding: 0;
 }
-.lp-lenses {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: calc(var(--gutter) / 1.5);
+.lp2 a {
+  color: var(--l-navy);
 }
-.lp-lenses .lp-card,
-.lp-steps .lp-card {
+.lp2 h1,
+.lp2 h2,
+.lp2 h3,
+.lp2 p {
+  margin: 0;
+}
+.lp2-wrap {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+.lp2 .note {
+  font-size: 14px;
+  color: var(--l-muted);
+}
+.lp2 .lead {
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--l-text);
+}
+.lp2-header {
+  padding-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.lp2-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+.lp2-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.lp2-nav a {
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 12px 14px;
+  min-height: 44px;
+  box-sizing: border-box;
+}
+.lp2-nav a.pill {
+  font-weight: 700;
+  background: var(--l-card);
+  border-radius: 999px;
+  padding: 12px 20px;
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--l-navy) 8%, transparent);
+}
+.lp2-hero {
+  padding-top: 48px;
+  padding-bottom: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 18px;
+}
+.lp2-hero .eyebrow {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--l-muted);
+}
+.lp2-hero h1 {
+  font-size: clamp(34px, 5.2vw, 60px);
+  line-height: 1.25;
+  font-weight: 900;
+  word-break: keep-all;
+}
+.lp2-hero mark {
+  color: inherit;
+  background: linear-gradient(transparent 62%, var(--l-accent) 62%);
+  padding: 0 4px;
+}
+.lp2-hero .sub {
+  font-size: 20px;
+  font-weight: 700;
+}
+.lp2-hero .lead {
+  max-width: 680px;
+  font-size: 17px;
+}
+.lp2-chips {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+.lp2-chips li {
+  background: var(--c);
+  color: var(--l-card);
+  font-weight: 900;
+  font-size: 15px;
+  border-radius: 999px;
+  padding: 8px 16px;
+}
+.lp2 .ctas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+.lp2-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 52px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 14px 28px;
+}
+.lp2 .ctas .lp2-btn {
+  min-width: 240px;
+}
+.lp2 a.lp2-btn.solid {
+  background: var(--l-navy);
+  color: var(--l-card);
+}
+.lp2 a.lp2-btn.outline {
+  background: var(--l-card);
+  color: var(--l-navy);
+  border: 2px solid var(--l-navy);
+}
+.lp2 a.lp2-btn.buy {
+  background: var(--c);
+  color: var(--l-card);
+}
+.lp2-band {
+  background: var(--l-navy);
+  color: var(--l-card);
+}
+.lp2-band .lp2-wrap {
+  padding-top: 56px;
+  padding-bottom: 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.lp2-band h2 {
+  font-size: 34px;
+  font-weight: 900;
+}
+.lp2-band .lead {
+  color: var(--l-on-navy);
+}
+.lp2-band .roads {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 20px;
+}
+.lp2-band .road {
+  border-radius: 22px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.lp2-band .road .head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+.lp2-band .road .label {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+.lp2-band .road .time {
+  font-size: 30px;
+  font-weight: 900;
+}
+.lp2-band .road p {
+  font-size: 15px;
+  line-height: 1.8;
+}
+.lp2-band .road.trap {
+  background: var(--l-navy-soft);
+}
+.lp2-band .road.trap .label {
+  color: var(--l-on-navy);
+}
+.lp2-band .road.trap .time {
+  color: var(--l-trap);
+}
+.lp2-band .road.trap p {
+  color: var(--l-on-navy);
+}
+.lp2-band .road.lens {
+  background: var(--l-card);
+  color: var(--l-navy);
+}
+.lp2-band .road.lens .label,
+.lp2-band .road.lens .time {
+  color: var(--c);
+}
+.lp2-band .point {
+  font-size: 18px;
+  font-weight: 700;
+}
+.lp2-section {
+  padding-top: 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.lp2-section.last {
+  padding-bottom: 56px;
+}
+.lp2-section h2 {
+  font-size: 30px;
+  font-weight: 900;
+}
+.lp2-card {
+  background: var(--l-card);
+  border-radius: 20px;
+  padding: 20px 24px;
+}
+.lp2-card.big {
+  border-radius: 28px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.lp2-card.big h2 {
+  font-size: 26px;
+}
+.lp2-card.big p {
+  font-size: 16px;
+  line-height: 1.9;
+}
+.lp2-card.big .note {
+  font-size: 14px;
+}
+.lp2-card.framed {
+  border: 2px solid var(--l-navy);
+}
+.lp2-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 20px;
+}
+.lp2-steps li {
+  border-radius: 22px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.lp2-card.topline {
+  border-top: 6px solid var(--c);
+}
+.lp2-steps .num {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: var(--c);
+  color: var(--l-card);
+  font-weight: 900;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lp2-steps strong {
+  font-size: 18px;
+}
+.lp2-steps p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--l-text);
+}
+.lp2-lenses {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+  gap: 16px;
+}
+.lp2-lens {
+  background: color-mix(in srgb, var(--c) var(--l-tint), var(--l-card));
+  border: 2px solid var(--c);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.lp2-lens .head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.lp2-lens strong {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--c);
+}
+.lp2-lens .free {
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--l-accent);
+  border-radius: 999px;
+  padding: 4px 10px;
+  white-space: nowrap;
+}
+.lp2-lens > span {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--l-text);
+}
+.lp2-flow {
+  margin: 0;
+  padding-left: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 16px;
+  line-height: 1.8;
+}
+.lp2-flow strong {
+  color: var(--c);
+}
+.lp2-courses-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+}
+.lp2-courses-head .launch-badge {
+  font-size: 14px;
+  font-weight: 700;
+  background: var(--l-card);
+  border-radius: 999px;
+  padding: 8px 14px;
+}
+.lp2-courses {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 24px;
+}
+.lp2-course {
+  background: var(--l-card);
+  border-radius: 28px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 0 color-mix(in srgb, var(--l-navy) 6%, transparent), 0 18px 40px -24px color-mix(in srgb, var(--l-navy) 25%, transparent);
+}
+.lp2-course .band {
+  background: var(--band);
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
   gap: 6px;
-  align-content: start;
 }
-.lp-lenses span,
-.lp-steps span {
-  font-size: var(--type-label-size);
-  color: var(--ink-quiet);
+.lp2-course .audience {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+.lp2-course h3 {
+  font-size: 26px;
+  font-weight: 900;
+}
+.lp2-course .body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+}
+.lp2-course .blurb {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--l-text);
+}
+.lp2-course .rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
   line-height: 1.6;
 }
-.lp-steps {
-  display: grid;
-  gap: calc(var(--gutter) / 1.5);
+.lp2-course .rows li {
+  display: flex;
+  gap: 10px;
 }
-.lp-steps .num {
-  color: var(--lens-enclose);
-  font-size: var(--type-title-size);
+.lp2-course .rows li span:first-child {
+  font-weight: 700;
+  min-width: 64px;
 }
-.lp-courses {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--gutter);
-}
-.lp-course {
-  display: grid;
-  gap: 6px;
-  align-content: start;
-}
-.lp-course h3,
-.lp-course p {
-  margin: 0;
-}
-.lp-course .badge {
-  justify-self: start;
-  font-size: var(--type-label-size);
-  font-weight: var(--type-title-weight);
-  color: var(--lens-enclose);
-  border: 1px solid var(--lens-enclose);
-  border-radius: 999px;
-  padding: 2px 10px;
-}
-.lp-course .audience,
-.lp-course .size,
-.lp-course .list,
-.lp-course .term {
-  font-size: var(--type-label-size);
-  color: var(--ink-quiet);
-}
-.lp-course .price strong {
-  color: var(--ink);
-}
-.lp-course .primary {
-  margin-top: calc(var(--gutter) / 2);
-}
-.lp-text p {
-  margin: 0 0 8px;
-  line-height: 1.8;
-}
-.lp-text p:last-child {
-  margin: 0;
-}
-.lp-checks li {
-  padding-left: 1.6em;
-  position: relative;
-  line-height: 2;
-}
-.lp-checks li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: var(--lens-enclose);
-  font-weight: var(--type-title-weight);
-}
-.lp-faq {
-  display: grid;
-  gap: calc(var(--gutter) / 2);
-}
-.lp-faq summary {
-  cursor: pointer;
-  font-weight: var(--type-title-weight);
-  min-height: 28px;
-}
-.lp-faq p {
-  margin: 8px 0 0;
-  line-height: 1.8;
-  color: var(--ink-quiet);
-}
-.lp .site-footer {
+.lp2-course .price {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
   flex-wrap: wrap;
+  margin-top: 4px;
 }
-.lp.open .wrong {
+.lp2-course .price strong {
+  font-size: 30px;
+  font-weight: 900;
+}
+.lp2-course .price span {
+  font-size: 14px;
+}
+.lp2-course .list {
+  font-size: 13px;
+  color: var(--l-muted);
+  margin-top: -8px;
+}
+.lp2-course .buttons {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.lp2-course .buttons .lp2-btn {
+  font-size: 16px;
+  padding: 13px 20px;
+}
+.lp2-pair {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: 24px;
+}
+.lp2-list {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 15px;
+  line-height: 1.8;
+}
+.lp2-faq {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.lp2-faq dt {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.lp2-faq dd {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--l-text);
+}
+.lp2-footer {
+  margin-top: auto;
+  border-top: 1px solid var(--l-line);
+  background: var(--l-ground);
+  font-family: var(--l-font);
+}
+.lp2-footer .lp2-wrap {
+  padding-top: 24px;
+  padding-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px 24px;
+  font-size: 13px;
+  color: var(--l-muted);
+}
+.lp2-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+}
+.lp2-footer a {
+  color: var(--l-muted);
+}
+.lp2 .sent {
+  padding-top: 32px;
+  font-weight: 700;
+}
+.lp2-open {
+  padding-top: 48px;
+  padding-bottom: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.lp2-open .wrong {
   color: var(--trap-flag);
+  font-weight: 700;
 }
-@media (max-width: 700px) {
-  .lp-lenses {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .lp-courses {
-    grid-template-columns: 1fr;
-  }
+/* The course page before purchase (WO-024 §3a): the trial's time left and the buy button. */
+.course .locked-note .trial-left {
+  font-weight: 700;
+  color: var(--lens-enclose);
+}
+.course .locked-note .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.course .locked-note .actions a.go {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  text-decoration: none;
+  background: var(--lens-enclose);
+}
+.course .locked-note .actions a.go.ghost {
+  background: var(--raise);
 }

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { openWithKey } from '../course/access';
 import { LAUNCH } from '../launch.config';
 import { OPEN } from './copy';
-import { Footer } from './Landing';
+import { Footer, PAGE_VARS } from './Landing';
 import { navigate } from './navigate';
 
 export function Open({ search = window.location.search }: { search?: string }) {
@@ -14,15 +14,21 @@ export function Open({ search = window.location.search }: { search?: string }) {
   useEffect(() => {
     if (ok) navigate(`/pass/${passId}`, { replace: true });
   }, [ok, passId]);
-  if (ok) return <main className="launch lp open">{OPEN.opening}</main>;
+  if (ok) return (
+      <div className="lp2" style={PAGE_VARS}>
+        <p className="lp2-wrap sent">{OPEN.opening}</p>
+      </div>
+    );
   return (
-    <main className="launch lp open">
-      <p className="lp-card lp-text wrong">{OPEN.wrong}</p>
-      <p>
-        {OPEN.help}
-        <a href={`mailto:${LAUNCH.supportEmail}`}>{LAUNCH.supportEmail}</a>
-      </p>
+    <div className="lp2" style={PAGE_VARS}>
+      <main className="lp2-wrap lp2-open">
+        <p className="lp2-card wrong">{OPEN.wrong}</p>
+        <p>
+          {OPEN.help}
+          <a href={`mailto:${LAUNCH.supportEmail}`}>{LAUNCH.supportEmail}</a>
+        </p>
+      </main>
       <Footer />
-    </main>
+    </div>
   );
 }
