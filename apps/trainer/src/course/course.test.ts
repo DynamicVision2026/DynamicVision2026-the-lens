@@ -11,8 +11,8 @@ describe('lesson problems (from bundle.passes)', () => {
   it('has the Stage 1 pass with its lessons', () => {
     expect(pass).toBeDefined();
     expect(pass.lessons.length).toBeGreaterThan(0);
-    // Stage 2 has its first lessons (ADR-004) but stays a waitlist: status planned → 準備中 on the public case page.
-    expect(findPass(bundle, 'koukou_juken')?.status).toBe('planned');
+    // WO-024: all three Passes are on sale (status live); each opens with its own access link.
+    for (const id of ['chugaku_juken', 'koukou_juken', 'daigaku_juken']) expect(findPass(bundle, id)?.status, id).toBe('live');
   });
 
   it.each(['enclose', 'slide', 'mirror', 'area', 'constant', 'balance', 'freeze', 'unfold'])('%s plays every anchor in catalog order, variants only as a top-up', (lens) => {
@@ -81,9 +81,10 @@ describe('i18n', () => {
   });
 });
 
-describe('planned Passes stay closed without preview (ADR-003 §3, ADR-004)', () => {
-  it('opens koukou_juken / daigaku_juken lessons only with ?preview=1', async () => {
+describe('Passes stay closed until unlocked on the device (WO-024)', () => {
+  it('opens a Pass without its access link only with ?preview=1', async () => {
     const { passOpen } = await import('./access');
+    expect(passOpen('chugaku_juken', '')).toBe(false);
     expect(passOpen('koukou_juken', '')).toBe(false);
     expect(passOpen('daigaku_juken', '')).toBe(false);
     expect(passOpen('koukou_juken', '?preview=1')).toBe(true);

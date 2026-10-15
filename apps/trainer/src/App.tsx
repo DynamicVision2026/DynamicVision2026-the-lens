@@ -8,6 +8,7 @@ import { PracticeView, TimedView } from './course/StepsView';
 import { ReportView } from './course/ReportView';
 import { DevScenes } from './dev/DevScenes';
 import { GoPreorder, Landing, Privacy, Thanks } from './launch/Landing';
+import { Open } from './launch/Open';
 import { usePath } from './launch/navigate';
 import { rememberShort } from './launch/tracking';
 import { Play } from './play/Play';
@@ -47,8 +48,10 @@ export function App() {
     if (step === 'timed') return <TimedView key={path} passId={passId} lens={lens} />;
     return <LessonView key={path} passId={passId} lens={lens} />;
   }
+  // WO-024: the order email's access link.
+  if (path === '/open') return <Open />;
   if (path === '/privacy') return <Privacy />;
   if (path === '/thanks') return <Thanks />;
   if (path === '/go/preorder') return <GoPreorder short={short} />;
-  return <Landing short={short} />;
+  return <Landing />;
 }

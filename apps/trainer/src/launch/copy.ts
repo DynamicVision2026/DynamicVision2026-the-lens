@@ -1,17 +1,57 @@
-// Launch copy (WO-009, WO-010 Masterclass copy and the founder pricing from the #52 check), as
-// written by the Architect. Do not edit without the Architect. Prices, seats, term and devices come
-// from bundle.passes, so the copy can't drift from the catalog.
+// Launch copy (WO-009, WO-013, WO-024), as written by the Architect. Do not edit without the Architect.
+/**
+ * WO-024: the 視点レンズ landing page (same section order as the ナゼホリ standard), as written by the
+ * Architect. The trap/lens times and every course number come from the bundle, never from here.
+ */
 export const LANDING = {
-  eyebrow: '中学受験の算数',
-  h1: '計算する前に、「見方」を選ぶ。',
-  sub: '同じ問題でも、見方を変えると30秒で解ける。『視点レンズ』は、その"見方"を1つずつ身につける算数トレーナーです。',
-  heroCaption: 'ななめの四角形の面積も、「囲む」と見えればすぐに出せる。',
-  start: '無料でためす（3分）',
-  points: [
-    '8回のマスタークラス：1回に1つのレンズ（囲む・ずらす・展開・止める・てんびん・面積図・折り返す・差一定）',
-    '解き方の前に「どのレンズか」を選ぶ練習。まちがえても、なぜちがうかが分かる。',
-    'かかった時間を記録。同じ型の問題で、どれだけ速くなったかが分かる。',
-  ],
+  logo: '視点レンズ',
+  owned: '購入済みの方',
+  h1: ['解き方の前に、', '見方を変える', '。'] as const,
+  sub: '最初の一手を選ぶ力を、30日で。',
+  lead: 'むずかしい問題で手が止まるのは、計算力ではなく『どこから見るか』が決まっていないから。視点レンズは、遠回りの『罠の道』と、見方を変える『レンズの道』を並べて、最初の一手を選ぶ練習をします。',
+  choose: 'コースを選ぶ',
+  check: '3分の無料チェック',
+  twoRoads: '同じ問題、2つの道。',
+  /** {t}: the card's trap / lens time (「約4分」, 「約30秒」). */
+  trapRoad: (time: string) => `罠の道：式を立てて、場合分けして、${time}。`,
+  lensRoad: (time: string) => `レンズの道：見方を1つ変えて、${time}。`,
+  roadsPoint: '速さの差は、才能ではなく『最初の一手』の差です。',
+  lenses: '8つのレンズ',
+  lesson: '1つのレンズの進みかた',
+  lessonSteps: [
+    ['マスタークラス（6分・音声つき）', '例題2問と「使えないとき」'],
+    ['練習', '5問、ヒントなしで「どのレンズ？」'],
+    ['4週間後のレポート', '判断時間の変化を保護者に'],
+  ] as const,
+  courses: 'コースを選ぶ',
+  founder: '創設メンバー30席 ¥6,800（税込）',
+  list: '通常価格 ¥9,800',
+  term: '12か月利用・自動更新なし',
+  buy: 'このコースを買う',
+  badge: '2026年10月16日 公開',
+  /** 「8レッスン・80問」 from bundle.passes. */
+  size: (lessons: number, problems: number) => `${lessons}レッスン・${problems}問`,
+  parents: 'おうちの方へ',
+  parentsLines: ['答えを教える教材ではありません。答えに入る前の『見方』を練習します。', '点数や合格を保証するものではありません。'],
+  safety: '安心のために',
+  safetyLines: ['アプリの中でAIにはつながりません', 'お子さんが個人情報を入力する場面はありません', '広告・ランキングはありません', 'ブラウザだけで使えます（iPad・スマホ・PC）'],
+  access: '購入済みの方',
+  accessLine: 'ご購入後のメールにある『コースをひらく』リンクを、使う端末で一度ひらいてください。その端末でコースがひらきます。ほかの端末でも、同じリンクをひらけば使えます。',
+  faq: 'よくある質問',
+  faqs: [
+    ['返金は？', 'ご購入から8日以内で、レッスンを一度も開いていない場合は全額返金。詳しくは特商法ページ'],
+    ['どの端末で？', 'ブラウザだけで使えます（iPad・スマホ・PC）'],
+    ['何年生から？', '中学受験：小5〜小6、高校受験：中1〜中3、大学受験：高1〜高3'],
+    ['自動更新は？', 'ありません'],
+    ['支払い方法は？', 'Shopifyの決済：クレジットカード、Apple Pay、Google Pay、Shop Pay、PayPal'],
+  ] as const,
+} as const;
+
+/** WO-024 /open: the access link's answer when the key doesn't match. */
+export const OPEN = {
+  wrong: 'リンクが正しくありません。ご購入時のメールのリンクをもう一度ひらいてください。',
+  help: 'ひらけないときは、こちらへご連絡ください：',
+  opening: 'コースをひらいています…',
 } as const;
 
 export const SIGNUP = {
@@ -19,33 +59,11 @@ export const SIGNUP = {
   consent: '登録すると、視点レンズからのお知らせメールを受け取ることに同意したことになります。いつでも解除できます。',
 } as const;
 
-const yen = (n: number) => `¥${n.toLocaleString('ja-JP')}`;
-
-/** The founder offer (Architect, #52): no struck-through "regular" price before it has been charged. */
-export const PREORDER = {
-  title: (seats: number) => `創設メンバー募集（先着${seats}家庭）`,
-  stage: '中学受験パス（新小5・新小6）',
-  price: (early: number, seats: number, list: number) => `創設メンバー価格 ${yen(early)}（先着${seats}家庭）。${seats + 1}家庭目からは通常価格 ${yen(list)}`,
-  /** Proposed wording for the seats-left line (the number comes from launch.config.ts). */
-  seatsLeft: (n: number) => `残り ${n} 家庭`,
-  includes: (termMonths: number, devices: number) => [
-    '8回のマスタークラス（1回に1つのレンズ）',
-    '各回4ステップ：さわって学ぶ（約6分）→ いっしょに発見 → ひとりで練習 → 時間をはかって確認',
-    '4週間完成スケジュール（PDF）と保護者ガイドつき',
-    '各レンズ10問以上、基礎から発展まで（全80問以上・すべてオリジナル問題）',
-    '同じ型の練習問題は何度でも（数字が毎回かわります）',
-    '「このレンズが使えない問題」と「レンズを使わない方が速い問題」つき',
-    '総まとめ：8つのレンズを混ぜた「どのレンズ？」問題',
-    '保護者レポート：かかった時間と、得意・苦手なレンズ',
-    `${termMonths === 12 ? '1年間' : `${termMonths}か月`}・${devices}台まで利用できます`,
-  ],
-  delivery: '創設メンバーには、完成したレンズから順に先行公開します（11月中旬開始予定）。全内容は2027年1月31日までにお届けし、間に合わない場合は全額返金します。',
-  button: '先行予約する',
-} as const;
-
 export const FOOTER = {
   privacy: 'プライバシー',
   tokushoho: '特定商取引法に基づく表記',
+  contact: 'お問い合わせ',
+  company: '運営会社',
 } as const;
 
 export const PRIVACY = [
@@ -61,15 +79,4 @@ export const PROPOSED = {
   signupSent: '登録を受け付けました。開いたページで完了してください。',
   /** WO-013: the free check from the landing page. */
   checkLink: 'どのレンズ？チェック（無料・8問）',
-} as const;
-
-/**
- * Stage 2 and 3 waitlist (ADR-003 §3, Brian Oct 13: 先行登録 only at launch). The badge is the ADR's
- * wording; the heading, lead and button are proposed. No price, no checkout, no delivery date.
- */
-export const WAITLIST = {
-  heading: '高校受験・大学受験のパスも準備中です',
-  badge: '準備中・先行登録受付中',
-  lead: '公開のときに、いちばん先にメールでお知らせします。',
-  button: '先行登録する',
 } as const;

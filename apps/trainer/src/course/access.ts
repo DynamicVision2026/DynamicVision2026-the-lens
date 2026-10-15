@@ -1,32 +1,53 @@
-// Access stub (WO-010) until the December access Worker: lessons open only when lessonsPublic is
-// set, or with ?preview=1 (dev and Architect review), remembered for this tab.
-import { loadBundle } from '@lens/scenes';
+// Access (WO-024): a soft lock with no server and no account. The order email's link
+// /open?p=<pass>&k=<key> unlocks that Pass on this device (localStorage lens.v1.unlock.<pass>); if
+// storage is blocked, it stays unlocked in memory for this visit. ?preview=1 (dev and Architect review)
+// opens every Pass for the tab. The free 3-minute check is always open.
 import { LAUNCH } from '../launch.config';
-import { findPass } from './lessons';
 
-const KEY = 'lens.v1.preview';
+const PREVIEW = 'lens.v1.preview';
+const unlockKey = (passId: string) => `lens.v1.unlock.${passId}`;
+/** Unlocks that could not be stored (private mode, blocked storage): good for this visit. */
+const memory = new Set<string>();
 
-/** ?preview=1 seen in this tab (dev and Architect review), regardless of lessonsPublic. */
+/** ?preview=1 seen in this tab (dev and Architect review). */
 export function previewOn(search: string = window.location.search): boolean {
   try {
-    if (new URLSearchParams(search).get('preview') === '1') window.sessionStorage.setItem(KEY, '1');
-    return window.sessionStorage.getItem(KEY) === '1';
+    if (new URLSearchParams(search).get('preview') === '1') window.sessionStorage.setItem(PREVIEW, '1');
+    return window.sessionStorage.getItem(PREVIEW) === '1';
   } catch {
     return new URLSearchParams(search).get('preview') === '1';
   }
 }
 
-export function lessonsOpen(search: string = window.location.search): boolean {
-  if (LAUNCH.lessonsPublic) return true;
-  return previewOn(search);
+/** This Pass was unlocked on this device (an access link). */
+export function unlocked(passId: string): boolean {
+  if (memory.has(passId)) return true;
+  try {
+    return window.localStorage.getItem(unlockKey(passId)) === '1';
+  } catch {
+    return false;
+  }
 }
 
-/**
- * Lessons of one Pass. A `planned` Pass (waitlist, ADR-003 §3) opens only with preview, even after
- * Stage 1 goes public, so Stage 2/3 seed content never reaches families before it is sold and reviewed.
- */
+/** The access link: unlocks only the Pass whose key matches. Returns whether it did. */
+export function openWithKey(passId: string | null, key: string | null): boolean {
+  const pass = passId ? LAUNCH.passes[passId] : undefined;
+  if (!pass || !key || key !== pass.key) return false;
+  memory.add(passId!);
+  try {
+    window.localStorage.setItem(unlockKey(passId!), '1');
+  } catch {
+    // Storage blocked: the memory copy keeps it open for this visit.
+  }
+  return true;
+}
+
+/** Lessons of one Pass: open once unlocked on this device, or with preview. */
 export function passOpen(passId: string, search: string = window.location.search): boolean {
-  const pass = findPass(loadBundle(), passId);
-  if (pass?.status === 'planned') return previewOn(search);
-  return lessonsOpen(search);
+  return unlocked(passId) || previewOn(search);
+}
+
+/** For tests: forget the in-memory unlocks. */
+export function resetAccessMemory() {
+  memory.clear();
 }

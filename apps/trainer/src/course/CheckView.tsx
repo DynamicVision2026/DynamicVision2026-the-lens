@@ -7,7 +7,7 @@
 import { hasScene, LensScene, loadBundle, type LensCard } from '@lens/scenes';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { t } from '../i18n/ja';
-import { Footer, Preorder } from '../launch/Landing';
+import { Courses, Footer } from '../launch/Landing';
 import { LAUNCH } from '../launch.config';
 import { Signup } from '../launch/Signup';
 import { checkTags, xShareHref } from '../launch/tracking';
@@ -265,7 +265,7 @@ function Result({ answers, short, onAgain }: { answers: CheckAnswer[]; short: st
           {t('check.shareX')}
         </a>
       </div>
-      <Preorder />
+      <Courses />
       <Footer />
     </div>
   );

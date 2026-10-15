@@ -1,11 +1,20 @@
-// Launch settings (WO-009), filled in by the founder. Nothing else in the app holds these values.
+// Launch settings (WO-009, WO-024), filled in by the founder. Nothing else in the app holds these values.
 export const LAUNCH = {
-  siteUrl: 'https://domo-ai.com', // public site origin (Brian, Oct 13): free check at /check, X referrals at /check?s=x
+  siteUrl: 'https://lens.domo-ai.com', // WO-024: 視点レンズ's own Cloud Run service (free check at /check, X referrals at /check?s=x)
   shopDomain: 'soul-id-2.myshopify.com', // Shopify store (customer signup form posts here)
-  preorderUrl: 'https://soul-id-2.myshopify.com/products/lens-chugaku', // ¥6,800 preorder product (SKU LENS-CJ-12M, 30 founder seats)
   tokushohoUrl: 'https://soul-id-2.myshopify.com/policies/legal-notice', // 特定商取引法 page on the store
+  supportEmail: 'info@domo-ai.com', // お問い合わせ (footer, wrong access link)
+  companyUrl: 'https://beyondculture.ai', // 運営会社
   cfAnalyticsToken: '', // Cloudflare Web Analytics; empty = no script
-  lessonsPublic: false, // WO-010: lessons stay locked (preview with ?preview=1) until launch
-  passId: 'chugaku_juken', // the Pass the landing page sells (prices and seats from bundle.passes)
+  lessonsPublic: false, // WO-024: kept for the free /check only; lessons open per Pass (access links) or with ?preview=1
+  /**
+   * WO-024: each Pass's Shopify product and its access key. The order email links to
+   * /open?p=<pass>&k=<key>, which unlocks that Pass on the device (a soft lock: no server, no account).
+   */
+  passes: {
+    chugaku_juken: { shopUrl: 'https://soul-id-2.myshopify.com/products/lens-chugaku', key: 'lU10SnCeU4RpgZ6V' },
+    koukou_juken: { shopUrl: 'https://soul-id-2.myshopify.com/products/lens-koukou', key: 'HBG7TQ4Jnt4804OD' },
+    daigaku_juken: { shopUrl: 'https://soul-id-2.myshopify.com/products/lens-daigaku', key: 'sviD6C7uRGo3zUSs' },
+  } as Record<string, { shopUrl: string; key: string }>,
   founderSeatsLeft: null as number | null, // founder updates as orders come in; null hides the line
 };

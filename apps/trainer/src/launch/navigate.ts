@@ -4,9 +4,11 @@ import { useEffect, useState } from 'react';
 
 const EVENT = 'lens:navigate';
 
-export function navigate(path: string): void {
+/** `replace`: swap the current entry (e.g. /open?k=… so the key doesn't stay in the history). */
+export function navigate(path: string, opts: { replace?: boolean } = {}): void {
   if (window.location.pathname === path) return;
-  window.history.pushState(null, '', path);
+  if (opts.replace) window.history.replaceState(null, '', path);
+  else window.history.pushState(null, '', path);
   window.dispatchEvent(new Event(EVENT));
 }
 
@@ -16,6 +18,8 @@ export function usePath(): string {
     const update = () => setPath(window.location.pathname);
     window.addEventListener('popstate', update);
     window.addEventListener(EVENT, update);
+    // A child's effect may navigate before this one subscribes (child effects run first): catch up.
+    update();
     return () => {
       window.removeEventListener('popstate', update);
       window.removeEventListener(EVENT, update);

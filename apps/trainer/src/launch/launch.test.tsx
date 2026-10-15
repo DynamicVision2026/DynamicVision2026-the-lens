@@ -2,11 +2,11 @@ import { loadBundle } from '@lens/scenes';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { LAUNCH } from '../launch.config';
-import { FOOTER, LANDING, PREORDER, PRIVACY, SIGNUP, WAITLIST } from './copy';
-import { Landing, Privacy, Waitlist } from './Landing';
+import { FOOTER, LANDING, PRIVACY, SIGNUP } from './copy';
+import { aboutTime, Landing, passSize, Privacy, roadsCard } from './Landing';
 import { Signup } from './Signup';
 import { t } from '../i18n/ja';
-import { beaconConfig, checkTags, preorderHref, shortFrom, signupAction, signupTags, waitlistTags, xShareHref } from './tracking';
+import { beaconConfig, checkTags, preorderHref, shortFrom, signupAction, signupTags, xShareHref } from './tracking';
 
 describe('Short tracking', () => {
   it('reads ?s=<card-id> and ignores anything else', () => {
@@ -84,72 +84,75 @@ describe('signup form', () => {
   });
 });
 
-describe('landing and privacy copy', () => {
-  it('renders every WO-009 line on the landing page', () => {
-    const html = renderToStaticMarkup(<Landing short={null} />).replace(/<wbr\/>/g, '');
-    for (const line of [LANDING.eyebrow, LANDING.h1, LANDING.heroCaption, LANDING.start, ...LANDING.points, PREORDER.stage, PREORDER.delivery, PREORDER.button, FOOTER.privacy, FOOTER.tokushoho]) {
-      expect(html).toContain(line.replace(/"/g, '&quot;'));
+describe('landing page (WO-024)', () => {
+  const html = renderToStaticMarkup(<Landing />);
+  const text = html.replace(/<[^>]+>/g, '').replace(/&#x27;/g, "'").replace(/&quot;/g, '"');
+  const passes = loadBundle().passes!;
+
+  it('renders every section in the WO order, with the Architect\'s copy', () => {
+    const order = [LANDING.logo, LANDING.owned, LANDING.h1.join(''), LANDING.sub, LANDING.lead, LANDING.twoRoads, LANDING.roadsPoint, LANDING.lenses, LANDING.lesson, LANDING.courses, LANDING.parents, LANDING.safety, LANDING.access, LANDING.faq, FOOTER.tokushoho];
+    let at = -1;
+    for (const line of order) {
+      const k = text.indexOf(line, at + 1);
+      expect(k, line).toBeGreaterThan(at);
+      at = k;
     }
-    expect(html).toContain(LANDING.sub.replace(/"/g, '&quot;'));
-    expect(html).toContain('href="/play/enclose-001"');
+    for (const line of [...LANDING.parentsLines, ...LANDING.safetyLines, LANDING.accessLine, ...LANDING.lessonSteps.flat(), ...LANDING.faqs.flat().map((s) => s.replace('特商法ページ', ''))]) expect(text).toContain(line);
+    expect(html).toContain(`<mark>${LANDING.h1[1]}</mark>`);
+    expect(html).toContain('href="#courses"');
+    expect(html).toContain('href="/check"');
+    expect(html).toContain('href="#access"');
+    expect(html).toContain('id="access"');
+  });
+
+  it('quotes the trap and lens times of chugaku_juken enclose example 1 from the bundle', () => {
+    const card = roadsCard()!;
+    const pass = passes.find((p) => p.id === 'chugaku_juken')!;
+    expect(card.id).toBe(pass.lessons.find((l) => l.lens === 'enclose')!.masterclass!.example1);
+    expect(text).toContain(LANDING.trapRoad(aboutTime(card.trap_route.time_cost_sec)));
+    expect(text).toContain(LANDING.lensRoad(aboutTime(card.lens_route.time_cost_sec)));
+    expect(aboutTime(240)).toBe('約4分');
+    expect(aboutTime(30)).toBe('約30秒');
+  });
+
+  it('shows the 8 lenses from labels (not the direct move)', () => {
+    const lenses = loadBundle().labels.lenses;
+    const ids = [...html.matchAll(/data-lens="(\w+)"/g)].map((m) => m[1]);
+    expect(ids).toHaveLength(8);
+    expect(ids).not.toContain('direct');
+    for (const id of ids) expect(text).toContain(lenses[id!]!.hint_ja);
+  });
+
+  it('sells all three courses, each button going to its own Shopify product', () => {
+    expect(passes.map((p) => p.id).sort()).toEqual(['chugaku_juken', 'daigaku_juken', 'koukou_juken']);
+    const cards = [...html.matchAll(/<article class="lp-card lp-course" data-pass="(\w+)">([\s\S]*?)<\/article>/g)];
+    expect(cards.map((m) => m[1])).toEqual(passes.map((p) => p.id));
+    for (const [, id, body] of cards) {
+      const p = passes.find((x) => x.id === id)!;
+      const size = passSize(p);
+      expect(body).toContain(p.title_ja);
+      expect(body).toContain(p.audience_ja!);
+      expect(body).toContain(LANDING.size(size.lessons, size.problems));
+      for (const line of [LANDING.founder, LANDING.list, LANDING.term, LANDING.badge, LANDING.buy]) expect(body).toContain(line);
+      expect(body).toContain(`href="${LAUNCH.passes[id!]!.shopUrl}"`);
+    }
+    expect(new Set(Object.values(LAUNCH.passes).map((p) => p.shopUrl)).size).toBe(3);
+  });
+
+  it('has no waitlist, 準備中 or preorder left', () => {
+    for (const banned of ['準備中', '先行登録', '先行予約', 'waitlist', '/go/preorder']) expect(html, banned).not.toContain(banned);
+  });
+
+  it('links the footer: 特商法, contact, company, VOICEVOX credit', () => {
     expect(html).toContain(`href="${LAUNCH.tokushohoUrl}"`);
-    expect(html).toContain('<svg'); // the enclose-001 hero
-  });
-
-  it("doesn't give away the Free Lens answer in the hero", () => {
-    const html = renderToStaticMarkup(<Landing short={null} />);
-    expect(html).not.toContain('19.5');
-  });
-
-  it('breaks the H1 only after 「、」 and 「を」, keeping 「選ぶ。」 together', () => {
-    const html = renderToStaticMarkup(<Landing short={null} />);
-    const h1 = /<h1>(.*?)<\/h1>/.exec(html)![1]!;
-    expect(h1.split('<wbr/>')).toEqual(['計算する前に、', '「見方」を', '選ぶ。']);
-  });
-
-  it('shows the founder offer with the numbers from the bundle, and no struck-through price', () => {
-    const pass = loadBundle().passes!.find((p) => p.id === LAUNCH.passId)!;
-    const html = renderToStaticMarkup(<Landing short={null} />);
-    expect(html).not.toContain('<s>');
-    expect(html).toContain('創設メンバー募集（先着30家庭）');
-    expect(html).toContain('創設メンバー価格 ¥6,800（先着30家庭）。31家庭目からは通常価格 ¥9,800');
-    expect(html).toContain(PREORDER.price(pass.early_price_jpy!, pass.founder_seats!, pass.price_jpy!));
-    expect(html).toContain('1年間・3台まで利用できます');
-    for (const line of PREORDER.includes(pass.term_months!, pass.devices!)) expect(html).toContain(line);
-    // The seats-left line only shows once the founder sets the count.
-    expect(LAUNCH.founderSeatsLeft).toBeNull();
-    expect(html).not.toContain('残り');
+    expect(html).toContain('href="mailto:info@domo-ai.com"');
+    expect(html).toContain('href="https://beyondculture.ai"');
+    expect(text).toContain(t('voice.credit'));
+    expect(LAUNCH.siteUrl).toBe('https://lens.domo-ai.com');
   });
 
   it('renders the privacy note', () => {
     const html = renderToStaticMarkup(<Privacy />);
     for (const line of PRIVACY) expect(html).toContain(line);
-  });
-});
-
-describe('waitlist cards for planned Passes (ADR-003 §3)', () => {
-  const planned = loadBundle().passes!.filter((p) => p.status === 'planned');
-  const html = renderToStaticMarkup(<Waitlist />);
-  const section = html;
-
-  it('has one card per planned Pass, with the badge and an email form tagged waitlist:<id>', () => {
-    expect(planned.map((p) => p.id)).toEqual(expect.arrayContaining(['koukou_juken', 'daigaku_juken']));
-    for (const p of planned) {
-      expect(html).toContain(`data-pass="${p.id}"`);
-      expect(html).toContain(p.title_ja);
-      expect(html).toContain(`value="${waitlistTags(p.id)}"`);
-    }
-    expect(html.split(WAITLIST.badge).length - 1).toBe(planned.length);
-    expect(html.split(`action="${signupAction(LAUNCH.shopDomain)}"`).length - 1).toBe(planned.length);
-    expect(waitlistTags('koukou_juken')).toBe('waitlist:koukou_juken');
-  });
-
-  it('shows no price, checkout or delivery date', () => {
-    for (const banned of ['¥', '円', PREORDER.button, PREORDER.delivery, '/go/preorder', 'preorder']) expect(section, banned).not.toContain(banned);
-  });
-
-  it('sits on the landing page after the founder offer', () => {
-    const landing = renderToStaticMarkup(<Landing short={null} />);
-    expect(landing.indexOf('class="waitlist"')).toBeGreaterThan(landing.indexOf('preorder-block'));
   });
 });
