@@ -4,6 +4,7 @@
 // and the clue; no solving. Each first pick is timed. Then the result for the parent, the email form,
 // the X share and the founder offer. Nothing leaves the device unless the parent submits the email
 // form (tags: free-check + top confusion) or taps the X share (score and average seconds only).
+// WO-025: when analytics is configured, GA4 counts only that the check finished (check_complete, no answers).
 import { hasScene, LensScene, loadBundle, type LensCard } from '@lens/scenes';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { t } from '../i18n/ja';
@@ -17,6 +18,7 @@ import { GuideOverlay, GuideProvider, useGuide } from './guide';
 import { findPass, problemMode } from './lessons';
 import { baseline, readAttempts, week4Problems, type AttemptCtx } from './attempts';
 import { AttemptContext, useAttemptScope } from './attemptContext';
+import { track } from '../launch/analytics';
 import { navigate } from '../launch/navigate';
 import { ClueCard, PickCard, usePickClue } from './PickClue';
 import { firstTime } from './progress';
@@ -45,8 +47,12 @@ export function CheckView({ short, mode = 'free', passId = PASS }: { short: stri
   }, [pass, round, mode]);
   const scope = useAttemptScope(CTX[mode], passId, round);
   const [answers, setAnswers] = useState<CheckAnswer[]>([]);
+  const done = problems.length > 0 && answers.length >= problems.length;
+  // WO-025: the free check finished (not the course's drill or checks).
+  useEffect(() => {
+    if (done && mode === 'free') track({ name: 'check_complete' });
+  }, [done, mode]);
   if (!pass || problems.length === 0) return <main className="course">{t('lesson.notFound')}</main>;
-  const done = answers.length >= problems.length;
   const card = problems[Math.min(answers.length, problems.length - 1)]!;
   const again = () => {
     setAnswers([]);

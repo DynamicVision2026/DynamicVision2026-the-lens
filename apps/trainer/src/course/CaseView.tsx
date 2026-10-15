@@ -3,6 +3,7 @@
 // lessons locked, with the way to buy or open it.
 import { LensIcon, loadBundle, tokens, type LensOrDirect } from '@lens/scenes';
 import { t } from '../i18n/ja';
+import { track } from '../launch/analytics';
 import { navigate } from '../launch/navigate';
 import { LAUNCH } from '../launch.config';
 import { passOpen, trialLens, trialState, type TrialState } from './access';
@@ -103,7 +104,7 @@ function Locked({ passId, trial }: { passId: string; trial: TrialState }) {
       {trial.status === 'active' && <p className="trial-left">{trialLeft(trial.msLeft)}</p>}
       <p className="lede">{trial.status === 'active' ? t('case.trialMore') : trial.status === 'ended' ? t('case.trialEnded') : t('case.locked')}</p>
       <p className="lede actions">
-        <a className="go" href={shop}>
+        <a className="go" href={shop} onClick={() => track({ name: 'select_course', params: { pass: passId } })}>
           {t('case.buyThis')}
         </a>{' '}
         {trial.status === 'none' && (

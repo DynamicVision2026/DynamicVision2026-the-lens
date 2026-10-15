@@ -7,7 +7,8 @@
 import { color, getCard, loadBundle, tokens, type LensId, type Pass } from '@lens/scenes';
 import { Fragment, useEffect, type CSSProperties } from 'react';
 import { LAUNCH } from '../launch.config';
-import { FOOTER, LANDING, PRIVACY, PROPOSED } from './copy';
+import { track } from './analytics';
+import { EXTERNAL, FOOTER, LANDING, PRIVACY, PROPOSED } from './copy';
 import { preorderHref } from './tracking';
 
 const L = tokens.color.landing!;
@@ -300,7 +301,7 @@ export function Courses() {
                 </p>
                 <p className="list">{LANDING.list}</p>
                 <div className="buttons">
-                  <a className="lp2-btn buy" href={LAUNCH.passes[p.id]!.shopUrl}>
+                  <a className="lp2-btn buy" href={LAUNCH.passes[p.id]!.shopUrl} onClick={() => track({ name: 'select_course', params: { pass: p.id } })}>
                     {LANDING.buy}
                   </a>
                   <a className="lp2-btn outline" href={`/trial/${p.id}`}>
@@ -328,6 +329,7 @@ export function Footer() {
           <a href={`mailto:${LAUNCH.supportEmail}`}>{FOOTER.contact}</a>
           <a href={LAUNCH.companyUrl}>{FOOTER.company}</a>
           <a href="/privacy">{FOOTER.privacy}</a>
+          <a href="/external">{FOOTER.external}</a>
           <a href={LAUNCH.coverUrl}>{LANDING.top}</a>
         </nav>
       </div>
@@ -344,6 +346,32 @@ export function Privacy() {
           <li key={line}>{line}</li>
         ))}
       </ul>
+      <Footer />
+    </main>
+  );
+}
+
+/** WO-025 /external: 「外部送信について」 (Google Analytics: what is sent, why, no ads, how to opt out). */
+export function External() {
+  return (
+    <main className="launch privacy external">
+      <h1>{FOOTER.external}</h1>
+      <p>{EXTERNAL.lede}</p>
+      <dl>
+        {EXTERNAL.rows.map(([k, v]) => (
+          <Fragment key={k}>
+            <dt>{k}</dt>
+            <dd>{v}</dd>
+          </Fragment>
+        ))}
+        <dt>{EXTERNAL.optOutTitle}</dt>
+        <dd>
+          {EXTERNAL.optOut} <a href={EXTERNAL.optOutUrl}>{EXTERNAL.optOutUrl}</a>
+        </dd>
+      </dl>
+      <p>
+        <a href={EXTERNAL.googleUrl}>{EXTERNAL.google}</a>
+      </p>
       <Footer />
     </main>
   );

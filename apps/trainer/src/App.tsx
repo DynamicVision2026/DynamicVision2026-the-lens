@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { CaseView } from './course/CaseView';
 import { CheckView } from './course/CheckView';
 import { lessonOpen, passOpen } from './course/access';
@@ -7,7 +7,8 @@ import { MasterView } from './course/MasterView';
 import { PracticeView, TimedView } from './course/StepsView';
 import { ReportView } from './course/ReportView';
 import { DevScenes } from './dev/DevScenes';
-import { GoPreorder, Landing, Privacy, Thanks } from './launch/Landing';
+import { track } from './launch/analytics';
+import { External, GoPreorder, Landing, Privacy, Thanks } from './launch/Landing';
 import { Open } from './launch/Open';
 import { TrialStart } from './launch/Trial';
 import { usePath } from './launch/navigate';
@@ -19,6 +20,8 @@ export function App() {
   const path = usePath();
   // ?s=<card-id> from a Short: kept for this tab (signup tags, preorder UTM).
   const short = useMemo(() => rememberShort(window.location.search), []);
+  // WO-025: a GA4 page_view for each route (the path only; never the query, which may hold an access key).
+  useEffect(() => track({ name: 'page_view', params: { page_path: path } }), [path]);
   if (path.startsWith('/dev/scenes')) return <DevScenes />;
   // /play/:cardId, and /play/:cardId/report once the report is shown (counted as its own path).
   const play = /^\/play\/([\w-]+)(?:\/report)?\/?$/.exec(path);
@@ -56,6 +59,7 @@ export function App() {
   // WO-024: the order email's access link.
   if (path === '/open') return <Open />;
   if (path === '/privacy') return <Privacy />;
+  if (path === '/external') return <External />;
   if (path === '/thanks') return <Thanks />;
   if (path === '/go/preorder') return <GoPreorder short={short} />;
   return <Landing />;
