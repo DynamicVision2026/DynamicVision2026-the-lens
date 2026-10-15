@@ -16,7 +16,7 @@ book:
   amazon_url: null             # set after KDP publishing; the trainer links to it (WO-021 §4)
   practice_variants: 1         # extra 類題 per practice card, from its validated variants
   review: {count: 16, seed: 4101}    # final chapter 「どのレンズ？」: mixed variants, pick the lens before solving
-  qr: "https://domo-ai.com/lesson/{pass}/{lens}?src=book"
+  qr: "https://lens.domo-ai.com/lesson/{pass}/{lens}?src=book"
   front_matter:
     hajimeni_ja: >-
       算数の入試問題で時間がかかるのは、計算そのものより「どう解き始めるか」で手が止まる時間です。

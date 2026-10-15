@@ -14,7 +14,7 @@ book:
   amazon_url: null
   practice_variants: 1
   review: {count: 12, seed: 4102}
-  qr: "https://domo-ai.com/lesson/{pass}/{lens}?src=book"
+  qr: "https://lens.domo-ai.com/lesson/{pass}/{lens}?src=book"
   front_matter:
     hajimeni_ja: >-
       高校入試の図形・関数の問題は、1つの考え方では終わらず、2つの視点をつなげて解くものが増えます。
