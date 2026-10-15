@@ -11,6 +11,15 @@
 
 ## 2. Landing page at `/` (replace the single-Pass preorder page)
 **Approved design (Brian, Oct 15): the `Lens.dc.html` artboard on https://claude.ai/artifact/QKjpLUrXmcHcr9f8yvU7xW.** Build it as shown: same sections, order, copy, colours (#EEF0F4 ground, #1B1F3A navy, accent #A9D8F2, Zen Kaku Gothic New) and the lens colours from `tokens.json`. Where it differs from the table below, the artboard wins. It adds a 「無料体験のしくみ」 section (§3a) and, on each course card, a second button 「無料ではじめる（3日間）」.
+
+**Colour and quality (Brian, Oct 15 18:58: "Should be colorful, according to the quality of our products.")** Full fidelity is a launch requirement, not a follow-up:
+- Font: `type.family_landing` (Zen Kaku Gothic New 400/500/700/900, Google Fonts, landing route only).
+- Hero: a row of 8 lens chips, each filled with its lens colour (`tokens.json` lens colours), white 900-weight text.
+- 8 lenses grid: each card tinted with its lens colour at `color.landing.lens_tint_opacity`, 2px border in the lens colour.
+- 無料体験のしくみ: step 1/2/3 circles and card top edges use the 囲む / てんびん-family colours shown on the artboard (from lens tokens, not new hex).
+- Lesson flow: マスタークラス, 練習, レポート headings in three lens colours.
+- Course cards: band colour `color.landing.band_<pass>`; the buy button uses that course's lens colour (chugaku blue, koukou green, daigaku purple, from lens tokens).
+- No hex literals in app source (`check:literals`); everything comes from tokens.
 Same standard and section order as the ナゼホリ landing page (kodomo-ai `src/lp/NewLandingPage.tsx`, read only as a reference for structure; copy nothing from that repo's code). Layout: one column, white cards on the existing Lens tokens, one primary button colour, stacks at phone width. All Japanese copy goes in `launch/copy.ts`; the Architect's copy is below.
 
 | # | section | content |
