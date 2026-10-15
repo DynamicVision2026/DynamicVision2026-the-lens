@@ -95,6 +95,23 @@ export const FOOTER = {
   tokushoho: '特定商取引法に基づく表記',
   contact: 'お問い合わせ',
   company: '運営会社',
+  external: '外部送信について',
+} as const;
+
+/** WO-025: 電気通信事業法の外部送信規律による公表（/external）. */
+export const EXTERNAL = {
+  lede: 'このサイトは、コースをよりよくするために、ご利用の状況を次の事業者に送信しています。',
+  rows: [
+    ['送信先', 'Google LLC（Google アナリティクス）'],
+    ['送信する情報', '見たページ、押したボタン、利用時間、ご購入の方は注文番号。お名前・メールアドレス・お子さまが入力した内容は送信しません。'],
+    ['目的', 'コースの改善のため（どのページがよく見られ、どれくらい使われているかを知るため）。'],
+    ['広告への利用', '広告には使いません。'],
+  ],
+  optOut: '送信を止めるには、Google アナリティクス オプトアウト アドオンをお使いください。',
+  optOutTitle: '送信の停止',
+  optOutUrl: 'https://tools.google.com/dlpage/gaoptout?hl=ja',
+  google: 'Google のプライバシーポリシー',
+  googleUrl: 'https://policies.google.com/privacy?hl=ja',
 } as const;
 
 export const PRIVACY = [

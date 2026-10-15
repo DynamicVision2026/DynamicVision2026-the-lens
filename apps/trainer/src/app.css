@@ -160,7 +160,7 @@ input {
   }
 }
 
-/* ---- Launch site (/, /privacy, /thanks). Light theme, iPad landscape first; stacks on a phone. ---- */
+/* ---- Launch site (/, /privacy, /external, /thanks). Light theme, iPad landscape first; stacks on a phone. ---- */
 .launch {
   display: grid;
   gap: calc(var(--gutter) * 2);
@@ -274,6 +274,32 @@ input {
 }
 .privacy ul {
   line-height: 1.8;
+}
+/* WO-025 /external: 外部送信について. */
+.external p,
+.external dl {
+  margin: 0;
+  line-height: 1.8;
+}
+.external dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: calc(var(--gutter) / 2) var(--gutter);
+}
+.external dt {
+  font-weight: var(--type-title-weight);
+}
+.external dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 700px) {
+  .external dl {
+    grid-template-columns: 1fr;
+  }
+  .external dd {
+    margin-bottom: var(--gutter);
+  }
 }
 .play .signup {
   margin-top: var(--gutter);

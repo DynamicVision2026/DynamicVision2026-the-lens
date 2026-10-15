@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { lessonOpen, startTrial, trialLens } from '../course/access';
 import { lessonEntry } from '../course/masterclass';
 import { masterclassSeen } from '../course/progress';
+import { track } from './analytics';
 import { navigate } from './navigate';
 
 export function trialTarget(passId: string): string {
@@ -17,7 +18,7 @@ export function trialTarget(passId: string): string {
 
 export function TrialStart({ passId }: { passId: string }) {
   useEffect(() => {
-    startTrial(passId);
+    if (startTrial(passId)) track({ name: 'trial_start', params: { pass: passId } });
     navigate(trialTarget(passId), { replace: true });
   }, [passId]);
   return <div className="lp2" />;

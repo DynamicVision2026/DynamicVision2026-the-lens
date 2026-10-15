@@ -72,9 +72,9 @@ function trialStart(passId: string): string | null {
   return trialMemory.get(passId) ?? null;
 }
 
-/** 「無料ではじめる」: start the trial for this Pass, unless it already started (never restarts it). */
-export function startTrial(passId: string, now: Date = new Date()): void {
-  if (!LAUNCH.passes[passId] || trialStart(passId)) return;
+/** 「無料ではじめる」: start the trial for this Pass, unless it already started (never restarts it). Returns whether it started now. */
+export function startTrial(passId: string, now: Date = new Date()): boolean {
+  if (!LAUNCH.passes[passId] || trialStart(passId)) return false;
   const iso = now.toISOString();
   trialMemory.set(passId, iso);
   try {
@@ -82,6 +82,7 @@ export function startTrial(passId: string, now: Date = new Date()): void {
   } catch {
     // Storage blocked: the trial works for this visit only.
   }
+  return true;
 }
 
 export type TrialState = { status: 'none' } | { status: 'active'; msLeft: number } | { status: 'ended' };
@@ -99,6 +100,12 @@ export function trialState(passId: string, now: number = Date.now()): TrialState
 export function lessonOpen(passId: string, lens: string, search: string = window.location.search, now: number = Date.now()): boolean {
   if (passOpen(passId, search)) return true;
   return lens === trialLens(passId) && trialState(passId, now).status === 'active';
+}
+
+/** WO-025: how an open lesson was opened, for analytics: bought on this device, previewed, or the free trial. */
+export function accessMode(passId: string, search: string = window.location.search): 'paid' | 'preview' | 'trial' {
+  if (unlocked(passId)) return 'paid';
+  return previewOn(search) ? 'preview' : 'trial';
 }
 
 /** For tests: forget the in-memory unlocks and trials. */

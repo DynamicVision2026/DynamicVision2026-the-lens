@@ -5,6 +5,7 @@
 import { hasScene, LensIcon, LensScene, loadBundle, tokens, type LensCard, type LensOrDirect, type Masterclass, type MasterclassToken } from '@lens/scenes';
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode, type RefObject } from 'react';
 import { t } from '../i18n/ja';
+import { lessonOpened } from '../launch/analytics';
 import { navigate } from '../launch/navigate';
 import { Aha } from './Aha';
 import { AttemptContext, useAttemptScope, type AttemptScope } from './attemptContext';
@@ -41,6 +42,11 @@ export function MasterView({ passId, lens }: { passId: string; lens: string }) {
   }, [beat, m.beats.length, passId, lens]);
   const scope = useAttemptScope('lesson', passId);
   useVoiceSession();
+  // WO-025: the masterclass opened.
+  useEffect(() => {
+    if (lesson) lessonOpened(passId, lens);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [passId, lens]);
   if (!lesson || !cards || !SCENES[lens]) return <main className="course">{t('lesson.notFound')}</main>;
   const next = () => {
     beatAt.current = performance.now();

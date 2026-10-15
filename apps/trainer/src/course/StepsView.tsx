@@ -4,6 +4,7 @@
 import { loadBundle } from '@lens/scenes';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { t } from '../i18n/ja';
+import { lessonOpened, track } from '../launch/analytics';
 import { navigate } from '../launch/navigate';
 import { sfx } from './fx';
 import { findLesson, findPass, lessonProblems } from './lessons';
@@ -48,7 +49,13 @@ export function PracticeView({ passId, lens }: { passId: string; lens: string })
     setLastMs(null);
   }, [i]);
   const scope = useAttemptScope('lesson', passId);
-  if (!lesson || queue.length === 0 || !SCENES[lens]) return <main className="course">{t('lesson.notFound')}</main>;
+  const playable = !!lesson && queue.length > 0 && !!SCENES[lens];
+  // WO-025: the practice opened.
+  useEffect(() => {
+    if (playable) lessonOpened(passId, lens);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [passId, lens]);
+  if (!playable) return <main className="course">{t('lesson.notFound')}</main>;
   const p = queue[i % queue.length]!;
   const k = i - roundAt;
   const lastOfRound = k >= roundN - 1;
@@ -59,6 +66,8 @@ export function PracticeView({ passId, lens }: { passId: string; lens: string })
     saveMastery(next);
     if (!m.done && next.done) setJustMastered(true);
     setM(next);
+    // WO-025: the round's last problem answered.
+    if (lastOfRound) track({ name: 'lesson_complete', params: { pass: passId, lesson: lens } });
   };
   const next = () => {
     if (lastOfRound) setRoundDone(true);
