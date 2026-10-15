@@ -1,17 +1,46 @@
-// WO-024: the 視点レンズ landing page at /. Sections in the ナゼホリ landing page's order (header, hero,
-// navy band, 8 lenses, one lesson, courses, parents, safety, access, FAQ, footer); one column of white
-// cards on the Lens tokens. Copy from launch/copy.ts; the trap/lens times, lenses and course numbers
-// from the bundle; prices and terms from the Architect's copy; Shopify links from launch.config.ts.
-import { color, getCard, LensIcon, lensColor, loadBundle, themed, tokens, type LensOrDirect, type Pass } from '@lens/scenes';
-import { Fragment, useEffect } from 'react';
-import { t } from '../i18n/ja';
+// WO-024: the 視点レンズ landing page at /, built from the approved Lens.dc.html artboard (Brian, Oct 15) at
+// full colour: header, hero with the 8 lens chips, the navy two-roads band, 無料体験のしくみ, the 8 lenses
+// (tinted in their colours), one lesson, the three courses (band per course, buy button in its lens colour,
+// 3-day trial), parents and safety, purchased, FAQ, footer. Copy from launch/copy.ts; every colour and the
+// font from tokens.json (color.landing, lens colours, type.family_landing); sizes, times and the free
+// lenses from the bundle; Shopify links from launch.config.ts.
+import { color, getCard, loadBundle, tokens, type LensId, type Pass } from '@lens/scenes';
+import { Fragment, useEffect, type CSSProperties } from 'react';
 import { LAUNCH } from '../launch.config';
 import { FOOTER, LANDING, PRIVACY, PROPOSED } from './copy';
 import { preorderHref } from './tracking';
 
-/** The navy band (the course player's dark theme), as CSS variables: no colour literals here. */
-const dark = themed(tokens, 'short_dark').tokens;
-const BAND = { ['--band-bg' as string]: color(dark.color.paper), ['--band-ink' as string]: color(dark.color.ink), ['--band-quiet' as string]: color(dark.color.ink_quiet) };
+const L = tokens.color.landing!;
+const lens = (id: string) => color(tokens.color.lens[id as LensId]);
+const v = (vars: Record<string, string>) => vars as CSSProperties;
+
+/** The page's palette as CSS variables (no colour literals in app source). */
+export const PAGE_VARS = v({
+  '--l-ground': color(L.ground),
+  '--l-card': color(L.card),
+  '--l-navy': color(L.navy),
+  '--l-navy-soft': color(L.navy_soft),
+  '--l-text': color(L.text),
+  '--l-muted': color(L.muted),
+  '--l-on-navy': color(L.on_navy),
+  '--l-line': color(L.line),
+  '--l-accent': color(L.accent),
+  '--l-trap': color(L.trap_time),
+  '--l-tint': `${Math.round(L.lens_tint_opacity * 100)}%`,
+  '--l-font': `'${tokens.type.family_landing}', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif`,
+});
+
+/** The artboard's order of the 8 lenses (names and hints from labels/lenses.yaml). */
+export const LENS_ORDER = ['enclose', 'slide', 'mirror', 'unfold', 'area', 'constant', 'balance', 'freeze'] as const;
+/** Each course's colour: its band from color.landing, its buy button in a lens colour (blue, green, purple). */
+const COURSE_STYLE: Record<string, { band: keyof typeof L; lens: LensId }> = {
+  chugaku_juken: { band: 'band_chugaku', lens: 'enclose' },
+  koukou_juken: { band: 'band_koukou', lens: 'slide' },
+  daigaku_juken: { band: 'band_daigaku', lens: 'balance' },
+};
+/** 無料体験のしくみ steps 1–3 and the lesson flow's headings, in lens colours. */
+const TRIAL_STEP_LENS: LensId[] = ['enclose', 'freeze', 'balance'];
+const LESSON_STEP_LENS: LensId[] = ['enclose', 'slide', 'balance'];
 
 /** 「約4分」, 「約30秒」 from a card's time_cost_sec (whole minutes from a minute up). */
 export function aboutTime(sec: number): string {
@@ -28,149 +57,257 @@ export function roadsCard() {
 /** A Pass's size on its card: lessons and problems (anchor cards), from bundle.passes. */
 export const passSize = (p: Pass) => ({ lessons: p.lessons.length, problems: p.lessons.reduce((n, l) => n + l.cards.length, 0) });
 
-export function Landing() {
-  const bundle = loadBundle();
-  const lenses = Object.entries(bundle.labels.lenses).filter(([id]) => id !== 'direct');
-  const roads = roadsCard();
+/** The lenses some course's free trial opens (each Pass's first lesson). */
+export function freeLenses(): Set<string> {
+  return new Set<string>((loadBundle().passes ?? []).flatMap((p) => (p.lessons[0] ? [p.lessons[0].lens] : [])));
+}
+
+/** Zen Kaku Gothic New (type.family_landing), loaded on the landing page only. */
+function useLandingFont() {
+  useEffect(() => {
+    const family = tokens.type.family_landing;
+    if (!family || document.getElementById('lp-font')) return;
+    const link = document.createElement('link');
+    link.id = 'lp-font';
+    link.rel = 'stylesheet';
+    link.href = `https://fonts.googleapis.com/css2?family=${family.replace(/ /g, '+')}:wght@400;500;700;900&display=swap`;
+    document.head.appendChild(link);
+  }, []);
+}
+
+function Logo() {
   return (
-    <main className="launch lp">
-      <header className="lp-header">
-        <span className="logo">{LANDING.logo}</span>
-        <a href="#access" className="owned">
-          {LANDING.owned}
-        </a>
-      </header>
-
-      <section className="lp-hero">
-        <h1>
-          {LANDING.h1[0]}
-          <wbr />
-          <mark>{LANDING.h1[1]}</mark>
-          {LANDING.h1[2]}
-        </h1>
-        <p className="sub">{LANDING.sub}</p>
-        <p className="lead">{LANDING.lead}</p>
-        <div className="ctas">
-          <a className="primary" href="#courses">
-            {LANDING.choose}
-          </a>
-          <a className="secondary" href="/check">
-            {LANDING.check}
-          </a>
-        </div>
-      </section>
-
-      {roads && (
-        <section className="lp-band" style={BAND} data-card={roads.id}>
-          <h2>{LANDING.twoRoads}</h2>
-          <p className="road trap">{LANDING.trapRoad(aboutTime(roads.trap_route.time_cost_sec))}</p>
-          <p className="road lens">{LANDING.lensRoad(aboutTime(roads.lens_route.time_cost_sec))}</p>
-          <p className="point">{LANDING.roadsPoint}</p>
-        </section>
-      )}
-
-      <section className="lp-section">
-        <h2>{LANDING.lenses}</h2>
-        <ul className="lp-lenses">
-          {lenses.map(([id, label]) => (
-            <li key={id} className="lp-card" data-lens={id}>
-              <svg viewBox="0 0 24 24" width={32} height={32} aria-hidden>
-                <LensIcon lens={id as LensOrDirect} tokens={tokens} color={lensColor(tokens, id as LensOrDirect)} />
-              </svg>
-              <strong>{label.ja}</strong>
-              <span>{label.hint_ja}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="lp-section">
-        <h2>{LANDING.lesson}</h2>
-        <ol className="lp-steps">
-          {LANDING.lessonSteps.map(([title, body], i) => (
-            <li key={title} className="lp-card">
-              <span className="num">{'①②③'[i]}</span>
-              <strong>{title}</strong>
-              <span>{body}</span>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <Courses />
-
-      <section className="lp-section">
-        <h2>{LANDING.parents}</h2>
-        <div className="lp-card lp-text">
-          {LANDING.parentsLines.map((line) => (
-            <p key={line}>{line}</p>
-          ))}
-        </div>
-      </section>
-
-      <section className="lp-section">
-        <h2>{LANDING.safety}</h2>
-        <ul className="lp-card lp-checks">
-          {LANDING.safetyLines.map((line) => (
-            <li key={line}>{line}</li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="lp-section" id="access">
-        <h2>{LANDING.access}</h2>
-        <div className="lp-card lp-text">
-          <p>{LANDING.accessLine}</p>
-        </div>
-      </section>
-
-      <section className="lp-section">
-        <h2>{LANDING.faq}</h2>
-        <div className="lp-faq">
-          {LANDING.faqs.map(([q, a]) => (
-            <details key={q} className="lp-card">
-              <summary>{q}</summary>
-              <p>
-                {a.split('特商法ページ').map((part, i) => (
-                  <Fragment key={i}>
-                    {i > 0 && <a href={LAUNCH.tokushohoUrl}>特商法ページ</a>}
-                    {part}
-                  </Fragment>
-                ))}
-              </p>
-            </details>
-          ))}
-        </div>
-      </section>
-
-      <Footer />
-    </main>
+    <svg width={34} height={34} viewBox="0 0 34 34" aria-hidden="true" className="lp-logo-mark">
+      <circle cx={15} cy={15} r={11} fill="none" stroke="currentColor" strokeWidth={2.5} />
+      <path d="M23 23 L31 31" stroke="currentColor" strokeWidth={3} strokeLinecap="round" />
+      <path d="M10 18 L15 10 L20 18" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinejoin="round" />
+    </svg>
   );
 }
 
-/** The three courses, one card per Pass in bundle.passes, each with its Shopify product. */
-export function Courses() {
-  const passes = (loadBundle().passes ?? []).filter((p) => LAUNCH.passes[p.id]);
+export function Landing() {
+  useLandingFont();
+  const labels = loadBundle().labels.lenses;
+  const roads = roadsCard();
+  const free = freeLenses();
   return (
-    <section className="lp-section" id="courses">
-      <h2>{LANDING.courses}</h2>
-      <div className="lp-courses">
+    <div className="lp2" style={PAGE_VARS}>
+      <header className="lp2-wrap lp2-header">
+        <a href="/" className="lp2-brand">
+          <Logo />
+          <span>{LANDING.logo}</span>
+        </a>
+        <nav className="lp2-nav">
+          <a href="#courses">{LANDING.nav.courses}</a>
+          <a href="#faq">{LANDING.nav.faq}</a>
+          <a href="#access" className="pill">
+            {LANDING.nav.owned}
+          </a>
+        </nav>
+      </header>
+
+      <main>
+        <section className="lp2-wrap lp2-hero">
+          <p className="eyebrow">{LANDING.eyebrow}</p>
+          <h1>
+            {LANDING.h1[0]}
+            <wbr />
+            <mark>{LANDING.h1[1]}</mark>
+            {LANDING.h1[2]}
+          </h1>
+          <p className="sub">{LANDING.sub}</p>
+          <p className="lead">{LANDING.lead}</p>
+          <ul className="lp2-chips" aria-label={LANDING.lenses}>
+            {LENS_ORDER.map((id) => (
+              <li key={id} style={v({ '--c': lens(id) })}>
+                {labels[id]?.ja}
+              </li>
+            ))}
+          </ul>
+          <div className="ctas">
+            <a className="lp2-btn solid" href="#courses">
+              {LANDING.tryFree}
+            </a>
+            <a className="lp2-btn outline" href="#courses">
+              {LANDING.seeCourses}
+            </a>
+          </div>
+          <p className="note">{LANDING.heroNote}</p>
+        </section>
+
+        {roads && (
+          <section className="lp2-band" data-card={roads.id}>
+            <div className="lp2-wrap">
+              <h2>{LANDING.twoRoads}</h2>
+              <p className="lead">{LANDING.roadsLead}</p>
+              <div className="roads">
+                <div className="road trap">
+                  <div className="head">
+                    <span className="label">{LANDING.trapRoad}</span>
+                    <span className="time">{aboutTime(roads.trap_route.time_cost_sec)}</span>
+                  </div>
+                  <p>{LANDING.trapPath}</p>
+                </div>
+                <div className="road lens" style={v({ '--c': lens(roads.lens) })}>
+                  <div className="head">
+                    <span className="label">{LANDING.lensRoad(labels[roads.lens]?.ja ?? '')}</span>
+                    <span className="time">{aboutTime(roads.lens_route.time_cost_sec)}</span>
+                  </div>
+                  <p>{LANDING.lensPath}</p>
+                </div>
+              </div>
+              <p className="point">{LANDING.roadsPoint}</p>
+            </div>
+          </section>
+        )}
+
+        <section className="lp2-wrap lp2-section" id="trial">
+          <h2>{LANDING.trialHow}</h2>
+          <ol className="lp2-steps">
+            {LANDING.trialSteps.map(([title, body], i) => (
+              <li key={title} className="lp2-card topline" style={v({ '--c': lens(TRIAL_STEP_LENS[i]!) })}>
+                <span className="num">{i + 1}</span>
+                <strong>{title}</strong>
+                <p>{body}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section className="lp2-wrap lp2-section">
+          <h2>{LANDING.lenses}</h2>
+          <p className="lead">{LANDING.lensesLead}</p>
+          <ul className="lp2-lenses">
+            {LENS_ORDER.map((id) => (
+              <li key={id} className="lp2-lens" data-lens={id} style={v({ '--c': lens(id) })}>
+                <div className="head">
+                  <strong>{labels[id]?.ja}</strong>
+                  {free.has(id) && <span className="free">{LANDING.freeBadge}</span>}
+                </div>
+                <span>{labels[id]?.hint_ja}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="note">{LANDING.freeNote}</p>
+        </section>
+
+        <section className="lp2-wrap lp2-section">
+          <div className="lp2-card big">
+            <h2>{LANDING.lesson}</h2>
+            <ol className="lp2-flow">
+              {LANDING.lessonSteps.map(([title, body], i) => (
+                <li key={title} style={v({ '--c': lens(LESSON_STEP_LENS[i]!) })}>
+                  <strong>{title}</strong>：{body}
+                </li>
+              ))}
+            </ol>
+            <p className="note">{LANDING.lessonNote}</p>
+          </div>
+        </section>
+
+        <Courses />
+
+        <section className="lp2-wrap lp2-section lp2-pair">
+          <div className="lp2-card big">
+            <h2>{LANDING.parents}</h2>
+            <p>{LANDING.parentsBody}</p>
+            <p className="note">{LANDING.parentsNote}</p>
+          </div>
+          <div className="lp2-card big">
+            <h2>{LANDING.safety}</h2>
+            <ul className="lp2-list">
+              {LANDING.safetyLines.map((line) => (
+                <li key={line}>{line}</li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section className="lp2-wrap lp2-section" id="access">
+          <div className="lp2-card big framed">
+            <h2>{LANDING.access}</h2>
+            <p>{LANDING.accessLine}</p>
+            <p className="note">{LANDING.accessHelp(LAUNCH.supportEmail)}</p>
+          </div>
+        </section>
+
+        <section className="lp2-wrap lp2-section last" id="faq">
+          <h2>{LANDING.faq}</h2>
+          <dl className="lp2-faq">
+            {LANDING.faqs.map(([q, a]) => (
+              <div key={q} className="lp2-card">
+                <dt>{q}</dt>
+                <dd>
+                  {a.split('特定商取引法に基づく表記').map((part, i) => (
+                    <Fragment key={i}>
+                      {i > 0 && <a href={LAUNCH.tokushohoUrl}>特定商取引法に基づく表記</a>}
+                      {part}
+                    </Fragment>
+                  ))}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
+
+/** The three courses, one card per Pass in bundle.passes: its band, its numbers, buy and the 3-day trial. */
+export function Courses() {
+  const bundle = loadBundle();
+  const passes = (bundle.passes ?? []).filter((p) => LAUNCH.passes[p.id]);
+  return (
+    <section className="lp2-wrap lp2-section" id="courses" style={PAGE_VARS}>
+      <div className="lp2-courses-head">
+        <h2>{LANDING.courses}</h2>
+        <span className="launch-badge">{LANDING.launch}</span>
+      </div>
+      <div className="lp2-courses">
         {passes.map((p) => {
           const size = passSize(p);
+          const copy = LANDING.course[p.id];
+          const style = COURSE_STYLE[p.id];
+          const freeLens = p.lessons[0]?.lens ?? '';
           return (
-            <article key={p.id} className="lp-card lp-course" data-pass={p.id}>
-              <span className="badge">{LANDING.badge}</span>
-              <h3>{p.title_ja}</h3>
-              {p.audience_ja && <p className="audience">{p.audience_ja}</p>}
-              <p className="size">{LANDING.size(size.lessons, size.problems)}</p>
-              <p className="price">
-                <strong>{LANDING.founder}</strong>
-              </p>
-              <p className="list">{LANDING.list}</p>
-              <p className="term">{LANDING.term}</p>
-              <a className="primary" href={LAUNCH.passes[p.id]!.shopUrl}>
-                {LANDING.buy}
-              </a>
+            <article key={p.id} className="lp2-course" data-pass={p.id} style={v({ '--band': style ? color(L[style.band] as typeof L.ground) : color(L.accent), '--c': lens(style?.lens ?? 'enclose') })}>
+              <div className="band">
+                <span className="audience">{copy?.audience ?? p.audience_ja}</span>
+                <h3>{p.title_ja}</h3>
+              </div>
+              <div className="body">
+                {copy && <p className="blurb">{copy.blurb}</p>}
+                <ul className="rows">
+                  <li>
+                    <span>{LANDING.rows.content}</span>
+                    <span>{LANDING.content(size.lessons, size.problems)}</span>
+                  </li>
+                  <li>
+                    <span>{LANDING.rows.term}</span>
+                    <span>{LANDING.term}</span>
+                  </li>
+                  <li>
+                    <span>{LANDING.rows.free}</span>
+                    <span>{LANDING.free(bundle.labels.lenses[freeLens]?.ja ?? freeLens)}</span>
+                  </li>
+                </ul>
+                <p className="price">
+                  <strong>{LANDING.price}</strong>
+                  <span>{LANDING.priceNote}</span>
+                </p>
+                <p className="list">{LANDING.list}</p>
+                <div className="buttons">
+                  <a className="lp2-btn buy" href={LAUNCH.passes[p.id]!.shopUrl}>
+                    {LANDING.buy}
+                  </a>
+                  <a className="lp2-btn outline" href={`/trial/${p.id}`}>
+                    {LANDING.trial}
+                  </a>
+                </div>
+              </div>
             </article>
           );
         })}
@@ -181,17 +318,19 @@ export function Courses() {
 
 export function Footer() {
   return (
-    <footer className="site-footer">
-      <a href={LAUNCH.tokushohoUrl}>{FOOTER.tokushoho}</a>
-      <span aria-hidden>・</span>
-      <a href={`mailto:${LAUNCH.supportEmail}`}>{FOOTER.contact}</a>
-      <span aria-hidden>・</span>
-      <a href={LAUNCH.companyUrl}>{FOOTER.company}</a>
-      <span aria-hidden>・</span>
-      <a href="/privacy">{FOOTER.privacy}</a>
-      <span aria-hidden>・</span>
-      {/* WO-022: required by VOICEVOX's terms. */}
-      <span className="credit">{t('voice.credit')}</span>
+    <footer className="lp2-footer" style={PAGE_VARS}>
+      <div className="lp2-wrap">
+        <span>
+          {LANDING.operator}　・　{LANDING.voice}
+        </span>
+        <nav>
+          <a href={LAUNCH.tokushohoUrl}>{FOOTER.tokushoho}</a>
+          <a href={`mailto:${LAUNCH.supportEmail}`}>{FOOTER.contact}</a>
+          <a href={LAUNCH.companyUrl}>{FOOTER.company}</a>
+          <a href="/privacy">{FOOTER.privacy}</a>
+          <a href={LAUNCH.coverUrl}>{LANDING.top}</a>
+        </nav>
+      </div>
     </footer>
   );
 }
@@ -213,11 +352,11 @@ export function Privacy() {
 /** After a signup: the confirmation line and the courses (this path counts the signup). */
 export function Thanks() {
   return (
-    <main className="launch lp">
-      <p className="sent">{PROPOSED.signupSent}</p>
+    <div className="lp2" style={PAGE_VARS}>
+      <p className="lp2-wrap sent">{PROPOSED.signupSent}</p>
       <Courses />
       <Footer />
-    </main>
+    </div>
   );
 }
 

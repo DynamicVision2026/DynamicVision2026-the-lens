@@ -4,7 +4,8 @@
 import { LensIcon, loadBundle, tokens, type LensOrDirect } from '@lens/scenes';
 import { t } from '../i18n/ja';
 import { navigate } from '../launch/navigate';
-import { passOpen } from './access';
+import { LAUNCH } from '../launch.config';
+import { passOpen, trialLens, trialState, type TrialState } from './access';
 import { sfx } from './fx';
 import { findPass, lessonProblems } from './lessons';
 import { lessonEntry } from './masterclass';
@@ -20,6 +21,9 @@ export function CaseView({ passId }: { passId: string }) {
   const pass = findPass(bundle, passId);
   if (!pass) return <main className="course">{t('lesson.notFound')}</main>;
   const open = passOpen(pass.id);
+  // WO-024 §3a: before purchase, the free trial opens the first lesson for 3 days.
+  const trial = open ? ({ status: 'none' } as TrialState) : trialState(pass.id);
+  const trialOpen = trial.status === 'active' ? trialLens(pass.id) : null;
   if (pass.lessons.length === 0)
     return (
       <main className="course">
@@ -35,24 +39,14 @@ export function CaseView({ passId }: { passId: string }) {
         <h1>{t('case.title')}</h1>
         <span className="tag">{pass.title_ja}</span>
       </div>
-      <p className="lede">{open ? t('case.lede') : t('case.locked')}</p>
-      {!open && (
-        <p className="lede">
-          <a className="go" href="/#courses">
-            {t('case.buy')}
-          </a>{' '}
-          <a className="go ghost" href="/#access">
-            {t('case.owned')}
-          </a>
-        </p>
-      )}
+      {open ? <p className="lede">{t('case.lede')}</p> : <Locked passId={pass.id} trial={trial} />}
       {open && <Measure passId={pass.id} />}
       <div className="case">
         {pass.lessons.map((lesson) => {
           const problems = lessonProblems(pass, lesson);
           const solved = solvedIn(pass.id, lesson.lens);
           const ready = !!SCENES[lesson.lens] && problems.length > 0;
-          const playable = open && ready;
+          const playable = (open || lesson.lens === trialOpen) && ready;
           const label = bundle.labels.lenses[lesson.lens];
           const c = C.lens(lesson.lens);
           return (
@@ -92,6 +86,36 @@ export function CaseView({ passId }: { passId: string }) {
         {t('drill.link')}
       </button>
     </main>
+  );
+}
+
+/** 「無料体験：あと2日」 (whole days, rounded up; hours on the last day). */
+export function trialLeft(msLeft: number): string {
+  const hours = Math.ceil(msLeft / 3_600_000);
+  return hours <= 24 ? t('case.trialHours', { n: hours }) : t('case.trialDays', { n: Math.ceil(hours / 24) });
+}
+
+/** A Pass not bought on this device: the trial's state, the way to buy it, and the way to open a purchase. */
+function Locked({ passId, trial }: { passId: string; trial: TrialState }) {
+  const shop = LAUNCH.passes[passId]?.shopUrl ?? '/#courses';
+  return (
+    <div className={`locked-note trial-${trial.status}`}>
+      {trial.status === 'active' && <p className="trial-left">{trialLeft(trial.msLeft)}</p>}
+      <p className="lede">{trial.status === 'active' ? t('case.trialMore') : trial.status === 'ended' ? t('case.trialEnded') : t('case.locked')}</p>
+      <p className="lede actions">
+        <a className="go" href={shop}>
+          {t('case.buyThis')}
+        </a>{' '}
+        {trial.status === 'none' && (
+          <a className="go ghost" href={`/trial/${passId}`}>
+            {t('case.trialStart')}
+          </a>
+        )}{' '}
+        <a className="go ghost" href="/#access">
+          {t('case.owned')}
+        </a>
+      </p>
+    </div>
   );
 }
 

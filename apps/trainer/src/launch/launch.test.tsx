@@ -1,9 +1,9 @@
-import { loadBundle } from '@lens/scenes';
+import { loadBundle, tokens } from '@lens/scenes';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { LAUNCH } from '../launch.config';
-import { FOOTER, LANDING, PRIVACY, SIGNUP } from './copy';
-import { aboutTime, Landing, passSize, Privacy, roadsCard } from './Landing';
+import { LANDING, PRIVACY, SIGNUP } from './copy';
+import { aboutTime, freeLenses, Landing, LENS_ORDER, passSize, Privacy, roadsCard } from './Landing';
 import { Signup } from './Signup';
 import { t } from '../i18n/ja';
 import { beaconConfig, checkTags, preorderHref, shortFrom, signupAction, signupTags, xShareHref } from './tracking';
@@ -84,70 +84,85 @@ describe('signup form', () => {
   });
 });
 
-describe('landing page (WO-024)', () => {
+describe('landing page (WO-024, approved Lens.dc.html artboard)', () => {
   const html = renderToStaticMarkup(<Landing />);
   const text = html.replace(/<[^>]+>/g, '').replace(/&#x27;/g, "'").replace(/&quot;/g, '"');
   const passes = loadBundle().passes!;
+  const lensColor = (id: string) => (tokens.color.lens as unknown as Record<string, { value: string }>)[id]!.value;
 
-  it('renders every section in the WO order, with the Architect\'s copy', () => {
-    const order = [LANDING.logo, LANDING.owned, LANDING.h1.join(''), LANDING.sub, LANDING.lead, LANDING.twoRoads, LANDING.roadsPoint, LANDING.lenses, LANDING.lesson, LANDING.courses, LANDING.parents, LANDING.safety, LANDING.access, LANDING.faq, FOOTER.tokushoho];
+  it('renders every artboard section in order, with its copy', () => {
+    const order = [LANDING.logo, LANDING.nav.owned, LANDING.eyebrow, LANDING.h1.join(''), LANDING.sub, LANDING.lead, LANDING.tryFree, LANDING.heroNote, LANDING.twoRoads, LANDING.roadsLead, LANDING.roadsPoint, LANDING.trialHow, LANDING.lenses, LANDING.freeNote, LANDING.lesson, LANDING.courses, LANDING.parents, LANDING.safety, LANDING.access, LANDING.faq, LANDING.operator];
     let at = -1;
     for (const line of order) {
       const k = text.indexOf(line, at + 1);
       expect(k, line).toBeGreaterThan(at);
       at = k;
     }
-    for (const line of [...LANDING.parentsLines, ...LANDING.safetyLines, LANDING.accessLine, ...LANDING.lessonSteps.flat(), ...LANDING.faqs.flat().map((s) => s.replace('特商法ページ', ''))]) expect(text).toContain(line);
+    for (const line of [...LANDING.trialSteps.flat(), ...LANDING.lessonSteps.flat(), LANDING.lessonNote, LANDING.parentsBody, LANDING.parentsNote, ...LANDING.safetyLines, LANDING.accessLine, LANDING.accessHelp('info@domo-ai.com'), ...LANDING.faqs.flat(), LANDING.voice])
+      expect(text, line).toContain(line);
     expect(html).toContain(`<mark>${LANDING.h1[1]}</mark>`);
-    expect(html).toContain('href="#courses"');
-    expect(html).toContain('href="/check"');
-    expect(html).toContain('href="#access"');
-    expect(html).toContain('id="access"');
+    for (const id of ['courses', 'trial', 'access', 'faq']) expect(html).toContain(`id="${id}"`);
   });
 
-  it('quotes the trap and lens times of chugaku_juken enclose example 1 from the bundle', () => {
+  it('takes every colour and the font from tokens.json', () => {
+    const L = tokens.color.landing!;
+    for (const key of ['ground', 'navy', 'navy_soft', 'text', 'muted', 'on_navy', 'line', 'accent', 'trap_time'] as const) expect(html, key).toContain(L[key].value);
+    expect(html).toContain(tokens.type.family_landing!);
+    // 8 lens chips in the hero and 8 tinted lens cards, each in its lens colour.
+    const chips = [...html.matchAll(/<ul class="lp2-chips"[^>]*>([\s\S]*?)<\/ul>/g)][0]![1]!;
+    expect((chips.match(/<li /g) ?? []).length).toBe(8);
+    for (const id of LENS_ORDER) {
+      expect(chips).toContain(`--c:${lensColor(id)}`);
+      expect(html).toMatch(new RegExp(`data-lens="${id}" style="--c:${lensColor(id)}"`));
+    }
+  });
+
+  it('quotes chugaku_juken enclose example 1\'s trap and lens times from the bundle', () => {
     const card = roadsCard()!;
     const pass = passes.find((p) => p.id === 'chugaku_juken')!;
     expect(card.id).toBe(pass.lessons.find((l) => l.lens === 'enclose')!.masterclass!.example1);
-    expect(text).toContain(LANDING.trapRoad(aboutTime(card.trap_route.time_cost_sec)));
-    expect(text).toContain(LANDING.lensRoad(aboutTime(card.lens_route.time_cost_sec)));
+    const band = /<section class="lp2-band"[\s\S]*?<\/section>/.exec(html)![0];
+    expect(band).toContain(aboutTime(card.trap_route.time_cost_sec));
+    expect(band).toContain(aboutTime(card.lens_route.time_cost_sec));
     expect(aboutTime(240)).toBe('約4分');
     expect(aboutTime(30)).toBe('約30秒');
   });
 
-  it('shows the 8 lenses from labels (not the direct move)', () => {
-    const lenses = loadBundle().labels.lenses;
-    const ids = [...html.matchAll(/data-lens="(\w+)"/g)].map((m) => m[1]);
-    expect(ids).toHaveLength(8);
-    expect(ids).not.toContain('direct');
-    for (const id of ids) expect(text).toContain(lenses[id!]!.hint_ja);
+  it('marks the lenses the free trial opens: each Pass\'s first lesson', () => {
+    expect([...freeLenses()].sort()).toEqual([...new Set(passes.map((p) => p.lessons[0]!.lens))].sort());
+    const cards = html.split('class="lp2-lens"').slice(1);
+    const badged = cards.filter((c) => c.split('</li>')[0]!.includes(LANDING.freeBadge)).map((c) => /data-lens="(\w+)"/.exec(c)![1]);
+    expect(badged.sort()).toEqual([...freeLenses()].sort());
   });
 
-  it('sells all three courses, each button going to its own Shopify product', () => {
-    expect(passes.map((p) => p.id).sort()).toEqual(['chugaku_juken', 'daigaku_juken', 'koukou_juken']);
-    const cards = [...html.matchAll(/<article class="lp-card lp-course" data-pass="(\w+)">([\s\S]*?)<\/article>/g)];
+  it('sells all three courses: band, numbers from the bundle, buy in its lens colour, and the 3-day trial', () => {
+    const cards = [...html.matchAll(/<article class="lp2-course" data-pass="(\w+)" style="([^"]*)">([\s\S]*?)<\/article>/g)];
     expect(cards.map((m) => m[1])).toEqual(passes.map((p) => p.id));
-    for (const [, id, body] of cards) {
+    const buyLens: Record<string, string> = { chugaku_juken: 'enclose', koukou_juken: 'slide', daigaku_juken: 'balance' };
+    for (const [, id, style, body] of cards) {
       const p = passes.find((x) => x.id === id)!;
       const size = passSize(p);
+      expect(style).toContain(tokens.color.landing![`band_${id!.split('_')[0]}` as 'band_chugaku'].value);
+      expect(style).toContain(`--c:${lensColor(buyLens[id!]!)}`);
       expect(body).toContain(p.title_ja);
-      expect(body).toContain(p.audience_ja!);
-      expect(body).toContain(LANDING.size(size.lessons, size.problems));
-      for (const line of [LANDING.founder, LANDING.list, LANDING.term, LANDING.badge, LANDING.buy]) expect(body).toContain(line);
+      expect(body).toContain(LANDING.content(size.lessons, size.problems));
+      expect(body).toContain(LANDING.free(loadBundle().labels.lenses[p.lessons[0]!.lens]!.ja));
+      for (const line of [LANDING.course[id!]!.audience, LANDING.course[id!]!.blurb, LANDING.term, LANDING.price, LANDING.priceNote, LANDING.list, LANDING.buy, LANDING.trial]) expect(body, line).toContain(line);
       expect(body).toContain(`href="${LAUNCH.passes[id!]!.shopUrl}"`);
+      expect(body).toContain(`href="/trial/${id}"`);
     }
-    expect(new Set(Object.values(LAUNCH.passes).map((p) => p.shopUrl)).size).toBe(3);
   });
 
-  it('has no waitlist, 準備中 or preorder left', () => {
+  it('has no waitlist, 準備中 or preorder left, and no hex colour typed in the copy', () => {
     for (const banned of ['準備中', '先行登録', '先行予約', 'waitlist', '/go/preorder']) expect(html, banned).not.toContain(banned);
   });
 
-  it('links the footer: 特商法, contact, company, VOICEVOX credit', () => {
+  it('links the footer: 特商法, contact, company, privacy, the domo-ai.com cover page', () => {
     expect(html).toContain(`href="${LAUNCH.tokushohoUrl}"`);
     expect(html).toContain('href="mailto:info@domo-ai.com"');
     expect(html).toContain('href="https://beyondculture.ai"');
-    expect(text).toContain(t('voice.credit'));
+    expect(html).toContain('href="https://domo-ai.com"');
+    expect(text).toContain('VOICEVOX:春日部つむぎ');
     expect(LAUNCH.siteUrl).toBe('https://lens.domo-ai.com');
   });
 
