@@ -10,6 +10,7 @@
 - `launch.config.ts`: `siteUrl: 'https://lens.domo-ai.com'`. `apps/book/src/copy.ts` `SITE_URL`: the same (the Architect updates the books' QR URLs in `catalog/*/book.yaml` in this PR's sibling).
 
 ## 2. Landing page at `/` (replace the single-Pass preorder page)
+**Approved design (Brian, Oct 15): the `Lens.dc.html` artboard on https://claude.ai/artifact/QKjpLUrXmcHcr9f8yvU7xW.** Build it as shown: same sections, order, copy, colours (#EEF0F4 ground, #1B1F3A navy, accent #A9D8F2, Zen Kaku Gothic New) and the lens colours from `tokens.json`. Where it differs from the table below, the artboard wins. It adds a 「無料体験のしくみ」 section (§3a) and, on each course card, a second button 「無料ではじめる（3日間）」.
 Same standard and section order as the ナゼホリ landing page (kodomo-ai `src/lp/NewLandingPage.tsx`, read only as a reference for structure; copy nothing from that repo's code). Layout: one column, white cards on the existing Lens tokens, one primary button colour, stacks at phone width. All Japanese copy goes in `launch/copy.ts`; the Architect's copy is below.
 
 | # | section | content |
@@ -28,8 +29,17 @@ Same standard and section order as the ナゼホリ landing page (kodomo-ai `src
 
 Remove the 準備中 waitlist section (WO PR #75): all three Passes are on sale.
 
+## 3a. Free trial (Brian, Oct 15 17:20): 3 days, one lens
+- Each Pass's **first lesson** (chugaku_juken / koukou_juken: 囲む; daigaku_juken: てんびん) is free for **3 days** with no sign-up: its masterclass and its practice.
+- 「無料ではじめる」 on a course card starts the trial for that Pass: store `lens.v1.trial.<passId> = <ISO start time>` in localStorage (only if not already set) and open that lesson.
+- While `now − start < 72 h`: the first lesson is open, the other 7 show a lock and 「購入すると8つのレンズすべてがひらきます」 with the buy button. After 72 h: the first lesson locks too, with 「無料体験は終わりました」 and the buy button. Show the remaining time on the course home (「無料体験：あと2日」).
+- No server and no database: the trial lives on the device (Brian accepts that clearing the browser restarts it). Storage failure: the trial works for the session only.
+- An unlocked (paid) Pass ignores the trial entirely.
+
 ## 3. Access links (soft lock, no server)
-- `launch.config.ts` gains `passes: { chugaku_juken: { shopUrl, key }, koukou_juken: {…}, daigaku_juken: {…} }`. Shop URLs: `https://soul-id-2.myshopify.com/products/lens-chugaku`, `…/lens-koukou`, `…/lens-daigaku`. Keys: one random 16-character string per Pass (generate once, commit; the Architect puts the same strings in the Shopify order email).
+- **SKU → Pass** (the live Shopify products; do not rename): `LENS-CJ-12M` → `chugaku_juken` (/products/lens-chugaku), `LENS-KJ-12M` → `koukou_juken` (/products/lens-koukou), `LENS-DJ-12M` → `daigaku_juken` (/products/lens-daigaku).
+- `launch.config.ts` gains `passes: { chugaku_juken: { sku, shopUrl, key }, koukou_juken: {…}, daigaku_juken: {…} }`. **Keys (fixed; the Shopify order email already uses them):** chugaku_juken `HS771AmBoRnfQt7-`, koukou_juken `C8mpgQUwhXpwKWxm`, daigaku_juken `frymep1_SqyTFzZo`.
+- The order confirmation email (Architect, Shopify admin) adds, only for line items with these SKUs, a 「コースをひらく」 button to `https://lens.domo-ai.com/open?p=<passId>&k=<key>`. No backend: the email chooses the link by SKU.
 - New route `/open?p=<passId>&k=<key>`: if the key matches, remember `lens.v1.unlock.<passId> = 1` in localStorage (try/catch; on failure keep it in memory for the session) and go to that Pass's course home. Wrong key: a friendly line 「リンクが正しくありません。ご購入時のメールのリンクをもう一度ひらいてください。」 and the support email.
 - `passOpen(passId)`: open if unlocked, or with `?preview=1`. `LAUNCH.lessonsPublic` stays for the free `/check` only. The free 3-minute check stays free.
 - Catalog: in this PR, set all three Passes in `catalog/*/pass.yaml` to `status: live` (one-line change each, allowed) and update the tests that expect `building`/`planned` (the waitlist tests go with the waitlist section).
