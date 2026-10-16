@@ -117,7 +117,8 @@ export const EXTERNAL = {
 export const PRIVACY = [
   '学習の記録（解いた時間や回数）は、お使いの端末の中だけに保存されます。',
   'お子さまの名前などの個人情報は集めません。',
-  'メールアドレスは、ご登録いただいた場合のみ、お知らせの送信に使います。',
+  'ご購入時のお名前・メールアドレス・お支払い情報は、Shopify（決済）でのみ扱い、このアプリには届きません。',
+  'サイトの利用状況の計測については「外部送信について」をご覧ください。',
 ] as const;
 
 /** Approved by the Architect (#32, #52): the signup field and button, the sent line, the check link. */
