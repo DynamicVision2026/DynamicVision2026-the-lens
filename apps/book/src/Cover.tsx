@@ -1,9 +1,9 @@
 // KDP full-wrap cover: back + spine + front with bleed (WO-021 §3). Spine width comes from kdp.json.
-// Design (Oct 16): the navy course-player palette (tokens.themes.short_dark), one accent per book, the
-// series word 視点レンズ large enough to read as an Amazon thumbnail, the first example seen through a lens,
-// and the book's 8 lenses as chips. The cover is printed in colour by KDP even for a B&W interior.
+// Design (Oct 16): the landing page's palette (tokens color.landing, WO-024): ground, navy text, the
+// course's band colour and lens colour per book, the series word 視点レンズ large enough to read as an
+// Amazon thumbnail, the first example seen through a lens, and the book's 8 lenses as coloured chips. The cover is printed in colour by KDP even for a B&W interior.
 import { renderToStaticMarkup } from 'react-dom/server';
-import { LensIcon, lensColor, themed, type Tokens } from '@lens/scenes';
+import { LensIcon, lensColor, type Tokens } from '@lens/scenes';
 import { COPY, SITE_URL, sentences, titleLines } from './copy';
 import { renderFigure } from './figure';
 import type { BookPlan } from './plan';
@@ -62,97 +62,111 @@ function excerpt(text: string): string {
   return sentences(text, 2);
 }
 
-/** One accent per book, from the navy theme's step palette, so the three covers read as one series. */
-const BOOK_ACCENT: Record<string, string> = {
-  chugaku_juken: '#FFC857',
-  koukou_juken: '#3EF0C0',
-  daigaku_juken: '#B9A6FF',
+/** Each book in its course's landing colours (tokens color.landing): the band and the lens of its course card. */
+const BOOK_STYLE: Record<string, { band: string; lens: string; label: string }> = {
+  chugaku_juken: { band: 'band_chugaku', lens: 'enclose', label: '小5・小6・算数' },
+  koukou_juken: { band: 'band_koukou', lens: 'slide', label: '中1〜中3・数学' },
+  daigaku_juken: { band: 'band_daigaku', lens: 'balance', label: '高1〜高3・数学' },
 };
 
-interface Navy {
-  paper: string;
-  panel: string;
-  raise: string;
+export interface CoverStyle {
+  ground: string;
+  card: string;
+  navy: string;
+  text: string;
+  muted: string;
+  onNavy: string;
   line: string;
-  ink: string;
-  quiet: string;
+  band: string;
+  accent: string;
+  label: string;
 }
 
-function navy(t: BookTokens): Navy {
-  const c = (themed(t as unknown as Tokens, 'short_dark').tokens.color as unknown) as Record<string, { value: string }>;
-  const v = (k: string, d: string) => c[k]?.value ?? d;
-  return { paper: v('paper', '#0D1424'), panel: v('panel', '#131C30'), raise: v('raise', '#1A2540'), line: v('line', '#24314F'), ink: v('ink', '#E8ECF4'), quiet: v('ink_quiet', '#8A93A6') };
+/** The landing page's palette (WO-024, Lens.dc.html) for one book. */
+export function coverStyle(t: BookTokens, passId: string): CoverStyle {
+  const L = ((t.color as unknown as Record<string, unknown>).landing ?? {}) as Record<string, { value: string }>;
+  const v = (k: string, d: string) => L[k]?.value ?? d;
+  const st = BOOK_STYLE[passId] ?? BOOK_STYLE.chugaku_juken!;
+  return {
+    ground: v('ground', '#EEF0F4'),
+    card: v('card', '#FFFFFF'),
+    navy: v('navy', '#1B1F3A'),
+    text: v('text', '#3A4170'),
+    muted: v('muted', '#5B628F'),
+    onNavy: v('on_navy', '#C9CDEA'),
+    line: v('line', '#D9DCE6'),
+    band: v(st.band, '#A9D8F2'),
+    accent: lensColor(t as unknown as Tokens, st.lens as never),
+    label: st.label,
+  };
 }
 
-export function coverCss(t: BookTokens, g: CoverGeometry, kdp: KdpConfig, accent = BOOK_ACCENT.chugaku_juken!): string {
+export function coverCss(t: BookTokens, g: CoverGeometry, kdp: KdpConfig, k: CoverStyle = coverStyle(t, 'chugaku_juken')): string {
   const c = printPalette(t);
-  const n = navy(t);
   const sans = `"${t.type.family_ja}", sans-serif`;
   const num = `"${t.type.family_num}", "${t.type.family_ja}", sans-serif`;
   const safe = 6.35; // KDP keeps text 0.25 in inside the trim.
   const pad = safe + 6;
   const panel = TRIM_MM.width;
-  const lensD = 96;
+  const bandH = 112; // mm from the trim top: the course-card band
+  const lensD = 92;
   const spineFont = Math.min(9, Math.max(5, g.spine * 1.1));
   return `
 @page { size: ${g.width}mm ${g.height}mm; margin: 0; }
 * { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; background: ${n.paper}; color: ${n.ink}; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-.cover { position: relative; width: ${g.width}mm; height: ${g.height}mm; overflow: hidden; font-family: ${sans}; background: ${n.paper}; }
+html, body { margin: 0; padding: 0; background: ${k.ground}; color: ${k.navy}; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.cover { position: relative; width: ${g.width}mm; height: ${g.height}mm; overflow: hidden; font-family: ${sans}; background: ${k.ground}; }
 .panel { position: absolute; top: ${g.bleed}mm; width: ${panel}mm; height: ${TRIM_MM.height}mm; padding: ${pad}mm; display: flex; flex-direction: column; }
 .back { left: ${g.bleed}mm; }
 .front { left: ${g.bleed + panel + g.spine}mm; }
-.glow { position: absolute; border-radius: 50%; pointer-events: none;
-  background: radial-gradient(circle, ${accent}38 0%, ${accent}12 40%, ${accent}00 70%); }
-
-.front .top { display: flex; justify-content: space-between; align-items: center; font-size: 9pt; letter-spacing: 0.08em; color: ${n.quiet}; }
-.front .top b { color: ${n.ink}; font-weight: 700; letter-spacing: 0.12em; }
-.front .lvl { border: 0.6mm solid ${accent}; color: ${accent}; border-radius: 10mm; padding: 1mm 4mm; font-weight: 700; letter-spacing: 0.05em; }
-.front h1 { margin: 9mm 0 0; font-weight: 900; line-height: 1.12; word-break: keep-all; }
-.front h1 .big { display: block; font-size: 64pt; letter-spacing: -0.01em; color: ${n.ink}; }
-.front h1 .rest { display: block; margin-top: 3mm; font-size: 23pt; font-weight: 700; color: ${accent}; letter-spacing: 0.02em; }
+.front .band { position: absolute; left: 0; right: -${g.bleed}mm; top: -${g.bleed}mm; height: ${g.bleed + bandH}mm; background: ${k.band}; }
+.front > * { position: relative; }
+.front .band { position: absolute; }
+.front .top { display: flex; justify-content: space-between; align-items: center; }
+.front .logo { display: flex; align-items: center; gap: 2mm; font-size: 11pt; font-weight: 900; letter-spacing: 0.04em; color: ${k.navy}; }
+.front .logo svg { width: 7mm; height: 7mm; color: ${k.navy}; }
+.front .lvl { background: ${k.card}; color: ${k.navy}; border-radius: 10mm; padding: 1.2mm 4mm; font-size: 9pt; font-weight: 700; letter-spacing: 0.04em; }
+.front h1 { margin: 9mm 0 0; font-weight: 900; line-height: 1.1; word-break: keep-all; color: ${k.navy}; }
+.front h1 .big { display: block; font-size: 66pt; letter-spacing: -0.01em; }
+.front h1 .rest { display: inline-block; margin-top: 4mm; font-size: 22pt; font-weight: 900; letter-spacing: 0.02em;
+  background: linear-gradient(transparent 58%, ${k.card} 58%, ${k.card} 92%, transparent 92%); padding: 0 1mm; }
 .front h1 .line { display: inline; }
-.front .sub { margin-top: 4mm; font-size: 13.5pt; font-weight: 500; color: ${n.ink}; letter-spacing: 0.02em; }
-.front .stage { position: relative; flex: 1; display: flex; align-items: center; justify-content: center; }
-.front .lens { position: relative; width: ${lensD}mm; height: ${lensD}mm; border-radius: 50%; background: ${c.paper};
-  border: 2.6mm solid ${accent}; box-shadow: 0 0 0 1.4mm ${n.paper}, 0 0 0 2.2mm ${accent}55; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.front .sub { margin-top: 3.5mm; font-size: 13pt; font-weight: 700; color: ${k.text}; letter-spacing: 0.02em; }
+.front .stage { flex: 1; display: flex; align-items: center; justify-content: center; }
+.front .lens { width: ${lensD}mm; height: ${lensD}mm; border-radius: 50%; background: ${c.paper}; border: 2.4mm solid ${k.accent};
+  box-shadow: 0 0 0 2.2mm ${k.card}, 0 0 0 2.8mm ${k.line}; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .front .lens .fig { width: ${lensD * 0.66}mm; }
 .front .lens .fig svg { display: block; width: 100%; height: auto; max-height: ${lensD * 0.66}mm; }
-.front .chips { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.2mm; }
-.front .chip { display: flex; align-items: center; gap: 1.8mm; background: ${n.panel}; border: 0.3mm solid ${n.line}; border-radius: 2.4mm; padding: 1.8mm 2.2mm; font-size: 9pt; font-weight: 700; color: ${n.ink}; white-space: nowrap; }
-.front .chip svg { width: 5.2mm; height: 5.2mm; flex: none; }
-.front .foot { margin-top: 5mm; display: flex; justify-content: space-between; align-items: baseline; font-size: 9.5pt; color: ${n.quiet}; }
-.front .foot .author { font-family: ${num}; font-size: 13pt; font-weight: 700; color: ${n.ink}; letter-spacing: 0.04em; }
+.front .chips { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.2mm 2.6mm; }
+.front .chip { text-align: center; border-radius: 10mm; padding: 1.8mm 2mm; font-size: 10pt; font-weight: 700; color: #FFFFFF; white-space: nowrap; }
+.front .foot { margin-top: 6mm; display: flex; justify-content: space-between; align-items: baseline; font-size: 9.5pt; color: ${k.muted}; }
+.front .foot .author { font-family: ${num}; font-size: 13pt; font-weight: 700; color: ${k.navy}; letter-spacing: 0.04em; }
 
-.spine { position: absolute; top: 0; left: ${g.bleed + panel}mm; width: ${g.spine}mm; height: ${g.height}mm; background: ${n.panel};
-  border-left: 0.2mm solid ${n.line}; border-right: 0.2mm solid ${n.line}; }
-.spine .bar { position: absolute; left: 0; right: 0; top: 0; height: ${g.bleed + 26}mm; background: ${accent}; }
+.spine { position: absolute; top: 0; left: ${g.bleed + panel}mm; width: ${g.spine}mm; height: ${g.height}mm; background: ${k.navy}; }
+.spine .bar { position: absolute; left: 0; right: 0; top: 0; height: ${g.bleed + 26}mm; background: ${k.band}; }
 .spine .txt { position: absolute; left: 0; right: 0; top: ${g.bleed + 34}mm; bottom: ${g.bleed + 12}mm; display: flex; align-items: flex-start; justify-content: center;
-  writing-mode: vertical-rl; font-size: ${spineFont}pt; font-weight: 700; letter-spacing: 0.08em; color: ${n.ink}; white-space: nowrap; }
-.spine .txt .au { margin-top: auto; font-weight: 500; color: ${n.quiet}; }
+  writing-mode: vertical-rl; font-size: ${spineFont}pt; font-weight: 700; letter-spacing: 0.08em; color: #FFFFFF; white-space: nowrap; }
+.spine .txt .au { margin-top: auto; font-weight: 500; color: ${k.onNavy}; }
 
-.back .label { font-size: 9pt; font-weight: 700; letter-spacing: 0.12em; color: ${accent}; }
-.back .ex { margin-top: 5mm; font-size: 12pt; line-height: 1.95; color: ${n.ink}; }
-.back .lensbox { margin-top: 9mm; background: ${n.panel}; border: 0.3mm solid ${n.line}; border-radius: 3mm; padding: 5mm 6mm; }
-.back .lensbox .h { font-size: 9pt; font-weight: 700; color: ${n.quiet}; letter-spacing: 0.06em; margin-bottom: 3mm; }
-.back .lensbox ol { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 2mm 6mm; }
-.back .lensbox li { display: flex; align-items: center; gap: 2mm; font-size: 10pt; font-weight: 700; }
-.back .lensbox li .no { font-family: ${num}; color: ${n.quiet}; font-weight: 500; width: 4mm; }
+.back .label { font-size: 9pt; font-weight: 700; letter-spacing: 0.12em; color: ${k.accent}; }
+.back .ex { margin-top: 5mm; font-size: 12pt; line-height: 1.95; color: ${k.navy}; }
+.back .lensbox { margin-top: 9mm; background: ${k.card}; border-radius: 3mm; padding: 5mm 6mm; }
+.back .lensbox .h { font-size: 9pt; font-weight: 700; color: ${k.muted}; letter-spacing: 0.06em; margin-bottom: 3mm; }
+.back .lensbox ol { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 2.2mm 6mm; }
+.back .lensbox li { display: flex; align-items: center; gap: 2mm; font-size: 10pt; font-weight: 700; color: ${k.navy}; }
+.back .lensbox li .no { font-family: ${num}; color: ${k.muted}; font-weight: 500; width: 4mm; }
 .back .lensbox li svg { width: 4.6mm; height: 4.6mm; }
-.back .hon { margin-top: 7mm; border-left: 1mm solid ${accent}; padding-left: 4mm; font-size: 9.5pt; line-height: 1.8; color: ${n.ink}; }
-.back .qrrow { margin-top: 8mm; display: flex; align-items: center; gap: 5mm; font-size: 9.5pt; line-height: 1.6; color: ${n.ink}; }
+.back .hon { margin-top: 7mm; border-left: 1mm solid ${k.accent}; padding-left: 4mm; font-size: 9.5pt; line-height: 1.8; color: ${k.text}; }
+.back .qrrow { margin-top: 8mm; display: flex; align-items: center; gap: 5mm; font-size: 9.5pt; line-height: 1.6; color: ${k.navy}; }
 .back .qrrow .tile { background: ${c.paper}; border-radius: 2mm; padding: 2mm; width: 28mm; height: 28mm; flex: none; }
 .back .qrrow .tile svg { display: block; width: 100%; height: 100%; }
-.back .qrrow .url { font-family: ${num}; color: ${n.quiet}; }
-.back .pub { margin-top: auto; font-size: 8.5pt; line-height: 1.7; color: ${n.quiet}; max-width: ${panel - 2 * pad - kdp.barcode_mm.width - 6}mm; }
+.back .qrrow .url { font-family: ${num}; color: ${k.muted}; }
+.back .pub { margin-top: auto; font-size: 8.5pt; line-height: 1.7; color: ${k.muted}; max-width: ${panel - 2 * pad - kdp.barcode_mm.width - 6}mm; }
 ${figureFontCss(t)}
 .barcode-zone { position: absolute; right: ${g.bleed + panel + g.spine + kdp.barcode_mm.margin}mm; bottom: ${g.bleed + kdp.barcode_mm.margin}mm;
   width: ${kdp.barcode_mm.width}mm; height: ${kdp.barcode_mm.height}mm; background: ${c.paper}; }
 `;
 }
-
-/** The badge on the front: the exam stage only (the audience line at the foot carries the grades). */
-const BOOK_LEVEL: Record<string, string> = { chugaku_juken: '中学受験', koukou_juken: '高校受験', daigaku_juken: '大学受験' };
 
 /**
  * The first example as seen through the lens: the solved figure (the lens at work) unless it carries a
@@ -166,9 +180,9 @@ function coverFigure(card: Parameters<typeof renderFigure>[0], t: BookTokens, pa
   return problem.svg ? problem : solved;
 }
 
-export function bookAccent(passId: string): string {
-  return BOOK_ACCENT[passId] ?? BOOK_ACCENT.chugaku_juken!;
-}
+/** The landing page's logo mark (Landing.tsx Logo): a lens with a rising stroke. */
+const LOGO_SVG =
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 34" fill="none" stroke="currentColor"><circle cx="15" cy="15" r="11" stroke-width="2.5"/><path d="M23 23 L31 31" stroke-width="3" stroke-linecap="round"/><path d="M10 18 L15 10 L20 18" stroke-width="2.2" stroke-linejoin="round"/></svg>';
 
 function iconSvg(t: BookTokens, lens: string, color: string): string {
   const inner = renderToStaticMarkup(<LensIcon lens={lens as never} tokens={t as unknown as Tokens} color={color} size={24} />);
@@ -186,14 +200,14 @@ function coverTitle(title: string, series: string): { big: string; rest: string[
 export function Cover({ bundle, plan, g }: { bundle: BookBundle; plan: BookPlan; g: CoverGeometry }) {
   const t = bundle.tokens;
   const c = printPalette(t);
-  const dark = themed(t as unknown as Tokens, 'short_dark').tokens;
+  const k = coverStyle(t, plan.passId);
   const { book } = plan;
   const first = plan.chapters[0]?.examples[0];
   const fig = first ? coverFigure(first, t, c.paper) : null;
   const title = coverTitle(book.title_ja, book.series_ja);
   const lenses = plan.chapters.map((ch) => ({ lens: ch.chapter.lens as string, name: ch.lensName }));
-  const chip = (lens: string) => iconSvg(t, lens, lensColor(dark, lens as never));
-  const level = BOOK_LEVEL[plan.passId] ?? book.audience_ja.split('・').pop() ?? book.audience_ja;
+  const lc = (lens: string) => lensColor(t as unknown as Tokens, lens as never);
+  const chip = (lens: string) => iconSvg(t, lens, lc(lens));
   return (
     <div className="cover">
       <div className="panel back">
@@ -236,12 +250,13 @@ export function Cover({ bundle, plan, g }: { bundle: BookBundle; plan: BookPlan;
         ) : null}
       </div>
       <div className="panel front">
-        <div className="glow" style={{ left: '-30mm', top: '70mm', width: '240mm', height: '240mm' }} />
+        <div className="band" />
         <div className="top">
-          <span>
-            <b>{book.series_ja.replace(/（.*$/, '')}</b>　The Lens
+          <span className="logo">
+            <span dangerouslySetInnerHTML={{ __html: LOGO_SVG }} />
+            {book.series_ja.replace(/（.*$/, '')}
           </span>
-          <span className="lvl">{level}</span>
+          <span className="lvl">{k.label}</span>
         </div>
         <h1>
           <span className="big">{title.big}</span>
@@ -259,8 +274,7 @@ export function Cover({ bundle, plan, g }: { bundle: BookBundle; plan: BookPlan;
         </div>
         <div className="chips">
           {lenses.map((l) => (
-            <div key={l.lens} className="chip">
-              <span dangerouslySetInnerHTML={{ __html: chip(l.lens) }} />
+            <div key={l.lens} className="chip" style={{ background: lc(l.lens) }}>
               {l.name}
             </div>
           ))}
