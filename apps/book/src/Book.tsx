@@ -271,7 +271,15 @@ function PageBody({ ctx, page }: { ctx: Ctx; page: Page }) {
               <li key={i}>{x}</li>
             ))}
           </ol>
-          <div className="note">{fm.qr_ja}</div>
+          <div className="note app-guide">
+            <div className="ag-title">{COPY.appGuide.title}</div>
+            {COPY.appGuide.items.map(([k, v]) => (
+              <div className="ag-row" key={k}>
+                <span className="ag-k">{k}</span>
+                <span className="ag-v">{v}</span>
+              </div>
+            ))}
+          </div>
           <div className="note">{fm.honesty_ja}</div>
           <div className="note quiet">{fm.parent_ja}</div>
         </div>
