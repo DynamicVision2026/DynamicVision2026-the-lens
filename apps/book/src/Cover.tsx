@@ -85,17 +85,21 @@ export interface CoverStyle {
 /** The landing page's palette (WO-024, Lens.dc.html) for one book. */
 export function coverStyle(t: BookTokens, passId: string): CoverStyle {
   const L = ((t.color as unknown as Record<string, unknown>).landing ?? {}) as Record<string, { value: string }>;
-  const v = (k: string, d: string) => L[k]?.value ?? d;
+  const v = (k: string) => {
+    const x = L[k]?.value;
+    if (!x) throw new Error(`tokens color.landing.${k} is missing`);
+    return x;
+  };
   const st = BOOK_STYLE[passId] ?? BOOK_STYLE.chugaku_juken!;
   return {
-    ground: v('ground', '#EEF0F4'),
-    card: v('card', '#FFFFFF'),
-    navy: v('navy', '#1B1F3A'),
-    text: v('text', '#3A4170'),
-    muted: v('muted', '#5B628F'),
-    onNavy: v('on_navy', '#C9CDEA'),
-    line: v('line', '#D9DCE6'),
-    band: v(st.band, '#A9D8F2'),
+    ground: v('ground'),
+    card: v('card'),
+    navy: v('navy'),
+    text: v('text'),
+    muted: v('muted'),
+    onNavy: v('on_navy'),
+    line: v('line'),
+    band: v(st.band),
     accent: lensColor(t as unknown as Tokens, st.lens as never),
     label: st.label,
   };
@@ -138,14 +142,14 @@ html, body { margin: 0; padding: 0; background: ${k.ground}; color: ${k.navy}; -
 .front .lens .fig { width: ${lensD * 0.66}mm; }
 .front .lens .fig svg { display: block; width: 100%; height: auto; max-height: ${lensD * 0.66}mm; }
 .front .chips { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.2mm 2.6mm; }
-.front .chip { text-align: center; border-radius: 10mm; padding: 1.8mm 2mm; font-size: 10pt; font-weight: 700; color: #FFFFFF; white-space: nowrap; }
+.front .chip { text-align: center; border-radius: 10mm; padding: 1.8mm 2mm; font-size: 10pt; font-weight: 700; color: ${k.card}; white-space: nowrap; }
 .front .foot { margin-top: 6mm; display: flex; justify-content: space-between; align-items: baseline; font-size: 9.5pt; color: ${k.muted}; }
 .front .foot .author { font-family: ${num}; font-size: 13pt; font-weight: 700; color: ${k.navy}; letter-spacing: 0.04em; }
 
 .spine { position: absolute; top: 0; left: ${g.bleed + panel}mm; width: ${g.spine}mm; height: ${g.height}mm; background: ${k.navy}; }
 .spine .bar { position: absolute; left: 0; right: 0; top: 0; height: ${g.bleed + 26}mm; background: ${k.band}; }
 .spine .txt { position: absolute; left: 0; right: 0; top: ${g.bleed + 34}mm; bottom: ${g.bleed + 12}mm; display: flex; align-items: flex-start; justify-content: center;
-  writing-mode: vertical-rl; font-size: ${spineFont}pt; font-weight: 700; letter-spacing: 0.08em; color: #FFFFFF; white-space: nowrap; }
+  writing-mode: vertical-rl; font-size: ${spineFont}pt; font-weight: 700; letter-spacing: 0.08em; color: ${k.card}; white-space: nowrap; }
 .spine .txt .au { margin-top: auto; font-weight: 500; color: ${k.onNavy}; }
 
 .back .label { font-size: 9pt; font-weight: 700; letter-spacing: 0.12em; color: ${k.accent}; }
