@@ -1,13 +1,29 @@
 {
-  "note": "WO-026 §3: KDP print settings, one entry per book id. White paper, black & white interior: KDP's cover calculator (https://kdp.amazon.co.jp/cover-calculator) gives 0.002252 in = 0.0572 mm of spine per page. Spine text needs more than 79 pages. `pnpm book <passId>` stops if an entry's page count differs from the built book; then update pages, spine_mm and spine_text here.",
+  "note": "WO-026 §3: KDP print settings, one entry per book id. White paper, standard colour interior (KDP 標準カラー, Oct 16; same 0.002252 in per page as black & white on white paper): KDP's cover calculator (https://kdp.amazon.co.jp/cover-calculator) gives 0.002252 in = 0.0572 mm of spine per page. Spine text needs more than 79 pages. `pnpm book <passId>` stops if an entry's page count differs from the built book; then update pages, spine_mm and spine_text here.",
   "paper": "white",
-  "interior": "bw",
+  "interior": "standard_color",
   "spine_mm_per_page": 0.0572,
   "spine_text_min_pages": 80,
-  "barcode_mm": { "width": 50.8, "height": 30.5, "margin": 6.35 },
+  "barcode_mm": {
+    "width": 50.8,
+    "height": 30.5,
+    "margin": 6.35
+  },
   "books": {
-    "lens-book-chugaku-1": { "pages": 144, "spine_mm": 8.24, "spine_text": true },
-    "lens-book-koukou-1": { "pages": 102, "spine_mm": 5.83, "spine_text": true },
-    "lens-book-daigaku-1": { "pages": 98, "spine_mm": 5.61, "spine_text": true }
+    "lens-book-chugaku-1": {
+      "pages": 144,
+      "spine_mm": 8.24,
+      "spine_text": true
+    },
+    "lens-book-koukou-1": {
+      "pages": 102,
+      "spine_mm": 5.83,
+      "spine_text": true
+    },
+    "lens-book-daigaku-1": {
+      "pages": 98,
+      "spine_mm": 5.61,
+      "spine_text": true
+    }
   }
 }

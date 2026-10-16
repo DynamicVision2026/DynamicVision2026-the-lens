@@ -24,7 +24,7 @@ export interface Book {
   audience_ja: string;
   author_ja: string;
   publisher_ja: string;
-  interior: 'bw';
+  interior: 'bw' | 'standard_color';
   amazon_url: string | null;
   practice_variants: number;
   page_estimate: number;

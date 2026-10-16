@@ -12,7 +12,7 @@ book:
   audience_ja: 小5〜小6・中学受験
   author_ja: Brian Fu
   publisher_ja: Beyond Culture 獨歩文化株式会社
-  interior: bw                 # black-and-white first (tokens: every distinction survives B&W); colour only if KDP JP offers it
+  interior: standard_color     # KDP 標準カラー on white paper (Brian, Oct 16); every distinction still has an icon or pattern
   amazon_url: null             # set after KDP publishing; the trainer links to it (WO-021 §4)
   price_jpy: 2100               # KDP list price, Brian Oct 16 (WO-027 §5)
   practice_variants: 1         # extra 類題 per practice card, from its validated variants

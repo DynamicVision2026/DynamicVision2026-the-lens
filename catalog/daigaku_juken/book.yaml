@@ -10,7 +10,7 @@ book:
   audience_ja: 高1〜高3・共通テスト／個別試験
   author_ja: Brian Fu
   publisher_ja: Beyond Culture 獨歩文化株式会社
-  interior: bw
+  interior: standard_color     # KDP 標準カラー on white paper (Brian, Oct 16); every distinction still has an icon or pattern
   amazon_url: null
   price_jpy: 2100               # KDP list price, Brian Oct 16 (WO-027 §5)
   practice_variants: 1
