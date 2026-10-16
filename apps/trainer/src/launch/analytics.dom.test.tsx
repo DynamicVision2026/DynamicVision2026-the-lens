@@ -1,5 +1,5 @@
 // @vitest-environment happy-dom
-// WO-025: Google Analytics 4. With ga4Id '' nothing loads and nothing is sent; with a test ID each event
+// WO-025: Google Analytics 4 (on since launch day, G-R0EDK9VT6C). With ga4Id '' nothing loads and nothing is sent; with a test ID each event
 // fires once with its params (window.gtag mocked). /open with and without o=<order number>.
 import { loadBundle } from '@lens/scenes';
 import { act } from 'react';
@@ -75,14 +75,14 @@ const on = () => {
 };
 const events = (name: string) => gtag.mock.calls.filter((c) => c[0] === 'event' && c[1] === name).map((c) => c[2]);
 
-describe('off (ga4Id empty, as shipped)', () => {
-  it('the shipped config is empty', () => {
-    expect(LAUNCH.ga4Id).toBe('');
+describe('off (ga4Id empty)', () => {
+  it('ships with 視点レンズ\'s own measurement ID (never another product\'s)', () => {
+    expect(LAUNCH.ga4Id).toBe('G-R0EDK9VT6C');
   });
 
   it('loads no script and sends nothing, even through the whole access flow', () => {
     const fetchSpy = vi.spyOn(globalThis, 'fetch');
-    expect(initAnalytics()).toBe(false);
+    expect(initAnalytics('')).toBe(false);
     visit('/');
     visit(`/open?p=koukou_juken&k=${KEY('koukou_juken')}&o=%231234`);
     visit('/trial/chugaku_juken');
