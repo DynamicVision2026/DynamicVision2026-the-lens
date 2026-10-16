@@ -679,6 +679,14 @@ html[data-theme='course'] body {
   color: var(--ink);
   border: 1px solid var(--line);
 }
+/* WO-026 §5: 「紙の問題集（Amazon）」 at the end of a lesson and on the report (only once the book is live). */
+.course .book-link {
+  align-self: center;
+  color: var(--ink-quiet);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .course .guide {
   position: absolute;
   left: 10px;
@@ -2037,6 +2045,14 @@ html[data-theme='course'] body {
 .lp2-course .buttons .lp2-btn {
   font-size: 16px;
   padding: 13px 20px;
+}
+.lp2-course .lp2-book {
+  margin-top: 12px;
+  align-self: center;
+  color: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .lp2-pair {
   display: grid;

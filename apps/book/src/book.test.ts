@@ -3,14 +3,17 @@
 import { describe, expect, it } from 'vitest';
 import { answerText, withVariant, type LensCard } from '@lens/scenes';
 import { titleLines } from './copy';
+import { readFileSync } from 'node:fs';
 import type { KdpConfig } from './Cover';
 import { renderFigure } from './figure';
+import { DESCRIPTION_MAX, description, listingSheet } from './listing';
 import { planBook } from './plan';
 import { bookBundle, renderCover, renderInterior } from './render';
 
 const bundle = bookBundle();
 const passes = (bundle.passes ?? []).filter((p) => p.book);
 const cards = new Map(bundle.cards.map((c) => [c.id, c]));
+const kdp = JSON.parse(readFileSync(new URL('../kdp.json', import.meta.url), 'utf8')) as KdpConfig;
 
 /** The drawable card for a card id or a variant id. */
 function resolve(id: string): LensCard {
@@ -32,7 +35,10 @@ describe('paperback books', () => {
   });
 
   describe.each(passes.map((p) => [p.id] as const))('%s', (passId) => {
-    const { html, plan } = renderInterior(bundle, passId);
+    const rendered = renderInterior(bundle, passId);
+    const { plan } = rendered;
+    // Unbreakable math spans (WO-026 §7) wrap text but never change it: read the HTML without them.
+    const html = rendered.html.replace(/<span class="nb">([^<]*)<\/span>/g, '$1');
     const book = plan.book;
     const attr = (name: string) => new Set([...html.matchAll(new RegExp(`data-${name}="([^"]+)"`, 'g'))].map((m) => m[1]!));
 
@@ -67,12 +73,40 @@ describe('paperback books', () => {
 
     it('prints each answer exactly as the card or variant gives it', () => {
       const printed = new Map([...html.matchAll(/data-answer-value="([^"]+)">([^<]*)</g)].map((m) => [m[1]!, unescape(m[2]!)]));
-      const numbered = [...plan.chapters.flatMap((c) => c.practice), ...plan.review];
+      // WO-026 §7 SHOULD 10: boundary pages have their answers too.
+      const numbered = [...plan.chapters.flatMap((c) => [...(c.boundaryAnswer ? [c.boundaryAnswer] : []), ...c.practice]), ...plan.review];
       expect(printed.size).toBe(numbered.length);
+      for (const ch of plan.chapters) if (ch.boundary) expect(printed.has(`boundary-${ch.boundary.id}`)).toBe(true);
       for (const p of numbered) {
-        const card = resolve(p.id);
+        const card = p.id.startsWith('boundary-') ? resolve(p.id.slice('boundary-'.length)) : resolve(p.id);
         expect(printed.get(p.id)).toBe(answerText(card));
       }
+    });
+
+    it('prints the answer on the right page of every example (WO-026 §7 SHOULD 9)', () => {
+      const printed = new Map([...html.matchAll(/data-example-answer="([^"]+)"><span class="k">[^<]*<\/span>([^<]*)</g)].map((m) => [m[1]!, unescape(m[2]!)]));
+      for (const ch of plan.chapters) for (const ex of ch.examples) expect(printed.get(ex.id), ex.id).toBe(answerText(ex));
+    });
+
+    // WO-026 §3: KDP minimum 24 pages, even, and the book's own kdp.json entry (KDP's white-paper spine).
+    it('has a kdp.json entry for its page count, spine width and spine text', () => {
+      const pages = plan.pages.length;
+      expect(pages).toBeGreaterThanOrEqual(24);
+      const e = kdp.books[book.id]!;
+      expect(e, book.id).toBeDefined();
+      expect(e.pages).toBe(pages);
+      expect(e.spine_mm).toBeCloseTo(pages * kdp.spine_mm_per_page, 2);
+      expect(e.spine_text).toBe(pages >= kdp.spine_text_min_pages);
+      const { geometry } = renderCover(bundle, plan, kdp);
+      expect(geometry.spine).toBe(e.spine_mm);
+    });
+
+    // WO-026 §4: docs/kdp/<book.id>.md is the generated sheet (run `pnpm book <passId>` after a change).
+    it('has its KDP listing sheet, up to date, with 内容紹介 within 4,000 characters', () => {
+      expect(description(plan).length).toBeLessThanOrEqual(DESCRIPTION_MAX);
+      for (const ch of plan.chapters) expect(description(plan)).toContain(ch.lensName);
+      const committed = readFileSync(new URL(`../../../docs/kdp/${book.id}.md`, import.meta.url), 'utf8');
+      expect(committed).toBe(listingSheet(plan));
     });
 
     it('numbers practice problems within each chapter and the answers use the same labels', () => {
@@ -138,7 +172,6 @@ describe('paperback books', () => {
     expect(titleLines('視点レンズ 中学受験算数ワークブック')).toEqual(['視点レンズ 中学受験算数', 'ワークブック']);
     expect(titleLines('次元を落とす')).toEqual(['次元を落とす']);
     const plan = planBook(bundle, 'chugaku_juken');
-    const kdp: KdpConfig = { spine_mm_per_page: 0.0572, spine_mm: null, spine_text_min_pages: 80, barcode_mm: { width: 50.8, height: 30.5, margin: 6.35 } };
     const { html } = renderCover(bundle, plan, kdp);
     const first = plan.chapters[0]!.examples[0]!;
     const front = html.slice(html.indexOf('class="panel front"'));

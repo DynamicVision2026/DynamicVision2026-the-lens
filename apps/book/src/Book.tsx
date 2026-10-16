@@ -1,8 +1,9 @@
 // The interior, page by page (WO-021 §2). Every problem, number and answer comes from the bundle.
 import { renderToStaticMarkup } from 'react-dom/server';
-import { LensIcon, timeLabel, type LensCard, type LensOrDirect } from '@lens/scenes';
-import { COPY, titleLines } from './copy';
-import { renderFigure, type FigureMoment } from './figure';
+import { answerText, LensIcon, type LensCard, type LensOrDirect } from '@lens/scenes';
+import { bookTime, colophonDate, COPY, paragraphs, titleLines } from './copy';
+import { isGraph, renderFigure, type FigureMoment, type FigureOpts } from './figure';
+import { MathText } from './nobreak';
 import { answerOf, lensName, solvingLens, type BookPlan, type ChapterPlan, type Page, type Problem } from './plan';
 import { printColor, printPalette } from './print';
 import { qrSvg } from './qr';
@@ -23,8 +24,8 @@ interface Ctx {
 
 const svg = (html: string, className?: string) => <div className={className} dangerouslySetInnerHTML={{ __html: html }} />;
 
-function Figure({ ctx, card, moment, size }: { ctx: Ctx; card: LensCard; moment: FigureMoment; size: 'lg' | 'md' | 'sm' | 'xs' }) {
-  const fig = renderFigure(card, moment, ctx.tokens);
+function Figure({ ctx, card, moment, size, opts }: { ctx: Ctx; card: LensCard; moment: FigureMoment; size: 'lg' | 'md' | 'sm' | 'xs'; opts?: FigureOpts }) {
+  const fig = renderFigure(card, moment, ctx.tokens, opts);
   if (fig.none) return null;
   if (!fig.svg) {
     ctx.log.placeholders.set(card.id, fig.reason ?? 'no scene');
@@ -34,7 +35,7 @@ function Figure({ ctx, card, moment, size }: { ctx: Ctx; card: LensCard; moment:
       </div>
     );
   }
-  return <div className={`fig w-${size}`} data-figure={card.id} dangerouslySetInnerHTML={{ __html: fig.svg }} />;
+  return <div className={`fig w-${size}${isGraph(card) ? ' graph' : ''}`} data-figure={card.id} dangerouslySetInnerHTML={{ __html: fig.svg }} />;
 }
 
 function lensIconSvg(ctx: Ctx, lens: LensOrDirect): string {
@@ -49,7 +50,9 @@ function qr(ctx: Ctx, url: string): string {
 }
 
 function ProblemText({ card }: { card: LensCard }) {
-  return <div className="ptext" data-text={card.id}>{card.problem.text_ja}</div>;
+  return <div className="ptext" data-text={card.id}>
+      <MathText text={card.problem.text_ja} />
+    </div>;
 }
 
 function BottomBar({ ctx, ch, card }: { ctx: Ctx; ch: ChapterPlan; card: LensCard }) {
@@ -57,7 +60,7 @@ function BottomBar({ ctx, ch, card }: { ctx: Ctx; ch: ChapterPlan; card: LensCar
     <div className="bottom-bar">
       <div className="trigger">
         <span className="k">{COPY.trigger}</span>
-        {card.trigger.ja}
+        <MathText text={card.trigger.ja} />
       </div>
       {ch.chapter.qr && (
         <div className="qr-wrap">
@@ -71,13 +74,13 @@ function BottomBar({ ctx, ch, card }: { ctx: Ctx; ch: ChapterPlan; card: LensCar
 
 function TimeStrip({ ctx, seconds, source, trap }: { ctx: Ctx; seconds: number; source: 'estimate' | 'tester_median'; trap: boolean }) {
   const tc = ctx.tokens.time_cost;
-  const label = timeLabel(trap ? tc.trap_label_ja : tc.lens_label_ja, seconds);
+  const label = bookTime(seconds, source);
   return (
     <div className={`time ${trap ? 'trap' : 'lens'}`}>
       <span>{COPY.time}</span>
       <span className="bar" style={{ width: `${Math.min(60, seconds / tc.scale_sec_per_mm)}mm` }} />
       <span className="num">{label}</span>
-      <span className="badge-src">{tc.source_badge[source]}</span>
+      {source !== 'estimate' && <span className="badge-src">{tc.source_badge[source]}</span>}
     </div>
   );
 }
@@ -94,7 +97,8 @@ function Spread({ ctx, page }: { ctx: Ctx; page: Extract<Page, { kind: 'spread' 
       </div>
       <div className="problem-row">
         <ProblemText card={card} />
-        <Figure ctx={ctx} card={card} moment="problem" size={trap ? 'lg' : 'md'} />
+        {/* A long lens route (6+ steps) leaves less room above it on the right page. */}
+        <Figure ctx={ctx} card={card} moment="problem" size={trap ? 'lg' : route.steps.length > 5 ? 'xs' : 'md'} />
       </div>
       {trap ? (
         <>
@@ -104,7 +108,9 @@ function Spread({ ctx, page }: { ctx: Ctx; page: Extract<Page, { kind: 'spread' 
           </div>
           <ol className="steps trap">
             {route.steps.map((s, i) => (
-              <li key={i}>{s.ja}</li>
+              <li key={i}>
+                <MathText text={s.ja} />
+              </li>
             ))}
           </ol>
           <TimeStrip ctx={ctx} seconds={route.time_cost_sec} source={route.time_source} trap />
@@ -121,13 +127,20 @@ function Spread({ ctx, page }: { ctx: Ctx; page: Extract<Page, { kind: 'spread' 
               {route.steps.map((s, i) => (
                 <li key={i}>
                   <span className="badge">{i + 1}</span>
-                  {s.ja}
+                  <MathText text={s.ja} />
                 </li>
               ))}
             </ol>
-            <Figure ctx={ctx} card={card} moment="solved" size="md" />
+            <Figure ctx={ctx} card={card} moment="solved" size="md" opts={{ answerLine: card }} />
           </div>
-          <TimeStrip ctx={ctx} seconds={route.time_cost_sec} source={route.time_source} trap={false} />
+          {/* WO-026 §7 SHOULD 9: every example shows its answer on the right page, beside its time. */}
+          <div className="result-row">
+            <div className="answer-line" data-example-answer={card.id}>
+              <span className="k">{COPY.answers}</span>
+              <MathText text={answerText(card)} />
+            </div>
+            <TimeStrip ctx={ctx} seconds={route.time_cost_sec} source={route.time_source} trap={false} />
+          </div>
         </>
       )}
       <BottomBar ctx={ctx} ch={ch} card={card} />
@@ -181,7 +194,7 @@ function Answer({ ctx, p }: { ctx: Ctx; p: Problem }) {
       <div className="row">
         <span className="lbl">{p.label}</span>
         <span className="val" data-answer-value={p.id}>
-          {answerOf(p)}
+          <MathText text={answerOf(p)} />
         </span>
         <span className="lens">
           {COPY.answerLens}：{lensName(ctx.bundle, solvingLens(p.card))}
@@ -189,7 +202,9 @@ function Answer({ ctx, p }: { ctx: Ctx; p: Problem }) {
       </div>
       <ol>
         {p.card.lens_route.steps.map((s, i) => (
-          <li key={i}>{s.ja}</li>
+          <li key={i}>
+            <MathText text={s.ja} />
+          </li>
         ))}
       </ol>
     </div>
@@ -226,8 +241,10 @@ function PageBody({ ctx, page }: { ctx: Ctx; page: Page }) {
         <div className="body">
           <h2 className="page-title">{COPY.hajimeni}</h2>
           <div className="prose">
-            {fm.hajimeni_ja.split(/\s+/).filter(Boolean).map((para, i) => (
-              <p key={i}>{para}</p>
+            {paragraphs(fm.hajimeni_ja).map((para, i) => (
+              <p key={i}>
+                <MathText text={para} />
+              </p>
             ))}
           </div>
         </div>
@@ -271,7 +288,9 @@ function PageBody({ ctx, page }: { ctx: Ctx; page: Page }) {
           {ch.chapter.principle_ja && (
             <div className="principle">
               <h3>{COPY.principle}</h3>
-              <p>{ch.chapter.principle_ja}</p>
+              <p>
+                <MathText text={ch.chapter.principle_ja} />
+              </p>
             </div>
           )}
           {ch.chapter.qr && (
@@ -304,7 +323,9 @@ function PageBody({ ctx, page }: { ctx: Ctx; page: Page }) {
           {ch.chapter.boundary_line && (
             <div className="boundary-line">
               <div className="k">{COPY.boundaryLine}</div>
-              <p>{ch.chapter.boundary_line}</p>
+              <p>
+                <MathText text={ch.chapter.boundary_line} />
+              </p>
             </div>
           )}
         </div>
@@ -381,7 +402,7 @@ function PageBody({ ctx, page }: { ctx: Ctx; page: Page }) {
             <div>{book.subtitle_ja}</div>
             <dl>
               <dt>{COPY.published}</dt>
-              <dd className="num">{ctx.date ?? COPY.draftDate}</dd>
+              <dd>{ctx.date ? colophonDate(ctx.date) : COPY.draftDate}</dd>
               <dt>{COPY.author}</dt>
               <dd>{book.author_ja}</dd>
               <dt>{COPY.publisher}</dt>

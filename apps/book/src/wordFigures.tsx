@@ -49,6 +49,9 @@ function LeverSolved({ card, d, p }: { card: LensCard; d: Lever; p: Pal }) {
   const steps = card.lens_route.steps;
   const arms = allAfterEquals(steps[1]); // [known arm, unknown arm]
   const ratio = ratioIn(steps[2]);
+  // WO-026 §7 SHOULD 11: the ratio label uses the step's own 「:」/「：」 and 「=」/「＝」, so it matches the text.
+  const colon = /[\d.]\s*：/.test(steps[2]?.ja ?? '') ? '：' : ':';
+  const eq = /＝/.test(steps[2]?.ja ?? '') ? '＝' : '=';
   const answer = `${formatExact(card.answer.value)}${unit}`;
   const unknownLeft = p2 < p1;
   const armKnown = Math.abs(pt - p1);
@@ -111,7 +114,7 @@ function LeverSolved({ card, d, p }: { card: LensCard; d: Lever; p: Pal }) {
       {hang(Xk, p.known, `${w1}${unit}`)}
       {hang(Xu, p.unknown, answer)}
       {ratio && (
-        <Txt x={300} y={Yb + 175} size={28} fill={p.lens} p={p}>{`${w1}${unit} : ${answer} ＝ ${ratio[0]} : ${ratio[1]}`}</Txt>
+        <Txt x={300} y={Yb + 175} size={28} fill={p.lens} p={p}>{`${w1}${unit} ${colon} ${answer} ${eq} ${ratio[0]} ${colon} ${ratio[1]}`}</Txt>
       )}
     </>
   );

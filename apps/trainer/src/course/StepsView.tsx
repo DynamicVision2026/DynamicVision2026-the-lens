@@ -5,6 +5,7 @@ import { loadBundle } from '@lens/scenes';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { t } from '../i18n/ja';
 import { lessonOpened, track } from '../launch/analytics';
+import { BookLink } from '../launch/BookLink';
 import { navigate } from '../launch/navigate';
 import { sfx } from './fx';
 import { findLesson, findPass, lessonProblems } from './lessons';
@@ -198,7 +199,7 @@ export function TimedView({ passId, lens }: { passId: string; lens: string }) {
         )}
       </div>
       {run ? (
-        <TimedResult items={items} run={run.run} previous={run.previous} onAgain={again} onCase={() => navigate(`/pass/${passId}`)} />
+        <TimedResult passId={passId} items={items} run={run.run} previous={run.previous} onAgain={again} onCase={() => navigate(`/pass/${passId}`)} />
       ) : (
         <Problem
           key={`${round}-${p.card.id}-${i}`}
@@ -218,7 +219,7 @@ export function TimedView({ passId, lens }: { passId: string; lens: string }) {
   );
 }
 
-function TimedResult({ items, run, previous, onAgain, onCase }: { items: TimedItem[]; run: TimedRun; previous?: TimedRun; onAgain: () => void; onCase: () => void }) {
+function TimedResult({ passId, items, run, previous, onAgain, onCase }: { passId: string; items: TimedItem[]; run: TimedRun; previous?: TimedRun; onAgain: () => void; onCase: () => void }) {
   const diff = fasterBy(run, previous);
   return (
     <section className="card timed-result">
@@ -248,6 +249,7 @@ function TimedResult({ items, run, previous, onAgain, onCase }: { items: TimedIt
       <button type="button" className="go ghost" onClick={() => (sfx.tap(), onCase())}>
         {t('lesson.toCase')}
       </button>
+      <BookLink passId={passId} />
     </section>
   );
 }

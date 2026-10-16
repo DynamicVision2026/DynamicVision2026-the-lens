@@ -5,7 +5,7 @@ import type { Book, BookBundle, BookChapter } from './types';
 
 /** One numbered problem (a practice card, its 類題, or a review item), already merged with its variant. */
 export interface Problem {
-  /** Card id or variant id. */
+  /** Card id or variant id (`boundary-<card id>` for a boundary page's answer). */
   id: string;
   card: LensCard;
   base: LensCard;
@@ -21,6 +21,8 @@ export interface ChapterPlan {
   lensName: string;
   examples: LensCard[];
   boundary: LensCard | null;
+  /** The boundary card as an answers-section entry (WO-026 §7 SHOULD 10). */
+  boundaryAnswer: Problem | null;
   practice: Problem[];
 }
 
@@ -48,7 +50,9 @@ export interface BookPlan {
   toc: { label: string; page: number }[];
 }
 
-export const PER_PAGE = { practice: 2, review: 4, answers: 6 } as const;
+// WO-026 §7: 3 review items a page, so each figure prints at a readable size and the lens checkboxes stay
+// clear of the page number.
+export const PER_PAGE = { practice: 2, review: 3, answers: 6 } as const;
 
 function chunk<T>(xs: T[], n: number): T[][] {
   const out: T[][] = [];
@@ -99,12 +103,15 @@ export function planBook(bundle: BookBundle, passId: string): BookPlan {
       push(base, false);
       for (const v of p.variants) push(variantOf(p.card, v), true);
     }
+    const boundary = chapter.boundary ? card(chapter.boundary) : null;
+    const heading = boundary && (boundary.lens === chapter.lens ? COPY.boundarySame : COPY.boundaryOther);
     return {
       no: i + 1,
       chapter,
       lensName: name,
       examples: [chapter.example1, chapter.example2].filter((x): x is string => !!x).map(card),
-      boundary: chapter.boundary ? card(chapter.boundary) : null,
+      boundary,
+      boundaryAnswer: boundary ? { id: `boundary-${boundary.id}`, card: boundary, base: boundary, variant: false, num: 0, label: `${name}　${heading}` } : null,
       practice,
     };
   });
@@ -143,7 +150,7 @@ export function planBook(bundle: BookBundle, passId: string): BookPlan {
     chunk(review, PER_PAGE.review).forEach((items, i) => pages.push({ kind: 'review', items, first: i === 0 }));
   }
   toc.push({ label: COPY.answers, page: pages.length + 1 });
-  const answers = [...chapters.flatMap((c) => c.practice), ...review];
+  const answers = [...chapters.flatMap((c) => [...(c.boundaryAnswer ? [c.boundaryAnswer] : []), ...c.practice]), ...review];
   chunk(answers, PER_PAGE.answers).forEach((items, i) => pages.push({ kind: 'answers', items, first: i === 0 }));
   // The colophon is the last page and the page count must be even.
   if ((pages.length + 1) % 2 === 1) pages.push({ kind: 'memo' });

@@ -38,6 +38,8 @@ body { font-family: ${serif}; font-size: ${pt(s.step.size)}; line-height: ${s.st
 h1, h2, h3, h4, .sans { font-family: ${sans}; margin: 0; }
 p { margin: 0 0 3mm; }
 .num { font-family: ${num}; }
+/* WO-026 §7: coordinates, ratios and short equations never break inside. */
+.nb { white-space: nowrap; }
 
 section.page { position: relative; width: ${TRIM_MM.width}mm; height: ${TRIM_MM.height}mm; overflow: hidden;
   padding: ${m.top}mm ${m.outer}mm ${m.bottom}mm ${m.inner}mm; break-after: page; page-break-after: always; }
@@ -94,6 +96,9 @@ ${figureFontCss(t)}
   font-family: ${sans}; font-size: ${pt(s.label.size)}; color: ${c.quiet}; }
 .fig.w-lg { width: 70mm; } .fig.w-md { width: 58mm; } .fig.w-sm { width: 50mm; } .fig.w-xs { width: 36mm; }
 .fig.w-lg svg { max-height: 80mm; } .fig.w-md svg { max-height: 66mm; } .fig.w-sm svg { max-height: 58mm; } .fig.w-xs svg { max-height: 36mm; }
+/* WO-026 §7: a coordinate plane never prints smaller than this (its tick numbers stay ≥ 7 pt). */
+.fig.graph.w-sm { width: 56mm; } .fig.graph.w-sm svg { max-height: 64mm; }
+.fig.graph.w-xs { width: 46mm; } .fig.graph.w-xs svg { max-height: 54mm; }
 
 .side-head { display: flex; align-items: center; gap: 3mm; margin: 5mm 0 3mm; }
 .side-head h2 { font-size: ${pt(s.title.size)}; font-weight: ${s.title.weight}; }
@@ -116,7 +121,11 @@ ol.steps.lens li .badge { position: absolute; left: 0; top: 0.5mm; width: 5.5mm;
 .time .badge-src { border: ${gridW} solid ${c.quiet}; color: ${c.quiet}; padding: 0 1.5mm; font-size: ${pt(s.label.size - 2)}; }
 .solve-row { display: flex; gap: 5mm; align-items: flex-start; }
 .solve-row ol { flex: 1; }
-.answer-line { font-family: ${sans}; font-size: ${pt(s.problem.size)}; font-weight: 700; margin-top: 3mm; }
+.answer-line { font-family: ${sans}; font-size: ${pt(s.problem.size)}; font-weight: 700; margin-top: 3mm; display: flex; align-items: baseline; gap: 3mm; }
+.result-row { display: flex; align-items: baseline; justify-content: space-between; gap: 6mm; margin-top: 3mm; }
+.result-row .answer-line, .result-row .time { margin-top: 0; }
+.p-spread.recto .problem-row .fig svg { max-height: 56mm; }
+.answer-line .k { font-size: ${pt(s.label.size)}; font-weight: 700; border: ${figW} solid ${c.ink}; padding: 0 2mm; }
 
 .bottom-bar { margin-top: auto; display: flex; align-items: center; gap: 4mm; border-top: ${lensW} solid ${c.ink}; padding-top: 3mm; }
 .bottom-bar .trigger { flex: 1; font-family: ${sans}; font-size: ${pt(s.trigger.size - 2)}; font-weight: ${s.trigger.weight}; line-height: ${s.trigger.line}; }
