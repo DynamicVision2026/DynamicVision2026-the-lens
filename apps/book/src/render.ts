@@ -3,7 +3,7 @@ import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { loadBundle } from '@lens/scenes';
 import { Interior, type RenderLog } from './Book';
-import { Cover, coverCss, coverGeometry, type CoverGeometry, type KdpConfig } from './Cover';
+import { Cover, coverStyle, coverCss, coverGeometry, type CoverGeometry, type KdpConfig } from './Cover';
 import { CROP_SCRIPT } from './crop';
 import { fontFaceCss } from './fonts';
 import { planBook, type BookPlan } from './plan';
@@ -47,5 +47,5 @@ export function renderInterior(bundle: BookBundle, passId: string, opts: RenderO
 export function renderCover(bundle: BookBundle, plan: BookPlan, kdp: KdpConfig, opts: RenderOptions = {}): { html: string; geometry: CoverGeometry } {
   const geometry = coverGeometry(bundle.tokens, kdp, plan.book.id, plan.pages.length);
   const body = renderToStaticMarkup(createElement(Cover, { bundle, plan, g: geometry }));
-  return { html: doc(plan.book.title_ja, coverCss(bundle.tokens, geometry, kdp), body, opts.fonts ?? false), geometry };
+  return { html: doc(plan.book.title_ja, coverCss(bundle.tokens, geometry, kdp, coverStyle(bundle.tokens, plan.passId)), body, opts.fonts ?? false), geometry };
 }
