@@ -10,10 +10,16 @@ const AMAZON = 'https://www.amazon.co.jp/dp/B000000000';
 
 afterEach(() => vi.restoreAllMocks());
 
-/** The bundle with one Pass's book set live. */
+/** The bundle with only one Pass's book live (the others back in proof). */
 function liveBundle(passId: string) {
   const b = loadBundle();
-  return { ...b, passes: b.passes!.map((p) => (p.id === passId ? { ...p, book: { ...(p as { book?: object }).book, status: 'live', amazon_url: AMAZON } } : p)) };
+  const book = (p: object) => (p as { book?: object }).book;
+  return {
+    ...b,
+    passes: b.passes!.map((p) =>
+      p.id === passId ? { ...p, book: { ...book(p), status: 'live', amazon_url: AMAZON } } : { ...p, book: { ...book(p), status: 'proof', amazon_url: null } },
+    ),
+  };
 }
 
 describe('paperback link (WO-026 §5)', () => {
@@ -24,9 +30,11 @@ describe('paperback link (WO-026 §5)', () => {
     expect(bookUrl(undefined)).toBeNull();
   });
 
-  it('shows nothing today (every book is still in proof)', () => {
-    for (const p of loadBundle().passes!) expect(renderToStaticMarkup(<BookLink passId={p.id} />)).toBe('');
-    expect(renderToStaticMarkup(<Courses />)).not.toContain(t('book.amazon'));
+  it('as shipped: 中学受験 is live on Amazon (Oct 16); 高校/大学 show nothing until theirs are', () => {
+    expect(renderToStaticMarkup(<BookLink passId="chugaku_juken" />)).toContain('href="https://www.amazon.co.jp/dp/B0HN7PVL1K"');
+    expect(renderToStaticMarkup(<BookLink passId="koukou_juken" />)).toBe('');
+    expect(renderToStaticMarkup(<BookLink passId="daigaku_juken" />)).toBe('');
+    expect(renderToStaticMarkup(<Courses />).split(t('book.amazon')).length - 1).toBe(1);
   });
 
   it('once live: a new-tab link on that Pass card only', async () => {

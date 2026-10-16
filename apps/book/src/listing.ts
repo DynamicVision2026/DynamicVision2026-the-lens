@@ -22,7 +22,7 @@ const SUGGEST: Record<string, { keywords: string[]; categories: string[] }> = {
   },
 };
 
-/** WO-027 §5: 「¥2,100（税込）」 from book.yaml price_jpy; blank when not set. */
+/** WO-027 §5: e.g. 「¥2,580（税込）」 from book.yaml price_jpy; blank when not set. */
 export function priceText(yen: number | null | undefined): string {
   return typeof yen === 'number' && yen > 0 ? `¥${yen.toLocaleString('en-US')}（税込）` : '';
 }
