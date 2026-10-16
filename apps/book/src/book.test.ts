@@ -177,7 +177,7 @@ describe('paperback books', () => {
     }
   });
 
-  it('cover: title breaks before ワークブック, and the front figure prints no answer or formula', () => {
+  it('cover: 視点レンズ prints large wherever it sits in the title, and the front figure prints no answer or formula', () => {
     expect(titleLines('視点レンズ 中学受験算数ワークブック')).toEqual(['視点レンズ 中学受験算数', 'ワークブック']);
     expect(titleLines('次元を落とす')).toEqual(['次元を落とす']);
     const plan = planBook(bundle, 'chugaku_juken');
@@ -190,7 +190,8 @@ describe('paperback books', () => {
       expect(t).not.toMatch(/[=＝]/);
       expect(t).not.toBe(answerText(first));
     }
-    expect(front).toContain('<span class="line">ワークブック</span>');
+    expect(front).toContain('<span class="lead">中学受験算数</span><span class="big">視点レンズ</span>');
+    expect(front).toContain('<span class="part">4週間ワークブック</span>');
   });
 
   it('back cover: the QR is tagged as a book visit, the printed address stays clean', () => {
