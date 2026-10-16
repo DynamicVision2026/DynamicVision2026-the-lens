@@ -135,6 +135,9 @@ html, body { margin: 0; padding: 0; background: ${k.ground}; color: ${k.navy}; -
 .front h1 .rest { display: inline-block; margin-top: 4mm; font-size: 22pt; font-weight: 900; letter-spacing: 0.02em;
   background: linear-gradient(transparent 58%, ${k.card} 58%, ${k.card} 92%, transparent 92%); padding: 0 1mm; }
 .front h1 .line { display: inline; }
+.front h1 .lead { display: inline-block; margin-bottom: 2mm; font-size: 24pt; font-weight: 900; letter-spacing: 0.04em;
+  background: linear-gradient(transparent 58%, ${k.card} 58%, ${k.card} 92%, transparent 92%); padding: 0 1mm; }
+.front .sub .part { display: block; }
 .front .sub { margin-top: 3.5mm; font-size: 13pt; font-weight: 700; color: ${k.text}; letter-spacing: 0.02em; }
 .front .stage { flex: 1; display: flex; align-items: center; justify-content: center; }
 .front .lens { width: ${lensD}mm; height: ${lensD}mm; border-radius: 50%; background: ${c.paper}; border: 2.4mm solid ${k.accent};
@@ -193,12 +196,18 @@ function iconSvg(t: BookTokens, lens: string, color: string): string {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 28 28">${inner}</svg>`;
 }
 
-/** 「視点レンズ 中学受験算数ワークブック」 → big 「視点レンズ」 + the rest, still breaking before ワークブック. */
-function coverTitle(title: string, series: string): { big: string; rest: string[] } {
+/**
+ * The series word 視点レンズ prints large wherever it sits in the title, the other words keep their order:
+ * 「中学受験算数 視点レンズ」 → lead 「中学受験算数」 + big 「視点レンズ」; 「視点レンズ 中学受験算数ワークブック」 → big + rest.
+ */
+function coverTitle(title: string, series: string): { lead: string; big: string; rest: string[] } {
   const word = series.replace(/（.*$/, '').trim();
-  const lines = titleLines(title);
-  if (word && lines[0]!.startsWith(word)) return { big: word, rest: [lines[0]!.slice(word.length).trim(), ...lines.slice(1)].filter(Boolean) };
-  return { big: lines[0]!, rest: lines.slice(1) };
+  const i = word ? title.indexOf(word) : -1;
+  if (i < 0) {
+    const lines = titleLines(title);
+    return { lead: '', big: lines[0]!, rest: lines.slice(1) };
+  }
+  return { lead: title.slice(0, i).trim(), big: word, rest: titleLines(title.slice(i + word.length).trim()).filter(Boolean) };
 }
 
 export function Cover({ bundle, plan, g }: { bundle: BookBundle; plan: BookPlan; g: CoverGeometry }) {
@@ -263,6 +272,7 @@ export function Cover({ bundle, plan, g }: { bundle: BookBundle; plan: BookPlan;
           <span className="lvl">{k.label}</span>
         </div>
         <h1>
+          {title.lead ? <span className="lead">{title.lead}</span> : null}
           <span className="big">{title.big}</span>
           <span className="rest">
             {title.rest.map((line) => (
@@ -272,7 +282,13 @@ export function Cover({ bundle, plan, g }: { bundle: BookBundle; plan: BookPlan;
             ))}
           </span>
         </h1>
-        <div className="sub">{book.subtitle_ja}</div>
+        <div className="sub">
+          {book.subtitle_ja.split('　').map((part) => (
+            <span key={part} className="part">
+              {part}
+            </span>
+          ))}
+        </div>
         <div className="stage">
           <div className="lens">{fig?.svg ? <div className="fig" dangerouslySetInnerHTML={{ __html: fig.svg }} /> : <div className="fig" />}</div>
         </div>

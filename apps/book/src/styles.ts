@@ -90,6 +90,7 @@ section.verso .folio { left: ${m.outer}mm; }
 .book-title { color: ${k.navy}; font-size: ${pt(s.display.size + 4)}; font-weight: 900; line-height: ${s.display.line}; margin-bottom: 6mm; word-break: keep-all; }
 .book-title .line { display: block; }
 .book-subtitle { font-family: ${sans}; font-size: ${pt(s.title.size - 2)}; font-weight: 500; margin-bottom: 14mm; }
+.book-subtitle .part { display: block; }
 .audience { display: inline-block; font-family: ${sans}; font-size: ${pt(s.label.size + 1)}; font-weight: 700; background: var(--band, ${k.ground}); color: ${k.navy}; border-radius: 10mm; padding: 1.5mm 5mm; align-self: flex-start; }
 .title-foot { margin-top: auto; font-family: ${sans}; font-size: ${pt(s.label.size)}; color: ${c.quiet}; line-height: 1.6; }
 .title-rule { width: 40mm; height: 3mm; background: var(--band, ${k.ground}); border-radius: 2mm; margin: 0 0 10mm; }

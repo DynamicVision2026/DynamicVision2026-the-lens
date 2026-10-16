@@ -7,8 +7,8 @@ book:
   id: lens-book-chugaku-1
   status: proof                # building → proof → live (live needs amazon_url); WO-026
   series_ja: 視点レンズ（The Lens）
-  title_ja: 視点レンズ 中学受験算数ワークブック
-  subtitle_ja: 8つの視点で「最初の一手」が見える
+  title_ja: 中学受験算数 視点レンズ
+  subtitle_ja: 解き始めを速くする8つのレンズ　4週間ワークブック    # Brian, Oct 16: exam word first (Amazon search), benefit without a score promise
   audience_ja: 小5〜小6・中学受験
   author_ja: Brian Fu
   publisher_ja: Beyond Culture 獨步文化株式会社

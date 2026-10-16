@@ -240,7 +240,13 @@ function PageBody({ ctx, page }: { ctx: Ctx; page: Page }) {
               </span>
             ))}
           </h1>
-          <div className="book-subtitle">{book.subtitle_ja}</div>
+          <div className="book-subtitle">
+            {book.subtitle_ja.split('　').map((part) => (
+              <span key={part} className="part">
+                {part}
+              </span>
+            ))}
+          </div>
           <div className="audience">{book.audience_ja}</div>
           <div className="title-foot">
             {book.author_ja}

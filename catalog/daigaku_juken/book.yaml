@@ -5,8 +5,8 @@ book:
   id: lens-book-daigaku-1
   status: proof                # WO-026: all 8 lessons live (Oct 16)
   series_ja: 視点レンズ（The Lens）
-  title_ja: 視点レンズ 大学受験数学ワークブック
-  subtitle_ja: 次元を落とし、文字を止める
+  title_ja: 大学入試数学 視点レンズ
+  subtitle_ja: 解き始めを速くする8つのレンズ　4週間ワークブック    # Brian, Oct 16: exam word first (Amazon search), benefit without a score promise
   audience_ja: 高1〜高3・共通テスト／個別試験
   author_ja: Brian Fu
   publisher_ja: Beyond Culture 獨步文化株式会社
@@ -27,4 +27,4 @@ book:
       - 最後の「どのレンズ？」総まとめで、単元をまぜて選ぶ練習をする
     qr_ja: 各章のQRコードから、同じ考え方を動かして確かめられます（Webアプリ「視点レンズ」）。
     honesty_ja: この本は点数を約束するものではありません。最初の一手を決めるまでの時間を短くするための練習帳です。
-    parent_ja: 1日1章の半分（20〜30分）が目安です。
+    parent_ja: 1日1章の半分（20〜30分）が目安です。週5日なら、約4週間で一周できます。
