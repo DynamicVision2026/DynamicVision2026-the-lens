@@ -14,6 +14,7 @@ book:
   publisher_ja: Beyond Culture 獨歩文化株式会社
   interior: bw                 # black-and-white first (tokens: every distinction survives B&W); colour only if KDP JP offers it
   amazon_url: null             # set after KDP publishing; the trainer links to it (WO-021 §4)
+  price_jpy: 2100               # KDP list price, Brian Oct 16 (WO-027 §5)
   practice_variants: 1         # extra 類題 per practice card, from its validated variants
   review: {count: 16, seed: 4101}    # final chapter 「どのレンズ？」: mixed variants, pick the lens before solving
   qr: "https://lens.domo-ai.com/lesson/{pass}/{lens}?src=book"
