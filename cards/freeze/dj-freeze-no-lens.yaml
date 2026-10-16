@@ -18,7 +18,7 @@ grounding:
   principle_ja: 「aの値にかかわらず」は、aを止めて考える合図。aについて整理し、aの係数と残りがともに0になる点を求める。
   principle_en: '''For every a'': freeze a; collect the terms in a, and set both the coefficient of a and the rest to zero.'
 problem:
-  text_ja: 直線 (a + 1)x ＋ (a − 1)y ＋ (−2a) = 0 について、a = 2 のときの傾きを求めなさい。
+  text_ja: 直線 (a + 1)x + (a − 1)y − 2a = 0 について、a = 2 のときの傾きを求めなさい。
   unit: ''
   figure:
     type: param_family
@@ -52,7 +52,7 @@ lens_route:
   steps:
   - ja: aの値が決まっているので、a = 2 を代入するだけ
     op: note
-  - ja: 3x ＋ 1y ＋ (−4) = 0 → 傾き = −3
+  - ja: 3x + y − 4 = 0 → 傾き = −3
     value: '-3'
     op: result
 trigger:

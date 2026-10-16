@@ -18,7 +18,7 @@ grounding:
   principle_ja: 直線上の点を通る2点間の最短は、一方の点を直線で折り返し、まっすぐ結ぶ。
   principle_en: 'Shortest path via a point on a line: reflect one point across the line and join straight.'
 problem:
-  text_ja: '直線 ℓ: y = x と、2点A(0, 3)、B(4, 1)があります。ℓ上に点Pをとるとき、AP＋PB の最小値を求めなさい。'
+  text_ja: '直線 ℓ: y = x と、2点A(0, 3)、B(4, 1)があります。ℓ上に点Pをとるとき、AP+PB の最小値を求めなさい。'
   unit: ''
   figure:
     type: line_mirror
@@ -53,7 +53,7 @@ lens_route:
   steps:
   - ja: AとBはℓをはさんで反対側にある。折り返さずに、AとBをまっすぐ結ぶ
     op: note
-  - ja: 最小値 = AB = √(4²＋(−2)²) = √20 = 2√5
+  - ja: 最小値 = AB = √(4² + (−2)²) = √20 = 2√5
     value: 2*sqrt(5)
     op: result
 trigger:

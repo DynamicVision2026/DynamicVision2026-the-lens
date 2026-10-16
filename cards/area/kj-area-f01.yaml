@@ -18,7 +18,7 @@ grounding:
   principle_ja: 全部の数が分からないと、面積図の横の長さが決まらない。多い分を先に取りのぞけば、残りは「1組ずつ」になる。
   principle_en: Without the total count the area diagram has no width; removing the surplus first leaves matched pairs.
 problem:
-  text_ja: 1個130円のドーナツと1個80円のクッキーを買現在した。ドーナツはクッキーより4個多く、代金は合わせて2200円でした。クッキーは何個買現在したか。
+  text_ja: 1個130円のドーナツと1個80円のクッキーを買いました。ドーナツはクッキーより4個多く、代金は合わせて2200円でした。クッキーは何個買いましたか。
   unit: 個
   figure:
     type: word_problem

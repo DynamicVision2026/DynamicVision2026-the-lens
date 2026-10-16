@@ -59,7 +59,8 @@ export function answerText(card: LensCard): string {
     const [n, d = '1'] = card.answer.value.split('/');
     return `${f.ask === 'bp_pe' ? 'BP:PE' : 'AP:PD'}＝${n}:${d}`;
   }
-  return `${formatExact(card.answer.value)}${card.problem.unit}`;
+  // Print minus (U+2212) like the rest of the text (audit 2026-10-16: 「-5」).
+  return `${formatExact(card.answer.value).replace(/^-/, '−')}${card.problem.unit}`;
 }
 
 /** Fills a time_cost label template such as "+{min}分{sec}秒". Without {min}, {sec} is the total. */

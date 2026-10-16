@@ -18,7 +18,7 @@ grounding:
   principle_ja: 「aの値にかかわらず」は、aを止めて考える合図。aについて整理し、aの係数と残りがともに0になる点を求める。
   principle_en: '''For every a'': freeze a; collect the terms in a, and set both the coefficient of a and the rest to zero.'
 problem:
-  text_ja: 直線 (a + 1)x ＋ (a − 1)y ＋ (−2a) = 0 は、定数 a の値にかかわらず定点を通ります。その定点の座標を求めなさい。
+  text_ja: 直線 (a + 1)x + (a − 1)y − 2a = 0 は、定数 a の値にかかわらず定点を通ります。その定点の座標を求めなさい。
   unit: ''
   figure:
     type: param_family
@@ -48,9 +48,9 @@ lens_route:
   time_cost_sec: 40
   time_source: estimate
   steps:
-  - ja: aを止めて考える：aについて整理すると a×(…) ＋ (…) = 0。どんなaでも成り立つのは、2つのかっこが両方0のとき
+  - ja: aを止めて考える：aについて整理すると a×(…) + (…) = 0。どんなaでも成り立つのは、2つのかっこが両方0のとき
     op: note
-  - ja: a(x + y − 2) ＋ (x − y) = 0
+  - ja: a(x + y − 2) + (x − y) = 0
     op: note
   - ja: x + y − 2 = 0 と x − y = 0 を連立して、定点 (1, 1)
     value: (1, 1)

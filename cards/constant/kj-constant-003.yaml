@@ -19,7 +19,7 @@ grounding:
   principle_ja: 2人が同じ金額ずつ使うと、2人のお金の差は変わらない。年齢の問題と同じ形になる。
   principle_en: 'If both spend the same amount, the difference between them is unchanged: the same shape as the age problem.'
 problem:
-  text_ja: 姉は3800円、妹は1800円持って現在す。2人が同じ金額ずつ使ったところ、姉の残りは妹の残りの3倍になりました。1人何円使現在したか。
+  text_ja: 姉は3800円、妹は1800円持っています。2人が同じ金額ずつ使ったところ、姉の残りは妹の残りの3倍になりました。1人何円使いましたか。
   unit: 円
   figure:
     type: word_problem

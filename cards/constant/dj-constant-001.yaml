@@ -18,7 +18,7 @@ grounding:
   principle_ja: 和が一定なら、まん中からのずれをtとおく。積は（まん中）²−t²、2乗の和は 2×（まん中）²＋2t²。t＝0 が最大・最小。
   principle_en: 'Fixed sum: write both as centre ± t; the product is centre² − t², the sum of squares 2·centre² + 2t².'
 problem:
-  text_ja: x ＋ y = 10、x＞0、y＞0 のとき、xy の最大値を求めなさい。
+  text_ja: x + y = 10、x＞0、y＞0 のとき、xy の最大値を求めなさい。
   unit: ''
   figure:
     type: const_sum
@@ -42,7 +42,7 @@ lens_route:
   time_cost_sec: 30
   time_source: estimate
   steps:
-  - ja: 和 x＋y = 10 は一定。まん中 5 からのずれを t として x = 5＋t、y = 5−t
+  - ja: 和 x+y = 10 は一定。まん中 5 からのずれを t として x = 5+t、y = 5−t
     op: note
   - ja: xy = 5² − t²。t = 0 のとき最大
     op: note

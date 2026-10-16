@@ -75,7 +75,7 @@ picker:
   - two_kinds_mixed
   - moving_points
   feedback_ja:
-    constant: そのとおり。年れいの差30はずっと同じなので、その差を「何つ分」で考えられる。
+    constant: そのとおり。年れいの差30はずっと同じなので、その差を「いくつ分」で考えられる。
     area: 2種類のものの数と合計の問題ではない。
     freeze: 動く点の速さの問題ではない。
     direct: 1年ずつ表にすると、答えまでに何行も書くことになる。

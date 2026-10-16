@@ -18,7 +18,7 @@ grounding:
   principle_ja: 和が一定なら、まん中からのずれをtとおく。積は（まん中）²−t²、2乗の和は 2×（まん中）²＋2t²。t＝0 が最大・最小。
   principle_en: 'Fixed sum: write both as centre ± t; the product is centre² − t², the sum of squares 2·centre² + 2t².'
 problem:
-  text_ja: x ＋ y = 10、x＞0、y＞0 のとき、(x ＋ 2)(y ＋ 3) の最大値を求めなさい。
+  text_ja: x + y = 10、x＞0、y＞0 のとき、(x + 2)(y + 3) の最大値を求めなさい。
   unit: ''
   figure:
     type: const_sum
@@ -45,7 +45,7 @@ lens_route:
   time_cost_sec: 30
   time_source: estimate
   steps:
-  - ja: X = x＋2、Y = y＋3 とおくと、X＋Y = 10＋2＋3 = 15 で一定
+  - ja: X = x+2、Y = y+3 とおくと、X+Y = 10+2+3 = 15 で一定
     op: note
   - ja: 和が一定なら、まん中 X = Y = 15/2 で積が最大（x = 11/2、y = 9/2 はどちらも正）
     op: note

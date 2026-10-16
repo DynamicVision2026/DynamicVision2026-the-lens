@@ -18,7 +18,7 @@ grounding:
   principle_ja: 和が一定なら、まん中からのずれをtとおく。積は（まん中）²−t²、2乗の和は 2×（まん中）²＋2t²。t＝0 が最大・最小。
   principle_en: 'Fixed sum: write both as centre ± t; the product is centre² − t², the sum of squares 2·centre² + 2t².'
 problem:
-  text_ja: x ＋ y = 8、x＞0、y＞0 のとき、x² ＋ y² の最小値を求めなさい。
+  text_ja: x + y = 8、x＞0、y＞0 のとき、x² + y² の最小値を求めなさい。
   unit: ''
   figure:
     type: const_sum
@@ -42,9 +42,9 @@ lens_route:
   time_cost_sec: 30
   time_source: estimate
   steps:
-  - ja: 和 x＋y = 8 は一定。まん中 4 からのずれを t として x = 4＋t、y = 4−t
+  - ja: 和 x+y = 8 は一定。まん中 4 からのずれを t として x = 4+t、y = 4−t
     op: note
-  - ja: x²＋y² = 2×4²＋2t²。t = 0 のとき最小
+  - ja: x² + y² = 2×4² + 2t²。t = 0 のとき最小
     op: note
   - ja: 2×4² = 32
     value: '32'

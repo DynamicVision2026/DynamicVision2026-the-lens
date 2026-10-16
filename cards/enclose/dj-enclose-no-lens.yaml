@@ -51,7 +51,7 @@ lens_route:
     op: note
   - ja: x = 1 のとき y = 3、x = 3 のとき y = 7
     op: note
-  - ja: (3＋7)×2÷2 = 10
+  - ja: (3+7)×2÷2 = 10
     value: '10'
     op: result
 trigger:

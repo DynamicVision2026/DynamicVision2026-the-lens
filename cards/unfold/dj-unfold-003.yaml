@@ -48,7 +48,7 @@ lens_route:
     op: note
   - ja: 開いた図で、Aと、反対のはしの半径上のB'（OB'＝3）を結ぶ線分が最短
     op: note
-  - ja: 余弦定理：AB'² = 4²＋3²−2×4×3×cos90° = 25
+  - ja: 余弦定理：AB'² = 4²+3²−2×4×3×cos90° = 25
     op: note
   - ja: AB' = 5
     value: '5'

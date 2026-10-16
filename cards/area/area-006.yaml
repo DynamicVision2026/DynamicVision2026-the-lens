@@ -16,10 +16,10 @@ provenance:
   not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
   author: The Lens content team
 grounding:
-  principle_ja: 1人あたりの個数×人数は長方形。2つの配り方の長方形のちがいは、あまりの差になる。
+  principle_ja: 1人あたりの数×人数は長方形。2つの配り方の長方形のちがいは、あまりの差になる。
   principle_en: Per-person × people is a rectangle; the two ways differ by the difference of the surpluses.
 problem:
-  text_ja: 何人かの子どもにえんぴつを配ります。1人に5個ずつ配ると38個あまり、1人に8個ずつ配っても8個あまります。子どもは何人ですか。
+  text_ja: 何人かの子どもにえんぴつを配ります。1人に5本ずつ配ると38本あまり、1人に8本ずつ配っても8本あまります。子どもは何人ですか。
   unit: 人
   figure:
     type: word_problem
@@ -49,7 +49,7 @@ lens_route:
   time_cost_sec: 35
   time_source: estimate
   steps:
-  - ja: たて＝1人あたりの個数、横＝人数の長方形で、2つの配り方をかさねる
+  - ja: たて＝1人あたりの数、横＝人数の長方形で、2つの配り方をかさねる
     op: note
   - ja: どちらもあまるので、2つの配り方の差は あまりの差 38−8 = 30
     op: note

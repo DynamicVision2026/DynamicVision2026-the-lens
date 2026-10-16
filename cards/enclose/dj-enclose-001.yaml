@@ -44,7 +44,7 @@ lens_route:
   time_cost_sec: 45
   time_source: estimate
   steps:
-  - ja: y = x² − 4 = (x ＋ 2)(x − 2)。交点のx座標は −2 と 2
+  - ja: y = x² − 4 = (x + 2)(x − 2)。交点のx座標は −2 と 2
     op: note
   - ja: 放物線と直線（放物線）で囲まれた部分は 1/6公式：|x²の係数|×(β−α)³÷6
     op: note

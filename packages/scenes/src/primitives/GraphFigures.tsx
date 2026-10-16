@@ -30,7 +30,9 @@ export function quadText(q: (number | string)[]): string {
     const v = fieldNumber(c);
     if (v === 0) return;
     const abs = fieldText(c).replace('−', '');
-    terms.push([v < 0 ? '−' : '+', (abs !== '1' || !pw ? abs : '') + pw]);
+    const coef = abs !== '1' || !pw ? abs : '';
+    // A fraction in front of a power gets parentheses: (1/2)x², never 1/2x² (audit 2026-10-16).
+    terms.push([v < 0 ? '−' : '+', (pw && coef.includes('/') ? `(${coef})` : coef) + pw]);
   });
   if (terms.length === 0) return '0';
   return terms.map(([sign, body], i) => (i === 0 ? (sign === '−' ? '−' : '') + body : ` ${sign} ${body}`)).join('');

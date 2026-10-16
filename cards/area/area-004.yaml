@@ -16,7 +16,7 @@ provenance:
   not_derived_from: Numbers, story and wording are original. Not adapted from any 入試, textbook or 塾 problem.
   author: The Lens content team
 grounding:
-  principle_ja: 「1人あたりの個数×人数」は長方形の面積。2つの配り方の長方形のちがいは、あまりと不足を合わせた数になる。
+  principle_ja: 「1人あたりの数×人数」は長方形の面積。2つの配り方の長方形のちがいは、あまりと不足を合わせた数になる。
   principle_en: Items per person × people is a rectangle; the difference between the two ways of sharing is the surplus plus the shortfall.
 problem:
   text_ja: 何人かの子どもにあめを配ります。1人に4個ずつ配ると11個あまり、1人に7個ずつ配ると10個たりません。子どもは何人ですか。
@@ -49,7 +49,7 @@ lens_route:
   time_cost_sec: 35
   time_source: estimate
   steps:
-  - ja: たて＝1人あたりの個数、横＝人数の長方形で、2つの配り方をかさねる
+  - ja: たて＝1人あたりの数、横＝人数の長方形で、2つの配り方をかさねる
     op: note
   - ja: 2つの配り方の差は、あまり11個とたりない10個を合わせた 11+10 = 21
     op: note

@@ -48,7 +48,7 @@ lens_route:
   time_cost_sec: 45
   time_source: estimate
   steps:
-  - ja: 差をとると −2x² + 4x + 6 = −2(x ＋ 1)(x − 3)。交点のx座標は −1 と 3
+  - ja: 差をとると −2x² + 4x + 6 = −2(x + 1)(x − 3)。交点のx座標は −1 と 3
     op: note
   - ja: 放物線と直線（放物線）で囲まれた部分は 1/6公式：|x²の係数|×(β−α)³÷6
     op: note

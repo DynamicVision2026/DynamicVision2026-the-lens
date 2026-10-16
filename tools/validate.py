@@ -780,6 +780,9 @@ def _ratio_parts(q):
     return q["a1"] * L // d1, q["a2"] * L // d2
 
 
+COUNTER = {"えんぴつ": "本", "鉛筆": "本", "ペン": "本", "ノート": "冊", "本": "冊", "色紙": "枚", "シール": "枚", "カード": "枚"}  # audit: えんぴつ5個
+
+
 def _wp_text_base(fig, names):
     """The problem sentence for a word problem, generated from its numbers, so text and numbers can never disagree."""
     q = fig["params"]
@@ -787,8 +790,8 @@ def _wp_text_base(fig, names):
         A, B = names["a"], names["b"]
         return f"ある博物館の入館料は、{A}1人{q['a']}円、{B}1人{q['b']}円です。{A}と{B}合わせて{q['n']}人で入館し、入館料は合計{q['t']}円でした。{A}は何人ですか。"
     if fig["kind"] == "shortfall_both_over":
-        it = names["item"]
-        return f"何人かの子どもに{it}を配ります。1人に{q['a']}個ずつ配ると{q['s1']}個あまり、1人に{q['b']}個ずつ配っても{q['s2']}個あまります。子どもは何人ですか。"
+        it = names["item"]; u = COUNTER.get(it, "個")
+        return f"何人かの子どもに{it}を配ります。1人に{q['a']}{u}ずつ配ると{q['s1']}{u}あまり、1人に{q['b']}{u}ずつ配っても{q['s2']}{u}あまります。子どもは何人ですか。"
     if fig["kind"] == "score_penalty":
         return f"{q['n']}問のクイズで、1問正解すると{q['a']}点もらえ、まちがえると{q['b']}点へらされます。全部の問題に答えて、得点は{q['t']}点でした。正解した問題は何問ですか。"
     if fig["kind"] == "same_gain":
@@ -826,8 +829,8 @@ def _wp_text_base(fig, names):
     if fig["kind"] == "average_groups":
         return f"1組{q['m']}人のテストの平均点は{q['p']}点、2組の平均点は{q['q']}点で、2つの組を合わせた平均点は{q['r']}点でした。2組は何人ですか。"
     if fig["kind"] == "shortfall":
-        it = names["item"]
-        return f"何人かの子どもに{it}を配ります。1人に{q['a']}個ずつ配ると{q['s']}個あまり、1人に{q['b']}個ずつ配ると{q['d']}個たりません。子どもは何人ですか。"
+        it = names["item"]; u = COUNTER.get(it, "個")
+        return f"何人かの子どもに{it}を配ります。1人に{q['a']}{u}ずつ配ると{q['s']}{u}あまり、1人に{q['b']}{u}ずつ配ると{q['d']}{u}たりません。子どもは何人ですか。"
     if fig["kind"] == "same_spend":
         o, y = names["older"], names["younger"]
         return f"{o}は{q['x']}円、{y}は{q['y']}円持っています。2人が同じ金額ずつ使ったところ、{o}の残りは{y}の残りの{q['r']}倍になりました。1人何円使いましたか。"
@@ -1035,11 +1038,15 @@ CHUGAKU_WORDS = [("年れい", "年齢"), ("何才", "何歳"), ("才", "歳"), 
                  ("とちゅう", "途中"), ("おこづかい", "お金")]
 
 
+# Kana words that also occur inside verbs: replace only as a whole word (audit 2026-10-16: 買います → 買現在す).
+_CHUGAKU_GUARD = {"いま": r"(?<![ぁ-ゖ])いま(?![すしせ])", "たて": r"(?<![ぁ-ゖ])たて(?![るれろらりっ])"}
+
+
 def register(text, names):
     if (names or {}).get("register") != "chugaku":
         return text
     for a, b in CHUGAKU_WORDS:
-        text = text.replace(a, b)
+        text = re.sub(_CHUGAKU_GUARD[a], b, text) if a in _CHUGAKU_GUARD else text.replace(a, b)
     return text
 
 
@@ -2291,7 +2298,7 @@ def make_wp_variants(card):
             q = {"n": n, "a": a, "b": b, "x": x}
             vnames.update({"a": f"{a}円玉", "b": f"{b}円玉"})
         elif fig0["kind"] == "age_sum_later":
-            c = rng.randint(5, 13); p = c + rng.randint(2, 8); y = rng.randint(2, 9)
+            c = rng.randint(5, 13); p = c + rng.randint(24, 36); y = rng.randint(2, 9)  # parent 24–36 years older (audit: 父11歳)
             q = {"p": p, "c": c, "y": y}
         elif fig0["kind"] == "sum_catchup":
             c3 = rng.randint(2, 6); c2 = c3 + rng.randint(1, 3); c1 = c2 + rng.randint(1, 3); y = rng.randint(4, 15)
@@ -2440,8 +2447,12 @@ def make_wp_variants(card):
         if stray_name_numbers(vnames, text, steps):
             continue
         seen.add(key); used_answers.add(x)
-        out.append({"id": f"{card['id']}-v{len(out) + 1}", "text_ja": text, "figure": {"params": q, "names": vnames},
-                    "answer": str(x), "lens_route": {"steps": steps}})
+        item = {"id": f"{card['id']}-v{len(out) + 1}", "text_ja": text, "figure": {"params": q, "names": vnames},
+                "answer": str(x), "lens_route": {"steps": steps}}
+        if fig0["kind"] == "clock_overlap":   # audit: 「300/11分」 → 「5時27と3/11分」, like the anchor card
+            whole, rest = divmod(Rational(x).p, Rational(x).q)
+            item["display_ja"] = f"{q['h']}時{whole}と{rest}/{Rational(x).q}分" if rest else f"{q['h']}時{whole}分"
+        out.append(item)
     return out
 
 
@@ -2490,7 +2501,7 @@ def _wp_steps_base(fig, names):
     if fig["kind"] == "shortfall":
         n = wp_solve(fig)
         return [
-            {"ja": "たて＝1人あたりの個数、横＝人数の長方形で、2つの配り方をかさねる", "op": "note"},
+            {"ja": "たて＝1人あたりの数、横＝人数の長方形で、2つの配り方をかさねる", "op": "note"},
             {"ja": f"2つの配り方の差は、あまり{q['s']}個とたりない{q['d']}個を合わせた {q['s']}+{q['d']} = {q['s'] + q['d']}", "op": "note"},
             {"ja": f"その差は、たて {q['b']}−{q['a']} = {q['b'] - q['a']}、横＝人数 の長方形の面積", "op": "note"},
             {"ja": f"人数 = {q['s'] + q['d']}÷{q['b'] - q['a']} = {_fmt(n)}（人）", "value": str(n), "op": "result"},
@@ -2638,7 +2649,7 @@ def _wp_steps_base(fig, names):
     if fig["kind"] == "shortfall_both_over":
         n = wp_solve(fig)
         return [
-            {"ja": "たて＝1人あたりの個数、横＝人数の長方形で、2つの配り方をかさねる", "op": "note"},
+            {"ja": "たて＝1人あたりの数、横＝人数の長方形で、2つの配り方をかさねる", "op": "note"},
             {"ja": f"どちらもあまるので、2つの配り方の差は あまりの差 {q['s1']}−{q['s2']} = {q['s1'] - q['s2']}", "op": "note"},
             {"ja": f"その差は、たて {q['b']}−{q['a']} = {q['b'] - q['a']}、横＝人数 の長方形の面積", "op": "note"},
             {"ja": f"人数 = {q['s1'] - q['s2']}÷{q['b'] - q['a']} = {_fmt(n)}（人）", "value": str(n), "op": "result"},
