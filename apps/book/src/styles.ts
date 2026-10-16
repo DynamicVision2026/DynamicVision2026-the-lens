@@ -105,8 +105,7 @@ ol.howto li::before { content: counter(howto); position: absolute; left: 0; top:
 .note { border-left: ${lensW} solid ${k.navy}; background: ${k.ground}; border-radius: 0 2mm 2mm 0; padding: 1mm 0 1mm 4mm; margin-bottom: 5mm; font-size: ${pt(s.step.size - 1)}; line-height: 1.7; }
 .note.app-guide .ag-title { font-weight: bold; margin-bottom: 1.5mm; }
 .note.app-guide .ag-row { margin-bottom: 1.5mm; }
-.note.app-guide .ag-k { display: block; font-weight: bold; }
-.note.app-guide .ag-v { display: block; }
+.note.app-guide .ag-k { font-weight: bold; margin-right: 2mm; }
 .note.quiet { border-left: ${trapW} dashed ${c.trapInk}; background: ${c.trapTint}; color: ${c.ink}; }
 
 ul.toc { list-style: none; margin: 0; padding: 0; }
