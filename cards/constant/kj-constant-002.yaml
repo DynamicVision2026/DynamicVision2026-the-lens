@@ -15,7 +15,7 @@ provenance:
   not_derived_from: Numbers and wording are original. Not adapted from any 入試, textbook or 塾 problem.
   author: The Lens content team
 grounding:
-  principle_ja: 何年前にさかのぼっても、2人の年齢の差は同じ。差を「何つ分」で考えると、1回のわり算でそのときの年齢が出る。
+  principle_ja: 何年前にさかのぼっても、2人の年齢の差は同じ。差を「いくつ分」で考えると、1回のわり算でそのときの年齢が出る。
   principle_en: Going back in time, the age difference stays the same; splitting it into (r−1) parts gives the younger age at that moment.
 problem:
   text_ja: 現在、母は46歳、美咲は18歳です。母の年齢が美咲の年齢の5倍だったのは何年前ですか。

@@ -55,7 +55,10 @@ def poly(c) -> str:
             continue
         sign = "−" if coef < 0 else "+"
         a = abs(coef)
-        body = (num(a) if (a != 1 or not pw) else "") + pw
+        coef_s = num(a) if (a != 1 or not pw) else ""
+        if pw and a.is_Rational and a.q != 1:
+            coef_s = f"({coef_s})"   # audit: 「1/2x²」 reads as 1/(2x²)
+        body = coef_s + pw
         out.append((sign, body))
     if not out:
         return "0"
@@ -63,6 +66,34 @@ def poly(c) -> str:
     for sign, body in out[1:]:
         s += f" {sign} {body}"
     return s
+
+
+def sq(v) -> str:
+    """v² with parentheses for fractions and negatives: (13/2)², (−3)² (audit: 「13/2²」)."""
+    v = S(v)
+    return f"({num(v)})²" if (v < 0 or (v.is_Rational and v.q != 1)) else f"{num(v)}²"
+
+
+def mono(c, var) -> str:
+    """c·var without a 1: 「x」, 「−x」, 「2x」 (audit: 「1x」)."""
+    c = S(c)
+    if c == 1:
+        return var
+    if c == -1:
+        return "−" + var
+    return f"{num(c)}{var}" if not (c.is_Rational and c.q != 1) else f"({num(c)}){var}"
+
+
+def lin_terms(terms) -> str:
+    """Σ c·var as 「3x + y − 4」 (audit: 「3x + 1y + (−4)」)."""
+    out = ""
+    for c, var in terms:
+        c = S(c)
+        if c == 0:
+            continue
+        body = mono(abs(c), var) if var else num(abs(c))
+        out += (("−" if c < 0 else "") + body) if not out else ((" − " if c < 0 else " + ") + body)
+    return out or "0"
 
 
 def pt(name, p) -> str:
@@ -135,7 +166,7 @@ def pa_steps(fig):
         return [
             {"ja": "直線なので、囲まれた部分は台形。積分はいらない", "op": "note"},
             {"ja": f"x = {num(p)} のとき y = {num(yp)}、x = {num(q)} のとき y = {num(yq)}", "op": "note"},
-            {"ja": f"({num(yp)}＋{num(yq)})×{num(S(q) - p)}÷2 = {num(a)}", "value": str(a), "op": "result"},
+            {"ja": f"({num(yp)}+{num(yq)})×{num(S(q) - p)}÷2 = {num(a)}", "value": str(a), "op": "result"},
         ]
     if "bounds" in fig:
         p, q = fig["bounds"]
@@ -153,7 +184,7 @@ def pa_steps(fig):
     a = k * w ** 3 / 6
     g = fig.get("g", [0, 0, 0])
     lead = num(d[0]) if abs(S(d[0])) != 1 else ("−" if S(d[0]) < 0 else "")
-    fac = lambda r_: f"(x − {num(r_)})" if r_ > 0 else (f"(x ＋ {num(-r_)})" if r_ < 0 else "x")
+    fac = lambda r_: f"(x − {num(r_)})" if r_ > 0 else (f"(x + {num(-r_)})" if r_ < 0 else "x")
     head = f"y = {poly(d)}" if all(S(v) == 0 for v in g) else f"差をとると {poly(d)}"
     return [
         {"ja": f"{head} = {lead}{fac(r[0])}{fac(r[1])}。交点のx座標は {num(r[0])} と {num(r[1])}", "op": "note"},
@@ -169,7 +200,10 @@ def poly_cubic(F) -> str:
         pw = {3: "x³", 2: "x²", 1: "x", 0: ""}[deg]
         sign = "−" if c < 0 else "+"
         a = abs(c)
-        body = (num(a) if (a != 1 or not pw) else "") + pw
+        coef_s = num(a) if (a != 1 or not pw) else ""
+        if pw and a.is_Rational and a.q != 1:
+            coef_s = f"({coef_s})"   # audit: 「1/2x²」 reads as 1/(2x²)
+        body = coef_s + pw
         terms.append((sign, body))
     s = ("−" if terms[0][0] == "−" else "") + terms[0][1]
     for sign, body in terms[1:]:
@@ -269,19 +303,19 @@ def pt_steps(fig):
     m = (al + be) / 2
     ask = fig["ask"]
     lead = [{"ja": f"ABを底辺と見る。ABに平行な直線を動かして、放物線にふれる点で高さが最大（等積変形の線）", "op": "note"},
-            {"ja": f"ABの傾きは {num(a)}×({num(al)}＋{par(be)}) = {num(slope)}。y = {poly([a, 0, 0])} の接線の傾き {num(2 * a)}x がこれと等しいのは x = {num(m)}（AとBのまん中）", "op": "note"}]
+            {"ja": f"ABの傾きは {num(a)}×({num(al)}+{par(be)}) = {num(slope)}。y = {poly([a, 0, 0])} の接線の傾き {mono(2 * a, 'x')} がこれと等しいのは x = {num(m)}（AとBのまん中）", "op": "note"}]
     if ask == "px":
         return [lead[0], {**lead[1], "value": str(m), "op": "result"}]
     if ask == "max_area":
         A, B, P = _pp(fig, al), _pp(fig, be), _pp(fig, m)
         area = pt_answer(fig)
         return [*lead,
-                {"ja": f"P{tup(P)}。△ABPの面積は 1/2|(B−A)×(P−A)| で計算する", "op": "note"},
+                {"ja": f"P{tup(P)}。弦ABと、ABに平行な接線の接点Pでできる△ABPの面積は |a|(β−α)³/8（a は x² の係数、α・β は A・B の x 座標）", "op": "note"},
                 {"ja": f"= |{num(a)}|×({num(be)}−{par(al)})³÷8 = {num(area)}", "value": str(area), "op": "result"}]
     if ask == "equal_o":
         x = al + be
         return [{"ja": "ABを底辺と見る。Oを通りABに平行な直線の上なら、△ABPと△ABOの高さは同じ（等積変形）", "op": "note"},
-                {"ja": f"ABの傾きは {num(a)}×({num(al)}＋{par(be)}) = {num(slope)}。Oを通る平行線は y = {poly([0, slope, 0])}", "op": "note"},
+                {"ja": f"ABの傾きは {num(a)}×({num(al)}+{par(be)}) = {num(slope)}。Oを通る平行線は y = {poly([0, slope, 0])}", "op": "note"},
                 {"ja": f"放物線との交点：{poly([a, 0, 0])} = {poly([0, slope, 0])} → x = 0, {num(x)}。O以外の交点がP", "value": str(x), "op": "result"}]
     if ask == "range_max":
         lo, hi = S(fig["range"][0]), S(fig["range"][1])
@@ -391,8 +425,8 @@ def lm_text(fig):
     if ask == "max_diff":
         return head + "ℓ上に点Pをとり、|PA − PB| がもっとも大きくなるようにします。このとき、点Pのx座標を求めなさい。"
     if ask == "min_len":
-        return head + "ℓ上に点Pをとるとき、AP＋PB の最小値を求めなさい。"
-    return head + "ℓ上に点Pをとり、AP＋PB がもっとも小さくなるようにします。このとき、点Pのx座標を求めなさい。"
+        return head + "ℓ上に点Pをとるとき、AP+PB の最小値を求めなさい。"
+    return head + "ℓ上に点Pをとり、AP+PB がもっとも小さくなるようにします。このとき、点Pのx座標を求めなさい。"
 
 
 def lm_steps(fig):
@@ -408,12 +442,12 @@ def lm_steps(fig):
         st = [{"ja": "AとBはℓをはさんで反対側にある。折り返さずに、AとBをまっすぐ結ぶ", "op": "note"}]
     else:
         st = [{"ja": f"Bをℓで折り返した点B'をとる（PB＝PB'）。BB'の中点がℓ上、BB'⊥ℓ から B'{tup(T)}", "op": "note"},
-              {"ja": "AとB'をまっすぐ結んだ線分が、AP＋PBの最小", "op": "note"}]
+              {"ja": "AとB'をまっすぐ結んだ線分が、AP+PBの最小", "op": "note"}]
     if ask == "min_len":
         dx, dy = T[0] - A[0], T[1] - A[1]
         L = sqrt(dx ** 2 + dy ** 2)
-        st.append({"ja": f"最小値 = AB' = √({par(dx)}²＋{par(dy)}²) = √{num(dx ** 2 + dy ** 2)} = {num(L)}" if same else
-                   f"最小値 = AB = √({par(dx)}²＋{par(dy)}²) = √{num(dx ** 2 + dy ** 2)} = {num(L)}", "value": str(L), "op": "result"})
+        tail = f" = √{num(dx ** 2 + dy ** 2)}" + (f" = {num(L)}" if num(L) != f"√{num(dx ** 2 + dy ** 2)}" else "")  # audit: 「√29 = √29」
+        st.append({"ja": f"最小値 = {'AB' + chr(39) if same else 'AB'} = √({par(dx)}² + {par(dy)}²){tail}", "value": str(L), "op": "result"})
         return st
     st.append({"ja": f"直線{'AB' + chr(39) if same else 'AB'}とℓを連立すると、Pのx座標 = {num(P[0])}", "value": str(P[0]), "op": "result"})
     return st
@@ -507,13 +541,30 @@ def _lin(c) -> str:
 def pf_equation(fig) -> str:
     if fig["family"] == "line":
         (cx, cy, cc) = fig["c"]
-        parts = []
-        for c, v in ((cx, "x"), (cy, "y")):
-            parts.append(f"({_lin(c)}){v}")
-        const = _lin(cc)
-        return f"{parts[0]} ＋ {parts[1]} ＋ ({const}) = 0"
+        return _sym_sum([(cx, "x"), (cy, "y"), (cc, "")]) + " = 0"
     (cb, cc) = fig["c"]
-    return f"y = x² ＋ ({_lin(cb)})x ＋ ({_lin(cc)})"
+    return "y = x²" + _sym_sum([(cb, "x"), (cc, "")], lead=False)
+
+
+def _sym_sum(terms, lead=True) -> str:
+    """Σ (p a + q)·var as 「(2a + 1)x + (a − 3)y − 3a − 5」 (audit: 「+ (−3a − 5)」, 「(−2a)x」)."""
+    out = ""
+    for c, var in terms:
+        s_ = _lin(c)
+        if s_ == "0":
+            continue
+        multi = (" + " in s_ or " − " in s_)
+        if multi and var:
+            body, neg = f"({s_}){var}", False
+        else:
+            neg = s_.startswith("−")
+            core = s_[1:] if neg else s_
+            body = ("" if (core == "1" and var) else core) + var
+        if not out and lead:
+            out = ("−" if neg else "") + body
+        else:
+            out += (" − " if neg else " + ") + body
+    return out or "0"
 
 
 def pf_answer(fig):
@@ -555,18 +606,18 @@ def pf_steps(fig):
         ex, ey, ec = _pf_expr(fig)
         v = pf_answer(fig)
         return [{"ja": f"aの値が決まっているので、a = {num(fig['a0'])} を代入するだけ", "op": "note"},
-                {"ja": f"{num(ex.subs(a, fig['a0']))}x ＋ {par(ey.subs(a, fig['a0']))}y ＋ {par(ec.subs(a, fig['a0']))} = 0 → 傾き = {num(v)}", "value": str(v), "op": "result"}]
+                {"ja": f"{lin_terms([(ex.subs(a, fig['a0']), 'x'), (ey.subs(a, fig['a0']), 'y'), (ec.subs(a, fig['a0']), '')])} = 0 → 傾き = {num(v)}", "value": str(v), "op": "result"}]
     P = pf_point(fig)
     if fig["family"] == "line":
         (p1, q1), (p2, q2), (p3, q3) = fig["c"]
         A = poly([0, p1, 0]) + f" {'−' if p2 < 0 else '+'} {'' if abs(p2) == 1 else num(abs(p2))}y" + (f" {'−' if p3 < 0 else '+'} {num(abs(p3))}" if p3 else "")
         Bq = poly([0, q1, 0]) + f" {'−' if q2 < 0 else '+'} {'' if abs(q2) == 1 else num(abs(q2))}y" + (f" {'−' if q3 < 0 else '+'} {num(abs(q3))}" if q3 else "")
-        return [{"ja": "aを止めて考える：aについて整理すると a×(…) ＋ (…) = 0。どんなaでも成り立つのは、2つのかっこが両方0のとき", "op": "note"},
-                {"ja": f"a({A}) ＋ ({Bq}) = 0", "op": "note"},
+        return [{"ja": "aを止めて考える：aについて整理すると a×(…) + (…) = 0。どんなaでも成り立つのは、2つのかっこが両方0のとき", "op": "note"},
+                {"ja": f"a({A}) + ({Bq}) = 0", "op": "note"},
                 {"ja": f"{A} = 0 と {Bq} = 0 を連立して、定点 {tup(P)}", "value": str(Tuple(*P)), "op": "result"}]
     (p, q), (r, s_) = fig["c"]
-    return [{"ja": "aを止めて考える：aについて整理すると a×(…) ＋ (…) = 0。どんなaでも成り立つのは、両方のかっこが0のとき", "op": "note"},
-            {"ja": f"a({poly([0, p, r])}) ＋ ({poly([1, q, s_])} − y) = 0", "op": "note"},
+    return [{"ja": "aを止めて考える：aについて整理すると a×(…) + (…) = 0。どんなaでも成り立つのは、両方のかっこが0のとき", "op": "note"},
+            {"ja": f"a({poly([0, p, r])}) + ({poly([1, q, s_])} − y) = 0", "op": "note"},
             {"ja": f"{poly([0, p, r])} = 0 から x = {num(P[0])}、もう一方に代入して y = {num(P[1])}。定点 {tup(P)}", "value": str(Tuple(*P)), "op": "result"}]
 
 
@@ -666,7 +717,7 @@ def cu_steps(fig):
         v = cu_answer(fig)
         return [open_,
                 {"ja": f"中心角が180°以上なので、開いた図でAとA'を結ぶ直線はおうぎ形の外に出てしまう。展開しても1本の直線にならない", "op": "note"},
-                {"ja": f"最短の糸は頂点Oを通る：{num(l)}＋{num(l) if ask == 'loop' else num(fig['d'])} = {num(v)}", "value": str(v), "op": "result"}]
+                {"ja": f"最短の糸は頂点Oを通る：{num(l)}+{num(l) if ask == 'loop' else num(fig['d'])} = {num(v)}", "value": str(v), "op": "result"}]
     v = cu_answer(fig)
     if ask == "loop":
         return [open_,
@@ -676,7 +727,7 @@ def cu_steps(fig):
     c = cos(th * pi / 180)
     return [open_,
             {"ja": f"開いた図で、Aと、反対のはしの半径上のB'（OB'＝{num(d)}）を結ぶ線分が最短", "op": "note"},
-            {"ja": f"余弦定理：AB'² = {num(l)}²＋{num(d)}²−2×{num(l)}×{num(d)}×cos{num(th)}° = {num(nsimplify(l ** 2 + d ** 2 - 2 * l * d * c))}", "op": "note"},
+            {"ja": f"余弦定理：AB'² = {num(l)}²+{num(d)}²−2×{num(l)}×{num(d)}×cos{num(th)}° = {num(nsimplify(l ** 2 + d ** 2 - 2 * l * d * c))}", "op": "note"},
             {"ja": f"AB' = {num(v)}", "value": str(v), "op": "result"}]
 
 
@@ -786,7 +837,7 @@ def dg_steps(fig):
                 {"ja": f"{nb}/6 × {ns}/6 = {num(p)}", "value": str(p), "op": "result"}]
     if n == 3:
         return [{"ja": "3個なので、6×6の表（平面）にはならない。大の目を決めて、残り2個の和で場合分けする", "op": "note"},
-                {"ja": f"大が1〜6のとき、中＋小が {k}−1〜{k}−6 になる数を順に数えて、合計 {cnt} 通り", "op": "note"},
+                {"ja": f"大が1〜6のとき、中+小が {k}−1〜{k}−6 になる数を順に数えて、合計 {cnt} 通り", "op": "note"},
                 {"ja": f"{cnt}/{tot} = {num(p)}", "value": str(p), "op": "result"}]
     rows = []
     if op == "sum_le":
@@ -795,10 +846,10 @@ def dg_steps(fig):
     elif op == "sum_eq":
         mid = f"和が{k}のマスは、表のななめ1列だけ：{cnt}マス"
     elif op == "diff_ge":
-        mid = f"差が{k}以上のマスは、対角線から{k}本以上はなれた左下と右上の三角形：{cnt // 2}＋{cnt // 2}"
+        mid = f"差が{k}以上のマスは、対角線から{k}本以上はなれた左下と右上の三角形：{cnt // 2}+{cnt // 2}"
     elif op == "prod_le":
         per = [min(6, k // a) for a in range(1, 7)]
-        mid = f"大の目ごとに、小の目が何マス入るか：{'＋'.join(str(v) for v in per if v)}"
+        mid = f"大の目ごとに、小の目が何マス入るか：{'+'.join(str(v) for v in per if v)}"
     elif op == "prod_mult":
         n0 = 6 - 6 // k
         mid = f"余事象：どちらも{k}の倍数でない目は{n0}通りずつ。{n0}×{n0} = {n0 * n0}マスを36マスから引く：36−{n0 * n0}"
@@ -850,21 +901,21 @@ def cs_answer(fig):
 
 def _sum_eq(fig) -> str:
     p, q = fig.get("p", 1), fig.get("q", 1)
-    return f"{'' if p == 1 else num(p)}x ＋ {'' if q == 1 else num(q)}y = {num(fig['s'])}"
+    return f"{'' if p == 1 else num(p)}x + {'' if q == 1 else num(q)}y = {num(fig['s'])}"
 
 
 def cs_text(fig):
     ask = fig["ask"]
     if ask == "given_diff":
-        return f"x ＋ y = {num(fig['s'])}、x − y = {num(fig['d'])} のとき、xy の値を求めなさい。"
+        return f"x + y = {num(fig['s'])}、x − y = {num(fig['d'])} のとき、xy の値を求めなさい。"
     cond = f"{_sum_eq(fig)}、x＞0、y＞0"
     if "x_min" in fig:
         cond = f"{_sum_eq(fig)}、x ≧ {num(fig['x_min'])}、y＞0"
     if ask == "min_squares":
-        return f"{cond} のとき、x² ＋ y² の最小値を求めなさい。"
+        return f"{cond} のとき、x² + y² の最小値を求めなさい。"
     u, v = fig.get("shift", [0, 0])
     if (u, v) != (0, 0):
-        return f"{cond} のとき、(x ＋ {num(u)})(y ＋ {num(v)}) の最大値を求めなさい。"
+        return f"{cond} のとき、(x + {num(u)})(y + {num(v)}) の最大値を求めなさい。"
     return f"{cond} のとき、xy の最大値を求めなさい。"
 
 
@@ -875,7 +926,7 @@ def cs_steps(fig):
     if ask == "given_diff":
         d = S(fig["d"])
         return [{"ja": "和と差が両方分かっているので、xとyが決まる。動かす必要はない", "op": "note"},
-                {"ja": f"x = ({num(s_)}＋{num(d)})÷2 = {num((s_ + d) / 2)}、y = ({num(s_)}−{num(d)})÷2 = {num((s_ - d) / 2)}", "op": "note"},
+                {"ja": f"x = ({num(s_)}+{num(d)})÷2 = {num((s_ + d) / 2)}、y = ({num(s_)}−{num(d)})÷2 = {num((s_ - d) / 2)}", "op": "note"},
                 {"ja": f"xy = {num((s_ + d) / 2)}×{num((s_ - d) / 2)} = {num(v)}", "value": str(v), "op": "result"}]
     if "x_min" in fig:
         x = S(fig["x_min"])
@@ -884,13 +935,13 @@ def cs_steps(fig):
                 {"ja": f"xy = {num(x)}×{num(s_ - x)} = {num(v)}", "value": str(v), "op": "result"}]
     if ask == "min_squares":
         m = s_ / 2
-        return [{"ja": f"和 x＋y = {num(s_)} は一定。まん中 {num(m)} からのずれを t として x = {num(m)}＋t、y = {num(m)}−t", "op": "note"},
-                {"ja": f"x²＋y² = 2×{num(m)}²＋2t²。t = 0 のとき最小", "op": "note"},
-                {"ja": f"2×{num(m)}² = {num(v)}", "value": str(v), "op": "result"}]
+        return [{"ja": f"和 x+y = {num(s_)} は一定。まん中 {num(m)} からのずれを t として x = {num(m)}+t、y = {num(m)}−t", "op": "note"},
+                {"ja": f"x² + y² = 2×{sq(m)} + 2t²。t = 0 のとき最小", "op": "note"},
+                {"ja": f"2×{sq(m)} = {num(v)}", "value": str(v), "op": "result"}]
     u, w = S(fig.get("shift", [0, 0])[0]), S(fig.get("shift", [0, 0])[1])
     if (u, w) != (0, 0):
         T = s_ + u + w
-        return [{"ja": f"X = x＋{num(u)}、Y = y＋{num(w)} とおくと、X＋Y = {num(s_)}＋{num(u)}＋{num(w)} = {num(T)} で一定", "op": "note"},
+        return [{"ja": f"X = x+{num(u)}、Y = y+{num(w)} とおくと、X+Y = {num(s_)}+{num(u)}+{num(w)} = {num(T)} で一定", "op": "note"},
                 {"ja": f"和が一定なら、まん中 X = Y = {num(T / 2)} で積が最大（x = {num(T / 2 - u)}、y = {num(T / 2 - w)} はどちらも正）", "op": "note"},
                 {"ja": f"{num(T / 2)}×{num(T / 2)} = {num(v)}", "value": str(v), "op": "result"}]
     if p != 1 or q != 1:
@@ -899,9 +950,9 @@ def cs_steps(fig):
                 {"ja": f"{num(p) if p != 1 else ''}x = {num(m)}、{num(q) if q != 1 else ''}y = {num(m)} のとき、{num(p) if p != 1 else ''}x×{num(q) if q != 1 else ''}y = {num(m * m)} が最大", "op": "note"},
                 {"ja": f"xy の最大値 = {num(m * m)}÷{num(p * q)} = {num(v)}", "value": str(v), "op": "result"}]
     m = s_ / 2
-    return [{"ja": f"和 x＋y = {num(s_)} は一定。まん中 {num(m)} からのずれを t として x = {num(m)}＋t、y = {num(m)}−t", "op": "note"},
-            {"ja": f"xy = {num(m)}² − t²。t = 0 のとき最大", "op": "note"},
-            {"ja": f"{num(m)}² = {num(v)}", "value": str(v), "op": "result"}]
+    return [{"ja": f"和 x+y = {num(s_)} は一定。まん中 {num(m)} からのずれを t として x = {num(m)}+t、y = {num(m)}−t", "op": "note"},
+            {"ja": f"xy = {sq(m)} − t²。t = 0 のとき最大", "op": "note"},
+            {"ja": f"{sq(m)} = {num(v)}", "value": str(v), "op": "result"}]
 
 
 def cs_check(fig, ans):

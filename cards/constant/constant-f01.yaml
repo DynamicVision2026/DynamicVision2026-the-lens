@@ -57,7 +57,7 @@ lens_route:
     value: '12'
     op: result
 trigger:
-  ja: 1人と何人かの合計をくらべるときは、差は変わらない。1年にいくつちぢむかを見る。
+  ja: 1人と何人かの合計をくらべるときは、差は変わる（一定ではない）。1年にいくつちぢむかを見る。
   en: 'One person against a sum of several: the gap is not constant; find how fast it shrinks.'
   tags:
   - one_vs_sum_of_many

@@ -18,7 +18,7 @@ grounding:
   principle_ja: 底辺ABが決まっているときは、ABに平行な直線を動かす。放物線にふれる点（接点）で高さが最大、平行線上なら面積は同じ。
   principle_en: 'Fixed base AB: slide a line parallel to AB; the touching point gives the largest height, any point on a parallel gives the same area.'
 problem:
-  text_ja: 放物線 y = 1/2x² 上に2点A(−2, 2)、B(6, 18)があります。原点をOとします。放物線上に、Oと異なる点Pを直線ABについてOと同じ側にとり、△ABPの面積が△ABOの面積と等しくなるようにします。点Pのx座標を求めなさい。
+  text_ja: 放物線 y = (1/2)x² 上に2点A(−2, 2)、B(6, 18)があります。原点をOとします。放物線上に、Oと異なる点Pを直線ABについてOと同じ側にとり、△ABPの面積が△ABOの面積と等しくなるようにします。点Pのx座標を求めなさい。
   unit: ''
   figure:
     type: parabola_tri
@@ -46,9 +46,9 @@ lens_route:
   steps:
   - ja: ABを底辺と見る。Oを通りABに平行な直線の上なら、△ABPと△ABOの高さは同じ（等積変形）
     op: note
-  - ja: ABの傾きは 1/2×(−2＋6) = 2。Oを通る平行線は y = 2x
+  - ja: ABの傾きは 1/2×(−2+6) = 2。Oを通る平行線は y = 2x
     op: note
-  - ja: 放物線との交点：1/2x² = 2x → x = 0, 4。O以外の交点がP
+  - ja: 放物線との交点：(1/2)x² = 2x → x = 0, 4。O以外の交点がP
     value: '4'
     op: result
 trigger:

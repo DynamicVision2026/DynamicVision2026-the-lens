@@ -18,7 +18,7 @@ grounding:
   principle_ja: 直線上の点を通る2点間の最短は、一方の点を直線で折り返し、まっすぐ結ぶ。
   principle_en: 'Shortest path via a point on a line: reflect one point across the line and join straight.'
 problem:
-  text_ja: '直線 ℓ: y = −x + 4 と、2点A(−3, −1)、B(0, 2)があります。ℓ上に点Pをとり、AP＋PB がもっとも小さくなるようにします。このとき、点Pのx座標を求めなさい。'
+  text_ja: '直線 ℓ: y = −x + 4 と、2点A(−3, −1)、B(0, 2)があります。ℓ上に点Pをとり、AP+PB がもっとも小さくなるようにします。このとき、点Pのx座標を求めなさい。'
   unit: ''
   figure:
     type: line_mirror
@@ -52,7 +52,7 @@ lens_route:
   steps:
   - ja: Bをℓで折り返した点B'をとる（PB＝PB'）。BB'の中点がℓ上、BB'⊥ℓ から B'(2, 4)
     op: note
-  - ja: AとB'をまっすぐ結んだ線分が、AP＋PBの最小
+  - ja: AとB'をまっすぐ結んだ線分が、AP+PBの最小
     op: note
   - ja: 直線AB'とℓを連立すると、Pのx座標 = 1
     value: '1'

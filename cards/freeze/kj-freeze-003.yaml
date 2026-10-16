@@ -19,7 +19,7 @@ grounding:
   principle_ja: 片方の列車を止めると、もう片方は速さの和で進み、2つの長さの和だけ進めば離れる。
   principle_en: Freeze one train; the other covers both lengths at the sum of speeds.
 problem:
-  text_ja: 長さ180mで秒速22mの列車Aと、長さ140mで秒速18mの列車Bが、向かい合って走って現在す。2つの列車が出会ってから完全に離れるまで、何秒かかりますか。
+  text_ja: 長さ180mで秒速22mの列車Aと、長さ140mで秒速18mの列車Bが、向かい合って走っています。2つの列車が出会ってから完全に離れるまで、何秒かかりますか。
   unit: 秒
   figure:
     type: word_problem

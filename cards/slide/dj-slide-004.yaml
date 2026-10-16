@@ -18,7 +18,7 @@ grounding:
   principle_ja: 底辺ABが決まっているときは、ABに平行な直線を動かす。放物線にふれる点（接点）で高さが最大、平行線上なら面積は同じ。
   principle_en: 'Fixed base AB: slide a line parallel to AB; the touching point gives the largest height, any point on a parallel gives the same area.'
 problem:
-  text_ja: 放物線 y = 1/2x² 上に2点A(−3, 9/2)、B(5, 25/2)があります。点Pがこの放物線上をAからBまで動くとき、△ABPの面積の最大値を求めなさい。
+  text_ja: 放物線 y = (1/2)x² 上に2点A(−3, 9/2)、B(5, 25/2)があります。点Pがこの放物線上をAからBまで動くとき、△ABPの面積の最大値を求めなさい。
   unit: ''
   figure:
     type: parabola_tri
@@ -46,9 +46,9 @@ lens_route:
   steps:
   - ja: ABを底辺と見る。ABに平行な直線を動かして、放物線にふれる点で高さが最大（等積変形の線）
     op: note
-  - ja: ABの傾きは 1/2×(−3＋5) = 1。y = 1/2x² の接線の傾き 1x がこれと等しいのは x = 1（AとBのまん中）
+  - ja: ABの傾きは 1/2×(−3+5) = 1。y = (1/2)x² の接線の傾き x がこれと等しいのは x = 1（AとBのまん中）
     op: note
-  - ja: P(1, 1/2)。△ABPの面積は 1/2|(B−A)×(P−A)| で計算する
+  - ja: P(1, 1/2)。弦ABと、ABに平行な接線の接点Pでできる△ABPの面積は |a|(β−α)³/8（a は x² の係数、α・β は A・B の x 座標）
     op: note
   - ja: = |1/2|×(5−(−3))³÷8 = 32
     value: '32'

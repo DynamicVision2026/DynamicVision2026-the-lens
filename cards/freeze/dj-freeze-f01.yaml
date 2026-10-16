@@ -18,7 +18,7 @@ grounding:
   principle_ja: 「aの値にかかわらず」は、aを止めて考える合図。aについて整理し、aの係数と残りがともに0になる点を求める。
   principle_en: '''For every a'': freeze a; collect the terms in a, and set both the coefficient of a and the rest to zero.'
 problem:
-  text_ja: 直線 (2a + 1)x ＋ (a − 3)y ＋ (−3a − 5) = 0 が点(0, 1)を通るとき、定数 a の値を求めなさい。
+  text_ja: 直線 (2a + 1)x + (a − 3)y − 3a − 5 = 0 が点(0, 1)を通るとき、定数 a の値を求めなさい。
   unit: ''
   figure:
     type: param_family
