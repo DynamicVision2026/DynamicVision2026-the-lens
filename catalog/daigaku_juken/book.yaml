@@ -3,7 +3,7 @@
 
 book:
   id: lens-book-daigaku-1
-  status: planned
+  status: proof                # WO-026: all 8 lessons live (Oct 16)
   series_ja: 視点レンズ（The Lens）
   title_ja: 視点レンズ 大学受験数学ワークブック
   subtitle_ja: 次元を落とし、文字を止める

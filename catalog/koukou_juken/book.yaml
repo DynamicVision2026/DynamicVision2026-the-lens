@@ -3,7 +3,7 @@
 
 book:
   id: lens-book-koukou-1
-  status: planned              # the Pass is planned (waitlist only): no proof until its lessons are complete
+  status: proof                # WO-026: all 8 lessons live (Oct 16)
   series_ja: 視点レンズ（The Lens）
   title_ja: 視点レンズ 高校受験数学ワークブック
   subtitle_ja: 座標と図形を「つなぐ視点」で解く
