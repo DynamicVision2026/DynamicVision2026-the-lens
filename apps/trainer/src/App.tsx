@@ -7,7 +7,7 @@ import { MasterView } from './course/MasterView';
 import { PracticeView, TimedView } from './course/StepsView';
 import { ReportView } from './course/ReportView';
 import { DevScenes } from './dev/DevScenes';
-import { srcFrom, track } from './launch/analytics';
+import { rememberSrc, srcFrom, track } from './launch/analytics';
 import { BookVisit, Redirect } from './launch/BookVisit';
 import { External, GoPreorder, Landing, Privacy, Thanks } from './launch/Landing';
 import { Open } from './launch/Open';
@@ -25,6 +25,8 @@ export function App() {
   // WO-027: ?src= (the book QR codes) is the one query value kept, as a param.
   useEffect(() => {
     const src = srcFrom(window.location.search);
+    // A ?src= on any page (the back-cover QR lands on /) is remembered first, so the user property rides on this page_view.
+    if (src) rememberSrc(src);
     track({ name: 'page_view', params: src ? { page_path: path, src } : { page_path: path } });
   }, [path]);
   if (path.startsWith('/dev/scenes')) return <DevScenes />;

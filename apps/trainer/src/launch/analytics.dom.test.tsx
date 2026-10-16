@@ -226,6 +226,18 @@ describe('book readers (WO-027)', () => {
     expect(JSON.stringify(gtag.mock.calls)).not.toContain('src=book');
   });
 
+  it('the back-cover QR (/?src=book) remembers src=book on the landing page, before its page_view', () => {
+    on();
+    visit('/?src=book');
+    expect(window.localStorage.getItem('lens.v1.src')).toBe('book');
+    const calls = gtag.mock.calls.map((c) => [c[0], c[1]]);
+    const set = calls.findIndex(([a, b]) => a === 'set' && b === 'user_properties');
+    const view = calls.findIndex(([a, b]) => a === 'event' && b === 'page_view');
+    expect(set).toBeGreaterThanOrEqual(0);
+    expect(set).toBeLessThan(view);
+    expect(events('book_open')).toEqual([]);
+  });
+
   it('a later visit sends the remembered src from the start; the first touch wins', () => {
     window.localStorage.setItem('lens.v1.src', 'book');
     initAnalytics('G-TEST0000');
