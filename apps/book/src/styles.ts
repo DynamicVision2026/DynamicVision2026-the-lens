@@ -103,6 +103,10 @@ ol.howto li { counter-increment: howto; position: relative; padding-left: 10mm; 
 ol.howto li::before { content: counter(howto); position: absolute; left: 0; top: 0.4mm; width: 6.5mm; height: 6.5mm; border-radius: 50%;
   background: ${k.navy}; color: ${c.paper}; font-family: ${num}; font-size: ${pt(s.label.size)}; font-weight: 700; text-align: center; line-height: 6.5mm; }
 .note { border-left: ${lensW} solid ${k.navy}; background: ${k.ground}; border-radius: 0 2mm 2mm 0; padding: 1mm 0 1mm 4mm; margin-bottom: 5mm; font-size: ${pt(s.step.size - 1)}; line-height: 1.7; }
+.note.app-guide .ag-title { font-weight: bold; margin-bottom: 1.5mm; }
+.note.app-guide .ag-row { margin-bottom: 1.5mm; }
+.note.app-guide .ag-k { display: block; font-weight: bold; }
+.note.app-guide .ag-v { display: block; }
 .note.quiet { border-left: ${trapW} dashed ${c.trapInk}; background: ${c.trapTint}; color: ${c.ink}; }
 
 ul.toc { list-style: none; margin: 0; padding: 0; }

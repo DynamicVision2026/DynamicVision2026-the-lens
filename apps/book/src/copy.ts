@@ -7,6 +7,15 @@ export const COPY = {
   chapter: (n: number) => `第${n}章`,
   principle: 'このレンズの考え方',
   qrCaption: '動かして確かめる',
+  /** この本の使い方: how the book, the free chapter QRs and the paid web course fit together (Brian, Oct 16). */
+  appGuide: {
+    title: '本とWebアプリ「視点レンズ」の使い分け',
+    items: [
+      ['本', '例題を読み、練習問題を紙で解きます。この本だけで最後まで使えます。'],
+      ['QRコード（無料）', '各章のQRから、その章のマスタークラス（約6分・音声つき）をひらき、図を指で動かして確かめます。登録は不要です。'],
+      ['Webのコース（有料）', 'もっと練習したいときに。ステップ2〜4の練習（すぐに答え合わせ）、1日目と4週目のチェック、おうちの方へのレポートがあります。3日間の無料体験もあります。'],
+    ] as const,
+  },
   example: (n: number) => `例題${n}`,
   trap: 'くせでやると',
   lens: 'レンズで見ると',
