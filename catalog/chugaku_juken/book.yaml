@@ -18,7 +18,7 @@ book:
   review: {count: 16, seed: 4101}    # final chapter 「どのレンズ？」: mixed variants, pick the lens before solving
   qr: "https://lens.domo-ai.com/lesson/{pass}/{lens}?src=book"
   front_matter:
-    hajimeni_ja: >-
+    hajimeni_ja: |-
       算数の入試問題で時間がかかるのは、計算そのものより「どう解き始めるか」で手が止まる時間です。
       この本は、図形と特殊算をまたいで使える8つの視点（レンズ）を、1つずつ身につけるための問題集です。
       各章では同じ問題を「くせでやると（わな）」と「レンズで見ると」の2通りで並べ、どこで遠回りになるかを見比べられるようにしました。
