@@ -38,6 +38,8 @@ Earlier build order (now done): WO-003 step 2 → WO-009 → WO-004 … WO-008.
 | [WO-022](WO-022-onboarding-and-voice.md) | Guaranteed ghost finger (≤ 3 s) + 5 s idle pulse in every masterclass beat; mascot voice playback + mute | WO-014 | max velocity |
 | [WO-023](WO-023-stage3-figures.md) | High School figures (放物線の面積, 等積変形, 対称点, 定点, 円すい, さいころの表, 和一定) + the new Middle School modes; variant `display_ja` | WO-020 | max velocity |
 | [WO-024](WO-024-lens-landing-access-deploy.md) | 視点レンズ landing page (ナゼホリ standard), per-Pass access links, own Cloud Run service at lens.domo-ai.com; strict isolation from ナゼホリ | WO-023 | **Fri Oct 16** |
+| [WO-025](WO-025-lens-analytics.md) | GA4 operations data (off until `ga4Id` is set), order number on `/open`, 外部送信 page | WO-024 | done |
+| [WO-026](WO-026-kdp-books-all-skus.md) | KDP books for all 3 SKUs, upload-ready: Stage 2/3 print figures, per-book spine, listing sheets, trainer Amazon link | WO-021 | Oct 16 |
 | [WO-004](WO-004-slide-scenes.md) | Slide lens (等積変形): parallel-band figure and its scenes | WO-003 step 2 | Oct 27 |
 | [WO-005](WO-005-mirror-scenes.md) | Mirror lens (折り返す): shortest-path figure and its scenes | WO-004 | Oct 30 |
 | [WO-006](WO-006-word-problem-scenes.md) | Area (面積図) and Constant (差一定): word-problem diagrams | WO-004 | Nov 2 |

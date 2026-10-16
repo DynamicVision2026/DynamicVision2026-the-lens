@@ -5,7 +5,7 @@
 
 book:
   id: lens-book-chugaku-1
-  status: building             # building → proof → live (live needs amazon_url)
+  status: proof                # building → proof → live (live needs amazon_url); WO-026
   series_ja: 視点レンズ（The Lens）
   title_ja: 視点レンズ 中学受験算数ワークブック
   subtitle_ja: 8つの視点で「最初の一手」が見える
