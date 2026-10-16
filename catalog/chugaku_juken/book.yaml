@@ -11,7 +11,7 @@ book:
   subtitle_ja: 8つの視点で「最初の一手」が見える
   audience_ja: 小5〜小6・中学受験
   author_ja: Brian Fu
-  publisher_ja: Beyond Culture 獨歩文化株式会社
+  publisher_ja: Beyond Culture 獨步文化株式会社
   interior: bw                 # black-and-white first (tokens: every distinction survives B&W); colour only if KDP JP offers it
   amazon_url: null             # set after KDP publishing; the trainer links to it (WO-021 §4)
   price_jpy: 2100               # KDP list price, Brian Oct 16 (WO-027 §5)

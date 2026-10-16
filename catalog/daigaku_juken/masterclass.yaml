@@ -179,7 +179,7 @@ constant:
   say:
     principle: "x＋y＝8 で、x²＋y²の最小は？"
     principle_turn: "代入すると式が長い…。どうする？"
-    principle_lens: "差一定レンズ！ 和が一定、まん中を見よう"
+    principle_lens: "和差一定レンズ！ 和が一定、まん中を見よう"
     example1: "x＝4＋t、y＝4−t と動かしてみよう"
     example1_done: "t＝0 のまん中で、最小"
     example2: "2xとyを、和が一定の2つと見よう"
