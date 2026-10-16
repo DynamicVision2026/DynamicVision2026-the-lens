@@ -5,7 +5,7 @@
 
 book:
   id: lens-book-chugaku-1
-  status: proof                # building → proof → live (live needs amazon_url); WO-026
+  status: live                 # on Amazon.co.jp since Oct 16 (ASIN B0HN7PVL1K)
   series_ja: 視点レンズ（The Lens）
   title_ja: 中学受験算数 視点レンズ
   subtitle_ja: 解き始めを速くする8つのレンズ　4週間ワークブック    # Brian, Oct 16: exam word first (Amazon search), benefit without a score promise
@@ -13,8 +13,8 @@ book:
   author_ja: Brian Fu
   publisher_ja: Beyond Culture 獨步文化株式会社
   interior: standard_color     # KDP 標準カラー on white paper (Brian, Oct 16); every distinction still has an icon or pattern
-  amazon_url: null             # set after KDP publishing; the trainer links to it (WO-021 §4)
-  price_jpy: 2100               # KDP list price, Brian Oct 16 (WO-027 §5)
+  amazon_url: https://www.amazon.co.jp/dp/B0HN7PVL1K
+  price_jpy: 2580               # KDP list price incl. tax, final on Amazon (Brian, Oct 16)
   practice_variants: 1         # extra 類題 per practice card, from its validated variants
   review: {count: 16, seed: 4101}    # final chapter 「どのレンズ？」: mixed variants, pick the lens before solving
   qr: "https://lens.domo-ai.com/lesson/{pass}/{lens}?src=book"

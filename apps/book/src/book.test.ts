@@ -114,8 +114,8 @@ describe('paperback books', () => {
       const committed = readFileSync(new URL(`../../../docs/kdp/${book.id}.md`, import.meta.url), 'utf8');
       expect(committed).toBe(listingSheet(plan));
       // WO-027 §5: the price from book.yaml.
-      expect(book.price_jpy).toBe(2100);
-      expect(committed).toContain('| 価格 | ¥2,100（税込） |');
+      expect(book.price_jpy).toBe(2580);
+      expect(committed).toContain('| 価格 | ¥2,580（税込） |');
     });
 
     it('numbers practice problems within each chapter and the answers use the same labels', () => {

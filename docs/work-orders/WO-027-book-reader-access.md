@@ -1,6 +1,6 @@
 # WO-027: Book readers get each chapter's masterclass (QR `?src=book`), and book visits are measured
 
-**Owner:** Builder · **Review:** Architect · **Decision (Brian, Oct 16):** the books promise 「各章のQRコードから、同じ考え方を指で動かして確かめられます」. Today chapters 2–8 open a sales page. Fix before the books go on sale. Book price: ¥2,100 (all three).
+**Owner:** Builder · **Review:** Architect · **Decision (Brian, Oct 16):** the books promise 「各章のQRコードから、同じ考え方を指で動かして確かめられます」. Today chapters 2–8 open a sales page. Fix before the books go on sale. Book price: ¥2,100 (all three); final Amazon price ¥2,580 incl. tax (Brian, Oct 16).
 
 ## 1. Access rule (`apps/trainer/src/course/access.ts`)
 - A visit to `/lesson/<pass>/<lens>` with `src=book` in the query opens **Step 1 (the masterclass) of that lens**, for that pass, without purchase or trial. Remember it on the device: `lens.v1.book.<passId>` = list of lenses opened this way (try/catch; on storage failure, the session only).
