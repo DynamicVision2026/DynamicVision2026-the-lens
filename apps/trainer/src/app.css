@@ -2134,7 +2134,8 @@ html[data-theme='course'] body {
   flex-wrap: wrap;
   gap: 8px;
 }
-.course .locked-note .actions a.go {
+.course .locked-note .actions a.go,
+.course .book-end .actions a.go {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2142,6 +2143,22 @@ html[data-theme='course'] body {
   text-decoration: none;
   background: var(--lens-enclose);
 }
-.course .locked-note .actions a.go.ghost {
+.course .locked-note .actions a.go.ghost,
+.course .book-end .actions a.go.ghost {
   background: var(--raise);
+}
+
+/* WO-027: the book reader's masterclass end card (the practice is in the book; the course has the rest). */
+.course .book-end {
+  display: grid;
+  gap: 10px;
+}
+.course .book-end .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+}
+.course .book-end .actions a.go {
+  flex: 1 1 160px;
 }

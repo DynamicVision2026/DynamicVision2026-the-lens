@@ -6,6 +6,8 @@ import { hasScene, LensIcon, LensScene, loadBundle, tokens, type LensCard, type 
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode, type RefObject } from 'react';
 import { t } from '../i18n/ja';
 import { lessonOpened } from '../launch/analytics';
+import { CourseButtons } from './CaseView';
+import { lessonOpen } from './access';
 import { navigate } from '../launch/navigate';
 import { Aha } from './Aha';
 import { AttemptContext, useAttemptScope, type AttemptScope } from './attemptContext';
@@ -468,11 +470,20 @@ function OnboardingIn({ cards, passId, lens, m, stage }: BeatProps & { stage: Re
           </div>
         </div>
         {ready && !done && <PickCard card={card} pc={pc} nudge={pulse('options')} />}
-        {done && (
-          <button type="button" className={`go${pulse('start') ? ' nudge' : ''}`} data-target="start" onClick={() => (sfx.tap(), navigate(`/lesson/${passId}/${lens}/practice`))}>
-            {t('master.start', { n: m.practice_round })}
-          </button>
-        )}
+        {done &&
+          (lessonOpen(passId, lens) ? (
+            <button type="button" className={`go${pulse('start') ? ' nudge' : ''}`} data-target="start" onClick={() => (sfx.tap(), navigate(`/lesson/${passId}/${lens}/practice`))}>
+              {t('master.start', { n: m.practice_round })}
+            </button>
+          ) : (
+            // WO-027: a book reader's end card: the practice is in the book; the course has the rest.
+            <div className="card book-end" data-target="start">
+              <p className="why">{t('master.bookEnd')}</p>
+              <p className="actions">
+                <CourseButtons passId={passId} />
+              </p>
+            </div>
+          ))}
       </aside>
     </>
   );

@@ -2,7 +2,7 @@
 // /open?p=<pass>&k=<key> unlocks that Pass on this device (localStorage lens.v1.unlock.<pass>); if
 // storage is blocked, it stays unlocked in memory for this visit. ?preview=1 (dev and Architect review)
 // opens every Pass for the tab. The free 3-minute check is always open. §3a: a 3-day trial of each Pass's
-// first lesson (below).
+// first lesson (below). WO-027: a book QR opens that lens's masterclass (below).
 import { loadBundle } from '@lens/scenes';
 import { LAUNCH } from '../launch.config';
 
@@ -102,14 +102,79 @@ export function lessonOpen(passId: string, lens: string, search: string = window
   return lens === trialLens(passId) && trialState(passId, now).status === 'active';
 }
 
-/** WO-025: how an open lesson was opened, for analytics: bought on this device, previewed, or the free trial. */
-export function accessMode(passId: string, search: string = window.location.search): 'paid' | 'preview' | 'trial' {
+// ---- WO-027: book readers. Each chapter's QR (/lesson/<pass>/<lens>?src=book) opens that lens's masterclass
+// (Step 1) for free, remembered on the device: lens.v1.book.<pass> = the lenses opened this way. Storage
+// blocked: for this visit only. Steps 2–4, the report and the mixed review stay paid (or the trial lens).
+
+const bookKey = (passId: string) => `lens.v1.book.${passId}`;
+const bookMemory = new Map<string, Set<string>>();
+
+/** The visit came from a book QR code (?src=book). */
+export function fromBook(search: string = window.location.search): boolean {
+  return new URLSearchParams(search).get('src') === 'book';
+}
+
+/** The lenses of this Pass opened from the book on this device. */
+export function bookLenses(passId: string): string[] {
+  const out = new Set(bookMemory.get(passId) ?? []);
+  try {
+    const v = JSON.parse(window.localStorage.getItem(bookKey(passId)) ?? '[]');
+    if (Array.isArray(v)) for (const l of v) if (typeof l === 'string') out.add(l);
+  } catch {
+    // Storage blocked or unreadable: the memory copy only.
+  }
+  return [...out];
+}
+
+/** The Pass has a lesson for this lens. */
+export function passLesson(passId: string, lens: string): boolean {
+  return !!loadBundle().passes?.find((p) => p.id === passId)?.lessons.some((l) => l.lens === lens);
+}
+
+/** A book QR visit: remember this lens's masterclass as open. Returns whether it was new on this device. */
+export function openFromBook(passId: string, lens: string): boolean {
+  if (!passLesson(passId, lens)) return false;
+  const known = bookLenses(passId);
+  if (known.includes(lens)) return false;
+  const next = [...known, lens];
+  bookMemory.set(passId, new Set(next));
+  try {
+    window.localStorage.setItem(bookKey(passId), JSON.stringify(next));
+  } catch {
+    // Storage blocked: open for this visit only.
+  }
+  return true;
+}
+
+/** This lens's masterclass was opened from the book on this device. */
+export function bookOpen(passId: string, lens: string): boolean {
+  return bookLenses(passId).includes(lens);
+}
+
+/** Someone who came to this Pass from its book (shown the 「この本の続きの練習…」 line when locked). */
+export function bookReader(passId: string): boolean {
+  return bookLenses(passId).length > 0;
+}
+
+/** Step 1 (the masterclass) of a lesson: whatever opens the lesson, or the book. */
+export function masterclassOpen(passId: string, lens: string, search: string = window.location.search, now: number = Date.now()): boolean {
+  return lessonOpen(passId, lens, search, now) || bookOpen(passId, lens);
+}
+
+export type AccessMode = 'paid' | 'preview' | 'trial' | 'book';
+
+/** WO-025/027: how an open lesson was opened, for analytics: bought, previewed, the free trial, or the book. */
+export function accessMode(passId: string, lens?: string, search: string = window.location.search, now: number = Date.now()): AccessMode {
   if (unlocked(passId)) return 'paid';
-  return previewOn(search) ? 'preview' : 'trial';
+  if (previewOn(search)) return 'preview';
+  if (lens && lens === trialLens(passId) && trialState(passId, now).status === 'active') return 'trial';
+  if (lens && bookOpen(passId, lens)) return 'book';
+  return 'trial';
 }
 
 /** For tests: forget the in-memory unlocks and trials. */
 export function resetAccessMemory() {
   memory.clear();
   trialMemory.clear();
+  bookMemory.clear();
 }

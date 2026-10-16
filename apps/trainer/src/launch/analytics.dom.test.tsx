@@ -9,7 +9,7 @@ import { App } from '../App';
 import { openWithKey, resetAccessMemory, startTrial } from '../course/access';
 import type { PlayOpts } from '../course/play';
 import { LAUNCH } from '../launch.config';
-import { initAnalytics, orderFrom, resetAnalytics } from './analytics';
+import { initAnalytics, orderFrom, rememberSrc, resetAnalytics } from './analytics';
 import { FOOTER } from './copy';
 
 // The practice's problems and the check's pick + clue are played elsewhere; here each answers at once.
@@ -201,6 +201,46 @@ describe('on (a test ID)', () => {
     for (let i = 0; i < 20 && events('check_complete').length === 0; i++) act(() => vi.advanceTimersByTime(800));
     expect(host.querySelector('.result')).not.toBeNull();
     expect(events('check_complete')).toEqual([{ page_location: expect.any(String) }]);
+  });
+});
+
+describe('book readers (WO-027)', () => {
+  it('book_open once per lens per device; src=book as a user property and a page_view param; no query in any event', () => {
+    on();
+    visit('/lesson/koukou_juken/area?src=book');
+    visit('/pass/koukou_juken');
+    visit('/lesson/koukou_juken/area?src=book');
+    visit('/lesson/koukou_juken/mirror?src=book');
+    expect(events('book_open').map(({ pass, lens }) => ({ pass, lens }))).toEqual([
+      { pass: 'koukou_juken', lens: 'area' },
+      { pass: 'koukou_juken', lens: 'mirror' },
+    ]);
+    expect(gtag).toHaveBeenCalledWith('set', 'user_properties', { src: 'book' });
+    expect(window.localStorage.getItem('lens.v1.src')).toBe('book');
+    expect(events('page_view').some((p) => p.src === 'book')).toBe(true);
+    expect(events('lesson_open').map((p) => p.mode)).toContain('book');
+    for (const c of gtag.mock.calls) {
+      const params = c[2] as Record<string, unknown> | undefined;
+      if (c[0] === 'event') expect(String(params?.page_location), JSON.stringify(c)).not.toContain('?');
+    }
+    expect(JSON.stringify(gtag.mock.calls)).not.toContain('src=book');
+  });
+
+  it('a later visit sends the remembered src from the start; the first touch wins', () => {
+    window.localStorage.setItem('lens.v1.src', 'book');
+    initAnalytics('G-TEST0000');
+    const sets = (window.dataLayer as IArguments[]).map((a) => [...a]).filter((a) => a[0] === 'set');
+    expect(sets).toContainEqual(['set', 'user_properties', { src: 'book' }]);
+    window.localStorage.setItem('lens.v1.src', 'shorts');
+    expect(rememberSrc('book')).toBe('shorts');
+    expect(window.localStorage.getItem('lens.v1.src')).toBe('shorts');
+  });
+
+  it('off: a book visit sends nothing but still opens the masterclass', () => {
+    visit('/lesson/daigaku_juken/balance?src=book');
+    expect(window.location.pathname).toBe('/lesson/daigaku_juken/balance/master');
+    expect(window.gtag).toBeUndefined();
+    expect(gaScripts()).toHaveLength(0);
   });
 });
 

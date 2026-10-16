@@ -26,6 +26,8 @@ export interface Book {
   publisher_ja: string;
   interior: 'bw';
   amazon_url: string | null;
+  /** KDP list price in yen, tax included (WO-027 §5). */
+  price_jpy?: number | null;
   practice_variants: number;
   page_estimate: number;
   front_matter: {

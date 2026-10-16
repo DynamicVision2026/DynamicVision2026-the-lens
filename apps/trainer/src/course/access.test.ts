@@ -2,7 +2,8 @@
 // storage still unlocks for the visit.
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { LAUNCH } from '../launch.config';
-import { lessonOpen, openWithKey, passOpen, resetAccessMemory, startTrial, trialLens, trialState, unlocked } from './access';
+import { loadBundle } from '@lens/scenes';
+import { accessMode, bookOpen, bookReader, fromBook, lessonOpen, masterclassOpen, openFromBook, openWithKey, passOpen, resetAccessMemory, startTrial, trialLens, trialState, unlocked } from './access';
 
 function fakeWindow(blocked = false) {
   const store = new Map<string, string>();
@@ -118,5 +119,86 @@ describe('free trial (WO-024 §3a)', () => {
     const store = fakeWindow();
     startTrial('nope', t0);
     expect(store.size).toBe(0);
+  });
+});
+
+describe('book readers (WO-027)', () => {
+  const passes = loadBundle().passes!.filter((p) => p.lessons.length > 0);
+
+  it('reads src=book from the query only', () => {
+    expect(fromBook('?src=book')).toBe(true);
+    expect(fromBook('?src=book&preview=1')).toBe(true);
+    expect(fromBook('?src=x')).toBe(false);
+    expect(fromBook('')).toBe(false);
+  });
+
+  it.each(passes.flatMap((p) => p.lessons.map((l) => [p.id, l.lens] as const)))('%s/%s: the QR opens that masterclass only', (passId, lens) => {
+    fakeWindow();
+    expect(masterclassOpen(passId, lens, '')).toBe(false);
+    expect(openFromBook(passId, lens)).toBe(true);
+    expect(masterclassOpen(passId, lens, '')).toBe(true);
+    expect(accessMode(passId, lens, '')).toBe('book');
+    // Steps 2–4 stay paid.
+    expect(lessonOpen(passId, lens, '')).toBe(false);
+    expect(passOpen(passId, '')).toBe(false);
+    // Other lenses stay locked.
+    for (const other of loadBundle().passes!.find((p) => p.id === passId)!.lessons.map((l) => l.lens).filter((l) => l !== lens)) {
+      expect(masterclassOpen(passId, other, ''), other).toBe(false);
+    }
+  });
+
+  it('remembers the lens on the device (a later visit needs no parameter) and counts it once', () => {
+    const store = fakeWindow();
+    expect(openFromBook('koukou_juken', 'area')).toBe(true);
+    expect(openFromBook('koukou_juken', 'area')).toBe(false);
+    expect(JSON.parse(store.get('lens.v1.book.koukou_juken')!)).toEqual(['area']);
+    resetAccessMemory();
+    expect(bookOpen('koukou_juken', 'area')).toBe(true);
+    expect(bookReader('koukou_juken')).toBe(true);
+    expect(bookReader('chugaku_juken')).toBe(false);
+    expect(openFromBook('koukou_juken', 'area')).toBe(false);
+    expect(openFromBook('koukou_juken', 'mirror')).toBe(true);
+    expect(JSON.parse(store.get('lens.v1.book.koukou_juken')!)).toEqual(['area', 'mirror']);
+  });
+
+  it('blocked storage: open for this visit only', () => {
+    fakeWindow(true);
+    expect(openFromBook('daigaku_juken', 'balance')).toBe(true);
+    expect(masterclassOpen('daigaku_juken', 'balance', '')).toBe(true);
+    resetAccessMemory();
+    expect(masterclassOpen('daigaku_juken', 'balance', '')).toBe(false);
+  });
+
+  it('an unknown pass or lens opens nothing', () => {
+    fakeWindow();
+    expect(openFromBook('nope', 'area')).toBe(false);
+    expect(openFromBook('chugaku_juken', 'nope')).toBe(false);
+    expect(bookReader('chugaku_juken')).toBe(false);
+  });
+
+  it('a paid Pass ignores the book: every step open, mode paid', () => {
+    fakeWindow();
+    openFromBook('chugaku_juken', 'area');
+    openWithKey('chugaku_juken', LAUNCH.passes.chugaku_juken!.key);
+    expect(lessonOpen('chugaku_juken', 'area', '')).toBe(true);
+    expect(lessonOpen('chugaku_juken', 'mirror', '')).toBe(true);
+    expect(accessMode('chugaku_juken', 'area', '')).toBe('paid');
+  });
+
+  it('the trial is unchanged: its lens fully open for 3 days, a book lens Step 1 only', () => {
+    fakeWindow();
+    const t0 = new Date();
+    startTrial('koukou_juken', t0);
+    openFromBook('koukou_juken', 'area');
+    const first = trialLens('koukou_juken')!;
+    expect(lessonOpen('koukou_juken', first, '', t0.getTime())).toBe(true);
+    expect(accessMode('koukou_juken', first, '', t0.getTime())).toBe('trial');
+    expect(lessonOpen('koukou_juken', 'area', '', t0.getTime())).toBe(false);
+    expect(masterclassOpen('koukou_juken', 'area', '', t0.getTime())).toBe(true);
+    expect(accessMode('koukou_juken', 'area', '', t0.getTime())).toBe('book');
+    // After the trial, the book lens's masterclass stays open; the trial lens locks.
+    const later = t0.getTime() + 73 * 3_600_000;
+    expect(lessonOpen('koukou_juken', first, '', later)).toBe(false);
+    expect(masterclassOpen('koukou_juken', 'area', '', later)).toBe(true);
   });
 });
