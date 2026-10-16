@@ -8,6 +8,7 @@ import { color, getCard, loadBundle, tokens, type LensId, type Pass } from '@len
 import { Fragment, useEffect, type CSSProperties } from 'react';
 import { LAUNCH } from '../launch.config';
 import { track } from './analytics';
+import { BookLink } from './BookLink';
 import { EXTERNAL, FOOTER, LANDING, PRIVACY, PROPOSED } from './copy';
 import { preorderHref } from './tracking';
 
@@ -308,6 +309,7 @@ export function Courses() {
                     {LANDING.trial}
                   </a>
                 </div>
+                <BookLink passId={p.id} className="lp2-book" />
               </div>
             </article>
           );

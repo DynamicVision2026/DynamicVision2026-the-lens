@@ -9,6 +9,8 @@ export const ja = {
   'case.buy': 'コースを選ぶ',
   // WO-024 §3a: the 3-day free trial of the first lesson.
   'case.buyThis': 'このコースを買う',
+  // WO-026 §5: shown only when the Pass's paperback is live on Amazon.
+  'book.amazon': '紙の問題集（Amazon）',
   'case.trialStart': '無料ではじめる（3日間）',
   'case.trialDays': '無料体験：あと{n}日',
   'case.trialHours': '無料体験：あと{n}時間',

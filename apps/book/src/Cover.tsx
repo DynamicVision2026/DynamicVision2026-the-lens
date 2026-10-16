@@ -1,5 +1,5 @@
 // KDP full-wrap cover: back + spine + front with bleed (WO-021 §3). Spine width comes from kdp.json.
-import { COPY, SITE_URL, titleLines } from './copy';
+import { COPY, SITE_URL, sentences, titleLines } from './copy';
 import { renderFigure } from './figure';
 import { BODY_FAMILY } from './fonts';
 import type { BookPlan } from './plan';
@@ -8,11 +8,29 @@ import { qrSvg } from './qr';
 import { figureFontCss, TRIM_MM } from './styles';
 import type { BookBundle, BookTokens } from './types';
 
+/** One book's KDP entry (WO-026 §3): its page count, spine width and whether the spine carries text. */
+export interface KdpBook {
+  pages: number;
+  spine_mm: number;
+  spine_text: boolean;
+}
+
 export interface KdpConfig {
   spine_mm_per_page: number;
-  spine_mm: number | null;
   spine_text_min_pages: number;
   barcode_mm: { width: number; height: number; margin: number };
+  books: Record<string, KdpBook>;
+}
+
+/** The book's own kdp.json entry; throws when it is missing or was made for another page count. */
+export function kdpBook(kdp: KdpConfig, bookId: string, pageCount: number): KdpBook {
+  const e = kdp.books[bookId];
+  if (!e) throw new Error(`kdp.json has no entry for "${bookId}"`);
+  if (e.pages !== pageCount) {
+    const spine = Math.round(pageCount * kdp.spine_mm_per_page * 100) / 100;
+    throw new Error(`kdp.json "${bookId}" is for ${e.pages} pages but the book has ${pageCount}: set pages ${pageCount}, spine_mm ${spine}, spine_text ${pageCount >= kdp.spine_text_min_pages}`);
+  }
+  return e;
 }
 
 export interface CoverGeometry {
@@ -23,21 +41,21 @@ export interface CoverGeometry {
   spineText: boolean;
 }
 
-export function coverGeometry(t: BookTokens, kdp: KdpConfig, pageCount: number): CoverGeometry {
+export function coverGeometry(t: BookTokens, kdp: KdpConfig, bookId: string, pageCount: number): CoverGeometry {
   const bleed = t.layout.book.bleed_mm;
-  const spine = kdp.spine_mm ?? Math.round(pageCount * kdp.spine_mm_per_page * 100) / 100;
+  const e = kdpBook(kdp, bookId, pageCount);
   return {
     bleed,
-    spine,
-    width: 2 * bleed + 2 * TRIM_MM.width + spine,
+    spine: e.spine_mm,
+    width: 2 * bleed + 2 * TRIM_MM.width + e.spine_mm,
     height: 2 * bleed + TRIM_MM.height,
-    spineText: pageCount >= kdp.spine_text_min_pages,
+    spineText: e.spine_text,
   };
 }
 
-/** The first sentence(s) of はじめに for the back cover. */
+/** The first two sentences of はじめに for the back cover, ending at 「。」 (WO-026 §7). */
 function excerpt(text: string): string {
-  return text.split(/\s+/).filter(Boolean).slice(0, 2).join('');
+  return sentences(text, 2);
 }
 
 export function coverCss(t: BookTokens, g: CoverGeometry, kdp: KdpConfig): string {

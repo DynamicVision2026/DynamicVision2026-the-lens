@@ -45,7 +45,7 @@ export function renderInterior(bundle: BookBundle, passId: string, opts: RenderO
 }
 
 export function renderCover(bundle: BookBundle, plan: BookPlan, kdp: KdpConfig, opts: RenderOptions = {}): { html: string; geometry: CoverGeometry } {
-  const geometry = coverGeometry(bundle.tokens, kdp, plan.pages.length);
+  const geometry = coverGeometry(bundle.tokens, kdp, plan.book.id, plan.pages.length);
   const body = renderToStaticMarkup(createElement(Cover, { bundle, plan, g: geometry }));
   return { html: doc(plan.book.title_ja, coverCss(bundle.tokens, geometry, kdp), body, opts.fonts ?? false), geometry };
 }

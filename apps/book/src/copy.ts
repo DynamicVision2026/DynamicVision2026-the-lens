@@ -28,6 +28,7 @@ export const COPY = {
   author: '著者',
   publisher: '発行',
   published: '発行日',
+  firstEdition: '初版発行',
   copyright: '© Beyond Culture',
   draftDate: '（発行日未定）',
   figurePending: '図（準備中）',
@@ -57,4 +58,40 @@ export function titleLines(title: string): string[] {
   const i = title.indexOf(TITLE_BREAK_BEFORE);
   if (i <= 0) return [title];
   return [title.slice(0, i).trim(), title.slice(i)];
+}
+
+/**
+ * WO-026 §7 MUST 2: はじめに paragraphs split only at line breaks (\n), never at spaces. A space after a
+ * sentence end (YAML folding) is dropped: Japanese puts none between sentences.
+ */
+export function paragraphs(text: string): string[] {
+  return text
+    .split(/\n+/)
+    .map((p) => p.replace(/([。！？」）])[ \t]+/g, '$1').trim())
+    .filter(Boolean);
+}
+
+/** The first `n` whole sentences (each ends with 「。」), for the back-cover excerpt: never cut mid-sentence. */
+export function sentences(text: string, n: number): string {
+  const all = paragraphs(text).join('').match(/[^。]+。/g) ?? [];
+  return all.slice(0, n).join('');
+}
+
+/**
+ * WO-026 §7 SHOULD 7: the printed time strip. 60 s and more in 分, seconds only when non-zero, and an
+ * estimate reads 「約…」 instead of 「+4分0秒 目安」 (a tester median keeps its 実測 badge).
+ */
+export function bookTime(seconds: number, source: 'estimate' | 'tester_median'): string {
+  const total = Math.max(0, Math.round(seconds));
+  const min = Math.floor(total / 60);
+  const sec = total % 60;
+  const text = `${min > 0 ? `${min}分` : ''}${sec > 0 || min === 0 ? `${sec}秒` : ''}`;
+  return source === 'estimate' ? `約${text}` : text;
+}
+
+/** WO-026 §7 SHOULD 8: the colophon date, 「2026年10月16日 初版発行」 (from --date YYYY-MM-DD). */
+export function colophonDate(iso: string): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+  if (!m) return iso;
+  return `${Number(m[1])}年${Number(m[2])}月${Number(m[3])}日 ${COPY.firstEdition}`;
 }

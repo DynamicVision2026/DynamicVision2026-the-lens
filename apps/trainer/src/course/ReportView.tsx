@@ -4,6 +4,7 @@
 import { loadBundle } from '@lens/scenes';
 import { useState } from 'react';
 import { t } from '../i18n/ja';
+import { BookLink } from '../launch/BookLink';
 import { navigate } from '../launch/navigate';
 import { baseline, clearAttempts, readAttempts, stats, week4, week4Open, weeklyCounts, type SessionStats } from './attempts';
 import { sfx } from './fx';
@@ -76,6 +77,7 @@ export function ReportView({ passId }: { passId: string }) {
             </button>
           </p>
         )}
+        <BookLink passId={passId} />
         <p className="why foot">{t('report.footer')}</p>
         <button type="button" className="linkish clear" onClick={clear}>
           {t('report.clear')}
