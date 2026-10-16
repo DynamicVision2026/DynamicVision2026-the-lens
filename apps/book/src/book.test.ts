@@ -2,7 +2,7 @@
 // estimate, prints no number that is not in the problem, and prints each answer from the bundle.
 import { describe, expect, it } from 'vitest';
 import { answerText, withVariant, type LensCard } from '@lens/scenes';
-import { titleLines } from './copy';
+import { BACK_QR_URL, titleLines } from './copy';
 import { readFileSync } from 'node:fs';
 import type { KdpConfig } from './Cover';
 import { renderFigure } from './figure';
@@ -191,5 +191,12 @@ describe('paperback books', () => {
       expect(t).not.toBe(answerText(first));
     }
     expect(front).toContain('<span class="line">ワークブック</span>');
+  });
+
+  it('back cover: the QR is tagged as a book visit, the printed address stays clean', () => {
+    expect(BACK_QR_URL).toBe('https://lens.domo-ai.com/?src=book');
+    const { html } = renderCover(bundle, planBook(bundle, 'koukou_juken'), kdp);
+    expect(html).toContain('<span class="url">https://lens.domo-ai.com/</span>');
+    expect(html).not.toContain('>https://lens.domo-ai.com/?src=book<');
   });
 });

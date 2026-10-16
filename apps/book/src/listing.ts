@@ -53,7 +53,7 @@ ${[
   row('出版社', book.publisher_ja),
   row('言語', '日本語'),
   row('判型', 'B5（182 × 257 mm）'),
-  row('本文', '白黒'),
+  row('本文', book.interior === 'standard_color' ? 'カラー（標準カラー）' : '白黒'),
   row('用紙', '白'),
   row('表紙', '光沢'),
   row('ページ数', String(plan.pages.length)),

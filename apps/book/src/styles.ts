@@ -1,6 +1,7 @@
 // The interior stylesheet, built from tokens (layout.book, color.*.print, stroke, type). Sizes are pt.
 import { BODY_FAMILY } from './fonts';
 import { printPalette } from './print';
+
 import type { BookTokens } from './types';
 
 export const TRIM_MM = { width: 182, height: 257 } as const;
@@ -17,9 +18,40 @@ export function figureFontCss(t: BookTokens): string {
   ].join('\n');
 }
 
+/**
+ * The colour interior (KDP 標準カラー, Oct 16): the landing page's palette (tokens color.landing) for text,
+ * rules and tints, and each chapter's lens colour through the CSS variable --lens (set on the page by
+ * Book.tsx). Body text stays near-black for crisp small type; tints stay at 8–16% so they print visibly
+ * without muddying text on top.
+ */
+export function bookColors(t: BookTokens) {
+  const L = ((t.color as unknown as Record<string, unknown>).landing ?? {}) as Record<string, { value: string }>;
+  const v = (k: string) => {
+    const x = L[k]?.value;
+    if (!x) throw new Error(`tokens color.landing.${k} is missing`);
+    return x;
+  };
+  return {
+    paper: v('card'),
+    ink: v('print_ink'),
+    navy: v('navy'),
+    text: v('text'),
+    quiet: v('muted'),
+    line: v('line'),
+    ground: v('ground'),
+    trapInk: t.color.trap.ink.value,
+    trapTint: v('trap_tint'),
+    trapBar: v('trap_time'),
+    defaultLens: v('navy'),
+  };
+}
+
 export function interiorCss(t: BookTokens): string {
   const m = t.layout.book.margin_mm;
-  const c = printPalette(t);
+  const p = printPalette(t);
+  const k = bookColors(t);
+  const c = { ...p, paper: k.paper, ink: k.ink, quiet: k.quiet, grid: k.line, trapInk: k.trapInk, trapTint: k.trapTint };
+  const tint = (pct: number) => `color-mix(in srgb, var(--lens) ${pct}%, white)`;
   const s = t.type.scale;
   const sans = `"${t.type.family_ja}", sans-serif`;
   const num = `"${t.type.family_num}", "${t.type.family_ja}", sans-serif`;
@@ -34,6 +66,7 @@ export function interiorCss(t: BookTokens): string {
 @page { size: ${TRIM_MM.width}mm ${TRIM_MM.height}mm; margin: 0; }
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; background: ${c.paper}; color: ${c.ink}; }
+section.page { --lens: ${k.defaultLens}; }
 body { font-family: ${serif}; font-size: ${pt(s.step.size)}; line-height: ${s.step.line}; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 h1, h2, h3, h4, .sans { font-family: ${sans}; margin: 0; }
 p { margin: 0 0 3mm; }
@@ -49,43 +82,48 @@ section.page:last-child { break-after: auto; page-break-after: auto; }
 .folio { position: absolute; bottom: ${m.bottom / 2 - 2}mm; font-family: ${num}; font-size: ${pt(s.label.size - 1)}; color: ${c.quiet}; }
 section.recto .folio { right: ${m.outer}mm; }
 section.verso .folio { left: ${m.outer}mm; }
-.runhead { font-family: ${sans}; font-size: ${pt(s.label.size)}; font-weight: ${s.label.weight}; color: ${c.quiet};
-  border-bottom: ${gridW} solid ${c.grid}; padding-bottom: 1.5mm; margin-bottom: 4mm; display: flex; justify-content: space-between; gap: 4mm; }
+.runhead { font-family: ${sans}; font-size: ${pt(s.label.size)}; font-weight: 700; color: var(--lens);
+  border-bottom: ${figW} solid ${tint(45)}; padding-bottom: 1.5mm; margin-bottom: 4mm; display: flex; justify-content: space-between; gap: 4mm; }
 
 .title-page { justify-content: center; text-align: left; }
-.series { font-family: ${sans}; font-size: ${pt(s.title.size - 4)}; font-weight: 500; color: ${c.quiet}; margin-bottom: 8mm; }
-.book-title { font-size: ${pt(s.display.size + 4)}; font-weight: ${s.display.weight}; line-height: ${s.display.line}; margin-bottom: 6mm; word-break: keep-all; }
+.series { font-family: ${sans}; font-size: ${pt(s.title.size - 4)}; font-weight: 700; color: ${k.quiet}; margin-bottom: 8mm; }
+.book-title { color: ${k.navy}; font-size: ${pt(s.display.size + 4)}; font-weight: 900; line-height: ${s.display.line}; margin-bottom: 6mm; word-break: keep-all; }
 .book-title .line { display: block; }
 .book-subtitle { font-family: ${sans}; font-size: ${pt(s.title.size - 2)}; font-weight: 500; margin-bottom: 14mm; }
-.audience { display: inline-block; font-family: ${sans}; font-size: ${pt(s.label.size + 1)}; border: ${figW} solid ${c.ink}; padding: 1.5mm 4mm; align-self: flex-start; }
+.audience { display: inline-block; font-family: ${sans}; font-size: ${pt(s.label.size + 1)}; font-weight: 700; background: var(--band, ${k.ground}); color: ${k.navy}; border-radius: 10mm; padding: 1.5mm 5mm; align-self: flex-start; }
 .title-foot { margin-top: auto; font-family: ${sans}; font-size: ${pt(s.label.size)}; color: ${c.quiet}; line-height: 1.6; }
-.title-rule { width: 40mm; border-top: ${lensW} solid ${c.ink}; margin: 0 0 10mm; }
+.title-rule { width: 40mm; height: 3mm; background: var(--band, ${k.ground}); border-radius: 2mm; margin: 0 0 10mm; }
 
-h2.page-title { font-size: ${pt(s.title.size)}; font-weight: ${s.title.weight}; line-height: ${s.title.line}; margin-bottom: 8mm;
-  padding-bottom: 2mm; border-bottom: ${lensW} solid ${c.ink}; }
+h2.page-title { color: ${k.navy}; font-size: ${pt(s.title.size)}; font-weight: ${s.title.weight}; line-height: ${s.title.line}; margin-bottom: 8mm;
+  padding-bottom: 2mm; border-bottom: ${lensW} solid var(--band, ${k.line}); }
 .prose { font-size: ${pt(s.problem.size - 2)}; line-height: 1.9; }
 .prose p { margin-bottom: 4mm; text-indent: 1em; }
 ol.howto { margin: 0 0 8mm; padding: 0; list-style: none; counter-reset: howto; }
 ol.howto li { counter-increment: howto; position: relative; padding-left: 10mm; margin-bottom: 4mm; font-size: ${pt(s.problem.size - 2)}; line-height: 1.7; }
 ol.howto li::before { content: counter(howto); position: absolute; left: 0; top: 0.4mm; width: 6.5mm; height: 6.5mm; border-radius: 50%;
-  background: ${c.ink}; color: ${c.paper}; font-family: ${num}; font-size: ${pt(s.label.size)}; font-weight: 700; text-align: center; line-height: 6.5mm; }
-.note { border-left: ${lensW} solid ${c.ink}; padding: 1mm 0 1mm 4mm; margin-bottom: 5mm; font-size: ${pt(s.step.size - 1)}; line-height: 1.7; }
-.note.quiet { border-left: ${trapW} dashed ${c.trapInk}; color: ${c.ink}; }
+  background: ${k.navy}; color: ${c.paper}; font-family: ${num}; font-size: ${pt(s.label.size)}; font-weight: 700; text-align: center; line-height: 6.5mm; }
+.note { border-left: ${lensW} solid ${k.navy}; background: ${k.ground}; border-radius: 0 2mm 2mm 0; padding: 1mm 0 1mm 4mm; margin-bottom: 5mm; font-size: ${pt(s.step.size - 1)}; line-height: 1.7; }
+.note.quiet { border-left: ${trapW} dashed ${c.trapInk}; background: ${c.trapTint}; color: ${c.ink}; }
 
 ul.toc { list-style: none; margin: 0; padding: 0; }
 ul.toc li { display: flex; align-items: baseline; font-family: ${sans}; font-size: ${pt(s.problem.size - 1)}; margin-bottom: 4.5mm; }
+ul.toc li .ic { width: 5.5mm; height: 5.5mm; margin-right: 2.5mm; flex: none; align-self: center; }
+ul.toc li .ic svg { width: 100%; height: 100%; display: block; }
+ul.toc li.ch span:first-of-type { color: ${k.navy}; font-weight: 700; }
 ul.toc .lead { flex: 1; border-bottom: ${gridW} dotted ${c.quiet}; margin: 0 3mm; transform: translateY(-1mm); }
 
 .opener { justify-content: center; }
-.opener .chapter-no { font-family: ${sans}; font-size: ${pt(s.title.size - 4)}; font-weight: 700; color: ${c.quiet}; letter-spacing: 0.2em; }
+.opener::before { content: ''; position: absolute; left: -${m.inner}mm; right: -${m.outer}mm; top: -${m.top}mm; height: 92mm; background: ${tint(14)}; }
+.opener > * { position: relative; }
+.opener .chapter-no { font-family: ${sans}; font-size: ${pt(s.title.size - 4)}; font-weight: 900; color: var(--lens); letter-spacing: 0.2em; }
 .opener .lens-icon { width: 34mm; height: 34mm; margin: 6mm 0; }
-.opener h1 { font-size: ${pt(s.display.size + 12)}; font-weight: 700; line-height: 1.2; margin-bottom: 8mm; }
-.opener .principle { border-top: ${lensW} solid ${c.ink}; border-bottom: ${gridW} solid ${c.ink}; padding: 5mm 0; margin-bottom: 12mm; }
-.opener .principle h3 { font-size: ${pt(s.label.size)}; color: ${c.quiet}; margin-bottom: 2mm; }
+.opener h1 { color: ${k.navy}; font-size: ${pt(s.display.size + 12)}; font-weight: 900; line-height: 1.2; margin-bottom: 8mm; }
+.opener .principle { border-left: ${lensW} solid var(--lens); background: ${tint(8)}; border-radius: 0 3mm 3mm 0; padding: 5mm 5mm; margin-bottom: 12mm; }
+.opener .principle h3 { font-size: ${pt(s.label.size)}; color: var(--lens); margin-bottom: 2mm; }
 .opener .principle p { font-size: ${pt(s.problem.size)}; line-height: 1.8; margin: 0; }
 .qr-block { display: flex; align-items: center; gap: 4mm; }
 .qr-block .qr { width: 24mm; height: 24mm; }
-.qr-block .cap { font-family: ${sans}; font-size: ${pt(s.label.size + 1)}; font-weight: 700; }
+.qr-block .cap { font-family: ${sans}; font-size: ${pt(s.label.size + 1)}; font-weight: 700; color: var(--lens); }
 
 .problem-row { display: flex; gap: 5mm; align-items: flex-start; }
 .problem-row .ptext { flex: 1; font-size: ${pt(s.problem.size)}; font-weight: 400; line-height: ${s.problem.line}; }
@@ -101,23 +139,23 @@ ${figureFontCss(t)}
 .fig.graph.w-xs { width: 46mm; } .fig.graph.w-xs svg { max-height: 54mm; }
 
 .side-head { display: flex; align-items: center; gap: 3mm; margin: 5mm 0 3mm; }
-.side-head h2 { font-size: ${pt(s.title.size)}; font-weight: ${s.title.weight}; }
+.side-head h2 { color: var(--lens); font-size: ${pt(s.title.size)}; font-weight: ${s.title.weight}; }
 .side-head .tag { font-family: ${sans}; font-size: ${pt(s.label.size)}; color: ${c.quiet}; }
 .side-head svg { width: 9mm; height: 9mm; flex: none; }
-.trap-head h2 { color: ${c.trapInk}; }
+.side-head.trap-head h2 { color: ${c.trapInk}; }
 .trap-mark { width: 9mm; height: 9mm; border: ${trapW} dashed ${c.trapInk}; border-radius: 50%; flex: none; }
 
 ol.steps { list-style: none; margin: 0; padding: 0; }
 ol.steps li { position: relative; padding-left: 8mm; margin-bottom: 2.4mm; font-size: ${pt(s.step.size)}; line-height: ${s.step.line}; }
-ol.steps.trap { border-left: ${trapW} dashed ${c.trapInk}; padding-left: 3mm; }
+ol.steps.trap { border-left: ${trapW} dashed ${c.trapInk}; background: ${c.trapTint}; border-radius: 0 2mm 2mm 0; padding: 1.5mm 0 0.5mm 3mm; }
 ol.steps.trap li { font-family: ${hand}; color: ${c.trapInk}; }
 ol.steps.trap li::before { content: "…"; position: absolute; left: 1mm; }
-ol.steps.lens { border-left: ${lensW} solid ${c.ink}; padding-left: 3mm; }
-ol.steps.lens li .badge { position: absolute; left: 0; top: 0.5mm; width: 5.5mm; height: 5.5mm; border-radius: 50%; background: ${c.ink}; color: ${c.paper};
+ol.steps.lens { border-left: ${lensW} solid var(--lens); padding-left: 3mm; }
+ol.steps.lens li .badge { position: absolute; left: 0; top: 0.5mm; width: 5.5mm; height: 5.5mm; border-radius: 50%; background: var(--step, var(--lens)); color: ${c.paper};
   font-family: ${num}; font-size: ${pt(s.label.size - 2)}; font-weight: 700; text-align: center; line-height: 5.5mm; }
 .time { font-family: ${sans}; font-size: ${pt(s.label.size)}; margin-top: 3mm; display: flex; align-items: center; gap: 2mm; }
-.time .bar { display: inline-block; height: ${t.time_cost.bar_height / 2}mm; background: ${c.ink}; }
-.time.trap .bar { background: ${c.trapInk}; }
+.time .bar { display: inline-block; height: ${t.time_cost.bar_height / 2}mm; border-radius: 1mm; background: var(--lens); }
+.time.trap .bar { background: ${k.trapBar}; }
 .time .badge-src { border: ${gridW} solid ${c.quiet}; color: ${c.quiet}; padding: 0 1.5mm; font-size: ${pt(s.label.size - 2)}; }
 .solve-row { display: flex; gap: 5mm; align-items: flex-start; }
 .solve-row ol { flex: 1; }
@@ -125,32 +163,35 @@ ol.steps.lens li .badge { position: absolute; left: 0; top: 0.5mm; width: 5.5mm;
 .result-row { display: flex; align-items: baseline; justify-content: space-between; gap: 6mm; margin-top: 3mm; }
 .result-row .answer-line, .result-row .time { margin-top: 0; }
 .p-spread.recto .problem-row .fig svg { max-height: 56mm; }
-.answer-line .k { font-size: ${pt(s.label.size)}; font-weight: 700; border: ${figW} solid ${c.ink}; padding: 0 2mm; }
+.answer-line .k { font-size: ${pt(s.label.size)}; font-weight: 700; background: var(--lens); color: ${c.paper}; border-radius: 1.2mm; padding: 0.2mm 2.2mm; }
 
-.bottom-bar { margin-top: auto; display: flex; align-items: center; gap: 4mm; border-top: ${lensW} solid ${c.ink}; padding-top: 3mm; }
+.bottom-bar { margin-top: auto; display: flex; align-items: center; gap: 4mm; border-top: ${lensW} solid var(--lens); background: ${tint(9)}; padding: 3mm 3mm 0; }
 .bottom-bar .trigger { flex: 1; font-family: ${sans}; font-size: ${pt(s.trigger.size - 2)}; font-weight: ${s.trigger.weight}; line-height: ${s.trigger.line}; }
-.bottom-bar .trigger .k { display: block; font-size: ${pt(s.label.size - 1)}; font-weight: 500; color: ${c.quiet}; margin-bottom: 0.5mm; }
+.bottom-bar .trigger .k { display: block; font-size: ${pt(s.label.size - 1)}; font-weight: 700; color: var(--lens); margin-bottom: 0.5mm; }
 .bottom-bar .qr { width: 17mm; height: 17mm; flex: none; }
 .bottom-bar .qr-wrap { display: flex; flex-direction: column; align-items: center; }
 .bottom-bar .qr-cap { font-family: ${sans}; font-size: ${pt(s.label.size - 3)}; color: ${c.quiet}; white-space: nowrap; margin-top: 0.5mm; }
 
-.boundary-head { display: flex; align-items: baseline; gap: 4mm; margin-bottom: 6mm; padding-bottom: 2mm; border-bottom: ${lensW} solid ${c.ink}; }
+.boundary-head { display: flex; align-items: baseline; gap: 4mm; margin-bottom: 6mm; padding-bottom: 2mm; border-bottom: ${lensW} solid var(--lens); }
+.boundary-head h2 { color: ${k.navy}; }
 .boundary-head h2 { font-size: ${pt(s.title.size)}; }
-.boundary-head .other { font-family: ${sans}; font-size: ${pt(s.title.size - 4)}; font-weight: 700; border: ${figW} solid ${c.ink}; padding: 0.5mm 3mm; }
-.boundary-line { margin-top: 8mm; border: ${lensW} solid ${c.ink}; padding: 4mm 5mm; }
-.boundary-line .k { font-family: ${sans}; font-size: ${pt(s.label.size)}; color: ${c.quiet}; margin-bottom: 1mm; }
+.boundary-head .other { font-family: ${sans}; font-size: ${pt(s.title.size - 4)}; font-weight: 700; color: ${c.paper}; background: var(--other, ${k.navy}); border-radius: 10mm; padding: 0.5mm 4mm; }
+.boundary-line { margin-top: 8mm; border: ${lensW} solid var(--lens); background: ${tint(8)}; border-radius: 3mm; padding: 4mm 5mm; }
+.boundary-line .k { font-family: ${sans}; font-size: ${pt(s.label.size)}; font-weight: 700; color: var(--lens); margin-bottom: 1mm; }
 .boundary-line p { font-family: ${sans}; font-size: ${pt(s.trigger.size)}; font-weight: 700; line-height: 1.6; margin: 0; }
 
-.section-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 1mm 3mm; margin-bottom: 4mm; padding-bottom: 1.5mm; border-bottom: ${lensW} solid ${c.ink}; }
+.section-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 1mm 3mm; margin-bottom: 4mm; padding-bottom: 1.5mm; border-bottom: ${lensW} solid var(--lens); }
+.section-head h2 { color: ${k.navy}; }
 .section-head h2 { font-size: ${pt(s.title.size)}; }
 .section-head .lead { font-family: ${sans}; font-size: ${pt(s.label.size)}; color: ${c.quiet}; }
 .problems { flex: 1; display: flex; flex-direction: column; }
 .problem { flex: 1 0 auto; display: flex; flex-direction: column; border-top: ${gridW} solid ${c.grid}; padding-top: 3mm; }
 .problem:first-child { border-top: none; padding-top: 0; }
-.plabel { font-family: ${sans}; font-size: ${pt(s.problem.size - 1)}; font-weight: 700; margin-bottom: 1.5mm; display: flex; align-items: center; gap: 2mm; }
-.plabel .sim { font-size: ${pt(s.label.size - 1)}; font-weight: 500; border: ${gridW} solid ${c.ink}; padding: 0 1.5mm; }
+.plabel { font-family: ${sans}; font-size: ${pt(s.problem.size - 1)}; font-weight: 700; color: var(--lens); margin-bottom: 1.5mm; display: flex; align-items: center; gap: 2mm; }
+.plabel .sim { font-size: ${pt(s.label.size - 1)}; font-weight: 700; color: var(--lens); background: ${tint(14)}; border-radius: 1mm; padding: 0 1.5mm; }
 .which { margin-top: 2mm; font-family: ${sans}; font-size: ${pt(s.label.size)}; font-weight: 700; display: flex; align-items: center; gap: 2mm; }
-.which .box { display: inline-block; width: 26mm; height: 7mm; border: ${figW} solid ${c.ink}; }
+.which { color: ${k.navy}; }
+.which .box { display: inline-block; width: 26mm; height: 7mm; border: ${figW} solid var(--lens); border-radius: 1.5mm; background: ${c.paper}; }
 .work { flex: 1; }
 
 .review-item { flex: 1 0 auto; display: flex; flex-direction: column; border-top: ${gridW} solid ${c.grid}; padding-top: 2.5mm; }
@@ -159,21 +200,21 @@ ol.steps.lens li .badge { position: absolute; left: 0; top: 0.5mm; width: 5.5mm;
 .ticks { display: flex; flex-wrap: wrap; gap: 1mm 2.2mm; margin-top: 1.5mm; font-family: ${sans}; font-size: ${pt(s.label.size - 3)}; }
 .fig.w-xs .fig-pending { aspect-ratio: 3 / 2; }
 .ticks span { display: inline-flex; align-items: center; gap: 1mm; white-space: nowrap; }
-.ticks i { display: inline-block; width: 3.4mm; height: 3.4mm; border: ${gridW} solid ${c.ink}; }
+.ticks i { display: inline-block; width: 3.4mm; height: 3.4mm; border: ${figW} solid var(--tick, ${c.ink}); border-radius: 0.6mm; }
 
 .answers { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm 6mm; align-content: start; }
 .ans { border-top: ${gridW} solid ${c.grid}; padding-top: 2mm; }
 .ans .row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 1mm 3mm; font-family: ${sans}; }
-.ans .lbl { font-weight: 700; font-size: ${pt(s.label.size + 1)}; }
+.ans .lbl { font-weight: 700; font-size: ${pt(s.label.size + 1)}; color: var(--alens, ${k.navy}); }
 .ans .val { font-weight: 700; font-size: ${pt(s.step.size)}; }
-.ans .lens { font-size: ${pt(s.label.size - 2)}; border: ${gridW} solid ${c.ink}; padding: 0 1.5mm; }
+.ans .lens { font-size: ${pt(s.label.size - 2)}; font-weight: 700; color: ${c.paper}; background: var(--alens, ${k.navy}); border-radius: 1mm; padding: 0 1.5mm; }
 .ans ol { margin: 1.5mm 0 0 4.5mm; padding: 0; font-size: ${pt(s.label.size - 2.5)}; line-height: 1.45; color: ${c.ink}; }
 .ans ol li { margin: 0; }
 
 .memo-page .rule { height: 100%; background-image: linear-gradient(${c.grid} ${gridW}, transparent ${gridW}); background-size: 100% 9mm; }
 .memo-page h3 { font-size: ${pt(s.label.size)}; color: ${c.quiet}; margin-bottom: 3mm; }
 .colophon { justify-content: flex-end; }
-.colophon .box { border-top: ${lensW} solid ${c.ink}; padding-top: 4mm; font-family: ${sans}; font-size: ${pt(s.label.size)}; line-height: 1.9; }
+.colophon .box { border-top: ${lensW} solid var(--band, ${k.navy}); padding-top: 4mm; font-family: ${sans}; font-size: ${pt(s.label.size)}; line-height: 1.9; }
 .colophon .box .t { font-size: ${pt(s.step.size)}; font-weight: 700; }
 .colophon dl { display: grid; grid-template-columns: 18mm 1fr; margin: 2mm 0; }
 .colophon dt { color: ${c.quiet}; }

@@ -1,12 +1,15 @@
 // The interior, page by page (WO-021 §2). Every problem, number and answer comes from the bundle.
 import { renderToStaticMarkup } from 'react-dom/server';
-import { answerText, LensIcon, type LensCard, type LensOrDirect } from '@lens/scenes';
+import { answerText, LensIcon, lensColor, type LensCard, type LensOrDirect, type Tokens } from '@lens/scenes';
+import type { CSSProperties } from 'react';
+import { coverStyle } from './Cover';
 import { bookTime, colophonDate, COPY, paragraphs, titleLines } from './copy';
 import { isGraph, renderFigure, type FigureMoment, type FigureOpts } from './figure';
 import { MathText } from './nobreak';
 import { answerOf, lensName, solvingLens, type BookPlan, type ChapterPlan, type Page, type Problem } from './plan';
-import { printColor, printPalette } from './print';
+import { printPalette } from './print';
 import { qrSvg } from './qr';
+import { bookColors } from './styles';
 import type { BookBundle, BookTokens } from './types';
 
 export interface RenderLog {
@@ -24,8 +27,18 @@ interface Ctx {
 
 const svg = (html: string, className?: string) => <div className={className} dangerouslySetInnerHTML={{ __html: html }} />;
 
+/** KDP 標準カラー (Oct 16): figures print in their screen hues on white paper. */
+const figureColor = (ctx: Ctx): FigureOpts => ({ color: true, paper: bookColors(ctx.tokens).paper });
+
+/** A lens's accent colour (tokens color.lens), for --lens and icons. */
+function lensHue(ctx: Ctx, lens: string): string {
+  return lensColor(ctx.tokens as unknown as Tokens, lens as LensOrDirect);
+}
+
+const cssVars = (v: Record<string, string>) => v as CSSProperties;
+
 function Figure({ ctx, card, moment, size, opts }: { ctx: Ctx; card: LensCard; moment: FigureMoment; size: 'lg' | 'md' | 'sm' | 'xs'; opts?: FigureOpts }) {
-  const fig = renderFigure(card, moment, ctx.tokens, opts);
+  const fig = renderFigure(card, moment, ctx.tokens, { ...figureColor(ctx), ...opts });
   if (fig.none) return null;
   if (!fig.svg) {
     ctx.log.placeholders.set(card.id, fig.reason ?? 'no scene');
@@ -38,8 +51,8 @@ function Figure({ ctx, card, moment, size, opts }: { ctx: Ctx; card: LensCard; m
   return <div className={`fig w-${size}${isGraph(card) ? ' graph' : ''}`} data-figure={card.id} dangerouslySetInnerHTML={{ __html: fig.svg }} />;
 }
 
-function lensIconSvg(ctx: Ctx, lens: LensOrDirect): string {
-  const ink = printColor(ctx.tokens.color.ink);
+function lensIconSvg(ctx: Ctx, lens: LensOrDirect, color?: string): string {
+  const ink = color ?? lensHue(ctx, lens);
   const inner = renderToStaticMarkup(<LensIcon lens={lens} tokens={ctx.tokens} color={ink} size={24} />);
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 28 28">${inner}</svg>`;
 }
@@ -179,7 +192,7 @@ function ReviewItem({ ctx, p }: { ctx: Ctx; p: Problem }) {
       <div className="ticks">
         {options.map((o) => (
           <span key={o}>
-            <i />
+            <i style={cssVars({ '--tick': lensHue(ctx, o) })} />
             {lensName(ctx.bundle, o)}
           </span>
         ))}
@@ -190,7 +203,7 @@ function ReviewItem({ ctx, p }: { ctx: Ctx; p: Problem }) {
 
 function Answer({ ctx, p }: { ctx: Ctx; p: Problem }) {
   return (
-    <div className="ans" data-answer={p.id}>
+    <div className="ans" data-answer={p.id} style={cssVars({ '--alens': lensHue(ctx, solvingLens(p.card)) })}>
       <div className="row">
         <span className="lbl">{p.label}</span>
         <span className="val" data-answer-value={p.id}>
@@ -268,13 +281,17 @@ function PageBody({ ctx, page }: { ctx: Ctx; page: Page }) {
         <div className="body">
           <h2 className="page-title">{COPY.contents}</h2>
           <ul className="toc">
-            {ctx.plan.toc.map((e) => (
-              <li key={e.label}>
+            {ctx.plan.toc.map((e) => {
+              const ch = ctx.plan.chapters.find((c) => e.label.startsWith(COPY.chapter(c.no)));
+              return (
+              <li key={e.label} className={ch ? 'ch' : ''} style={ch ? cssVars({ '--lens': lensHue(ctx, ch.chapter.lens) }) : undefined}>
+                {ch && svg(lensIconSvg(ctx, ch.chapter.lens), 'ic')}
                 <span>{e.label}</span>
                 <span className="lead" />
                 <span className="num">{e.page}</span>
               </li>
-            ))}
+              );
+            })}
           </ul>
         </div>
       );
@@ -314,7 +331,11 @@ function PageBody({ ctx, page }: { ctx: Ctx; page: Page }) {
           </div>
           <div className="boundary-head">
             <h2>{same ? COPY.boundarySame : COPY.boundaryOther}</h2>
-            {!same && <span className="other">{lensName(ctx.bundle, solvingLens(card))}</span>}
+            {!same && (
+              <span className="other" style={cssVars({ '--other': lensHue(ctx, solvingLens(card)) })}>
+                {lensName(ctx.bundle, solvingLens(card))}
+              </span>
+            )}
           </div>
           <div className="problem-row">
             <ProblemText card={card} />
@@ -415,6 +436,13 @@ function PageBody({ ctx, page }: { ctx: Ctx; page: Page }) {
   }
 }
 
+/** The page's colours: its chapter's lens (--lens) and the book's course band (--band, landing tokens). */
+function pageVars(ctx: Ctx, page: Page): CSSProperties {
+  const band = coverStyle(ctx.tokens, ctx.plan.passId).band;
+  const ch = 'ch' in page ? (page as { ch: ChapterPlan }).ch : null;
+  return cssVars(ch ? { '--lens': lensHue(ctx, ch.chapter.lens), '--band': band } : { '--band': band });
+}
+
 export function Interior({ ctx }: { ctx: Ctx }) {
   return (
     <>
@@ -423,7 +451,7 @@ export function Interior({ ctx }: { ctx: Ctx }) {
         const side = n % 2 === 1 ? 'recto' : 'verso';
         const showFolio = page.kind !== 'title' && page.kind !== 'colophon';
         return (
-          <section key={n} className={`page ${side} p-${page.kind}`} data-page={n} data-kind={page.kind}>
+          <section key={n} className={`page ${side} p-${page.kind}`} data-page={n} data-kind={page.kind} style={pageVars(ctx, page)}>
             <PageBody ctx={ctx} page={page} />
             {showFolio && <div className="folio">{n}</div>}
           </section>

@@ -4,7 +4,7 @@
 // Amazon thumbnail, the first example seen through a lens, and the book's 8 lenses as coloured chips. The cover is printed in colour by KDP even for a B&W interior.
 import { renderToStaticMarkup } from 'react-dom/server';
 import { LensIcon, lensColor, type Tokens } from '@lens/scenes';
-import { COPY, SITE_URL, sentences, titleLines } from './copy';
+import { BACK_QR_URL, COPY, SITE_URL, sentences, titleLines } from './copy';
 import { renderFigure } from './figure';
 import type { BookPlan } from './plan';
 import { printPalette } from './print';
@@ -231,7 +231,7 @@ export function Cover({ bundle, plan, g }: { bundle: BookBundle; plan: BookPlan;
         </div>
         <div className="hon">{book.front_matter.honesty_ja}</div>
         <div className="qrrow">
-          <div className="tile" dangerouslySetInnerHTML={{ __html: qrSvg(SITE_URL, c.ink, c.paper) }} />
+          <div className="tile" dangerouslySetInnerHTML={{ __html: qrSvg(BACK_QR_URL, c.ink, c.paper) }} />
           <div>
             {COPY.backQrCaption}
             <br />
