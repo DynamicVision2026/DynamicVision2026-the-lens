@@ -2,8 +2,9 @@
 // set: with '' no script is loaded and no event is sent. No personal data: never names, emails or what a
 // child types. A paid customer is known only by the Shopify order number from the access link (o=), kept
 // on the device in lens.v1.order.<pass> and sent as GA's user_id. Addresses are sent without their query
-// string, so an access key never reaches GA.
-import { accessMode } from '../course/access';
+// string, so an access key never reaches GA. WO-027: a visit from a book QR (?src=book) is remembered on the
+// device (lens.v1.src, first touch wins) and sent as the GA user property `src` on every event.
+import { accessMode, type AccessMode } from '../course/access';
 import { LAUNCH } from '../launch.config';
 
 declare global {
@@ -14,11 +15,12 @@ declare global {
 }
 
 export type GaEvent =
-  | { name: 'page_view'; params: { page_path: string } }
+  | { name: 'page_view'; params: { page_path: string; src?: string } }
   | { name: 'select_course'; params: { pass: string } }
   | { name: 'trial_start'; params: { pass: string } }
   | { name: 'course_open'; params: { pass: string; order?: string } }
-  | { name: 'lesson_open'; params: { pass: string; lesson: string; mode: 'paid' | 'trial' | 'preview' } }
+  | { name: 'lesson_open'; params: { pass: string; lesson: string; mode: AccessMode } }
+  | { name: 'book_open'; params: { pass: string; lens: string } }
   | { name: 'lesson_complete'; params: { pass: string; lesson: string } }
   | { name: 'check_complete'; params?: undefined };
 
@@ -53,6 +55,41 @@ export function rememberedOrder(): string | null {
   return null;
 }
 
+const SRC_KEY = 'lens.v1.src';
+/** A `src` value worth keeping (?src=book from the books' QR codes). */
+const SRC = /^[a-z0-9_-]{1,32}$/;
+let srcMemory: string | null = null;
+
+/** The ?src= of an address, or null (page_view sends it as a param; the rest of the query never). */
+export function srcFrom(search: string): string | null {
+  const s = new URLSearchParams(search).get('src');
+  return s && SRC.test(s) ? s : null;
+}
+
+/** Where this device first came from (lens.v1.src), or null. */
+export function rememberedSrc(): string | null {
+  try {
+    const s = window.localStorage.getItem(SRC_KEY);
+    if (s && SRC.test(s)) return s;
+  } catch {
+    // Storage blocked: the memory copy below.
+  }
+  return srcMemory;
+}
+
+/** Remembers `src` for this device unless one is already there (first touch wins); sets the GA user property. */
+export function rememberSrc(src: string): string {
+  const first = rememberedSrc() ?? src;
+  srcMemory = first;
+  try {
+    if (!window.localStorage.getItem(SRC_KEY)) window.localStorage.setItem(SRC_KEY, first);
+  } catch {
+    // Storage blocked: this visit only.
+  }
+  if (active && typeof window.gtag === 'function') window.gtag('set', 'user_properties', { src: first });
+  return first;
+}
+
 /** The page's address without query string or hash (keeps ?k= access keys out of GA). */
 const pageLocation = () => `${window.location.origin}${window.location.pathname}`;
 
@@ -75,6 +112,8 @@ export function initAnalytics(ga4Id: string = LAUNCH.ga4Id): boolean {
     allow_ad_personalization_signals: false,
     ...(order ? { user_id: order } : {}),
   });
+  const src = rememberedSrc();
+  if (src) window.gtag('set', 'user_properties', { src });
   const script = document.createElement('script');
   script.async = true;
   script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(ga4Id)}`;
@@ -103,10 +142,17 @@ export function courseOpened(passId: string, order: string | null): void {
 
 /** A lesson's masterclass or practice opened: paid, trial or preview. */
 export function lessonOpened(passId: string, lens: string): void {
-  track({ name: 'lesson_open', params: { pass: passId, lesson: lens, mode: accessMode(passId) } });
+  track({ name: 'lesson_open', params: { pass: passId, lesson: lens, mode: accessMode(passId, lens) } });
+}
+
+/** WO-027: a book QR visit. Remembers src=book; `book_open` once per lens per device (`isNew` from openFromBook). */
+export function bookOpened(passId: string, lens: string, isNew: boolean): void {
+  rememberSrc('book');
+  if (isNew) track({ name: 'book_open', params: { pass: passId, lens } });
 }
 
 /** For tests: analytics off again. */
 export function resetAnalytics(): void {
   active = '';
+  srcMemory = null;
 }

@@ -22,6 +22,11 @@ const SUGGEST: Record<string, { keywords: string[]; categories: string[] }> = {
   },
 };
 
+/** WO-027 §5: 「¥2,100（税込）」 from book.yaml price_jpy; blank when not set. */
+export function priceText(yen: number | null | undefined): string {
+  return typeof yen === 'number' && yen > 0 ? `¥${yen.toLocaleString('en-US')}（税込）` : '';
+}
+
 /** 内容紹介: はじめに, the 8 chapters, the honesty line and the QR line, all from book.yaml. */
 export function description(plan: BookPlan): string {
   const fm = plan.book.front_matter;
@@ -53,7 +58,7 @@ ${[
   row('表紙', '光沢'),
   row('ページ数', String(plan.pages.length)),
   row('ISBN', 'KDP 無料 ISBN'),
-  row('価格', ''),
+  row('価格', priceText(book.price_jpy)),
 ].join('\n')}
 
 ## 内容紹介（${desc.length} / ${DESCRIPTION_MAX} 字）

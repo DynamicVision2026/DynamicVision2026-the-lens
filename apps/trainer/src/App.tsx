@@ -1,13 +1,14 @@
 import { useEffect, useMemo } from 'react';
 import { CaseView } from './course/CaseView';
 import { CheckView } from './course/CheckView';
-import { lessonOpen, passOpen } from './course/access';
+import { fromBook, lessonOpen, masterclassOpen, passLesson, passOpen } from './course/access';
 import { LessonView } from './course/LessonView';
 import { MasterView } from './course/MasterView';
 import { PracticeView, TimedView } from './course/StepsView';
 import { ReportView } from './course/ReportView';
 import { DevScenes } from './dev/DevScenes';
-import { track } from './launch/analytics';
+import { srcFrom, track } from './launch/analytics';
+import { BookVisit, Redirect } from './launch/BookVisit';
 import { External, GoPreorder, Landing, Privacy, Thanks } from './launch/Landing';
 import { Open } from './launch/Open';
 import { TrialStart } from './launch/Trial';
@@ -21,7 +22,11 @@ export function App() {
   // ?s=<card-id> from a Short: kept for this tab (signup tags, preorder UTM).
   const short = useMemo(() => rememberShort(window.location.search), []);
   // WO-025: a GA4 page_view for each route (the path only; never the query, which may hold an access key).
-  useEffect(() => track({ name: 'page_view', params: { page_path: path } }), [path]);
+  // WO-027: ?src= (the book QR codes) is the one query value kept, as a param.
+  useEffect(() => {
+    const src = srcFrom(window.location.search);
+    track({ name: 'page_view', params: src ? { page_path: path, src } : { page_path: path } });
+  }, [path]);
   if (path.startsWith('/dev/scenes')) return <DevScenes />;
   // /play/:cardId, and /play/:cardId/report once the report is shown (counted as its own path).
   const play = /^\/play\/([\w-]+)(?:\/report)?\/?$/.exec(path);
@@ -45,13 +50,11 @@ export function App() {
   // A lesson: /master (step 1), the ladder (step 2), then /practice (step 3) and /timed (step 4).
   const lesson = /^\/lesson\/([\w-]+)\/([\w-]+)(?:\/(master|practice|timed))?\/?$/.exec(path);
   if (lesson) {
-    // WO-024 §3a: a bought Pass opens every lesson; the free trial opens its first lesson only.
-    if (!lessonOpen(lesson[1]!, lesson[2]!)) return <CaseView passId={lesson[1]!} />;
     const [, passId, lens, step] = lesson as unknown as [string, string, string, string | undefined];
-    if (step === 'master') return <MasterView key={path} passId={passId} lens={lens} />;
-    if (step === 'practice') return <PracticeView key={path} passId={passId} lens={lens} />;
-    if (step === 'timed') return <TimedView key={path} passId={passId} lens={lens} />;
-    return <LessonView key={path} passId={passId} lens={lens} />;
+    // WO-027: a book QR (/lesson/<pass>/<lens>?src=book) opens this lens's masterclass, remembered on the device.
+    const book = fromBook() && passLesson(passId, lens);
+    const view = lessonRoute(path, passId, lens, step, book);
+    return book ? <BookVisit passId={passId} lens={lens}>{view}</BookVisit> : view;
   }
   // WO-024 §3a: 「無料ではじめる（3日間）」 starts that Pass's free trial and opens its first lesson.
   const trial = /^\/trial\/([\w-]+)\/?$/.exec(path);
@@ -63,4 +66,17 @@ export function App() {
   if (path === '/thanks') return <Thanks />;
   if (path === '/go/preorder') return <GoPreorder short={short} />;
   return <Landing />;
+}
+
+/** A lesson step behind its access (WO-024 §3a, WO-027). */
+function lessonRoute(path: string, passId: string, lens: string, step: string | undefined, book: boolean) {
+  const open = lessonOpen(passId, lens);
+  // The QR address has no step: a book reader goes to Step 1 (a buyer keeps the lesson as before).
+  if (book && !step && !open) return <Redirect to={`/lesson/${passId}/${lens}/master${window.location.search}`} />;
+  // A bought Pass opens every lesson; the free trial its first lesson; the book a lens's masterclass only.
+  if (step === 'master' ? !(book || masterclassOpen(passId, lens)) : !open) return <CaseView passId={passId} />;
+  if (step === 'master') return <MasterView key={path} passId={passId} lens={lens} />;
+  if (step === 'practice') return <PracticeView key={path} passId={passId} lens={lens} />;
+  if (step === 'timed') return <TimedView key={path} passId={passId} lens={lens} />;
+  return <LessonView key={path} passId={passId} lens={lens} />;
 }
