@@ -117,7 +117,7 @@ ul.toc li.ch span:first-of-type { color: ${k.navy}; font-weight: 700; }
 ul.toc .lead { flex: 1; border-bottom: ${gridW} dotted ${c.quiet}; margin: 0 3mm; transform: translateY(-1mm); }
 
 .opener { justify-content: center; }
-.opener::before { content: ''; position: absolute; left: -${m.inner}mm; right: -${m.outer}mm; top: -${m.top}mm; height: 92mm; background: ${tint(14)}; }
+.opener::before { content: ''; position: absolute; left: -4mm; right: -4mm; top: -4mm; height: ${92 - m.top + 4}mm; border-radius: 4mm; background: ${tint(14)}; } /* inside the margins: the interior has no bleed, so nothing may touch the trim edge (KDP) */
 .opener > * { position: relative; }
 .opener .chapter-no { font-family: ${sans}; font-size: ${pt(s.title.size - 4)}; font-weight: 900; color: var(--lens); letter-spacing: 0.2em; }
 .opener .lens-icon { width: 34mm; height: 34mm; margin: 6mm 0; }
