@@ -9,6 +9,7 @@ import { MathText } from './nobreak';
 import { answerOf, lensName, solvingLens, type BookPlan, type ChapterPlan, type Page, type Problem } from './plan';
 import { printPalette } from './print';
 import { qrSvg } from './qr';
+import { bookColors } from './styles';
 import type { BookBundle, BookTokens } from './types';
 
 export interface RenderLog {
@@ -27,7 +28,7 @@ interface Ctx {
 const svg = (html: string, className?: string) => <div className={className} dangerouslySetInnerHTML={{ __html: html }} />;
 
 /** KDP 標準カラー (Oct 16): figures print in their screen hues on white paper. */
-const FIGURE_COLOR: FigureOpts = { color: true, paper: '#FFFFFF' };
+const figureColor = (ctx: Ctx): FigureOpts => ({ color: true, paper: bookColors(ctx.tokens).paper });
 
 /** A lens's accent colour (tokens color.lens), for --lens and icons. */
 function lensHue(ctx: Ctx, lens: string): string {
@@ -37,7 +38,7 @@ function lensHue(ctx: Ctx, lens: string): string {
 const cssVars = (v: Record<string, string>) => v as CSSProperties;
 
 function Figure({ ctx, card, moment, size, opts }: { ctx: Ctx; card: LensCard; moment: FigureMoment; size: 'lg' | 'md' | 'sm' | 'xs'; opts?: FigureOpts }) {
-  const fig = renderFigure(card, moment, ctx.tokens, { ...FIGURE_COLOR, ...opts });
+  const fig = renderFigure(card, moment, ctx.tokens, { ...figureColor(ctx), ...opts });
   if (fig.none) return null;
   if (!fig.svg) {
     ctx.log.placeholders.set(card.id, fig.reason ?? 'no scene');

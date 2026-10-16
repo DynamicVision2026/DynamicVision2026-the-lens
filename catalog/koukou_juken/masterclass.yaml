@@ -108,7 +108,7 @@ constant:
   say:
     principle: "母の年齢が5倍だったのは何年前？"
     principle_turn: "式の向きで迷う…。どうする？"
-    principle_lens: "差一定レンズ！ 年齢の差は変わらない"
+    principle_lens: "和差一定レンズ！ 年齢の差は変わらない"
     example1: "差のテープを、いくつ分に分けよう"
     example1_done: "差÷（倍−1）で、そのときの年齢"
     example2: "同じ金額を使っても、差はそのまま"

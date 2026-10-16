@@ -26,19 +26,23 @@ export function figureFontCss(t: BookTokens): string {
  */
 export function bookColors(t: BookTokens) {
   const L = ((t.color as unknown as Record<string, unknown>).landing ?? {}) as Record<string, { value: string }>;
-  const v = (k: string, d: string) => L[k]?.value ?? d;
+  const v = (k: string) => {
+    const x = L[k]?.value;
+    if (!x) throw new Error(`tokens color.landing.${k} is missing`);
+    return x;
+  };
   return {
-    paper: '#FFFFFF',
-    ink: '#14172B',
-    navy: v('navy', '#1B1F3A'),
-    text: v('text', '#3A4170'),
-    quiet: v('muted', '#5B628F'),
-    line: v('line', '#D9DCE6'),
-    ground: v('ground', '#EEF0F4'),
+    paper: v('card'),
+    ink: v('print_ink'),
+    navy: v('navy'),
+    text: v('text'),
+    quiet: v('muted'),
+    line: v('line'),
+    ground: v('ground'),
     trapInk: t.color.trap.ink.value,
-    trapTint: '#F5F2EC',
-    trapBar: v('trap_time', '#FFB4A2'),
-    defaultLens: v('navy', '#1B1F3A'),
+    trapTint: v('trap_tint'),
+    trapBar: v('trap_time'),
+    defaultLens: v('navy'),
   };
 }
 

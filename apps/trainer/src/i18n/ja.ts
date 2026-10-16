@@ -17,6 +17,8 @@ export const ja = {
   'case.trialMore': '購入すると8つのレンズすべてがひらきます',
   'case.trialEnded': '無料体験は終わりました',
   'case.owned': '購入済みの方',
+  // WO-027: a book reader (QR ?src=book) reaching a paid step.
+  'case.bookMore': 'この本の続きの練習・時間チェック・保護者レポートは、コースで使えます。',
   'case.count': '{n}問',
   'lesson.back': '← ケース',
   'lesson.backLabel': 'レンズケースへ',
@@ -247,6 +249,8 @@ export const ja = {
   'master.how3': 'ドラッグして答え',
   'master.clues': 'さがす言葉（タップ）',
   'master.start': '練習スタート（{n}問）→',
+  // WO-027: the masterclass end card for a book reader (the practice is in the book).
+  'master.bookEnd': '本の練習問題で、このレンズを使ってみよう。',
   'practice.round': '{i} / {n}',
   'practice.toResult': '結果を見る →',
   'practice.roundTitle': 'ラウンドの結果',

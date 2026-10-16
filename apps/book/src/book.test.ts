@@ -6,7 +6,7 @@ import { titleLines } from './copy';
 import { readFileSync } from 'node:fs';
 import type { KdpConfig } from './Cover';
 import { renderFigure } from './figure';
-import { DESCRIPTION_MAX, description, listingSheet } from './listing';
+import { DESCRIPTION_MAX, description, listingSheet, priceText } from './listing';
 import { planBook } from './plan';
 import { bookBundle, renderCover, renderInterior } from './render';
 
@@ -30,6 +30,12 @@ const unescape = (s: string) => s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').r
 const numbers = (s: string) => (s.match(/\d+(?:\.\d+)?/g) ?? []).map(String);
 
 describe('paperback books', () => {
+  it('prints the price as ¥2,100（税込）, blank when unset', () => {
+    expect(priceText(2100)).toBe('¥2,100（税込）');
+    expect(priceText(null)).toBe('');
+    expect(priceText(undefined)).toBe('');
+  });
+
   it('has the three Pass books', () => {
     expect(passes.map((p) => p.id).sort()).toEqual(['chugaku_juken', 'daigaku_juken', 'koukou_juken']);
   });
@@ -107,6 +113,9 @@ describe('paperback books', () => {
       for (const ch of plan.chapters) expect(description(plan)).toContain(ch.lensName);
       const committed = readFileSync(new URL(`../../../docs/kdp/${book.id}.md`, import.meta.url), 'utf8');
       expect(committed).toBe(listingSheet(plan));
+      // WO-027 §5: the price from book.yaml.
+      expect(book.price_jpy).toBe(2100);
+      expect(committed).toContain('| 価格 | ¥2,100（税込） |');
     });
 
     it('numbers practice problems within each chapter and the answers use the same labels', () => {

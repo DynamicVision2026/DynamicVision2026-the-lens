@@ -6,7 +6,7 @@ import { t } from '../i18n/ja';
 import { track } from '../launch/analytics';
 import { navigate } from '../launch/navigate';
 import { LAUNCH } from '../launch.config';
-import { passOpen, trialLens, trialState, type TrialState } from './access';
+import { bookOpen, bookReader, passOpen, trialLens, trialState, type TrialState } from './access';
 import { sfx } from './fx';
 import { findPass, lessonProblems } from './lessons';
 import { lessonEntry } from './masterclass';
@@ -47,7 +47,9 @@ export function CaseView({ passId }: { passId: string }) {
           const problems = lessonProblems(pass, lesson);
           const solved = solvedIn(pass.id, lesson.lens);
           const ready = !!SCENES[lesson.lens] && problems.length > 0;
-          const playable = (open || lesson.lens === trialOpen) && ready;
+          // WO-027: a lens opened from the book plays its masterclass (Step 1) only.
+          const bookOnly = !open && lesson.lens !== trialOpen && bookOpen(pass.id, lesson.lens);
+          const playable = (open || lesson.lens === trialOpen || bookOnly) && ready;
           const label = bundle.labels.lenses[lesson.lens];
           const c = C.lens(lesson.lens);
           return (
@@ -60,7 +62,7 @@ export function CaseView({ passId }: { passId: string }) {
               onClick={() => {
                 sfx.tap();
                 // Step 1 the first time (WO-014), then Step 2.
-                navigate(lessonEntry(pass.id, lesson, masterclassSeen(pass.id, lesson.lens)));
+                navigate(bookOnly ? `/lesson/${pass.id}/${lesson.lens}/master` : lessonEntry(pass.id, lesson, masterclassSeen(pass.id, lesson.lens)));
               }}
             >
               <span className="ring">
@@ -98,25 +100,35 @@ export function trialLeft(msLeft: number): string {
 
 /** A Pass not bought on this device: the trial's state, the way to buy it, and the way to open a purchase. */
 function Locked({ passId, trial }: { passId: string; trial: TrialState }) {
-  const shop = LAUNCH.passes[passId]?.shopUrl ?? '/#courses';
   return (
     <div className={`locked-note trial-${trial.status}`}>
       {trial.status === 'active' && <p className="trial-left">{trialLeft(trial.msLeft)}</p>}
       <p className="lede">{trial.status === 'active' ? t('case.trialMore') : trial.status === 'ended' ? t('case.trialEnded') : t('case.locked')}</p>
+      {bookReader(passId) && <p className="lede book-more">{t('case.bookMore')}</p>}
       <p className="lede actions">
-        <a className="go" href={shop} onClick={() => track({ name: 'select_course', params: { pass: passId } })}>
-          {t('case.buyThis')}
-        </a>{' '}
-        {trial.status === 'none' && (
-          <a className="go ghost" href={`/trial/${passId}`}>
-            {t('case.trialStart')}
-          </a>
-        )}{' '}
+        <CourseButtons passId={passId} trial={trial} />{' '}
         <a className="go ghost" href="/#access">
           {t('case.owned')}
         </a>
       </p>
     </div>
+  );
+}
+
+/** 「このコースを買う」 and, before any trial, 「無料ではじめる（3日間）」 (also the book reader's masterclass end card). */
+export function CourseButtons({ passId, trial = trialState(passId) }: { passId: string; trial?: TrialState }) {
+  const shop = LAUNCH.passes[passId]?.shopUrl ?? '/#courses';
+  return (
+    <>
+      <a className="go" href={shop} onClick={() => track({ name: 'select_course', params: { pass: passId } })}>
+        {t('case.buyThis')}
+      </a>{' '}
+      {trial.status === 'none' && (
+        <a className="go ghost" href={`/trial/${passId}`}>
+          {t('case.trialStart')}
+        </a>
+      )}
+    </>
   );
 }
 
