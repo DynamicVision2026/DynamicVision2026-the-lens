@@ -91,7 +91,7 @@ constant:
   say:
     principle: "何年後に3倍？ どう考える？"
     principle_turn: "表が長くなる…。どうする？"
-    principle_lens: "差一定レンズ！ 年れいの差はずっと同じ"
+    principle_lens: "和差一定レンズ！ 年れいの差はずっと同じ"
     example1: "● を動かして、差を見よう"
     example1_done: "差を「何つ分」で見れば、わり算1回"
     example2: "こんどはお金。差は変わる？"
