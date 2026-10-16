@@ -7,7 +7,7 @@ export const LAUNCH = {
   companyUrl: 'https://beyondculture.ai', // 運営会社
   coverUrl: 'https://domo-ai.com', // the cover page with both products (footer 「domo-ai.com トップへ」)
   cfAnalyticsToken: '', // Cloudflare Web Analytics; empty = no script
-  ga4Id: '', // WO-025: 視点レンズ's own GA4 property (G-XXXXXXXXXX); empty = no script, no events
+  ga4Id: 'G-R0EDK9VT6C', // WO-025: 視点レンズ's own GA4 property (account 視点レンズ, stream lens.domo-ai.com); '' = off
   lessonsPublic: false, // WO-024: kept for the free /check only; lessons open per Pass (access links) or with ?preview=1
   /**
    * WO-024: each Pass's Shopify product and its access key. The order email links to
