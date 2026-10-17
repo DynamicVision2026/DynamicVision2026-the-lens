@@ -1,1 +1,166 @@
-{}
+{
+  "constant-001": {
+    "hook": {
+      "text": "3秒で選べ。どこから解く？",
+      "file": "hook.m4a",
+      "ms": 2347,
+      "sha1": "97c5de012896"
+    },
+    "trap": {
+      "text": "くせでやると…1年後、2年後…と、2人の年れいを表に書いていく",
+      "file": "trap.m4a",
+      "ms": 5643,
+      "sha1": "b325b629df09"
+    },
+    "lens": {
+      "text": "和差一定レンズで見ると。2人の年れいが同じだけふえるときは、変わらない「差」に目をつける。",
+      "file": "lens.m4a",
+      "ms": 6752,
+      "sha1": "bb5e376ef5d4"
+    },
+    "step1": {
+      "text": "年れいの差は 38ひく8は30 で、何年たっても変わらない",
+      "file": "step1.m4a",
+      "ms": 5589,
+      "sha1": "385a68357bc4"
+    },
+    "step2": {
+      "text": "お父さんが子どもの3倍のとき、差の30は子どもの 3ひく1は2 つ分",
+      "file": "step2.m4a",
+      "ms": 5621,
+      "sha1": "6e86107cf645"
+    },
+    "step3": {
+      "text": "そのときの子どもは 30わる2は15 才",
+      "file": "step3.m4a",
+      "ms": 3627,
+      "sha1": "177edeb06c8a"
+    },
+    "step4": {
+      "text": "15ひく8は7 年後",
+      "file": "step4.m4a",
+      "ms": 2027,
+      "sha1": "1ff233c549a7"
+    },
+    "cta": {
+      "text": "和差一定。無料でためせるよ。",
+      "file": "cta.m4a",
+      "ms": 2272,
+      "sha1": "470f52d8dd37"
+    }
+  },
+  "kj-mirror-001": {
+    "hook": {
+      "text": "3秒で選べ。どこから解く？",
+      "file": "hook.m4a",
+      "ms": 2347,
+      "sha1": "97c5de012896"
+    },
+    "trap": {
+      "text": "くせでやると…Pを p, 0 とおいて、APたすPBをpの式で表そうとする",
+      "file": "trap.m4a",
+      "ms": 7445,
+      "sha1": "d6d0ec25d447"
+    },
+    "lens": {
+      "text": "折り返すレンズで見ると。",
+      "file": "lens.m4a",
+      "ms": 1429,
+      "sha1": "3742f28fa394"
+    },
+    "step1": {
+      "text": "Bをx軸で折り返した点Bダッシュ 6, マイナス5 をとる PBはPBダッシュ",
+      "file": "step1.m4a",
+      "ms": 6944,
+      "sha1": "218bf7edc27b"
+    },
+    "step2": {
+      "text": "AとBダッシュをまっすぐ結ぶ。",
+      "file": "step2.m4a",
+      "ms": 1856,
+      "sha1": "d24f4fa2ecf3"
+    },
+    "step3": {
+      "text": "8かける5の長方形で囲む",
+      "file": "step3.m4a",
+      "ms": 1952,
+      "sha1": "47e39aa1a469"
+    },
+    "step4_6": {
+      "text": "すみの三角形 3かける3わる2、すみの三角形 5かける5わる2、すみの三角形 8かける2わる2",
+      "file": "step4_6.m4a",
+      "ms": 8533,
+      "sha1": "1a3c9e07fc9f"
+    },
+    "step7": {
+      "text": "40ひく25は15",
+      "file": "step7.m4a",
+      "ms": 1707,
+      "sha1": "67bfae279648"
+    },
+    "cta": {
+      "text": "折り返す。無料でためせるよ。",
+      "file": "cta.m4a",
+      "ms": 2208,
+      "sha1": "1b9914ac11c5"
+    }
+  },
+  "dj-freeze-001": {
+    "hook": {
+      "text": "3秒で選べ。どこから解く？",
+      "file": "hook.m4a",
+      "ms": 2347,
+      "sha1": "97c5de012896"
+    },
+    "trap": {
+      "text": "くせでやると…aに2つの値を代入して、2本のグラフの交点を求める",
+      "file": "trap.m4a",
+      "ms": 4907,
+      "sha1": "b8fd24e4ac4a"
+    },
+    "lens": {
+      "text": "止めるレンズで見ると。「aの値にかかわらず」は、aを止めて考える合図。aについて整理し、aの係数と残りがともに0になる点を求める。",
+      "file": "lens.m4a",
+      "ms": 9952,
+      "sha1": "981ebc600857"
+    },
+    "step1": {
+      "text": "aを止めて考える：aについて整理すると aかける … たす … は0。どんなaでも成り立つのは、2つのかっこが両方0のとき",
+      "file": "step1.m4a",
+      "ms": 9397,
+      "sha1": "4d8bb2185d81"
+    },
+    "step2": {
+      "text": "a xたすyひく2 たす xひくy は0",
+      "file": "step2.m4a",
+      "ms": 4309,
+      "sha1": "4fe299ee94c6"
+    },
+    "step3": {
+      "text": "xたすyひく2は0 と xひくyは0 を連立して、定点 1, 1",
+      "file": "step3.m4a",
+      "ms": 7755,
+      "sha1": "732c58dd2359"
+    },
+    "cta": {
+      "text": "止める。無料でためせるよ。",
+      "file": "cta.m4a",
+      "ms": 1920,
+      "sha1": "5a5afd4148e1"
+    }
+  },
+  "_voice": {
+    "engine": "VOICEVOX",
+    "character": "春日部つむぎ",
+    "style": "ノーマル",
+    "tuning": {
+      "speedScale": 1.12,
+      "pitchScale": 0.03,
+      "intonationScale": 1.25,
+      "volumeScale": 1.0,
+      "prePhonemeLength": 0.05,
+      "postPhonemeLength": 0.15
+    },
+    "credit": "VOICEVOX:春日部つむぎ"
+  }
+}
