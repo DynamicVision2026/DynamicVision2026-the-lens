@@ -39,6 +39,7 @@ pnpm bundle        # validate cards and write build/bundle.json
 pnpm build         # trainer -> apps/trainer/dist
 pnpm dev:trainer   # Vite dev server (apps/trainer)
 pnpm dev:shorts    # Remotion Studio (apps/shorts)
+pnpm render:shorts --list review   # WO-028 Shorts from apps/shorts/shorts.yaml -> out/shorts/*.mp4 + captions.md
 pnpm typecheck     # tsc --noEmit across the workspace
 ```
 
