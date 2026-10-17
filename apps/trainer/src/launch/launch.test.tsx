@@ -91,7 +91,7 @@ describe('landing page (WO-024, approved Lens.dc.html artboard)', () => {
   const lensColor = (id: string) => (tokens.color.lens as unknown as Record<string, { value: string }>)[id]!.value;
 
   it('renders every artboard section in order, with its copy', () => {
-    const order = [LANDING.logo, LANDING.nav.owned, LANDING.eyebrow, LANDING.h1.join(''), LANDING.sub, LANDING.lead, LANDING.tryFree, LANDING.heroNote, LANDING.twoRoads, LANDING.roadsLead, LANDING.roadsPoint, LANDING.trialHow, LANDING.lenses, LANDING.freeNote, LANDING.lesson, LANDING.courses, LANDING.parents, LANDING.safety, LANDING.access, LANDING.faq, LANDING.operator];
+    const order = [LANDING.logo, LANDING.nav.owned, LANDING.eyebrow, LANDING.h1.join(''), LANDING.sub, LANDING.lead, LANDING.tryFree, LANDING.heroNote, LANDING.what.title, LANDING.what.note, LANDING.twoRoads, LANDING.roadsLead, LANDING.roadsPoint, LANDING.trialHow, LANDING.lenses, LANDING.freeNote, LANDING.lesson, LANDING.courses, LANDING.parents, LANDING.safety, LANDING.access, LANDING.faq, LANDING.operator];
     let at = -1;
     for (const line of order) {
       const k = text.indexOf(line, at + 1);

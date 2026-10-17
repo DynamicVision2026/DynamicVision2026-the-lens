@@ -42,6 +42,8 @@ const COURSE_STYLE: Record<string, { band: keyof typeof L; lens: LensId }> = {
 };
 /** 無料体験のしくみ steps 1–3 and the lesson flow's headings, in lens colours. */
 const TRIAL_STEP_LENS: LensId[] = ['enclose', 'freeze', 'balance'];
+/** 視点レンズは、何をするもの？ steps 1–3. */
+const WHAT_STEP_LENS: LensId[] = ['slide', 'mirror', 'constant'];
 const LESSON_STEP_LENS: LensId[] = ['enclose', 'slide', 'balance'];
 
 /** 「約4分」, 「約30秒」 from a card's time_cost_sec (whole minutes from a minute up). */
@@ -141,6 +143,20 @@ export function Landing() {
               {LANDING.bookNews} →
             </a>
           )}
+        </section>
+
+        <section className="lp2-wrap lp2-section lp2-what" id="what">
+          <h2>{LANDING.what.title}</h2>
+          <ol className="lp2-steps">
+            {LANDING.what.steps.map(([title, body], i) => (
+              <li key={title} className="lp2-card topline" style={v({ '--c': lens(WHAT_STEP_LENS[i]!) })}>
+                <span className="num">{i + 1}</span>
+                <strong>{title}</strong>
+                <p>{body}</p>
+              </li>
+            ))}
+          </ol>
+          <p className="note">{LANDING.what.note}</p>
         </section>
 
         {roads && (
