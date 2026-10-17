@@ -3,7 +3,7 @@
 
 book:
   id: lens-book-koukou-1
-  status: proof                # WO-026: all 8 lessons live (Oct 16)
+  status: live                 # on Amazon.co.jp since Oct 17 (ASIN B0HN81B2JY)
   series_ja: 視点レンズ（The Lens）
   title_ja: 高校入試数学 視点レンズ
   subtitle_ja: 解き始めを速くする8つのレンズ　4週間ワークブック    # Brian, Oct 16: exam word first (Amazon search), benefit without a score promise
@@ -11,7 +11,7 @@ book:
   author_ja: Brian Fu
   publisher_ja: Beyond Culture 獨步文化株式会社
   interior: standard_color     # KDP 標準カラー on white paper (Brian, Oct 16); every distinction still has an icon or pattern
-  amazon_url: null
+  amazon_url: https://www.amazon.co.jp/dp/B0HN81B2JY
   price_jpy: 2580               # KDP list price incl. tax, final on Amazon (Brian, Oct 16)
   practice_variants: 1
   review: {count: 12, seed: 4102}

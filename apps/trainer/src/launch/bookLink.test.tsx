@@ -4,7 +4,8 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { t } from '../i18n/ja';
 import { BookLink, bookUrl } from './BookLink';
-import { Courses } from './Landing';
+import { LANDING } from './copy';
+import { Books, Courses } from './Landing';
 
 const AMAZON = 'https://www.amazon.co.jp/dp/B000000000';
 
@@ -30,11 +31,30 @@ describe('paperback link (WO-026 §5)', () => {
     expect(bookUrl(undefined)).toBeNull();
   });
 
-  it('as shipped: 中学受験 is live on Amazon (Oct 16); 高校/大学 show nothing until theirs are', () => {
+  it('as shipped: 中学受験 and 高校受験 are live on Amazon; 大学受験 shows nothing until it is', () => {
     expect(renderToStaticMarkup(<BookLink passId="chugaku_juken" />)).toContain('href="https://www.amazon.co.jp/dp/B0HN7PVL1K"');
-    expect(renderToStaticMarkup(<BookLink passId="koukou_juken" />)).toBe('');
+    expect(renderToStaticMarkup(<BookLink passId="koukou_juken" />)).toContain('href="https://www.amazon.co.jp/dp/B0HN81B2JY"');
     expect(renderToStaticMarkup(<BookLink passId="daigaku_juken" />)).toBe('');
-    expect(renderToStaticMarkup(<Courses />).split(t('book.amazon')).length - 1).toBe(1);
+    expect(renderToStaticMarkup(<Courses />).split(t('book.amazon')).length - 1).toBe(2);
+  });
+
+  it('books section: a card per book with its cover; live books link to Amazon, the rest say 近日発売', () => {
+    const html = renderToStaticMarkup(<Books />);
+    expect(html).toContain('id="books"');
+    expect(html.split('class="lp2-bookcard"').length - 1).toBe(3);
+    for (const id of ['lens-book-chugaku-1', 'lens-book-koukou-1', 'lens-book-daigaku-1']) expect(html).toContain(`src="/books/${id}.jpg"`);
+    expect(html.split(LANDING.books.buy).length - 1).toBe(2);
+    expect(html.split(LANDING.books.soon).length - 1).toBe(1);
+    expect(html).toContain('¥2,580（税込）');
+    expect(html.match(/target="_blank" rel="noopener"/g)?.length).toBe(2);
+  });
+
+  it('books section stays hidden while no book is live', async () => {
+    const scenes = await import('@lens/scenes');
+    const b = loadBundle();
+    const none = { ...b, passes: b.passes!.map((p) => ({ ...p, book: { ...(p as { book?: object }).book, status: 'proof', amazon_url: null } })) };
+    vi.spyOn(scenes, 'loadBundle').mockReturnValue(none as ReturnType<typeof loadBundle>);
+    expect(renderToStaticMarkup(<Books />)).toBe('');
   });
 
   it('once live: a new-tab link on that Pass card only', async () => {
