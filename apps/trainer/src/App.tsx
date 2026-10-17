@@ -16,6 +16,9 @@ import { usePath } from './launch/navigate';
 import { rememberShort } from './launch/tracking';
 import { Play } from './play/Play';
 
+/** Short links for end cards and bios (Oct 17): lens.domo-ai.com/x → /?src=x, so typed-in visits still count by channel. */
+export const SHORT_LINKS: Record<string, string> = { '/x': 'x', '/yt': 'yt', '/ig': 'ig', '/tt': 'tiktok', '/note': 'note' };
+
 // Minimal path switch; no router library.
 export function App() {
   const path = usePath();
@@ -24,11 +27,14 @@ export function App() {
   // WO-025: a GA4 page_view for each route (the path only; never the query, which may hold an access key).
   // WO-027: ?src= (the book QR codes) is the one query value kept, as a param.
   useEffect(() => {
+    if (SHORT_LINKS[path.replace(/\/$/, '')]) return; // redirecting: the page_view comes from the landing page
     const src = srcFrom(window.location.search);
     // A ?src= on any page (the back-cover QR lands on /) is remembered first, so the user property rides on this page_view.
     if (src) rememberSrc(src);
     track({ name: 'page_view', params: src ? { page_path: path, src } : { page_path: path } });
   }, [path]);
+  const shortSrc = SHORT_LINKS[path.replace(/\/$/, '')];
+  if (shortSrc) return <Redirect to={`/?src=${shortSrc}`} />;
   if (path.startsWith('/dev/scenes')) return <DevScenes />;
   // /play/:cardId, and /play/:cardId/report once the report is shown (counted as its own path).
   const play = /^\/play\/([\w-]+)(?:\/report)?\/?$/.exec(path);

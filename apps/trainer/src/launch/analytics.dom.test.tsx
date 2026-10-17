@@ -238,6 +238,16 @@ describe('book readers (WO-027)', () => {
     expect(events('book_open')).toEqual([]);
   });
 
+  it('short links: /x lands on / with src=x remembered and one page_view for /', () => {
+    on();
+    visit('/x');
+    expect(window.location.pathname).toBe('/');
+    expect(window.location.search).toBe('?src=x');
+    expect(window.localStorage.getItem('lens.v1.src')).toBe('x');
+    expect(events('page_view').map((p) => p.page_path)).toEqual(['/']);
+    expect(events('page_view')[0]!.src).toBe('x');
+  });
+
   it('a later visit sends the remembered src from the start; the first touch wins', () => {
     window.localStorage.setItem('lens.v1.src', 'book');
     initAnalytics('G-TEST0000');
