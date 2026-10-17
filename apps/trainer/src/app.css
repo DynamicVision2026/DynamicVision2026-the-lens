@@ -2054,6 +2054,85 @@ html[data-theme='course'] body {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+.lp2-news {
+  display: inline-block;
+  margin-top: 18px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--l-navy);
+  background: var(--l-card);
+  border: 2px solid var(--l-accent);
+  border-radius: 999px;
+  padding: 10px 18px;
+  text-decoration: none;
+}
+.lp2-news:hover {
+  background: color-mix(in srgb, var(--l-accent) 18%, var(--l-card));
+}
+.lp2-books {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 24px;
+}
+.lp2-bookcard {
+  background: var(--l-card);
+  border-radius: 28px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 0 color-mix(in srgb, var(--l-navy) 6%, transparent), 0 18px 40px -24px color-mix(in srgb, var(--l-navy) 25%, transparent);
+}
+.lp2-bookcard img {
+  display: block;
+  width: min(70%, 240px);
+  height: auto;
+  margin: 28px auto 0;
+  border-radius: 6px;
+  box-shadow: 0 14px 28px -14px color-mix(in srgb, var(--l-navy) 45%, transparent);
+}
+.lp2-bookcard .body {
+  padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.lp2-bookcard .audience {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--c);
+}
+.lp2-bookcard h3 {
+  font-size: 22px;
+  font-weight: 900;
+}
+.lp2-bookcard .sub {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--l-text);
+}
+.lp2-bookcard .sub span {
+  display: block;
+  word-break: keep-all;
+}
+.lp2-bookcard .price {
+  font-size: 18px;
+  font-weight: 900;
+  margin-top: 4px;
+}
+.lp2-bookcard .lp2-btn,
+.lp2-bookcard .soon {
+  margin-top: auto;
+  text-align: center;
+}
+.lp2-bookcard .soon {
+  font-weight: 700;
+  color: var(--l-muted);
+  border: 2px dashed var(--l-line);
+  border-radius: 999px;
+  padding: 12px 20px;
+}
 .lp2-pair {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));

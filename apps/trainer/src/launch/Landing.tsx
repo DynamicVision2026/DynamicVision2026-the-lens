@@ -8,7 +8,7 @@ import { color, getCard, loadBundle, tokens, type LensId, type Pass } from '@len
 import { Fragment, useEffect, type CSSProperties } from 'react';
 import { LAUNCH } from '../launch.config';
 import { track } from './analytics';
-import { BookLink } from './BookLink';
+import { BookLink, bookUrl, passBook } from './BookLink';
 import { EXTERNAL, FOOTER, LANDING, PRIVACY, PROPOSED } from './copy';
 import { preorderHref } from './tracking';
 
@@ -101,6 +101,7 @@ export function Landing() {
         </a>
         <nav className="lp2-nav">
           <a href="#courses">{LANDING.nav.courses}</a>
+          {anyBookLive() && <a href="#books">{LANDING.nav.books}</a>}
           <a href="#faq">{LANDING.nav.faq}</a>
           <a href="#access" className="pill">
             {LANDING.nav.owned}
@@ -135,6 +136,11 @@ export function Landing() {
             </a>
           </div>
           <p className="note">{LANDING.heroNote}</p>
+          {anyBookLive() && (
+            <a className="lp2-news" href="#books">
+              {LANDING.bookNews} →
+            </a>
+          )}
         </section>
 
         {roads && (
@@ -208,6 +214,8 @@ export function Landing() {
         </section>
 
         <Courses />
+
+        <Books />
 
         <section className="lp2-wrap lp2-section lp2-pair">
           <div className="lp2-card big">
@@ -315,6 +323,57 @@ export function Courses() {
           );
         })}
       </div>
+    </section>
+  );
+}
+
+/** The passes that have a paperback, in course order. */
+function bookPasses() {
+  return (loadBundle().passes ?? []).filter((p) => LAUNCH.passes[p.id] && passBook(p.id)?.id);
+}
+
+/** True once at least one paperback is live on Amazon (status live + amazon_url). */
+export function anyBookLive(): boolean {
+  return bookPasses().some((p) => bookUrl(passBook(p.id)) !== null);
+}
+
+/** Oct 17: the Amazon paperbacks, one card per Pass; a live book links to Amazon, the others say 近日発売. Hidden until one is live. */
+export function Books() {
+  if (!anyBookLive()) return null;
+  return (
+    <section className="lp2-wrap lp2-section" id="books" style={PAGE_VARS}>
+      <h2>{LANDING.books.title}</h2>
+      <p className="lead">{LANDING.books.lead}</p>
+      <div className="lp2-books">
+        {bookPasses().map((p) => {
+          const book = passBook(p.id)!;
+          const url = bookUrl(book);
+          const style = COURSE_STYLE[p.id];
+          return (
+            <article key={p.id} className="lp2-bookcard" data-book={book.id} style={v({ '--c': lens(style?.lens ?? 'enclose') })}>
+              <img src={`/books/${book.id}.jpg`} alt={book.title_ja ?? ''} width={360} height={508} loading="lazy" />
+              <div className="body">
+                <span className="audience">{LANDING.course[p.id]?.audience ?? p.audience_ja}</span>
+                <h3>{book.title_ja}</h3>
+                <p className="sub">
+                  {(book.subtitle_ja ?? '').split('　').map((part) => (
+                    <span key={part}>{part}</span>
+                  ))}
+                </p>
+                {book.price_jpy ? <p className="price">{LANDING.books.price(book.price_jpy)}</p> : null}
+                {url ? (
+                  <a className="lp2-btn solid" href={url} target="_blank" rel="noopener" onClick={() => track({ name: 'book_click', params: { pass: p.id } })}>
+                    {LANDING.books.buy}
+                  </a>
+                ) : (
+                  <span className="soon">{LANDING.books.soon}</span>
+                )}
+              </div>
+            </article>
+          );
+        })}
+      </div>
+      <p className="note">{LANDING.books.note}</p>
     </section>
   );
 }

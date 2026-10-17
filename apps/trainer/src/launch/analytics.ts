@@ -21,6 +21,7 @@ export type GaEvent =
   | { name: 'course_open'; params: { pass: string; order?: string } }
   | { name: 'lesson_open'; params: { pass: string; lesson: string; mode: AccessMode } }
   | { name: 'book_open'; params: { pass: string; lens: string } }
+  | { name: 'book_click'; params: { pass: string } }
   | { name: 'lesson_complete'; params: { pass: string; lesson: string } }
   | { name: 'check_complete'; params?: undefined };
 

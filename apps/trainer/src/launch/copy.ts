@@ -5,7 +5,7 @@
  */
 export const LANDING = {
   logo: '視点レンズ',
-  nav: { courses: 'コース', faq: 'よくある質問', owned: '購入済みの方' },
+  nav: { courses: 'コース', books: '問題集', faq: 'よくある質問', owned: '購入済みの方' },
   eyebrow: '中学受験・高校受験・大学受験の算数／数学',
   h1: ['解き方の前に、', '見方を変える', '。'] as const,
   sub: '最初の一手を選ぶ力を、30日で。',
@@ -13,6 +13,16 @@ export const LANDING = {
   tryFree: '3日間、無料でためす',
   seeCourses: 'コースと料金を見る',
   heroNote: '登録なし・カード不要。最初のレンズを3日間ためせます。',
+  /** Oct 17: the paperbacks on Amazon (shown only for books with status live + amazon_url). */
+  bookNews: 'NEW　紙の問題集、Amazonで発売中',
+  books: {
+    title: '紙の問題集も、Amazonで。',
+    lead: '同じ8つのレンズを、紙の上で。各章のQRコードから、その章のマスタークラス（6分・音声つき）を無料でひらけます。本で解いて、アプリで動かして確かめる。',
+    price: (yen: number) => `¥${yen.toLocaleString('ja-JP')}（税込）`,
+    buy: 'Amazonで見る',
+    soon: '近日発売',
+    note: 'Amazon.co.jp で販売しています（ペーパーバック・カラー）。本だけでも最後まで使えます。練習・時間チェック・保護者レポートはWebのコースで。',
+  },
   twoRoads: '同じ問題、2つの道。',
   roadsLead: 'ななめの四角形の面積。1辺の長さを出そうとすると、手が止まります。外側を長方形で「囲む」と、引き算だけで終わります。',
   trapRoad: '罠の道',
