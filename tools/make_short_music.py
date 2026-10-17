@@ -7,6 +7,8 @@ everything here is synthesised from sine, saw and noise by this script, so the f
 Two stems on the same 100 BPM grid (A minor, i–VI–III–VII), each 57.6 s (24 bars) and loopable:
   bed.m4a    deep sub, warm pad, slow shimmer: "the depth of mathematics"
   drive.m4a  kick, hats, bright arpeggio: "the brightness"; the Short brings it in when the lens opens
+Alternative look "euclid" (pulse_*.m4a): 120 BPM, D minor (i–VI–VII–v), four-on-the-floor kick, off-beat
+bass, gated chord stabs and a ticking hi-hat, tighter and more driven.
 Effects: whoosh (beat change), impact (lens / answer), tick (countdown), rise (before the pick),
 shimmer (answer), glitch (the trap's habit).
 """
@@ -136,6 +138,41 @@ def sfx() -> dict[str, np.ndarray]:
     return fx
 
 
+def pulse_stems() -> tuple[np.ndarray, np.ndarray]:
+    bpm = 120
+    beat = 60 / bpm
+    bars = 28
+    n = int(bars * 4 * beat * SR)
+    chords = [[62, 65, 69], [58, 62, 65], [60, 64, 67], [57, 60, 64]]
+    bedb = np.zeros(n)
+    drv = np.zeros(n)
+    bar = 4 * beat
+    for b in range(bars):
+        ch = chords[b % 4]
+        t = t_of(bar)
+        drone = sum(np.sin(2 * np.pi * hz(m - 12) * t) for m in ch) / 3
+        add(bedb, b * bar, drone * env(len(t), 0.3, 2.2), 0.18)
+        add(bedb, b * bar, np.sin(2 * np.pi * hz(ch[0] - 24) * t) * env(len(t), 0.02, 3.0), 0.3)
+        # gated stabs on the 8th-note grid (rhythm 1 . 1 1 . 1 . 1)
+        st = t_of(beat / 2)
+        for k, on in enumerate([1, 0, 1, 1, 0, 1, 0, 1]):
+            if on:
+                stab = sum(saw(hz(m + 12), st, d) for m in ch for d in (-0.003, 0.003)) / 6
+                add(drv, b * bar + k * beat / 2, lowpass(stab, 2600) * env(len(st), 0.002, 0.07), 0.16)
+        # off-beat bass
+        bt = t_of(beat / 2)
+        for k in range(4):
+            add(drv, b * bar + k * beat + beat / 2, saw(hz(ch[0] - 24), bt) * env(len(bt), 0.004, 0.12), 0.22)
+    kick_t = t_of(0.4)
+    kick = np.sin(2 * np.pi * (48 + 110 * np.exp(-kick_t * 34)) * kick_t) * env(len(kick_t), 0.002, 0.14)
+    hat = (rng.standard_normal(int(0.05 * SR))) * env(int(0.05 * SR), 0.001, 0.012)
+    for i in range(bars * 4):
+        add(drv, i * beat, kick, 0.6)
+        for k in range(4):
+            add(drv, i * beat + k * beat / 4, hat, 0.09 if k % 2 else 0.04)
+    return bedb, drv
+
+
 def write(name: str, x: np.ndarray) -> None:
     x = x / max(1e-9, np.max(np.abs(x))) * 0.89
     OUT.mkdir(parents=True, exist_ok=True)
@@ -153,6 +190,9 @@ def write(name: str, x: np.ndarray) -> None:
 def main() -> None:
     write("bed", bed())
     write("drive", drive())
+    pb, pd = pulse_stems()
+    write("pulse_bed", pb)
+    write("pulse_drive", pd)
     for name, x in sfx().items():
         write(name, x)
 

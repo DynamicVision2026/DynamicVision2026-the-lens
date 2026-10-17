@@ -19,12 +19,17 @@ import { BOXES, FIGURE, TYPE, type Box } from './layout';
 import { CAPTIONS_HEADER, captionsSection, uploadCopy, type UploadCopy } from './captions';
 import { FitFigure } from './FitFigure';
 import { Burst, Camera, Iris, kick, KineticText, MathField, Sheen, Sparks } from './fx';
+import { BigCount, EuclidField, PolyWave, Stamp, Streaks, WhipPan } from './fx2';
 import { useFonts } from './useFonts';
 import { voiceClip, voiceFor } from './voice';
 import { estimateSpeechMs } from '@lens/scenes';
 
+/** 'nebula' (v2: living math field, camera punches) or 'euclid' (ruler-and-compass constructions, whip pans). */
+export type Look = 'nebula' | 'euclid';
+
 export type LensShortProps = {
   cardId: string;
+  look?: Look;
   /** Filled in by calculateMetadata, so the batch script reads the upload copy from the bundle. */
   upload?: UploadCopy & { seconds: number; markdown: string; markdownHeader: string };
   /** [label, frame] snapshot frames, one per beat (pnpm render:shorts --stills). */
@@ -57,7 +62,8 @@ export function planFor(cardId: string): { card: LensCard; plan: ShortPlan } {
 export const calculateLensShortMetadata: CalculateMetadataFunction<LensShortProps> = ({ props }) => {
   const { card, plan } = planFor(props.cardId);
   const seconds = plan.totalMs / 1000;
-  const copy = uploadCopy(card);
+  const base = uploadCopy(card);
+  const copy = props.look === 'euclid' ? { ...base, file: base.file.replace(/\.mp4$/, '-euclid.mp4') } : base;
   return {
     durationInFrames: Math.ceil(seconds * FPS),
     props: { ...props, upload: { ...copy, seconds, markdown: captionsSection(copy, seconds), markdownHeader: CAPTIONS_HEADER }, stillFrames: stillFrames(plan) },
@@ -158,7 +164,7 @@ const PICK_AT = COUNT_AT + 3000;
 const countCentre = { x: BOXES.countdown.x + BOXES.countdown.width / 2, y: BOXES.countdown.y + BOXES.countdown.height / 2 };
 const figCentre = (area: Box) => ({ x: area.x + area.width / 2, y: area.y + area.height / 2 });
 
-function HookChoice({ card, plan, seg, ms }: { card: LensCard; plan: ShortPlan; seg: ShortSegment; ms: number }) {
+function HookChoice({ card, plan, seg, ms, look }: { card: LensCard; plan: ShortPlan; seg: ShortSegment; ms: number; look: Look }) {
   const hook = seg.kind === 'hook';
   const local = ms - seg.startMs;
   const accent = lensHue(card.lens);
@@ -184,9 +190,10 @@ function HookChoice({ card, plan, seg, ms }: { card: LensCard; plan: ShortPlan; 
       <div style={{ position: 'absolute', inset: 0, transform: `scale(${0.88 + 0.12 * figIn})`, transformOrigin: '50% 70%' }}>
         <FitFigure card={card} area={FIGURE.hook} keyframe={firstFigureKf(card)} t={1} opacity={figIn * (hook ? 1 : 1 - 0.75 * chipsIn)} glow={accent} />
       </div>
+      {!hook && look === 'euclid' && <BigCount ms={local} start={COUNT_AT} hue={accent} />}
       {!hook && (
         <>
-          <At box={BOXES.countdown} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: chipsIn * (1 - pick) }}>
+          <At box={BOXES.countdown} style={{ display: look === 'euclid' ? 'none' : 'flex', alignItems: 'center', justifyContent: 'center', opacity: chipsIn * (1 - pick) }}>
             <svg width={2 * R + 40} height={2 * R + 40} viewBox={`${-R - 20} ${-R - 20} ${2 * R + 40} ${2 * R + 40}`} style={{ overflow: 'visible', filter: `drop-shadow(0 0 18px ${accent})` }}>
               <circle r={R} fill={SURF.panel} stroke={SURF.line} strokeWidth={12} />
               <circle r={R} fill="none" stroke={accent} strokeWidth={14} strokeLinecap="round" strokeDasharray={`${circ} ${circ}`} strokeDashoffset={circ * ring} transform="rotate(-90)" />
@@ -209,17 +216,17 @@ function HookChoice({ card, plan, seg, ms }: { card: LensCard; plan: ShortPlan; 
               );
             })}
           </At>
-          {counting && <Burst ms={local} at={tickAt} hue={accent} x={countCentre.x} y={countCentre.y} size={0.32} rays={8} />}
-          <Burst ms={local} at={PICK_AT} hue={accent} {...chipCentre(right, n)} size={0.8} />
+          {counting && look === 'nebula' && <Burst ms={local} at={tickAt} hue={accent} x={countCentre.x} y={countCentre.y} size={0.32} rays={8} />}
+          {look === 'nebula' ? <Burst ms={local} at={PICK_AT} hue={accent} {...chipCentre(right, n)} size={0.8} /> : <PolyWave ms={local} at={PICK_AT} {...chipCentre(right, n)} hues={[accent, C.ink.value]} />}
           <Sparks ms={local} at={PICK_AT} hues={[accent, C.ink.value, stepHue(0)]} {...chipCentre(right, n)} seed={`${card.id}-pick`} />
         </>
       )}
-      {hook && <Burst ms={local} at={0} hue={accent} x={540} y={420} size={1.2} />}
+      {hook && look === 'nebula' && <Burst ms={local} at={0} hue={accent} x={540} y={420} size={1.2} />}
     </>
   );
 }
 
-function Trap({ card, seg, ms }: { card: LensCard; seg: ShortSegment; ms: number }) {
+function Trap({ card, seg, ms, look }: { card: LensCard; seg: ShortSegment; ms: number; look: Look }) {
   const local = ms - seg.startMs;
   const steps = card.trap_route.steps;
   const ink = C.ink_quiet.value;
@@ -243,9 +250,13 @@ function Trap({ card, seg, ms }: { card: LensCard; seg: ShortSegment; ms: number
           );
         })}
       </At>
+      {look === 'euclid' && <Stamp ms={local} at={stampAt(seg)} x={BOXES.trap.x + BOXES.trap.width - 150} y={BOXES.trap.y + BOXES.trap.height - 60} />}
     </>
   );
 }
+
+/** Euclid look: the ✕ stamp lands after the last habit step is crossed out. */
+const stampAt = (seg: ShortSegment) => seg.durationMs - 900;
 
 /** When each habit step appears and is crossed out (ms into the trap segment); shared with the sound cues. */
 function trapTimes(seg: ShortSegment, n: number, i: number): { appear: number; cross: number } {
@@ -272,7 +283,7 @@ function keyframeAt(from: number, to: number, t: number): { keyframe: number; t:
 
 const isResultSeg = (card: LensCard, seg: ShortSegment) => (seg.steps ?? []).some((i) => card.lens_route.steps[i]?.op === 'result');
 
-function Lens({ card, seg, ms }: { card: LensCard; seg: ShortSegment; ms: number }) {
+function Lens({ card, seg, ms, look }: { card: LensCard; seg: ShortSegment; ms: number; look: Look }) {
   const local = ms - seg.startMs;
   const accent = lensHue(card.lens);
   const intro = seg.step === -1;
@@ -292,17 +303,20 @@ function Lens({ card, seg, ms }: { card: LensCard; seg: ShortSegment; ms: number
         </div>
         <KineticText text={SHORT_COPY.lens} ms={intro ? local : 9999} at={150} stagger={45} />
       </At>
-      <FitFigure card={card} area={FIGURE.lens} {...(intro ? { keyframe: firstFigureKf(card), t: 1 } : keyframeAt(seg.kfFrom, seg.kfTo, t))} glow={accent} glowBoost={result ? kick(local, 0, 1200) : 0} />
+      <div style={{ position: 'absolute', inset: 0, transform: look === 'euclid' ? `scale(${1.03 + 0.08 * (local / seg.durationMs)})` : undefined, transformOrigin: `${fc.x}px ${fc.y}px` }}>
+        <FitFigure card={card} area={FIGURE.lens} {...(intro ? { keyframe: firstFigureKf(card), t: 1 } : keyframeAt(seg.kfFrom, seg.kfTo, t))} glow={accent} glowBoost={result ? kick(local, 0, 1200) : 0} />
+      </div>
       {steps.length > 0 && <Caption text={steps.map((st) => st.ja).join('\n')} color={hue} ms={local} at={0} badge={badge} />}
       {intro && seg.line && seg.line.text.includes(card.trigger.ja) && <Caption text={card.trigger.ja} color={accent} ms={local} at={250} />}
-      {intro && <Iris ms={local} at={0} hue={accent} x={BOXES.headline.x + 110} y={BOXES.headline.y + BOXES.headline.height / 2} />}
-      {result && <Burst ms={local} at={250} hue={C.correct.value} x={fc.x} y={fc.y} size={1.1} rays={18} />}
+      {intro && look === 'nebula' && <Iris ms={local} at={0} hue={accent} x={BOXES.headline.x + 110} y={BOXES.headline.y + BOXES.headline.height / 2} />}
+      {intro && look === 'euclid' && <PolyWave ms={local} at={0} x={BOXES.headline.x + 110} y={BOXES.headline.y + BOXES.headline.height / 2} hues={[accent, C.ink.value]} />}
+      {result && (look === 'nebula' ? <Burst ms={local} at={250} hue={C.correct.value} x={fc.x} y={fc.y} size={1.1} rays={18} /> : <PolyWave ms={local} at={250} x={fc.x} y={fc.y} hues={[C.correct.value, accent, ...C.step.palette.map((p) => p.value)]} />)}
       {result && <Sparks ms={local} at={250} hues={[C.correct.value, accent, ...C.step.palette.map((p) => p.value)]} x={fc.x} y={fc.y} n={48} seed={`${card.id}-answer`} />}
     </>
   );
 }
 
-function Cta({ card, seg, ms }: { card: LensCard; seg: ShortSegment; ms: number }) {
+function Cta({ card, seg, ms, look }: { card: LensCard; seg: ShortSegment; ms: number; look: Look }) {
   const local = ms - seg.startMs;
   const a = prog(local, 0, 450);
   const b = prog(local, 250, 450);
@@ -347,7 +361,7 @@ function Cta({ card, seg, ms }: { card: LensCard; seg: ShortSegment; ms: number 
           <Sheen ms={local + 900} period={2400} />
         </div>
       </At>
-      <Burst ms={local} at={0} hue={accent} x={540} y={BOXES.ctaLens.y + 80} size={1.2} />
+      {look === 'nebula' ? <Burst ms={local} at={0} hue={accent} x={540} y={BOXES.ctaLens.y + 80} size={1.2} /> : <PolyWave ms={local} at={0} x={540} y={BOXES.ctaLens.y + 80} hues={[accent, C.correct.value, C.ink.value]} />}
       <Sparks ms={local} at={250} hues={[C.correct.value, accent, ...C.step.palette.map((p) => p.value)]} x={540} y={BOXES.ctaAnswer.y + 120} n={40} seed={`${card.id}-cta`} />
     </>
   );
@@ -369,7 +383,7 @@ interface Cue {
 }
 
 /** Sound effects on the beats: whoosh on every change, impact on the pick / the lens / the answer, ticks, glitches. */
-function sfxCues(card: LensCard, plan: ShortPlan): Cue[] {
+function sfxCues(card: LensCard, plan: ShortPlan, look: Look): Cue[] {
   const cues: Cue[] = [{ src: 'impact', at: 0, volume: 0.7 }];
   for (const s of plan.segments) {
     if (s.startMs > 0 && s.kind !== 'lens') cues.push({ src: 'whoosh', at: s.startMs - 250, volume: 0.45 });
@@ -379,6 +393,7 @@ function sfxCues(card: LensCard, plan: ShortPlan): Cue[] {
       cues.push({ src: 'impact', at: s.startMs + PICK_AT, volume: 0.65 });
     }
     if (s.kind === 'trap') card.trap_route.steps.forEach((_, i) => cues.push({ src: 'glitch', at: s.startMs + trapTimes(s, card.trap_route.steps.length, i).cross, volume: 0.35 }));
+    if (s.kind === 'trap' && look === 'euclid') cues.push({ src: 'impact', at: s.startMs + stampAt(s), volume: 0.55 });
     if (s.kind === 'lens' && s.step === -1) cues.push({ src: 'impact', at: s.startMs, volume: 0.75 });
     if (s.kind === 'lens' && s.step !== -1) cues.push({ src: 'whoosh', at: s.startMs - 200, volume: 0.25 });
     if (s.kind === 'lens' && isResultSeg(card, s)) cues.push({ src: 'shimmer', at: s.startMs + 250, volume: 0.6 });
@@ -415,7 +430,7 @@ function musicLevels(plan: ShortPlan, cardId: string) {
  * bursts, and an original soundtrack (tools/make_short_music.py). Voice clips play when generated;
  * without them the Short still renders (music only).
  */
-export function LensShort({ cardId }: LensShortProps) {
+export function LensShort({ cardId, look = 'nebula' }: LensShortProps) {
   useFonts();
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -430,19 +445,40 @@ export function LensShort({ cardId }: LensShortProps) {
   const punch = kick(ms, seg.startMs, 450) + (seg.kind === 'choice' ? 0.6 * kick(local, PICK_AT, 400) : 0);
   const push = seg.kind === 'lens' ? local / seg.durationMs : seg.kind === 'hook' ? local / seg.durationMs : 0;
   const shake = seg.kind === 'trap' ? card.trap_route.steps.reduce((m, _, i) => Math.max(m, kick(local, trapTimes(seg, card.trap_route.steps.length, i).cross, 220)), 0) * 0.5 : 0;
+  const beat = (
+    <>
+      <StageBar card={card} />
+      {(seg.kind === 'hook' || seg.kind === 'choice') && <HookChoice card={card} plan={plan} seg={seg} ms={ms} look={look} />}
+      {seg.kind === 'trap' && <Trap card={card} seg={seg} ms={ms} look={look} />}
+      {seg.kind === 'lens' && <Lens card={card} seg={seg} ms={ms} look={look} />}
+      {seg.kind === 'cta' && <Cta card={card} seg={seg} ms={ms} look={look} />}
+    </>
+  );
   return (
     <AbsoluteFill style={{ backgroundColor: C.paper.value }}>
-      <MathField card={card} ms={ms} hue={accent} energy={energy} grey={grey} />
-      <Camera punch={punch} push={push} shake={shake} ms={ms}>
-        <StageBar card={card} />
-        {(seg.kind === 'hook' || seg.kind === 'choice') && <HookChoice card={card} plan={plan} seg={seg} ms={ms} />}
-        {seg.kind === 'trap' && <Trap card={card} seg={seg} ms={ms} />}
-        {seg.kind === 'lens' && <Lens card={card} seg={seg} ms={ms} />}
-        {seg.kind === 'cta' && <Cta card={card} seg={seg} ms={ms} />}
-      </Camera>
-      <Audio src={staticFile('music/bed.m4a')} volume={(f) => levels.bed(toMs(f))} />
-      <Audio src={staticFile('music/drive.m4a')} volume={(f) => levels.drive(toMs(f))} />
-      {sfxCues(card, plan).map((cue, i) => (
+      {look === 'nebula' ? (
+        <MathField card={card} ms={ms} hue={accent} energy={energy} grey={grey} />
+      ) : (
+        <div style={{ position: 'absolute', inset: 0, filter: grey > 0 ? `saturate(${1 - grey})` : undefined }}>
+          <EuclidField ms={ms} hue={accent} beats={plan.segments.map((x) => x.startMs)} energy={energy} />
+        </div>
+      )}
+      {look === 'nebula' ? (
+        <Camera punch={punch} push={push} shake={shake} ms={ms}>
+          {beat}
+        </Camera>
+      ) : (
+        <>
+          {/* Euclid: a whip pan on every beat change except between lens steps (those keep the figure still). */}
+          <WhipPan ms={ms} at={seg.kind === 'lens' && (seg.step ?? -1) >= 0 ? -9999 : seg.startMs} shake={shake + (seg.kind === 'trap' ? kick(local, stampAt(seg), 300) : 0)}>
+            {beat}
+          </WhipPan>
+          <Streaks ms={ms} at={seg.startMs} hue={accent} />
+        </>
+      )}
+      <Audio src={staticFile(`music/${look === 'euclid' ? 'pulse_' : ''}bed.m4a`)} volume={(f) => levels.bed(toMs(f))} />
+      <Audio src={staticFile(`music/${look === 'euclid' ? 'pulse_' : ''}drive.m4a`)} volume={(f) => levels.drive(toMs(f))} />
+      {sfxCues(card, plan, look).map((cue, i) => (
         <Sequence key={`fx${i}`} from={Math.max(0, Math.round((cue.at / 1000) * fps))} layout="none">
           <Audio src={staticFile(`music/${cue.src}.m4a`)} volume={cue.volume ?? 0.6} />
         </Sequence>
