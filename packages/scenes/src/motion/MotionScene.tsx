@@ -29,10 +29,24 @@ export interface MotionSceneProps {
 }
 
 /** Fixed copy of the Short (WO-003): the freeze question and the series end card. */
+/**
+ * The Shorts' fixed copy, in one place (WO-028 §1). Everything else on screen comes from the card.
+ * No score claims (景品表示法): time and "first step" wording only.
+ */
 export const SHORT_COPY = {
   freeze: 'どのレンズ？',
   series: '視点レンズ ― 無料で1レンズ試せます',
-  url: 'lens.beyondculture.ai',
+  url: 'lens.domo-ai.com',
+  /** WO-028 LensShort beats. */
+  hook: '3秒で選べ。どこから解く？',
+  trap: 'くせでやると…',
+  lens: 'レンズで見ると',
+  cta: '無料でためす',
+  /** Spoken over the CTA (the URL is on screen only). */
+  ctaSay: '無料でためせるよ。',
+  brand: '視点レンズ',
+  answer: '答え',
+  stages: { shogakko: '中学受験', chugaku: '高校受験', koko: '大学受験' } as Record<string, string>,
 } as const;
 
 /**
