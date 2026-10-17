@@ -43,3 +43,17 @@ describe('upload copy (WO-028 §2)', () => {
     expect(askSentence('A。Bを求めなさい。ただし、C。')).toBe('Bを求めなさい。');
   });
 });
+
+describe('every Short in shorts.yaml (WO-028 §5)', () => {
+  it('is 30–45 s with the generated voice (estimates for clips not made yet)', async () => {
+    const { lensShortPlan, tokens } = await import('@lens/scenes');
+    const { voiceFor } = await import('./voice');
+    for (const id of ids) {
+      const card = getCard(id)!;
+      const plan = lensShortPlan(card, tokens, loadBundle().labels.lenses[card.lens]?.ja ?? card.lens, voiceFor(id));
+      expect(plan, `${id} has no scene: report it to the Architect`).not.toBeNull();
+      expect(plan!.totalMs, id).toBeGreaterThanOrEqual(30_000);
+      expect(plan!.totalMs, id).toBeLessThanOrEqual(45_000);
+    }
+  });
+});

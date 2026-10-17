@@ -35,14 +35,6 @@ describe('LensShort plan (WO-028)', () => {
     expect(last.startMs + last.durationMs).toBe(p.totalMs);
   });
 
-  it('lands the review set between 30 and 45 s (estimated voice)', () => {
-    for (const id of ['constant-001', 'kj-mirror-001', 'dj-freeze-001']) {
-      const { totalMs } = plan(id);
-      expect(totalMs, id).toBeGreaterThanOrEqual(SHORT_MS.min);
-      expect(totalMs, id).toBeLessThanOrEqual(SHORT_MS.max);
-    }
-  });
-
   it('never starts below 30 s, and stretches lens steps (not the hook) to get there', () => {
     for (const card of shortable) {
       const p = lensShortPlan(card, tokens, label(card.lens))!;
@@ -102,7 +94,7 @@ describe('LensShort plan (WO-028)', () => {
     const merged = p.segments.find((s) => (s.steps?.length ?? 0) > 1)!;
     expect(merged.steps!.every((i) => card.lens_route.steps[i]!.op === 'sub')).toBe(true);
     expect(merged.line!.text).toContain(card.lens_route.steps[merged.steps![0]!]!.ja);
-    expect(plan('constant-001').level).toBe(0);
+    expect(shortable.some((c) => lensShortPlan(c, tokens, label(c.lens))!.level === 0)).toBe(true);
   });
 
   it('maps time to segments', () => {

@@ -19,7 +19,7 @@ import { BOXES, FIGURE, TYPE, type Box } from './layout';
 import { CAPTIONS_HEADER, captionsSection, uploadCopy, type UploadCopy } from './captions';
 import { FitFigure } from './FitFigure';
 import { useFonts } from './useFonts';
-import { voiceClip, voiceMs } from './voice';
+import { voiceClip, voiceFor } from './voice';
 
 export type LensShortProps = {
   cardId: string;
@@ -47,7 +47,7 @@ const stepHue = (i: number) => C.step.palette[Math.max(0, i) % C.step.palette.le
 /** The plan for a card, with the generated voice clip lengths. Throws for cards the template cannot draw. */
 export function planFor(cardId: string): { card: LensCard; plan: ShortPlan } {
   const card = getCard(cardId);
-  const plan = card ? lensShortPlan(card, tokens, lensName(card.lens), (key) => voiceMs(cardId, key)) : null;
+  const plan = card ? lensShortPlan(card, tokens, lensName(card.lens), voiceFor(cardId)) : null;
   if (!card || !plan) throw new Error(`LensShort: "${cardId}" is not a standard card with a scene in the bundle (report it to the Architect)`);
   return { card, plan };
 }
@@ -258,7 +258,7 @@ function Lens({ card, seg, ms }: { card: LensCard; seg: ShortSegment; ms: number
       </At>
       <FitFigure card={card} area={FIGURE.lens} {...(intro ? { keyframe: firstFigureKf(card), t: 1 } : keyframeAt(seg.kfFrom, seg.kfTo, t))} />
       {steps.length > 0 && <Caption text={steps.map((st) => st.ja).join('\n')} color={hue} opacity={prog(local, 0, 300)} />}
-      {intro && <Caption text={card.trigger.ja} color={accent} opacity={prog(local, 200, 400)} />}
+      {intro && seg.line && seg.line.text.includes(card.trigger.ja) && <Caption text={card.trigger.ja} color={accent} opacity={prog(local, 200, 400)} />}
     </>
   );
 }
@@ -277,6 +277,9 @@ function Cta({ card, seg, ms }: { card: LensCard; seg: ShortSegment; ms: number 
       <At box={BOXES.ctaAnswer} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', opacity: b }}>
         <span style={{ fontFamily: JA, fontWeight: 700, fontSize: TYPE.cta, color: C.ink_quiet.value }}>{SHORT_COPY.answer}</span>
         <span style={{ fontFamily: NUM, fontWeight: 800, fontSize: TYPE.answer, color: C.correct.value }}>{answerText(card)}</span>
+      </At>
+      <At box={BOXES.ctaTrigger} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', opacity: c, fontFamily: JA, fontWeight: 700, fontSize: TYPE.trigger, lineHeight: 1.45, color: C.ink.value }}>
+        {card.trigger.ja}
       </At>
       <At box={BOXES.ctaUrl} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 14, opacity: c, transform: `translateY(${(1 - c) * 30}px)` }}>
         <span style={{ fontFamily: JA, fontWeight: 900, fontSize: TYPE.cta, color: C.ink.value }}>{SHORT_COPY.cta}</span>
@@ -307,7 +310,7 @@ export function LensShort({ cardId }: LensShortProps) {
       {seg.kind === 'lens' && <Lens card={card} seg={seg} ms={ms} />}
       {seg.kind === 'cta' && <Cta card={card} seg={seg} ms={ms} />}
       {plan.segments.map((s, i) => {
-        const clip = s.line ? voiceClip(cardId, s.line.key) : null;
+        const clip = s.line ? voiceClip(cardId, s.line.key, s.line.speech) : null;
         return clip ? (
           <Sequence key={i} from={Math.round((s.startMs / 1000) * fps)} durationInFrames={Math.round((s.durationMs / 1000) * fps)} layout="none">
             <Audio src={staticFile(clip)} />

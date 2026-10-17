@@ -1,11 +1,14 @@
 // The Shorts' voice script (WO-028 §1): every spoken line of every card in shorts.yaml, as the voice
 // reads it. tools/make_voice.py turns apps/shorts/voice/lines.json into clips; this test keeps the file
 // in step with the template.   Update it with:  pnpm --filter @lens/shorts voice:lines
+// Lines are timed with the clips already generated, so a long clip can make a card's Short compress
+// (shorter lines); then the file changes and the voice workflow makes the new clips.
 import { getCard, loadBundle, shortLines } from '@lens/scenes';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { readList } from '../scripts/list.mjs';
+import { voiceFor } from './voice';
 
 const app = join(__dirname, '..');
 const FILE = join(app, 'voice', 'lines.json');
@@ -17,7 +20,7 @@ export function voiceScript(): Record<string, Record<string, string>> {
     ids.map((id) => {
       const card = getCard(id);
       if (!card) throw new Error(`shorts.yaml lists "${id}", which is not in the bundle`);
-      return [id, Object.fromEntries(shortLines(card, labels[card.lens]?.ja ?? card.lens).map((l) => [l.key, l.speech]))];
+      return [id, Object.fromEntries(shortLines(card, labels[card.lens]?.ja ?? card.lens, voiceFor(id)).map((l) => [l.key, l.speech]))];
     }),
   );
 }
