@@ -33,7 +33,8 @@ export const TYPE = {
   lensName: 120,
   answer: 96,
   cta: 52,
-  trigger: 44,
+  trigger: 42,
+  book: 44,
   url: 60,
 } as const;
 
@@ -46,10 +47,11 @@ export const BOXES = {
   countdown: { x: LEFT, y: SAFE.y + 690, width: SAFE.width, height: 200 },
   trap: { x: LEFT, y: SAFE.y + 196, width: SAFE.width, height: 640 },
   caption: { x: LEFT, y: BOTTOM - 250, width: SAFE.width, height: 250 },
-  ctaLens: { x: LEFT, y: SAFE.y + 230, width: SAFE.width, height: 160 },
-  ctaAnswer: { x: LEFT, y: SAFE.y + 400, width: SAFE.width, height: 240 },
-  ctaTrigger: { x: LEFT, y: SAFE.y + 660, width: SAFE.width, height: 310 },
-  ctaUrl: { x: LEFT, y: BOTTOM - 320, width: SAFE.width, height: 320 },
+  ctaLens: { x: LEFT, y: SAFE.y + 90, width: SAFE.width, height: 160 },
+  ctaAnswer: { x: LEFT, y: SAFE.y + 260, width: SAFE.width, height: 210 },
+  ctaTrigger: { x: LEFT, y: SAFE.y + 480, width: SAFE.width, height: 230 },
+  ctaUrl: { x: LEFT, y: SAFE.y + 720, width: SAFE.width, height: 250 },
+  ctaBook: { x: LEFT, y: SAFE.y + 990, width: SAFE.width, height: 320 },
 } satisfies Record<string, Box>;
 
 /** Side room for the figure (labels sit at its edges). */

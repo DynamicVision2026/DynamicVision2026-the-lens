@@ -87,7 +87,7 @@ function useFigureBox(card: LensCard): { box: Box | null; probe: React.ReactNode
 }
 
 /** The card's masterclass scene at (keyframe, t), zoomed so its figure fills `area`. */
-export function FitFigure({ card, area, keyframe, t, opacity = 1 }: { card: LensCard; area: Box; keyframe: number; t: number; opacity?: number }) {
+export function FitFigure({ card, area, keyframe, t, opacity = 1, glow, glowBoost = 0 }: { card: LensCard; area: Box; keyframe: number; t: number; opacity?: number; glow?: string; glowBoost?: number }) {
   const { box, probe } = useFigureBox(card);
   if (!box) return <>{probe}</>;
   const zoom = Math.min(area.width / box.width, area.height / box.height, MAX_ZOOM);
@@ -95,8 +95,10 @@ export function FitFigure({ card, area, keyframe, t, opacity = 1 }: { card: Lens
   const h = box.height * zoom;
   // Clipped to the figure box, so the scene's own captions under the figure stay out of the frame.
   return (
-    <div style={{ position: 'absolute', left: area.x + (area.width - w) / 2, top: area.y + (area.height - h) / 2, width: w, height: h, overflow: 'hidden', opacity }}>
-      <div style={{ position: 'absolute', left: -box.x * zoom, top: -box.y * zoom, width: SCENE_WIDTH * zoom }}>
+    <div style={{ position: 'absolute', left: area.x + (area.width - w) / 2, top: area.y + (area.height - h) / 2, width: w, height: h, overflow: 'hidden', opacity, filter: glow ? `drop-shadow(0 0 ${10 + 30 * glowBoost}px ${glow})` : undefined }}>
+      {/* The scene paints its own paper; drop it so the Short's background shows through around the lines. */}
+      <style>{'.fitfig > svg { background: transparent !important; }'}</style>
+      <div className="fitfig" style={{ position: 'absolute', left: -box.x * zoom, top: -box.y * zoom, width: SCENE_WIDTH * zoom }}>
         <LensScene card={card} keyframe={keyframe} t={t} theme={THEME} hideStory />
       </div>
     </div>

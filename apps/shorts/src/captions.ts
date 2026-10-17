@@ -14,6 +14,8 @@ export const UPLOAD = {
   } as Record<string, string[]>,
   brandTag: '#視点レンズ',
   tryLine: '無料でためす →',
+  bookLine: '本（Amazon）',
+  music: '音楽 オリジナル（視点レンズ）',
 } as const;
 
 export interface UploadCopy {
@@ -37,6 +39,13 @@ export function askSentence(text: string): string {
   return ask;
 }
 
+/** The paperback for the card's stage, or every edition when that stage has none yet (clickable in the description). */
+function bookLines(card: LensCard): string[] {
+  const own = SHORT_COPY.books[card.stage];
+  const books = own ? [own] : Object.values(SHORT_COPY.books);
+  return books.map((b) => `${UPLOAD.bookLine}『${b.title}』 ${b.url}`);
+}
+
 export function uploadCopy(card: LensCard): UploadCopy {
   const name = lensName(card.lens);
   const title = `【${UPLOAD.subject[card.stage] ?? card.stage}】${SHORT_COPY.hook.replace('。どこから解く？', '')}：${name}`;
@@ -45,13 +54,15 @@ export function uploadCopy(card: LensCard): UploadCopy {
     `${askSentence(card.problem.text_ja)} ${SHORT_COPY.hook.split('。')[1]}`,
     `${name}レンズ：${card.trigger.ja}`,
     `${UPLOAD.tryLine} ${UPLOAD.link}`,
+    ...bookLines(card),
     UPLOAD.credit,
+    UPLOAD.music,
     tags.join(' '),
   ].join('\n');
   return { cardId: card.id, file: shortFileName(card), title, description };
 }
 
-export const CAPTIONS_HEADER = ['# 視点レンズ Shorts: upload copy (WO-028)', '', 'Music: none (voice only). Paste title and description as they are.', ''].join('\n');
+export const CAPTIONS_HEADER = ['# 視点レンズ Shorts: upload copy (WO-028)', '', 'Music and sound effects: original, synthesised by tools/make_short_music.py (no third-party audio). Paste title and description as they are.', ''].join('\n');
 
 /** captions.md section for one video, ready to paste into YouTube Studio. */
 export function captionsSection(c: UploadCopy, seconds: number): string {
