@@ -14,7 +14,7 @@
     "test": "pnpm -r test",
     "check:literals": "node scripts/check-no-literals.mjs",
     "check:css": "node scripts/check-css-balance.mjs",
-    "render:short": "pnpm --filter @lens/shorts render",
+    "render:shorts": "pnpm --filter @lens/shorts render",
     "book": "pnpm --filter @lens/book build",
     "bundle:drafts": "bash -O globstar -c 'python3 tools/validate.py cards/**/*.yaml --bundle --include-drafts'",
     "voice": "python3 tools/make_voice.py"

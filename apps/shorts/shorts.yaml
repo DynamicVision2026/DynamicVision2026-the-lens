@@ -1,0 +1,10 @@
+# WO-028 Shorts list. Architect-owned: the Video Builder renders whatever is listed here.
+# `review`: delivery 1 (one card per stage, Brian's look review + the Architect's math check).
+# `batch`: delivery 2 (8 lenses × 3 stages), filled in by the Architect after the review set is approved.
+# Card ids below were picked by the Video Builder for the first review (status verified, lens as in WO-028 §3);
+# the Architect may swap them.
+review:
+  - constant-001      # 中学受験 · 和差一定
+  - kj-mirror-001     # 高校受験 · 折り返す
+  - dj-freeze-001     # 大学受験 · 止める
+batch:
