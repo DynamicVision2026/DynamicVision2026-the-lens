@@ -2,7 +2,7 @@ import "fake-indexeddb/auto";
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { draftFromResult, pageFromDraft } from "../src/lib/model";
-import { mapTiles, readiness, testList } from "../src/lib/review";
+import { mapSections, mapTiles, readiness, testList } from "../src/lib/review";
 import { allPages, deletePage, savePage, setReviewed } from "../src/lib/store";
 import { MockReader } from "../src/reader/mock";
 
@@ -46,9 +46,11 @@ describe("mock reader → confirm → save → テスト前リスト", () => {
     expect(testList(pages, [])).toHaveLength(0);
 
     // マップ: 割合 tile needs review.
-    const tile = mapTiles(pages, "小5").own.find((t) => t.unit.id === "5-C3")!;
+    const tile = mapTiles(pages).find((t) => t.unit.id === "5-C3")!;
     expect(tile).toMatchObject({ count: 5, wrong: 2, status: "review" });
-    expect(mapTiles(pages, "小5").other.map((t) => t.unit.id)).toContain("6-A1");
+    // A unit from another grade shows up in its own grade section.
+    const sec6 = mapSections(pages, "小5").find((s) => s.grade === "小6")!;
+    expect(sec6.tiles.find((t) => t.unit.id === "6-A1")!.status).not.toBe("empty");
 
     // Readiness: 3 of 5 ok → 60%; after reviewing both ✕ → 100% and the tile turns ok.
     expect(readiness(pages, ["5-C3"])).toBe(60);
@@ -57,7 +59,7 @@ describe("mock reader → confirm → save → テスト前リスト", () => {
     await setReviewed(p01.id, list[1].index, true);
     const after = await allPages();
     expect(readiness(after, ["5-C3"])).toBe(100);
-    expect(mapTiles(after, "小5").own.find((t) => t.unit.id === "5-C3")!.status).toBe("ok");
+    expect(mapTiles(after).find((t) => t.unit.id === "5-C3")!.status).toBe("ok");
     expect(testList(after, ["5-C3"]).every((i) => i.problem.reviewed)).toBe(true);
 
     await deletePage(p01.id);

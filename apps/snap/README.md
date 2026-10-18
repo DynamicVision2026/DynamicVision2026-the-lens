@@ -8,5 +8,20 @@ Students or parents photograph homework, workbook pages and graded tests. Lens S
 - Market validation: `docs/validation/`
 - Curriculum data: `data/units.json`
 - Reader test photos + answer key (original synthetic pages): `fixtures/`
+- Build, run, deploy, screenshots: `docs/BUILD-NOTES-v0.md`; deploy: `bash apps/snap/deploy.sh <project>` from the repo root
+
+## Environment
+
+| Var | Default | Meaning |
+| --- | --- | --- |
+| `ANTHROPIC_API_KEY` | — | Claude reader when set; MockReader (fixture outputs) when absent |
+| `READER_MODEL` | `claude-sonnet-5` | Model id for the Claude reader |
+| `PILOT_CODE` | — | If set, photo reading needs this 招待コード (header `x-pilot-code`); 403 otherwise |
+| `READ_PER_IP_HOUR` | `20` | Reads per client per hour (429 `rate_limited`) |
+| `READ_DAILY_CAP` | `300` | Reads for everyone per UTC day (429 `daily_cap`) |
+| `WAITLIST_DIR` | — | One JSON file per signup in this folder (Cloud Storage FUSE safe); wins over `WAITLIST_PATH` |
+| `WAITLIST_PATH` | `./data-private/waitlist.jsonl` | JSONL append when `WAITLIST_DIR` is not set |
+
+Limits are in memory: run one instance (`--max-instances 1`). Export signups with `node scripts/waitlist-export.mjs <dir-or-jsonl> > waitlist.csv`.
 
 Part of 視点レンズ / Math Japan (Beyond Culture 獨歩文化株式会社).

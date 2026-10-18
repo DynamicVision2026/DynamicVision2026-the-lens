@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { HERO_VARIANTS, copy } from "../copy";
+import { normalizeSrc } from "./attribution";
 
 /** Options come from the copy file so the form and the server always agree. */
 export const WORRY_OPTIONS = copy.waitlist.painOptions;
@@ -11,5 +12,7 @@ export const WaitlistSchema = z.object({
   worry: z.enum(WORRY_OPTIONS).optional(),
   /** Hero headline variant the visitor saw (?h=a / ?h=b), for the A/B test. */
   variant: z.enum(HERO_VARIANTS).default("default"),
+  /** Traffic source from `?src=` (allow-listed; unknown → "other", missing → "direct"). */
+  src: z.preprocess(normalizeSrc, z.enum(["yt", "x", "tiktok", "survey", "book", "other", "direct"])),
 });
 export type WaitlistEntry = z.infer<typeof WaitlistSchema>;

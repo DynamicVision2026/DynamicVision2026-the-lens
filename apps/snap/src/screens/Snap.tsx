@@ -1,42 +1,56 @@
 import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { PilotCodeForm } from "../components/PilotCodeForm";
 import { UnitSelect } from "../components/UnitSelect";
 import { app } from "../copy";
 import type { Grade } from "../curriculum";
 import { preparePhoto } from "../lib/image";
 import { type DraftProblem, type SavedPage, draftFromResult, pageFromDraft } from "../lib/model";
-import { LOW_CONFIDENCE } from "../lib/review";
+import { type ReadFailure, clearPilotCode, readFailure, readPilotCode } from "../lib/pilot";
+import { LOW_CONFIDENCE, litMapUrl } from "../lib/review";
 import { savePage } from "../lib/store";
 import { type Mark, type PageResult, PageResultSchema } from "../reader/schema";
 
 type State =
   | { s: "idle" }
   | { s: "reading" }
-  | { s: "error" }
+  | { s: "error"; why: Exclude<ReadFailure, "pilot_code"> }
+  | { s: "pilot" }
   | { s: "retake"; result: PageResult; thumb?: SavedPage["photo"] }
-  | { s: "confirm"; result: PageResult; draft: DraftProblem[]; thumb?: SavedPage["photo"] }
-  | { s: "saved"; count: number; wrong: number };
+  | { s: "confirm"; result: PageResult; draft: DraftProblem[]; thumb?: SavedPage["photo"] };
 
 export function Snap({ grade }: { grade: Grade }) {
   const [st, setSt] = useState<State>({ s: "idle" });
   const cam = useRef<HTMLInputElement>(null);
   const pick = useRef<HTMLInputElement>(null);
+  const lastFile = useRef<File | null>(null); // re-sent after a new 招待コード
+  const nav = useNavigate();
 
-  async function onFile(file: File | undefined) {
+  async function onFile(file: File | undefined | null) {
     if (!file) return;
+    lastFile.current = file;
     setSt({ s: "reading" });
     try {
       const { upload, thumb } = await preparePhoto(file);
       const fd = new FormData();
       fd.append("grade", grade);
       fd.append("image", upload, file.name || "photo.jpg");
-      const r = await fetch("/api/read", { method: "POST", body: fd });
-      if (!r.ok) throw new Error(String(r.status));
+      const code = readPilotCode();
+      const r = await fetch("/api/read", { method: "POST", body: fd, headers: code ? { "x-pilot-code": code } : {} });
+      if (!r.ok) {
+        const why = readFailure(r.status, await r.json().catch(() => null));
+        if (why === "pilot_code") {
+          clearPilotCode();
+          setSt({ s: "pilot" });
+        } else setSt({ s: "error", why });
+        return;
+      }
       const result = PageResultSchema.parse(await r.json());
+      lastFile.current = null;
       if (result.retake) setSt({ s: "retake", result, thumb });
       else setSt({ s: "confirm", result, draft: draftFromResult(result), thumb });
     } catch {
-      setSt({ s: "error" });
+      setSt({ s: "error", why: "error" });
     }
   }
 
@@ -62,7 +76,8 @@ export function Snap({ grade }: { grade: Grade }) {
         onSave={async () => {
           const page = pageFromDraft(st.draft, { grade, pageType: st.result.pageType, score: st.result.score, photo: st.thumb });
           await savePage(page);
-          setSt({ s: "saved", count: page.problems.length, wrong: page.problems.filter((p) => p.mark === "✕").length });
+          // Straight to the map: the units this page went into light up.
+          nav(litMapUrl(page));
         }}
       />
     );
@@ -73,15 +88,6 @@ export function Snap({ grade }: { grade: Grade }) {
       <h1>{app.snap.title}</h1>
       <p className="muted">{app.snap.body}</p>
 
-      {st.s === "saved" && (
-        <div className="notice notice-ok" role="status">
-          {app.confirm.saved}（{st.count}問・✕ {st.wrong}）
-          <div className="row gap">
-            <Link to="/app/map" className="btn btn-ghost">{app.nav.map}</Link>
-            <Link to="/app/list" className="btn btn-ghost">{app.list.title}</Link>
-          </div>
-        </div>
-      )}
       {st.s === "retake" && (
         <div className="notice notice-warn" role="alert">
           <strong>{app.snap.retake}</strong>
@@ -92,9 +98,18 @@ export function Snap({ grade }: { grade: Grade }) {
           )}
         </div>
       )}
-      {st.s === "error" && <p className="notice notice-err" role="alert">{app.snap.error}</p>}
+      {st.s === "error" && (
+        <p className="notice notice-err" role="alert">
+          {st.why === "rate_limited" ? app.snap.rateLimited : st.why === "daily_cap" ? app.snap.dailyCap : app.snap.error}
+        </p>
+      )}
+      {st.s === "pilot" && (
+        <div className="card">
+          <PilotCodeForm again submitLabel={app.pilot.retry} onDone={() => void onFile(lastFile.current)} />
+        </div>
+      )}
 
-      {st.s === "reading" ? (
+      {st.s === "pilot" ? null : st.s === "reading" ? (
         <div className="reading" aria-live="polite">
           <span className="spinner" aria-hidden />
           {app.snap.reading}

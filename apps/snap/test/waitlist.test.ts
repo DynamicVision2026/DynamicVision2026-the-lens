@@ -42,7 +42,7 @@ describe("API", () => {
     expect((await bad.json()).fields.sort()).toEqual(["email", "grade"]);
     const lines = readFileSync(waitlistPath, "utf8").trim().split("\n");
     expect(lines).toHaveLength(1);
-    expect(JSON.parse(lines[0])).toMatchObject({ email: "x@y.jp", grade: "小学5年生", worry: "よくある", variant: "a" });
+    expect(JSON.parse(lines[0])).toMatchObject({ email: "x@y.jp", grade: "小学5年生", worry: "よくある", variant: "a", src: "direct" });
   });
 
   it("POST /read returns a PageResult for a fixture photo", async () => {

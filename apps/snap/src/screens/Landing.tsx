@@ -1,6 +1,8 @@
-import { type FormEvent, useEffect, useState } from "react";
+import { type FormEvent, useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { HERO_VARIANTS, type HeroVariant, PRIVACY_PATH, copy } from "../copy";
+import { type HeroVariant, PRIVACY_PATH, copy } from "../copy";
+import { type Source, normalizeSrc, resolveVariant } from "../lib/attribution";
+import { readPref, writePref } from "../state";
 import { WAITLIST_GRADES, WORRY_OPTIONS, WaitlistSchema } from "../lib/waitlist";
 
 const FORM_ID = "waitlist"; // {WAITLIST_URL} → this page's own form anchor
@@ -16,7 +18,14 @@ export function Landing() {
   useMeta();
   const [params] = useSearchParams();
   const h = params.get("h");
-  const variant: HeroVariant = h && h !== "default" && (HERO_VARIANTS as readonly string[]).includes(h) ? (h as HeroVariant) : "default";
+  // No ?h= → a random variant, kept sticky on this device (readPref/writePref swallow storage errors,
+  // so without storage it is simply random per load).
+  const variant = useMemo<HeroVariant>(() => {
+    const r = resolveVariant(h, readPref("hero-variant"));
+    if (r.store) writePref("hero-variant", r.variant);
+    return r.variant;
+  }, [h]);
+  const src = normalizeSrc(params.get("src"));
   const headline = variant === "default" ? copy.hero.headline : copy.heroAlternatives[variant];
   const subline = (variant !== "default" && copy.heroSublineAlternatives[variant]) || copy.hero.subline;
 
@@ -84,7 +93,7 @@ export function Landing() {
       </section>
 
       <section className="lp-section card" id={FORM_ID}>
-        <WaitlistForm variant={variant} />
+        <WaitlistForm variant={variant} src={src} />
       </section>
       <Footer />
     </div>
@@ -106,7 +115,7 @@ export function Footer() {
 
 type Field = "email" | "grade";
 
-function WaitlistForm({ variant }: { variant: HeroVariant }) {
+function WaitlistForm({ variant, src }: { variant: HeroVariant; src: Source }) {
   const w = copy.waitlist;
   const [email, setEmail] = useState("");
   const [grade, setGrade] = useState("");
@@ -116,7 +125,7 @@ function WaitlistForm({ variant }: { variant: HeroVariant }) {
 
   async function submit(e: FormEvent) {
     e.preventDefault();
-    const body = { email, grade, variant, ...(worry ? { worry } : {}) };
+    const body = { email, grade, variant, src, ...(worry ? { worry } : {}) };
     const parsed = WaitlistSchema.safeParse(body);
     if (!parsed.success) {
       const bad = new Set(parsed.error.issues.map((i) => String(i.path[0])));

@@ -166,6 +166,7 @@ input:not([type="checkbox"]):not([type="radio"]), .select {
 .dot-review { background: var(--c-wrong); }
 .dot-ok { background: var(--c-ok); }
 .dot-empty { background: var(--c-empty); border: 1px solid var(--c-line); }
+.dot-gold { background: var(--c-gold); }
 .tiles { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 @media (min-width: 600px) { .tiles { grid-template-columns: repeat(3, 1fr); } }
 .tile {
@@ -178,6 +179,49 @@ input:not([type="checkbox"]):not([type="radio"]), .select {
 .tile-topic { font-weight: 700; line-height: 1.35; color: var(--c-navy); }
 .tile-stats { align-self: end; display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--c-muted); }
 .tile-wrong { color: var(--c-wrong); }
+.tile-gold { background: var(--c-gold-tint); border-color: var(--c-gold); }
+.tile-gold .tile-code { color: var(--c-gold-strong); }
+.tile-star { color: var(--c-gold-strong); font-weight: 800; }
+/* Light-up after 保存: a short glow, then a quiet ring so the user can still find the tile. */
+.tile.is-lit { box-shadow: 0 0 0 3px var(--c-glow); animation: lit-pulse 1.5s ease-out 1; }
+@keyframes lit-pulse {
+  0% { box-shadow: 0 0 0 0 var(--c-glow); transform: scale(1); }
+  30% { box-shadow: 0 0 0 10px var(--c-glow), 0 0 24px 8px var(--c-glow); transform: scale(1.04); }
+  100% { box-shadow: 0 0 0 3px var(--c-glow); transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) { .tile.is-lit { animation: none; } }
+
+/* whole-curriculum sections */
+.grade-sec { background: var(--c-surface); border-radius: var(--radius); box-shadow: 0 1px 3px var(--c-shadow); margin: 0 0 10px; border: 1.5px solid transparent; }
+.grade-sec.is-own { border-color: var(--c-accent); }
+.grade-sec > summary {
+  min-height: var(--tap); padding: 10px 40px 10px 14px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  cursor: pointer; list-style: none; position: relative;
+}
+.grade-sec > summary::-webkit-details-marker { display: none; }
+.grade-sec > summary::after { content: "+"; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-size: 1.3rem; color: var(--c-accent-strong); }
+.grade-sec[open] > summary::after { content: "−"; }
+.sec-grade { font-weight: 800; color: var(--c-navy); font-size: 1.05rem; }
+.sec-own { font-size: 0.72rem; font-weight: 800; padding: 1px 8px; border-radius: 999px; background: var(--c-accent); color: var(--c-on-dark); }
+.sec-sum { display: inline-flex; gap: 6px; flex-wrap: wrap; margin-left: auto; font-size: 0.78rem; color: var(--c-muted); }
+.sum { display: inline-flex; align-items: center; gap: 4px; font-weight: 700; }
+.sum-review { color: var(--c-wrong); }
+.sum-gold { color: var(--c-gold-strong); }
+.sum-ok { color: var(--c-ok); }
+.grade-sec .tiles { padding: 0 12px 12px; }
+
+/* toast (light-up message) */
+.toast {
+  position: fixed; left: var(--gutter); right: var(--gutter); bottom: calc(76px + env(safe-area-inset-bottom)); z-index: 10;
+  max-width: 560px; margin: 0 auto; padding: 12px 16px; border-radius: var(--radius-sm);
+  background: var(--c-navy); color: var(--c-on-dark); font-weight: 700; box-shadow: 0 4px 16px var(--c-shadow);
+  animation: toast-in 0.25s ease-out;
+}
+@keyframes toast-in { from { opacity: 0; transform: translateY(8px); } }
+@media (prefers-reduced-motion: reduce) { .toast { animation: none; } }
+
+/* pilot code */
+.code-input { letter-spacing: 0.12em; font-weight: 700; }
 
 /* ---------- test list ---------- */
 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 6px; }
