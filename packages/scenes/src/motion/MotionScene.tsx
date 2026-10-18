@@ -47,10 +47,11 @@ export const SHORT_COPY = {
   brand: '視点レンズ',
   answer: '答え',
   stages: { shogakko: '中学受験', chugaku: '高校受験', koko: '大学受験' } as Record<string, string>,
-  /** The paperbacks on Amazon.co.jp (live Oct 16), per stage. No prices in the Shorts. */
+  /** The paperbacks on Amazon.co.jp (中学受験・高校入試 live Oct 16, 大学入試 Oct 18), per stage. No prices in the Shorts. */
   books: {
     shogakko: { title: '中学受験算数 視点レンズ', edition: '中学受験版', url: 'https://www.amazon.co.jp/dp/B0HN7PVL1K' },
     chugaku: { title: '高校入試数学 視点レンズ', edition: '高校入試版', url: 'https://www.amazon.co.jp/dp/B0HN81B2JY' },
+    koko: { title: '大学入試数学 視点レンズ', edition: '大学入試版', url: 'https://www.amazon.co.jp/dp/B0HNFWS6MJ' },
   } as Record<string, { title: string; edition: string; url: string }>,
   bookLine: '本も発売中',
   bookSearch: 'Amazonで「視点レンズ」',

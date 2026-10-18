@@ -31,13 +31,13 @@ describe('upload copy (WO-028 §2)', () => {
     expect(uploadCopy(getCard('kj-mirror-001')!).description).toContain('#高校受験');
     expect(uploadCopy(getCard('dj-freeze-001')!).description).toContain('#大学受験');
     expect(shortFileName(getCard('dj-freeze-001')!)).toBe('koko-freeze-dj-freeze-001.mp4');
-    // The stage's own paperback; a stage without one lists both editions.
+    // Each stage links its own paperback.
     expect(c.description).toContain('https://www.amazon.co.jp/dp/B0HN7PVL1K');
     expect(c.description).not.toContain('B0HN81B2JY');
     expect(uploadCopy(getCard('kj-mirror-001')!).description).toContain('https://www.amazon.co.jp/dp/B0HN81B2JY');
     const dj = uploadCopy(getCard('dj-freeze-001')!).description;
-    expect(dj).toContain('B0HN7PVL1K');
-    expect(dj).toContain('B0HN81B2JY');
+    expect(dj).toContain('https://www.amazon.co.jp/dp/B0HNFWS6MJ');
+    expect(dj).not.toContain('B0HN7PVL1K');
     expect(captionsSection(c, 42)).toContain('constant-001');
   });
 
