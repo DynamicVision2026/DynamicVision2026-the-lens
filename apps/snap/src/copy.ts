@@ -1,0 +1,249 @@
+/**
+ * All user-facing copy in one place.
+ *
+ * `copy` = the landing page (final copy from docs/validation/landing-copy.md, pasted as is).
+ * Placeholder handling: {CONTACT_EMAIL} → contact line omitted for now; {PRIVACY_URL} → /privacy
+ * (see PRIVACY_PATH). `app` = the in-app UI copy.
+ */
+export const copy = {
+  meta: {
+    title: "Lens Snap｜撮るだけで、テスト前に「やること」がわかる",
+    description:
+      "宿題・ドリル・返ってきたテストを撮っておくだけ。問題を単元ごとに整理し、テスト前には復習すべき問題だけの一覧をつくります。小学生・中学生の算数・数学向け。",
+  },
+
+  hero: {
+    // 15文字。A/B用の別案は下の heroAlternatives を参照
+    headline: "撮るだけで、やることがわかる。",
+    subline:
+      "宿題もドリルも、返ってきたテストも。撮っておけば、テスト前の夜に「今夜はこれをやればいい」がすぐにわかります。",
+    cta: "先行登録する（無料）",
+    note: "小学生・中学生の算数・数学から始めます",
+  },
+
+  heroAlternatives: {
+    a: "今夜、何を復習すればいい？", // 13文字：痛みをそのまま問いかける案
+    b: "テスト前の夜を、迷わない夜に。", // 15文字：夜の情景に寄せた案
+    c: "間違い直しノート、撮るだけで。", // 中学受験の親（手書きの間違い直しノート）向け
+  },
+
+  // Variant-specific sublines (default: hero.subline)
+  heroSublineAlternatives: {
+    c: "切って貼って、書き写して…の間違い直しノートづくりを、写真1枚に。間違えた問題だけが単元ごとにたまり、テスト前の「やることリスト」になります。",
+  } as Partial<Record<"a" | "b" | "c", string>>,
+
+  pain: {
+    heading: "テスト前の夜、こんなことはありませんか？",
+    lines: [
+      "どこから復習させればいいのか、正直わからない。",
+      "返ってきたテスト、どこにしまったんだっけ。",
+      "ドリルを最初からやり直す時間は、もうない。",
+    ],
+  },
+
+  promise: {
+    heading: "撮るだけで、テスト前に「やること」がわかる。",
+    body:
+      "ふだんの宿題やドリル、返ってきたテストを撮っておくだけ。テスト前には、間違えた問題だけが単元ごとに並びます。探す時間も、迷う時間も、ぐっと少なくなります。",
+  },
+
+  howItWorks: {
+    heading: "使い方は3ステップ",
+    steps: [
+      {
+        title: "撮る",
+        body: "宿題・ドリル・返ってきたテストを、スマホで撮ります。",
+      },
+      {
+        title: "自動で整理",
+        body:
+          "問題を1問ずつ読み取り、学習指導要領の単元ごとに整理します。先生の○✕も、そのまま記録します。",
+      },
+      {
+        title: "テスト前リスト",
+        body:
+          "テスト範囲の単元を選ぶと、「やるべき問題」だけのリストができあがります。",
+      },
+    ],
+  },
+
+  notThis: {
+    heading: "Lens Snap がしないこと",
+    items: [
+      {
+        title: "点数アップをお約束するものではありません",
+        body:
+          "採点もしません。先生がつけた○✕を、そのまま記録するだけです。Lens Snap がお手伝いするのは、テスト前に「何をやるか」を決めるところです。",
+      },
+      {
+        title: "答えを教えるアプリではありません",
+        body:
+          "問題を解いたり、答えを表示したりはしません。考えるのは、お子さま自身です。",
+      },
+      {
+        title: "写真は、お使いのスマホの中に保存されます",
+        body:
+          "読み取りのときだけ写真が一度サーバーを通りますが、私たちが写真を保存することはありません。お子さまのお名前も読み取りません。",
+      },
+    ],
+  },
+
+  faq: {
+    heading: "よくあるご質問",
+    items: [
+      {
+        q: "料金はいくらですか？",
+        a: "公開時の料金は、まだ決まっていません。決まり次第、先行登録いただいた方に最初にメールでお知らせします。先行登録だけで料金がかかることはありません。",
+      },
+      {
+        q: "撮った写真や個人情報はどう扱われますか？",
+        a: "写真はお使いのスマホ（ブラウザ）の中に保存されます。読み取りのときだけ一度サーバーを通りますが、私たちが写真を保存することはなく、お子さまのお名前も読み取りません。先行登録でお預かりするのは、メールアドレスと学年だけです。",
+      },
+      {
+        q: "何年生が使えますか？",
+        a: "小学1年生から中学3年生までの算数・数学を予定しています。ほかの教科は、ご要望を伺いながら検討します。",
+      },
+      {
+        q: "どの教科書やテストに対応していますか？",
+        a: "教科書会社ではなく学習指導要領の単元で整理するため、教科書の種類を問わずお使いいただけます。学校のテスト、市販のドリル、塾のプリントも撮影できます。手書きの答えや先生の○✕も読み取ります。",
+      },
+      {
+        q: "読み取りはどのくらい正確ですか？",
+        a: "保存する前に、読み取った内容を必ず画面で確認でき、単元や○✕はタップひとつで直せます。写りが暗いときは撮り直しをお願いすることもあります。実際のプリントでの精度は、先行登録の方にご協力いただきながら確かめていきます。",
+      },
+    ],
+  },
+
+  waitlist: {
+    heading: "先行登録（無料）",
+    lead: "完成したら、いち早くお知らせします。",
+    emailLabel: "メールアドレス",
+    emailPlaceholder: "example@mail.com",
+    gradeLabel: "お子さまの学年",
+    gradePlaceholder: "選択してください",
+    gradeOptions: [
+      "小学1年生",
+      "小学2年生",
+      "小学3年生",
+      "小学4年生",
+      "小学5年生",
+      "小学6年生",
+      "中学1年生",
+      "中学2年生",
+      "中学3年生",
+      "その他",
+    ],
+    // アンケートQ1と同じ選択肢（数字を比べられるように揃えています）
+    painLabel: "テスト前、何を復習するか迷いますか？",
+    painOptions: ["毎回", "よくある", "たまに", "ない"],
+    submit: "先行登録する",
+    submitting: "送信しています…",
+    privacyNote:
+      "メールアドレスは、Lens Snap に関するお知らせにのみ使います。いつでも配信を止められます。",
+    errors: {
+      emailRequired: "メールアドレスを入力してください。",
+      emailInvalid: "メールアドレスの形式をご確認ください。",
+      gradeRequired: "お子さまの学年を選んでください。",
+      network: "送信できませんでした。お手数ですが、もう一度お試しください。",
+    },
+    thanks: {
+      heading: "ご登録ありがとうございます",
+      body:
+        "準備ができ次第、ご登録のメールアドレスにお知らせします。もうしばらくお待ちください。",
+    },
+  },
+
+  footer: {
+    brand: "Lens Snap ― 視点レンズ",
+    brandUrl: "https://lens.domo-ai.com",
+    company: "運営：Beyond Culture 獨歩文化株式会社",
+    contactLabel: "お問い合わせ",
+    contact: "{CONTACT_EMAIL}",
+    privacyLabel: "プライバシーポリシー",
+    privacyUrl: "{PRIVACY_URL}",
+    copyright: "© 2026 Beyond Culture 獨歩文化株式会社",
+  },
+} as const;
+
+export const PRIVACY_PATH = "/privacy";
+export type HeroVariant = "default" | keyof typeof copy.heroAlternatives;
+export const HERO_VARIANTS = ["default", "a", "b", "c"] as const satisfies readonly HeroVariant[];
+
+/** Small UI strings for the landing / privacy pages that are not marketing copy. */
+export const landingUi = {
+  backToTop: "トップへ戻る",
+  privacyIntro: "Lens Snap での写真と個人情報の扱いについて。",
+};
+
+export const app = {
+  nav: { snap: "撮る", map: "マップ", list: "テスト前", archive: "ふりかえり" },
+  onboarding: {
+    title: "学年を選んでください",
+    body: "その学年の単元で整理します。あとから変えられます。",
+    start: "はじめる",
+  },
+  snap: {
+    title: "ページを撮りましょう",
+    body: "宿題・ドリル・テストを1ページずつ撮ってください。",
+    camera: "カメラで撮る",
+    file: "写真を選ぶ",
+    reading: "読み取っています…",
+    retake: "もう少し明るい所で撮り直してください。",
+    retry: "撮り直す",
+    error: "読み取れませんでした。もう一度お試しください。",
+    privacy: "写真はこの端末にだけ保存されます。",
+  },
+  confirm: {
+    title: "読み取り結果の確認",
+    body: "単元と○✕が合っているか確かめて、保存してください。",
+    problem: (n: number) => `問題 ${n}`,
+    unit: "単元",
+    noUnit: "単元を選んでください",
+    answer: "こたえ",
+    noAnswer: "（空欄）",
+    mark: "先生の印",
+    none: "なし",
+    low: "読み取りに自信がありません",
+    save: "保存する",
+    cancel: "やめる",
+    saved: "保存しました。",
+    empty: "問題が見つかりませんでした。",
+    score: (s: string) => `点数 ${s}`,
+    notes: "メモ",
+  },
+  map: {
+    title: "単元マップ",
+    body: "✕がある単元は色が変わります。",
+    problems: (n: number) => `${n}問`,
+    wrong: (n: number) => `✕ ${n}`,
+    legend: { review: "復習が必要", ok: "だいじょうぶ", empty: "まだありません" },
+    other: "ほかの学年の単元",
+    unfiled: (n: number) => `単元が未選択の問題が ${n} 問あります。`,
+    toList: "テスト前リストへ",
+  },
+  list: {
+    title: "テスト前リスト",
+    body: "テスト範囲の単元を選んでください。",
+    readiness: "準備度",
+    noData: "この範囲にはまだ問題がありません。",
+    allDone: "この範囲の✕はありません。よくがんばりました。",
+    reviewed: "復習した",
+    wrong: "✕",
+    low: "要確認",
+    yourAnswer: "こたえ",
+    count: (n: number) => `${n}問`,
+    chooseUnits: "単元を選ぶと、今夜やる問題が出てきます。",
+  },
+  archive: {
+    title: "ふりかえり",
+    allUnits: "すべての単元",
+    onlyWrong: "✕だけ",
+    period: { all: "すべての日付", today: "今日", week: "この7日", month: "この30日" },
+    delete: "このページを削除",
+    confirmDelete: "このページを削除しますか？",
+    empty: "保存したページはまだありません。",
+    page: (d: string, n: number) => `${d}・${n}問`,
+  },
+  grade: { change: "学年を変える" },
+  pageType: { test: "テスト", drill: "ドリル", note: "ノート", other: "プリント" } as Record<string, string>,
+};
