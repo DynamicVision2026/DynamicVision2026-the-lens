@@ -7,7 +7,7 @@ Notes for production:
 - Narration lengths are ~170–200 characters, about 32–38 s at VOICEVOX default speed (1.0). If a script runs long, set speed to 1.05–1.1 rather than cutting lines.
 - Visuals: hands, desks, worksheets and phone screens only. No faces, no child's name visible on any paper (use the synthetic pages in `fixtures/photos/` or blank them).
 - No score claims anywhere (title, text, voice). Only "time saved" and "knowing what to do".
-- CTA points to the link on the channel page. Fill `{WAITLIST_URL}` in descriptions.
+- CTA points to the link on the channel page. Waitlist URL in descriptions: https://snap.domo-ai.com/?src=yt (the `src` tag lets us count signups from Shorts).
 
 ---
 
@@ -29,7 +29,7 @@ Notes for production:
 ```
 テスト前の夜の「今夜、何を復習すればいい？」。
 宿題・ドリル・返ってきたテストを撮っておくだけで、テスト前には間違えた問題だけの一覧ができる道具「Lens Snap」を準備しています。
-小学生・中学生の算数・数学から。先行登録（無料）はこちら → {WAITLIST_URL}
+小学生・中学生の算数・数学から。先行登録（無料）はこちら → https://snap.domo-ai.com/?src=yt
 
 #Shorts #テスト勉強 #定期テスト #家庭学習 #小学生 #中学生 #算数 #数学 #子育て
 ```
@@ -54,7 +54,7 @@ Notes for production:
 ```
 ドリル、学校のプリント、塾のテスト。間違えた問題が、あちこちに散らばっていませんか。
 撮っておくだけで、問題を学習指導要領の単元ごとに整理し、テスト前には「やるべき問題」だけを一覧にする「Lens Snap」を準備しています。
-先行登録（無料）はこちら → {WAITLIST_URL}
+先行登録（無料）はこちら → https://snap.domo-ai.com/?src=yt
 
 #Shorts #テスト勉強 #定期テスト #家庭学習 #間違いノート #小学生 #中学生 #算数 #数学
 ```
@@ -79,7 +79,7 @@ Notes for production:
 ```
 返ってきたテストの✕、次のテスト前まで覚えていますか。
 返ってきた日に撮っておくだけで、先生の○✕をそのまま記録。テスト前には✕だった問題だけが並ぶ「Lens Snap」を準備しています。
-小学生・中学生の算数・数学から。先行登録（無料）はこちら → {WAITLIST_URL}
+小学生・中学生の算数・数学から。先行登録（無料）はこちら → https://snap.domo-ai.com/?src=yt
 
 #Shorts #テスト勉強 #定期テスト #テスト直し #家庭学習 #小学生 #中学生 #算数 #数学
 ```

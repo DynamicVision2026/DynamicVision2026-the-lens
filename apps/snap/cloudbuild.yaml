@@ -1,0 +1,8 @@
+# Lens Snap image build (run from the repo root by apps/snap/deploy.sh):
+#   gcloud builds submit --config apps/snap/cloudbuild.yaml --substitutions _IMAGE=... .
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args: ["build", "-f", "apps/snap/Dockerfile", "-t", "${_IMAGE}", "."]
+images: ["${_IMAGE}"]
+options:
+  logging: CLOUD_LOGGING_ONLY

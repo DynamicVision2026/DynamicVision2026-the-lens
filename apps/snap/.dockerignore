@@ -1,8 +1,0 @@
-node_modules
-dist
-dist-server
-data-private
-docs
-.git
-.env
-*.log
