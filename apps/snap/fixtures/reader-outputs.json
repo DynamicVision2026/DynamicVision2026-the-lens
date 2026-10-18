@@ -1,0 +1,711 @@
+{
+ "p04": {
+  "page_type": "test",
+  "grade_guess": "小5",
+  "score": "65",
+  "problems": [
+   {
+    "n": 1,
+    "q": "次の台形の面積を求めましょう。[上底6cm 下底12cm 高さ5cm]",
+    "unit": "5-B3",
+    "answer": "90cm²",
+    "mark": "✕",
+    "confidence": 0.9
+   },
+   {
+    "n": 2,
+    "q": "次の平行四辺形の面積を求めましょう。[底辺8cm 高さ4.5cm]",
+    "unit": "5-B3",
+    "answer": "36cm²",
+    "mark": "○",
+    "confidence": 0.9
+   },
+   {
+    "n": 3,
+    "q": "次の三角形の面積を求めましょう。[底辺9cm 高さ6cm]",
+    "unit": "5-B3",
+    "answer": "27cm²",
+    "mark": "○",
+    "confidence": 0.9
+   },
+   {
+    "n": 4,
+    "q": "対角線の長さが10cmと7cmのひし形の面積は何cm²ですか。",
+    "unit": "5-B3",
+    "answer": "35cm²",
+    "mark": "○",
+    "confidence": 0.93
+   }
+  ],
+  "notes": "Title 面積 まとめのテスト. Slightly blurry. Teacher wrote a red correction '(6+12)×5÷2' next to Q1 (not the student's answer). Figure labels small but readable."
+ },
+ "p01": {
+  "page_type": "test",
+  "grade_guess": "小5",
+  "score": "60",
+  "problems": [
+   {
+    "n": 1,
+    "q": "定価800円の品物を、定価の25%引きで買いました。代金は何円ですか。",
+    "unit": "5-C3",
+    "answer": "600円",
+    "mark": "○",
+    "confidence": 0.95
+   },
+   {
+    "n": 2,
+    "q": "あるクラスの人数は30人で、そのうち18人が女子です。女子の人数はクラス全体の何%ですか。",
+    "unit": "5-C3",
+    "answer": "60%",
+    "mark": "○",
+    "confidence": 0.95
+   },
+   {
+    "n": 3,
+    "q": "水そうに水が120L入ります。いま、その0.35倍の水が入っています。水は何L入っていますか。",
+    "unit": "5-C3",
+    "answer": "4.2L",
+    "mark": "✕",
+    "confidence": 0.93
+   },
+   {
+    "n": 4,
+    "q": "ある数の40%が56です。ある数はいくつですか。",
+    "unit": "5-C3",
+    "answer": "22.4",
+    "mark": "✕",
+    "confidence": 0.95
+   },
+   {
+    "n": 5,
+    "q": "去年の入場者は2500人で、今年は去年より12%増えました。今年の入場者は何人ですか。",
+    "unit": "5-C3",
+    "answer": "2800人",
+    "mark": "○",
+    "confidence": 0.95
+   }
+  ],
+  "notes": "Title 5年 割合 テスト. Page tilted; all text legible."
+ },
+ "p06": {
+  "page_type": "drill",
+  "grade_guess": "小5",
+  "score": null,
+  "problems": [
+   {
+    "n": 1,
+    "q": "4回のテストの点数は、78点、85点、92点、81点でした。平均は何点ですか。",
+    "unit": "5-D2",
+    "answer": "84点",
+    "mark": null,
+    "confidence": 0.95
+   },
+   {
+    "n": 2,
+    "q": "卵5個の重さは、62g、58g、60g、61g、59gでした。1個の平均の重さは何gですか。",
+    "unit": "5-D2",
+    "answer": "60g",
+    "mark": null,
+    "confidence": 0.95
+   },
+   {
+    "n": 3,
+    "q": "面積が12m²の花だんに花が84本、面積が15m²の花だんに花が96本植えてあります。どちらがこんでいますか。",
+    "unit": "5-C2",
+    "answer": "12m²の花だん",
+    "mark": null,
+    "confidence": 0.93
+   },
+   {
+    "n": 4,
+    "q": "ガソリン1Lで14km走る車があります。この車で350km走るには、ガソリンは何Lいりますか。",
+    "unit": "5-C2",
+    "answer": "25L",
+    "mark": null,
+    "confidence": 0.95
+   },
+   {
+    "n": 5,
+    "q": "人口が18万人で、面積が60km²の市の人口密度を求めましょう。",
+    "unit": "5-C2",
+    "answer": null,
+    "mark": null,
+    "confidence": 0.95
+   }
+  ],
+  "notes": "Title 平均と単位量あたりの大きさ. No score or marks. Q5 blank."
+ },
+ "p10": {
+  "page_type": "drill",
+  "grade_guess": "小5",
+  "score": null,
+  "problems": [
+   {
+    "n": 1,
+    "q": "次の直方体の体積を求めましょう。[横8cm 奥行き5cm 高さ6cm]",
+    "unit": "5-B4",
+    "answer": "240cm³",
+    "mark": null,
+    "confidence": 0.6
+   },
+   {
+    "n": 2,
+    "q": "1辺が7cmの立方体の体積を求めましょう。",
+    "unit": "5-B4",
+    "answer": "343cm³",
+    "mark": null,
+    "confidence": 0.85
+   },
+   {
+    "n": 3,
+    "q": "内のりが、たて40cm、横50cm、深さ30cmの水そうに入る水は何Lですか。",
+    "unit": "5-B4",
+    "answer": "60L",
+    "mark": null,
+    "confidence": 0.85
+   },
+   {
+    "n": 4,
+    "q": "2m³は何cm³ですか。",
+    "unit": "5-B4",
+    "answer": "200000cm³",
+    "mark": null,
+    "confidence": 0.65
+   }
+  ],
+  "notes": "Title 体積. Low-resolution photo. Q1 figure labels are tiny/blurred (best reading 8cm, 5cm, 6cm). Q4 answer: number of zeros (read as 200000) and whether the unit superscript is ³ or ² are uncertain. No marks or score."
+ },
+ "p07": {
+  "page_type": "test",
+  "grade_guess": "小6",
+  "score": "70",
+  "problems": [
+   {
+    "n": 1,
+    "q": "右のグラフは、yがxに比例するようすを表しています。yをxの式で表しましょう。[グラフ x軸1〜6 y軸3,6,9,12,15,18 原点を通る直線]",
+    "unit": "6-C1",
+    "answer": "y=3×x",
+    "mark": "○",
+    "confidence": 0.85
+   },
+   {
+    "n": 2,
+    "q": "面積が24cm²の長方形の、たての長さxcmと横の長さycmの関係を式に表しましょう。",
+    "unit": "6-C1",
+    "answer": "y=24÷x",
+    "mark": "○",
+    "confidence": 0.9
+   },
+   {
+    "n": 3,
+    "q": "針金4mの重さが60gです。この針金15mの重さは何gですか。",
+    "unit": "6-C1",
+    "answer": "225g",
+    "mark": "○",
+    "confidence": 0.9
+   },
+   {
+    "n": 4,
+    "q": "時速60kmで4時間かかる道のりを、時速80kmで走ると何時間かかりますか。",
+    "unit": "6-C1",
+    "answer": "5時間",
+    "mark": "✕",
+    "confidence": 0.9
+   }
+  ],
+  "notes": "Title 比例と反比例. Photo rotated 90° (read sideways). Graph tick labels are tiny; the line's exact endpoint is not labelled. Q4 could also be classed as 5-C2 (速さ)."
+ },
+ "p05": {
+  "page_type": "note",
+  "grade_guess": "小6",
+  "score": null,
+  "problems": [
+   {
+    "n": 1,
+    "q": "時速48kmで2時間30分走ると、何km進みますか。",
+    "unit": "5-C2",
+    "answer": "120km",
+    "mark": null,
+    "confidence": 0.75
+   },
+   {
+    "n": 2,
+    "q": "半径6cmの円の面積を求めましょう。(円周率3.14)",
+    "unit": "6-B3",
+    "answer": "113.04cm²",
+    "mark": null,
+    "confidence": 0.75
+   },
+   {
+    "n": 3,
+    "q": "x:12 = 5:4 のとき、xの値を求めましょう。",
+    "unit": "6-C2",
+    "answer": "15",
+    "mark": null,
+    "confidence": 0.75
+   },
+   {
+    "n": 4,
+    "q": "1本x円のえん筆を6本買って、100円の消しゴムを1個買いました。代金の合計を式に表しましょう。",
+    "unit": "6-A2",
+    "answer": "x×6+100",
+    "mark": null,
+    "confidence": 0.72
+   }
+  ],
+  "notes": "Notebook page '10月14日 ふくしゅう'. Dim and blurry photo; text read via enlargement, best readings given. No teacher marks. Grade guessed 小6 from content (円の面積, 比, 文字式)."
+ },
+ "p03": {
+  "page_type": "drill",
+  "grade_guess": "小6",
+  "score": null,
+  "problems": [
+   {
+    "n": 1,
+    "q": "2/3 × 9/10",
+    "unit": "6-A1",
+    "answer": "3/5",
+    "mark": null,
+    "confidence": 0.92
+   },
+   {
+    "n": 2,
+    "q": "5/8 × 4",
+    "unit": "6-A1",
+    "answer": "5/2",
+    "mark": null,
+    "confidence": 0.92
+   },
+   {
+    "n": 3,
+    "q": "3/4 ÷ 9/16",
+    "unit": "6-A1",
+    "answer": "4/3",
+    "mark": null,
+    "confidence": 0.92
+   },
+   {
+    "n": 4,
+    "q": "1と1/2 ÷ 3/4",
+    "unit": "6-A1",
+    "answer": "2",
+    "mark": null,
+    "confidence": 0.92
+   },
+   {
+    "n": 5,
+    "q": "7/12 × 8/21",
+    "unit": "6-A1",
+    "answer": "2/9",
+    "mark": null,
+    "confidence": 0.9
+   },
+   {
+    "n": 6,
+    "q": "4/5mの重さが6/7kgの棒があります。この棒1mの重さは何kgですか。",
+    "unit": "6-A1",
+    "answer": null,
+    "mark": null,
+    "confidence": 0.9
+   }
+  ],
+  "notes": "Title 分数のかけ算・わり算 ドリル②. No teacher marks or score. Pencil answers are faint (shadow across top); Q6 left blank."
+ },
+ "p08": {
+  "page_type": "test",
+  "grade_guess": "小5",
+  "score": "80",
+  "problems": [
+   {
+    "n": 1,
+    "q": "12と18の最小公倍数を求めましょう。",
+    "unit": "5-A1",
+    "answer": "36",
+    "mark": "○",
+    "confidence": 0.93
+   },
+   {
+    "n": 2,
+    "q": "24と36の最大公約数を求めましょう。",
+    "unit": "5-A1",
+    "answer": "12",
+    "mark": "○",
+    "confidence": 0.93
+   },
+   {
+    "n": 3,
+    "q": "1から50までの整数のうち、6の倍数は何個ありますか。",
+    "unit": "5-A1",
+    "answer": "8個",
+    "mark": "○",
+    "confidence": 0.92
+   },
+   {
+    "n": 4,
+    "q": "たて8cm、横12cmの長方形のカードをすきまなくならべて、いちばん小さい正方形をつくります。正方形の1辺は何cmですか。",
+    "unit": "5-A1",
+    "answer": "48cm",
+    "mark": "✕",
+    "confidence": 0.9
+   },
+   {
+    "n": 5,
+    "q": "次の数を偶数と奇数に分けましょう。17, 30, 45, 58",
+    "unit": "5-A1",
+    "answer": "偶数30.58 奇数17.45",
+    "mark": "○",
+    "confidence": 0.85
+   }
+  ],
+  "notes": "Title 整数の性質. Dim photo. Q5 student used '.' as separator (偶数30.58 奇数17.45) — transcribed as written."
+ },
+ "p02": {
+  "page_type": "test",
+  "grade_guess": "小5",
+  "score": "75",
+  "problems": [
+   {
+    "n": 1,
+    "q": "2.4 × 3.5",
+    "unit": "5-A3",
+    "answer": "8.4",
+    "mark": "○",
+    "confidence": 0.95
+   },
+   {
+    "n": 2,
+    "q": "0.6 × 0.7",
+    "unit": "5-A3",
+    "answer": "4.2",
+    "mark": "✕",
+    "confidence": 0.95
+   },
+   {
+    "n": 3,
+    "q": "7.2 ÷ 0.8",
+    "unit": "5-A3",
+    "answer": "9",
+    "mark": "○",
+    "confidence": 0.93
+   },
+   {
+    "n": 4,
+    "q": "5.04 ÷ 1.2",
+    "unit": "5-A3",
+    "answer": "4.2",
+    "mark": "○",
+    "confidence": 0.95
+   },
+   {
+    "n": 5,
+    "q": "1mのねだんが160円のリボンを2.5m買いました。代金は何円ですか。",
+    "unit": "5-A3",
+    "answer": "400円",
+    "mark": "○",
+    "confidence": 0.95
+   },
+   {
+    "n": 6,
+    "q": "3.6Lの油を0.45Lずつびんに分けます。びんは何本いりますか。",
+    "unit": "5-A3",
+    "answer": "9本",
+    "mark": "✕",
+    "confidence": 0.93
+   }
+  ],
+  "notes": "Title 小数のかけ算とわり算. Answers are transcribed as written; Q1 is marked ○ by the teacher even though the student wrote 8.4. Answer 9 in Q3 looks like a handwritten 'q' shape."
+ },
+ "p09": {
+  "page_type": "test",
+  "grade_guess": "小6",
+  "score": "50",
+  "problems": [
+   {
+    "n": 1,
+    "q": "18:24 をかんたんな比にしましょう。",
+    "unit": "6-C2",
+    "answer": "3:4",
+    "mark": "○",
+    "confidence": 0.93
+   },
+   {
+    "n": 2,
+    "q": "コーヒーと牛乳を3:5の割合でまぜます。牛乳を200mL使うとき、コーヒーは何mLいりますか。",
+    "unit": "6-C2",
+    "answer": "333mL",
+    "mark": "✕",
+    "confidence": 0.9
+   },
+   {
+    "n": 3,
+    "q": "1個a円のりんごを4個買うと、代金は何円ですか。式に表しましょう。",
+    "unit": "6-A2",
+    "answer": "a×4",
+    "mark": "○",
+    "confidence": 0.92
+   },
+   {
+    "n": 4,
+    "q": "x×3=27 のとき、xの値を求めましょう。",
+    "unit": "6-A2",
+    "answer": "81",
+    "mark": "✕",
+    "confidence": 0.92
+   }
+  ],
+  "notes": "Title 比と文字を使った式. Strong perspective tilt; legible. Student handwriting light."
+ },
+ "h01": {
+  "page_type": "test",
+  "grade_guess": "小5",
+  "score": "60",
+  "retake": false,
+  "problems": [
+   {
+    "n": 1,
+    "q": "定価800円の品物を、定価の25%引きで買いました。代金は何円ですか。",
+    "unit": "5-C3",
+    "answer": "600円",
+    "mark": "○",
+    "confidence": 0.8
+   },
+   {
+    "n": 2,
+    "q": "あるクラスの人数は30人で、そのうち18人が女子です。女子の人数はクラス全体の何%ですか。",
+    "unit": "5-C3",
+    "answer": "60%",
+    "mark": "○",
+    "confidence": 0.8
+   },
+   {
+    "n": 3,
+    "q": "水そうに水が120L入ります。いま、その0.35倍の水が入っています。水は何L入っていますか。",
+    "unit": "5-C3",
+    "answer": "4.2L",
+    "mark": "✕",
+    "confidence": 0.7
+   },
+   {
+    "n": 4,
+    "q": "ある数の40%が56です。ある数はいくつですか。",
+    "unit": "5-C3",
+    "answer": "22.4",
+    "mark": "✕",
+    "confidence": 0.75
+   },
+   {
+    "n": 5,
+    "q": "去年の入場者は2500人で、今年は去年より12%増えました。今年の入場者は何人ですか。",
+    "unit": "5-C3",
+    "answer": "2800人",
+    "mark": "○",
+    "confidence": 0.8
+   }
+  ],
+  "notes": "Blurred and tilted but readable. Problem numbers 3 and 4 hidden under ✕ marks (inferred from order). Small print numbers (800, 25%, 0.35, 12%) read through blur; moderate confidence. Name unreadable."
+ },
+ "h04": {
+  "page_type": "test",
+  "grade_guess": "小6",
+  "score": "50",
+  "retake": false,
+  "problems": [
+   {
+    "n": 1,
+    "q": "18:24 をかんたんな比にしましょう。",
+    "unit": "6-C2",
+    "answer": "3:4",
+    "mark": "○",
+    "confidence": 0.75
+   },
+   {
+    "n": 2,
+    "q": "コーヒーと牛乳を3:5の割合で混ぜます。牛乳を200mL使うとき、コーヒーは何mLいりますか。",
+    "unit": "6-C2",
+    "answer": "333mL",
+    "mark": "✕",
+    "confidence": 0.5
+   },
+   {
+    "n": 3,
+    "q": "1個a円のりんごを4個買うと、代金は何円ですか。式に表しましょう。",
+    "unit": "6-A2",
+    "answer": "a×4",
+    "mark": "○",
+    "confidence": 0.65
+   },
+   {
+    "n": 4,
+    "q": "x×3=27 のとき、xの値を求めましょう。",
+    "unit": "6-A2",
+    "answer": "81",
+    "mark": "✕",
+    "confidence": 0.65
+   }
+  ],
+  "notes": "Strong perspective tilt and small text. Answer to (2) faint; digits read as 333mL with low certainty. Problem numbers 2 and 4 hidden under ✕ marks (inferred). Name unreadable."
+ },
+ "h06": {
+  "page_type": "test",
+  "grade_guess": "小5",
+  "score": "75",
+  "retake": false,
+  "problems": [
+   {
+    "n": 1,
+    "q": "2.4 × 3.5",
+    "unit": "5-A3",
+    "answer": "8.4",
+    "mark": "○",
+    "confidence": 0.75
+   },
+   {
+    "n": 2,
+    "q": "0.6 × 0.7",
+    "unit": "5-A3",
+    "answer": "4.2",
+    "mark": "✕",
+    "confidence": 0.7
+   },
+   {
+    "n": 3,
+    "q": "7.2 ÷ 0.8",
+    "unit": "5-A3",
+    "answer": "9",
+    "mark": "○",
+    "confidence": 0.7
+   },
+   {
+    "n": 4,
+    "q": "5.04 ÷ 1.2",
+    "unit": "5-A3",
+    "answer": "4.2",
+    "mark": "○",
+    "confidence": 0.7
+   },
+   {
+    "n": 5,
+    "q": "1mのねだんが160円のリボンを2.5m買いました。代金は何円ですか。",
+    "unit": "5-A3",
+    "answer": "400円",
+    "mark": "○",
+    "confidence": 0.7
+   },
+   {
+    "n": 6,
+    "q": "3.6Lの油を0.45Lずつびんに分けます。びんは何本いりますか。",
+    "unit": "5-A3",
+    "answer": "8本",
+    "mark": "✕",
+    "confidence": 0.55
+   }
+  ],
+  "notes": "Photo rotated 90° counter-clockwise with a light glare band. Problem numbers 2 and 6 hidden under ✕ marks (inferred). (6) answer digit faint (read as 8). Name unreadable."
+ },
+ "h02": {
+  "page_type": "drill",
+  "grade_guess": "小6",
+  "score": null,
+  "retake": false,
+  "problems": [
+   {
+    "n": 1,
+    "q": "2/3 × 9/10",
+    "unit": "6-A1",
+    "answer": "3/5",
+    "mark": null,
+    "confidence": 0.75
+   },
+   {
+    "n": 2,
+    "q": "5/8 × 4",
+    "unit": "6-A1",
+    "answer": "5/2",
+    "mark": null,
+    "confidence": 0.75
+   },
+   {
+    "n": 3,
+    "q": "3/4 ÷ 9/16",
+    "unit": "6-A1",
+    "answer": "4/3",
+    "mark": null,
+    "confidence": 0.7
+   },
+   {
+    "n": 4,
+    "q": "1と1/2 ÷ 3/4",
+    "unit": "6-A1",
+    "answer": "2",
+    "mark": null,
+    "confidence": 0.75
+   },
+   {
+    "n": 5,
+    "q": "7/12 × 8/21",
+    "unit": "6-A1",
+    "answer": "2/9",
+    "mark": null,
+    "confidence": 0.7
+   },
+   {
+    "n": 6,
+    "q": "4/5mの重さが6/7kgの棒があります。この棒1mの重さは何kgですか。",
+    "unit": "6-A1",
+    "answer": null,
+    "mark": null,
+    "confidence": 0.75
+   }
+  ],
+  "notes": "Shadow across left/top; pencil answers faint, especially (1)-(3) in the shadowed area. No teacher marks or score. (6) answer box blank."
+ },
+ "h05": {
+  "page_type": "test",
+  "grade_guess": "小5",
+  "score": "65",
+  "retake": false,
+  "problems": [
+   {
+    "n": 1,
+    "q": "次の台形の面積を求めましょう。[上底 ?cm, 高さ 5cm, 下底 12cm]",
+    "unit": "5-B3",
+    "answer": "90cm²",
+    "mark": "✕",
+    "confidence": 0.45
+   },
+   {
+    "n": 2,
+    "q": "次の平行四辺形の面積を求めましょう。[底辺 ?cm, 高さ ?cm]",
+    "unit": "5-B3",
+    "answer": "36cm²",
+    "mark": "○",
+    "confidence": 0.5
+   },
+   {
+    "n": 3,
+    "q": "次の三角形の面積を求めましょう。[底辺 ?cm, 高さ ?cm]",
+    "unit": "5-B3",
+    "answer": "27cm²",
+    "mark": "○",
+    "confidence": 0.5
+   },
+   {
+    "n": 4,
+    "q": "対角線の長さが10cmと7cmのひし形の面積は何cm²ですか。",
+    "unit": "5-B3",
+    "answer": "35cm²",
+    "mark": "○",
+    "confidence": 0.75
+   }
+  ],
+  "notes": "Dim/low contrast. Figure measurement labels too small to read: trapezoid top base unreadable (height 5cm and bottom 12cm read with low confidence); parallelogram and triangle labels unreadable. Teacher red note next to (1) answer reads approximately '(4+12)×5÷2' (first number uncertain, could be 6). Problem 1 number hidden under ✕."
+ },
+ "h03": {
+  "page_type": "note",
+  "grade_guess": null,
+  "score": null,
+  "retake": true,
+  "problems": [],
+  "notes": "Lined notebook page, dark and heavily blurred. A title line and about four numbered problem blocks, each followed by an 答え line, are visible, but no problem text or answer can be read reliably. No problems transcribed; ask the student to retake."
+ }
+}

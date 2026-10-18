@@ -1,0 +1,36 @@
+/*
+ * Lens Snap design tokens — the ONLY file with colour literals.
+ * Everything else uses var(--…). (Monorepo hex-literal check: whitelist this file.)
+ * Palette: calm navy + warm apricot accent on warm paper; teacher-red for ✕.
+ */
+:root {
+  --c-navy: #1e2d4a;
+  --c-navy-soft: #34466b;
+  --c-navy-tint: #e8ecf4;
+  --c-accent: #e07a4f;
+  --c-accent-strong: #c9643b;
+  --c-accent-tint: #fbeee6;
+  --c-bg: #f7f4ee;
+  --c-surface: #ffffff;
+  --c-text: #1d2433;
+  --c-muted: #5d6779;
+  --c-line: #e4ded3;
+  --c-wrong: #c8423a;
+  --c-wrong-tint: #fbe9e7;
+  --c-ok: #2f8a63;
+  --c-ok-tint: #e5f3ec;
+  --c-empty: #efebe4;
+  --c-gold: #c99a1e;          /* マスター tile border / dot (warm gold on paper) */
+  --c-gold-strong: #8a6510;   /* gold text: readable on paper and on the tint */
+  --c-gold-tint: #fbf0d2;
+  --c-glow: rgba(232, 168, 40, 0.6); /* light-up pulse after 保存 */
+  --c-on-dark: #ffffff;
+  --c-shadow: rgba(30, 45, 74, 0.08);
+  --c-focus: rgba(224, 122, 79, 0.45);
+
+  --radius: 14px;
+  --radius-sm: 10px;
+  --tap: 48px;
+  --gutter: 16px;
+  --font: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", system-ui, sans-serif;
+}
