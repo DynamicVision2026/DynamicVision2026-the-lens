@@ -40,6 +40,18 @@ Every change merged into `main` that touches `apps/snap` (or the lockfile) is de
 - The live commit is in `/api/health` (`"commit": "…"`). Changes outside apps/snap are skipped.
 - If the new revision fails its health check, traffic goes back to the previous revision and the run is red.
 - Manual run: GitHub → Actions → "Deploy Lens Snap" → Run workflow.
+- Turned on 19 Oct 2026 (first auto-deployed commit: the one that added this line).
+
+## Before every hand-off: the walkthrough
+
+Every tab and button, tapped in order on iPad landscape, iPad portrait and iPhone (PASS/FAIL per step,
+screenshots, JS errors, sideways scrolling):
+
+```sh
+pnpm --filter @lens/snap build
+cd apps/snap && PORT=8096 PILOT_CODE=kumo42 MOCK_FALLBACK=zukei5 WAITLIST_DIR=/tmp/wl4 node dist-server/index.js &
+python3 scripts/walkthrough.py http://localhost:8096 <sheet-photo.jpg> /tmp/walk
+```
 
 ## Domain: snap.domo-ai.com (once)
 
