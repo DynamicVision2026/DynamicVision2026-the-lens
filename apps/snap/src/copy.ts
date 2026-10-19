@@ -259,6 +259,10 @@ export const app = {
     chartLabel: "単元マップ（星図）。下が小1、上が高校です。",
     openBand: (g: string) => `${g}の単元をひらく`,
     fold: "たたむ",
+    upperBand: (from: string, to: string) => (from === to ? `これから学ぶ単元（${to}）` : `これから学ぶ単元（${from}〜${to}）`),
+    upperOpen: (label: string) => `${label}を学年ごとにひらく`,
+    upperFold: "これから学ぶ単元をたたむ",
+    skyHint: "下の学年の単元が、上の学年の単元のもとになっています。",
     starLabel: (grade: string, code: string, topic: string, status: string) => `${grade} ${code} ${topic}、${status}`,
     sheet: {
       problems: "問題",

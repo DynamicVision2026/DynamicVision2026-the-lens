@@ -9,7 +9,7 @@ Students or parents photograph homework, workbook pages and graded tests. Lens S
 - Curriculum data: `data/units.json`
 - Reader test photos + answer key (original synthetic pages): `fixtures/`
 - Build, run, deploy, screenshots: `docs/BUILD-NOTES-v0.md`; deploy: `bash apps/snap/deploy.sh <project>` from the repo root
-- 単元マップ = a curriculum star chart (`src/lib/starmap.ts`): four lanes, grades rising upward; the child's grade and the grade below in full, other grades as a compact far sky (tap to open); units with data glow and link to their roots in the grade below; 「一覧」 keeps the tile view
+- 単元マップ = a curriculum star chart (`src/lib/starmap.ts`): four lanes, grades rising upward; the child's grade and the grade below in full, every grade above merged into one 「これから学ぶ単元」 row (tap to expand), lower grades as compact far bands (tap to open); units with data glow and link to their roots in the grade below; 「一覧」 keeps the tile view
 - **単元マップ = home** (`/app` → `/app/map` once pages exist, 撮る before that; `src/lib/home.ts`): a report strip on top of the star chart (the grade's one-glance bar, 次にやること → tap selects the star and opens its sheet, 「テスト前リストで見る」, 「学習レポートをくわしく見る」, 「前の学年に✕のある単元があります（N）」 → opens the far band and rings those stars; folds to one line, remembered). Four tabs: 撮る / マップ / テスト前 / ふりかえり
 - 学習レポート (`/app/report`, `src/lib/report.ts`): the map's 「詳しく」 page — segmented bar, 次にやること, earlier-grade red units with the unit they support, この1週間, unit chips; every unit opens its star on the map (`/app/map?unit=5-C3`), 「単元マップにもどる」 at the top
 - テスト前リスト: gold units' older ✕ sit in a collapsed 「念のため」 section and do not count against 準備度; `?units=a,b` preselects units

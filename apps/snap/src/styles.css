@@ -349,6 +349,9 @@ body:has(.sky-page) { background: var(--sky-bg); }
 .far-band:hover, .far-band:focus-visible { background: var(--sky-chip); }
 .far-band:focus-visible { outline: 2px solid var(--sky-ink); outline-offset: -2px; }
 .far-star.is-dim { opacity: 0.25; }
+.upper-band span { color: var(--sky-ink-soft); }
+.upper-head { color: var(--sky-ink-soft); }
+.sky-hint { margin: 6px 0 2px; font-size: 0.72rem; line-height: 1.4; color: var(--sky-ink-dim); }
 .far-star .g-empty { opacity: 0.55; }
 
 .star-node {

@@ -6,7 +6,7 @@ import { app } from "../copy";
 import { type Grade, type Unit, unitById } from "../curriculum";
 import { type Strip, buildStrip, earlierBand, focusFromParam } from "../lib/home";
 import { type MapSection, type Tile, mapSections, mapTiles, parseLit, unfiled } from "../lib/review";
-import { type SkyLayout, nearGrades, sheetData } from "../lib/starmap";
+import { type SkyLayout, gradesAbove, nearGrades, sheetData } from "../lib/starmap";
 import { readPref, usePages, writePref } from "../state";
 
 const TOAST_MS = 4500;
@@ -93,6 +93,10 @@ function SkyView({ tiles, grade, lit, unit, strip }: { tiles: Tile[]; grade: Gra
   });
   // 前の学年の✕: those stars ringed (and the nearest far band holding one opened) while on.
   const [marked, setMarked] = useState<Set<string> | null>(null);
+  // Grades above the child's: one merged row until tapped (a lit / ?unit= star up there expands them).
+  const [upperOpen, setUpperOpen] = useState(false);
+  const above = useMemo(() => gradesAbove(grade), [grade]);
+  const upper = above.length > 0 ? { grades: above, merged: !upperOpen && !(opened && above.includes(opened)) } : null;
   const near = useMemo(() => nearGrades(grade, opened), [grade, opened]);
   const geo = useRef<{ L: SkyLayout; canvas: HTMLDivElement } | null>(null);
   const scrolled = useRef(false);
@@ -197,6 +201,12 @@ function SkyView({ tiles, grade, lit, unit, strip }: { tiles: Tile[]; grade: Gra
           setOpened(g);
         }}
         lit={lit}
+        upper={upper}
+        onUpper={(open) => {
+          setSelected(null);
+          setUpperOpen(open);
+          if (!open && opened && above.includes(opened)) setOpened(null);
+        }}
         selected={selected}
         marked={marked}
         onSelect={(id) => select(id)}

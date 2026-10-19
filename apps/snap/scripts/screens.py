@@ -48,6 +48,11 @@ SEED_JS = """async () => {
     };
   });
 }"""
+# A 小2 child: red 2-A2 (twice), gold 2-B1, green 2-C1, and red 1-A2 in the grade below.
+SEED_YOUNG_JS = SEED_JS.replace('grade: "小5"', 'grade: "小2"').split("const pages = [")[0] + """const pages = [
+    P("y1", "2026-10-14T09:00:00.000Z", "drill", [["2-A2","✕"],["2-A2","✕"],["2-A2","○"],["2-C1","✕",true],["1-A2","✕"]]),
+    P("y2", "2026-10-16T09:00:00.000Z", "test", [["2-B1","○"],["2-B1","○"]]),
+  ];""" + SEED_JS.split("];", 1)[1]
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "docs" / "screens"
 OUT.mkdir(parents=True, exist_ok=True)
@@ -149,7 +154,10 @@ with sync_playwright() as p:
     page.goto(BASE + "/app/map")
     expect(page.locator(".sky-page")).to_have_count(1)
     expect(page.locator("button.star-node")).to_have_count(31)  # 小5 (15) + 小4 (16)
-    expect(page.locator("button.far-band")).to_have_count(8)
+    # far sky: one merged 「これから学ぶ単元（小6〜高校）」 row on top + 小3, 小2, 小1 as their own bands
+    expect(page.locator("button.far-band")).to_have_count(4)
+    expect(page.get_by_test_id("upper-band")).to_have_text("これから学ぶ単元（小6〜高校）")
+    expect(page.locator(".sky-hint")).to_have_text("下の学年の単元が、上の学年の単元のもとになっています。")
     expect(page.locator("g.far-star")).to_have_count(110 - 31)
     expect(page.locator(".sky-band-label.is-own")).to_contain_text("小5")
     for unit, st in [("5-C3", "review"), ("5-A1", "gold"), ("5-B1", "gold"), ("5-A3", "ok"), ("5-D1", "ok"),
@@ -188,11 +196,21 @@ with sync_playwright() as p:
     # 5c2. Tap a far band → it opens (labels, tap targets); 「たたむ」 closes it again
     page.locator('button.far-band[data-grade="小3"]').click()
     expect(page.locator('button.star-node[data-unit="3-A4"]')).to_have_attribute("data-status", "review")
-    expect(page.locator("button.far-band")).to_have_count(7)
+    expect(page.locator("button.far-band")).to_have_count(3)
     page.wait_for_timeout(300)
     shot(page, "08e-starmap-expanded", full=False)
     page.get_by_role("button", name="たたむ", exact=True).click()
     expect(page.locator('button.far-band[data-grade="小3"]')).to_have_count(1)
+
+    # 5c3. The merged upper row expands into 小6 … 高校 as individual far bands; 「たたむ」 merges them again
+    page.get_by_test_id("upper-band").click()
+    expect(page.get_by_test_id("upper-band")).to_have_count(0)
+    expect(page.get_by_test_id("upper-head")).to_contain_text("これから学ぶ単元（小6〜高校）")
+    expect(page.locator("button.far-band")).to_have_count(8)
+    expect(page.locator('.sky-canvas [data-unit="6-C2"]')).to_have_attribute("data-status", "gold")
+    page.get_by_role("button", name="これから学ぶ単元をたたむ").click()
+    expect(page.get_by_test_id("upper-band")).to_have_count(1)
+    expect(page.locator("button.far-band")).to_have_count(4)
 
     # 5d. 一覧: the tile view (accessible fallback), choice remembered
     page.get_by_role("radio", name="一覧").click()
@@ -248,7 +266,7 @@ with sync_playwright() as p:
     # 前の学年に✕: the far 小3 band opens and both earlier red stars are ringed; tap again → back
     page.evaluate("window.scrollTo({ top: 0, behavior: 'instant' })")
     page.get_by_test_id("strip-earlier").click()
-    expect(page.locator("button.far-band")).to_have_count(7)
+    expect(page.locator("button.far-band")).to_have_count(3)
     expect(page.locator("button.star-node.is-marked")).to_have_count(2)
     expect(page.locator('button.star-node.is-marked[data-unit="3-A4"]')).to_have_count(1)
     expect(page.locator('button.star-node.is-marked[data-unit="4-A2"]')).to_have_count(1)
@@ -256,7 +274,7 @@ with sync_playwright() as p:
     shot(page, "18e-map-earlier", full=False)
     page.evaluate("window.scrollTo({ top: 0, behavior: 'instant' })")
     page.get_by_test_id("strip-earlier").click()
-    expect(page.locator("button.far-band")).to_have_count(8)
+    expect(page.locator("button.far-band")).to_have_count(4)
     expect(page.locator(".is-marked")).to_have_count(0)
 
     # Fold to one line; remembered after a reload; open again
@@ -428,6 +446,28 @@ with sync_playwright() as p:
     expect(ip.get_by_role("heading", name="ページを撮りましょう")).to_be_visible()
     expect(ip.get_by_test_id("install-tip")).to_have_count(0)
     ios.close()
+
+    # 8b2. A young child (小2): the merged upper row keeps the child's band on the first screen
+    young = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2, locale="ja-JP", is_mobile=True, has_touch=True)
+    y = young.new_page()
+    y.on("pageerror", lambda err: errors.append(str(err)))
+    y.goto(BASE + "/app")
+    y.evaluate("localStorage.setItem('lens-snap:grade', '小2')")
+    y.evaluate(SEED_YOUNG_JS)
+    y.goto(BASE + "/app")
+    expect(y).to_have_url(BASE + "/app/map")
+    expect(y.get_by_test_id("map-strip").locator(".strip-title")).to_have_text("小2の7単元")
+    expect(y.get_by_test_id("upper-band")).to_have_text("これから学ぶ単元（小3〜高校）")
+    expect(y.locator("button.far-band")).to_have_count(1)  # only the merged row: 小1 is near (the grade below)
+    expect(y.get_by_test_id("strip-earlier")).to_have_text("前の学年に✕のある単元があります（1）+")
+    own = y.locator(".sky-band-label.is-own")
+    expect(own).to_contain_text("小2")
+    assert own.bounding_box()["y"] + 46 < 844 - 64, own.bounding_box()
+    for unit, st in [("2-A2", "review"), ("2-B1", "gold"), ("2-C1", "ok"), ("1-A2", "review"), ("2-A1", "empty")]:
+        expect(y.locator(f'.sky-canvas [data-unit="{unit}"]')).to_have_attribute("data-status", st)
+    y.wait_for_timeout(300)
+    shot(y, "18y-map-home-young", full=False)
+    young.close()
 
     # 8c. 学習レポート with no pages yet: a friendly card + 「ページを撮る」; /app starts at 撮る
     ctx3 = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2, locale="ja-JP", is_mobile=True, has_touch=True)

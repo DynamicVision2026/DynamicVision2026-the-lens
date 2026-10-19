@@ -179,6 +179,8 @@ export const SKY = {
   farH: 46,
   farStarY: 31,
   farGap: 12,
+  /** Head row above the expanded upper grades (label + 「たたむ」). */
+  upperHead: 34,
 };
 
 export interface SkyNode {
@@ -208,11 +210,25 @@ export interface SkyEdge {
   to: string;
   d: string;
 }
+/**
+ * The grades above the child's grade. Merged: one compact far row at the top (every star of
+ * those grades side by side per lane, faint), the whole row one button. Expanded: a thin head
+ * row (label + 「たたむ」) above their individual far bands.
+ */
+export interface SkyUpper {
+  grades: Grade[];
+  merged: boolean;
+  /** The merged row, or the head row when expanded. */
+  y: number;
+  h: number;
+}
 export interface SkyLayout {
   width: number;
   height: number;
   laneW: number;
+  /** Individual bands (merged upper grades are not in here: see `upper`). */
   bands: SkyBand[];
+  upper: SkyUpper | null;
   nodes: SkyNode[];
   edges: SkyEdge[];
   byId: Map<string, SkyNode>;
@@ -246,13 +262,51 @@ function edgePath(a: SkyNode, b: SkyNode, all: SkyNode[]): string {
   return `M${a.cx} ${a.cy}Q${qx.toFixed(1)} ${qy.toFixed(1)} ${b.cx} ${b.cy}`;
 }
 
-export function layoutStarmap(width: number, near: Iterable<Grade> = GRADES): SkyLayout {
+/** Grades above the child's grade, lowest first (小5 → 小6 … 高校; 高校 → none). */
+export function gradesAbove(own: Grade): Grade[] {
+  return GRADES.slice(GRADES.indexOf(own) + 1);
+}
+
+/** Lay out stars of one lane side by side in a far row (centred, gap shrinks to fit the lane). */
+function farRow(units: Unit[], li: number, laneW: number, cy: number, lane: Lane, nodes: SkyNode[]) {
+  const laneX = li * laneW;
+  const gap = units.length > 1 ? Math.min(SKY.farGap, (laneW - 16) / (units.length - 1)) : 0;
+  const x0 = laneX + laneW / 2 - (gap * (units.length - 1)) / 2;
+  units.forEach((u, k) => {
+    const cx = x0 + k * gap;
+    nodes.push({ id: u.id, lane, grade: u.appGrade, far: true, x: cx - gap / 2, y: cy - 5, w: Math.max(gap, 1), h: 10, cx, cy });
+  });
+}
+
+export function layoutStarmap(
+  width: number,
+  near: Iterable<Grade> = GRADES,
+  upperOpt: { grades: Grade[]; merged: boolean } | null = null,
+): SkyLayout {
   const nearSet = new Set(near);
   const laneW = width / LANES.length;
   const bands: SkyBand[] = [];
   const nodes: SkyNode[] = [];
   let y = 0;
+  let upper: SkyUpper | null = null;
+  const upperSet = new Set(upperOpt && upperOpt.grades.length > 0 ? upperOpt.grades : []);
+  if (upperSet.size > 0) {
+    const merged = upperOpt!.merged && ![...upperSet].some((g) => nearSet.has(g));
+    if (merged) {
+      // One dense row: per lane, the upper grades' units from the lowest grade (left) up.
+      const low = [...upperSet].sort((a, b) => GRADES.indexOf(a) - GRADES.indexOf(b));
+      LANES.forEach((lane, li) =>
+        farRow(low.flatMap((g) => laneUnits(g, lane)), li, laneW, SKY.farStarY, lane, nodes),
+      );
+      upper = { grades: low, merged: true, y: 0, h: SKY.farH };
+      y = SKY.farH;
+    } else {
+      upper = { grades: [...upperSet].sort((a, b) => GRADES.indexOf(a) - GRADES.indexOf(b)), merged: false, y: 0, h: SKY.upperHead };
+      y = SKY.upperHead;
+    }
+  }
   for (const grade of BANDS_TOP_DOWN) {
+    if (upper?.merged && upperSet.has(grade)) continue;
     const stacks = LANES.map((lane) => laneUnits(grade, lane));
     const isNear = nearSet.has(grade);
     let h: number;
@@ -274,16 +328,7 @@ export function layoutStarmap(width: number, near: Iterable<Grade> = GRADES): Sk
       });
     } else {
       h = SKY.farH;
-      stacks.forEach((units, li) => {
-        const laneX = li * laneW;
-        const gap = units.length > 1 ? Math.min(SKY.farGap, (laneW - 16) / (units.length - 1)) : 0;
-        const x0 = laneX + laneW / 2 - (gap * (units.length - 1)) / 2;
-        units.forEach((u, k) => {
-          const cx = x0 + k * gap;
-          const cy = y + SKY.farStarY;
-          nodes.push({ id: u.id, lane: LANES[li], grade, far: true, x: cx - gap / 2, y: cy - 5, w: Math.max(gap, 1), h: 10, cx, cy });
-        });
-      });
+      stacks.forEach((units, li) => farRow(units, li, laneW, y + SKY.farStarY, LANES[li], nodes));
     }
     bands.push({ grade, near: isNear, y, h });
     y += h;
@@ -293,9 +338,10 @@ export function layoutStarmap(width: number, near: Iterable<Grade> = GRADES): Sk
   for (const n of nodes)
     for (const r of rootIds(n.id)) {
       const m = byId.get(r)!;
+      if (m.cy <= n.cy) continue; // both inside the merged upper row: no line
       edges.push({ key: edgeKey(n.id, r), from: n.id, to: r, d: edgePath(n, m, nodes) });
     }
-  return { width, height: y, laneW, bands, nodes, edges, byId };
+  return { width, height: y, laneW, bands, upper, nodes, edges, byId };
 }
 
 // ---------- bottom sheet ----------
