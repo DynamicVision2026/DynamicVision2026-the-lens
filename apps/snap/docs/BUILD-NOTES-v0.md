@@ -11,16 +11,17 @@ pnpm build && pnpm start   # one server on :8080 serving dist/ + /api/*
 ```
 
 Checks: `pnpm test` (vitest), `pnpm typecheck`, `pnpm eval --reader mock` (or `--reader claude` with a key), `pnpm eval:units` (unit tagging, text only; `--reader claude` with a key — see README for the Cloud Shell one-liner).
-UI walkthrough + screenshots (two built servers: one open, one with a pilot code):
+UI walkthrough + screenshots (three built servers: one open, one with a pilot code, one for the founder's journey):
 
 ```bash
 pnpm build
 PORT=8093 WAITLIST_DIR=/tmp/wl1 node dist-server/index.js &
 PORT=8094 PILOT_CODE=kumo42 WAITLIST_DIR=/tmp/wl2 node dist-server/index.js &
+PORT=8095 MOCK_FALLBACK=live4 WAITLIST_DIR=/tmp/wl3 node dist-server/index.js &   # J* journey (the live 4年 sheet)
 PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers python3 scripts/screens.py   # → docs/screens/*.png (390×844)
 ```
 
-The script seeds four earlier pages into IndexedDB (sample problems, no photos) so the star chart shows red, green, gold and grey stars in 小5 and a few in 小4, then runs the real snap → confirm → save flow on fixture p01, the sheet, 一覧, backup / restore, an offline reload through the service worker, both install tips and the pilot-code flow. Restart both servers after every `pnpm build` (the server keeps index.html in memory).
+The script seeds four earlier pages into IndexedDB (sample problems, no photos) so the star chart shows red, green, gold and grey stars in 小5 and a few in 小4, then runs the real snap → confirm → save flow on fixture p01, the sheet, 一覧, backup / restore, an offline reload through the service worker, both install tips and the pilot-code flow. Restart all three servers after every `pnpm build` (the server keeps index.html in memory). Run them without `ANTHROPIC_API_KEY` (or with `READER=mock`).
 
 Icons: `node scripts/icons.mjs` (from apps/snap) regenerates `public/icon.svg` and `public/icons/*.png` from one SVG mark (sharp). The PNGs are committed.
 
@@ -31,6 +32,7 @@ Icons: `node scripts/icons.mjs` (from apps/snap) regenerates `public/icon.svg` a
 | `PORT` | `8080` | Listen port (Cloud Run sets it) |
 | `ANTHROPIC_API_KEY` | — | When set, the Claude reader is used; when absent, the MockReader |
 | `READER` | auto | Force `mock` or `claude` |
+| `MOCK_FALLBACK` | `p01` | Mock reader only: fixture id answered for a photo it cannot match by hash (the browser re-encodes large uploads, so a journey run pins its page this way, e.g. `live4`) |
 | `READER_MODEL` | `claude-haiku-5-5` | Model id for the Claude reader; set `claude-sonnet-5-5` for higher accuracy |
 | `PILOT_CODE` | — | When set, `/api/read` needs header `x-pilot-code` equal to it (constant-time compare) → else 403 `{error:"pilot_code"}`. `/api/health` reports `pilotGate: true` and the app asks for 「招待コード」. Landing + waitlist stay open. |
 | `READ_PER_IP_HOUR` | `20` | `/api/read` per client per rolling hour → 429 `{error:"rate_limited"}` |
@@ -138,6 +140,20 @@ Founder decisions: (1) 高校 is three grades, never one; (2) teacher-marked pag
 
 Tests: 144 (14 files; new `koko-grades.test.ts` 9: 高2 star chart near / merged / no overlaps, 中3 and 高3 upper rows, roots II→I and III→II, per-year counts, 高2 report + strip + `?unit=`, reader list + prompt for 高1 / 高2, IndexedDB and backup migration, localStorage migration + check flag; `curriculum.test.ts` +4: 12 grades, each of the 110 units in exactly one grade, school-year table, 高1/高2/高3 reader lists, `toGrade`; `judge-units.test.ts` +7: teacher ○ + AI ✕, AI-only ✕, agreeing / missing judgment, mixed page, parent tap clears the note and `aiJudge` is saved, mock p01, backup round-trip; waitlist +2: three 高校 options + legacy 「高校生」, `/read` with 「高校」). Screenshots: `04-onboarding-grade` (12 buttons, 4 rows of 3), `06b-confirm-teacher` (正答（AI） under every toggle, the note on Q5), new `18k-map-home-koko2` (高2 child), new `04m-grade-migrated` (old 「高校」 → 高1 note); 小5 map / report unchanged apart from 「（小6〜高3）」. `screens.py` also checks the parent tap clearing the note, the 10 expanded far bands, the 高2 report and the migration flow.
 
+## v0.6 (19 Oct 2026): the map is the centre of the app
+
+Founder, after his live test (he reached the confirm screen but never found the map; the app started on 撮る): "Where's the map? The UI should be very clear and around the map."
+
+- **The map is always home** (`homePath()` → `/app/map`, no page count): after the 招待コード and the grade the app opens on the 単元マップ, also before the first page. Tabs: マップ / 撮る / テスト前 / ふりかえり (`APP_TABS`, マップ first).
+- **Empty map** (`src/components/WelcomeCard.tsx`): the full night-sky chart of the grade band (all stars faint, まだ) and, in place of the report strip, a card in the same sky pane: 「小5の単元マップ」, 「プリントやテストを撮ると、その単元の星が光ります。」, the four-state legend (small star glyphs) and a big 「ページを撮る」 (→ `/app/snap`).
+- **Floating 「撮る」** (`src/components/SnapFab.tsx`): camera icon + 撮る, bottom-right above the tab bar (`env(safe-area-inset-bottom)` aware, aligned to the 720 px column on wide screens), on both 星図 and 一覧; not rendered while a star's sheet is open. The sky page has 80 px more bottom room so it never hides the lowest band. The 撮る tab and the button share one camera glyph (`CameraGlyph`).
+- **After 保存**: `litMapUrl` now carries the page id (`&page=…`); the toast is built by `savedToast(page)` (pure, `src/lib/home.ts`): 「4問を保存しました：✕ 2問（平均、数量の関係を表す式）・○ 2問」 (✕ units in page order, each once, max 3 then 「ほか」; unmarked problems → 「印なし N問」; no marks → 「N問を保存しました。」). The toast now sits at the top of the map (over the lane header) and the lit stars are framed between it and the tab bar (all of them when they fit, centred; else from the first). Once the toast is gone (4.5 s) the map glides back up to the strip and the new 次にやること rows glow once, unless the user has touched or scrolled meanwhile. 「レポートを見る」 stays in the toast. Counts never split across lines (`keep-all`, no-break space after ✕/○).
+- **次にやること in the strip** = the report's 次にやること (red units of the child's grade) topped up to 3 with its 前の学年で気になる単元 (nearest grade first, with a small grade tag, e.g. 「小4」), so a ✕ saved from an older sheet appears there. The 学習レポート page itself is unchanged.
+- **テスト前リスト** opened with `?units=` / `?unit=` (from the strip, the report or a sheet) starts at the readiness card, so the problems are on the first screen; a problem from an earlier grade shows its grade (「小4 A(6) 数量の関係を表す式」, which 小5 also has).
+- **Journey screenshots** (`J*`, fresh 小5 profile, journey server `MOCK_FALLBACK=live4`): fixture `live4` = the founder's live reading of a 4年 sheet (4 problems: 4-A4 ○, 5-D2 ✕ (empty table), 4-A6 ✕ (式 only), 4-A6 ○ at confidence 0.6; no teacher marks, drill) + `fixtures/photos/live4.jpg` (the photo; no `truth.json` entry, so `pnpm eval` skips it). Shots: `J1-empty-map`, `J2-confirm`, `J3-saved-map` (mid-flare, toast), `J4-map-after` (strip: 平均 + 小4 数量の関係を表す式), `J5-sheet` (平均), `J6-list` (the two ✕).
+
+Tests: 151 (15 files; `home.test.ts`: home always the map, tab order, strip top-up from earlier grades (+ the live-sheet case), `savedToast` (live text, all ○ / all ✕ / no marks / 印なし / no unit / 「ほか」 / empty), MOCK_FALLBACK=live4 → draft → `litMapUrl` + toast; new `welcome.test.ts` 3: card title / line / 4-item legend / 「ページを撮る」 → `/app/snap`, empty sky all まだ, floating button → `/app/snap`; `map.test.ts`: `litMapUrl` with `page`). `screens.py`: grade → empty map + welcome + tab order, 撮る from the floating button, toast text, strip with 3 rows (4-A2 tagged 小4), button hidden under an open sheet, `/app` with no pages → map, gated server → map after code + grade, plus the J journey.
+
 ## Known gaps
 
 - **Claude reader not run here** (no key in this environment): implemented and type-checked only. Default `READER_MODEL` is `claude-haiku-5-5` (`claude-sonnet-5-5` as the higher-accuracy option); run `pnpm eval --reader claude` with each before launch.
@@ -158,7 +174,10 @@ Tests: 144 (14 files; new `koko-grades.test.ts` 9: 高2 star chart near / merged
 - Star labels show up to 3 short lines (10–10.5 px); the longest topic (小3 二等辺三角形・正三角形、角、円と球) is cut with 「…」 on the chart and shown in full in the sheet.
 - The service worker was checked in Chromium (Playwright: offline reload of `/app/map` works, no `/api` entries in the cache) and in a unit test; not yet on a real iPhone. iOS may still clear site data for web pages not added to the home screen, which is why the install tip and backup exist.
 - `navigator.storage.persist()` is a request; Chrome may decline it for sites that are not installed or bookmarked. The result is stored but not shown.
-- The report strip is in the 星図 view only; a family that chose 一覧 sees the v0 tile header without it.
+- The report strip is in the 星図 view only; a family that chose 一覧 sees the v0 tile header without it (the floating 撮る is there; the welcome card is not).
+- **Strip vs 学習レポート**: the strip's 次にやること may now list an earlier-grade unit (topped up) that the report shows under 前の学年で気になる単元 instead, and that unit is also counted in the strip's 「前の学年に✕…（N）」 line. Making the report's 次にやること follow the same rule is a one-line change in `buildReport` if the founder prefers one list everywhere.
+- The glide back to the strip after 保存 is skipped when the user touches, scrolls or presses a key during the 4.5 s toast; a family that taps a lit star right away stays where it is.
+- The empty map keeps the small 「単元マップ」 page heading above the card's 「小5の単元マップ」 (the 星図 / 一覧 toggle lives there).
 - 学習レポート fits one phone screen down to 次にやること; 前の学年, この1週間 and the chips need one short scroll on a 390×844 phone. The 復習が必要 chip group repeats the 次にやること units (kept as specified; dropping it would save ~50 px).
 - 「最後に撮った日」 and この1週間 use the device clock and local time; a page saved on another device with a skewed clock (backup restore) can fall outside the week.
 - 準備度 is still shown as a percentage of problems in range with nothing left to do (existing v0 wording); it describes review progress, not understanding, but the founder may want to re-check it against the no-score rule.

@@ -1,15 +1,20 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { ReportStrip } from "../components/ReportStrip";
+import { SnapFab } from "../components/SnapFab";
 import { StarGlyph, StarMap } from "../components/StarMap";
+import { WelcomeCard } from "../components/WelcomeCard";
 import { app } from "../copy";
 import { type Grade, type Unit, isHighSchool, unitById } from "../curriculum";
-import { type Strip, buildStrip, earlierBand, focusFromParam } from "../lib/home";
+import { type Strip, buildStrip, earlierBand, focusFromParam, savedToast } from "../lib/home";
 import { type MapSection, type Tile, mapSections, mapTiles, parseLit, unfiled } from "../lib/review";
 import { type SkyLayout, gradesAbove, nearGrades, sheetData } from "../lib/starmap";
 import { readPref, usePages, writePref } from "../state";
 
 const TOAST_MS = 4500;
+/** After 保存 the lit stars are framed between these: below the sticky lanes + the toast, above the tab bar. */
+const LIT_TOP = 200;
+const LIT_BOTTOM = 110;
 type View = "sky" | "list";
 
 const reduceMotion = () => window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
@@ -20,6 +25,7 @@ export function MapScreen({ grade }: { grade: Grade }) {
   const [params] = useSearchParams();
   const lit = useMemo(() => parseLit(params.get("lit")), [params]);
   const saved = Number(params.get("saved") ?? 0);
+  const savedId = params.get("page");
   const unitParam = params.get("unit");
   const [view, setViewState] = useState<View>(() => (readPref("map-view") === "list" ? "list" : "sky"));
   const setView = (v: View) => {
@@ -37,6 +43,7 @@ export function MapScreen({ grade }: { grade: Grade }) {
   if (!pages) return <div className={`page${view === "sky" ? " sky-page" : ""}`} />;
   const tiles = mapTiles(pages);
   const nUnfiled = unfiled(pages);
+  const savedPage = savedId ? pages.find((pg) => pg.id === savedId) : undefined;
 
   return (
     <div className={`page${view === "sky" ? " sky-page" : ""}`} data-view={view}>
@@ -60,13 +67,19 @@ export function MapScreen({ grade }: { grade: Grade }) {
       {view === "list" && <ListHeader />}
       {nUnfiled > 0 && <p className="notice notice-warn">{app.map.unfiled(nUnfiled)}</p>}
       {view === "sky" ? (
-        <SkyView tiles={tiles} grade={grade} lit={lit} unit={unitParam} strip={buildStrip(pages, grade)} />
+        <SkyView tiles={tiles} grade={grade} lit={lit} unit={unitParam} strip={buildStrip(pages, grade)} empty={pages.length === 0} />
       ) : (
-        <ListView pages={pages} grade={grade} lit={lit} />
+        <>
+          <ListView pages={pages} grade={grade} lit={lit} />
+          <SnapFab />
+        </>
       )}
       {toast && (
-        <div className="toast toast-row" role="status">
-          <span data-testid="lit-toast">{app.map.litToast(saved, lit.length > 0)}</span>
+        <div className="toast toast-row toast-map" role="status">
+          <span className="toast-text" data-testid="lit-toast">
+            {/* ✕ 2問 / ○ 2問 never split across lines */}
+            {(savedPage ? savedToast(savedPage) : app.map.litToast(saved, lit.length > 0)).replace(/([✕○]) /g, "$1\u00a0")}
+          </span>
           <Link to="/app/report" className="toast-link" data-testid="toast-report">
             {app.map.toReport}
           </Link>
@@ -78,7 +91,8 @@ export function MapScreen({ grade }: { grade: Grade }) {
 
 // ---------- 星図 ----------
 
-function SkyView({ tiles, grade, lit, unit, strip }: { tiles: Tile[]; grade: Grade; lit: string[]; unit: string | null; strip: Strip }) {
+function SkyView(props: { tiles: Tile[]; grade: Grade; lit: string[]; unit: string | null; strip: Strip; empty: boolean }) {
+  const { tiles, grade, lit, unit, strip, empty } = props;
   // ?unit=5-C3 (from the 学習レポート): that star selected, its sheet open, its far band opened.
   const [focus] = useState(() => focusFromParam(unit, grade));
   const [selected, setSelected] = useState<string | null>(focus.selected);
@@ -112,6 +126,20 @@ function SkyView({ tiles, grade, lit, unit, strip }: { tiles: Tile[]; grade: Gra
     window.scrollTo({ top: Math.max(0, top - window.innerHeight * at), behavior: smooth && !reduceMotion() ? "smooth" : "instant" });
   }, []);
 
+  /** After 保存: frame every lit star of the near sky at once (centred when they fit, else from the first). */
+  const scrollToLit = useCallback((ids: string[]) => {
+    const g = geo.current;
+    if (!g) return;
+    const ys = ids.map((id) => g.L.byId.get(id)).filter((n) => n && !n.far).map((n) => n!.cy);
+    if (ys.length === 0) return;
+    const base = g.canvas.getBoundingClientRect().top + window.scrollY;
+    const first = base + Math.min(...ys);
+    const span = Math.max(...ys) - Math.min(...ys);
+    const avail = window.innerHeight - LIT_TOP - LIT_BOTTOM;
+    const y = first - LIT_TOP - (span <= avail ? (avail - span) / 2 : 0);
+    window.scrollTo({ top: Math.max(0, y), behavior: "instant" });
+  }, []);
+
   const onLayout = useCallback(
     (L: SkyLayout, canvas: HTMLDivElement) => {
       geo.current = { L, canvas };
@@ -134,12 +162,32 @@ function SkyView({ tiles, grade, lit, unit, strip }: { tiles: Tile[]; grade: Gra
       scrolled.current = true;
       // On load: the first lit star (after 保存) in the middle; a ?unit= star above its sheet;
       // otherwise the top of the page (the report strip, then the chart down to the child's grade).
-      if (lit.length > 0) return scrollToStar(lit[0], 0.5, false);
+      if (lit.length > 0) return scrollToLit(lit);
       if (focus.selected) return scrollToStar(focus.selected, 0.16, false);
       window.scrollTo({ top: 0, behavior: "instant" });
     },
-    [lit, focus, scrollToStar],
+    [lit, focus, scrollToStar, scrollToLit],
   );
+
+  // After 保存, once the flare and the toast are over: glide back up to the report strip, whose
+  // 次にやること now includes the new ✕ units (only if the user has not touched or scrolled meanwhile).
+  const [fresh, setFresh] = useState(false);
+  useEffect(() => {
+    if (lit.length === 0) return;
+    let moved = false;
+    const stop = () => (moved = true);
+    const evs = ["touchstart", "wheel", "keydown", "pointerdown"] as const;
+    for (const e of evs) window.addEventListener(e, stop, { passive: true });
+    const t = setTimeout(() => {
+      if (moved) return;
+      setFresh(true);
+      window.scrollTo({ top: 0, behavior: reduceMotion() ? "instant" : "smooth" });
+    }, TOAST_MS);
+    return () => {
+      clearTimeout(t);
+      for (const e of evs) window.removeEventListener(e, stop);
+    };
+  }, [lit]);
 
   const select = useCallback(
     (id: string | null, fromSheet = false) => {
@@ -188,7 +236,17 @@ function SkyView({ tiles, grade, lit, unit, strip }: { tiles: Tile[]; grade: Gra
   const data = selected ? sheetData(selected, tiles) : null;
   return (
     <>
-      <ReportStrip strip={strip} onPick={(id) => select(id, true)} earlierOn={marked !== null} onEarlier={toggleEarlier} />
+      {empty ? (
+        <WelcomeCard grade={grade} />
+      ) : (
+        <ReportStrip
+          strip={strip}
+          onPick={(id) => select(id, true)}
+          earlierOn={marked !== null}
+          onEarlier={toggleEarlier}
+          fresh={fresh ? lit : undefined}
+        />
+      )}
       <StarMap
         tiles={tiles}
         grade={grade}
@@ -214,6 +272,7 @@ function SkyView({ tiles, grade, lit, unit, strip }: { tiles: Tile[]; grade: Gra
       />
       {data && <Sheet data={data} onClose={() => setSelected(null)} onPick={(id) => select(id, true)} />}
       {data && <div className="sheet-spacer" aria-hidden />}
+      {!data && <SnapFab />}
     </>
   );
 }

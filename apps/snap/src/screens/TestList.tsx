@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { PhotoThumb } from "../components/PhotoThumb";
 import { app } from "../copy";
@@ -24,6 +24,14 @@ export function TestList({ grade }: { grade: Grade }) {
     }
   });
   useEffect(() => writePref(key, JSON.stringify(range)), [key, range]);
+  // Opened from the map / report with units already chosen: start at the problems, not the chips.
+  const fromMap = params.has("units") || params.has("unit");
+  const jumped = useRef(false);
+  useEffect(() => {
+    if (!pages || !fromMap || jumped.current) return;
+    jumped.current = true;
+    document.querySelector(".readiness")?.scrollIntoView({ block: "start", behavior: "instant" });
+  }, [pages, fromMap]);
 
   const choices: Unit[] = useMemo(() => {
     const own = unitsForGrade(grade);
@@ -90,7 +98,7 @@ export function TestList({ grade }: { grade: Grade }) {
           )}
           <ul className="cards" data-testid="test-list">
             {main.map((item) => (
-              <Item key={`${item.page.id}-${item.index}`} item={item} onTick={onTick} />
+              <Item key={`${item.page.id}-${item.index}`} item={item} grade={grade} onTick={onTick} />
             ))}
           </ul>
           {nennotame.length > 0 && (
@@ -102,7 +110,7 @@ export function TestList({ grade }: { grade: Grade }) {
               <p className="small muted nennotame-note">{app.list.nennotameNote}</p>
               <ul className="cards">
                 {nennotame.map((item) => (
-                  <Item key={`${item.page.id}-${item.index}`} item={item} onTick={onTick} />
+                  <Item key={`${item.page.id}-${item.index}`} item={item} grade={grade} onTick={onTick} />
                 ))}
               </ul>
             </details>
@@ -113,8 +121,9 @@ export function TestList({ grade }: { grade: Grade }) {
   );
 }
 
-function Item({ item, onTick }: { item: ListItem; onTick: (item: ListItem, checked: boolean) => void }) {
+function Item({ item, grade, onTick }: { item: ListItem; grade: Grade; onTick: (item: ListItem, checked: boolean) => void }) {
   const { page, problem, reason } = item;
+  const unit = unitById(problem.unit);
   return (
     <li className={`card review-item ${problem.reviewed ? "is-done" : ""}`} data-testid="review-item">
       <div className="review-main">
@@ -122,7 +131,10 @@ function Item({ item, onTick }: { item: ListItem; onTick: (item: ListItem, check
           <span className={`pill ${reason === "wrong" ? "pill-wrong" : "pill-warn"}`}>
             {reason === "wrong" ? app.list.wrong : app.list.low}
           </span>
-          <span className="muted small">{unitById(problem.unit)?.label}</span>
+          <span className="muted small">
+            {unit && unit.appGrade !== grade ? `${unit.grade} ` : ""}
+            {unit?.label}
+          </span>
         </div>
         <p className="problem-q">{problem.q}</p>
         {problem.answer && (

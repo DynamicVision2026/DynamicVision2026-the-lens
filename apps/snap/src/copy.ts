@@ -179,7 +179,7 @@ export const landingUi = {
 };
 
 export const app = {
-  nav: { snap: "撮る", map: "マップ", list: "テスト前", archive: "ふりかえり" },
+  nav: { map: "マップ", snap: "撮る", list: "テスト前", archive: "ふりかえり" },
   onboarding: {
     title: "学年を選んでください",
     body: "その学年の単元で整理します。あとから変えられます。",
@@ -243,6 +243,24 @@ export const app = {
     litToast: (n: number, lit: boolean) =>
       lit ? `${n}問を保存しました。光っている単元に入りました。` : `${n}問を保存しました。`,
     toReport: "レポートを見る",
+    // Toast right after 保存 (built by savedToast in lib/home.ts)
+    saved: {
+      head: (n: number) => `${n}問を保存しました`,
+      wrong: (n: number, topics: string[], more: boolean) =>
+        topics.length > 0 ? `✕ ${n}問（${topics.join("、")}${more ? " ほか" : ""}）` : `✕ ${n}問`,
+      ok: (n: number) => `○ ${n}問`,
+      none: (n: number) => `印なし ${n}問`,
+    },
+    // Empty map (no pages yet): the grade's sky + this card in place of the report strip
+    welcome: {
+      title: (g: string) => `${g}の単元マップ`,
+      body: "プリントやテストを撮ると、その単元の星が光ります。",
+      legend: "星の色",
+      cta: "ページを撮る",
+    },
+    // Floating button on the map
+    fab: "撮る",
+    fabLabel: "ページを撮る",
     // 単元星図
     view: { sky: "星図", list: "一覧" },
     viewLabel: "表示のしかた",

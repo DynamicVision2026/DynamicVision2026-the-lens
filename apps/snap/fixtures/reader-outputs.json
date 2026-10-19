@@ -746,5 +746,57 @@
   "retake": true,
   "problems": [],
   "notes": "Lined notebook page, dark and heavily blurred. A title line and about four numbered problem blocks, each followed by an 答え line, are visible, but no problem text or answer can be read reliably. No problems transcribed; ask the student to retake."
+ },
+ "live4": {
+  "page_type": "drill",
+  "grade_guess": "小4",
+  "score": null,
+  "problems": [
+   {
+    "n": 1,
+    "q": "A 2.54+3.68 B 10.2−5.47",
+    "unit": "4-A4",
+    "answer": "A 6.22 / B 4.73",
+    "mark": null,
+    "confidence": 0.9,
+    "correct_answer": "A 6.22 / B 4.73",
+    "judge": "○",
+    "unit_confidence": 0.9
+   },
+   {
+    "n": 2,
+    "q": "次の表は、あるクラスのテストの点数です。平均点を求めなさい。（表：10点・80点・90点・100点の人数を記入する表）",
+    "unit": "5-D2",
+    "answer": null,
+    "mark": null,
+    "confidence": 0.9,
+    "correct_answer": null,
+    "judge": "✕",
+    "unit_confidence": 0.9
+   },
+   {
+    "n": 3,
+    "q": "1本80円の鉛筆を3本と、1冊120円のノートを2冊買いました。代金は全部でいくら",
+    "unit": "4-A6",
+    "answer": "(式) 80×3+120×2（答えの欄は空欄）",
+    "mark": null,
+    "confidence": 0.9,
+    "correct_answer": "480円",
+    "judge": "✕",
+    "unit_confidence": 0.9
+   },
+   {
+    "n": 4,
+    "q": "1本80円の鉛筆を3本と、1冊120円のノートをました。",
+    "unit": "4-A6",
+    "answer": "(式) 240+240 = 480 / 答え 480円",
+    "mark": null,
+    "confidence": 0.6,
+    "correct_answer": "480円",
+    "judge": "○",
+    "unit_confidence": 0.9
+   }
+  ],
+  "notes": "Mock of the founder's live test (19 Oct 2026) of a 4年 sheet read for a 小5 profile. No teacher marks; ○✕ are the AI's judgments. Q2's table is empty (no answer). Q4 is a partly cut-off duplicate of Q3."
  }
 }

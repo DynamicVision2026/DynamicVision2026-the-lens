@@ -14,8 +14,16 @@ const PREF = "map-strip";
  * The 学習レポート at one glance, at the top of the 単元マップ (same night sky, same star colours).
  * Folds to one line; the choice is remembered on this device.
  */
-export function ReportStrip(props: { strip: Strip; onPick: (id: string) => void; earlierOn: boolean; onEarlier: () => void }) {
+export function ReportStrip(props: {
+  strip: Strip;
+  onPick: (id: string) => void;
+  earlierOn: boolean;
+  onEarlier: () => void;
+  /** Units of the page just saved: their 次にやること rows glow once (after the map glides back up). */
+  fresh?: string[];
+}) {
   const { strip, onPick, earlierOn, onEarlier } = props;
+  const fresh = new Set(props.fresh ?? []);
   const [open, setOpenState] = useState(() => readPref(PREF) !== "closed");
   const setOpen = (v: boolean) => {
     writePref(PREF, v ? "open" : "closed");
@@ -82,9 +90,17 @@ export function ReportStrip(props: { strip: Strip; onPick: (id: string) => void;
         <ul className="strip-rows" data-testid="strip-next">
           {strip.next.map((n) => (
             <li key={n.unit.id}>
-              <button type="button" className="strip-row" data-unit={n.unit.id} onClick={() => onPick(n.unit.id)}>
+              <button
+                type="button"
+                className={`strip-row${fresh.has(n.unit.id) ? " is-fresh" : ""}`}
+                data-unit={n.unit.id}
+                onClick={() => onPick(n.unit.id)}
+              >
                 <StarGlyph status="review" size={24} />
-                <span className="strip-unit">{n.unit.topic}</span>
+                <span className="strip-unit">
+                  {n.unit.appGrade !== strip.grade && <span className="strip-grade">{n.unit.appGrade}</span>}
+                  {n.unit.topic}
+                </span>
                 <span className="strip-wrong">{app.report.wrong(n.wrong)}</span>
               </button>
             </li>
