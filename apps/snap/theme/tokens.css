@@ -20,6 +20,7 @@
   --c-ok: #2f8a63;
   --c-ok-tint: #e5f3ec;
   --c-empty: #efebe4;
+  --c-empty-strong: #d5cec2;  /* まだ in the レポート bar: visible on white, still the quietest segment */
   --c-gold: #c99a1e;          /* マスター tile border / dot (warm gold on paper) */
   --c-gold-strong: #8a6510;   /* gold text: readable on paper and on the tint */
   --c-gold-tint: #fbf0d2;

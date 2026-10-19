@@ -177,7 +177,7 @@ export const landingUi = {
 };
 
 export const app = {
-  nav: { snap: "撮る", map: "マップ", list: "テスト前", archive: "ふりかえり" },
+  nav: { snap: "撮る", report: "レポート", map: "マップ", list: "テスト前", archive: "ふりかえり" },
   onboarding: {
     title: "学年を選んでください",
     body: "その学年の単元で整理します。あとから変えられます。",
@@ -235,6 +235,7 @@ export const app = {
     toList: "テスト前リストへ",
     litToast: (n: number, lit: boolean) =>
       lit ? `${n}問を保存しました。光っている単元に入りました。` : `${n}問を保存しました。`,
+    toReport: "レポートを見る",
     // 単元星図
     skyBody: "下から上へ、学年ごとに単元がつながっています。",
     view: { sky: "星図", list: "一覧" },
@@ -291,6 +292,39 @@ export const app = {
     yourAnswer: "こたえ",
     count: (n: number) => `${n}問`,
     chooseUnits: "単元を選ぶと、今夜やる問題が出てきます。",
+    onlyNennotame: "選んだ単元で、今夜やる問題はありません。念のための見直しは下にあります。",
+    nennotame: "念のため（最新のページでは全問○の単元）",
+    nennotameNote: "新しいページでは全問○でした。時間があるときに見直してください。",
+  },
+  report: {
+    title: (g: string) => `${g}の学習レポート`,
+    meta: (date: string, pages: number) => `最後に撮った日：${date} ・ これまでに${pages}ページ`,
+    barLabel: "単元ごとのようす",
+    of: (n: number) => `${n}単元のうち`,
+    state: { gold: "マスター", ok: "復習ずみ", review: "復習が必要", empty: "まだ" },
+    stateHint: {
+      gold: "最新のページで全問○",
+      ok: "✕は復習ずみ",
+      review: "復習していない✕がある",
+      empty: "まだ問題がない",
+    },
+    next: "次にやること",
+    wrong: (n: number) => `✕ ${n}問`,
+    openList: "テスト前リストで見る",
+    noNext: "今、復習が必要な単元はありません。新しいプリントやテストを撮ると、ここに表示されます。",
+    earlier: "前の学年で気になる単元",
+    earlierBody: "今の学年の単元のもとになる単元です。",
+    supports: (grade: string, topic: string) => `${grade}「${topic}」のもと`,
+    week: "この1週間",
+    weekPages: "撮ったページ",
+    weekProblems: "問題",
+    weekWrong: "✕のついた問題",
+    units: "単元",
+    toMap: "単元マップで全体を見る",
+    emptyTitle: "撮ると、ここにレポートができます",
+    emptyBody:
+      "宿題・ドリル・テストを撮っておくと、単元ごとのようすがこの1ページにまとまります。全問○の単元、復習が必要な単元、この1週間に撮った量が、ひと目でわかります。",
+    emptyCta: "ページを撮る",
   },
   archive: {
     title: "ふりかえり",

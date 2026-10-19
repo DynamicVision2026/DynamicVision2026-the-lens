@@ -6,9 +6,10 @@ Usage: pnpm build
        PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers python3 scripts/screens.py [base_url] [gated_url]
 Flow: landing → waitlist → /app grade 小5 → seed earlier pages (gold / green / red units)
       → upload p01 (mock reader) → confirm → save → 単元星図 flares 5-C3 → full star chart
-      → sheet on 5-C3 with its roots → 一覧 (tile view) → テスト前リスト with 5-C3 = exactly the
-      2 ✕ problems → archive → backup download / restore / invalid file → offline reload (service
-      worker) → Android install button → retake → iPhone install tip
+      → sheet on 5-C3 with its roots → 一覧 (tile view) → /app opens the 学習レポート (bar, 次にやること,
+      前の学年, この1週間, chips) → its button opens the list with exactly those units → テスト前リスト
+      with 5-C3 = exactly the 2 ✕ problems → + gold 5-B1: its old ✕ in 念のため → archive → backup download / restore / invalid file → offline reload (service
+      worker) → Android install button → retake → iPhone install tip → empty レポート (no pages)
       → gated server: 招待コード prompt, wrong code → 403 → asked again → right code reads.
 """
 import json, os, re, sys, tempfile
@@ -134,6 +135,7 @@ with sync_playwright() as p:
     # 5a. Light-up: straight to the 単元星図, 5-C3 flares and its root line draws down; toast stays
     expect(page).to_have_url(BASE + "/app/map?saved=5&lit=5-C3")
     expect(page.get_by_test_id("lit-toast")).to_have_text("5問を保存しました。光っている単元に入りました。")
+    expect(page.get_by_test_id("toast-report")).to_have_attribute("href", "/app/report")
     lit = page.locator('button.star-node.is-lit[data-unit="5-C3"]')
     expect(lit).to_have_count(1)
     expect(page.locator('path.sky-edge.is-lit[data-edge="5-C3>4-C2"]')).to_have_count(1)
@@ -209,10 +211,46 @@ with sync_playwright() as p:
     page.get_by_role("radio", name="星図").click()
     expect(page.locator("button.star-node")).to_have_count(31)
 
+    # 5e. 学習レポート: the app home once pages exist; one glance for the parent
+    page.goto(BASE + "/app")
+    expect(page).to_have_url(BASE + "/app/report")
+    expect(page.get_by_role("heading", level=1)).to_have_text("小5の学習レポート")
+    expect(page.locator(".report-meta")).to_contain_text("これまでに5ページ")
+    expect(page.get_by_test_id("glance-sum")).to_have_text("15単元のうちマスター 2復習ずみ 2復習が必要 2まだ 9")
+    expect(page.get_by_test_id("glance-bar")).to_have_attribute("aria-label", "15単元のうち マスター 2 ・ 復習ずみ 2 ・ 復習が必要 2 ・ まだ 9")
+    nxt = page.get_by_test_id("report-next")
+    expect(nxt.locator(".report-row")).to_have_count(2)
+    expect(nxt.locator(".report-row").nth(0)).to_contain_text("割合")
+    expect(nxt.locator(".report-row").nth(0)).to_contain_text("✕ 2問")
+    earlier = page.get_by_test_id("report-earlier")
+    expect(earlier.locator('[data-unit="4-A2"]')).to_contain_text("概数")
+    expect(earlier.locator('[data-unit="3-A4"]')).to_contain_text("小5「整数の性質」のもと")
+    # この1週間 depends on today's date: p01 (5 problems, 2 ✕) + the seed pages from the last 7 days
+    from datetime import datetime, timedelta, timezone
+    since = datetime.now(timezone.utc) - timedelta(days=7)
+    week = [1, 5, 2]
+    for at, n, x in [("2026-10-01", 5, 1), ("2026-10-03", 6, 3), ("2026-10-10", 4, 1), ("2026-10-12", 7, 2)]:
+        if datetime.fromisoformat(at + "T09:00:00+00:00") >= since:
+            week = [week[0] + 1, week[1] + n, week[2] + x]
+    expect(page.get_by_test_id("report-week").locator("dd")).to_have_text([str(v) for v in week])
+    chips = page.get_by_test_id("report-chips")
+    expect(chips.locator(".mc-gold")).to_have_count(2)
+    expect(chips.locator(".mc-review")).to_have_count(0)  # already in 次にやること
+    expect(chips.locator(".mc-ok")).to_have_count(2)
+    expect(page.get_by_role("link", name="単元マップで全体を見る")).to_have_attribute("href", "/app/map")
+    shot(page, "17-report")
+    page.get_by_test_id("report-open-list").click()
+    expect(page).to_have_url(BASE + "/app/list?units=5-C3,5-C1")
+    expect(page.locator("button.chip.is-on")).to_have_count(2)
+    expect(page.get_by_test_id("test-list").get_by_test_id("review-item")).to_have_count(3)
+
     # 6. テスト前リスト with 5-C3 only → exactly the 2 ✕ problems
     page.goto(BASE + "/app/list")
-    for chip in page.locator("button.chip.is-on").all():
-        chip.click()
+    on = page.locator("button.chip.is-on")
+    expect(on).to_have_count(2)  # the range is remembered (here: the two units from the レポート)
+    for left in (1, 0):
+        on.first.click()
+        expect(on).to_have_count(left)
     page.locator('button.chip[data-unit="5-C3"]').click()
     items = page.get_by_test_id("review-item")
     expect(items).to_have_count(2)
@@ -223,6 +261,19 @@ with sync_playwright() as p:
     items.nth(0).get_by_role("checkbox").check()
     expect(page.get_by_test_id("readiness")).to_have_text("80%")
     shot(page, "10-test-list-reviewed")
+
+    # 6b. Add gold 5-B1 (old ✕, then a later all-○ test): its ✕ sit in 念のため, not in the main list
+    page.locator('button.chip[data-unit="5-B1"]').click()
+    expect(page.get_by_test_id("test-list").get_by_test_id("review-item")).to_have_count(2)
+    nen = page.get_by_test_id("nennotame")
+    expect(nen.locator("summary")).to_contain_text("念のため（最新のページでは全問○の単元）")
+    expect(nen.locator("summary")).to_contain_text("2問")
+    expect(page.get_by_test_id("readiness")).to_have_text("90%")  # 5-B1's old ✕ are not pending
+    nen.locator("summary").click()
+    expect(nen.get_by_test_id("review-item")).to_have_count(2)
+    expect(nen.get_by_test_id("review-item").first).to_contain_text("平面図形")
+    nen.scroll_into_view_if_needed()
+    shot(page, "09n-test-list-nennotame")
 
     # 7. ふりかえり
     page.get_by_role("link", name="ふりかえり").click()
@@ -305,6 +356,20 @@ with sync_playwright() as p:
     expect(ip.get_by_role("heading", name="ページを撮りましょう")).to_be_visible()
     expect(ip.get_by_test_id("install-tip")).to_have_count(0)
     ios.close()
+
+    # 8c. 学習レポート with no pages yet: a friendly card + 「ページを撮る」; /app starts at 撮る
+    ctx3 = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2, locale="ja-JP", is_mobile=True, has_touch=True)
+    e = ctx3.new_page()
+    e.on("pageerror", lambda err: errors.append(str(err)))
+    e.goto(BASE + "/app")
+    e.evaluate("localStorage.setItem('lens-snap:grade', '小5')")
+    e.goto(BASE + "/app")
+    expect(e).to_have_url(BASE + "/app/snap")
+    e.goto(BASE + "/app/report")
+    expect(e.get_by_test_id("report-empty")).to_contain_text("撮ると、ここにレポートができます")
+    expect(e.get_by_role("link", name="ページを撮る", exact=True)).to_have_attribute("href", "/app/snap")
+    shot(e, "17e-report-empty", full=False)
+    ctx3.close()
 
     # 9. Gated server: 招待コード first, then grade; a wrong code is asked again on the snap screen
     ctx2 = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2, locale="ja-JP", is_mobile=True, has_touch=True)
