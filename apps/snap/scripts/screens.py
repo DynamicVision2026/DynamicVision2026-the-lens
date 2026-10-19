@@ -11,11 +11,13 @@ Flow: landing → waitlist → /app grade 小5 → the map is home (empty territ
       先生の印とAIの判定がちがいます note) → confirm → save → 領土マップ: fly to 小5, 5-C3 rises → HUD
       (制覇 6/15, 小中高 bars, 要復習, 次にやること 3) → tap 5-C3 → sheet (history, roots, routes) → root
       flies to 小4 → 次にやること tour (one by one, 次へ) → pan / zoom out / 現在地 → 一覧 (tile view)
-      → /app = map → whole map (19) + zoom (19z)
+      → /app = map → half the continent (19) + zoom (19z) → the whole continent coast → summit (20) + the
+      小5 zone (20z); 年度の記録 with two school years (20y) → its 2025年度 row flies to the 小4 zone
       → 学習レポート (every unit opens its tile via ?unit=) → its button opens the list with
       exactly those units → テスト前リスト
       with 5-C3 = exactly the 2 ✕ problems → + gold 5-B1: its old ✕ in 念のため → archive → backup download / restore / invalid file → offline reload (service
-      worker) → Android install button → retake → iPhone install tip → 小2 and 高2 homes → legacy 「高校」 → 高1
+      worker) → Android install button → retake → iPhone install tip → 小2 and 高2 homes (20k: 高2 on the glacier)
+      → legacy 「高校」 → 高1
       → empty レポート (no pages)
       → gated server: 招待コード prompt, wrong code → 403 → asked again → right code reads.
 Journey (J*, for the founder): fresh 小5 profile on the journey server → J1 empty territory (home) → 撮る →
@@ -68,6 +70,10 @@ SEED_KOKO2_JS = SEED_JS.replace('grade: "小5"', 'grade: "高2"').split("const p
     P("k1", "2026-10-14T09:00:00.000Z", "test", [["h-II-4","✕"],["h-II-4","✕"],["h-II-4","○"],["h-II-1","✕",true],["h-I-3","✕"]]),
     P("k2", "2026-10-16T09:00:00.000Z", "test", [["h-B-1","○"],["h-B-1","○"]]),
   ];""" + SEED_JS.split("];", 1)[1]
+# Two school years for a 小5 child (年度の記録): the four seed pages (2026年度) + two pages from 2025年度 (小4 units).
+SEED_YEARS_JS = SEED_JS.replace('    P("seed4",', """    P("old1", "2025-06-12T09:00:00.000Z", "test", [["4-A2","✕"],["4-A2","✕"],["4-B1","○"]]),
+    P("old2", "2026-02-10T09:00:00.000Z", "drill", [["4-C2","○"],["4-C2","✕"]]),
+    P("seed4",""")
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "docs" / "screens"
 OUT.mkdir(parents=True, exist_ok=True)
@@ -210,13 +216,18 @@ with sync_playwright() as p:
     page.wait_for_timeout(820)  # fly (0.65 s) done, tiles rising (0.8 s)
     shot(page, "07-saved-lit", full=False)
 
-    # 5b. Territory map: 110 tiles (units) on 12 islands, HUD = the report's numbers
+    # 5b. Territory map: 110 tiles (units) in 12 zones on one continent, HUD = the report's numbers
     page.wait_for_timeout(4600)  # toast gone
     page.goto(BASE + "/app/map")
     expect(page.locator(".terr-page")).to_have_count(1)
     expect(page.locator("button.terr-unit")).to_have_count(110)
-    expect(page.locator(".terr-isl")).to_have_count(12)
-    expect(page.locator('.terr-isl.is-own')).to_have_text("小5")
+    expect(page.locator(".terr-reg")).to_have_count(12)
+    expect(page.locator('.terr-reg.is-own')).to_have_text("深い森林帯小5標高 500")
+    expect(page.locator(".terr-wp")).to_have_count(12)
+    expect(page.locator('.terr-wp[data-waypoint="小5"]')).to_have_attribute("aria-label", "小5 深い森林帯：制覇 6／15")
+    expect(page.locator('.terr-wp[data-waypoint="小5"] .wp-badge')).to_have_text("制覇 6/15")
+    expect(page.get_by_test_id("terr-here")).to_have_count(1)
+    expect(page.locator('.terr-wp[data-waypoint="小5"]').get_by_test_id("terr-here")).to_have_text("あなたはここ")
     for unit, st in [("5-C3", "review"), ("5-A1", "gold"), ("5-B1", "gold"), ("5-A3", "ok"), ("5-D1", "ok"),
                      ("5-C1", "review"), ("5-A2", "empty"), ("4-A2", "review"), ("4-C2", "ok"), ("4-B4", "gold"),
                      ("3-A4", "review"), ("6-C2", "gold")]:
@@ -226,19 +237,27 @@ with sync_playwright() as p:
     expect(page.locator('button.terr-unit[data-unit="5-A1"] .terr-crown')).to_have_count(1)
     expect(page.locator("button.terr-unit .terr-flag")).to_have_count(4)  # 5-C3, 5-C1, 4-A2, 3-A4
     hud = page.get_by_test_id("hud-card")
-    expect(hud.locator(".hud-t")).to_have_text("制覇した単元（小5）")
+    expect(hud.locator(".hud-t")).to_have_text("制覇（小5）")
     expect(page.get_by_test_id("hud-taken")).to_have_text("6 / 15")
     expect(hud.locator(".hud-bar em")).to_have_text(["11/66", "0/23", "0/21"])
     expect(page.get_by_test_id("hud-review")).to_have_text("要復習 2")
     expect(page.get_by_test_id("hud-next")).to_have_text("次にやること 3")
+    # the legend starts folded to a small 「凡例」 button; open → strands + the four states
+    expect(page.get_by_test_id("map-legend")).to_have_count(0)
+    expect(page.get_by_test_id("legend-toggle")).to_have_text("凡例")
+    page.get_by_test_id("legend-toggle").click()
     expect(page.get_by_test_id("map-legend")).to_contain_text("数と計算 / 数と式")
     expect(page.get_by_test_id("legend-states")).to_have_text("まだ復習ずみ復習が必要マスター")
+    page.wait_for_timeout(200)
+    shot(page, "18g-map-legend", full=False)
+    page.get_by_test_id("legend-toggle").click()
+    expect(page.get_by_test_id("map-legend")).to_have_count(0)
     expect(page.get_by_test_id("snap-fab")).to_be_visible()
-    # on load: the child's island fills ~70 % of the width, centred
-    lab = page.locator(".terr-isl.is-own").bounding_box()
-    assert 60 < lab["x"] + lab["width"] / 2 < 330 and 150 < lab["y"] < 700, lab
-    # controls do not collide: 撮る, the compass and the legend
-    fb, cb, lb = (page.get_by_test_id(t).bounding_box() for t in ("snap-fab", "compass", "map-legend"))
+    # on load: the child's zone fills ~70 % of the width
+    lab = page.locator(".terr-reg.is-own").bounding_box()
+    assert 40 < lab["x"] + lab["width"] / 2 < 350 and 150 < lab["y"] < 700, lab
+    # controls do not collide: 撮る, the compass and the legend button
+    fb, cb, lb = (page.get_by_test_id(t).bounding_box() for t in ("snap-fab", "compass", "legend-toggle"))
     assert fb["x"] + fb["width"] <= cb["x"] and lb["x"] + lb["width"] <= fb["x"], (fb, cb, lb)
     page.wait_for_timeout(300)
     shot(page, "18-map-home", full=False)
@@ -285,7 +304,7 @@ with sync_playwright() as p:
     expect(page.locator('button.terr-unit.is-pointed[data-unit="4-A2"]')).to_have_count(1)
     page.keyboard.press("Escape")
 
-    # 5c3. Pan / zoom: drag far away (clamped to the map), zoom out to all 12 islands, 現在地 brings 小5 back
+    # 5c3. Pan / zoom: drag far away (clamped to the map), zoom out to all 12 zones, 現在地 brings 小5 back
     page.mouse.move(200, 400)
     page.mouse.down()
     for i in range(1, 11):
@@ -295,14 +314,16 @@ with sync_playwright() as p:
         page.get_by_test_id("zoom-out").click()
     page.wait_for_timeout(800)
     for g in ["小1", "小6", "中2", "高3"]:
-        b = page.locator(f'.terr-isl[data-island="{g}"]').bounding_box()
+        b = page.locator(f'.terr-reg[data-region="{g}"]').bounding_box()
         assert b and -40 < b["x"] < 430 and 56 < b["y"] < 844, (g, b)
     page.get_by_test_id("compass").click()
     page.wait_for_timeout(800)
-    lab2 = page.locator(".terr-isl.is-own").bounding_box()
+    lab2 = page.locator(".terr-reg.is-own").bounding_box()
     assert abs(lab2["x"] - lab["x"]) < 2 and abs(lab2["y"] - lab["y"]) < 2, (lab, lab2)
 
-    # 5d. 一覧: the tile list (accessible fallback) from the HUD icon, choice remembered
+    # 5d. 一覧: the tile list (accessible fallback) from the HUD menu, choice remembered
+    page.get_by_test_id("hud-menu").click()
+    expect(page.get_by_test_id("hud-menu-pop").get_by_role("menuitem")).to_have_text(["一覧で見る", "年度の記録"])
     page.get_by_test_id("map-to-list").click()
     secs = page.locator("details.grade-sec")
     expect(secs).to_have_count(12)
@@ -331,16 +352,30 @@ with sync_playwright() as p:
     expect(page.locator("nav.tabbar a.tab-active")).to_have_text("マップ")
     expect(page.get_by_test_id("map-strip")).to_have_count(0)  # no text-heavy strip on the map any more
 
-    # 5e2. The whole map, zoomed out: all 12 islands with this 小5 child's taken / flagged / gold tiles
-    for _ in range(6):
+    # 5e2. Zoomed out halfway (the 小 zones and the climb into 中), then close up on 小5
+    for _ in range(2):
         page.get_by_test_id("zoom-out").click()
-    page.wait_for_timeout(800)
+    page.wait_for_timeout(900)
     shot(page, "19-territory-full", full=False)
     page.get_by_test_id("compass").click()
     for _ in range(2):
         page.get_by_test_id("zoom-in").click()
-    page.wait_for_timeout(800)
+    page.wait_for_timeout(900)
     shot(page, "19z-territory-zoom", full=False)
+    # 20. The whole continent, coast → summit, below the HUD; then the 小5 zone as on load
+    for _ in range(8):
+        page.get_by_test_id("zoom-out").click()
+    page.wait_for_timeout(900)
+    hb = page.get_by_test_id("hud-card").bounding_box()
+    for g in ["小1", "高3"]:
+        b = page.locator(f'.terr-reg[data-region="{g}"]').bounding_box()
+        assert b and 0 <= b["x"] and b["x"] + b["width"] <= 390 and b["y"] > 56 and b["y"] + b["height"] < 844 - 64, (g, b)
+    summit = page.locator('.terr-reg[data-region="高3"]').bounding_box()
+    assert summit["y"] > hb["y"] + hb["height"] - 8 or summit["x"] + summit["width"] < hb["x"], (summit, hb)
+    shot(page, "20-continent", full=False)
+    page.get_by_test_id("compass").click()
+    page.wait_for_timeout(900)
+    shot(page, "20z-region-xiao5", full=False)
     page.goto(BASE + "/app/report")
 
     # 5f. 学習レポート = the map's 「詳しく」 page; every unit opens its tile on the map
@@ -510,11 +545,11 @@ with sync_playwright() as p:
     y.evaluate(SEED_YOUNG_JS)
     y.goto(BASE + "/app")
     expect(y).to_have_url(BASE + "/app/map")
-    expect(y.get_by_test_id("hud-card").locator(".hud-t")).to_have_text("制覇した単元（小2）")
+    expect(y.get_by_test_id("hud-card").locator(".hud-t")).to_have_text("制覇（小2）")
     expect(y.get_by_test_id("hud-taken")).to_have_text("3 / 7")
     expect(y.get_by_test_id("hud-next")).to_have_text("次にやること 2")  # 2-A2, then 小1 1-A2
-    own = y.locator(".terr-isl.is-own")
-    expect(own).to_have_text("小2")
+    own = y.locator(".terr-reg.is-own")
+    expect(own).to_have_text("入り江小2標高 40")
     ob = own.bounding_box()
     assert 0 < ob["x"] < 390 and 56 < ob["y"] < 844 - 64, ob
     for unit, st in [("2-A2", "review"), ("2-B1", "gold"), ("2-C1", "ok"), ("1-A2", "review"), ("2-A1", "empty")]:
@@ -534,17 +569,26 @@ with sync_playwright() as p:
     expect(k).to_have_url(BASE + "/app/map")
     expect(k.get_by_test_id("grade-chip")).to_have_text("高2")
     expect(k.get_by_test_id("grade-check")).to_have_count(0)
-    expect(k.get_by_test_id("hud-card").locator(".hud-t")).to_have_text("制覇した単元（高2）")
+    expect(k.get_by_test_id("hud-card").locator(".hud-t")).to_have_text("制覇（高2）")
     expect(k.get_by_test_id("hud-taken")).to_have_text("3 / 8")
     expect(k.get_by_test_id("hud-review")).to_have_text("要復習 1")
     expect(k.get_by_test_id("hud-next")).to_have_text("次にやること 2")
-    expect(k.locator(".terr-isl.is-own")).to_have_text("高2")
+    expect(k.locator(".terr-reg.is-own")).to_have_text("氷河帯高2標高 3,100")
     for unit, st in [("h-II-4", "review"), ("h-B-1", "gold"), ("h-II-1", "ok"), ("h-I-3", "review"), ("h-II-2", "empty")]:
         expect(k.locator(f'.terr-layer [data-unit="{unit}"]')).to_have_attribute("data-status", st)
-    kb = k.locator(".terr-isl.is-own").bounding_box()
+    kb = k.locator(".terr-reg.is-own").bounding_box()
     assert 0 < kb["x"] < 390 and 56 < kb["y"] < 844 - 64, kb
     k.wait_for_timeout(300)
     shot(k, "18k-map-home-koko2", full=False)
+    # double-tap the glacier (just under its label): the camera zooms in there
+    gx, gy = kb["x"] + kb["width"] / 2, kb["y"] + kb["height"] + 10
+    k.mouse.click(gx, gy)
+    k.mouse.click(gx, gy)
+    k.wait_for_timeout(900)
+    expect(k.get_by_test_id("star-sheet")).to_have_count(0)
+    kb2 = k.locator(".terr-reg.is-own").bounding_box()
+    assert 0 < kb2["x"] and kb2["x"] + kb2["width"] < 390 and 56 < kb2["y"] < 844 - 64, kb2
+    shot(k, "20k-region-koko2", full=False)
     k.goto(BASE + "/app/report")
     expect(k.get_by_role("heading", level=1)).to_have_text("高2の学習レポート")
     expect(k.get_by_test_id("report-earlier").locator('[data-unit="h-I-3"]')).to_contain_text("二次関数")
@@ -569,6 +613,39 @@ with sync_playwright() as p:
     expect(m.get_by_test_id("grade-chip")).to_have_text("高2")
     expect(m.get_by_test_id("grade-check")).to_have_count(0)
     mg.close()
+
+    # 8b5. 年度の記録: a 小5 child with pages from this school year and last (2025年度 = 小4); a row flies to its zone
+    yc = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2, locale="ja-JP", is_mobile=True, has_touch=True)
+    yp = yc.new_page()
+    yp.on("pageerror", lambda err: errors.append(str(err)))
+    yp.goto(BASE + "/app")
+    yp.evaluate("localStorage.setItem('lens-snap:grade', '小5')")
+    yp.evaluate(SEED_YEARS_JS)
+    yp.goto(BASE + "/app/map")
+    yp.get_by_test_id("hud-menu").click()
+    yp.get_by_test_id("menu-year").click()
+    ys = yp.get_by_test_id("year-sheet")
+    expect(ys).to_be_visible()
+    rows = ys.get_by_test_id("year-row")
+    expect(rows).to_have_count(2)
+    expect(rows.nth(0)).to_contain_text("2026年度")
+    expect(rows.nth(0)).to_contain_text("深い森林帯")
+    expect(rows.nth(0)).to_contain_text("制覇 5/15")
+    expect(rows.nth(0)).to_contain_text("✕ 7")
+    expect(rows.nth(1)).to_contain_text("2025年度")
+    expect(rows.nth(1)).to_contain_text("森林帯")
+    expect(rows.nth(1)).to_contain_text("小4")
+    expect(rows.nth(1)).to_contain_text("制覇 3/16")
+    expect(rows.nth(1)).to_contain_text("✕ 3")
+    expect(yp.get_by_test_id("hud-card")).to_be_hidden()
+    yp.wait_for_timeout(500)
+    shot(yp, "20y-yearly", full=False)
+    rows.nth(1).click()
+    expect(ys).to_have_count(0)
+    yp.wait_for_timeout(900)
+    l4 = yp.locator('.terr-reg[data-region="小4"]').bounding_box()
+    assert 40 < l4["x"] + l4["width"] / 2 < 350 and 100 < l4["y"] < 600, l4
+    yc.close()
 
     # 8c. 学習レポート with no pages yet: a friendly card + 「ページを撮る」; /app is the (empty) map
     ctx3 = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2, locale="ja-JP", is_mobile=True, has_touch=True)
@@ -627,8 +704,8 @@ with sync_playwright() as p:
     expect(jp.get_by_test_id("hud-taken")).to_have_text("0 / 15")
     expect(jp.get_by_test_id("hud-next")).to_have_count(0)
     expect(jp.locator("nav.tabbar a.tab-active")).to_have_text("マップ")
-    own = jp.locator(".terr-isl.is-own")
-    expect(own).to_have_text("小5")
+    own = jp.locator(".terr-reg.is-own")
+    expect(own).to_contain_text("小5")
     wb, cb = welcome.bounding_box(), jp.get_by_test_id("compass").bounding_box()
     assert wb["x"] + wb["width"] <= cb["x"] and wb["y"] + wb["height"] <= 844 - 64, (wb, cb)
     jp.wait_for_timeout(300)

@@ -255,8 +255,8 @@ export const app = {
     fabLabel: "ページを撮る",
     // 領土マップ (the same map as the video 「日本の算数・数学マップ」)
     terr: {
-      chartLabel: "単元マップ。小1から高3までの島です。ドラッグで移動、ピンチや＋−で拡大・縮小できます。",
-      hudTitle: (g: string) => `制覇した単元（${g}）`,
+      chartLabel: "単元マップ。小1の海岸線から高3の山頂まで、学年ごとの地帯がつながる大陸です。ドラッグで移動、ピンチや＋−で拡大・縮小できます。",
+      hudTitle: (g: string) => `制覇（${g}）`,
       hudLabel: (g: string, n: number, total: number, review: number) =>
         `${g}で制覇した単元 ${n}／${total}${review > 0 ? `、要復習 ${review}` : ""}`,
       review: (n: number) => `要復習 ${n}`,
@@ -264,7 +264,27 @@ export const app = {
       nextLabel: (n: number) => `次にやること ${n}単元。赤い旗の単元へ順に移動します`,
       nextOf: (i: number, n: number) => `次へ（${i}/${n}）`,
       here: "現在地",
-      hereLabel: (g: string) => `現在地（${g}の島）にもどる`,
+      hereLabel: (g: string) => `現在地（${g}）にもどる`,
+      // 算数・数学の大陸: one zone per grade, coast → summit
+      zones: {
+        小1: "海岸線", 小2: "入り江", 小3: "平原", 小4: "森林帯", 小5: "深い森林帯", 小6: "湖沼帯",
+        中1: "丘陵帯", 中2: "岩稜帯", 中3: "高原帯", 高1: "雪線", 高2: "氷河帯", 高3: "山頂",
+      } as Record<string, string>,
+      elevation: (m: number) => `標高 ${m.toLocaleString("ja-JP")}`,
+      youAreHere: "あなたはここ",
+      progress: (n: number, total: number) => `制覇 ${n}/${total}`,
+      conquered: "制覇",
+      zoneLabel: (zone: string, g: string, n: number, total: number) => `${g} ${zone}：制覇 ${n}／${total}`,
+      menu: "メニュー",
+      year: {
+        title: "年度の記録",
+        note: "4月〜3月を1年度として、この端末の記録から作っています。",
+        label: (y: number) => `${y}年度`,
+        wrong: (n: number) => `✕ ${n}`,
+        empty: "まだ記録がありません。プリントを撮ると、年度ごとに残ります。",
+        go: (y: number, g: string, zone: string) => `${y}年度（${g} ${zone}）の地帯へ移動`,
+        close: "閉じる",
+      },
       zoomIn: "拡大",
       zoomOut: "縮小",
       list: "一覧で見る",
