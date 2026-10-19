@@ -199,7 +199,7 @@ describe("hex layout: the video's tiles on one continent", () => {
     const kinds = new Set(T.terrain.decos.map((d) => d.kind));
     for (const k of ["stipple", "tuft", "canopy", "canopyDense", "hachure", "snow", "crevasse", "pass", "peak"]) expect(kinds.has(k as never), k).toBe(true);
     expect(T.terrain.land.some((l) => l.water && l.grade === "小6")).toBe(true);
-  });
+  }, 60_000); // heavy geometric check: CI runners are several times slower than local
 
   it("zone specs: one per grade, 標高 rising to 3776", () => {
     expect(REGION_SPECS.map((s) => s.grade)).toEqual([...GRADES]);
