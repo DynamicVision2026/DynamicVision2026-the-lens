@@ -18,6 +18,14 @@ describe("waitlist validation", () => {
     expect(WaitlistSchema.safeParse({ email: "a@b.jp", grade: "小5" }).success).toBe(false); // must be a copy-file option
   });
 
+  it("高校 is three options; the old 「高校生」 is still accepted (saved signups, open old forms)", () => {
+    expect(WAITLIST_GRADES).toContain("高校1年生");
+    expect(WAITLIST_GRADES).toContain("高校2年生");
+    expect(WAITLIST_GRADES).toContain("高校3年生");
+    expect(WAITLIST_GRADES as readonly string[]).not.toContain("高校生");
+    for (const grade of ["高校1年生", "高校2年生", "高校3年生", "高校生"]) expect(WaitlistSchema.safeParse({ email: "a@b.jp", grade }).success, grade).toBe(true);
+  });
+
   it("options come from the copy file; variant defaults to 'default'", () => {
     expect(WAITLIST_GRADES).toEqual(copy.waitlist.gradeOptions);
     expect(WORRY_OPTIONS).toEqual(copy.waitlist.painOptions);
@@ -53,6 +61,13 @@ describe("API", () => {
     expect(r.status).toBe(200);
     const page = await r.json();
     expect(page.problems.filter((p: any) => p.mark === "✕").map((p: any) => p.n)).toEqual([3, 4]);
+  });
+
+  it("POST /read reads the old combined 「高校」 as 高1", async () => {
+    const fd = new FormData();
+    fd.append("grade", "高校");
+    fd.append("image", new File([readFileSync(new URL("../fixtures/photos/p01.jpg", import.meta.url))], "p01.jpg", { type: "image/jpeg" }));
+    expect((await api.request("/read", { method: "POST", body: fd })).status).toBe(200);
   });
 
   it("POST /read requires grade and image", async () => {

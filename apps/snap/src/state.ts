@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { type Grade, isGrade } from "./curriculum";
+import { type Grade, gradeFromPref } from "./curriculum";
 import type { SavedPage } from "./lib/model";
 import { allPages } from "./lib/store";
 
@@ -19,16 +19,45 @@ export function writePref(key: string, value: string) {
   }
 }
 
-export function useGrade(): [Grade | null, (g: Grade) => void] {
-  const [grade, setGrade] = useState<Grade | null>(() => {
-    const g = readPref("grade");
-    return isGrade(g) ? g : null;
-  });
-  const set = useCallback((g: Grade) => {
-    writePref("grade", g);
-    setGrade(g);
+/** Set when a legacy grade (高校) was migrated (→ 高1): the grade badge asks the parent to check it. */
+export const GRADE_CHECK_PREF = "grade-check";
+
+/** Read the saved grade; a legacy 「高校」 is rewritten as 高1 and flagged for a check. */
+export function loadGrade(): Grade | null {
+  const raw = readPref("grade");
+  const { grade, migrated } = gradeFromPref(raw);
+  if (grade && migrated) {
+    writePref("grade", grade);
+    writePref(GRADE_CHECK_PREF, "1");
+  }
+  return grade;
+}
+
+export function clearPref(key: string) {
+  try {
+    localStorage.removeItem(`lens-snap:${key}`);
+  } catch {
+    /* ignore */
+  }
+}
+
+/** [grade, set grade, show the 「学年を確認してください」 note, dismiss the note]. */
+export function useGrade(): [Grade | null, (g: Grade) => void, boolean, () => void] {
+  const [grade, setGrade] = useState<Grade | null>(loadGrade);
+  const [check, setCheck] = useState(() => readPref(GRADE_CHECK_PREF) === "1");
+  const dismiss = useCallback(() => {
+    clearPref(GRADE_CHECK_PREF);
+    setCheck(false);
   }, []);
-  return [grade, set];
+  const set = useCallback(
+    (g: Grade) => {
+      writePref("grade", g);
+      setGrade(g);
+      dismiss(); // the parent chose a grade: nothing left to check
+    },
+    [dismiss],
+  );
+  return [grade, set, check, dismiss];
 }
 
 export function usePages(): {

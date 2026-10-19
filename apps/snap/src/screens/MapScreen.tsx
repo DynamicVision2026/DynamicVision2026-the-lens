@@ -3,7 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { ReportStrip } from "../components/ReportStrip";
 import { StarGlyph, StarMap } from "../components/StarMap";
 import { app } from "../copy";
-import { type Grade, type Unit, unitById } from "../curriculum";
+import { type Grade, type Unit, isHighSchool, unitById } from "../curriculum";
 import { type Strip, buildStrip, earlierBand, focusFromParam } from "../lib/home";
 import { type MapSection, type Tile, mapSections, mapTiles, parseLit, unfiled } from "../lib/review";
 import { type SkyLayout, gradesAbove, nearGrades, sheetData } from "../lib/starmap";
@@ -351,7 +351,7 @@ function Section(props: { section: MapSection; open: boolean; onToggle: (g: Grad
           <span>{app.map.units(tiles.length)}</span>
         </span>
       </summary>
-      <Tiles tiles={tiles} showSubject={grade === "高校"} lit={props.lit} />
+      <Tiles tiles={tiles} showSubject={isHighSchool(grade)} lit={props.lit} />
     </details>
   );
 }

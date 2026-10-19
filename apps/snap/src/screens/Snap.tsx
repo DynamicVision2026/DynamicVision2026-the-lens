@@ -6,7 +6,7 @@ import { UnitSelect } from "../components/UnitSelect";
 import { app } from "../copy";
 import type { Grade } from "../curriculum";
 import { preparePhoto } from "../lib/image";
-import { needsUnitCheck } from "../lib/marks";
+import { judgeDisagrees, needsUnitCheck } from "../lib/marks";
 import { type DraftProblem, type SavedPage, draftFromResult, pageFromDraft, withParentMark } from "../lib/model";
 import { type ReadFailure, clearPilotCode, readFailure, readPilotCode } from "../lib/pilot";
 import { LOW_CONFIDENCE, litMapUrl } from "../lib/review";
@@ -184,9 +184,14 @@ function Confirm(props: {
                   {app.confirm.source[p.markSource]}
                 </small>
               )}
-              {p.correctAnswer && p.markSource !== "teacher" && (
+              {p.correctAnswer && (
                 <small className="mark-key" data-testid="ai-answer">
                   {app.confirm.correctAnswer(p.correctAnswer)}
+                </small>
+              )}
+              {judgeDisagrees(p) && (
+                <small className="mark-note" data-testid="mark-disagree">
+                  {app.confirm.disagree}
                 </small>
               )}
             </div>

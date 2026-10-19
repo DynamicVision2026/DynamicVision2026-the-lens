@@ -2,7 +2,7 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { GRADES, readerUnitsForGrade, unitById } from "../src/curriculum";
 import { parseBackup } from "../src/lib/backup";
-import { UNIT_CHECK_BELOW, finalMark, markSourceOf, needsUnitCheck, withMarkSources } from "../src/lib/marks";
+import { UNIT_CHECK_BELOW, finalMark, judgeDisagrees, markSourceOf, needsUnitCheck, withMarkSources } from "../src/lib/marks";
 import { type SavedPage, draftFromResult, pageFromDraft, withParentMark } from "../src/lib/model";
 import { testList } from "../src/lib/review";
 import { keywordTag, loadUnitEval, summarize } from "../src/lib/unit-eval";
@@ -44,6 +44,65 @@ describe("final mark: teacher → AI → none", () => {
     expect(saved.problems[0]).not.toHaveProperty("unitAlt");
     // Downstream uses the final mark: the AI's ✕ is on the テスト前リスト like a teacher's ✕.
     expect(testList([saved], ["5-C2", "5-C3"]).map((i) => i.problem.q)).toEqual(["A", "B"]);
+  });
+});
+
+describe("teacher-marked and unmarked pages: the AI judges both", () => {
+  const draftOf = (problems: Record<string, unknown>[]) => draftFromResult(toPageResult({ page_type: "test", problems }, "小5"));
+
+  it("teacher ○ + AI ✕ → mark ○ (teacher), disagreement flagged, AI answer kept", () => {
+    const [d] = draftOf([{ q: "A", unit: "5-C3", answer: "2800人", mark: "○", judge: "✕", correct_answer: "300人" }]);
+    expect(d).toMatchObject({ mark: "○", markSource: "teacher", aiJudge: "✕", correctAnswer: "300人" });
+    expect(judgeDisagrees(d)).toBe(true);
+  });
+  it("no teacher mark + AI ✕ → ✕ (ai), no disagreement", () => {
+    const [d] = draftOf([{ q: "A", unit: "5-C3", answer: "4.2L", mark: null, judge: "✕", correct_answer: "42L" }]);
+    expect(d).toMatchObject({ mark: "✕", markSource: "ai", aiJudge: "✕" });
+    expect(judgeDisagrees(d)).toBe(false);
+  });
+  it("agreeing or missing AI judgment → no note", () => {
+    const d = draftOf([
+      { q: "A", unit: "5-C3", mark: "✕", judge: "✕" },
+      { q: "B", unit: "5-C3", mark: "○", judge: null },
+      { q: "C", unit: "5-C3", mark: null, judge: null },
+    ]);
+    expect(d.map(judgeDisagrees)).toEqual([false, false, false]);
+  });
+  it("mixed page: each problem on its own (teacher where marked, AI elsewhere)", () => {
+    const d = draftOf([
+      { q: "1", unit: "5-C3", mark: "○", judge: "○" },
+      { q: "2", unit: "5-C3", mark: null, judge: "✕" },
+      { q: "3", unit: "5-C3", mark: "✕", judge: "○" },
+      { q: "4", unit: "5-C3", mark: null, judge: "○" },
+      { q: "5", unit: "5-C3", mark: null, judge: null },
+    ]);
+    expect(d.map((p) => [p.mark, p.markSource, judgeDisagrees(p)])).toEqual([
+      ["○", "teacher", false], ["✕", "ai", false], ["✕", "teacher", true], ["○", "ai", false], [null, null, false],
+    ]);
+  });
+  it("a parent tap clears the note; the AI judgment is still saved", () => {
+    const [d] = draftOf([{ q: "A", unit: "5-C3", answer: "2800人", mark: "○", judge: "✕", correct_answer: "300人" }]);
+    const tapped = withParentMark(d, "○");
+    expect(judgeDisagrees(tapped)).toBe(false);
+    const saved = pageFromDraft([tapped, d], { grade: "小5", pageType: "test", score: null });
+    expect(saved.problems.map((p) => [p.mark, p.markSource, p.aiJudge])).toEqual([["○", "parent", "✕"], ["○", "teacher", "✕"]]);
+    expect(judgeDisagrees(saved.problems[1])).toBe(true); // stored data still tells the story
+  });
+  it("the mock p01 (teacher-marked test) keeps every teacher mark; Q5's AI judgment disagrees", async () => {
+    const reader = new MockReader(join(process.cwd(), "fixtures"), "p01");
+    const d = draftFromResult(await reader.read(new Uint8Array([9]), "image/jpeg", "小5"));
+    expect(d.map((p) => p.markSource)).toEqual(["teacher", "teacher", "teacher", "teacher", "teacher"]);
+    expect(d.map((p) => p.mark)).toEqual(["○", "○", "✕", "✕", "○"]);
+    expect(d.map(judgeDisagrees)).toEqual([false, false, false, false, true]);
+    expect(d.every((p) => p.correctAnswer)).toBe(true);
+  });
+  it("aiJudge round-trips through a backup; older backups without it still load", () => {
+    const file = (problems: unknown[]) =>
+      JSON.stringify({ app: "lens-snap", version: 1, exportedAt: "2026-10-19T00:00:00Z", grade: "小5", pages: [{ id: "a", createdAt: "2026-10-01T00:00:00.000Z", grade: "小5", pageType: "test", score: null, problems }] });
+    const base = { n: 1, q: "x", unit: "5-C3", answer: "1", mark: "○", confidence: 0.9, reviewed: false };
+    expect(parseBackup(file([{ ...base, markSource: "teacher", aiJudge: "✕" }]))[0].problems[0].aiJudge).toBe("✕");
+    expect(parseBackup(file([base]))[0].problems[0]).not.toHaveProperty("aiJudge");
+    expect(() => parseBackup(file([{ ...base, aiJudge: "maybe" }]))).toThrow();
   });
 });
 

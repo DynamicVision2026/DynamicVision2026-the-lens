@@ -1,6 +1,6 @@
-import type { Grade } from "../curriculum";
+import { type Grade, toGrade } from "../curriculum";
 import type { Mark, PageResult } from "../reader/schema";
-import { type MarkSource, finalMark } from "./marks";
+import { type MarkSource, finalMark, withMarkSources } from "./marks";
 
 export interface SavedProblem {
   n: number;
@@ -13,6 +13,9 @@ export interface SavedProblem {
   markSource?: MarkSource;
   /** The AI's computed answer, when it had one. */
   correctAnswer?: string | null;
+  /** The AI's own ○/✕ of the answer, kept even when the teacher's mark wins (agreement can be measured
+   *  later). Missing on pages saved before v0.5 (19 Oct 2026). */
+  aiJudge?: Mark;
   confidence: number;
   reviewed: boolean;
 }
@@ -29,15 +32,26 @@ export interface SavedPage {
 }
 
 /** Draft shown on the confirm screen (editable copy of the reader's result). */
-export type DraftProblem = Omit<SavedProblem, "reviewed" | "markSource" | "correctAnswer"> & {
+export type DraftProblem = Omit<SavedProblem, "reviewed" | "markSource" | "correctAnswer" | "aiJudge"> & {
   markSource: MarkSource;
   correctAnswer: string | null;
+  aiJudge: Mark;
   unitConfidence: number;
   unitAlt: string | null;
   edited?: boolean;
   /** The parent picked the unit by hand (hides 「単元を確認してください」). */
   unitEdited?: boolean;
 };
+
+/**
+ * A page read from IndexedDB or a backup, brought up to today's shape: legacy grade 「高校」 → 高1,
+ * missing markSource filled in (see withMarkSources). Returns the same object when nothing changes.
+ */
+export function migratePage(page: SavedPage): SavedPage {
+  const grade = toGrade(page.grade) ?? page.grade;
+  const p = grade === page.grade ? page : { ...page, grade };
+  return withMarkSources(p);
+}
 
 export function draftFromResult(r: PageResult): DraftProblem[] {
   return r.problems.map((p) => ({
@@ -47,6 +61,7 @@ export function draftFromResult(r: PageResult): DraftProblem[] {
     answer: p.answer,
     ...finalMark(p.mark, p.judge),
     correctAnswer: p.correctAnswer,
+    aiJudge: p.judge,
     confidence: p.confidence,
     unitConfidence: p.unitConfidence,
     unitAlt: p.unitAlt,

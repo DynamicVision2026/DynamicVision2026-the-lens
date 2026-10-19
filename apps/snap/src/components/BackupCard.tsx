@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { app } from "../copy";
-import type { Grade } from "../curriculum";
+import { toGrade } from "../curriculum";
 import { BackupError, backupFileName, makeBackup, needsBackupReminder, parseBackup } from "../lib/backup";
 import type { SavedPage } from "../lib/model";
 import { importPages } from "../lib/store";
@@ -23,7 +23,7 @@ export function BackupCard({ pages, onRestored }: { pages: SavedPage[]; onRestor
 
   function save() {
     try {
-      const grade = readPref("grade") as Grade | null;
+      const grade = toGrade(readPref("grade"));
       const blob = new Blob([JSON.stringify(makeBackup(pages, grade))], { type: "application/json" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");

@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { GRADES, type Grade } from "../curriculum";
+import { GRADES, type Grade, migrateGradeValue } from "../curriculum";
 import { MARKS } from "../reader/schema";
-import { MARK_SOURCES, withMarkSources } from "./marks";
-import type { SavedPage } from "./model";
+import { MARK_SOURCES } from "./marks";
+import { type SavedPage, migratePage } from "./model";
 
 /**
  * Backup / restore: one JSON file with every page (photos as base64).
@@ -14,6 +14,9 @@ export const BACKUP_VERSION = 1;
 export const BACKUP_REMIND_DAYS = 14;
 
 const PhotoSchema = z.object({ mime: z.string().regex(/^image\//), base64: z.string().regex(/^[A-Za-z0-9+/]*={0,2}$/) });
+/** A grade field: today's grades, plus the legacy 「高校」 read as 高1 (backups before 19 Oct 2026). */
+const GradeField = z.preprocess(migrateGradeValue, z.enum(GRADES));
+
 const ProblemSchema = z.object({
   n: z.number().int().nonnegative(),
   q: z.string(),
@@ -23,13 +26,15 @@ const ProblemSchema = z.object({
   // Added 19 Oct 2026; older backups have neither (markSource then → "teacher" if a mark is set).
   markSource: z.enum(MARK_SOURCES).nullable().optional(),
   correctAnswer: z.string().nullable().optional(),
+  // Added 19 Oct 2026 (v0.5): the AI's own ○/✕, kept even when the teacher's mark wins.
+  aiJudge: z.enum(MARKS).nullable().optional(),
   confidence: z.number().min(0).max(1),
   reviewed: z.boolean(),
 });
 const PageSchema = z.object({
   id: z.string().min(1).max(100),
   createdAt: z.string().refine((s) => !Number.isNaN(Date.parse(s)), "createdAt"),
-  grade: z.enum(GRADES),
+  grade: GradeField,
   pageType: z.enum(["test", "drill", "note", "other"]),
   score: z.string().nullable(),
   photo: PhotoSchema.optional(),
@@ -39,7 +44,7 @@ export const BackupSchema = z.object({
   app: z.literal(BACKUP_APP),
   version: z.literal(BACKUP_VERSION),
   exportedAt: z.string(),
-  grade: z.enum(GRADES).nullable(),
+  grade: GradeField.nullable(),
   pages: z.array(PageSchema),
 });
 export type BackupFile = z.infer<typeof BackupSchema>;
@@ -87,7 +92,7 @@ export function parseBackup(text: string): SavedPage[] {
   const r = BackupSchema.safeParse(json);
   if (!r.success) throw new BackupError(r.error.issues[0]?.message ?? "invalid");
   return r.data.pages.map(({ photo, ...p }) =>
-    withMarkSources({
+    migratePage({
       ...p,
       ...(photo ? { photo: { mime: photo.mime, bytes: fromBase64(photo.base64) } } : {}),
     }),

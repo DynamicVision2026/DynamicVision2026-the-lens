@@ -1,9 +1,9 @@
-import { GRADES, type Grade, UNITS, type Unit, unitById } from "../curriculum";
+import { GRADES, type Grade, UNITS, type Unit, isHighSchool, unitById } from "../curriculum";
 import type { Tile, TileStatus } from "./review";
 
 /**
  * 単元星図: the 学習指導要領 as a night-sky chart.
- * Four vertical lanes (strands), grades as horizontal bands rising upward (小1 bottom, 高校 top).
+ * Four vertical lanes (strands), grades as horizontal bands rising upward (小1 bottom, 高3 top).
  * Every unit is a star; each star links to its roots: same lane, nearest lower grade.
  * Pure functions only (no DOM), so layout and roots are unit-tested.
  */
@@ -45,7 +45,7 @@ export const HIGH_SCHOOL_LANES: Record<string, Lane> = {
   "h-C-3": "data", // 数学的な表現の工夫（図・表・統計グラフ、行列）
 };
 
-/** Stack order inside the 高校 band (bottom → top): the usual study order. */
+/** Stack order inside a 高1 / 高2 / 高3 band (bottom → top): the usual study order. */
 const HS_SUBJECT_ORDER = ["I", "A", "II", "B", "III", "C"];
 
 export function laneOf(u: Unit): Lane {
@@ -67,7 +67,7 @@ function hsRank(u: Unit): number {
 /** Units of one grade in one lane, bottom of the stack first. */
 export function laneUnits(grade: Grade, lane: Lane): Unit[] {
   const us = UNITS.filter((u) => u.appGrade === grade && laneOf(u) === lane);
-  return grade === "高校" ? us.sort((a, b) => hsRank(a) - hsRank(b)) : us;
+  return isHighSchool(grade) ? us.sort((a, b) => hsRank(a) - hsRank(b)) : us;
 }
 
 // ---------- roots ----------
@@ -234,7 +234,7 @@ export interface SkyLayout {
   byId: Map<string, SkyNode>;
 }
 
-/** Bands from the top of the chart: 高校 first, 小1 last (knowledge grows upward). */
+/** Bands from the top of the chart: 高3 first, 小1 last (knowledge grows upward). */
 export const BANDS_TOP_DOWN: Grade[] = [...GRADES].reverse();
 
 /** Default near bands: the child's grade and the grade below it, plus one opened band. */
@@ -262,7 +262,7 @@ function edgePath(a: SkyNode, b: SkyNode, all: SkyNode[]): string {
   return `M${a.cx} ${a.cy}Q${qx.toFixed(1)} ${qy.toFixed(1)} ${b.cx} ${b.cy}`;
 }
 
-/** Grades above the child's grade, lowest first (小5 → 小6 … 高校; 高校 → none). */
+/** Grades above the child's grade, lowest first (小5 → 小6 … 高3; 高3 → none). */
 export function gradesAbove(own: Grade): Grade[] {
   return GRADES.slice(GRADES.indexOf(own) + 1);
 }

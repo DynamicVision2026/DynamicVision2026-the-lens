@@ -132,9 +132,9 @@ describe("layout at phone width", () => {
     expect(L.height).toBeLessThan(layoutStarmap(358).height / 2);
   });
 
-  it("grades rise upward: 小1 at the bottom, 高校 at the top; stars sit in their band and lane", () => {
+  it("grades rise upward: 小1 at the bottom, 高3 at the top; stars sit in their band and lane", () => {
     const L = layoutStarmap(358, near5);
-    expect(L.bands[0].grade).toBe("高校");
+    expect(L.bands.slice(0, 3).map((b) => b.grade)).toEqual(["高3", "高2", "高1"]);
     expect(L.bands.at(-1)!.grade).toBe("小1");
     for (const n of L.nodes) {
       const band = L.bands.find((b) => b.grade === n.grade)!;
@@ -163,17 +163,18 @@ describe("upper grades merged into one band (home)", () => {
   const FIRST_SCREEN = 844 - 64; // minus the tab bar
   const merged = (own: Grade) => layoutStarmap(358, nearGrades(own), { grades: gradesAbove(own), merged: true });
 
-  it("gradesAbove: next grade up to 高校; none for 高校", () => {
-    expect(gradesAbove("小5")).toEqual(["小6", "中1", "中2", "中3", "高校"]);
-    expect(gradesAbove("中3")).toEqual(["高校"]);
-    expect(gradesAbove("高校")).toEqual([]);
+  it("gradesAbove: next grade up to 高3; none for 高3", () => {
+    expect(gradesAbove("小5")).toEqual(["小6", "中1", "中2", "中3", "高1", "高2", "高3"]);
+    expect(gradesAbove("中3")).toEqual(["高1", "高2", "高3"]);
+    expect(gradesAbove("高2")).toEqual(["高3"]);
+    expect(gradesAbove("高3")).toEqual([]);
   });
 
   for (const own of GRADES) {
     it(`${own}: the child's band starts right under one merged row; first star row on the first screen`, () => {
       const L = merged(own);
       const band = L.bands.find((b) => b.grade === own)!;
-      if (own === "高校") {
+      if (own === "高3") {
         expect(L.upper).toBeNull();
         expect(band.y).toBe(0);
       } else {

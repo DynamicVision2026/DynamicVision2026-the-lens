@@ -54,7 +54,7 @@ export function StarMap(props: {
   opened: Grade | null;
   onOpen: (g: Grade | null) => void;
   lit: string[];
-  /** Grades above the child's: merged into one row, or expanded (null for 高校). */
+  /** Grades above the child's: merged into one row, or expanded (null for 高3). */
   upper?: { grades: Grade[]; merged: boolean } | null;
   onUpper?: (open: boolean) => void;
   selected: string | null;

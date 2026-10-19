@@ -25,7 +25,7 @@ export function App() {
 }
 
 function AppArea() {
-  const [grade, setGrade] = useGrade();
+  const [grade, setGrade, gradeCheck, dismissGradeCheck] = useGrade();
   const nav = useNavigate();
   const choose = (g: Grade) => {
     setGrade(g);
@@ -36,10 +36,18 @@ function AppArea() {
     <div className="shell">
       <header className="topbar">
         <a href="/" className="brand">Lens Snap</a>
-        <NavLink to="/app/grade" className="grade-chip" aria-label={app.grade.change}>
+        <NavLink to="/app/grade" className={`grade-chip${gradeCheck ? " is-check" : ""}`} aria-label={app.grade.change} data-testid="grade-chip">
           {grade}
         </NavLink>
       </header>
+      {gradeCheck && (
+        <div className="grade-check" role="status" data-testid="grade-check">
+          <span>{app.grade.migrated(grade)}</span>
+          <button type="button" className="link-btn" onClick={dismissGradeCheck}>
+            {app.grade.ok}
+          </button>
+        </div>
+      )}
       <main className="main">
         <Routes>
           <Route path="grade" element={<Onboarding current={grade} onChoose={choose} />} />
