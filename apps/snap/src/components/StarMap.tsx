@@ -55,10 +55,13 @@ export function StarMap(props: {
   onOpen: (g: Grade | null) => void;
   lit: string[];
   selected: string | null;
+  /** Stars to ring (the earlier-grade ✕ units from the report strip). */
+  marked?: Set<string> | null;
   onSelect: (id: string | null) => void;
   onLayout?: (layout: SkyLayout, canvas: HTMLDivElement) => void;
 }) {
   const { tiles, grade, near, opened, onOpen, lit, selected, onSelect } = props;
+  const marked = props.marked ?? null;
   const canvas = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(DEFAULT_W);
 
@@ -151,14 +154,16 @@ export function StarMap(props: {
             .map((n) => {
               const st = statusOf(n.id);
               const dim = path && !path.units.has(n.id);
+              const ring = marked?.has(n.id);
               return (
                 <g
                   key={n.id}
-                  className={`far-star${dim ? " is-dim" : ""}`}
+                  className={`far-star${dim ? " is-dim" : ""}${ring ? " is-marked" : ""}`}
                   transform={`translate(${n.cx.toFixed(1)} ${n.cy}) scale(${st === "empty" ? 0.8 : 0.5})`}
                   data-unit={n.id}
                   data-status={st}
                 >
+                  {ring && <circle className="g-mark" r="22" />}
                   {marks(st, false)}
                 </g>
               );
@@ -201,7 +206,7 @@ export function StarMap(props: {
               <button
                 key={n.id}
                 type="button"
-                className={`star-node${t.status === "empty" ? "" : " has-data"}${n.grade === grade ? " is-own" : ""}${isLit ? " is-lit" : ""}${selected === n.id ? " is-sel" : ""}${inPath ? " is-path" : ""}${path && !inPath ? " is-dim" : ""}`}
+                className={`star-node${t.status === "empty" ? "" : " has-data"}${n.grade === grade ? " is-own" : ""}${isLit ? " is-lit" : ""}${selected === n.id ? " is-sel" : ""}${inPath ? " is-path" : ""}${path && !inPath ? " is-dim" : ""}${marked?.has(n.id) ? " is-marked" : ""}`}
                 style={{ left: n.x, top: n.y, width: n.w, height: n.h }}
                 data-unit={n.id}
                 data-status={t.status}
