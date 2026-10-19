@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { PhotoThumb } from "../components/PhotoThumb";
+import { VideoLink } from "../components/VideoLink";
 import { useSheetDrag } from "../components/useSheetDrag";
 import { app } from "../copy";
 import { unitById } from "../curriculum";
@@ -21,6 +22,7 @@ import {
   unitName,
   whenTitle,
 } from "../lib/examplan";
+import { channelUrl } from "../lib/youtube";
 
 /**
  * テスト前モード on the map (the map stays the surface): the date question, the range bar under the dimmed
@@ -196,6 +198,7 @@ export function PlanSheet(props: {
             </span>
           </div>
         )}
+        <VideoLink href={channelUrl()} label={app.video.channelLabel} testid="plan-youtube" />
       </div>
       <div ref={body} className="sheet-body plan-body" data-testid="plan-body">
         {miss && (

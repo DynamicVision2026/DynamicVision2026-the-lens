@@ -11,29 +11,29 @@ function page(createdAt: string, probs: [unit: string | null, mark: Mark, review
   }));
   return { id: `p${seq++}`, createdAt, grade: "小5", pageType: "test", score: null, problems };
 }
-const status = (pages: SavedPage[], id: string) => mapTiles(pages).find((t) => t.unit.id === id)!.status;
+const status = (pages: SavedPage[], id: string) => mapTiles(pages).find((t) => t.unit.id === id)!.key;
 
-describe("map tile status (gold → review → ok → empty)", () => {
+describe("map tile step (マスター → 挑戦中 → 復習ずみ → まだ)", () => {
   it("empty when there are no problems", () => {
-    expect(status([], "5-C3")).toBe("empty");
-    expect(status([page("2026-10-01T00:00:00Z", [["5-A3", "✕"]])], "5-C3")).toBe("empty");
+    expect(status([], "5-C3")).toBe("mada");
+    expect(status([page("2026-10-01T00:00:00Z", [["5-A3", "✕"]])], "5-C3")).toBe("mada");
   });
 
   it("review when a ✕ is not yet ticked 「復習した」", () => {
-    expect(status([page("2026-10-01T00:00:00Z", [["5-C3", "○"], ["5-C3", "✕"]])], "5-C3")).toBe("review");
+    expect(status([page("2026-10-01T00:00:00Z", [["5-C3", "○"], ["5-C3", "✕"]])], "5-C3")).toBe("trying");
   });
 
   it("ok when every ✕ is reviewed (and not gold: the newest page had a ✕)", () => {
-    expect(status([page("2026-10-01T00:00:00Z", [["5-C3", "○"], ["5-C3", "✕", true]])], "5-C3")).toBe("ok");
+    expect(status([page("2026-10-01T00:00:00Z", [["5-C3", "○"], ["5-C3", "✕", true]])], "5-C3")).toBe("reviewed");
   });
 
   it("ok for data without marks; reviewing never makes a tile gold", () => {
-    expect(status([page("2026-10-01T00:00:00Z", [["5-C3", null], ["5-C3", null]])], "5-C3")).toBe("ok");
-    expect(status([page("2026-10-01T00:00:00Z", [["5-C3", "✕", true]])], "5-C3")).toBe("ok");
+    expect(status([page("2026-10-01T00:00:00Z", [["5-C3", null], ["5-C3", null]])], "5-C3")).toBe("reviewed");
+    expect(status([page("2026-10-01T00:00:00Z", [["5-C3", "✕", true]])], "5-C3")).toBe("reviewed");
   });
 
   it("gold when the newest page with this unit has only ○ for it", () => {
-    expect(status([page("2026-10-01T00:00:00Z", [["5-C3", "○"], ["5-C3", "○"], ["5-A3", "✕"]])], "5-C3")).toBe("gold");
+    expect(status([page("2026-10-01T00:00:00Z", [["5-C3", "○"], ["5-C3", "○"], ["5-A3", "✕"]])], "5-C3")).toBe("master");
   });
 
   it("a later all-○ page after an earlier ✕ → gold, even with the old ✕ unreviewed", () => {
@@ -41,13 +41,13 @@ describe("map tile status (gold → review → ok → empty)", () => {
       page("2026-10-01T00:00:00Z", [["5-C3", "✕"], ["5-C3", "✕"]]),
       page("2026-10-08T00:00:00Z", [["5-C3", "○"], ["5-C3", "○"]]),
     ];
-    expect(status(pages, "5-C3")).toBe("gold");
-    expect(status([...pages].reverse(), "5-C3")).toBe("gold"); // order in the array does not matter
+    expect(status(pages, "5-C3")).toBe("master");
+    expect(status([...pages].reverse(), "5-C3")).toBe("master"); // order in the array does not matter
   });
 
   it("null marks on the newest page are not gold", () => {
     const pages = [page("2026-10-08T00:00:00Z", [["5-C3", "○"], ["5-C3", null]])];
-    expect(status(pages, "5-C3")).toBe("ok");
+    expect(status(pages, "5-C3")).toBe("reviewed");
   });
 
   it("newest page with a ✕ → review, even after an earlier all-○ page", () => {
@@ -55,7 +55,7 @@ describe("map tile status (gold → review → ok → empty)", () => {
       page("2026-10-01T00:00:00Z", [["5-C3", "○"]]),
       page("2026-10-08T00:00:00Z", [["5-C3", "○"], ["5-C3", "✕"]]),
     ];
-    expect(status(pages, "5-C3")).toBe("review");
+    expect(status(pages, "5-C3")).toBe("trying");
   });
 
   it("a newer page without this unit does not change it", () => {
@@ -63,8 +63,8 @@ describe("map tile status (gold → review → ok → empty)", () => {
       page("2026-10-01T00:00:00Z", [["5-C3", "○"]]),
       page("2026-10-08T00:00:00Z", [["5-A3", "✕"], [null, "✕"]]),
     ];
-    expect(status(pages, "5-C3")).toBe("gold");
-    expect(status(pages, "5-A3")).toBe("review");
+    expect(status(pages, "5-C3")).toBe("master");
+    expect(status(pages, "5-A3")).toBe("trying");
   });
 });
 
@@ -89,9 +89,9 @@ describe("whole-curriculum map", () => {
   it("section counts summarise the tiles", () => {
     const pages = [page("2026-10-01T00:00:00Z", [["5-C3", "✕"], ["5-A3", "○"], ["6-A1", null], ["5-B1", "✕", true]])];
     const [own] = mapSections(pages, "小5");
-    expect(own.counts).toMatchObject({ review: 1, gold: 1, ok: 1 });
-    expect(own.counts.empty).toBe(own.tiles.length - 3);
-    expect(mapSections(pages, "小5").find((s) => s.grade === "小6")!.counts.ok).toBe(1);
+    expect(own.counts).toMatchObject({ trying: 1, master: 1, reviewed: 1 });
+    expect(own.counts.mada).toBe(own.tiles.length - 3);
+    expect(mapSections(pages, "小5").find((s) => s.grade === "小6")!.counts.reviewed).toBe(1);
   });
 });
 

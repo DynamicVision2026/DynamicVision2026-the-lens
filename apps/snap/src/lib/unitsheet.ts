@@ -3,7 +3,8 @@ import { unitById } from "../curriculum";
 import type { Mark } from "../reader/schema";
 import { type MarkSource, markSourceOf } from "./marks";
 import type { SavedPage, SavedProblem } from "./model";
-import { type Reason, goldUnits, reasonFor } from "./review";
+import { type UnitLevel, nextStepLine, unitLevel } from "./ladder";
+import { type Reason, reasonFor } from "./review";
 import { type HistoryRow, shortDate, unitHistory } from "./territory";
 
 /**
@@ -40,7 +41,11 @@ export interface UnitSheet {
    * テスト前リスト (splitTestList). Empty for every other unit.
    */
   nennotame: SheetProblem[];
+  /** マスター or 定着 (Lv ≥ 3). */
   gold: boolean;
+  /** The unit's step on the 5-step ladder, and the one line on what makes the next step. */
+  ladder: UnitLevel;
+  next: string;
 }
 
 /** 「先生の印」「AI判定」「保護者」, or "" when the problem has no mark. */
@@ -50,8 +55,9 @@ export function markSourceLabel(p: { mark: Mark; markSource?: MarkSource }): str
 }
 
 /** Everything the unit sheet shows below its header. */
-export function unitSheet(pages: SavedPage[], unitId: string): UnitSheet {
-  const gold = goldUnits(pages).has(unitId);
+export function unitSheet(pages: SavedPage[], unitId: string, now: Date = new Date()): UnitSheet {
+  const ladder = unitLevel(pages, unitId, now);
+  const gold = ladder.level >= 3;
   const problems: SheetProblem[] = [];
   const nennotame: SheetProblem[] = [];
   // newest page first; a stable sort keeps page order on an exact tie
@@ -77,7 +83,7 @@ export function unitSheet(pages: SavedPage[], unitId: string): UnitSheet {
       (gold && reason ? nennotame : problems).push(item);
     });
   }
-  return { history: unitHistory(pages, unitId), problems, nennotame, gold };
+  return { history: unitHistory(pages, unitId), problems, nennotame, gold, ladder, next: nextStepLine(ladder) };
 }
 
 /** One row under the photo in the page viewer. */

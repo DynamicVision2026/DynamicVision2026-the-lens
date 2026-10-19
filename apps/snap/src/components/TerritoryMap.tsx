@@ -1,7 +1,8 @@
 import { type MutableRefObject, useCallback, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef } from "react";
 import { app } from "../copy";
 import type { Grade } from "../curriculum";
-import type { Tile, TileStatus } from "../lib/review";
+import { type Level, countsLine } from "../lib/ladder";
+import type { Tile } from "../lib/review";
 import { cameraStep } from "../lib/layers";
 import { rootIds } from "../lib/starmap";
 import {
@@ -59,7 +60,7 @@ export interface MapApi {
 }
 
 const TOKENS = [
-  ...TERRAIN_TOKENS, "unex", "num", "geo", "rel", "data", "h-i", "h-ii", "h-iii", "h-a", "h-b", "h-c", "gold", "root", "range", "veil",
+  ...TERRAIN_TOKENS, "unex", "num", "geo", "rel", "data", "h-i", "h-ii", "h-iii", "h-a", "h-b", "h-c", "gold", "gold-glint", "settled-glow", "root", "range", "veil",
 ] as const;
 const COLOR_TOKEN: Record<ColorKey, string> = {
   num: "num", geo: "geo", rel: "rel", data: "data", hI: "h-i", hII: "h-ii", hIII: "h-iii", hA: "h-a", hB: "h-b", hC: "h-c",
@@ -121,6 +122,9 @@ const CACHE_MARGIN = 0.35;
 /** After the last pinch / wheel step, wait this long before repainting the terrain sharp. */
 const SETTLE_MS = 160;
 
+/** Axial neighbour across each top-face edge (corner i → i+1 of hexCorners, pointy-top). */
+const EDGE_DIRS: [number, number][] = [[1, -1], [1, 0], [0, 1], [-1, 1], [-1, 0], [0, -1]];
+
 const RISE_MS = 800;
 const FLY_MS = 650;
 const reduceMotion = () => window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
@@ -155,9 +159,10 @@ export function TerritoryMap(props: {
   const cache = useRef<TerrainCache | null>(null);
   const lastZoom = useRef(0);
   const settle = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const statusById = useMemo(() => new Map(tiles.map((t) => [t.unit.id, t.status])), [tiles]);
-  const status = useCallback((id: string): TileStatus => statusById.get(id) ?? "empty", [statusById]);
+  const levelById = useMemo(() => new Map(tiles.map((t) => [t.unit.id, t.level])), [tiles]);
+  const status = useCallback((id: string): Level => levelById.get(id) ?? 0, [levelById]);
   const items = useMemo(() => drawOrder(T.hexes), [T]);
+  const cellUnit = useMemo(() => new Map(T.hexes.map((t) => [`${t.q},${t.r}`, t.unitId])), [T]);
   const progress = useMemo(() => zoneProgress(tiles), [tiles]);
   const litSet = useMemo(() => new Set(lit), [lit]);
 
@@ -256,7 +261,7 @@ export function TerritoryMap(props: {
     const shadeCache = new Map<string, Shades>();
     const shadeFor = (k: string, base: () => RGBA) => {
       let sh = shadeCache.get(k);
-      if (!sh) shadeCache.set(k, (sh = shades(base(), p)));
+      if (!sh) shadeCache.set(k, (sh = k === "settled" ? { ...shades(base(), p), cap: css(mix(base(), p["gold-glint"], 0.75)) } : shades(base(), p)));
       return sh;
     };
     const poly = (pts: [number, number][]) => {
@@ -265,7 +270,7 @@ export function TerritoryMap(props: {
       for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
       ctx.closePath();
     };
-    const column = (x: number, z: number, e: number, hh: number, sh: Shades, selectedStroke: string | null) => {
+    const column = (x: number, z: number, e: number, hh: number, sh: Shades, selectedStroke: string | null, glow = false) => {
       const [cx, cyTop] = project(x, z, e + hh);
       const [, cyBase] = project(x, z, e);
       const top = hexCorners(cx, cyTop, HEX.tile);
@@ -287,6 +292,13 @@ export function TerritoryMap(props: {
       ctx.fillStyle = sh.cap;
       poly(hexCorners(cx, cyTop, HEX.cap));
       ctx.fill();
+      if (glow) {
+        // 定着: a solid light cap with a crisp rim
+        ctx.strokeStyle = css(p.white);
+        ctx.lineWidth = Math.max(0.04, px * 1.2);
+        poly(hexCorners(cx, cyTop, HEX.cap));
+        ctx.stroke();
+      }
     };
     // まだ = the zone's own ground (unexplored terrain), lifted a little so it still reads as a tile
     const groundOf = (g: Grade) => p[`g-${GROUND[T.byGrade.get(g)!.zone]}`];
@@ -297,6 +309,7 @@ export function TerritoryMap(props: {
       return mix(light ? mix(g, p.root, 0.13) : mix(g, p.white, 0.3), p[COLOR_TOKEN[u.color]], 0.08);
     };
     const rangeTops: [number, number][] = [];
+    const glowEdges: [[number, number], [number, number]][] = [];
     for (const t of items) {
       if (t.x < vx0 - 2 || t.x > vx1 + 2) continue;
       const yb = t.z * 0.72 - t.e * 0.7;
@@ -311,6 +324,7 @@ export function TerritoryMap(props: {
         const to = look.fill === "gold" ? p.gold : p[COLOR_TOKEN[u.color]];
         sh = shades(mix(unexOf(u), to, Math.min(1, k * 1.6)), p);
       } else if (look.fill === "unex") sh = shadeFor(`u-${u.grade}-${u.color}`, () => unexOf(u));
+      else if (look.glow) sh = shadeFor("settled", () => p.gold);
       else if (look.fill === "gold") sh = shadeFor("gold", () => p.gold);
       else sh = shadeFor(u.color, () => p[COLOR_TOKEN[u.color]]);
       const inRange = !!exam?.range.has(t.unitId);
@@ -320,8 +334,34 @@ export function TerritoryMap(props: {
         sh = shadeFor(`dim-${base.body}`, () => mix(parseColor(base.body), mix(p.black, p.veil, 0.5), 0.5));
       }
       const hh = heightOf(t, now);
-      column(t.x, t.z, t.e, hh, sh, t.unitId === selected ? css(p.white) : null);
+      const glow = look.glow && k >= 1 && !(exam?.dim && !inRange);
+      column(t.x, t.z, t.e, hh, sh, t.unitId === selected ? css(p.white) : null, glow);
+      if (glow) {
+        // only the patch's outer edges glow (a neighbour of the same unit shares the edge)
+        const [cx, cy] = project(t.x, t.z, t.e + hh);
+        const cs = hexCorners(cx, cy, HEX.tile);
+        EDGE_DIRS.forEach(([dq, dr], i) => {
+          if (cellUnit.get(`${t.q + dq},${t.r + dr}`) !== t.unitId) glowEdges.push([cs[i], cs[(i + 1) % 6]]);
+        });
+      }
       if (inRange) rangeTops.push(project(t.x, t.z, t.e + hh));
+    }
+    // 定着: a subtle warm glow around the top faces, over the columns (two soft strokes, no blur)
+    if (glowEdges.length) {
+      ctx.lineJoin = "round";
+      ctx.lineCap = "round";
+      ctx.strokeStyle = css(p["settled-glow"]);
+      for (const lw of [0.36, 0.18]) {
+        ctx.lineWidth = lw;
+        ctx.beginPath();
+        for (const [a, b] of glowEdges) {
+          ctx.moveTo(a[0], a[1]);
+          ctx.lineTo(b[0], b[1]);
+        }
+        ctx.stroke();
+      }
+      ctx.lineJoin = "miter";
+      ctx.lineCap = "butt";
     }
     // range tiles (テスト前モード): a bright outline with a dark casing on every hex of the unit, drawn
     // over the columns so it reads on gold, red and unexplored tiles alike
@@ -381,7 +421,7 @@ export function TerritoryMap(props: {
     if (animating) frame.current = requestAnimationFrame(tick);
     // tick is stable; it always runs the latest draw (selection, states)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [T, items, status, riseOf, heightOf, selected, exam]);
+  }, [T, items, cellUnit, status, riseOf, heightOf, selected, exam]);
   drawRef.current = draw;
 
   const schedule = useCallback(() => {
@@ -637,7 +677,7 @@ export function TerritoryMap(props: {
               data-waypoint={reg.grade}
               data-taken={pr.taken}
               data-total={pr.total}
-              aria-label={app.map.terr.zoneLabel(zoneName(reg.grade), reg.grade, pr.taken, pr.total)}
+              aria-label={app.map.terr.zoneLabel(zoneName(reg.grade), reg.grade, pr.taken, pr.total, countsLine(pr.counts))}
               role="img"
             >
               <span className="wp-mark" aria-hidden>
@@ -660,7 +700,14 @@ export function TerritoryMap(props: {
                     {app.map.terr.conquered}
                   </span>
                 ) : (
-                  <span className="wp-badge">{app.map.terr.progress(pr.taken, pr.total)}</span>
+                  <span className="wp-badge">
+                    {app.map.terr.progress(pr.taken, pr.total)}
+                    {pr.taken > 0 && (
+                      <span className="wp-lv" data-testid="wp-levels">
+                        {countsLine(pr.counts)}
+                      </span>
+                    )}
+                  </span>
                 )}
               </span>
             </span>
@@ -669,16 +716,17 @@ export function TerritoryMap(props: {
         {tiles.map((t) => {
           const u = T.byId.get(t.unit.id);
           if (!u) return null;
-          const look = lookOf(t.status);
+          const look = lookOf(t.level);
           const inRange = !!exam?.range.has(t.unit.id);
           const todo = !!exam?.todo.has(t.unit.id);
           return (
             <button
               key={t.unit.id}
               type="button"
-              className={`terr-unit st-${t.status}${inRange ? " is-range" : ""}${todo ? " is-todo" : ""}${litSet.has(t.unit.id) ? " is-lit" : ""}${selected === t.unit.id ? " is-sel" : ""}${pointed === t.unit.id ? " is-pointed" : ""}${selected && rootIds(selected).includes(t.unit.id) ? " is-root" : ""}${t.unit.appGrade === grade ? " is-own" : ""}`}
+              className={`terr-unit st-${t.key}${inRange ? " is-range" : ""}${todo ? " is-todo" : ""}${litSet.has(t.unit.id) ? " is-lit" : ""}${selected === t.unit.id ? " is-sel" : ""}${pointed === t.unit.id ? " is-pointed" : ""}${selected && rootIds(selected).includes(t.unit.id) ? " is-root" : ""}${t.unit.appGrade === grade ? " is-own" : ""}`}
               data-unit={t.unit.id}
-              data-status={t.status}
+              data-status={t.key}
+              data-level={t.level}
               aria-label={exam?.dim ? `${tileLabel(t)}（${inRange ? app.exam.inRange : app.exam.notInRange}）` : tileLabel(t)}
               aria-pressed={exam?.dim ? inRange : selected === t.unit.id}
               data-range={exam ? (inRange ? "1" : "0") : undefined}
@@ -697,9 +745,15 @@ export function TerritoryMap(props: {
                     <circle className="flag-foot" cx="5" cy="29" r="1.6" />
                   </svg>
                 )}
-                {look.crown && (
-                  <svg className="terr-crown" viewBox="0 0 24 24" width="22" height="22">
+                {look.star && (
+                  <svg className="terr-star" viewBox="0 0 24 24" width="22" height="22">
                     <path d="M12 2.5l2.3 5.6 6 .5-4.6 3.9 1.4 5.9L12 15.2 6.9 18.4l1.4-5.9-4.6-3.9 6-.5z" />
+                  </svg>
+                )}
+                {look.crown && (
+                  <svg className="terr-crown" viewBox="0 0 28 24" width="26" height="22">
+                    <path d="M3 8.5l5.6 4.6L14 4l5.4 9.1L25 8.5l-2.3 11H5.3z" />
+                    <path className="crown-band" d="M5.6 19.5h16.8" />
                   </svg>
                 )}
               </span>

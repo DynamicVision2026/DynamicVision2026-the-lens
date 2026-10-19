@@ -181,24 +181,27 @@ input:not([type="checkbox"]):not([type="radio"]), .select {
 .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.8rem; color: var(--c-muted); margin: 6px 0 14px; }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
 .dot { width: 12px; height: 12px; border-radius: 4px; display: inline-block; }
-.dot-review { background: var(--c-wrong); }
-.dot-ok { background: var(--c-ok); }
-.dot-empty { background: var(--c-empty); border: 1px solid var(--c-line); }
-.dot-gold { background: var(--c-gold); }
+.dot-trying { background: var(--c-wrong); }
+.dot-reviewed { background: var(--c-ok); }
+.dot-mada { background: var(--c-empty); border: 1px solid var(--c-line); }
+.dot-master { background: var(--c-gold); }
+.dot-settled { background: var(--c-settled); box-shadow: 0 0 0 2px var(--c-settled-tint); }
 .tiles { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 @media (min-width: 600px) { .tiles { grid-template-columns: repeat(3, 1fr); } }
 .tile {
   display: grid; gap: 2px; min-height: 104px; padding: 12px; border-radius: var(--radius); text-decoration: none;
   color: var(--c-text); border: 1.5px solid var(--c-line); background: var(--c-empty);
 }
-.tile-ok { background: var(--c-ok-tint); border-color: var(--c-ok); }
-.tile-review { background: var(--c-wrong-tint); border-color: var(--c-wrong); }
+.tile-reviewed { background: var(--c-ok-tint); border-color: var(--c-ok); }
+.tile-trying { background: var(--c-wrong-tint); border-color: var(--c-wrong); }
 .tile-code { font-size: 0.75rem; font-weight: 800; color: var(--c-muted); }
 .tile-topic { font-weight: 700; line-height: 1.35; color: var(--c-navy); }
 .tile-stats { align-self: end; display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--c-muted); }
 .tile-wrong { color: var(--c-wrong); }
-.tile-gold { background: var(--c-gold-tint); border-color: var(--c-gold); }
-.tile-gold .tile-code { color: var(--c-gold-strong); }
+.tile-master { background: var(--c-gold-tint); border-color: var(--c-gold); }
+.tile-master .tile-code { color: var(--c-gold-strong); }
+.tile-settled { background: var(--c-settled-tint); border-color: var(--c-settled); border-width: 2.5px; }
+.tile-settled .tile-code, .tile-settled .tile-star { color: var(--c-settled-strong); }
 .tile-star { color: var(--c-gold-strong); font-weight: 800; }
 /* Light-up after 保存: a short glow, then a quiet ring so the user can still find the tile. */
 .tile.is-lit { box-shadow: 0 0 0 3px var(--c-glow); animation: lit-pulse 1.5s ease-out 1; }
@@ -223,9 +226,10 @@ input:not([type="checkbox"]):not([type="radio"]), .select {
 .sec-own { font-size: 0.72rem; font-weight: 800; padding: 1px 8px; border-radius: 999px; background: var(--c-accent); color: var(--c-on-dark); }
 .sec-sum { display: inline-flex; gap: 6px; flex-wrap: wrap; margin-left: auto; font-size: 0.78rem; color: var(--c-muted); }
 .sum { display: inline-flex; align-items: center; gap: 4px; font-weight: 700; }
-.sum-review { color: var(--c-wrong); }
-.sum-gold { color: var(--c-gold-strong); }
-.sum-ok { color: var(--c-ok); }
+.sum-trying { color: var(--c-wrong); }
+.sum-master { color: var(--c-gold-strong); }
+.sum-settled { color: var(--c-settled-strong); }
+.sum-reviewed { color: var(--c-ok); }
 .grade-sec .tiles { padding: 0 12px 12px; }
 
 /* toast (light-up message) */
@@ -348,6 +352,9 @@ body:has(.terr-page) .main { padding-bottom: 0; }
   font-size: 10px; font-weight: 700; line-height: 1.5; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; white-space: nowrap;
 }
 .wp-flag { padding-left: 3px; color: var(--terr-yellow); }
+/* counts by ladder step under 制覇 N/M (zones with data only) */
+.wp-badge:has(.wp-lv) { flex-direction: column; gap: 0; line-height: 1.35; padding: 2px 6px; }
+.wp-lv { font-size: 8.5px; font-weight: 700; color: var(--terr-glass-dim); letter-spacing: 0.02em; }
 .wp-flag svg { margin-top: -10px; overflow: visible; }
 .wpf-pole { stroke: var(--terr-glass-text); stroke-width: 1.5; stroke-linecap: round; }
 .wpf-cloth { fill: var(--terr-yellow); }
@@ -387,7 +394,10 @@ body:has(.terr-page) .main { padding-bottom: 0; }
 }
 @keyframes terr-pulse { 0% { transform: scale(0.55); opacity: 0.95; } 100% { transform: scale(1.7); opacity: 0; } }
 .terr-unit.is-pointed .terr-pulse { animation-duration: 0.9s; border-width: 3px; }
-.terr-crown { position: absolute; left: -11px; top: -26px; fill: var(--terr-gold); stroke: var(--terr-white); stroke-width: 1.6; stroke-linejoin: round; filter: drop-shadow(0 0 4px var(--terr-gold-glint)); animation: terr-glint 3.2s ease-in-out infinite; }
+.terr-star { position: absolute; left: -11px; top: -26px; fill: var(--terr-gold); stroke: var(--terr-white); stroke-width: 1.6; stroke-linejoin: round; filter: drop-shadow(0 0 4px var(--terr-gold-glint)); animation: terr-glint 3.2s ease-in-out infinite; }
+/* 定着: a crown (taller than マスター's star) with a soft warm glow */
+.terr-crown { position: absolute; left: -13px; top: -30px; overflow: visible; fill: var(--terr-gold); stroke: var(--terr-ink); stroke-width: 1.5; stroke-linejoin: round; filter: drop-shadow(0 0 5px var(--terr-settled-glow)) drop-shadow(0 0 2px var(--terr-gold-glint)); }
+.terr-crown .crown-band { fill: none; stroke: var(--terr-gold-glint); stroke-width: 2; stroke-linecap: round; }
 @keyframes terr-glint { 0%, 70%, 100% { transform: scale(1) rotate(0); } 80% { transform: scale(1.25) rotate(12deg); } }
 .terr-unit.is-root::after, .terr-unit.is-sel::after {
   content: ""; position: absolute; left: 50%; top: 50%; width: 46px; height: 28px; transform: translate(-50%, -50%) scale(var(--inv, 1));
@@ -397,7 +407,7 @@ body:has(.terr-page) .main { padding-bottom: 0; }
 .terr-unit.is-sel::after { border-style: solid; border-color: var(--terr-white); box-shadow: 0 0 0 2px var(--terr-ink); }
 @media (prefers-reduced-motion: reduce) {
   .terr-pulse { animation: none; transform: scale(1.15); opacity: 0.7; }
-  .terr-crown { animation: none; }
+  .terr-star { animation: none; }
 }
 /* the video's unit pin: white card, small code line, strand-coloured border and stem */
 .terr-pin {
@@ -460,7 +470,13 @@ body:has(.terr-page) .main { padding-bottom: 0; }
 .hud-bar i b { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 2px; }
 .hb-e { background: var(--terr-bar-e); } .hb-j { background: var(--terr-bar-j); } .hb-h { background: var(--terr-bar-h); }
 .hud-bar em { font-style: normal; width: 34px; text-align: right; font-variant-numeric: tabular-nums; color: var(--terr-glass-text); }
-.hud-review { margin-top: 4px; padding-top: 4px; border-top: 1px solid var(--terr-glass-line); color: var(--terr-red-hud, var(--terr-red)); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+/* counts by ladder step (highest first); 挑戦中 keeps the red of the old 要復習 line */
+.hud-levels { display: flex; flex-wrap: wrap; gap: 0 4px; margin-top: 4px; padding-top: 4px; border-top: 1px solid var(--terr-glass-line); font-size: 0.68rem; font-weight: 800; line-height: 1.45; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; word-break: keep-all; }
+.hl { white-space: nowrap; }
+.hl-sep { font-style: normal; margin-left: 4px; color: var(--terr-glass-dim); }
+.hl-settled, .hl-master { color: var(--terr-gold-hud); }
+.hl-reviewed { color: var(--terr-ok-hud); }
+.hl-trying { color: var(--terr-red-hud, var(--terr-red)); }
 
 .hud-legend-wrap { position: absolute; left: 12px; bottom: 12px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
 .hud-legend-btn {
@@ -475,7 +491,7 @@ body:has(.terr-page) .main { padding-bottom: 0; }
 .lg-sw { width: 11px; height: 11px; border-radius: 2px; flex: none; background: var(--pc); }
 .lg-sw-hs { background: linear-gradient(90deg, var(--terr-h-i) 0 17%, var(--terr-h-ii) 17% 33%, var(--terr-h-iii) 33% 50%, var(--terr-h-a) 50% 67%, var(--terr-h-b) 67% 83%, var(--terr-h-c) 83%); }
 .lg-hs { color: var(--terr-glass-dim); }
-.lg-states { display: grid; grid-template-columns: auto auto; gap: 0 8px; margin-top: 4px !important; padding-top: 3px !important; border-top: 1px solid var(--terr-glass-line); }
+.lg-states { display: grid; grid-template-columns: auto auto auto; gap: 0 8px; margin-top: 4px !important; padding-top: 3px !important; border-top: 1px solid var(--terr-glass-line); }
 .lg-states li { display: flex; align-items: center; gap: 1px; white-space: nowrap; }
 
 .hud-ctrl { position: absolute; right: 12px; bottom: 12px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
@@ -523,7 +539,7 @@ body:has(.terr-page) .main { padding-bottom: 0; }
 .sheet-stats div { background: var(--terr-bar); border-radius: var(--radius-sm); padding: 5px 10px; }
 .sheet-stats dt { font-size: 0.72rem; color: var(--terr-ink-soft); }
 .sheet-stats dd { margin: 0; font-size: 1.05rem; font-weight: 800; }
-.sum-empty { color: var(--terr-ink-soft); }
+.sum-mada { color: var(--terr-ink-soft); }
 .sheet-h { font-size: 0.8rem; color: var(--terr-ink-soft); margin: 0 0 4px; font-weight: 800; }
 .sheet-none { font-size: 0.86rem; color: var(--terr-ink-soft); margin: 0 0 10px; }
 .sheet-history { list-style: none; padding: 0; margin: 0 0 10px; display: grid; gap: 2px; font-size: 0.86rem; font-variant-numeric: tabular-nums; }
@@ -590,11 +606,16 @@ body:has(.terr-page) .main { padding-bottom: 0; }
 }
 .sheet-zone { font-size: 0.78rem; font-weight: 700; color: var(--terr-ink-soft); padding-left: 8px; border-left: 1px solid var(--terr-bar); }
 .sheet-to-probs {
-  width: 100%; min-height: 40px; display: flex; align-items: center; justify-content: center; gap: 8px; margin: 0 0 10px;
+  width: 100%; min-height: 44px; display: flex; align-items: center; justify-content: center; gap: 6px; margin: 0; padding: 0 10px;
+  line-height: 1.25; word-break: keep-all;
   border: 0; border-radius: 999px; background: var(--terr-ink); color: var(--terr-white); font: inherit; font-weight: 800; font-size: 0.9rem; cursor: pointer;
 }
 .sheet-probs { margin: 2px 0 14px; padding-top: 8px; }
 .sheet-probs-h { display: flex; align-items: baseline; gap: 8px; font-size: 0.9rem; color: var(--terr-ink); }
+/* 問題 heading + 「解説動画（YouTube）」 on one row (the caption under the button) */
+.sheet-probs-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 4px 10px; flex-wrap: wrap; margin: 0 0 6px; }
+.sheet-probs-top .sheet-probs-h { margin: 8px 0 0; }
+.sheet-probs-top .yt-row { flex-direction: column; align-items: flex-end; gap: 2px; margin: 0; }
 .sheet-probs-n { font-size: 0.78rem; color: var(--terr-ink-soft); font-weight: 700; }
 .unit-probs { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
 .up {
@@ -684,8 +705,11 @@ body:has(.terr-page) .main { padding-bottom: 0; }
 .tc-num { --tc: var(--terr-num); } .tc-geo { --tc: var(--terr-geo); } .tc-rel { --tc: var(--terr-rel); } .tc-data { --tc: var(--terr-data); }
 .tc-hI { --tc: var(--terr-h-i); } .tc-hII { --tc: var(--terr-h-ii); } .tc-hIII { --tc: var(--terr-h-iii); }
 .tc-hA { --tc: var(--terr-h-a); } .tc-hB { --tc: var(--terr-h-b); } .tc-hC { --tc: var(--terr-h-c); }
-.tg-empty { --tc: color-mix(in srgb, var(--terr-unex) 86%, var(--terr-num)) !important; }
-.tg-gold { --tc: var(--terr-gold) !important; }
+.tg-mada { --tc: color-mix(in srgb, var(--terr-unex) 86%, var(--terr-num)) !important; }
+.tg-master, .tg-settled { --tc: var(--terr-gold) !important; }
+.tg-settled .tg-cap { fill: color-mix(in srgb, var(--terr-gold) 25%, var(--terr-gold-glint)); stroke: var(--terr-white); stroke-width: 0.8; }
+.tg-glow { fill: var(--terr-settled-glow); }
+.tg-crown { fill: var(--terr-gold); stroke: var(--terr-ink); stroke-width: 0.9; stroke-linejoin: round; }
 .tg-pole { stroke: var(--terr-ink); stroke-width: 1.1; }
 .tg-flag path:last-child { fill: var(--terr-red); }
 .tg-star { fill: var(--terr-white); }
@@ -698,19 +722,21 @@ body:has(.terr-page) .main { padding-bottom: 0; }
 .glance { padding: 16px; }
 .glance-bar { display: flex; gap: 3px; height: 22px; border-radius: 999px; overflow: hidden; background: var(--c-empty); }
 .gb { flex-basis: 0; min-width: 8px; height: 100%; }
-.gb-gold { background: var(--c-gold); }
-.gb-ok { background: var(--c-ok); }
-.gb-review { background: var(--c-wrong); }
-.gb-empty { background: var(--c-empty-strong); }
+.gb-settled { background: var(--c-settled); }
+.gb-master { background: var(--c-gold); }
+.gb-reviewed { background: var(--c-ok); }
+.gb-trying { background: var(--c-wrong); }
+.gb-mada { background: var(--c-empty-strong); }
 .glance-sum { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 12px; margin: 8px 0 0; font-size: 0.84rem; color: var(--c-text); }
 .glance-of { width: 100%; font-size: 0.8rem; color: var(--c-muted); }
 .glance-item { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
 .glance-item b { font-size: 1.05rem; color: var(--c-navy); }
 .sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; flex: none; }
-.sw-gold { background: var(--c-gold); }
-.sw-ok { background: var(--c-ok); }
-.sw-review { background: var(--c-wrong); }
-.sw-empty { background: var(--c-empty-strong); }
+.sw-settled { background: var(--c-settled); }
+.sw-master { background: var(--c-gold); }
+.sw-reviewed { background: var(--c-ok); }
+.sw-trying { background: var(--c-wrong); }
+.sw-mada { background: var(--c-empty-strong); }
 
 .report-card { padding: 14px 16px 16px; }
 .report-h { font-size: 1rem; margin: 0 0 6px; }
@@ -741,9 +767,10 @@ body:has(.terr-page) .main { padding-bottom: 0; }
   display: inline-flex; align-items: center; min-height: 32px; padding: 2px 12px; border-radius: 999px; font-size: 0.82rem;
   font-weight: 700; text-decoration: none; border: 1.5px solid transparent; line-height: 1.3;
 }
-.mc-gold { background: var(--c-gold-tint); border-color: var(--c-gold); color: var(--c-gold-strong); }
-.mc-review { background: var(--c-wrong-tint); border-color: var(--c-wrong); color: var(--c-wrong); }
-.mc-ok { background: var(--c-ok-tint); border-color: var(--c-ok); color: var(--c-ok); }
+.mc-settled { background: var(--c-settled-tint); border-color: var(--c-settled); color: var(--c-settled-strong); }
+.mc-master { background: var(--c-gold-tint); border-color: var(--c-gold); color: var(--c-gold-strong); }
+.mc-trying { background: var(--c-wrong-tint); border-color: var(--c-wrong); color: var(--c-wrong); }
+.mc-reviewed { background: var(--c-ok-tint); border-color: var(--c-ok); color: var(--c-ok); }
 .report-back { justify-self: start; display: inline-flex; align-items: center; min-height: 40px; margin: -8px 0 -6px; font-size: 0.88rem; font-weight: 700; color: var(--c-navy-soft); text-decoration: none; }
 .report-more { justify-self: center; display: inline-flex; align-items: center; gap: 4px; min-height: 44px; font-weight: 700; color: var(--c-navy-soft); }
 
@@ -944,3 +971,41 @@ body:has(.terr-page) .main { padding-bottom: 0; }
 .ov-extra .ov-count { color: var(--c-gold-strong); }
 .ov-row.is-done .ov-count { color: var(--c-ok); }
 .exam-secured { background: var(--c-ok); color: var(--c-on-dark); }
+
+/* 5-step ladder in the unit sheet: ●●●●○ マスター + what makes the next step */
+.ladder { margin: 4px 0 2px; }
+.ladder-row { display: flex; align-items: center; gap: 8px; margin: 0; }
+.ladder-dots { display: inline-flex; gap: 4px; }
+.ld { width: 11px; height: 11px; border-radius: 50%; border: 1.5px solid var(--terr-ink-dim); background: transparent; }
+.ld.is-on { border-color: var(--terr-ink); background: var(--terr-ink); }
+.ladder-trying .ld.is-on { border-color: var(--c-wrong); background: var(--c-wrong); }
+.ladder-reviewed .ld.is-on { border-color: var(--c-ok); background: var(--c-ok); }
+.ladder-master .ld.is-on { border-color: var(--c-gold); background: var(--c-gold); }
+.ladder-settled .ld.is-on { border-color: var(--c-settled); background: var(--c-settled); }
+.ladder-mada .ld.is-on { border-color: var(--terr-ink-dim); background: var(--terr-ink-dim); }
+.ld.is-cur { box-shadow: 0 0 0 2px var(--terr-card-solid), 0 0 0 3.5px currentColor; }
+.ladder-trying { color: var(--c-wrong); }
+.ladder-reviewed { color: var(--c-ok); }
+.ladder-master { color: var(--c-gold-strong); }
+.ladder-settled { color: var(--c-settled-strong); }
+.ladder-mada { color: var(--terr-ink-soft); }
+.ladder-name { font-size: 0.9rem; font-weight: 800; letter-spacing: 0.06em; }
+.ladder-next { margin: 2px 0 0; font-size: 0.78rem; line-height: 1.4; color: var(--terr-ink-soft); word-break: keep-all; overflow-wrap: anywhere; }
+
+/* 解説動画（YouTube）: one link to the channel (new tab) + a small caption */
+.yt-row { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin: 2px 0 10px; }
+.yt-btn {
+  display: inline-flex; align-items: center; gap: 7px; min-height: 40px; padding: 0 12px; border-radius: 10px; white-space: nowrap;
+  border: 1px solid var(--c-line); background: var(--terr-card-solid); color: var(--terr-ink);
+  font-size: 0.84rem; font-weight: 800; text-decoration: none; letter-spacing: 0.02em;
+}
+.yt-btn:hover, .yt-btn:focus-visible { border-color: var(--terr-ink-soft); }
+.yt-glyph rect { fill: var(--c-yt); }
+.yt-glyph path { fill: var(--terr-white); }
+.yt-note { font-size: 0.72rem; color: var(--terr-ink-soft); }
+.plan-head .yt-row { margin: 8px 0 0; }
+.hud-menu-pop a {
+  display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 12px; border-top: 1px solid var(--terr-glass-line);
+  border-radius: 0 0 6px 6px; color: inherit; font-size: 0.86rem; font-weight: 700; letter-spacing: 0.04em; text-decoration: none;
+}
+.hud-menu-pop a:hover, .hud-menu-pop a:focus-visible { background: var(--terr-glass-line); }

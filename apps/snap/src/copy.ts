@@ -5,6 +5,12 @@
  * Placeholder handling: {CONTACT_EMAIL} → contact line omitted for now; {PRIVACY_URL} → /privacy
  * (see PRIVACY_PATH). `app` = the in-app UI copy.
  */
+/**
+ * Our official YouTube channel ナゼホリ数学: one link for every unit (no per-unit mapping to maintain).
+ * The unit sheet opens the channel's search for the unit's topic, the map menu the channel home.
+ */
+export const YOUTUBE_CHANNEL_URL = "https://www.youtube.com/@Domo-ai";
+
 export const copy = {
   meta: {
     title: "Lens Snap｜撮るだけで、テスト前に「やること」がわかる",
@@ -230,14 +236,25 @@ export const app = {
   },
   map: {
     title: "単元マップ",
-    body: "✕がある単元は赤、テストで全問○になった単元は金色になります。",
+    body: "単元ごとに5段階で記録します。復習していない✕がある単元は赤（挑戦中）、最新のページで全問○の単元は金色（マスター）、2週間以上あけてもう一度全問○なら「定着」です。",
     problems: (n: number) => `${n}問`,
     wrong: (n: number) => `✕ ${n}`,
     star: "★",
-    legend: { review: "復習が必要", ok: "✕なし・復習ずみ", gold: "マスター（テストで全問○）", empty: "まだありません" },
+    legend: {
+      settled: "定着（2週間以上あけてもう一度全問○）",
+      master: "マスター（最新のページで全問○）",
+      reviewed: "復習ずみ（✕なし・✕は復習ずみ）",
+      trying: "挑戦中（復習していない✕がある）",
+      mada: "まだありません",
+    } as Record<"mada" | "trying" | "reviewed" | "master" | "settled", string>,
     own: "あなたの学年",
     units: (n: number) => `${n}単元`,
-    sum: { review: (n: number) => `復習 ${n}`, gold: (n: number) => `★ ${n}`, ok: (n: number) => `済 ${n}` },
+    sum: {
+      settled: (n: number) => `定着 ${n}`,
+      master: (n: number) => `★ ${n}`,
+      reviewed: (n: number) => `済 ${n}`,
+      trying: (n: number) => `挑戦中 ${n}`,
+    } as Record<"trying" | "reviewed" | "master" | "settled", (n: number) => string>,
     unfiled: (n: number) => `単元が未選択の問題が ${n} 問あります。`,
     litToast: (n: number, lit: boolean) =>
       lit ? `${n}問を保存しました。光っている単元に入りました。` : `${n}問を保存しました。`,
@@ -257,9 +274,7 @@ export const app = {
     terr: {
       chartLabel: "単元マップ。小1の海岸線から高3の山頂まで、学年ごとの地帯がつながる大陸です。ドラッグで移動、ピンチや＋−で拡大・縮小できます。",
       hudTitle: (g: string) => `制覇（${g}）`,
-      hudLabel: (g: string, n: number, total: number, review: number) =>
-        `${g}で制覇した単元 ${n}／${total}${review > 0 ? `、要復習 ${review}` : ""}`,
-      review: (n: number) => `要復習 ${n}`,
+      hudLabel: (g: string, n: number, total: number, levels: string) => `${g}で制覇した単元 ${n}／${total}${levels ? `、${levels}` : ""}`,
       next: (n: number) => `次にやること ${n}`,
       nextLabel: (n: number) => `次にやること ${n}単元。赤い旗の単元へ順に移動します`,
       nextOf: (i: number, n: number) => `次へ（${i}/${n}）`,
@@ -274,7 +289,7 @@ export const app = {
       youAreHere: "あなたはここ",
       progress: (n: number, total: number) => `制覇 ${n}/${total}`,
       conquered: "制覇",
-      zoneLabel: (zone: string, g: string, n: number, total: number) => `${g} ${zone}：制覇 ${n}／${total}`,
+      zoneLabel: (zone: string, g: string, n: number, total: number, levels = "") => `${g} ${zone}：制覇 ${n}／${total}${levels ? `（${levels}）` : ""}`,
       menu: "メニュー",
       year: {
         title: "年度の記録",
@@ -290,7 +305,6 @@ export const app = {
       list: "一覧で見る",
       legend: "凡例",
       strands: { num: "数と計算 / 数と式", geo: "図形", rel: "測定・変化と関係 / 関数", data: "データの活用", hs: "高校（科目ごとの色）" },
-      states: { empty: "まだ", ok: "復習ずみ", review: "復習が必要", gold: "マスター" },
       empty: { body: "プリントを撮ると、その単元が自分の領土になります", cta: "ページを撮る" },
       history: "これまでのページ",
       historyRow: { wrong: (n: number) => `✕${n}`, ok: (n: number) => `○${n}`, none: (n: number) => `印なし${n}` },
@@ -341,6 +355,38 @@ export const app = {
       thisUnit: (topic: string) => `この単元（${topic}）`,
       noUnit: "単元なし",
     },
+  },
+  // 5-step mastery ladder (lib/ladder.ts): names, hints, the sheet's ladder bar and next-step line
+  ladder: {
+    names: { mada: "まだ", trying: "挑戦中", reviewed: "復習ずみ", master: "マスター", settled: "定着" } as Record<
+      "mada" | "trying" | "reviewed" | "master" | "settled",
+      string
+    >,
+    hints: {
+      mada: "まだ問題がない",
+      trying: "復習していない✕がある",
+      reviewed: "✕はすべて復習ずみ",
+      master: "最新のページで全問○",
+      settled: "2週間以上あけてもう一度全問○",
+    } as Record<"mada" | "trying" | "reviewed" | "master" | "settled", string>,
+    count: (name: string, n: number) => `${name} ${n}`,
+    sep: " ・ ",
+    barLabel: (step: number, name: string) => `習熟の段階：5段階のうち${step}段目「${name}」`,
+    next: {
+      mada: "この単元のページを撮ると、記録が始まります。",
+      trying: "✕の問題を解き直して「復習した」にすると『復習ずみ』です。",
+      reviewed: "次のページで全問○なら『マスター』です。",
+      master: (md: string) => `2週間後にもう一度全問○なら『定着』です（${md}以降）。`,
+      masterNow: "次のページでもう一度全問○なら『定着』です。",
+      settled: "いちばん上の段です。ときどき解き直して、保ちましょう。",
+    },
+  },
+  // One link to our YouTube channel (YOUTUBE_CHANNEL_URL); opens in a new tab / the YouTube app
+  video: {
+    button: "解説動画（YouTube）",
+    note: "動画がまだない単元もあります",
+    unitLabel: (topic: string) => `解説動画（YouTube）：ナゼホリ数学のチャンネルで「${topic}」を探す（新しいタブで開きます）`,
+    channelLabel: "解説動画（YouTube）：ナゼホリ数学のチャンネルを開く（新しいタブで開きます）",
   },
   // テスト前モード on the map: 「今夜、何を復習すればいい？」 (no scores, no promise of results)
   exam: {
@@ -462,17 +508,11 @@ export const app = {
     meta: (date: string, pages: number) => `最後に撮った日：${date} ・ これまでに${pages}ページ`,
     barLabel: "単元ごとのようす",
     of: (n: number) => `${n}単元のうち`,
-    state: { gold: "マスター", ok: "復習ずみ", review: "復習が必要", empty: "まだ" },
-    stateHint: {
-      gold: "最新のページで全問○",
-      ok: "✕は復習ずみ",
-      review: "復習していない✕がある",
-      empty: "まだ問題がない",
-    },
+
     next: "次にやること",
     wrong: (n: number) => `✕ ${n}問`,
     openList: "テスト前リストで見る",
-    noNext: "今、復習が必要な単元はありません。新しいプリントやテストを撮ると、ここに表示されます。",
+    noNext: "今、挑戦中の単元はありません。新しいプリントやテストを撮ると、ここに表示されます。",
     earlier: "前の学年で気になる単元",
     earlierBody: "今の学年の単元のもとになる単元です。",
     supports: (grade: string, topic: string) => `${grade}「${topic}」のもと`,
@@ -485,7 +525,7 @@ export const app = {
     backToMap: "単元マップにもどる",
     emptyTitle: "撮ると、ここにレポートができます",
     emptyBody:
-      "宿題・ドリル・テストを撮っておくと、単元ごとのようすがこの1ページにまとまります。全問○の単元、復習が必要な単元、この1週間に撮った量が、ひと目でわかります。",
+      "宿題・ドリル・テストを撮っておくと、単元ごとのようすがこの1ページにまとまります。全問○の単元、挑戦中の単元、この1週間に撮った量が、ひと目でわかります。",
     emptyCta: "ページを撮る",
   },
   archive: {

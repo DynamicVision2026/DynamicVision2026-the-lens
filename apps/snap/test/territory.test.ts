@@ -207,24 +207,29 @@ describe("hex layout: the video's tiles on one continent", () => {
   });
 });
 
-describe("territory states → visuals (the four review.ts states, no new rules)", () => {
+describe("territory steps → visuals (the 5-step ladder of lib/ladder.ts, no rules of its own)", () => {
   const h = 0.6;
-  it("まだ: flat, unexplored colour; 復習ずみ: raised strand column", () => {
-    expect(lookOf("empty")).toMatchObject({ fill: "unex", flag: false, crown: false, pulse: false });
-    expect(lookOf("empty").height(h)).toBe(HEIGHT.empty);
-    expect(lookOf("ok")).toMatchObject({ fill: "strand", flag: false, crown: false, pulse: false });
-    expect(lookOf("ok").height(h)).toBe(h);
+  it("まだ: flat, unexplored colour; 復習ずみ: the strand column at its seeded height", () => {
+    expect(lookOf(0)).toMatchObject({ fill: "unex", flag: false, star: false, crown: false, pulse: false, glow: false });
+    expect(lookOf(0).height(h)).toBe(HEIGHT.empty);
+    expect(lookOf(2)).toMatchObject({ fill: "strand", flag: false, star: false, crown: false, pulse: false });
+    expect(lookOf(2).height(h)).toBe(h);
   });
-  it("復習が必要: raised strand column with a red flag and a pulse; マスター: higher gold column with a crown", () => {
-    expect(lookOf("review")).toMatchObject({ fill: "strand", flag: true, pulse: true, crown: false });
-    expect(lookOf("review").height(h)).toBe(h);
-    expect(lookOf("gold")).toMatchObject({ fill: "gold", crown: true, flag: false });
-    expect(lookOf("gold").height(h)).toBeGreaterThan(lookOf("ok").height(h));
-    expect(lookOf("ok").height(h)).toBeGreaterThan(lookOf("empty").height(h));
+  it("挑戦中: low strand column + red flag + pulse; マスター: tall gold + star; 定着: tallest gold + crown + glow", () => {
+    expect(lookOf(1)).toMatchObject({ fill: "strand", flag: true, pulse: true, star: false, crown: false });
+    expect(lookOf(3)).toMatchObject({ fill: "gold", star: true, crown: false, glow: false, flag: false });
+    expect(lookOf(4)).toMatchObject({ fill: "gold", crown: true, glow: true, star: false, flag: false });
   });
-  it("tile accessible name: 「小5 平均：復習が必要（✕2）」", () => {
+  it("the column rises with every step, and 定着 stays within the clearance the terrain keeps (goldLift)", () => {
+    for (const hh of [0.5, 0.6, 0.78]) {
+      const hs = ([0, 1, 2, 3, 4] as const).map((l) => lookOf(l).height(hh));
+      for (let i = 1; i < hs.length; i++) expect(hs[i], `${hh} Lv${i}`).toBeGreaterThan(hs[i - 1]);
+      expect(hs[4]).toBe(hh + HEIGHT.goldLift);
+    }
+  });
+  it("tile accessible name: 「小5 平均：挑戦中（✕2）」", () => {
     const tiles = mapTiles([page("2026-10-19T04:00:00Z", [["5-D2", "✕"], ["5-D2", "✕"], ["5-A1", "○"]])]);
-    expect(tileLabel(tiles.find((t) => t.unit.id === "5-D2")!)).toBe("小5 平均：復習が必要（✕2）");
+    expect(tileLabel(tiles.find((t) => t.unit.id === "5-D2")!)).toBe("小5 平均：挑戦中（✕2）");
     expect(tileLabel(tiles.find((t) => t.unit.id === "5-A1")!)).toBe("小5 整数の性質：マスター");
     expect(tileLabel(tiles.find((t) => t.unit.id === "5-C3")!)).toBe("小5 割合：まだ");
   });
@@ -246,13 +251,13 @@ describe("territory states → visuals (the four review.ts states, no new rules)
 });
 
 describe("HUD = the 学習レポート's numbers", () => {
-  it("制覇した単元 = units with data in the child's grade; counts, 要復習 and the total equal the report", () => {
+  it("制覇した単元 = units with data in the child's grade; counts by step, 挑戦中 and the total equal the report", () => {
     const r = buildReport(PAGES, "小5", NOW);
     const hud = buildHud(PAGES, "小5", NOW);
     expect(hud.counts).toEqual(r.counts);
     expect(hud.total).toBe(r.total);
-    expect(hud.taken).toBe(r.counts.gold + r.counts.ok + r.counts.review);
-    expect([hud.taken, hud.total, hud.counts.review]).toEqual([6, 15, 2]);
+    expect(hud.taken).toBe(r.counts.settled + r.counts.master + r.counts.reviewed + r.counts.trying);
+    expect([hud.taken, hud.total, hud.counts.trying]).toEqual([6, 15, 2]);
   });
   it("小・中・高 bars count the whole map; flags = every red unit", () => {
     const hud = buildHud(PAGES, "小5", NOW);
@@ -369,7 +374,8 @@ describe("camera", () => {
 describe("zones: progress on the trail", () => {
   it("制覇 N/M per zone from the map's tiles; a zone is complete (planted flag) only when every unit is taken", () => {
     const pr = zoneProgress(mapTiles(PAGES));
-    expect(pr.get("小5")).toEqual({ grade: "小5", taken: 6, total: 15, complete: false });
+    expect(pr.get("小5")).toMatchObject({ grade: "小5", taken: 6, total: 15, complete: false })
+    expect(pr.get("小5")!.counts).toEqual({ settled: 0, master: 2, reviewed: 2, trying: 2, mada: 9 });
     expect(pr.get("小4")).toMatchObject({ taken: 2, complete: false });
     expect(pr.get("高3")).toMatchObject({ taken: 0, total: 6, complete: false });
     const all = unitsForGrade("小1").map((u) => [u.id, "○"] as [string, Mark]);

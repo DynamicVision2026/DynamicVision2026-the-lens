@@ -40,12 +40,12 @@ export function yearlyRecord(pages: SavedPage[], grade: Grade, now = new Date())
     if (gi - back < 0) continue; // before 小1: no zone to show
     const g = GRADES[gi - back];
     const ids = new Set(unitsForGrade(g).map((u) => u.id));
-    const tiles = mapTiles(ps).filter((t) => ids.has(t.unit.id));
+    const tiles = mapTiles(ps, now).filter((t) => ids.has(t.unit.id));
     rows.push({
       year,
       grade: g,
       pages: ps.length,
-      taken: tiles.filter((t) => t.status !== "empty").length,
+      taken: tiles.filter((t) => t.level > 0).length,
       total: tiles.length,
       wrong: ps.reduce((s, pg) => s + pg.problems.filter((p) => p.mark === "✕").length, 0),
     });

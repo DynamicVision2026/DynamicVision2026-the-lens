@@ -1,5 +1,6 @@
 import { GRADES, type Grade, UNITS, type Unit, isHighSchool, unitById } from "../curriculum";
-import type { Tile, TileStatus } from "./review";
+import { type Level, type LevelCounts, keyOf, zeroCounts } from "./ladder";
+import type { Tile } from "./review";
 
 /**
  * Curriculum strands (lanes) and roots: each unit links to its もとになる単元 (same lane, nearest
@@ -163,21 +164,21 @@ export function edgeKey(from: string, to: string): string {
 export interface SheetData {
   unit: Unit;
   tile: Tile;
-  roots: { unit: Unit; status: TileStatus }[];
+  roots: { unit: Unit; level: Level }[];
 }
 
 export function sheetData(id: string, tiles: Tile[]): SheetData | null {
   const unit = unitById(id);
   if (!unit) return null;
   const byId = new Map(tiles.map((t) => [t.unit.id, t]));
-  const tile = byId.get(id) ?? { unit, count: 0, wrong: 0, status: "empty" as const };
-  const roots = rootIds(id).map((r) => ({ unit: unitById(r)!, status: byId.get(r)?.status ?? ("empty" as const) }));
+  const tile: Tile = byId.get(id) ?? { unit, count: 0, wrong: 0, level: 0, key: keyOf(0) };
+  const roots = rootIds(id).map((r) => ({ unit: unitById(r)!, level: byId.get(r)?.level ?? (0 as Level) }));
   return { unit, tile, roots };
 }
 
-/** Counts of each state among one grade's tiles (header summary). */
-export function gradeCounts(tiles: Tile[], grade: Grade): Record<TileStatus, number> {
-  const c: Record<TileStatus, number> = { gold: 0, review: 0, ok: 0, empty: 0 };
-  for (const t of tiles) if (t.unit.appGrade === grade) c[t.status]++;
+/** Units on each step among one grade's tiles (header summary). */
+export function gradeCounts(tiles: Tile[], grade: Grade): LevelCounts {
+  const c = zeroCounts();
+  for (const t of tiles) if (t.unit.appGrade === grade) c[t.key]++;
   return c;
 }
