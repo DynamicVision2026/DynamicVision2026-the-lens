@@ -6,12 +6,21 @@ every step is PASS / FAIL with a screenshot, and the run ends with a table. Also
 no JS error, no sideways scrolling, the tab bar / rail never covered by accident.
 
 Usage: pnpm build
-       PORT=8096 PILOT_CODE=kumo42 MOCK_FALLBACK=zukei5 WAITLIST_DIR=/tmp/wl4 node dist-server/index.js &
-       python3 scripts/walkthrough.py [base_url] [photo.jpg] [out_dir]
+       P=$(mktemp -d)   # a fresh plan store per run (free counts, passes)
+       PORT=8096 PILOT_CODE=kumo42 MOCK_FALLBACK=zukei5 WAITLIST_DIR=/tmp/wl4 PLAN_DIR=$P FREE_MONTHLY=2 \
+         SHOPIFY_TOKEN=cid:csecret SHOPIFY_BASE=http://localhost:8099 node dist-server/index.js &
+       WALK_PLAN_DIR=$P python3 scripts/walkthrough.py [base_url] [photo.jpg] [out_dir]
+Plans: FREE_MONTHLY=2 so the free limit is reached inside the run; a stand-in Shopify on :8099 knows one
+paid order (#1001, mama@example.jp, SKU LENS-SNAP-1Y); iPad portrait unlocks with a handed-out code instead.
 """
 
+import json
+import os
+import subprocess
 import sys
+import threading
 import traceback
+from http.server import BaseHTTPRequestHandler, HTTPServer
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -31,6 +40,42 @@ DEVICES = [
 ]
 
 results: list[tuple[str, str, str, str]] = []  # device, step, PASS/FAIL, detail
+
+BUY = "https://soul-id-2.myshopify.com/products/lens-snap-annual"
+ORDER, EMAIL = "1001", "mama@example.jp"
+
+
+class FakeShopify(BaseHTTPRequestHandler):
+    """Answers the Admin GraphQL order search with one paid ¥5,800 order."""
+
+    def do_POST(self):  # noqa: N802
+        self.rfile.read(int(self.headers.get("content-length", 0)))
+        if self.path == "/admin/oauth/access_token":  # Dev Dashboard app: client credentials grant
+            return self._json({"access_token": "fake-admin-token", "expires_in": 86399})
+        if self.headers.get("x-shopify-access-token") != "fake-admin-token":
+            return self._json({"errors": "unauthorized"}, 401)
+        order = {"id": "gid://shopify/Order/1", "name": f"#{ORDER}", "email": EMAIL, "cancelledAt": None,
+                 "processedAt": "2026-10-19T00:00:00Z", "displayFinancialStatus": "PAID",
+                 "lineItems": {"nodes": [{"sku": "LENS-SNAP-1Y", "quantity": 1}]}}
+        self._json({"data": {"orders": {"nodes": [order]}}})
+
+    def _json(self, obj, status=200):
+        body = json.dumps(obj).encode()
+        self.send_response(status)
+        self.send_header("content-type", "application/json")
+        self.end_headers()
+        self.wfile.write(body)
+
+    def log_message(self, *a):
+        pass
+
+
+def pass_codes(n):
+    plan_dir = os.environ.get("WALK_PLAN_DIR")
+    if not plan_dir:
+        return []
+    out = subprocess.run(["node", str(ROOT / "scripts" / "make-codes.mjs"), str(n), plan_dir, "walkthrough"], capture_output=True, text=True, check=True)
+    return out.stdout.split()
 
 
 def run(device, page, errors, n, name, fn):
@@ -269,11 +314,95 @@ def walkthrough(browser, device, vp):
             expect(pg.get_by_test_id("exam-plan")).to_have_count(0)
             pg.set_viewport_size(vp)
 
+    # ---------------- plans: free limit → ¥5,800 pass (order number or code) ----------------
+    unlock = "code" if device == "ipad-portrait" else "order"
+    code = pass_codes(1)[0] if unlock == "code" and os.environ.get("WALK_PLAN_DIR") else None
+
+    @s("撮る: plan chip → プラン (free count, ¥5,800, store link)")
+    def _():
+        tab(pg, "撮る")
+        chip = pg.get_by_test_id("plan-chip")
+        expect(chip).to_contain_text("無料 今月あと1枚")
+        chip.tap()
+        expect(pg).to_have_url(BASE + "/app/plan")
+        expect(pg.get_by_test_id("plan-left")).to_contain_text("今月あと 1枚")
+        expect(pg.get_by_test_id("plan-offer")).to_contain_text("¥5,800")
+        expect(pg.get_by_test_id("plan-offer")).to_contain_text("自動更新はありません")
+        expect(pg.get_by_test_id("plan-buy")).to_have_attribute("href", BUY)
+        expect(pg.get_by_test_id("back-to-map")).to_be_visible()
+
+    @s("last free photo (やめる) → next snap: 今月の無料分を使い切りました + offer")
+    def _():
+        tab(pg, "撮る")
+        pg.get_by_test_id("file-input").set_input_files(PHOTO)
+        expect(pg.get_by_role("heading", name="読み取り結果の確認")).to_be_visible(timeout=20000)
+        pg.get_by_role("button", name="やめる").tap()
+        expect(pg.get_by_test_id("plan-chip")).to_contain_text("あと0枚")
+        pg.get_by_test_id("file-input").set_input_files(PHOTO)
+        card = pg.get_by_test_id("quota-card")
+        expect(card).to_contain_text("今月の無料分（2枚）を使い切りました")
+        expect(card.get_by_test_id("plan-buy")).to_have_attribute("href", BUY)
+        expect(pg.get_by_role("button", name="カメラで撮る")).to_have_count(0)
+
+    if unlock == "order":
+
+        @s("購入済みの方: wrong email → clear message")
+        def _():
+            pg.get_by_test_id("quota-to-plan").tap()
+            f = pg.get_by_test_id("plan-claim")
+            f.locator("input[name=order]").fill(ORDER)
+            f.locator("input[name=email]").fill("papa@example.jp")
+            f.get_by_role("button", name="有効にする").tap()
+            expect(pg.get_by_test_id("plan-claim-error")).to_contain_text("注文が見つかりません")
+
+        @s("order number + email → 年間プラン, its code shown")
+        def _():
+            f = pg.get_by_test_id("plan-claim")
+            f.locator("input[name=order]").fill("#" + ORDER)
+            f.locator("input[name=email]").fill("Mama@Example.jp")
+            f.get_by_role("button", name="有効にする").tap()
+            expect(pg.get_by_test_id("plan-done")).to_have_text("年間プランが有効になりました")
+            expect(pg.get_by_test_id("plan-until")).to_contain_text("2027年10月19日まで有効")
+            expect(pg.get_by_test_id("plan-code")).to_have_text(__import__("re").compile(r"^LS-[2-9A-Z]{4}-[2-9A-Z]{4}-[2-9A-Z]{4}$"))
+
+    else:
+
+        @s("コードをお持ちの方: wrong code → message; right code → 年間プラン")
+        def _():
+            pg.get_by_test_id("quota-to-plan").tap()
+            f = pg.get_by_test_id("plan-redeem")
+            f.locator("input[name=code]").fill("LS-2222-3333-4444")
+            f.get_by_role("button", name="コードで有効にする").tap()
+            expect(pg.get_by_test_id("plan-redeem-error")).to_contain_text("コードが正しくない")
+            assert code, "WALK_PLAN_DIR not set: no code to test"
+            f.locator("input[name=code]").fill(code.lower().replace("-", " "))
+            f.get_by_role("button", name="コードで有効にする").tap()
+            expect(pg.get_by_test_id("plan-done")).to_be_visible()
+            expect(pg.get_by_test_id("plan-code")).to_have_text(code)
+
+    @s("年間プラン: chip on 撮る, snapping works past the free limit")
+    def _():
+        tab(pg, "撮る")
+        expect(pg.get_by_test_id("plan-chip")).to_have_text(__import__("re").compile("年間プラン"))
+        pg.get_by_test_id("file-input").set_input_files(PHOTO)
+        expect(pg.get_by_role("heading", name="読み取り結果の確認")).to_be_visible(timeout=20000)
+        pg.get_by_role("button", name="やめる").tap()
+
+    @s("reload → still 年間プラン; ふりかえり shows it too")
+    def _():
+        pg.reload()
+        expect(pg.get_by_test_id("plan-chip")).to_contain_text("年間プラン")
+        tab(pg, "ふりかえり")
+        expect(pg.get_by_test_id("plan-chip")).to_contain_text("年間プラン")
+        pg.get_by_test_id("plan-chip").tap()
+        expect(pg.get_by_test_id("plan-pass")).to_be_visible()
+
     for i, (name, fn) in enumerate(steps, 1):
         run(device, pg, errors, i, name, fn)
     ctx.close()
 
 
+threading.Thread(target=HTTPServer(("127.0.0.1", 8099), FakeShopify).serve_forever, daemon=True).start()
 with sync_playwright() as p:
     browser = p.chromium.launch()
     for device, vp in DEVICES:

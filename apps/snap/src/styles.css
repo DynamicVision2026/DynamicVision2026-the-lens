@@ -1114,3 +1114,33 @@ html[data-layout="wide"] :is(.page-list, .page-archive) .cards { grid-template-c
 html[data-layout="wide"] [data-view="list"] .tiles { grid-template-columns: repeat(4, 1fr); }
 html[data-layout="wide"] .report { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; column-gap: 16px; }
 html[data-layout="wide"] .report > :is(.report-back, .report-title, .report-meta, .glance, .report-more) { grid-column: 1 / -1; }
+
+/* ---------- plans: 無料プラン / 年間プラン ---------- */
+.snap-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.snap-head h1 { margin: 0; }
+.plan-chip { display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--c-line); background: var(--c-surface); color: var(--c-navy); font-size: 0.85rem; font-weight: 700; text-decoration: none; white-space: nowrap; }
+.plan-chip.is-low { border-color: var(--c-accent); color: var(--c-accent-strong); background: var(--c-accent-tint); }
+.plan-chip.is-pass { border-color: var(--c-gold); color: var(--c-gold-strong); background: var(--c-gold-tint); }
+.page-plan { display: grid; gap: 14px; }
+.page-plan h1 { margin: 0; }
+.plan-status, .plan-offer, .plan-form { display: grid; gap: 10px; padding: 18px 16px; }
+.plan-status.is-pass { border: 1.5px solid var(--c-gold); }
+.plan-kicker { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; color: var(--c-muted); }
+.plan-big { margin: 0; font-size: 1.15rem; font-weight: 800; color: var(--c-navy); }
+.plan-meter { height: 8px; border-radius: 999px; background: var(--c-navy-tint); overflow: hidden; }
+.plan-meter > span { display: block; height: 100%; background: var(--c-accent); border-radius: inherit; }
+.plan-price { margin: 0; display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 6px; color: var(--c-navy); }
+.plan-price b { font-size: 2rem; line-height: 1; }
+.plan-price small { flex-basis: 100%; color: var(--c-muted); font-weight: 700; }
+.plan-benefits { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: 0.92rem; }
+.plan-benefits li::before { content: "✓"; color: var(--c-ok); font-weight: 800; margin-right: 8px; }
+.plan-offer.is-compact { padding: 14px; }
+.plan-form h2 { margin: 0; font-size: 1.02rem; }
+.plan-form p, .plan-offer p, .plan-status p { margin: 0; }
+.plan-code { display: grid; gap: 4px; padding: 12px; border-radius: var(--radius-sm); background: var(--c-navy-tint); }
+.plan-code code { font-size: 1.25rem; font-weight: 800; letter-spacing: 0.06em; color: var(--c-navy); user-select: all; }
+.plan-code-input { text-transform: uppercase; letter-spacing: 0.06em; }
+.quota { display: grid; gap: 12px; margin: 12px 0; }
+.quota .notice { display: grid; gap: 6px; }
+html[data-layout="wide"] .plan-forms, html[data-layout="tablet"] .plan-forms { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; }
+.plan-forms { display: grid; gap: 14px; }

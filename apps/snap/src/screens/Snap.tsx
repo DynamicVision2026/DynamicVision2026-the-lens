@@ -10,7 +10,10 @@ import { preparePhoto } from "../lib/image";
 import { judgeDisagrees, needsUnitCheck } from "../lib/marks";
 import { type DraftProblem, type SavedPage, draftFromResult, pageFromDraft, withParentMark } from "../lib/model";
 import { useLayout } from "../lib/layout";
-import { type ReadFailure, clearPilotCode, readFailure, readPilotCode } from "../lib/pilot";
+import { type ReadFailure, clearPilotCode, readFailure } from "../lib/pilot";
+import { planHeaders, usePlan } from "../lib/plan";
+import { writePref } from "../state";
+import { PlanChip, QuotaCard } from "./PlanScreen";
 import { LOW_CONFIDENCE, litMapUrl } from "../lib/review";
 import { afterSave } from "../lib/pwa";
 import { savePage } from "../lib/store";
@@ -19,7 +22,8 @@ import { type Mark, type PageResult, PageResultSchema } from "../reader/schema";
 type State =
   | { s: "idle" }
   | { s: "reading" }
-  | { s: "error"; why: Exclude<ReadFailure, "pilot_code"> }
+  | { s: "error"; why: Exclude<ReadFailure, "pilot_code" | "quota"> }
+  | { s: "quota" }
   | { s: "pilot" }
   | { s: "retake"; result: PageResult; thumb?: SavedPage["photo"] }
   | { s: "confirm"; result: PageResult; draft: DraftProblem[]; thumb?: SavedPage["photo"] };
@@ -30,6 +34,7 @@ export function Snap({ grade }: { grade: Grade }) {
   const pick = useRef<HTMLInputElement>(null);
   const lastFile = useRef<File | null>(null); // re-sent after a new 招待コード
   const nav = useNavigate();
+  const { plan, reload: reloadPlan } = usePlan();
 
   async function onFile(file: File | undefined | null) {
     if (!file) return;
@@ -40,16 +45,24 @@ export function Snap({ grade }: { grade: Grade }) {
       const fd = new FormData();
       fd.append("grade", grade);
       fd.append("image", upload, file.name || "photo.jpg");
-      const code = readPilotCode();
-      const r = await fetch("/api/read", { method: "POST", body: fd, headers: code ? { "x-pilot-code": code } : {} });
+      let r = await fetch("/api/read", { method: "POST", body: fd, headers: await planHeaders() });
+      if (r.status === 401) {
+        // this device's id is not accepted any more: get a new one and try once more
+        writePref("device", "");
+        r = await fetch("/api/read", { method: "POST", body: fd, headers: await planHeaders() });
+      }
       if (!r.ok) {
         const why = readFailure(r.status, await r.json().catch(() => null));
         if (why === "pilot_code") {
           clearPilotCode();
           setSt({ s: "pilot" });
+        } else if (why === "quota") {
+          void reloadPlan();
+          setSt({ s: "quota" });
         } else setSt({ s: "error", why });
         return;
       }
+      void reloadPlan();
       const result = PageResultSchema.parse(await r.json());
       lastFile.current = null;
       if (result.retake) setSt({ s: "retake", result, thumb });
@@ -91,8 +104,12 @@ export function Snap({ grade }: { grade: Grade }) {
   return (
     <div className="page snap-page">
       {inputs}
-      <h1>{app.snap.title}</h1>
+      <div className="snap-head">
+        <h1>{app.snap.title}</h1>
+        <PlanChip plan={plan} />
+      </div>
       <p className="muted">{app.snap.body}</p>
+      {st.s === "quota" && <QuotaCard plan={plan} />}
 
       {st.s === "retake" && (
         <div className="notice notice-warn" role="alert">
@@ -106,7 +123,15 @@ export function Snap({ grade }: { grade: Grade }) {
       )}
       {st.s === "error" && (
         <p className="notice notice-err" role="alert">
-          {st.why === "rate_limited" ? app.snap.rateLimited : st.why === "daily_cap" ? app.snap.dailyCap : app.snap.error}
+          {st.why === "rate_limited"
+            ? app.snap.rateLimited
+            : st.why === "daily_cap"
+              ? app.snap.dailyCap
+              : st.why === "pass_daily"
+                ? app.plan.passDaily
+                : st.why === "device_limit"
+                  ? app.plan.deviceLimit
+                  : app.snap.error}
         </p>
       )}
       {st.s === "pilot" && (
@@ -115,7 +140,7 @@ export function Snap({ grade }: { grade: Grade }) {
         </div>
       )}
 
-      {st.s === "pilot" ? null : st.s === "reading" ? (
+      {st.s === "pilot" || st.s === "quota" ? null : st.s === "reading" ? (
         <div className="reading" aria-live="polite">
           <span className="spinner" aria-hidden />
           {app.snap.reading}
