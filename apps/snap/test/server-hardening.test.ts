@@ -84,6 +84,14 @@ describe("/api/read hardening", () => {
     expect((await send("3.3.3.3")).status).toBe(200);
   });
 
+  it("/health names the deployed commit (auto-deploy), null when unknown", async () => {
+    vi.stubEnv("APP_COMMIT", "");
+    expect(await (await createApi(base).request("/health")).json()).toMatchObject({ ok: true, commit: null });
+    vi.stubEnv("APP_COMMIT", "22bd78e2356f0e24bb89d3d29753f37adb88eaf0");
+    expect(await (await createApi(base).request("/health")).json()).toMatchObject({ commit: "22bd78e2356f0e24bb89d3d29753f37adb88eaf0" });
+    vi.unstubAllEnvs();
+  });
+
   it("pilot gate: 403 pilot_code without the right header; /health reports it", async () => {
     const gated = createApi({ ...base, pilotCode: "kumo42" });
     expect(await (await gated.request("/health")).json()).toMatchObject({ pilotGate: true });

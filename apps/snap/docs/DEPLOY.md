@@ -27,6 +27,20 @@ nothing with lens-web (lens.domo-ai.com) except the project and the domain name.
    Later releases: `git pull && bash apps/snap/deploy.sh <lens-project-id>`.
 3. The script prints the service URL, `/api/health`, and the pilot code.
 
+## Auto-deploy (on by default after a one-time setup)
+
+Every change merged into `main` that touches `apps/snap` (or the lockfile) is deployed by GitHub Actions
+(`.github/workflows/deploy-snap.yml`) — only after the CI checks pass. Nothing to run in Cloud Shell.
+
+- One-time setup (Cloud Shell, repo root): `git pull && bash apps/snap/setup-autodeploy.sh <lens-project-id>`.
+  No keys: GitHub signs in with Workload Identity Federation, accepted only from this repo's `main`.
+  The deployer account can build and deploy lens-snap; it cannot read secrets or the waitlist.
+- Only the image changes. Secrets, env vars, volumes and limits stay as `deploy.sh` set them; run
+  `deploy.sh` by hand only to change those (or to add the API key with `--set-key`).
+- The live commit is in `/api/health` (`"commit": "…"`). Changes outside apps/snap are skipped.
+- If the new revision fails its health check, traffic goes back to the previous revision and the run is red.
+- Manual run: GitHub → Actions → "Deploy Lens Snap" → Run workflow.
+
 ## Domain: snap.domo-ai.com (once)
 
 ```sh
