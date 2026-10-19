@@ -24,7 +24,8 @@ export function PilotCodeForm({ onDone, submitLabel, again }: { onDone: () => vo
           name="pilot-code"
           value={code}
           autoComplete="off"
-          autoCapitalize="characters"
+          autoCapitalize="none"
+          autoCorrect="off"
           spellCheck={false}
           onChange={(e) => setCode(e.target.value)}
         />

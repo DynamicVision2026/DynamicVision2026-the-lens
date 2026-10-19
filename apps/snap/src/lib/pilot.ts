@@ -7,7 +7,7 @@ export function readPilotCode(): string {
   return readPref(KEY) ?? "";
 }
 export function writePilotCode(code: string) {
-  writePref(KEY, code.trim());
+  writePref(KEY, code.trim().toLowerCase());
 }
 export function clearPilotCode() {
   writePref(KEY, "");

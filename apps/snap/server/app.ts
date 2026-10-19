@@ -46,7 +46,7 @@ export function createApi(opts: AppOptions) {
   api.get("/health", (c) => c.json({ ok: true, reader: reader.name, pilotGate: !!pilotCode }));
 
   api.post("/read", async (c) => {
-    if (pilotCode && !safeEqual(c.req.header("x-pilot-code") ?? "", pilotCode)) return c.json({ error: "pilot_code" }, 403);
+    if (pilotCode && !safeEqual((c.req.header("x-pilot-code") ?? "").trim().toLowerCase(), pilotCode.trim().toLowerCase())) return c.json({ error: "pilot_code" }, 403);
     if (!readIp.hit(keyOf(c))) return c.json({ error: "rate_limited" }, 429);
     const len = Number(c.req.header("content-length") ?? 0);
     if (len > MAX_IMAGE_BYTES + 64 * 1024) return c.json({ error: "too_large" }, 413);

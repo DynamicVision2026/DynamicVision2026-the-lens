@@ -92,6 +92,8 @@ describe("/api/read hardening", () => {
     expect(await none.json()).toEqual({ error: "pilot_code" });
     expect((await gated.request("/read", { method: "POST", body: readForm(), headers: { "x-pilot-code": "kumo43" } })).status).toBe(403);
     expect((await gated.request("/read", { method: "POST", body: readForm(), headers: { "x-pilot-code": "kumo42" } })).status).toBe(200);
+    // iPhone keyboards may capitalise or add spaces: the code is case- and space-insensitive
+    expect((await gated.request("/read", { method: "POST", body: readForm(), headers: { "x-pilot-code": " KUMO42 " } })).status).toBe(200);
 
     const open = createApi(base);
     expect(await (await open.request("/health")).json()).toMatchObject({ pilotGate: false });
