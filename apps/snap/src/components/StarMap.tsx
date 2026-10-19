@@ -108,7 +108,7 @@ export function StarMap(props: {
       >
         <svg className="sky-svg" width={L.width} height={L.height} aria-hidden focusable="false">
           <defs>
-            <radialGradient id="sky-lift" cx="50%" cy="50%" r="60%">
+            <radialGradient id="sky-lift" cx="50%" cy="50%" r="50%">
               <stop offset="0%" className="lift-in" />
               <stop offset="100%" className="lift-out" />
             </radialGradient>
@@ -128,8 +128,14 @@ export function StarMap(props: {
           {L.edges.map((e) => {
             const on = path?.edges.has(e.key);
             const isLit = litEdges.has(e.key);
-            // Constellations only where there is meaning: units with data, the open path, the light-up.
-            if (!on && !isLit && statusOf(e.from) === "empty") return null;
+            // Constellations only where there is meaning: the open path and the light-up draw every
+            // root; otherwise a unit with data shows its strongest root, softly, within the same sky
+            // (near → near or far → far), so lines never run through a whole stack into the far sky.
+            if (!on && !isLit) {
+              const a = L.byId.get(e.from)!;
+              const b = L.byId.get(e.to)!;
+              if (statusOf(e.from) === "empty" || rootIds(e.from)[0] !== e.to || a.far !== b.far) return null;
+            }
             return (
               <path
                 key={e.key}

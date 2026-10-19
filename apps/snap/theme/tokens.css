@@ -30,8 +30,8 @@
 
   /*
    * 単元星図 (map screen only): deep navy sky, faint graticule, starlight ink.
-   * Contrast (WCAG): ink 13.9:1 on sky / 11.2:1 on the lit band; ink-soft 8.9 / 7.2;
-   * ink-dim 6.8 / 5.5; state colours as text ≥ 5.4:1 on every sky surface.
+   * Contrast (WCAG): ink 13.9:1 on sky / 12.3:1 on the lit band; ink-soft 8.9 / 7.9;
+   * ink-dim 6.8 / 6.0; state colours as text ≥ 5.9:1 on every sky surface.
    */
   --sky-bg: #13203a;
   --sky-band-own: #19294a;          /* the child's own grade band, slightly lighter */
