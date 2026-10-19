@@ -37,7 +37,7 @@
    */
   --terr-sea: #83bdc8;
   --terr-sea-haze: #b4dce4;          /* far sea, top of the screen (the video's fog) */
-  --terr-grid: rgba(255, 255, 255, 0.28);
+  --terr-grid: rgba(255, 255, 255, 0.16);          /* survey grid over sea and land */
   --terr-sand: #e6dcb8;
   --terr-sand-gap: #cbbf98;
   --terr-grass: #b3cb8d;
@@ -74,6 +74,50 @@
   --terr-card-shadow: rgba(20, 40, 60, 0.45);
   --terr-white: #ffffff;
   --terr-black: #000000;
+
+  /*
+   * 算数・数学の大陸 (terrain under the tiles): a restrained satellite / topographic palette, one ground
+   * tone per zone. Tiles (strand colours, gold, red) must stay the most saturated thing on screen, so
+   * every ground tone is muted and mid-light; marks are thin and low-contrast.
+   */
+  --terr-sky: #e4edf0;               /* behind the summit */
+  --terr-shallow: #a6d6d3;           /* 小1・小2 shallows */
+  --terr-shore: rgba(255, 255, 255, 0.7); /* shoreline contours (alpha fades outward) */
+  --terr-contour: rgba(30, 42, 58, 0.26);
+  --terr-coast-edge: rgba(30, 42, 58, 0.34);
+  --terr-border: rgba(255, 255, 255, 0.6);
+  --terr-trail: #fff3cf;
+  --terr-trail-casing: rgba(22, 32, 46, 0.62);
+  --terr-water: #7fb6c3;
+  --terr-water-line: #4d8ba0;
+  --terr-g-sand: #dccfa8;            /* 海岸線 / 入り江 */
+  --terr-g-grass: #aebd8f;           /* 平原 */
+  --terr-g-forest: #7f9a6b;          /* 森林帯 / 湖沼帯 */
+  --terr-g-deep: #627f5c;            /* 深い森林帯 */
+  --terr-g-moss: #9ba785;            /* 丘陵帯 */
+  --terr-g-rock: #9a978f;            /* 岩稜帯 */
+  --terr-g-alpine: #aab293;          /* 高原帯 */
+  --terr-g-scree: #b2b4b1;           /* 雪線 */
+  --terr-g-ice: #d4e5ec;             /* 氷河帯 */
+  --terr-g-snow: #eef2f4;            /* 山頂 */
+  --terr-canopy: #4e6b45;            /* tree crowns from above */
+  --terr-canopy-deep: #3a5537;
+  --terr-canopy-hi: rgba(170, 196, 140, 0.55);
+  --terr-hachure: rgba(40, 44, 50, 0.4);
+  --terr-stipple: rgba(120, 100, 64, 0.42);
+  --terr-tuft: rgba(60, 82, 44, 0.5);
+  --terr-snow-mark: rgba(250, 252, 253, 0.92);
+  --terr-crevasse: #7d9cb0;
+  --terr-peak: #1e2a3a;
+
+  /* HUD glass (map screen) */
+  --terr-glass: rgba(18, 28, 42, 0.72);
+  --terr-glass-line: rgba(255, 255, 255, 0.16);
+  --terr-glass-text: #eef3f7;
+  --terr-glass-dim: rgba(238, 243, 247, 0.62);
+  --terr-cyan: #5ee0e6;              /* beacon, own-zone accent */
+  --terr-cyan-soft: rgba(94, 224, 230, 0.32);
+  --terr-red-hud: #ff7a83;           /* 要復習 on dark glass */
 
   --radius: 14px;
   --radius-sm: 10px;

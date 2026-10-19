@@ -6,12 +6,19 @@ import type { SavedPage, SavedProblem } from "../src/lib/model";
 import { buildReport } from "../src/lib/report";
 import { mapTiles } from "../src/lib/review";
 import type { Mark } from "../src/reader/schema";
+import { app } from "../src/copy";
+import { decoBox } from "../src/lib/terrain";
+import { schoolYearOf, yearlyRecord } from "../src/lib/yearly";
 import {
   DISTRICTS,
   HEIGHT,
+  HEX,
+  HUD_TOP,
   OVERSCROLL,
+  REGION_SPECS,
   type Box,
   buildHud,
+  columnOutline,
   buildTerritory,
   clampCam,
   colorKeyOf,
@@ -25,6 +32,7 @@ import {
   toScreen,
   toWorld,
   unitHistory,
+  zoneProgress,
   zoomAt,
   zoomLimits,
 } from "../src/lib/territory";
@@ -72,7 +80,7 @@ const PAGES = [
   page("2026-10-18T09:00:00Z", [["5-C3", "○"], ["5-C3", "✕"], ["5-C3", "✕"]]),
 ];
 
-describe("hex layout = the video's map", () => {
+describe("hex layout: the video's tiles on one continent", () => {
   it("110 units, 278 hexes: each unit holds as many hexes as its 知識・技能 (points)", () => {
     expect(T.units).toHaveLength(110);
     expect(T.hexes).toHaveLength(UNITS.reduce((s, u) => s + u.points, 0));
@@ -81,27 +89,61 @@ describe("hex layout = the video's map", () => {
     expect(new Set(T.units.map((u) => u.id))).toEqual(new Set(UNITS.map((u) => u.id)));
   });
 
-  it("no overlaps: every cell holds one tile at most, and the coast never covers a tile", () => {
+  it("no overlaps: every cell holds one tile at most, and the land never covers a tile", () => {
     const cells = new Set(T.hexes.map((t) => key(t.q, t.r)));
     expect(cells.size).toBe(T.hexes.length);
-    const land = new Set(T.land.map((l) => key(l.q, l.r)));
-    expect(land.size).toBe(T.land.length);
+    const land = new Set(T.terrain.land.map((l) => key(l.q, l.r)));
+    expect(land.size).toBe(T.terrain.land.length);
     for (const c of land) expect(cells.has(c), c).toBe(false);
-    // every tile is ringed by land or other tiles (an island, not a reef)
+    // every tile is ringed by land or other tiles (inland, not a reef)
     for (const t of T.hexes) for (const [dq, dr] of NEIGH) expect(cells.has(key(t.q + dq, t.r + dr)) || land.has(key(t.q + dq, t.r + dr))).toBe(true);
   });
 
-  it("the video's district centres, one district per grade (高校: one per subject)", () => {
-    expect(DISTRICTS.map((d) => d.key)).toEqual(["小1", "小2", "小3", "小4", "小5", "小6", "中1", "中2", "中3", "数学I", "数学II", "数学III", "数学A", "数学B", "数学C"]);
-    expect(DISTRICTS.find((d) => d.key === "小5")!.centre).toEqual([-12, 10]);
-    expect(DISTRICTS.find((d) => d.key === "数学III")!.centre).toEqual([42, -25]);
+  it("one continuous landmass: all land and tiles form a single piece", () => {
+    expect(components([...T.terrain.land, ...T.hexes])).toBe(1);
   });
 
-  it("each grade island contains exactly its units (12 islands, 高1 = I + A, 高2 = II + B, 高3 = III + C)", () => {
-    expect(T.islands.map((i) => i.grade)).toEqual([...GRADES]);
+  it("12 zones in order, coast → summit, each with its name; 高校 zones hold two subject districts", () => {
+    expect(T.regions.map((r) => r.grade)).toEqual([...GRADES]);
+    expect(T.regions.map((r) => app.map.terr.zones[r.grade])).toEqual([
+      "海岸線", "入り江", "平原", "森林帯", "深い森林帯", "湖沼帯", "丘陵帯", "岩稜帯", "高原帯", "雪線", "氷河帯", "山頂",
+    ]);
+    expect(T.regions.map((r) => r.zone)).toEqual(["coast", "cove", "plain", "forest", "deep", "lake", "hills", "ridge", "plateau", "snowline", "glacier", "summit"]);
+    expect(T.regions.at(-1)!.metres).toBe(3776);
+    expect(DISTRICTS.map((d) => d.key)).toEqual(["小1", "小2", "小3", "小4", "小5", "小6", "中1", "中2", "中3", "数学I", "数学A", "数学II", "数学B", "数学III", "数学C"]);
     for (const g of GRADES) expect(T.units.filter((u) => u.grade === g).map((u) => u.id).sort(), g).toEqual(unitsForGrade(g).map((u) => u.id).sort());
     expect(T.byGrade.get("小5")!.districts).toEqual(["小5"]);
     expect(T.byGrade.get("高1")!.districts.sort()).toEqual(["数学A", "数学I"]);
+  });
+
+  it("the climb: each zone sits further back and higher than the one before (標高 and ground height rise); coast front-left, summit back-right", () => {
+    for (let i = 1; i < T.regions.length; i++) {
+      const [a, b] = [T.regions[i - 1], T.regions[i]];
+      expect(b.z, b.grade).toBeLessThan(a.z);
+      expect(b.metres, b.grade).toBeGreaterThan(a.metres);
+      expect(b.e, b.grade).toBeGreaterThanOrEqual(a.e);
+      expect(b.label[1], b.grade).toBeLessThan(a.label[1]); // higher on screen
+    }
+    expect(T.regions.at(-1)!.e).toBeGreaterThan(T.regions[0].e + 3);
+    const first = T.regions[0];
+    const last = T.regions.at(-1)!;
+    expect(first.x).toBeLessThan(last.x);
+    // tiles stand on their zone's ground; columns stay modest so the land carries the height
+    for (const t of T.hexes) expect(t.e, t.unitId).toBe(T.byGrade.get(T.byId.get(t.unitId)!.grade)!.e);
+    expect(Math.max(...T.hexes.map((t) => t.h))).toBeLessThan(0.8);
+    expect(buildTerritory().hexes.map((t) => t.h)).toEqual(T.hexes.map((t) => t.h));
+  });
+
+  it("every unit's tiles lie inside its own zone (nearest zone centre) and on its zone's ground", () => {
+    for (const u of T.units)
+      for (const t of u.hexes) {
+        const near = T.regions.reduce((a, r) => (Math.hypot(r.x - t.x, r.z - t.z) < Math.hypot(a.x - t.x, a.z - t.z) ? r : a));
+        expect(near.grade, u.id).toBe(u.grade);
+      }
+    // the land touching a zone's tiles belongs to that zone
+    const tileGrade = new Map(T.hexes.map((t) => [key(t.q, t.r), T.byId.get(t.unitId)!.grade]));
+    for (const l of T.terrain.land.filter((c) => c.dTile === 1))
+      expect(NEIGH.some(([dq, dr]) => tileGrade.get(key(l.q + dq, l.r + dr)) === l.grade), `${l.q},${l.r}`).toBe(true);
   });
 
   it("strand grouping: each unit is one patch, and inside a district each strand is one coloured patch", () => {
@@ -124,19 +166,44 @@ describe("hex layout = the video's map", () => {
     expect([by("h-I-3"), by("h-II-4"), by("h-III-2"), by("h-A-2"), by("h-B-1"), by("h-C-1")]).toEqual(["hI", "hII", "hIII", "hA", "hB", "hC"]);
   });
 
-  it("heights follow the video: 小 low, 中 higher, 高校 columns tallest; same every build", () => {
-    const hOf = (lvl: string) => T.hexes.filter((t) => T.byId.get(t.unitId)!.unit.level === lvl).map((t) => t.h);
-    expect(Math.max(...hOf("小"))).toBeLessThan(1.0);
-    expect(Math.min(...hOf("中"))).toBeGreaterThanOrEqual(1.0);
-    expect(Math.max(...hOf("高"))).toBeGreaterThan(4);
-    expect(buildTerritory().hexes.map((t) => t.h)).toEqual(T.hexes.map((t) => t.h));
+  it("the trail links the 12 zones in order (coast → summit) over land, never through a tile", () => {
+    const at = GRADES.map((g) => T.terrain.trailAt.get(g)!);
+    for (let i = 1; i < at.length; i++) expect(at[i], GRADES[i]).toBeGreaterThan(at[i - 1]);
+    for (const g of GRADES) expect(T.terrain.trail[T.terrain.trailAt.get(g)!]).toEqual(T.byGrade.get(g)!.waypoint);
+    // consecutive trail points are neighbouring cells (one continuous walk)
+    for (let i = 1; i < T.terrain.trail.length; i++) {
+      const [a, b] = [T.terrain.trail[i - 1], T.terrain.trail[i]];
+      expect(Math.abs(b[0] - a[0]), `step ${i}`).toBeLessThan(1.8);
+    }
+    const tileCentres = new Set(T.hexes.map((t) => `${t.x.toFixed(3)}`));
+    expect(tileCentres.size).toBeGreaterThan(0);
+    const landAt = new Map(T.terrain.land.map((l) => [`${l.x.toFixed(3)},${(l.z * 0.72 - l.e * 0.7).toFixed(3)}`, l]));
+    for (const [x, y] of T.terrain.trail) {
+      const l = landAt.get(`${x.toFixed(3)},${y.toFixed(3)}`);
+      expect(l, `${x},${y}`).toBeDefined();
+      expect(l!.water).toBe(false);
+    }
   });
 
-  it("islands sit like the video: 小 cluster, then 中, then 高校 furthest away (left → right)", () => {
-    const x = (g: (typeof GRADES)[number]) => T.byGrade.get(g)!.x;
-    expect(Math.max(x("小1"), x("小2"), x("小3"), x("小4"), x("小5"), x("小6"))).toBeLessThan(Math.min(x("中1"), x("中2"), x("中3")));
-    expect(Math.max(x("中1"), x("中2"), x("中3"))).toBeLessThan(Math.min(x("高1"), x("高2"), x("高3")));
-    expect(T.route).toHaveLength(15);
+  it("terrain marks never overlap a tile, even at its tallest (gold) column", () => {
+    const outlines = T.hexes.map((t) => {
+      const o = columnOutline(t.x, t.z, t.h + HEIGHT.goldLift, HEX.tile, t.e);
+      return { x0: Math.min(...o.map((p) => p[0])), x1: Math.max(...o.map((p) => p[0])), y0: Math.min(...o.map((p) => p[1])), y1: Math.max(...o.map((p) => p[1])) };
+    });
+    expect(T.terrain.decos.length).toBeGreaterThan(300);
+    for (const d of T.terrain.decos) {
+      const b = decoBox(d);
+      for (const o of outlines) expect(b.x0 < o.x1 && o.x0 < b.x1 && b.y0 < o.y1 && o.y0 < b.y1, `${d.kind} at ${d.x},${d.z}`).toBe(false);
+    }
+    // every zone has its terrain: canopy in the forests, hachures on rock, crevasses on the glacier, a summit marker
+    const kinds = new Set(T.terrain.decos.map((d) => d.kind));
+    for (const k of ["stipple", "tuft", "canopy", "canopyDense", "hachure", "snow", "crevasse", "pass", "peak"]) expect(kinds.has(k as never), k).toBe(true);
+    expect(T.terrain.land.some((l) => l.water && l.grade === "小6")).toBe(true);
+  });
+
+  it("zone specs: one per grade, 標高 rising to 3776", () => {
+    expect(REGION_SPECS.map((s) => s.grade)).toEqual([...GRADES]);
+    expect(REGION_SPECS.map((s) => s.metres)).toEqual([...REGION_SPECS.map((s) => s.metres)].sort((a, b) => a - b));
   });
 });
 
@@ -165,7 +232,7 @@ describe("territory states → visuals (the four review.ts states, no new rules)
     const heightOf = (t: (typeof T.hexes)[number]) => t.h;
     for (const id of ["5-C3", "4-A2", "j2-A1", "h-III-2"]) {
       const a = T.byId.get(id)!.anchor;
-      const [X, Y] = project(a.x, a.z, a.h);
+      const [X, Y] = project(a.x, a.z, a.e + a.h);
       expect(hitUnit(T, X, Y, heightOf), id).toBe(id);
     }
     expect(hitUnit(T, T.box.x0, T.box.y0, heightOf)).toBeNull();
@@ -220,21 +287,34 @@ describe("camera", () => {
     const [x1, y1] = toScreen(c, v, b.x1, b.y1);
     return x1 > 0 && x0 < v.w && y1 > 0 && y0 < v.h;
   };
-  it("on load the child's island fills ~70% of the width, centred, with neighbouring islands at the edges", () => {
-    for (const g of GRADES) {
+  it("on load the child's zone fills ~70% of the width, fully in view, leaning towards the next zone with the trail running into it", () => {
+    for (const [i, g] of GRADES.entries()) {
       const c = homeCam(T, g, v);
       const b = T.byGrade.get(g)!.box;
       const [x0, y0] = toScreen(c, v, b.x0, b.y0);
       const [x1, y1] = toScreen(c, v, b.x1, b.y1);
       const share = (x1 - x0) / v.w;
       expect(share, g).toBeLessThanOrEqual(0.7 + 1e-6);
-      // height-limited islands are narrower, never wider; most are exactly 70 %
       expect(share, g).toBeGreaterThan(0.45);
+      expect(x0, g).toBeGreaterThanOrEqual(-1);
+      expect(x1, g).toBeLessThanOrEqual(v.w + 1);
       expect(y0, g).toBeGreaterThanOrEqual(v.h * 0.12 - 1);
-      expect(y1, g).toBeLessThanOrEqual(v.h * 0.92 + 1);
-      expect(Math.abs((x0 + x1) / 2 - v.w / 2), g).toBeLessThan(1);
-      const neighbours = T.islands.filter((i) => i.grade !== g && inView(i.box, c));
-      expect(neighbours.length, g).toBeGreaterThan(0);
+      expect(y1, g).toBeLessThanOrEqual(v.h + 1);
+      // the zone nearest the screen centre is the child's
+      const [cx, cy] = toWorld(c, v, v.w / 2, (y0 + y1) / 2);
+      const near = T.regions.reduce((a, r) => (Math.hypot(r.x - cx, r.label[1] + 3 - cy) < Math.hypot(a.x - cx, a.label[1] + 3 - cy) ? r : a));
+      expect(near.grade, g).toBe(g);
+      const next = GRADES[i + 1];
+      if (!next) continue;
+      const a = T.terrain.trailAt.get(g)!;
+      const z = T.terrain.trailAt.get(next)!;
+      const leg = T.terrain.trail.slice(a, z + 1);
+      const seen = leg.filter(([x, y]) => {
+        const [sx, sy] = toScreen(c, v, x, y);
+        return sx >= 0 && sx <= v.w && sy >= 0 && sy <= v.h;
+      });
+      expect(seen.length / leg.length, `${g} → ${next}`).toBeGreaterThan(0.5);
+      expect(T.regions.filter((r) => r.grade !== g && inView(r.box, c)).length, g).toBeGreaterThan(0);
     }
     expect(homeCam(T, "小5", v).k * (T.byGrade.get("小5")!.box.x1 - T.byGrade.get("小5")!.box.x0)).toBeCloseTo(0.7 * v.w, 3);
   });
@@ -259,7 +339,7 @@ describe("camera", () => {
     const [ox1, oy1] = toScreen(out, v, T.box.x1, T.box.y1);
     expect(ox0).toBeGreaterThanOrEqual(0);
     expect(ox1).toBeLessThanOrEqual(v.w);
-    expect(oy0).toBeGreaterThanOrEqual(0);
+    expect(oy0).toBeGreaterThanOrEqual(v.h * HUD_TOP - 1); // below the HUD band: the summit is not hidden
     expect(oy1).toBeLessThanOrEqual(v.h);
   });
 
@@ -283,5 +363,43 @@ describe("camera", () => {
     expect((x0 + x1) / 2).toBeCloseTo(195, 3);
     expect((y0 + y1) / 2).toBeCloseTo(220, 3);
     expect(c.k).toBeLessThanOrEqual(30);
+  });
+});
+
+describe("zones: progress on the trail", () => {
+  it("制覇 N/M per zone from the map's tiles; a zone is complete (planted flag) only when every unit is taken", () => {
+    const pr = zoneProgress(mapTiles(PAGES));
+    expect(pr.get("小5")).toEqual({ grade: "小5", taken: 6, total: 15, complete: false });
+    expect(pr.get("小4")).toMatchObject({ taken: 2, complete: false });
+    expect(pr.get("高3")).toMatchObject({ taken: 0, total: 6, complete: false });
+    const all = unitsForGrade("小1").map((u) => [u.id, "○"] as [string, Mark]);
+    const done = zoneProgress(mapTiles([page("2026-10-18T09:00:00Z", all)]));
+    expect(done.get("小1")).toMatchObject({ taken: unitsForGrade("小1").length, complete: true });
+    expect(done.get("小2")!.complete).toBe(false);
+  });
+});
+
+describe("年度の記録 (school year = April–March, from the pages on this device)", () => {
+  it("school year starts in April", () => {
+    expect(schoolYearOf(new Date(2026, 3, 1))).toBe(2026);
+    expect(schoolYearOf(new Date(2026, 2, 31))).toBe(2025);
+    expect(schoolYearOf(new Date(2026, 9, 19))).toBe(2026);
+  });
+  it("one row per school year, newest first; the grade back then = profile grade minus the years back", () => {
+    const old = [
+      page("2025-06-10T03:00:00Z", [["4-A2", "✕"], ["4-A2", "✕"], ["4-B1", "○"]]),
+      page("2026-02-10T03:00:00Z", [["4-C2", "○"], ["4-C2", "✕"]]),
+    ];
+    const rows = yearlyRecord([...PAGES, ...old], "小5", NOW);
+    expect(rows.map((r) => [r.year, r.grade])).toEqual([[2026, "小5"], [2025, "小4"]]);
+    // 2026年度: the 小5 zone from this year's pages only (same 6 / 15 as the map), every ✕ saved this year
+    expect(rows[0]).toMatchObject({ pages: 5, taken: 6, total: 15, wrong: 9 });
+    // 2025年度: 小4 units taken by that year's pages (4-A2, 4-B1, 4-C2), its ✕
+    expect(rows[1]).toMatchObject({ pages: 2, taken: 3, total: unitsForGrade("小4").length, wrong: 3 });
+  });
+  it("the current year is always listed; years before 小1 are left out", () => {
+    expect(yearlyRecord([], "中1", NOW)).toEqual([{ year: 2026, grade: "中1", pages: 0, taken: 0, total: unitsForGrade("中1").length, wrong: 0 }]);
+    const young = yearlyRecord([page("2024-09-01T03:00:00Z", [["1-A1", "○"]])], "小2", NOW);
+    expect(young.map((r) => r.grade)).toEqual(["小2"]);
   });
 });

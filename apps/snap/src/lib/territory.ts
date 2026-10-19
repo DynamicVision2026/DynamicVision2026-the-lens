@@ -4,15 +4,19 @@ import type { SavedPage } from "./model";
 import { buildReport } from "./report";
 import { type Tile, type TileStatus, mapTiles } from "./review";
 import { STRIP_NEXT, stripFromReport } from "./home";
+import { type Terrain, type Zone, buildTerrain } from "./terrain";
+
+export type { Zone } from "./terrain";
 
 /**
- * 領土マップ: the same map as the video 「日本の算数・数学マップ」 (mathvid/map.html, ported).
+ * 領土マップ = 「算数・数学の大陸」: an expedition from the coast (小1) to the summit (高3).
  *
- * Geometry is the video's, unchanged: pointy-top axial hexes, one district per grade (高校: one per
- * subject, two subjects per school year), each district a spiral of `points` hexes (the unit's
- * 知識・技能 count) sorted into angle wedges, units filling the wedges in curriculum order (so the
- * strands sit as coloured patches), two coast rings around every tile, the same seeded heights.
- * A unit's territory = its patch of hexes (110 units, 278 hexes).
+ * Tiles keep the video's geometry (mathvid/map.html): pointy-top axial hexes, one district per grade
+ * (高校: one per subject, two subjects per school year), each district a spiral of `points` hexes (the
+ * unit's 知識・技能 count) sorted into angle wedges, units filling the wedges in curriculum order (so the
+ * strands sit as coloured patches). A unit's territory = its patch of hexes (110 units, 278 hexes).
+ * The districts now sit on one continent: each grade is a zone with its own terrain, climbing away
+ * from the viewer zone by zone (terrain: ./terrain.ts).
  *
  * Projection: a flat oblique view (no perspective): ground depth squashed by GY, heights lifted by HY.
  * Pure functions only (no DOM): layout, camera framing / clamping, hit testing, HUD numbers.
@@ -92,24 +96,53 @@ export function growPatches(sorted: [number, number][], sizes: number[]): [numbe
   });
 }
 
-/** District centres (axial), exactly as in the video. 高校 districts are subjects. */
-export const DISTRICTS: { key: string; centre: [number, number] }[] = [
-  { key: "小1", centre: [-26, 9] },
-  { key: "小2", centre: [-19, 4] },
-  { key: "小3", centre: [-11, 1] },
-  { key: "小4", centre: [-21, 15] },
-  { key: "小5", centre: [-12, 10] },
-  { key: "小6", centre: [-4, 7] },
-  { key: "中1", centre: [9, -6] },
-  { key: "中2", centre: [16, -9] },
-  { key: "中3", centre: [12, 0] },
-  { key: "数学I", centre: [30, -15] },
-  { key: "数学II", centre: [36, -20] },
-  { key: "数学III", centre: [42, -25] },
-  { key: "数学A", centre: [27, -22] },
-  { key: "数学B", centre: [33, -27] },
-  { key: "数学C", centre: [39, -31] },
+/**
+ * 算数・数学の大陸: one landmass from the coast (小1, front left) to the summit (高3, back right).
+ * Each grade is one zone; zones climb away from the viewer (smaller z = further back = higher),
+ * zig-zagging left / right like switchbacks. 高校 zones hold two subject districts side by side.
+ * Ground positions (x, z) are the hex plane; `metres` is the label's 標高 and sets the ground height.
+ */
+export interface RegionSpec {
+  grade: Grade;
+  zone: Zone;
+  /** 標高 on the label (m). */
+  metres: number;
+  /** Ground centre of the zone. */
+  centre: [number, number];
+  /** Districts (小・中: the grade; 高校: its two subjects) as offsets from the centre. */
+  districts: { key: string; dx: number; dz: number }[];
+}
+const one = (g: string) => [{ key: g, dx: 0, dz: 0 }];
+export const REGION_SPECS: RegionSpec[] = [
+  { grade: "小1", zone: "coast", metres: 10, centre: [-9, 58], districts: one("小1") },
+  { grade: "小2", zone: "cove", metres: 40, centre: [9, 49], districts: one("小2") },
+  { grade: "小3", zone: "plain", metres: 120, centre: [-6, 38], districts: one("小3") },
+  { grade: "小4", zone: "forest", metres: 300, centre: [14, 27], districts: one("小4") },
+  { grade: "小5", zone: "deep", metres: 500, centre: [-2, 16], districts: one("小5") },
+  { grade: "小6", zone: "lake", metres: 700, centre: [18, 6], districts: one("小6") },
+  { grade: "中1", zone: "hills", metres: 1000, centre: [3, -4], districts: one("中1") },
+  { grade: "中2", zone: "ridge", metres: 1500, centre: [21, -13], districts: one("中2") },
+  { grade: "中3", zone: "plateau", metres: 2000, centre: [6, -22], districts: one("中3") },
+  { grade: "高1", zone: "snowline", metres: 2500, centre: [24, -33], districts: [{ key: "数学I", dx: -4.5, dz: 1.5 }, { key: "数学A", dx: 5, dz: -1.5 }] },
+  { grade: "高2", zone: "glacier", metres: 3100, centre: [9, -45], districts: [{ key: "数学II", dx: -5, dz: 1.5 }, { key: "数学B", dx: 5, dz: -1.5 }] },
+  { grade: "高3", zone: "summit", metres: 3776, centre: [28, -56], districts: [{ key: "数学III", dx: -4.5, dz: 1.5 }, { key: "数学C", dx: 4.5, dz: -1.5 }] },
 ];
+
+/** Ground position → nearest axial cell. */
+export function toAxial(x: number, z: number): [number, number] {
+  const r = Math.round(z / 1.5);
+  return [Math.round(x / SQ3 - r / 2), r];
+}
+
+/** District centres (axial), in climbing order. 高校 districts are subjects. */
+export const DISTRICTS: { key: string; grade: Grade; centre: [number, number] }[] = REGION_SPECS.flatMap((s) =>
+  s.districts.map((d) => ({ key: d.key, grade: s.grade, centre: toAxial(s.centre[0] + d.dx, s.centre[1] + d.dz) })),
+);
+
+/** Ground height of a zone (world units) from its 標高: the climb is visible but tiles stay the tallest thing. */
+export const ELEV = { base: 0.12, perMetre: 1 / 1000, step: 0.25 };
+export const quantE = (e: number) => Math.round(e / ELEV.step) * ELEV.step;
+export const zoneHeight = (metres: number) => quantE(ELEV.base + metres * ELEV.perMetre);
 
 /** Colour family of a unit: the strand (小・中: 領域 letter, as the video legend) or the 高校 subject. */
 export type ColorKey = "num" | "geo" | "rel" | "data" | "hI" | "hII" | "hIII" | "hA" | "hB" | "hC";
@@ -120,12 +153,19 @@ export function colorKeyOf(u: Unit): ColorKey {
   return DOMAIN_COLOR[u.unit.charAt(0)];
 }
 
+/** Ground tone of a zone (token suffix `--terr-g-…`): untaken tiles take it too (unexplored terrain). */
+export type Ground = "sand" | "grass" | "forest" | "deep" | "moss" | "rock" | "alpine" | "scree" | "ice" | "snow";
+export const GROUND: Record<Zone, Ground> = {
+  coast: "sand", cove: "sand", plain: "grass", forest: "forest", deep: "deep", lake: "forest",
+  hills: "moss", ridge: "rock", plateau: "alpine", snowline: "scree", glacier: "ice", summit: "snow",
+};
+
 /** Flat oblique projection: ground depth × GY, height × HY (screen y grows downward). */
 export const PROJ = { gy: 0.72, hy: 0.7 };
 /** Hex radii (video: tile body 0.96, cap 0.80, land 1.0). */
 export const HEX = { tile: 0.96, cap: 0.8, land: 1.0 };
-/** Heights: まだ is the video's undiscovered height; マスター stands higher than its discovered height. */
-export const HEIGHT = { empty: 0.16, goldLift: 0.55 };
+/** Column heights above the ground: まだ nearly flat; taken = its seeded height; マスター higher. */
+export const HEIGHT = { empty: 0.16, goldLift: 0.45 };
 
 export interface TerrHex {
   q: number;
@@ -133,17 +173,11 @@ export interface TerrHex {
   /** Ground position. */
   x: number;
   z: number;
-  /** The video's discovered height for this hex. */
+  /** Ground height under the tile (its zone's plateau). */
+  e: number;
+  /** The tile's discovered column height above the ground. */
   h: number;
   unitId: string;
-}
-export interface LandHex {
-  q: number;
-  r: number;
-  x: number;
-  z: number;
-  ring: 1 | 2;
-  level: string;
 }
 export interface UnitTerritory {
   id: string;
@@ -155,14 +189,22 @@ export interface UnitTerritory {
   /** The hex nearest the patch's centroid: the unit's button, flag and pin sit on it. */
   anchor: TerrHex;
 }
-export interface Island {
+export interface Region {
   grade: Grade;
+  zone: Zone;
+  metres: number;
   districts: string[];
-  /** Ground centre of its unit hexes; the grade label floats above it. */
+  /** Ground centre of its unit hexes. */
   x: number;
   z: number;
-  /** Projected bounds of the island (tiles + coast), unit heights included. */
+  /** Ground height of its plateau. */
+  e: number;
+  /** Projected bounds of the zone (tiles at their tallest + a margin of land). */
   box: Box;
+  /** Projected point of the zone label (name + grade + 標高), on the land just above its tiles. */
+  label: [number, number];
+  /** Projected point where the trail passes the zone: progress badge, flag, 「あなたはここ」. */
+  waypoint: [number, number];
 }
 export interface Box {
   x0: number;
@@ -172,25 +214,21 @@ export interface Box {
 }
 export interface Territory {
   hexes: TerrHex[];
-  land: LandHex[];
   units: UnitTerritory[];
   byId: Map<string, UnitTerritory>;
-  islands: Island[];
-  byGrade: Map<Grade, Island>;
-  /** Route through the district centres in video order (projected ground points). */
-  route: [number, number][];
+  regions: Region[];
+  byGrade: Map<Grade, Region>;
+  terrain: Terrain;
   /** Projected bounds of everything. */
   box: Box;
 }
-
-const VIDEO_ORDER = DISTRICTS.map((d) => d.key);
 
 /** Projected point of a ground position at height h. */
 export function project(x: number, z: number, h = 0): [number, number] {
   return [x, z * PROJ.gy - h * PROJ.hy];
 }
 
-function boxOf(pts: [number, number][], pad = 0): Box {
+export function boxOf(pts: [number, number][], pad = 0): Box {
   let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
   for (const [x, y] of pts) {
     if (x < x0) x0 = x;
@@ -211,17 +249,17 @@ export function unionBox(boxes: Box[]): Box {
 }
 
 export function buildTerritory(): Territory {
-  // Video `rnd`, same seed and call order, so heights match the video.
+  // Video `rnd`, same seed.
   let sd = 12345;
   const rnd = () => {
     sd = (sd * 1103515245 + 12345) % 2147483648;
     return sd / 2147483648;
   };
+  const specOf = new Map(REGION_SPECS.map((s) => [s.grade, s]));
   const hexes: TerrHex[] = [];
   const units: UnitTerritory[] = [];
-  const occ = new Set<string>();
-  for (const key of VIDEO_ORDER) {
-    const gi = VIDEO_ORDER.indexOf(key);
+  for (const dist of DISTRICTS) {
+    const key = dist.key;
     const us = UNITS.filter((u) => u.grade === key);
     const n = us.reduce((s, u) => s + u.points, 0);
     const cells = spiral(n);
@@ -235,8 +273,8 @@ export function buildTerritory(): Territory {
     };
     cells.sort((a, b) => ang(a) - ang(b) || dist2(a) - dist2(b));
     const plan = growPatches(cells, us.map((u) => u.points));
-    const c = DISTRICTS[gi].centre;
-    const R = Math.sqrt(n) * 0.62;
+    const c = dist.centre;
+    const e = zoneHeight(specOf.get(dist.grade)!.metres);
     for (const [ui, u] of us.entries()) {
       const own: TerrHex[] = [];
       for (let i = 0; i < u.points; i++) {
@@ -244,18 +282,11 @@ export function buildTerritory(): Territory {
         const Q = q + c[0];
         const Rr = r + c[1];
         const [x, z] = hx(Q, Rr);
-        const d = Math.sqrt(q * q + r * r + q * r) / Math.max(1, R);
-        let h: number;
-        if (u.level === "小") h = 0.35 + 0.07 * gi + 0.12 * rnd();
-        else if (u.level === "中") h = 1.0 + 0.12 * (gi - 6) + 0.12 * rnd();
-        else {
-          const peak: Record<string, number> = { 数学I: 2.0, 数学II: 3.0, 数学III: 4.6, 数学A: 2.3, 数学B: 2.7, 数学C: 3.4 };
-          h = 1.4 + peak[key] * Math.max(0, 1 - d * 0.85) + 0.15 * rnd();
-        }
-        const t: TerrHex = { q: Q, r: Rr, x, z, h, unitId: u.id };
+        // the zone gives the height now; columns differ a little, like the video's seeded heights
+        const h = 0.5 + 0.28 * rnd();
+        const t: TerrHex = { q: Q, r: Rr, x, z, e, h, unitId: u.id };
         hexes.push(t);
         own.push(t);
-        occ.add(`${Q},${Rr}`);
       }
       const mx = own.reduce((s, t) => s + t.x, 0) / own.length;
       const mz = own.reduce((s, t) => s + t.z, 0) / own.length;
@@ -263,53 +294,59 @@ export function buildTerritory(): Territory {
       units.push({ id: u.id, unit: u, grade: u.appGrade, district: key, color: colorKeyOf(u), hexes: own, anchor });
     }
   }
-  // Coast: two rings around every tile, first come first served (video order).
-  const land: LandHex[] = [];
-  const landSet = new Set<string>();
-  const sp = spiral(19);
   const byUnit = new Map(units.map((u) => [u.id, u]));
-  for (const t of hexes) {
-    const level = byUnit.get(t.unitId)!.unit.level;
-    for (const ring of [1, 2] as const) {
-      for (const [dq, dr] of sp.slice(ring === 1 ? 1 : 7, ring === 1 ? 7 : 19)) {
-        const Q = t.q + dq;
-        const Rr = t.r + dr;
-        const key = `${Q},${Rr}`;
-        if (occ.has(key) || landSet.has(key)) continue;
-        landSet.add(key);
-        const [x, z] = hx(Q, Rr);
-        land.push({ q: Q, r: Rr, x, z, ring, level });
-      }
-    }
-  }
-  // Islands = app grades (高1 = 数学I + 数学A, …).
-  const islands: Island[] = GRADES.map((grade) => {
-    const us = units.filter((u) => u.grade === grade);
+  const terrain = buildTerrain(
+    hexes.map((t) => ({ q: t.q, r: t.r, e: t.e, top: t.e + t.h + HEIGHT.goldLift, grade: byUnit.get(t.unitId)!.grade })),
+    REGION_SPECS.map((s) => {
+      const hs = hexes.filter((t) => byUnit.get(t.unitId)!.grade === s.grade);
+      return {
+        grade: s.grade,
+        zone: s.zone,
+        e: zoneHeight(s.metres),
+        x: hs.reduce((a, t) => a + t.x, 0) / hs.length,
+        z: hs.reduce((a, t) => a + t.z, 0) / hs.length,
+      };
+    }),
+  );
+  const regions: Region[] = REGION_SPECS.map((s) => {
+    const us = units.filter((u) => u.grade === s.grade);
     const hs = us.flatMap((u) => u.hexes);
-    const x = hs.reduce((s, t) => s + t.x, 0) / hs.length;
-    const z = hs.reduce((s, t) => s + t.z, 0) / hs.length;
-    const districts = [...new Set(us.map((u) => u.district))];
-    // Island box: its tiles at their tallest (gold) height, plus coast within 2.6 cells of a tile.
+    const x = hs.reduce((a, t) => a + t.x, 0) / hs.length;
+    const z = hs.reduce((a, t) => a + t.z, 0) / hs.length;
     const pts: [number, number][] = [];
     for (const t of hs) {
-      pts.push(project(t.x - 1, t.z - 1, t.h + HEIGHT.goldLift));
-      pts.push(project(t.x + 1, t.z + 1, 0));
+      pts.push(project(t.x - 1, t.z - 1, t.e + t.h + HEIGHT.goldLift));
+      pts.push(project(t.x + 1, t.z + 1, t.e));
     }
-    return { grade, districts, x, z, box: boxOf(pts, 2.2) };
+    const top = Math.min(...hs.map((t) => project(t.x, t.z - 1, t.e + t.h + HEIGHT.goldLift)[1]));
+    const label: [number, number] = [x, top - 0.4];
+    const waypoint = terrain.waypoints.get(s.grade)!;
+    return {
+      grade: s.grade,
+      zone: s.zone,
+      metres: s.metres,
+      districts: [...new Set(us.map((u) => u.district))],
+      x,
+      z,
+      e: zoneHeight(s.metres),
+      // tiles, plus the label above and the trail badge below
+      box: unionBox([boxOf(pts, 2.2), boxOf([label], 1.6), boxOf([waypoint], 1.8)]),
+      label,
+      waypoint,
+    };
   });
-  const centre = (key: string) => {
-    const hs = units.filter((u) => u.district === key).flatMap((u) => u.hexes);
-    return project(hs.reduce((s, t) => s + t.x, 0) / hs.length, hs.reduce((s, t) => s + t.z, 0) / hs.length);
-  };
-  const all: [number, number][] = [...hexes.map((t) => project(t.x, t.z, t.h + HEIGHT.goldLift)), ...land.map((l) => project(l.x, l.z))];
+  const all: [number, number][] = [
+    ...hexes.map((t) => project(t.x, t.z, t.e + t.h + HEIGHT.goldLift)),
+    ...terrain.land.map((l) => project(l.x, l.z, l.e)),
+    ...terrain.land.map((l) => project(l.x, l.z + 1, 0)),
+  ];
   return {
     hexes,
-    land,
     units,
     byId: byUnit,
-    islands,
-    byGrade: new Map(islands.map((i) => [i.grade, i])),
-    route: VIDEO_ORDER.map(centre),
+    regions,
+    byGrade: new Map(regions.map((r) => [r.grade, r])),
+    terrain,
     box: boxOf(all, 2),
   };
 }
@@ -355,10 +392,10 @@ export function hexCorners(cx: number, cy: number, s: number): [number, number][
   return out;
 }
 
-/** Projected silhouette of a hex column (top face + the two front side faces), for hit testing. */
-export function columnOutline(x: number, z: number, h: number, s = HEX.tile): [number, number][] {
-  const [cx, cyTop] = project(x, z, h);
-  const [, cyBase] = project(x, z, 0);
+/** Projected silhouette of a hex column standing on ground height e (top face + the two front side faces), for hit testing. */
+export function columnOutline(x: number, z: number, h: number, s = HEX.tile, e = 0): [number, number][] {
+  const [cx, cyTop] = project(x, z, e + h);
+  const [, cyBase] = project(x, z, e);
   const top = hexCorners(cx, cyTop, s); // 0 top, 1 upper right, 2 lower right, 3 bottom, 4 lower left, 5 upper left
   const base = hexCorners(cx, cyBase, s);
   return [top[0], top[1], base[2], base[3], base[4], top[5]];
@@ -382,7 +419,7 @@ export function hitUnit(T: Territory, X: number, Y: number, heightOf: (t: TerrHe
   const order = drawOrder(T.hexes);
   for (let i = order.length - 1; i >= 0; i--) {
     const t = order[i];
-    if (inPoly(X, Y, columnOutline(t.x, t.z, heightOf(t)))) return t.unitId;
+    if (inPoly(X, Y, columnOutline(t.x, t.z, heightOf(t), HEX.tile, t.e))) return t.unitId;
   }
   return null;
 }
@@ -397,8 +434,8 @@ export function unitBox(u: UnitTerritory, status: TileStatus): Box {
   const look = lookOf(status);
   const pts: [number, number][] = [];
   for (const t of u.hexes) {
-    pts.push(project(t.x - 1, t.z - 1, look.height(t.h)));
-    pts.push(project(t.x + 1, t.z + 1, 0));
+    pts.push(project(t.x - 1, t.z - 1, t.e + look.height(t.h)));
+    pts.push(project(t.x + 1, t.z + 1, t.e));
   }
   return boxOf(pts);
 }
@@ -415,11 +452,14 @@ export interface View {
   w: number;
   h: number;
 }
-/** Zoom limits: from the whole map (a bit smaller than the screen) to ~4 hexes across the width. */
+/** Top band of the view the HUD covers (share of the height): the zoomed-out continent sits below it. */
+export const HUD_TOP = 0.2;
+
+/** Zoom limits: from the whole continent (below the HUD band) to ~7 hexes across the width. */
 export function zoomLimits(T: Territory, v: View): { min: number; max: number } {
   const bw = T.box.x1 - T.box.x0;
   const bh = T.box.y1 - T.box.y0;
-  const min = Math.min(v.w / bw, v.h / bh) * 0.9;
+  const min = Math.min(v.w / bw, (v.h * (1 - HUD_TOP)) / bh) * 0.94;
   return { min, max: Math.max(min * 2, v.w / 7) };
 }
 
@@ -436,20 +476,21 @@ export const OVERSCROLL = 0.6;
 /**
  * Keep the zoom in its limits and the map on screen: the view may run past the map's edge by
  * OVERSCROLL of half a screen at most (so the screen centre never leaves the map); a map narrower
- * (or shorter) than the view is centred.
+ * than the view is centred, one shorter than the band below the HUD is centred in that band.
  */
 export function clampCam(c: Cam, T: Territory, v: View): Cam {
   const { min, max } = zoomLimits(T, v);
   const k = Math.min(max, Math.max(min, c.k));
-  const axis = (val: number, lo: number, hi: number, half: number) => {
+  const axis = (val: number, lo: number, hi: number, half: number, shift: number) => {
     const a = lo + half * (1 - OVERSCROLL);
     const b = hi - half * (1 - OVERSCROLL);
-    return hi - lo <= 2 * half ? (lo + hi) / 2 : Math.min(b, Math.max(a, val));
+    return hi - lo <= 2 * half - 2 * shift ? (lo + hi) / 2 - shift : Math.min(b, Math.max(a, val));
   };
   return {
     k,
-    x: axis(c.x, T.box.x0, T.box.x1, v.w / 2 / k),
-    y: axis(c.y, T.box.y0, T.box.y1, v.h / 2 / k),
+    x: axis(c.x, T.box.x0, T.box.x1, v.w / 2 / k, 0),
+    // a continent shorter than the view sits centred in the band below the HUD
+    y: axis(c.y, T.box.y0, T.box.y1, v.h / 2 / k, (v.h * HUD_TOP) / 2 / k),
   };
 }
 
@@ -495,12 +536,22 @@ export function frameBox(
   return clampCam({ k, x: bx - (rx - v.w / 2) / k, y: by - (ry - v.h / 2) / k }, T, v);
 }
 
-/** On load: the child's island fills ~70% of the width, neighbours visible at the edges. */
+/**
+ * On load: the child's zone fills ~70% of the width, a little below the middle (the HUD sits at the
+ * top), so the trail is seen running on into the next zone above it.
+ */
 export function homeCam(T: Territory, grade: Grade, v: View): Cam {
-  const isl = T.byGrade.get(grade)!;
-  // A little below the middle: the HUD card sits at the top.
-  return frameBox(isl.box, v, T, { fill: 0.7, region: { x0: 0, y0: v.h * 0.12, x1: v.w, y1: v.h * 0.92 } });
+  const reg = T.byGrade.get(grade)!;
+  const c = frameBox(reg.box, v, T, { fill: 0.7, region: { x0: 0, y0: v.h * 0.16, x1: v.w, y1: v.h * 0.94 } });
+  // lean towards the next zone up the trail (the zone keeps a 4 % margin on that side)
+  const i = T.regions.indexOf(reg);
+  const next = T.regions[i + 1];
+  if (!next) return c;
+  const side = Math.sign(next.x - reg.x);
+  return clampCam({ ...c, x: c.x + (side * HOME_LEAN * v.w) / c.k }, T, v);
 }
+/** How far (share of the width) the home view leans towards the next zone. */
+export const HOME_LEAN = 0.11;
 
 /** Ease between two cameras (t in 0…1, smoothstep; zoom interpolated geometrically). */
 export function lerpCam(a: Cam, b: Cam, t: number): Cam {
@@ -593,7 +644,33 @@ export function tileLabel(t: Tile): string {
   return `${t.unit.appGrade} ${t.unit.topic}：${s}${t.status === "review" ? `（✕${t.wrong}）` : ""}`;
 }
 
-/** Grade of a unit id (for flying to its island). */
+/** Grade of a unit id (for flying to its zone). */
 export function gradeOfUnit(id: string): Grade | null {
   return unitById(id)?.appGrade ?? null;
 }
+
+// ---------- zones: progress on the trail ----------
+
+export interface ZoneProgress {
+  grade: Grade;
+  /** Units with data (any state but まだ). */
+  taken: number;
+  total: number;
+  /** Every unit of the zone taken: the trail marker becomes a planted flag. */
+  complete: boolean;
+}
+
+/** 制覇 N/M per zone, from the same tiles as the map. */
+export function zoneProgress(tiles: Tile[]): Map<Grade, ZoneProgress> {
+  const out = new Map<Grade, ZoneProgress>(GRADES.map((g) => [g, { grade: g, taken: 0, total: 0, complete: false }]));
+  for (const t of tiles) {
+    const z = out.get(t.unit.appGrade)!;
+    z.total++;
+    if (t.status !== "empty") z.taken++;
+  }
+  for (const z of out.values()) z.complete = z.total > 0 && z.taken === z.total;
+  return out;
+}
+
+/** The zone's name (海岸線 … 山頂). */
+export const zoneName = (g: Grade): string => app.map.terr.zones[g];

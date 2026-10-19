@@ -10,7 +10,8 @@ import { focusFromParam, savedToast } from "../lib/home";
 import type { SavedPage } from "../lib/model";
 import { type MapSection, type Tile, mapSections, mapTiles, parseLit, unfiled } from "../lib/review";
 import { sheetData } from "../lib/starmap";
-import { type Hud, LEVELS, STRANDS, buildHud, colorKeyOf, unitHistory } from "../lib/territory";
+import { type Hud, LEVELS, STRANDS, buildHud, colorKeyOf, unitHistory, zoneName } from "../lib/territory";
+import { type YearRow, yearlyRecord } from "../lib/yearly";
 import { readPref, usePages, writePref } from "../state";
 
 const TOAST_MS = 4500;
@@ -102,11 +103,15 @@ function TerritoryView(props: { pages: SavedPage[]; grade: Grade; lit: string[];
   const [selected, setSelected] = useState<string | null>(() => focusFromParam(unit, grade).selected);
   // 次にやること: which of hud.next is being shown (one by one), and the tile pointed at.
   const [tour, setTour] = useState<number | null>(null);
+  const [menu, setMenu] = useState(false);
+  const [years, setYears] = useState(false);
   const api = useRef<MapApi | null>(null);
+  const yearRows = useMemo(() => (years ? yearlyRecord(pages, grade) : []), [years, pages, grade]);
   const pointed = tour !== null ? hud.next[tour] ?? null : null;
 
   const select = (id: string | null) => {
     setSelected(id);
+    if (id) setYears(false);
     if (id === null || (tour !== null && hud.next[tour] !== id)) setTour(null);
   };
   const nextStep = () => {
@@ -117,26 +122,58 @@ function TerritoryView(props: { pages: SavedPage[]; grade: Grade; lit: string[];
   };
 
   useEffect(() => {
-    if (!selected) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && select(null);
+    if (!selected && !years && !menu) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setMenu(false);
+      setYears(false);
+      select(null);
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   });
 
   const data = selected ? sheetData(selected, tiles) : null;
   return (
-    <div className={`terr${empty ? " is-empty" : ""}${data ? " has-sheet" : ""}`}>
+    <div className={`terr${empty ? " is-empty" : ""}${data || years ? " has-sheet" : ""}`}>
       <TerritoryMap tiles={tiles} grade={grade} selected={selected} onSelect={select} lit={lit} pointed={pointed} sheetOpen={!!data} api={api} />
       <div className="terr-hud">
         <div className="hud-tl">
           <div className="hud-brand">
             <h1 className="hud-title">{app.map.title}</h1>
-            <button type="button" className="hud-icon hud-list" aria-label={app.map.terr.list} onClick={props.onList} data-testid="map-to-list">
+            <button
+              type="button"
+              className={`hud-icon hud-menu${menu ? " is-on" : ""}`}
+              aria-label={app.map.terr.menu}
+              aria-expanded={menu}
+              aria-controls="hud-menu"
+              onClick={() => setMenu((m) => !m)}
+              data-testid="hud-menu"
+            >
               <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden focusable="false">
                 <path d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
           </div>
+          {menu && (
+            <div className="hud-menu-pop" id="hud-menu" role="menu" data-testid="hud-menu-pop">
+              <button type="button" role="menuitem" onClick={props.onList} data-testid="map-to-list">
+                {app.map.terr.list}
+              </button>
+              <button
+                type="button"
+                role="menuitem"
+                onClick={() => {
+                  setMenu(false);
+                  select(null);
+                  setYears(true);
+                }}
+                data-testid="menu-year"
+              >
+                {app.map.terr.year.title}
+              </button>
+            </div>
+          )}
           {hud.next.length > 0 && (
             <button type="button" className={`hud-next${tour !== null ? " is-on" : ""}`} onClick={nextStep} aria-label={app.map.terr.nextLabel(hud.next.length)} data-testid="hud-next">
               <span className="hud-next-flag" aria-hidden />
@@ -164,8 +201,18 @@ function TerritoryView(props: { pages: SavedPage[]; grade: Grade; lit: string[];
             <span className="hud-compass-label">{app.map.terr.here}</span>
           </button>
         </div>
-        {!empty && !data && <SnapFab />}
+        {!empty && !data && !years && <SnapFab />}
       </div>
+      {years && (
+        <YearSheet
+          rows={yearRows}
+          onClose={() => setYears(false)}
+          onPick={(g) => {
+            setYears(false);
+            api.current?.flyToGrade(g);
+          }}
+        />
+      )}
       {data && (
         <Sheet
           data={data}
@@ -179,16 +226,18 @@ function TerritoryView(props: { pages: SavedPage[]; grade: Grade; lit: string[];
   );
 }
 
-/** Top-right card, styled after the video's 「見つけた 知識・技能」 card. */
+/** Top-right card: one compact line (制覇 N / total of the child's grade, 要復習) + the whole-map 小・中・高 bars. */
 function HudCard({ hud }: { hud: Hud }) {
   const t = app.map.terr;
   const review = hud.counts.review;
   return (
     <section className="hud-card" aria-label={t.hudLabel(hud.grade, hud.taken, hud.total, review)} data-testid="hud-card">
-      <div className="hud-t">{t.hudTitle(hud.grade)}</div>
-      <div className="hud-n" data-testid="hud-taken">
-        <b>{hud.taken}</b>
-        <span> / {hud.total}</span>
+      <div className="hud-line">
+        <span className="hud-t">{t.hudTitle(hud.grade)}</span>
+        <span className="hud-n" data-testid="hud-taken">
+          <b>{hud.taken}</b>
+          <span> / {hud.total}</span>
+        </span>
       </div>
       {LEVELS.map((l) => {
         const { taken, total } = hud.levels[l];
@@ -211,31 +260,86 @@ function HudCard({ hud }: { hud: Hud }) {
   );
 }
 
-/** Bottom-left legend: the video's strand legend + the four territory states. */
+/** Bottom-left: a small 「凡例」 button; open, the strand legend + the four territory states. */
 function Legend() {
   const t = app.map.terr;
+  const [open, setOpen] = useState(false);
   return (
-    <section className="hud-legend" aria-label={t.legend} data-testid="map-legend">
-      <ul className="lg-strands">
-        {STRANDS.map((s) => (
-          <li key={s}>
-            <i className={`lg-sw c-${s}`} />
-            {t.strands[s]}
+    <div className={`hud-legend-wrap${open ? " is-open" : ""}`}>
+      {open && (
+        <section className="hud-legend" id="map-legend" aria-label={t.legend} data-testid="map-legend">
+          <ul className="lg-strands">
+            {STRANDS.map((s) => (
+              <li key={s}>
+                <i className={`lg-sw c-${s}`} />
+                {t.strands[s]}
+              </li>
+            ))}
+            <li className="lg-hs">
+              <i className="lg-sw lg-sw-hs" />
+              {t.strands.hs}
+            </li>
+          </ul>
+          <ul className="lg-states" data-testid="legend-states">
+            {(["empty", "ok", "review", "gold"] as const).map((s) => (
+              <li key={s}>
+                <TerrGlyph status={s} size={22} />
+                {t.states[s]}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+      <button type="button" className="hud-legend-btn" aria-expanded={open} aria-controls="map-legend" onClick={() => setOpen((o) => !o)} data-testid="legend-toggle">
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden focusable="false">
+          <rect x="2" y="2.5" width="4" height="4" rx="1" />
+          <rect x="2" y="9.5" width="4" height="4" rx="1" />
+          <path d="M8.5 4.5h5.5M8.5 11.5h5.5" />
+        </svg>
+        {t.legend}
+      </button>
+    </div>
+  );
+}
+
+/** 年度の記録: one row per school year; a row flies to that year's zone. */
+function YearSheet({ rows, onClose, onPick }: { rows: YearRow[]; onClose: () => void; onPick: (g: Grade) => void }) {
+  const y = app.map.terr.year;
+  const t = app.map.terr;
+  const any = rows.some((r) => r.pages > 0);
+  return (
+    <section className="sheet terr-sheet terr-year" role="dialog" aria-modal="false" aria-labelledby="year-title" data-testid="year-sheet">
+      <div className="sheet-top">
+        <h2 id="year-title" className="year-title">
+          {y.title}
+        </h2>
+        <button type="button" className="sheet-close" onClick={onClose} aria-label={y.close}>
+          ×
+        </button>
+      </div>
+      <p className="year-note">{y.note}</p>
+      <ol className="year-rows">
+        {rows.map((r) => (
+          <li key={r.year}>
+            <button type="button" className="year-row" onClick={() => onPick(r.grade)} aria-label={y.go(r.year, r.grade, zoneName(r.grade))} data-testid="year-row" data-grade={r.grade}>
+              <span className="yr-year">{y.label(r.year)}</span>
+              <span className="yr-zone">
+                <b>{zoneName(r.grade)}</b>
+                <small>{r.grade}</small>
+              </span>
+              <span className="yr-bar" aria-hidden>
+                <i style={{ width: `${r.total ? (r.taken / r.total) * 100 : 0}%` }} />
+              </span>
+              <span className="yr-num">{t.progress(r.taken, r.total)}</span>
+              <span className={`yr-x${r.wrong > 0 ? " is-wrong" : ""}`}>{y.wrong(r.wrong)}</span>
+              <span className="yr-go" aria-hidden>
+                ›
+              </span>
+            </button>
           </li>
         ))}
-        <li className="lg-hs">
-          <i className="lg-sw lg-sw-hs" />
-          {t.strands.hs}
-        </li>
-      </ul>
-      <ul className="lg-states" data-testid="legend-states">
-        {(["empty", "ok", "review", "gold"] as const).map((s) => (
-          <li key={s}>
-            <TerrGlyph status={s} size={22} />
-            {t.states[s]}
-          </li>
-        ))}
-      </ul>
+      </ol>
+      {!any && <p className="sheet-none">{y.empty}</p>}
     </section>
   );
 }

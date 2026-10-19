@@ -7,10 +7,9 @@ import {
   type Box,
   type Cam,
   type ColorKey,
+  GROUND,
   HEIGHT,
   HEX,
-  type LandHex,
-  PROJ,
   type TerrHex,
   type View,
   clampCam,
@@ -29,8 +28,11 @@ import {
   toWorld,
   unionBox,
   unitBox,
+  zoneName,
+  zoneProgress,
   zoomAt,
 } from "../lib/territory";
+import { type Palette, type RGBA, TERRAIN_TOKENS, css, mix, paintTerrain } from "./terrainPaint";
 
 /** What the HUD can ask the map to do. */
 export interface MapApi {
@@ -40,13 +42,12 @@ export interface MapApi {
   zoom(f: number): void;
   /** Bring units into view: the whole screen, or the band above the open sheet. */
   frameUnits(ids: string[], where?: "full" | "top"): void;
+  /** Fly to a grade's zone (年度の記録). */
+  flyToGrade(g: Grade): void;
 }
 
-type RGBA = [number, number, number, number];
-type Palette = Record<string, RGBA>;
 const TOKENS = [
-  "sea", "sea-haze", "grid", "sand", "sand-gap", "grass", "grass-hs", "unex", "num", "geo", "rel", "data",
-  "h-i", "h-ii", "h-iii", "h-a", "h-b", "h-c", "gold", "red", "route", "root", "white", "black",
+  ...TERRAIN_TOKENS, "unex", "num", "geo", "rel", "data", "h-i", "h-ii", "h-iii", "h-a", "h-b", "h-c", "gold", "root",
 ] as const;
 const COLOR_TOKEN: Record<ColorKey, string> = {
   num: "num", geo: "geo", rel: "rel", data: "data", hI: "h-i", hII: "h-ii", hIII: "h-iii", hA: "h-a", hB: "h-b", hC: "h-c",
@@ -67,8 +68,6 @@ export function parseColor(s: string): RGBA {
   const n = v.match(/[\d.]+/g)?.map(Number) ?? [];
   return [n[0] ?? 0, n[1] ?? 0, n[2] ?? 0, n[3] ?? 1];
 }
-const mix = (a: RGBA, b: RGBA, t: number): RGBA => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t, a[3] + (b[3] - a[3]) * t];
-const css = (c: RGBA) => `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${c[3]})`;
 
 function readPalette(el: Element): Palette {
   const cs = getComputedStyle(el);
@@ -77,12 +76,13 @@ function readPalette(el: Element): Palette {
   return p;
 }
 
-/** Fill colours of a column: body (rim), cap, left / right side faces. */
+/** Fill colours of a column: body (rim), cap, left / right side faces, crisp top edge. */
 interface Shades {
   body: string;
   cap: string;
   left: string;
   right: string;
+  edge: string;
 }
 function shades(base: RGBA, p: Palette, capT = 0.34): Shades {
   return {
@@ -90,14 +90,28 @@ function shades(base: RGBA, p: Palette, capT = 0.34): Shades {
     cap: css(mix(base, p.white, capT)),
     left: css(mix(base, p.black, 0.12)),
     right: css(mix(base, p.black, 0.3)),
+    edge: css(mix(base, p.black, 0.38)),
   };
 }
+
+/** Terrain is painted into an offscreen canvas per zoom (view + a margin) and blitted while panning. */
+interface TerrainCache {
+  cv: HTMLCanvasElement;
+  k: number;
+  /** World point at the cache's top-left, and its size in CSS px. */
+  x0: number;
+  y0: number;
+  w: number;
+  h: number;
+  dpr: number;
+}
+const CACHE_MARGIN = 0.35;
+/** After the last pinch / wheel step, wait this long before repainting the terrain sharp. */
+const SETTLE_MS = 160;
 
 const RISE_MS = 800;
 const FLY_MS = 650;
 const reduceMotion = () => window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
-
-type Item = { kind: "land"; l: LandHex; x: number; z: number } | { kind: "hex"; t: TerrHex; x: number; z: number };
 
 export function TerritoryMap(props: {
   tiles: Tile[];
@@ -123,12 +137,13 @@ export function TerritoryMap(props: {
   const rise = useRef<{ ids: Set<string>; start: number } | null>(null);
   const palette = useRef<Palette | null>(null);
   const frame = useRef(0);
+  const cache = useRef<TerrainCache | null>(null);
+  const lastZoom = useRef(0);
+  const settle = useRef<ReturnType<typeof setTimeout> | null>(null);
   const statusById = useMemo(() => new Map(tiles.map((t) => [t.unit.id, t.status])), [tiles]);
   const status = useCallback((id: string): TileStatus => statusById.get(id) ?? "empty", [statusById]);
-  const items = useMemo<Item[]>(
-    () => drawOrder<Item>([...T.land.map((l) => ({ kind: "land" as const, l, x: l.x, z: l.z })), ...T.hexes.map((t) => ({ kind: "hex" as const, t, x: t.x, z: t.z }))]),
-    [T],
-  );
+  const items = useMemo(() => drawOrder(T.hexes), [T]);
+  const progress = useMemo(() => zoneProgress(tiles), [tiles]);
   const litSet = useMemo(() => new Set(lit), [lit]);
 
   /** Rise progress of a unit (0 = still flat, 1 = up); 1 when it is not rising. */
@@ -178,62 +193,51 @@ export function TerritoryMap(props: {
     }
     const ctx = cv.getContext("2d");
     if (!ctx) return;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    // sea: haze far away (top), the video's sea below
-    const g = ctx.createLinearGradient(0, 0, 0, h);
-    g.addColorStop(0, css(p["sea-haze"]));
-    g.addColorStop(0.5, css(p.sea));
-    g.addColorStop(1, css(p.sea));
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, w, h);
-
     const ox = w / 2 - cm.x * cm.k;
     const oy = h / 2 - cm.y * cm.k;
-    ctx.setTransform(dpr * cm.k, 0, 0, dpr * cm.k, dpr * ox, dpr * oy);
     const px = 1 / cm.k; // one screen pixel in world units
     const [vx0, vy0] = [-ox / cm.k, -oy / cm.k];
     const [vx1, vy1] = [vx0 + w / cm.k, vy0 + h / cm.k];
 
-    // map grid on the sea (video: white lines every 12 units)
-    ctx.strokeStyle = css(p.grid);
-    ctx.lineWidth = px;
-    ctx.beginPath();
-    for (let x = Math.floor(vx0 / 12) * 12; x <= vx1; x += 12) {
-      ctx.moveTo(x, vy0);
-      ctx.lineTo(x, vy1);
-    }
-    for (let zg = Math.floor(vy0 / PROJ.gy / 12) * 12; zg * PROJ.gy <= vy1; zg += 12) {
-      ctx.moveTo(vx0, zg * PROJ.gy);
-      ctx.lineTo(vx1, zg * PROJ.gy);
-    }
-    ctx.stroke();
-
-    // sea route through the districts (video: red dashed line, grade by grade)
-    ctx.strokeStyle = css(p.route);
-    ctx.lineWidth = 1.6 * px;
-    ctx.setLineDash([7 * px, 5 * px]);
-    ctx.beginPath();
-    T.route.forEach(([x, y], i) => {
-      if (i === 0) ctx.moveTo(x, y);
-      else {
-        const [x0, y0] = T.route[i - 1];
-        ctx.quadraticCurveTo(x0, y0, (x0 + x) / 2, (y0 + y) / 2);
-        if (i === T.route.length - 1) ctx.lineTo(x, y);
+    // terrain: from the offscreen cache (repainted when the zoom settles or the view leaves it)
+    const zooming = animating || now - lastZoom.current < SETTLE_MS;
+    let tc = cache.current;
+    const covers = (c: TerrainCache) => c.x0 <= vx0 && c.y0 <= vy0 && c.x0 + c.w / c.k >= vx1 && c.y0 + c.h / c.k >= vy1;
+    const ratio = tc ? cm.k / tc.k : 1;
+    if (!tc || tc.dpr !== dpr || !covers(tc) || ratio < 0.6 || ratio > 1.7 || (!zooming && Math.abs(ratio - 1) > 1e-4)) {
+      const W = w * (1 + 2 * CACHE_MARGIN);
+      const H = h * (1 + 2 * CACHE_MARGIN);
+      const cv2 = tc?.cv ?? document.createElement("canvas");
+      cv2.width = Math.round(W * dpr);
+      cv2.height = Math.round(H * dpr);
+      const c2 = cv2.getContext("2d");
+      const x0 = cm.x - W / 2 / cm.k;
+      const y0 = cm.y - H / 2 / cm.k;
+      if (c2) {
+        c2.setTransform(dpr * cm.k, 0, 0, dpr * cm.k, -x0 * cm.k * dpr, -y0 * cm.k * dpr);
+        paintTerrain(c2, T, p, { x0, y0, x1: x0 + W / cm.k, y1: y0 + H / cm.k }, px);
       }
-    });
-    ctx.stroke();
-    ctx.setLineDash([]);
+      tc = cache.current = { cv: cv2, k: cm.k, x0, y0, w: W, h: H, dpr };
+    } else if (zooming && Math.abs(ratio - 1) > 1e-4 && !animating) {
+      // pinch / wheel: blit scaled now, repaint sharp once the fingers rest
+      if (settle.current) clearTimeout(settle.current);
+      settle.current = setTimeout(() => {
+        settle.current = null;
+        if (!frame.current) frame.current = requestAnimationFrame(tick);
+      }, SETTLE_MS + 10);
+    }
+    const r = cm.k / tc.k;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.imageSmoothingEnabled = true;
+    ctx.drawImage(tc.cv, ((tc.x0 - cm.x) * cm.k + w / 2) * dpr, ((tc.y0 - cm.y) * cm.k + h / 2) * dpr, tc.w * r * dpr, tc.h * r * dpr);
 
-    // land and columns, back to front
-    const sand = shades(p.sand, p, 0);
-    const grass = shades(p.grass, p, 0);
-    const grassHs = shades(p["grass-hs"], p, 0);
-    const gap = css(p["sand-gap"]);
+    ctx.setTransform(dpr * cm.k, 0, 0, dpr * cm.k, dpr * ox, dpr * oy);
+    // tiles, back to front, on their zone's ground
     const shadeCache = new Map<string, Shades>();
-    const shadeFor = (key: string, base: () => RGBA) => {
-      let s = shadeCache.get(key);
-      if (!s) shadeCache.set(key, (s = shades(base(), p)));
-      return s;
+    const shadeFor = (k: string, base: () => RGBA) => {
+      let sh = shadeCache.get(k);
+      if (!sh) shadeCache.set(k, (sh = shades(base(), p)));
+      return sh;
     };
     const poly = (pts: [number, number][]) => {
       ctx.beginPath();
@@ -241,12 +245,12 @@ export function TerritoryMap(props: {
       for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
       ctx.closePath();
     };
-    const column = (x: number, z: number, hh: number, s: number, sh: Shades, cap: number | null, stroke: string | null) => {
-      const [cx, cyTop] = project(x, z, hh);
-      const [, cyBase] = project(x, z, 0);
-      const top = hexCorners(cx, cyTop, s);
+    const column = (x: number, z: number, e: number, hh: number, sh: Shades, selectedStroke: string | null) => {
+      const [cx, cyTop] = project(x, z, e + hh);
+      const [, cyBase] = project(x, z, e);
+      const top = hexCorners(cx, cyTop, HEX.tile);
       if (cyBase - cyTop > 0.02) {
-        const base = hexCorners(cx, cyBase, s);
+        const base = hexCorners(cx, cyBase, HEX.tile);
         ctx.fillStyle = sh.left; // lower-left face (sun from the left)
         poly([top[3], top[4], base[4], base[3]]);
         ctx.fill();
@@ -257,54 +261,51 @@ export function TerritoryMap(props: {
       ctx.fillStyle = sh.body;
       poly(top);
       ctx.fill();
-      if (stroke) {
-        ctx.strokeStyle = stroke;
-        ctx.lineWidth = 0.07;
-        ctx.stroke();
-      }
-      if (cap) {
-        ctx.fillStyle = sh.cap;
-        poly(hexCorners(cx, cyTop, cap));
-        ctx.fill();
-      }
+      ctx.strokeStyle = selectedStroke ?? sh.edge;
+      ctx.lineWidth = selectedStroke ? 0.07 : Math.min(0.05, px * 0.9);
+      ctx.stroke();
+      ctx.fillStyle = sh.cap;
+      poly(hexCorners(cx, cyTop, HEX.cap));
+      ctx.fill();
     };
-    for (const it of items) {
-      if (it.x < vx0 - 2 || it.x > vx1 + 2) continue;
-      const yb = it.z * PROJ.gy;
+    // まだ = the zone's own ground (unexplored terrain), lifted a little so it still reads as a tile
+    const groundOf = (g: Grade) => p[`g-${GROUND[T.byGrade.get(g)!.zone]}`];
+    const unexOf = (u: { grade: Grade; color: ColorKey }) => {
+      const g = groundOf(u.grade);
+      // light ground (ice, snow): a shade darker so the tile still reads; elsewhere a shade lighter
+      const light = (0.299 * g[0] + 0.587 * g[1] + 0.114 * g[2]) / 255 > 0.82;
+      return mix(light ? mix(g, p.root, 0.13) : mix(g, p.white, 0.3), p[COLOR_TOKEN[u.color]], 0.08);
+    };
+    for (const t of items) {
+      if (t.x < vx0 - 2 || t.x > vx1 + 2) continue;
+      const yb = t.z * 0.72 - t.e * 0.7;
       if (yb < vy0 - 2 || yb > vy1 + 8) continue;
-      if (it.kind === "land") {
-        const l = it.l;
-        const sh = l.ring === 2 ? sand : l.level === "高" ? grassHs : grass;
-        column(l.x, l.z, l.ring === 1 ? 0.22 : 0.12, HEX.land, sh, null, gap);
-      } else {
-        const t = it.t;
-        const u = T.byId.get(t.unitId)!;
-        const st = status(t.unitId);
-        const look = lookOf(st);
-        const k = riseOf(t.unitId, now);
-        let sh: Shades;
-        if (k < 1) {
-          // rising: colour comes in as it lifts (video: unexplored → strand)
-          const to = look.fill === "gold" ? p.gold : p[COLOR_TOKEN[u.color]];
-          sh = shades(mix(mix(p.unex, p[COLOR_TOKEN[u.color]], 0.14), to, Math.min(1, k * 1.6)), p);
-        } else if (look.fill === "unex") sh = shadeFor(`u-${u.color}`, () => mix(p.unex, p[COLOR_TOKEN[u.color]], 0.14));
-        else if (look.fill === "gold") sh = shadeFor("gold", () => p.gold);
-        else sh = shadeFor(u.color, () => p[COLOR_TOKEN[u.color]]);
-        column(t.x, t.z, heightOf(t, now), HEX.tile, sh, HEX.cap, t.unitId === selected ? css(p.white) : null);
-      }
+      const u = T.byId.get(t.unitId)!;
+      const st = status(t.unitId);
+      const look = lookOf(st);
+      const k = riseOf(t.unitId, now);
+      let sh: Shades;
+      if (k < 1) {
+        // rising: colour comes in as it lifts (video: unexplored → strand)
+        const to = look.fill === "gold" ? p.gold : p[COLOR_TOKEN[u.color]];
+        sh = shades(mix(unexOf(u), to, Math.min(1, k * 1.6)), p);
+      } else if (look.fill === "unex") sh = shadeFor(`u-${u.grade}-${u.color}`, () => unexOf(u));
+      else if (look.fill === "gold") sh = shadeFor("gold", () => p.gold);
+      else sh = shadeFor(u.color, () => p[COLOR_TOKEN[u.color]]);
+      column(t.x, t.z, t.e, heightOf(t, now), sh, t.unitId === selected ? css(p.white) : null);
     }
 
     // root routes of the open unit: dashed sea lines to its roots on other islands
     if (selected && T.byId.has(selected)) {
       const a = T.byId.get(selected)!.anchor;
-      const [ax, ay] = project(a.x, a.z, heightOf(a, now));
+      const [ax, ay] = project(a.x, a.z, a.e + heightOf(a, now));
       ctx.strokeStyle = css(p.root);
       ctx.lineWidth = 2 * px;
       ctx.setLineDash([6 * px, 5 * px]);
       for (const r of rootIds(selected)) {
         const b = T.byId.get(r)?.anchor;
         if (!b) continue;
-        const [bx, by] = project(b.x, b.z, heightOf(b, now));
+        const [bx, by] = project(b.x, b.z, b.e + heightOf(b, now));
         const mx = (ax + bx) / 2;
         const my = Math.min(ay, by) - Math.hypot(bx - ax, by - ay) * 0.25;
         ctx.beginPath();
@@ -323,10 +324,12 @@ export function TerritoryMap(props: {
       ly.style.setProperty("--k", String(cm.k));
       // flags, crowns and pins keep their screen size, shrinking only when the whole map is in view
       ly.style.setProperty("--mk", String(Math.min(1, Math.max(0.42, cm.k / 16)) / cm.k));
+      // zone labels and trail badges: full size near, down to 60 % when the whole continent is in view
+      ly.style.setProperty("--lk", String(Math.min(1, Math.max(0.6, cm.k / 12)) / cm.k));
       for (const el of ly.querySelectorAll<HTMLElement>("[data-unit]")) {
         const id = el.dataset.unit!;
         const a = T.byId.get(id)!.anchor;
-        const [x, y] = project(a.x, a.z, heightOf(a, now));
+        const [x, y] = project(a.x, a.z, a.e + heightOf(a, now));
         el.style.left = `${x}px`;
         el.style.top = `${y}px`;
       }
@@ -341,7 +344,13 @@ export function TerritoryMap(props: {
     if (!frame.current) frame.current = requestAnimationFrame(tick);
   }, [tick]);
   useEffect(() => schedule(), [schedule, draw]);
-  useEffect(() => () => cancelAnimationFrame(frame.current), []);
+  useEffect(
+    () => () => {
+      cancelAnimationFrame(frame.current);
+      if (settle.current) clearTimeout(settle.current);
+    },
+    [],
+  );
 
   const setCam = useCallback(
     (c: Cam, animate: boolean) => {
@@ -386,6 +395,7 @@ export function TerritoryMap(props: {
         if (c) setCam(zoomAt(c, view.current, f, view.current.w / 2, view.current.h / 2, T), true);
       },
       frameUnits: (ids, where) => frameUnits(ids, where),
+      flyToGrade: (g) => setCam(homeCam(T, g, view.current), true),
     }),
     [T, grade, setCam, frameUnits],
   );
@@ -466,6 +476,7 @@ export function TerritoryMap(props: {
       ptrs.current.set(e.pointerId, cur);
       const [a, b] = [...ptrs.current.values()];
       const d = Math.hypot(a.x - b.x, a.y - b.y);
+      lastZoom.current = performance.now();
       if (gesture.current.dist > 0) cam.current = zoomAt(cam.current, v, d / gesture.current.dist, (a.x + b.x) / 2, (a.y + b.y) / 2, T);
       gesture.current.dist = d;
       schedule();
@@ -497,6 +508,7 @@ export function TerritoryMap(props: {
   const onWheel = (e: React.WheelEvent) => {
     if (!cam.current) return;
     const p = local(e);
+    lastZoom.current = performance.now();
     cam.current = zoomAt(cam.current, view.current, Math.exp(-e.deltaY * 0.0015), p.x, p.y, T);
     schedule();
   };
@@ -514,20 +526,63 @@ export function TerritoryMap(props: {
     >
       <canvas ref={canvas} className="terr-canvas" onClick={onCanvasClick} aria-hidden data-testid="terr-canvas" />
       <div ref={layer} className="terr-layer" role="group" aria-label={app.map.terr.chartLabel} data-testid="terr-map">
-        {T.islands.map((isl) => {
-          // the video's district label: over the island, on the sand just above its tiles
-          const hs = T.units.filter((u) => u.grade === isl.grade).flatMap((u) => u.hexes);
-          const y = Math.min(...hs.map((t) => project(t.x, t.z - 1, t.h + HEIGHT.goldLift)[1])) - 0.15;
-          const x = isl.x;
+        {T.regions.map((reg) => {
+          // zone label: name, then grade + 標高, on the land just above its tiles
+          const own = reg.grade === grade;
           return (
             <span
-              key={isl.grade}
-              className={`terr-isl${isl.grade === grade ? " is-own" : ""}`}
-              style={{ left: `${x}px`, top: `${y}px` }}
-              data-island={isl.grade}
+              key={`l-${reg.grade}`}
+              className={`terr-reg${own ? " is-own" : ""}`}
+              style={{ left: `${reg.label[0]}px`, top: `${reg.label[1]}px` }}
+              data-region={reg.grade}
               aria-hidden
             >
-              {isl.grade}
+              <b className="reg-name">{zoneName(reg.grade)}</b>
+              <span className="reg-meta">
+                <i>{reg.grade}</i>
+                {app.map.terr.elevation(reg.metres)}
+              </span>
+            </span>
+          );
+        })}
+        {T.regions.map((reg) => {
+          // where the trail passes the zone: 制覇 N/M, a planted flag once every unit is taken, and the beacon
+          const pr = progress.get(reg.grade)!;
+          const own = reg.grade === grade;
+          return (
+            <span
+              key={`w-${reg.grade}`}
+              className={`terr-wp${own ? " is-own" : ""}${pr.complete ? " is-done" : ""}`}
+              style={{ left: `${reg.waypoint[0]}px`, top: `${reg.waypoint[1]}px` }}
+              data-waypoint={reg.grade}
+              data-taken={pr.taken}
+              data-total={pr.total}
+              aria-label={app.map.terr.zoneLabel(zoneName(reg.grade), reg.grade, pr.taken, pr.total)}
+              role="img"
+            >
+              <span className="wp-mark" aria-hidden>
+                {own && (
+                  <span className="terr-here" data-testid="terr-here">
+                    <span className="here-pulse" />
+                    <svg className="here-pin" viewBox="0 0 24 32" width="24" height="32">
+                      <path d="M12 31C12 31 2 18.6 2 11.5a10 10 0 0 1 20 0C22 18.6 12 31 12 31z" />
+                      <circle cx="12" cy="11.5" r="3.6" />
+                    </svg>
+                    <span className="here-label">{app.map.terr.youAreHere}</span>
+                  </span>
+                )}
+                {pr.complete ? (
+                  <span className="wp-flag">
+                    <svg viewBox="0 0 16 22" width="16" height="22">
+                      <path className="wpf-pole" d="M3 21V2" />
+                      <path className="wpf-cloth" d="M3.6 2.4h10l-2.6 3.6 2.6 3.6h-10z" />
+                    </svg>
+                    {app.map.terr.conquered}
+                  </span>
+                ) : (
+                  <span className="wp-badge">{app.map.terr.progress(pr.taken, pr.total)}</span>
+                )}
+              </span>
             </span>
           );
         })}

@@ -55,7 +55,7 @@ describe("territory map markup", () => {
       ],
     },
   ];
-  it("every tile is a button named 「小5 平均：復習が必要（✕2）」; flags on red tiles, crowns on gold; 12 island labels", () => {
+  it("every tile is a button named 「小5 平均：復習が必要（✕2）」; flags on red tiles, crowns on gold; 12 zone labels + trail markers", () => {
     const h = map(pages);
     expect(h).toContain('aria-label="小5 平均：復習が必要（✕2）"');
     expect(h).toContain('aria-label="小5 整数の性質：マスター"');
@@ -64,7 +64,13 @@ describe("territory map markup", () => {
     expect(red).toContain("terr-pulse");
     const gold = h.match(/<button [^>]*data-unit="5-A1"[^>]*>.*?<\/button>/)?.[0] ?? "";
     expect(gold).toContain("terr-crown");
-    expect(h.match(/data-island=/g)).toHaveLength(12);
-    expect(h).toMatch(/class="terr-isl is-own"[^>]*data-island="小5"/);
+    expect(h.match(/data-region=/g)).toHaveLength(12);
+    expect(h).toMatch(/class="terr-reg is-own"[^>]*data-region="小5"/);
+    expect(text(h.match(/<span class="terr-reg is-own".*?<\/span><\/span>/)?.[0] ?? "")).toBe("深い森林帯小5標高 500");
+    // trail markers: 制覇 N/M on every zone, 「あなたはここ」 only on the child's
+    expect(h.match(/data-waypoint=/g)).toHaveLength(12);
+    expect(h).toContain('aria-label="小5 深い森林帯：制覇 2／15"');
+    expect(h.match(/あなたはここ/g)).toHaveLength(1);
+    expect(h).toMatch(/data-waypoint="小5"[^>]*>.*?あなたはここ.*?制覇 2\/15/);
   });
 });
