@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { app } from "../src/copy";
-import { APP_TABS, STRIP_NEXT, activeTab, buildStrip, earlierBand, focusFromParam, homePath, mapUnitUrl, savedToast, stripFromReport } from "../src/lib/home";
+import { APP_TABS, STRIP_NEXT, activeTab, buildStrip, focusFromParam, homePath, mapUnitUrl, savedToast, stripFromReport } from "../src/lib/home";
 import { type SavedPage, type SavedProblem, draftFromResult, pageFromDraft } from "../src/lib/model";
 import { buildReport, listUrl } from "../src/lib/report";
 import { litMapUrl, mapTiles } from "../src/lib/review";
@@ -48,25 +48,24 @@ describe("map is home", () => {
   });
 });
 
-describe("?unit= opens that star's sheet", () => {
-  it("a near unit: selected, no band to open, and it has a sheet", () => {
+describe("?unit= opens that unit's sheet", () => {
+  it("a unit of the child's island: selected, and it has a sheet", () => {
     expect(mapUnitUrl("5-C3")).toBe("/app/map?unit=5-C3");
     const f = focusFromParam("5-C3", "小5");
-    expect(f).toEqual({ selected: "5-C3", opened: null });
+    expect(f).toEqual({ selected: "5-C3" });
     const sheet = sheetData(f.selected!, mapTiles(PAGES));
     expect(sheet?.unit.topic).toBe("割合");
     expect(sheet?.tile.status).toBe("review");
   });
 
-  it("a far unit opens its band; unknown or missing → nothing selected", () => {
-    expect(focusFromParam("3-A4", "小5")).toEqual({ selected: "3-A4", opened: "小3" });
-    expect(focusFromParam("4-A2", "小5")).toEqual({ selected: "4-A2", opened: null }); // grade below is near
-    expect(focusFromParam("x-1", "小5")).toEqual({ selected: null, opened: null });
-    expect(focusFromParam(null, "小5")).toEqual({ selected: null, opened: null });
+  it("a unit on another island is selected too; unknown or missing → nothing selected", () => {
+    expect(focusFromParam("3-A4", "小5")).toEqual({ selected: "3-A4" });
+    expect(focusFromParam("x-1", "小5")).toEqual({ selected: null });
+    expect(focusFromParam(null, "小5")).toEqual({ selected: null });
   });
 });
 
-describe("report strip on the map = the 学習レポート's data", () => {
+describe("the map's 次にやること data = the 学習レポート's data", () => {
   it("same counts; 次にやること = the report's, topped up from its earlier-grade units; same list link", () => {
     const r = buildReport(PAGES, "小5", NOW);
     const s = buildStrip(PAGES, "小5", NOW);
@@ -90,12 +89,10 @@ describe("report strip on the map = the 学習レポート's data", () => {
     expect(s.earlier).toEqual(["4-A6"]);
   });
 
-  it("earlier-grade ✕: every red unit (not capped), nearest grade first; the far one's band opens", () => {
+  it("earlier-grade ✕: every red unit (not capped), nearest grade first", () => {
     const s = buildStrip(PAGES, "小5", NOW);
     expect(s.earlier).toEqual(["4-A2", "3-A4"]);
     expect(buildReport(PAGES, "小5", NOW).earlier.map((e) => e.unit.id)).toEqual(s.earlier); // ≤ 3 here
-    expect(earlierBand(s.earlier, "小5")).toBe("小3");
-    expect(earlierBand(["4-A2"], "小5")).toBeNull();
   });
 
   it("no pages: everything まだ, nothing to do, no list link, no earlier line", () => {

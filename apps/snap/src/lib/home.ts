@@ -2,10 +2,9 @@ import { app } from "../copy";
 import { type Grade, unitById } from "../curriculum";
 import type { SavedPage } from "./model";
 import { type Report, buildReport, listUrl } from "./report";
-import { nearGrades } from "./starmap";
 
 /**
- * The 単元マップ as the app home: routing, tabs, `?unit=` focus and the report strip's data.
+ * The 単元マップ as the app home: routing, tabs, `?unit=` focus and the HUD's 次にやること data.
  * Pure functions only (no DOM), unit-tested.
  */
 
@@ -36,27 +35,13 @@ export function mapUnitUrl(id: string): string {
   return `/app/map?unit=${encodeURIComponent(id)}`;
 }
 
-/**
- * Star to select on arrival from `?unit=`, and the far band to open for it (null when the
- * unit is unknown, or already in the near sky).
- */
-export function focusFromParam(param: string | null | undefined, grade: Grade): { selected: string | null; opened: Grade | null } {
+/** Unit to open on arrival from `?unit=` (null when the unit is unknown). */
+export function focusFromParam(param: string | null | undefined, _grade?: Grade): { selected: string | null } {
   const u = param ? unitById(param.trim()) : undefined;
-  if (!u) return { selected: null, opened: null };
-  return { selected: u.id, opened: nearGrades(grade).has(u.appGrade) ? null : u.appGrade };
+  return { selected: u ? u.id : null };
 }
 
-/** The far band to open for the earlier-grade ✕ units: the nearest one that is not near already. */
-export function earlierBand(ids: string[], grade: Grade): Grade | null {
-  const near = nearGrades(grade);
-  for (const id of ids) {
-    const g = unitById(id)?.appGrade;
-    if (g && !near.has(g)) return g;
-  }
-  return null;
-}
-
-/** Rows in the strip's 次にやること. */
+/** Units in the map's 次にやること (the HUD badge and its one-by-one tour). */
 export const STRIP_NEXT = 3;
 
 export interface Strip {
@@ -75,7 +60,7 @@ export interface Strip {
 }
 
 /**
- * The report strip on the map: the 学習レポート's numbers, nothing of its own (次にやること = the
+ * The map's 学習レポート numbers (HUD), nothing of its own (次にやること = the
  * report's 次にやること, topped up from its 前の学年で気になる単元).
  */
 export function stripFromReport(r: Report): Strip {

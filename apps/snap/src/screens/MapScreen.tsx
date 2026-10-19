@@ -1,20 +1,21 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { ReportStrip } from "../components/ReportStrip";
 import { SnapFab } from "../components/SnapFab";
-import { StarGlyph, StarMap } from "../components/StarMap";
+import { TerrGlyph } from "../components/TerrGlyph";
+import { type MapApi, TerritoryMap } from "../components/TerritoryMap";
 import { WelcomeCard } from "../components/WelcomeCard";
 import { app } from "../copy";
 import { type Grade, type Unit, isHighSchool, unitById } from "../curriculum";
-import { type Strip, buildStrip, earlierBand, focusFromParam, savedToast } from "../lib/home";
+import { focusFromParam, savedToast } from "../lib/home";
+import type { SavedPage } from "../lib/model";
 import { type MapSection, type Tile, mapSections, mapTiles, parseLit, unfiled } from "../lib/review";
-import { type SkyLayout, gradesAbove, nearGrades, sheetData } from "../lib/starmap";
+import { sheetData } from "../lib/starmap";
+import { type Hud, LEVELS, STRANDS, buildHud, colorKeyOf, unitHistory } from "../lib/territory";
 import { readPref, usePages, writePref } from "../state";
 
 const TOAST_MS = 4500;
-/** After 保存 the lit stars are framed between these: below the sticky lanes + the toast, above the tab bar. */
-const LIT_TOP = 200;
-const LIT_BOTTOM = 110;
+/** Rows of the unit's history shown in the sheet before 「ほか Nページ」. */
+const HISTORY_ROWS = 6;
 type View = "sky" | "list";
 
 const reduceMotion = () => window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
@@ -40,13 +41,30 @@ export function MapScreen({ grade }: { grade: Grade }) {
     return () => clearTimeout(t);
   }, [toast]);
 
-  if (!pages) return <div className={`page${view === "sky" ? " sky-page" : ""}`} />;
-  const tiles = mapTiles(pages);
+  if (!pages) return <div className={`page${view === "sky" ? " terr-page" : ""}`} />;
   const nUnfiled = unfiled(pages);
   const savedPage = savedId ? pages.find((pg) => pg.id === savedId) : undefined;
+  const toastEl = toast && (
+    <div className="toast toast-row toast-map" role="status">
+      <span className="toast-text" data-testid="lit-toast">
+        {/* ✕ 2問 / ○ 2問 never split across lines */}
+        {(savedPage ? savedToast(savedPage) : app.map.litToast(saved, lit.length > 0)).replace(/([✕○]) /g, "$1 ")}
+      </span>
+      <Link to="/app/report" className="toast-link" data-testid="toast-report">
+        {app.map.toReport}
+      </Link>
+    </div>
+  );
 
+  if (view === "sky")
+    return (
+      <div className="page terr-page" data-view="sky">
+        <TerritoryView pages={pages} grade={grade} lit={lit} unit={unitParam} unfiled={nUnfiled} onList={() => setView("list")} />
+        {toastEl}
+      </div>
+    );
   return (
-    <div className={`page${view === "sky" ? " sky-page" : ""}`} data-view={view}>
+    <div className="page" data-view="list">
       <div className="map-head">
         <h1>{app.map.title}</h1>
         <div className="seg seg-sm view-toggle" role="radiogroup" aria-label={app.map.viewLabel}>
@@ -64,235 +82,198 @@ export function MapScreen({ grade }: { grade: Grade }) {
           ))}
         </div>
       </div>
-      {view === "list" && <ListHeader />}
+      <ListHeader />
       {nUnfiled > 0 && <p className="notice notice-warn">{app.map.unfiled(nUnfiled)}</p>}
-      {view === "sky" ? (
-        <SkyView tiles={tiles} grade={grade} lit={lit} unit={unitParam} strip={buildStrip(pages, grade)} empty={pages.length === 0} />
-      ) : (
-        <>
-          <ListView pages={pages} grade={grade} lit={lit} />
-          <SnapFab />
-        </>
-      )}
-      {toast && (
-        <div className="toast toast-row toast-map" role="status">
-          <span className="toast-text" data-testid="lit-toast">
-            {/* ✕ 2問 / ○ 2問 never split across lines */}
-            {(savedPage ? savedToast(savedPage) : app.map.litToast(saved, lit.length > 0)).replace(/([✕○]) /g, "$1\u00a0")}
-          </span>
-          <Link to="/app/report" className="toast-link" data-testid="toast-report">
-            {app.map.toReport}
-          </Link>
+      <ListView pages={pages} grade={grade} lit={lit} />
+      <SnapFab />
+      {toastEl}
+    </div>
+  );
+}
+
+// ---------- 領土マップ ----------
+
+function TerritoryView(props: { pages: SavedPage[]; grade: Grade; lit: string[]; unit: string | null; unfiled: number; onList: () => void }) {
+  const { pages, grade, lit, unit } = props;
+  const tiles = useMemo(() => mapTiles(pages), [pages]);
+  const hud = useMemo(() => buildHud(pages, grade), [pages, grade]);
+  const empty = pages.length === 0;
+  // ?unit=5-C3 (from the 学習レポート): that unit open on arrival.
+  const [selected, setSelected] = useState<string | null>(() => focusFromParam(unit, grade).selected);
+  // 次にやること: which of hud.next is being shown (one by one), and the tile pointed at.
+  const [tour, setTour] = useState<number | null>(null);
+  const api = useRef<MapApi | null>(null);
+  const pointed = tour !== null ? hud.next[tour] ?? null : null;
+
+  const select = (id: string | null) => {
+    setSelected(id);
+    if (id === null || (tour !== null && hud.next[tour] !== id)) setTour(null);
+  };
+  const nextStep = () => {
+    if (hud.next.length === 0) return;
+    const i = tour === null ? 0 : (tour + 1) % hud.next.length;
+    setTour(i);
+    setSelected(hud.next[i]);
+  };
+
+  useEffect(() => {
+    if (!selected) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && select(null);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  });
+
+  const data = selected ? sheetData(selected, tiles) : null;
+  return (
+    <div className={`terr${empty ? " is-empty" : ""}${data ? " has-sheet" : ""}`}>
+      <TerritoryMap tiles={tiles} grade={grade} selected={selected} onSelect={select} lit={lit} pointed={pointed} sheetOpen={!!data} api={api} />
+      <div className="terr-hud">
+        <div className="hud-tl">
+          <div className="hud-brand">
+            <h1 className="hud-title">{app.map.title}</h1>
+            <button type="button" className="hud-icon hud-list" aria-label={app.map.terr.list} onClick={props.onList} data-testid="map-to-list">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden focusable="false">
+                <path d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+          {hud.next.length > 0 && (
+            <button type="button" className={`hud-next${tour !== null ? " is-on" : ""}`} onClick={nextStep} aria-label={app.map.terr.nextLabel(hud.next.length)} data-testid="hud-next">
+              <span className="hud-next-flag" aria-hidden />
+              {app.map.terr.next(hud.next.length)}
+            </button>
+          )}
+          {props.unfiled > 0 && <p className="hud-note">{app.map.unfiled(props.unfiled)}</p>}
         </div>
+        <HudCard hud={hud} />
+        {!empty && <Legend />}
+        {empty && <WelcomeCard />}
+        <div className="hud-ctrl">
+          <button type="button" className="hud-icon hud-zoom" aria-label={app.map.terr.zoomIn} onClick={() => api.current?.zoom(1.5)} data-testid="zoom-in">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden focusable="false"><path d="M12 5v14M5 12h14" /></svg>
+          </button>
+          <button type="button" className="hud-icon hud-zoom" aria-label={app.map.terr.zoomOut} onClick={() => api.current?.zoom(1 / 1.5)} data-testid="zoom-out">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden focusable="false"><path d="M5 12h14" /></svg>
+          </button>
+          <button type="button" className="hud-compass" aria-label={app.map.terr.hereLabel(grade)} onClick={() => api.current?.home()} data-testid="compass">
+            <svg viewBox="-60 -60 120 120" width="52" height="52" aria-hidden focusable="false">
+              <circle className="cmp-ring" r="54" />
+              <path className="cmp-n" d="M0 -46 L10 0 L0 8 L-10 0Z" />
+              <path className="cmp-s" d="M0 46 L10 0 L0 -8 L-10 0Z" />
+            </svg>
+            <span className="hud-compass-label">{app.map.terr.here}</span>
+          </button>
+        </div>
+        {!empty && !data && <SnapFab />}
+      </div>
+      {data && (
+        <Sheet
+          data={data}
+          pages={pages}
+          onClose={() => select(null)}
+          onPick={(id) => select(id)}
+          tour={tour !== null && hud.next[tour] === selected ? { i: tour + 1, n: hud.next.length, next: nextStep } : null}
+        />
       )}
     </div>
   );
 }
 
-// ---------- 星図 ----------
-
-function SkyView(props: { tiles: Tile[]; grade: Grade; lit: string[]; unit: string | null; strip: Strip; empty: boolean }) {
-  const { tiles, grade, lit, unit, strip, empty } = props;
-  // ?unit=5-C3 (from the 学習レポート): that star selected, its sheet open, its far band opened.
-  const [focus] = useState(() => focusFromParam(unit, grade));
-  const [selected, setSelected] = useState<string | null>(focus.selected);
-  // One far band may be opened. After 保存, a lit unit in a far grade opens that grade.
-  const [opened, setOpened] = useState<Grade | null>(() => {
-    const base = nearGrades(grade);
-    for (const id of lit) {
-      const g = unitById(id)?.appGrade;
-      if (g && !base.has(g)) return g;
-    }
-    return focus.opened;
-  });
-  // 前の学年の✕: those stars ringed (and the nearest far band holding one opened) while on.
-  const [marked, setMarked] = useState<Set<string> | null>(null);
-  // Grades above the child's: one merged row until tapped (a lit / ?unit= star up there expands them).
-  const [upperOpen, setUpperOpen] = useState(false);
-  const above = useMemo(() => gradesAbove(grade), [grade]);
-  const upper = above.length > 0 ? { grades: above, merged: !upperOpen && !(opened && above.includes(opened)) } : null;
-  const near = useMemo(() => nearGrades(grade, opened), [grade, opened]);
-  const geo = useRef<{ L: SkyLayout; canvas: HTMLDivElement } | null>(null);
-  const scrolled = useRef(false);
-  const pending = useRef<string | null>(null); // star to scroll to once its band is laid out
-  const pendingBand = useRef<Grade | null>(null); // band just opened: bring it into view
-
-  /** Scroll so a star sits at `at` (0 = top, 1 = bottom) of the visible screen. */
-  const scrollToStar = useCallback((id: string, at: number, smooth: boolean) => {
-    const g = geo.current;
-    const n = g?.L.byId.get(id);
-    if (!g || !n) return;
-    const top = g.canvas.getBoundingClientRect().top + window.scrollY + n.cy;
-    window.scrollTo({ top: Math.max(0, top - window.innerHeight * at), behavior: smooth && !reduceMotion() ? "smooth" : "instant" });
-  }, []);
-
-  /** After 保存: frame every lit star of the near sky at once (centred when they fit, else from the first). */
-  const scrollToLit = useCallback((ids: string[]) => {
-    const g = geo.current;
-    if (!g) return;
-    const ys = ids.map((id) => g.L.byId.get(id)).filter((n) => n && !n.far).map((n) => n!.cy);
-    if (ys.length === 0) return;
-    const base = g.canvas.getBoundingClientRect().top + window.scrollY;
-    const first = base + Math.min(...ys);
-    const span = Math.max(...ys) - Math.min(...ys);
-    const avail = window.innerHeight - LIT_TOP - LIT_BOTTOM;
-    const y = first - LIT_TOP - (span <= avail ? (avail - span) / 2 : 0);
-    window.scrollTo({ top: Math.max(0, y), behavior: "instant" });
-  }, []);
-
-  const onLayout = useCallback(
-    (L: SkyLayout, canvas: HTMLDivElement) => {
-      geo.current = { L, canvas };
-      if (pendingBand.current) {
-        const band = L.bands.find((b) => b.grade === pendingBand.current);
-        pendingBand.current = null;
-        if (band) {
-          const top = canvas.getBoundingClientRect().top + window.scrollY + band.y;
-          window.scrollTo({ top: Math.max(0, top - 100), behavior: "instant" });
-        }
-        return;
-      }
-      if (pending.current && L.byId.get(pending.current)?.far === false) {
-        const id = pending.current;
-        pending.current = null;
-        scrollToStar(id, 0.16, true);
-        return;
-      }
-      if (scrolled.current) return;
-      scrolled.current = true;
-      // On load: the first lit star (after 保存) in the middle; a ?unit= star above its sheet;
-      // otherwise the top of the page (the report strip, then the chart down to the child's grade).
-      if (lit.length > 0) return scrollToLit(lit);
-      if (focus.selected) return scrollToStar(focus.selected, 0.16, false);
-      window.scrollTo({ top: 0, behavior: "instant" });
-    },
-    [lit, focus, scrollToStar, scrollToLit],
-  );
-
-  // After 保存, once the flare and the toast are over: glide back up to the report strip, whose
-  // 次にやること now includes the new ✕ units (only if the user has not touched or scrolled meanwhile).
-  const [fresh, setFresh] = useState(false);
-  useEffect(() => {
-    if (lit.length === 0) return;
-    let moved = false;
-    const stop = () => (moved = true);
-    const evs = ["touchstart", "wheel", "keydown", "pointerdown"] as const;
-    for (const e of evs) window.addEventListener(e, stop, { passive: true });
-    const t = setTimeout(() => {
-      if (moved) return;
-      setFresh(true);
-      window.scrollTo({ top: 0, behavior: reduceMotion() ? "instant" : "smooth" });
-    }, TOAST_MS);
-    return () => {
-      clearTimeout(t);
-      for (const e of evs) window.removeEventListener(e, stop);
-    };
-  }, [lit]);
-
-  const select = useCallback(
-    (id: string | null, fromSheet = false) => {
-      setSelected(id);
-      if (!id) return;
-      const g = unitById(id)?.appGrade;
-      if (g && !near.has(g)) {
-        // A root in the far sky: open its band, then scroll once it is laid out.
-        pending.current = id;
-        setOpened(g);
-        return;
-      }
-      const geoNow = geo.current;
-      const n = geoNow?.L.byId.get(id);
-      if (!geoNow || !n) return;
-      const y = geoNow.canvas.getBoundingClientRect().top + n.cy;
-      // Keep the star (and the roots below it) above the sheet.
-      if (fromSheet || y > window.innerHeight * 0.25 || y < 90) scrollToStar(id, 0.16, true);
-    },
-    [near, scrollToStar],
-  );
-
-  useEffect(() => {
-    if (!selected) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setSelected(null);
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [selected]);
-
-  const toggleEarlier = () => {
-    const band = earlierBand(strip.earlier, grade);
-    if (marked) {
-      setMarked(null);
-      if (band && opened === band) setOpened(null);
-      return;
-    }
-    setSelected(null);
-    setMarked(new Set(strip.earlier));
-    const first = strip.earlier[0];
-    if (band && band !== opened) {
-      pending.current = first; // scroll once the band is laid out
-      setOpened(band);
-    } else scrollToStar(first, 0.2, true);
-  };
-
-  const data = selected ? sheetData(selected, tiles) : null;
+/** Top-right card, styled after the video's 「見つけた 知識・技能」 card. */
+function HudCard({ hud }: { hud: Hud }) {
+  const t = app.map.terr;
+  const review = hud.counts.review;
   return (
-    <>
-      {empty ? (
-        <WelcomeCard grade={grade} />
-      ) : (
-        <ReportStrip
-          strip={strip}
-          onPick={(id) => select(id, true)}
-          earlierOn={marked !== null}
-          onEarlier={toggleEarlier}
-          fresh={fresh ? lit : undefined}
-        />
+    <section className="hud-card" aria-label={t.hudLabel(hud.grade, hud.taken, hud.total, review)} data-testid="hud-card">
+      <div className="hud-t">{t.hudTitle(hud.grade)}</div>
+      <div className="hud-n" data-testid="hud-taken">
+        <b>{hud.taken}</b>
+        <span> / {hud.total}</span>
+      </div>
+      {LEVELS.map((l) => {
+        const { taken, total } = hud.levels[l];
+        return (
+          <div key={l} className="hud-bar" data-level={l}>
+            <span className="hud-bar-l">{l}</span>
+            <i>
+              <b className={`hb-${l === "小" ? "e" : l === "中" ? "j" : "h"}`} style={{ width: `${total ? (taken / total) * 100 : 0}%` }} />
+            </i>
+            <em>{`${taken}/${total}`}</em>
+          </div>
+        );
+      })}
+      {review > 0 && (
+        <div className="hud-review" data-testid="hud-review">
+          {t.review(review)}
+        </div>
       )}
-      <StarMap
-        tiles={tiles}
-        grade={grade}
-        near={near}
-        opened={opened}
-        onOpen={(g) => {
-          setSelected(null);
-          if (g === null) setMarked(null);
-          pendingBand.current = g;
-          setOpened(g);
-        }}
-        lit={lit}
-        upper={upper}
-        onUpper={(open) => {
-          setSelected(null);
-          setUpperOpen(open);
-          if (!open && opened && above.includes(opened)) setOpened(null);
-        }}
-        selected={selected}
-        marked={marked}
-        onSelect={(id) => select(id)}
-        onLayout={onLayout}
-      />
-      {data && <Sheet data={data} onClose={() => setSelected(null)} onPick={(id) => select(id, true)} />}
-      {data && <div className="sheet-spacer" aria-hidden />}
-      {!data && <SnapFab />}
-    </>
+    </section>
   );
 }
 
-function Sheet({ data, onClose, onPick }: { data: NonNullable<ReturnType<typeof sheetData>>; onClose: () => void; onPick: (id: string) => void }) {
+/** Bottom-left legend: the video's strand legend + the four territory states. */
+function Legend() {
+  const t = app.map.terr;
+  return (
+    <section className="hud-legend" aria-label={t.legend} data-testid="map-legend">
+      <ul className="lg-strands">
+        {STRANDS.map((s) => (
+          <li key={s}>
+            <i className={`lg-sw c-${s}`} />
+            {t.strands[s]}
+          </li>
+        ))}
+        <li className="lg-hs">
+          <i className="lg-sw lg-sw-hs" />
+          {t.strands.hs}
+        </li>
+      </ul>
+      <ul className="lg-states" data-testid="legend-states">
+        {(["empty", "ok", "review", "gold"] as const).map((s) => (
+          <li key={s}>
+            <TerrGlyph status={s} size={22} />
+            {t.states[s]}
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+function Sheet(props: {
+  data: NonNullable<ReturnType<typeof sheetData>>;
+  pages: SavedPage[];
+  onClose: () => void;
+  onPick: (id: string) => void;
+  tour: { i: number; n: number; next: () => void } | null;
+}) {
+  const { data, pages, onClose, onPick, tour } = props;
   const { unit, tile, roots } = data;
   const s = app.map.sheet;
+  const t = app.map.terr;
+  const history = unitHistory(pages, unit.id);
+  const ref = useRef<HTMLElement>(null);
+  useEffect(() => {
+    ref.current?.scrollTo?.({ top: 0 });
+  }, [unit.id]);
   return (
-    <section className="sheet" role="dialog" aria-modal="false" aria-labelledby="sheet-title" data-testid="star-sheet">
+    <section ref={ref} className="sheet terr-sheet" role="dialog" aria-modal="false" aria-labelledby="sheet-title" data-testid="star-sheet">
       <div className="sheet-top">
         <div className="sheet-kicker">
           <span className="sheet-grade">{unit.appGrade}</span>
           <span className="sheet-code">{codeOf(unit)}</span>
         </div>
+        {tour && (
+          <button type="button" className="btn btn-terr-next" onClick={tour.next} data-testid="tour-next">
+            {t.nextOf(tour.i, tour.n)}
+          </button>
+        )}
         <button type="button" className="sheet-close" onClick={onClose} aria-label={s.close}>
           ×
         </button>
       </div>
       <h2 id="sheet-title" className="sheet-title">
-        <StarGlyph status={tile.status} size={34} />
+        <TerrGlyph status={tile.status} color={colorKeyOf(unit)} size={34} />
         {unit.topic}
       </h2>
       <dl className="sheet-stats">
@@ -306,9 +287,26 @@ function Sheet({ data, onClose, onPick }: { data: NonNullable<ReturnType<typeof 
         </div>
         <div className="sheet-state">
           <dt>{s.state}</dt>
-          <dd className={`sum-${tile.status}`}>{app.map.skyLegend[tile.status]}</dd>
+          <dd className={`sum-${tile.status}`}>{app.map.terr.states[tile.status]}</dd>
         </div>
       </dl>
+      <h3 className="sheet-h">{t.history}</h3>
+      {history.length === 0 ? (
+        <p className="sheet-none">{t.noHistory}</p>
+      ) : (
+        <ol className="sheet-history" data-testid="sheet-history">
+          {history.slice(0, HISTORY_ROWS).map((h) => (
+            <li key={h.pageId}>
+              <span className="hist-date">{h.date}</span>
+              <span className="hist-type">{h.type}</span>
+              <span className={`hist-x${h.wrong > 0 ? " is-wrong" : ""}`}>{t.historyRow.wrong(h.wrong)}</span>
+              <span className="hist-o">{t.historyRow.ok(h.ok)}</span>
+              {h.none > 0 && <span className="hist-n">{t.historyRow.none(h.none)}</span>}
+            </li>
+          ))}
+          {history.length > HISTORY_ROWS && <li className="hist-more">{t.historyMore(history.length - HISTORY_ROWS)}</li>}
+        </ol>
+      )}
       <h3 className="sheet-h">{s.roots}</h3>
       {roots.length === 0 ? (
         <p className="sheet-none">{s.noRoots}</p>
@@ -317,7 +315,7 @@ function Sheet({ data, onClose, onPick }: { data: NonNullable<ReturnType<typeof 
           {roots.map((r) => (
             <li key={r.unit.id}>
               <button type="button" className="root-btn" onClick={() => onPick(r.unit.id)} data-unit={r.unit.id}>
-                <StarGlyph status={r.status} size={30} />
+                <TerrGlyph status={r.status} color={colorKeyOf(r.unit)} size={28} />
                 <span className="root-grade">{r.unit.appGrade}</span>
                 <span className="root-topic">{r.unit.topic}</span>
                 <span className="root-go" aria-hidden>›</span>
@@ -327,7 +325,7 @@ function Sheet({ data, onClose, onPick }: { data: NonNullable<ReturnType<typeof 
         </ul>
       )}
       <div className="sheet-foot">
-        <Link to={`/app/list?unit=${encodeURIComponent(unit.id)}`} className="btn btn-sky sheet-open">
+        <Link to={`/app/list?unit=${encodeURIComponent(unit.id)}`} className="btn btn-terr sheet-open">
           {s.open}
         </Link>
         <Link to="/app/report" className="sheet-report" data-testid="sheet-report">
