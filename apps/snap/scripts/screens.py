@@ -3,8 +3,10 @@
 Usage: pnpm build
        PORT=8093 node dist-server/index.js &                       # open server
        PORT=8094 PILOT_CODE=kumo42 node dist-server/index.js &     # gated server (招待コード)
-       PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers python3 scripts/screens.py [base_url] [gated_url]
-Flow: landing → waitlist → /app grade 小5 → seed earlier pages (gold / green / red units)
+       PORT=8095 MOCK_FALLBACK=live4 node dist-server/index.js &  # journey server (the founder's live 4年 sheet)
+       PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers python3 scripts/screens.py [base_url] [gated_url] [journey_url]
+Flow: landing → waitlist → /app grade 小5 → the map is home (empty sky + welcome card, floating 撮る)
+      → seed earlier pages (gold / green / red units)
       → upload p06 (AI判定 + 単元を確認, then やめる) → upload p01 (teacher marks + 正答（AI）, one
       先生の印とAIの判定がちがいます note) → confirm → save → 単元星図 flares 5-C3 → full star chart
       → sheet on 5-C3 with its roots → 一覧 (tile view) → /app opens the map with the report strip
@@ -15,6 +17,9 @@ Flow: landing → waitlist → /app grade 小5 → seed earlier pages (gold / gr
       worker) → Android install button → retake → iPhone install tip → 小2 and 高2 homes → legacy 「高校」 → 高1
       → empty レポート (no pages)
       → gated server: 招待コード prompt, wrong code → 403 → asked again → right code reads.
+Journey (J*, for the founder): fresh 小5 profile on the journey server → J1 empty map (home) → 撮る →
+      the live 4年 sheet → J2 confirm (AI判定) → 保存 → J3 lit stars + toast (mid-flare) → J4 strip with
+      次にやること 平均 / 数量の関係を表す式 → J5 sheet on the red 平均 star → J6 テスト前リスト from the strip.
 """
 import json, os, re, sys, tempfile
 from pathlib import Path
@@ -22,6 +27,7 @@ from playwright.sync_api import sync_playwright, expect
 
 BASE = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8093"
 GATED = sys.argv[2] if len(sys.argv) > 2 else "http://localhost:8094"
+JOURNEY = sys.argv[3] if len(sys.argv) > 3 else "http://localhost:8095"
 
 # Earlier saved pages for 小5 (IndexedDB seed), so the map shows every state:
 #   5-A1 gold (newest test all ○), 5-B1 gold (old ✕ then a later all-○ test),
@@ -139,6 +145,11 @@ with sync_playwright() as p:
     page.get_by_role("radio", name="小5").click()
     shot(page, "04-onboarding-grade")
     page.get_by_role("button", name="はじめる").click()
+    # The map is home, also before any page: the grade's sky + the welcome card, tabs マップ first
+    expect(page).to_have_url(BASE + "/app/map")
+    expect(page.get_by_test_id("map-welcome")).to_contain_text("小5の単元マップ")
+    expect(page.locator("nav.tabbar a")).to_have_text(["マップ", "撮る", "テスト前", "ふりかえり"])
+    page.get_by_test_id("snap-fab").click()
     expect(page.get_by_role("heading", name="ページを撮りましょう")).to_be_visible()
     shot(page, "05-snap")
     page.evaluate(SEED_JS)
@@ -191,8 +202,8 @@ with sync_playwright() as p:
     page.get_by_role("button", name="保存する").click()
 
     # 5a. Light-up: straight to the 単元星図, 5-C3 flares and its root line draws down; toast stays
-    expect(page).to_have_url(BASE + "/app/map?saved=5&lit=5-C3")
-    expect(page.get_by_test_id("lit-toast")).to_have_text("5問を保存しました。光っている単元に入りました。")
+    expect(page).to_have_url(re.compile(re.escape(BASE + "/app/map?saved=5&lit=5-C3&page=") + r"[\w-]+$"))
+    expect(page.get_by_test_id("lit-toast")).to_have_text("5問を保存しました：✕ 2問（割合）・○ 3問")
     expect(page.get_by_test_id("toast-report")).to_have_attribute("href", "/app/report")
     lit = page.locator('button.star-node.is-lit[data-unit="5-C3"]')
     expect(lit).to_have_count(1)
@@ -290,7 +301,7 @@ with sync_playwright() as p:
     page.goto(BASE + "/app")
     expect(page).to_have_url(BASE + "/app/map")
     expect(page.locator("nav.tabbar a")).to_have_count(4)
-    expect(page.locator("nav.tabbar a")).to_have_text(["撮る", "マップ", "テスト前", "ふりかえり"])
+    expect(page.locator("nav.tabbar a")).to_have_text(["マップ", "撮る", "テスト前", "ふりかえり"])
     expect(page.locator("nav.tabbar a.tab-active")).to_have_text("マップ")
     strip = page.get_by_test_id("map-strip")
     expect(strip).to_have_attribute("data-open", "true")
@@ -298,10 +309,13 @@ with sync_playwright() as p:
     expect(page.get_by_test_id("strip-counts")).to_have_text("マスター2復習ずみ2復習が必要2まだ9")
     expect(page.get_by_test_id("strip-bar")).to_have_attribute("aria-label", "小5の15単元 マスター 2・復習ずみ 2・復習が必要 2・まだ 9")
     rows = page.get_by_test_id("strip-next").locator(".strip-row")
-    expect(rows).to_have_count(2)
+    expect(rows).to_have_count(3)  # 小5's two red units, then the nearest earlier red unit (小4 概数)
     expect(rows.nth(0)).to_contain_text("割合")
     expect(rows.nth(0)).to_contain_text("✕ 2問")
-    expect(page.get_by_test_id("strip-open-list")).to_have_attribute("href", "/app/list?units=5-C3,5-C1")
+    expect(rows.nth(2)).to_have_attribute("data-unit", "4-A2")
+    expect(rows.nth(2).locator(".strip-grade")).to_have_text("小4")
+    expect(page.get_by_test_id("strip-open-list")).to_have_attribute("href", "/app/list?units=5-C3,5-C1,4-A2")
+    expect(page.get_by_test_id("snap-fab")).to_be_visible()
     expect(page.get_by_test_id("strip-report")).to_have_attribute("href", "/app/report")
     expect(page.get_by_test_id("strip-earlier")).to_have_text("前の学年に✕のある単元があります（2）+")
     assert page.evaluate("window.scrollY") == 0
@@ -314,7 +328,9 @@ with sync_playwright() as p:
     rows.nth(1).click()
     expect(page.get_by_test_id("star-sheet")).to_contain_text("伴って変わる二つの数量")
     expect(page.locator('button.star-node.is-sel[data-unit="5-C1"]')).to_have_count(1)
+    expect(page.get_by_test_id("snap-fab")).to_have_count(0)  # never covers the open sheet
     page.keyboard.press("Escape")
+    expect(page.get_by_test_id("snap-fab")).to_be_visible()
 
     # 前の学年に✕: the far 小3 band opens and both earlier red stars are ringed; tap again → back
     page.evaluate("window.scrollTo({ top: 0, behavior: 'instant' })")
@@ -333,7 +349,7 @@ with sync_playwright() as p:
     # Fold to one line; remembered after a reload; open again
     page.get_by_test_id("strip-toggle").click()
     expect(strip).to_have_attribute("data-open", "false")
-    expect(page.get_by_test_id("strip-toggle")).to_have_attribute("aria-label", "小5の15単元　マスター 2・復習ずみ 2・復習が必要 2・まだ 9　次にやること 2。ひらく")
+    expect(page.get_by_test_id("strip-toggle")).to_have_attribute("aria-label", "小5の15単元　マスター 2・復習ずみ 2・復習が必要 2・まだ 9　次にやること 3。ひらく")
     page.reload()
     expect(page.get_by_test_id("map-strip")).to_have_attribute("data-open", "false")
     page.wait_for_timeout(300)
@@ -467,7 +483,7 @@ with sync_playwright() as p:
     assert not page.evaluate("""caches.open('lens-snap-v1').then(c => c.keys()).then(ks => ks.some(r => new URL(r.url).pathname.startsWith('/api')))""")
 
     # 7d. Android / Chrome: beforeinstallprompt → 「ホーム画面に追加」 button on 撮る; dismiss is remembered
-    page.get_by_role("link", name="撮る").click()
+    page.get_by_role("link", name="撮る", exact=True).click()
     expect(page.get_by_test_id("install-tip")).to_have_count(0)  # nothing to offer before the event
     page.evaluate("""() => { const e = new Event('beforeinstallprompt', { cancelable: true });
       e.prompt = async () => {}; e.userChoice = Promise.resolve({ outcome: 'dismissed' }); window.dispatchEvent(e); }""")
@@ -477,7 +493,7 @@ with sync_playwright() as p:
     expect(tip).to_have_count(0)
 
     # 8. Retake path (h03, mock reader says retake)
-    page.get_by_role("link", name="撮る").click()
+    page.get_by_role("link", name="撮る", exact=True).click()
     page.get_by_test_id("file-input").set_input_files(str(ROOT / "fixtures" / "photos" / "h03.jpg"))
     expect(page.get_by_text("もう少し明るい所で撮り直してください。")).to_be_visible(timeout=15000)
     shot(page, "12-retake", full=False)
@@ -570,14 +586,16 @@ with sync_playwright() as p:
     expect(m.get_by_test_id("grade-check")).to_have_count(0)
     mg.close()
 
-    # 8c. 学習レポート with no pages yet: a friendly card + 「ページを撮る」; /app starts at 撮る
+    # 8c. 学習レポート with no pages yet: a friendly card + 「ページを撮る」; /app is the (empty) map
     ctx3 = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2, locale="ja-JP", is_mobile=True, has_touch=True)
     e = ctx3.new_page()
     e.on("pageerror", lambda err: errors.append(str(err)))
     e.goto(BASE + "/app")
     e.evaluate("localStorage.setItem('lens-snap:grade', '小5')")
     e.goto(BASE + "/app")
-    expect(e).to_have_url(BASE + "/app/snap")
+    expect(e).to_have_url(BASE + "/app/map")
+    expect(e.get_by_test_id("map-welcome")).to_be_visible()
+    expect(e.get_by_test_id("map-strip")).to_have_count(0)
     e.goto(BASE + "/app/report")
     expect(e.get_by_test_id("report-empty")).to_contain_text("撮ると、ここにレポートができます")
     expect(e.get_by_test_id("report-back")).to_have_attribute("href", "/app/map")
@@ -597,6 +615,8 @@ with sync_playwright() as p:
     g.get_by_role("button", name="つづける").click()
     g.get_by_role("radio", name="小5").click()
     g.get_by_role("button", name="はじめる").click()
+    expect(g).to_have_url(GATED + "/app/map")  # after the code and the grade: the map
+    g.get_by_test_id("welcome-snap").click()
     g.get_by_test_id("file-input").set_input_files(str(ROOT / "fixtures" / "photos" / "p01.jpg"))
     expect(g.get_by_text("招待コードが違うようです。もう一度入力してください。")).to_be_visible(timeout=15000)
     g.fill("input[name=pilot-code]", "kumo42")
@@ -604,6 +624,97 @@ with sync_playwright() as p:
     g.get_by_role("button", name="コードを送って読み取る").click()
     expect(g.get_by_role("heading", name="読み取り結果の確認")).to_be_visible(timeout=15000)
     ctx2.close()
+
+    # J. Journey for the founder (journey server: MOCK_FALLBACK=live4 = his live test of a 4年 sheet).
+    #    Fresh 小5 profile; first screens only.
+    jc = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2, locale="ja-JP", is_mobile=True, has_touch=True)
+    jp = jc.new_page()
+    jp.on("pageerror", lambda err: errors.append(str(err)))
+    jp.goto(JOURNEY + "/app")
+    jp.get_by_role("radio", name="小5").click()
+    jp.get_by_role("button", name="はじめる").click()
+    # J1: home before any page = the map: the 小5 sky (all stars faint), welcome card, floating 撮る
+    expect(jp).to_have_url(JOURNEY + "/app/map")
+    welcome = jp.get_by_test_id("map-welcome")
+    expect(welcome.locator(".welcome-title")).to_have_text("小5の単元マップ")
+    expect(welcome).to_contain_text("プリントやテストを撮ると、その単元の星が光ります。")
+    expect(welcome.locator(".welcome-legend li")).to_have_text(["マスター", "復習ずみ", "復習が必要", "まだ"])
+    expect(jp.get_by_test_id("welcome-snap")).to_have_attribute("href", "/app/snap")
+    expect(jp.locator("button.star-node")).to_have_count(31)
+    expect(jp.locator('button.star-node:not([data-status="empty"])')).to_have_count(0)
+    expect(jp.locator("nav.tabbar a.tab-active")).to_have_text("マップ")
+    fab = jp.get_by_test_id("snap-fab")
+    expect(fab).to_be_visible()
+    fb = fab.bounding_box()
+    assert fb["x"] + fb["width"] <= 390 - 16 + 0.5 and fb["y"] + fb["height"] <= 844 - 64 - 8, fb
+    own = jp.locator(".sky-band-label.is-own")
+    expect(own).to_contain_text("小5")
+    assert own.bounding_box()["y"] + 46 < 844 - 64, own.bounding_box()  # the child's band starts on the first screen
+    jp.wait_for_timeout(300)
+    shot(jp, "J1-empty-map", full=False)
+    # 撮る from the map → the live sheet → confirm with the AI's ○✕ prefilled
+    fab.click()
+    jp.get_by_test_id("file-input").set_input_files(str(ROOT / "fixtures" / "photos" / "live4.jpg"))
+    expect(jp.get_by_role("heading", name="読み取り結果の確認")).to_be_visible(timeout=15000)
+    jcards = jp.get_by_test_id("problem-card")
+    expect(jcards).to_have_count(4)
+    expect(jp.locator('[data-testid=mark-source][data-source=ai]')).to_have_count(4)
+    for i, m in enumerate(["○", "✕", "✕", "○"]):
+        expect(jcards.nth(i).get_by_role("radio", name=m, exact=True)).to_have_attribute("aria-checked", "true")
+    expect(jcards.nth(0).locator("select")).to_have_value("4-A4")
+    expect(jcards.nth(1).locator("select")).to_have_value("5-D2")
+    expect(jcards.nth(2).get_by_test_id("ai-answer")).to_have_text("正答（AI）：480円")
+    jp.evaluate("window.scrollTo({ top: 0, behavior: 'instant' })")
+    shot(jp, "J2-confirm", full=False)
+    jp.get_by_role("button", name="保存する").click()
+    # J3: straight back to the map: the three units flare, the toast says what changed
+    expect(jp).to_have_url(re.compile(re.escape(JOURNEY + "/app/map?saved=4&lit=4-A4,5-D2,4-A6&page=") + r"[\w-]+$"))
+    expect(jp.get_by_test_id("lit-toast")).to_have_text("4問を保存しました：✕ 2問（平均、数量の関係を表す式）・○ 2問")
+    expect(jp.get_by_test_id("toast-report")).to_have_text("レポートを見る")
+    expect(jp.locator("button.star-node.is-lit")).to_have_count(3)
+    for unit, st in [("4-A4", "gold"), ("5-D2", "review"), ("4-A6", "review")]:  # all ○ on its newest page → gold
+        expect(jp.locator(f'button.star-node[data-unit="{unit}"]')).to_have_attribute("data-status", st)
+    # all three lit stars framed on the first screen, clear of the toast (top) and the tab bar
+    toast_bottom = jp.locator(".toast-map").bounding_box()
+    toast_bottom = toast_bottom["y"] + toast_bottom["height"]
+    for unit in ["4-A4", "5-D2", "4-A6"]:
+        b = jp.locator(f'button.star-node[data-unit="{unit}"] .star-glyph').bounding_box()
+        assert toast_bottom - 8 < b["y"] and b["y"] + b["height"] < 844 - 64, (unit, b, toast_bottom)
+    jp.wait_for_timeout(430)  # mid-flare
+    shot(jp, "J3-saved-map", full=False)
+    # J4: a few seconds later the toast goes and the map glides back up to the strip, whose
+    #     次にやること = 平均 (小5) and 数量の関係を表す式 (小4), the new rows glowing once
+    jp.wait_for_timeout(4600)
+    expect(jp.get_by_test_id("lit-toast")).to_have_count(0)
+    jp.wait_for_function("window.scrollY === 0", timeout=5000)
+    expect(jp.locator(".strip-row.is-fresh")).to_have_count(2)
+    jrows = jp.get_by_test_id("strip-next").locator(".strip-row")
+    expect(jrows).to_have_count(2)
+    expect(jrows.nth(0)).to_contain_text("平均")
+    expect(jrows.nth(1)).to_contain_text("数量の関係を表す式")
+    expect(jrows.nth(1).locator(".strip-grade")).to_have_text("小4")
+    expect(jp.get_by_test_id("strip-open-list")).to_have_attribute("href", "/app/list?units=5-D2,4-A6")
+    jp.wait_for_timeout(250)  # rows mid-glow
+    shot(jp, "J4-map-after", full=False)
+    # J5: tap the red 平均 star → its sheet
+    jp.locator('button.star-node[data-unit="5-D2"]').click()
+    jsheet = jp.get_by_test_id("star-sheet")
+    expect(jsheet).to_contain_text("平均")
+    expect(jsheet.get_by_role("link", name="この単元の問題を見る")).to_have_attribute("href", "/app/list?unit=5-D2")
+    expect(jp.get_by_test_id("snap-fab")).to_have_count(0)
+    jp.wait_for_timeout(1000)
+    shot(jp, "J5-sheet", full=False)
+    jp.keyboard.press("Escape")
+    # J6: テスト前リスト from the strip's button: exactly the two ✕ problems
+    jp.evaluate("window.scrollTo({ top: 0, behavior: 'instant' })")
+    jp.get_by_test_id("strip-open-list").click()
+    expect(jp).to_have_url(JOURNEY + "/app/list?units=5-D2,4-A6")
+    jitems = jp.get_by_test_id("review-item")
+    expect(jitems).to_have_count(2)
+    expect(jitems.nth(0)).to_contain_text("平均点を求めなさい")
+    expect(jitems.nth(1)).to_contain_text("代金は全部でいくら")
+    shot(jp, "J6-list", full=False)
+    jc.close()
 
     assert not errors, errors
     browser.close()

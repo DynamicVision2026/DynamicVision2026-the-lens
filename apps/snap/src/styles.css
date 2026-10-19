@@ -583,3 +583,42 @@ body:has(.sky-page) { background: var(--sky-bg); }
 .report-empty-legend { list-style: none; padding: 0; margin: 2px 0 6px; display: grid; gap: 4px; font-size: 0.85rem; }
 .report-empty-legend li { display: grid; grid-template-columns: 12px 84px 1fr; gap: 8px; align-items: center; }
 .report-empty-legend span { color: var(--c-muted); }
+
+/* ---------- map = home: welcome card (no pages yet) + floating 撮る ---------- */
+.welcome { padding: 14px 14px 14px; }
+.welcome-title { margin: 0; font-size: 1.15rem; font-weight: 800; color: var(--sky-ink); letter-spacing: 0.02em; }
+.welcome-body { margin: 4px 0 6px; font-size: 0.92rem; line-height: 1.55; color: var(--sky-ink-soft); }
+.welcome-legend { list-style: none; padding: 0; margin: 0 0 12px; display: flex; flex-wrap: wrap; gap: 0 12px; font-size: 0.76rem; color: var(--sky-ink-soft); }
+.welcome-legend li { display: inline-flex; align-items: center; gap: 1px; white-space: nowrap; }
+.welcome-cta { width: 100%; min-height: 56px; font-size: 1.05rem; border-radius: var(--radius); }
+.strip-grade {
+  display: inline-block; margin-right: 6px; padding: 0 7px; border-radius: 999px; border: 1px solid var(--sky-lattice);
+  background: var(--sky-chip); color: var(--sky-ink-soft); font-size: 0.7rem; font-weight: 700; vertical-align: 1px;
+}
+.fab-icon { width: 24px; height: 24px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.fab-snap {
+  position: fixed; z-index: 9; right: max(var(--gutter), calc((100vw - 720px) / 2 + var(--gutter)));
+  bottom: calc(64px + 14px + env(safe-area-inset-bottom));
+  display: inline-flex; align-items: center; gap: 8px; min-height: 56px; padding: 0 22px 0 18px; border-radius: 999px;
+  background: var(--sky-ink); color: var(--sky-bg); font-size: 1.05rem; font-weight: 800; text-decoration: none; letter-spacing: 0.04em;
+  box-shadow: 0 0 0 4px var(--sky-chip), 0 8px 24px var(--c-shadow); -webkit-tap-highlight-color: transparent;
+}
+.fab-snap:active { transform: scale(0.97); }
+.fab-snap:focus-visible { outline: 3px solid var(--c-focus); outline-offset: 3px; }
+.page:not(.sky-page) .fab-snap { background: var(--c-navy); color: var(--c-on-dark); box-shadow: 0 6px 18px var(--c-shadow); }
+/* room under the chart so the floating button never hides the lowest band */
+.sky-page { padding-bottom: 80px; }
+/* the save toast: at the top of the map (over the lane header), so the lit stars and 撮る stay clear */
+.toast-map { top: calc(var(--topbar-h) + 8px); bottom: auto; animation-name: toast-down; }
+@keyframes toast-down { from { opacity: 0; transform: translateY(-8px); } }
+/* after 保存 the map glides back up: the new 次にやること rows glow once */
+.strip-row.is-fresh { border-radius: 8px; animation: row-fresh 1.8s ease-out 1; }
+@keyframes row-fresh {
+  0%, 30% { background: var(--sky-red-soft); box-shadow: 0 0 0 1.5px var(--sky-red-halo); }
+  100% { background: transparent; box-shadow: 0 0 0 0 transparent; }
+}
+@media (prefers-reduced-motion: reduce) { .strip-row.is-fresh { animation: none; } }
+/* テスト前リスト opened from the map: it starts at the readiness card (the chips stay just above) */
+.readiness { scroll-margin-top: calc(var(--topbar-h) + 12px); }
+/* toast text breaks at punctuation, not inside 「2問」 or a unit name */
+.toast-text { word-break: keep-all; overflow-wrap: anywhere; }

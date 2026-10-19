@@ -2,6 +2,7 @@ import type { ReactElement } from "react";
 import { Link, NavLink, Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { app } from "./copy";
 import type { Grade } from "./curriculum";
+import { CameraGlyph } from "./components/SnapFab";
 import { APP_TABS, type TabKey, activeTab, homePath } from "./lib/home";
 import { Archive } from "./screens/Archive";
 import { Landing } from "./screens/Landing";
@@ -11,7 +12,7 @@ import { Privacy } from "./screens/Privacy";
 import { Report } from "./screens/Report";
 import { Snap } from "./screens/Snap";
 import { TestList } from "./screens/TestList";
-import { useGrade, usePages } from "./state";
+import { useGrade } from "./state";
 
 export function App() {
   return (
@@ -65,23 +66,16 @@ function AppArea() {
   );
 }
 
-/** App home: the 単元マップ once the family has saved pages, 撮る before that. */
+/** App home: always the 単元マップ (before the first page it shows the empty sky + a welcome card). */
 function Home() {
-  const { pages } = usePages();
-  if (!pages) return <div className="page" />;
-  return <Navigate to={homePath(pages.length)} replace />;
+  return <Navigate to={homePath()} replace />;
 }
 
 type IconName = TabKey;
 
 /** Tab icons: 24 px line drawings in currentColor (no colour of their own). */
 const ICONS: Record<IconName, ReactElement> = {
-  snap: (
-    <>
-      <path d="M4 8h3l1.5-2h7L17 8h3v11H4z" />
-      <circle cx="12" cy="13.5" r="3.5" />
-    </>
-  ),
+  snap: <CameraGlyph />,
   map: <path d="M12 3.5l2.3 5.6 5.7.4-4.4 3.7 1.4 5.8L12 15.9 7 19l1.4-5.8L4 9.5l5.7-.4z" />,
   list: (
     <>
@@ -92,7 +86,7 @@ const ICONS: Record<IconName, ReactElement> = {
   archive: <path d="M5 6h14M5 12h14M5 18h9" />,
 };
 
-/** Four tabs; the 学習レポート (the map's 「詳しく」 page) keeps マップ lit. */
+/** Four tabs, マップ first; the 学習レポート (the map's 「詳しく」 page) keeps マップ lit. */
 function TabBar() {
   const on = activeTab(useLocation().pathname);
   return (

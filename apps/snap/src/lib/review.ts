@@ -172,11 +172,12 @@ export function pageUnitIds(page: SavedPage): string[] {
   return [...new Set(page.problems.map((p) => p.unit).filter((u): u is string => !!u))];
 }
 
-/** URL of the map right after saving a page. */
+/** URL of the map right after saving a page (`page` = its id, for the toast that says what changed). */
 export function litMapUrl(page: SavedPage): string {
   const ids = pageUnitIds(page);
   const q = new URLSearchParams({ saved: String(page.problems.length) });
   if (ids.length) q.set("lit", ids.join(","));
+  q.set("page", page.id);
   return `/app/map?${q.toString().replace(/%2C/g, ",")}`;
 }
 

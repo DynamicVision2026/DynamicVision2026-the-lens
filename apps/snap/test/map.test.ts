@@ -108,8 +108,9 @@ describe("light up after 保存", () => {
     const pg = page("2026-10-01T00:00:00Z", [["5-C3", "✕"], [null, "○"], ["5-B3", "○"], ["5-C3", "○"]]);
     expect(pageUnitIds(pg)).toEqual(["5-C3", "5-B3"]);
     const url = litMapUrl(pg);
-    expect(url).toBe("/app/map?saved=4&lit=5-C3,5-B3");
+    expect(url).toBe(`/app/map?saved=4&lit=5-C3,5-B3&page=${pg.id}`);
     expect(parseLit(new URL(url, "http://x").searchParams.get("lit"))).toEqual(["5-C3", "5-B3"]);
-    expect(litMapUrl(page("2026-10-01T00:00:00Z", [[null, "✕"]]))).toBe("/app/map?saved=1");
+    const bare = page("2026-10-01T00:00:00Z", [[null, "✕"]]);
+    expect(litMapUrl(bare)).toBe(`/app/map?saved=1&page=${bare.id}`);
   });
 });
