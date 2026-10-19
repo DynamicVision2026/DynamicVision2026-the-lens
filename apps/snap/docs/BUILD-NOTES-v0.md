@@ -148,3 +148,13 @@ Tests: 120 (13 files; new `judge-units.test.ts` 16: precedence, draft → saved 
 - 「最後に撮った日」 and この1週間 use the device clock and local time; a page saved on another device with a skewed clock (backup restore) can fall outside the week.
 - 準備度 is still shown as a percentage of problems in range with nothing left to do (existing v0 wording); it describes review progress, not understanding, but the founder may want to re-check it against the no-score rule.
 - Anthropic SDK 0.32 triggers a harmless Node `punycode` deprecation warning; upgrading the SDK will remove it.
+
+### Unit-tagging blind test (19 Oct 2026, Haiku-class proxy, text mode, anonymous ids)
+| Prompt | Top-1 | Ordinary (a) | Look-alike (b) | Within 1st/2nd choice |
+|---|---|---|---|---|
+| v0.3 (units + covers) | 215/220 (97.7%) | 110/110 | 105/110 | — |
+| v0.4 (how-to-choose + look-alikes + unit_alt) | 213/220 (96.8%) | 110/110 | 103/110 | 218/220 (99.1%) |
+Misses are all neighbouring units (e.g. 6-C1 反比例 → 6-A2 文字と式, 5-D1 円グラフ → 5-C3 割合, h-I-4 ↔ h-B-2).
+Check rule chosen from this run: show 「単元を確認してください」 when confidence < 0.7, or ≤ 0.8 with a second choice →
+flags 31/220 (14%), catches 5 of 7 misses; silent wrong tags 2/220 (0.9%). Re-measure with the real model:
+`ANTHROPIC_API_KEY=$(gcloud secrets versions access latest --secret anthropic-api-key) pnpm --filter @lens/snap eval:units --reader claude`.

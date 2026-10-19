@@ -30,8 +30,14 @@ export function markSourceOf(p: { mark: Mark; markSource?: MarkSource }): MarkSo
 }
 
 /** Show the 「単元を確認してください」 pill: low unit confidence and the parent has not picked a unit yet. */
-export function needsUnitCheck(p: Pick<Problem, "unitConfidence"> & { unitEdited?: boolean }): boolean {
-  return !p.unitEdited && p.unitConfidence < UNIT_CHECK_BELOW;
+/** With a second-choice unit, ask for a check up to this confidence (blind 220-problem test, 19 Oct:
+ *  flags ~14% of problems and catches 5 of 7 wrong tags; silent misses ~1%). */
+export const UNIT_CHECK_WITH_ALT_AT_MOST = 0.8;
+
+export function needsUnitCheck(p: Pick<Problem, "unitConfidence"> & { unitAlt?: string | null; unitEdited?: boolean }): boolean {
+  if (p.unitEdited) return false;
+  if (p.unitConfidence < UNIT_CHECK_BELOW) return true;
+  return !!p.unitAlt && p.unitConfidence <= UNIT_CHECK_WITH_ALT_AT_MOST;
 }
 
 /** A stored page with every problem's markSource filled in (old pages / backups: see markSourceOf). */

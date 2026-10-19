@@ -95,6 +95,8 @@ describe("単元を確認してください pill", () => {
     expect(needsUnitCheck({ unitConfidence: 0.69 })).toBe(true);
     expect(needsUnitCheck({ unitConfidence: 0.7 })).toBe(false);
     expect(needsUnitCheck({ unitConfidence: 0.95 })).toBe(false);
+    expect(needsUnitCheck({ unitConfidence: 0.8, unitAlt: "4-C2" })).toBe(true); // a real second choice at 0.8 → check
+    expect(needsUnitCheck({ unitConfidence: 0.85, unitAlt: "4-C2" })).toBe(false);
     expect(needsUnitCheck({ unitConfidence: 0.3, unitEdited: true })).toBe(false);
     expect(needsUnitCheck({ unitConfidence: DEFAULT_UNIT_CONFIDENCE })).toBe(false); // older outputs: no pill
   });
