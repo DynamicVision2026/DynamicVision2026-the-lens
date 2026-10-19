@@ -16,17 +16,26 @@ export function homePath(): "/app/map" {
   return "/app/map";
 }
 
+/** Screens that are not the map get a 「‹ マップにもどる」 link at the top (the report has its own). */
+export function showsBackToMap(pathname: string): boolean {
+  return ["/app/snap", "/app/list", "/app/archive", "/app/grade"].some((p) => pathname.startsWith(p));
+}
+
 export type TabKey = "snap" | "map" | "list" | "archive";
 /** The tab bar, left to right: マップ first. The 学習レポート is the map's 「詳しく」 page, not a tab. */
 export const APP_TABS: { key: TabKey; to: string }[] = [
   { key: "map", to: "/app/map" },
   { key: "snap", to: "/app/snap" },
-  { key: "list", to: "/app/list" },
+  { key: "list", to: "/app/exam" },
   { key: "archive", to: "/app/archive" },
 ];
-/** Routes that light a tab other than their own: the report belongs to the map. */
+/**
+ * Routes that light a tab other than their own: the report belongs to the map; the テスト前リスト
+ * (`/app/list`, opened from the report and the unit sheet) belongs to テスト前.
+ */
 export function activeTab(pathname: string): TabKey | null {
   if (pathname.startsWith("/app/report")) return "map";
+  if (pathname.startsWith("/app/list")) return "list";
   return APP_TABS.find((t) => pathname.startsWith(t.to))?.key ?? null;
 }
 

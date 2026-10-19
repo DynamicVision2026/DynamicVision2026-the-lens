@@ -3,7 +3,8 @@ import { Link, NavLink, Navigate, Route, Routes, useLocation, useNavigate } from
 import { app } from "./copy";
 import type { Grade } from "./curriculum";
 import { CameraGlyph } from "./components/SnapFab";
-import { APP_TABS, type TabKey, activeTab, homePath } from "./lib/home";
+import { APP_TABS, type TabKey, activeTab, homePath, showsBackToMap } from "./lib/home";
+import { EXAM_ENTRY } from "./lib/layers";
 import { useLayout } from "./lib/layout";
 import { Archive } from "./screens/Archive";
 import { Landing } from "./screens/Landing";
@@ -35,6 +36,7 @@ function AppArea() {
   };
   // wide (landscape iPad / phone sideways): no top bar; brand, grade and tabs live in a slim left rail
   const rail = useLayout().layout === "wide";
+  const back = showsBackToMap(useLocation().pathname);
   if (!grade) return <Onboarding onChoose={choose} />;
   const chip = (
     <NavLink to="/app/grade" className={`grade-chip${gradeCheck ? " is-check" : ""}`} aria-label={app.grade.change} data-testid="grade-chip">
@@ -58,12 +60,21 @@ function AppArea() {
         </div>
       )}
       <main className="main">
+        {back && (
+          <div className="back-to-map">
+            <Link to="/app/map" data-testid="back-to-map">
+              <span aria-hidden>‹</span>
+              {app.nav.backToMap}
+            </Link>
+          </div>
+        )}
         <Routes>
           <Route path="grade" element={<Onboarding current={grade} onChoose={choose} />} />
           <Route index element={<Home />} />
           <Route path="snap" element={<Snap grade={grade} />} />
           <Route path="report" element={<Report grade={grade} />} />
           <Route path="map" element={<MapScreen grade={grade} />} />
+          <Route path="exam" element={<MapScreen grade={grade} examEntry />} />
           <Route path="list" element={<TestList grade={grade} />} />
           <Route path="archive" element={<Archive />} />
           <Route path="*" element={<Navigate to="/app" replace />} />
@@ -112,7 +123,7 @@ function TabBar({ rail }: { rail: ReactElement | null }) {
         </div>
       )}
       {APP_TABS.map((t) => (
-        <Link key={t.key} to={t.to} className={`tab ${on === t.key ? "tab-active" : ""}`} aria-current={on === t.key ? "page" : undefined}>
+        <Link key={t.key} to={t.to} state={t.key === "list" ? EXAM_ENTRY : undefined} className={`tab ${on === t.key ? "tab-active" : ""}`} aria-current={on === t.key ? "page" : undefined}>
           <svg className="tab-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden focusable="false">
             {ICONS[t.key]}
           </svg>

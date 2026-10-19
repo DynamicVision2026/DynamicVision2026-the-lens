@@ -140,3 +140,13 @@ describe("map camera with the sheet and the page viewer", () => {
     expect(cameraStep(false, false, false)).toBe("keep");
   });
 });
+
+describe("テスト前 tab entry", () => {
+  it("opens the plan (date when no test) with d = 0, so closing replaces and the map shows", async () => {
+    const { EXAM_ENTRY, layersOf, closeTop } = await import("../src/lib/layers");
+    const l = layersOf(EXAM_ENTRY);
+    expect(l.exam).toBe("plan");
+    expect(l.d).toBe(0);
+    expect(closeTop(l)).toEqual({ kind: "replace", state: { snap: expect.objectContaining({ exam: null }) } });
+  });
+});

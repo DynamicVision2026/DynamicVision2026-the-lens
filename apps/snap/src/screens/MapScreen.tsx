@@ -12,7 +12,7 @@ import { app } from "../copy";
 import { type Grade, type Unit, isHighSchool, unitById } from "../curriculum";
 import { type ExamStore, type PlanItem, buildPlan, countdown, currentTest, defaultRange, keepTick, parseStore, toggleUnit, toggleZone, withTest, zoneFull } from "../lib/examplan";
 import { focusFromParam, savedToast } from "../lib/home";
-import { type NavStep, arrivalStep, closeTop, layersOf, openExam, openShare, openSheet, openViewer, openYears } from "../lib/layers";
+import { EXAM_ENTRY, type NavStep, arrivalStep, closeTop, layersOf, openExam, openShare, openSheet, openViewer, openYears } from "../lib/layers";
 import type { SavedPage } from "../lib/model";
 import { LEVELS_DESC, type Level, type UnitLevel, keyOf, levelName } from "../lib/ladder";
 import { type MapSection, type Tile, mapSections, mapTiles, parseLit, unfiled } from "../lib/review";
@@ -33,7 +33,11 @@ type View = "sky" | "list";
 const reduceMotion = () => window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
 const codeOf = (u: Unit) => (u.level === "高" ? `${u.grade} ${u.unit}` : u.unit);
 
-export function MapScreen({ grade }: { grade: Grade }) {
+/**
+ * `examEntry`: the テスト前 tab (`/app/exam`) — the same map with テスト前モード open (the plan when a test
+ * is set, else its date). Closing the mode lands on the plain map (`/app/map`).
+ */
+export function MapScreen({ grade, examEntry = false }: { grade: Grade; examEntry?: boolean }) {
   const { pages, reload, setPages } = usePages();
   const [params] = useSearchParams();
   const lit = useMemo(() => parseLit(params.get("lit")), [params]);
@@ -73,10 +77,10 @@ export function MapScreen({ grade }: { grade: Grade }) {
     </div>
   );
 
-  if (view === "sky")
+  if (view === "sky" || examEntry)
     return (
       <div className="page terr-page" data-view="sky">
-        <TerritoryView pages={pages} grade={grade} lit={lit} unit={unitParam} unfiled={nUnfiled} onList={() => setView("list")} onTick={onTick} />
+        <TerritoryView pages={pages} grade={grade} lit={lit} unit={unitParam} unfiled={nUnfiled} onList={() => setView("list")} onTick={onTick} examEntry={examEntry} />
         {toastEl}
       </div>
     );
@@ -118,6 +122,7 @@ function TerritoryView(props: {
   unfiled: number;
   onList: () => void;
   onTick: (pageId: string, index: number, checked: boolean) => void;
+  examEntry?: boolean;
 }) {
   const { pages, grade, lit, unit } = props;
   const tiles = useMemo(() => mapTiles(pages), [pages]);
@@ -139,7 +144,8 @@ function TerritoryView(props: {
   useEffect(() => {
     if (arrived.current) return;
     arrived.current = true;
-    go(arrivalStep(layers, focusFromParam(unit, grade).selected));
+    if (props.examEntry) go(layers.exam ? null : { kind: "replace", state: EXAM_ENTRY });
+    else go(arrivalStep(layers, focusFromParam(unit, grade).selected));
     // on mount only
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -184,6 +190,13 @@ function TerritoryView(props: {
     if (examStep === "plan" && test && plan) return { range: new Set(test.units), dim: false, todo: new Set(plan.todo) };
     return null;
   }, [examStep, draft, test, plan]);
+  // /app/exam: once the mode has been on screen, closing it (✕, Esc, back) shows the plain map
+  const examSeen = useRef(false);
+  useEffect(() => {
+    if (!props.examEntry) return;
+    if (layers.exam) examSeen.current = true;
+    else if (examSeen.current) navigate("/app/map", { replace: true });
+  }, [props.examEntry, layers.exam, navigate]);
   const enterExam = () => {
     setMenu(false);
     setTour(null);
