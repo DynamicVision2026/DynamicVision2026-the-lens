@@ -1,0 +1,85 @@
+{
+  "_note": "Reader outputs of the founder's two 5年 sheets (19 Oct 2026), as read: no teacher marks. Used by scripts/screens.py for the テスト前モード demo (22*), where answered problems get ○ and blank ones ✕ as AI judgments, consistent with earlier demos.",
+  "zukei5": {
+    "page_type": "drill",
+    "grade_guess": "小5",
+    "score": null,
+    "retake": false,
+    "problems": [
+      {
+        "n": 1,
+        "q": "下の平行四辺形の面積を求めなさい。 [底辺15cm 高さ8cm]",
+        "unit": "5-B3",
+        "answer": "15 × 8 = 120 / 答え 120 cm²",
+        "mark": null,
+        "confidence": 0.9
+      },
+      {
+        "n": 2,
+        "q": "次の表は、あるクラスのテストの点数です。平均点を求めなさい。 [表なし]",
+        "unit": "5-D2",
+        "answer": null,
+        "mark": null,
+        "confidence": 0.8
+      },
+      {
+        "n": 3,
+        "q": "次の表は、あるクラスのテストの点数です。平均点を求めなさい。 [表: 点数 70点 / 80点 / 90点 / 100点、人数 2人 / 4人 / 3人 / 10人]",
+        "unit": "5-D2",
+        "answer": null,
+        "mark": null,
+        "confidence": 0.85
+      },
+      {
+        "n": 4,
+        "q": "定価4000円の品物を15%引きで買いました。値引きされた金額はいくらですか。",
+        "unit": "5-C3",
+        "answer": "4000 × 0.15 = 600 / 答え 600 円",
+        "mark": null,
+        "confidence": 0.9
+      }
+    ],
+    "notes": "Printed numbers are 1, 2, 2, 3; problems are numbered in reading order (left column first). Problem 2 is a 平均 question whose table is not in the visible area and whose 式 and 答え are blank. Problem 3 is the 平均 table at top right, with no written answer. Problem 4 asks for the discount amount, and the student wrote 600 円 (the question asks for the discounted amount, so the answer as written is kept). No red marks or score are visible. The name on the sheet is omitted."
+  },
+  "poly5": {
+    "page_type": "drill",
+    "grade_guess": "小5",
+    "score": null,
+    "retake": false,
+    "problems": [
+      {
+        "n": 1,
+        "q": "下の台形の面積を求めなさい。 [上底8cm 下底12cm 高さ10cm]",
+        "unit": "5-B3",
+        "answer": "(8+12) × 10 ÷ 2 = 100 / 答え 100 cm²",
+        "mark": null,
+        "confidence": 0.8
+      },
+      {
+        "n": 2,
+        "q": "次の表は、あるクラスのテストの点数です。平均点を求めなさい。 [表なし]",
+        "unit": "5-D2",
+        "answer": "(70×2+80×4+90×3+100×1) ÷ 10 = 830 ÷ 10 = 83 / 答え 83 点",
+        "mark": null,
+        "confidence": 0.75
+      },
+      {
+        "n": 3,
+        "q": "次の表は、あるクラスのテストの点数です。平均点を求めなさい。 [表: 点数 70点 / 80点 / 90点 / 100点、人数 2人 / 4人 / 3人 / 10人]",
+        "unit": "5-D2",
+        "answer": "(70×2+80×4+90×3+100×1)−10 = 830 ÷ 10 = 83 / 答え 83 点",
+        "mark": null,
+        "confidence": 0.7
+      },
+      {
+        "n": 4,
+        "q": "定価3000円の品物を2割引で買いました。代金はいくらですか。",
+        "unit": "5-C3",
+        "answer": "3000 × (1−0.2) = 3000 × 0.8 = 2400 / 答え 2400 円",
+        "mark": null,
+        "confidence": 0.9
+      }
+    ],
+    "notes": "Printed numbers are 1, 2, 2, 3; problems are numbered in reading order (left column first). Problem 3's 式 ends with a stray '−10' and its table shows 100点 with 10人, while the written formula uses 100×1, so the table and the work do not match; the answer is recorded as written. The grey-looking digits (100, 83, 2400) are read as the student's answers, with some uncertainty about faint writing. No red marks or score are visible. The name on the sheet is omitted."
+  }
+}

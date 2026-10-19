@@ -35,6 +35,17 @@ import {
 } from "../lib/territory";
 import { type Palette, type RGBA, TERRAIN_TOKENS, css, mix, paintTerrain } from "./terrainPaint";
 
+/** テスト前モード on the map: the range outlined, the rest dimmed while picking, tonight's units pulsing. */
+export interface ExamLook {
+  range: Set<string>;
+  /** Picking the range: everything but the range is dimmed and zone labels offer 「この地帯を全部」. */
+  dim: boolean;
+  /** Units with plan items still to do tonight (a light pulse). */
+  todo: Set<string>;
+  onZone?: (g: Grade) => void;
+  zoneFull?: (g: Grade) => boolean;
+}
+
 /** What the HUD can ask the map to do. */
 export interface MapApi {
   /** Back to the child's island (the 現在地 compass). */
@@ -48,7 +59,7 @@ export interface MapApi {
 }
 
 const TOKENS = [
-  ...TERRAIN_TOKENS, "unex", "num", "geo", "rel", "data", "h-i", "h-ii", "h-iii", "h-a", "h-b", "h-c", "gold", "root",
+  ...TERRAIN_TOKENS, "unex", "num", "geo", "rel", "data", "h-i", "h-ii", "h-iii", "h-a", "h-b", "h-c", "gold", "root", "range", "veil",
 ] as const;
 const COLOR_TOKEN: Record<ColorKey, string> = {
   num: "num", geo: "geo", rel: "rel", data: "data", hI: "h-i", hII: "h-ii", hIII: "h-iii", hA: "h-a", hB: "h-b", hC: "h-c",
@@ -126,8 +137,11 @@ export function TerritoryMap(props: {
   /** The detail sheet is open: frames go to the band above it. */
   sheetOpen: boolean;
   api: MutableRefObject<MapApi | null>;
+  /** テスト前モード (null when off). */
+  exam?: ExamLook | null;
 }) {
   const { tiles, grade, selected, onSelect, lit, pointed, sheetOpen } = props;
+  const exam = props.exam ?? null;
   const T = territory();
   const wrap = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
@@ -231,6 +245,11 @@ export function TerritoryMap(props: {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.imageSmoothingEnabled = true;
     ctx.drawImage(tc.cv, ((tc.x0 - cm.x) * cm.k + w / 2) * dpr, ((tc.y0 - cm.y) * cm.k + h / 2) * dpr, tc.w * r * dpr, tc.h * r * dpr);
+    // picking the range (テスト前モード): the land dims so the tiles to tap stand out
+    if (exam?.dim) {
+      ctx.fillStyle = css(p.veil);
+      ctx.fillRect(0, 0, cv.width, cv.height);
+    }
 
     ctx.setTransform(dpr * cm.k, 0, 0, dpr * cm.k, dpr * ox, dpr * oy);
     // tiles, back to front, on their zone's ground
@@ -277,6 +296,7 @@ export function TerritoryMap(props: {
       const light = (0.299 * g[0] + 0.587 * g[1] + 0.114 * g[2]) / 255 > 0.82;
       return mix(light ? mix(g, p.root, 0.13) : mix(g, p.white, 0.3), p[COLOR_TOKEN[u.color]], 0.08);
     };
+    const rangeTops: [number, number][] = [];
     for (const t of items) {
       if (t.x < vx0 - 2 || t.x > vx1 + 2) continue;
       const yb = t.z * 0.72 - t.e * 0.7;
@@ -293,7 +313,30 @@ export function TerritoryMap(props: {
       } else if (look.fill === "unex") sh = shadeFor(`u-${u.grade}-${u.color}`, () => unexOf(u));
       else if (look.fill === "gold") sh = shadeFor("gold", () => p.gold);
       else sh = shadeFor(u.color, () => p[COLOR_TOKEN[u.color]]);
-      column(t.x, t.z, t.e, heightOf(t, now), sh, t.unitId === selected ? css(p.white) : null);
+      const inRange = !!exam?.range.has(t.unitId);
+      if (exam?.dim && !inRange) {
+        // outside the range while picking: the same tile, sunk into the veil
+        const base = sh;
+        sh = shadeFor(`dim-${base.body}`, () => mix(parseColor(base.body), mix(p.black, p.veil, 0.5), 0.5));
+      }
+      const hh = heightOf(t, now);
+      column(t.x, t.z, t.e, hh, sh, t.unitId === selected ? css(p.white) : null);
+      if (inRange) rangeTops.push(project(t.x, t.z, t.e + hh));
+    }
+    // range tiles (テスト前モード): a bright outline with a dark casing on every hex of the unit, drawn
+    // over the columns so it reads on gold, red and unexplored tiles alike
+    if (rangeTops.length) {
+      const wd = Math.max(0.08, px * 2.6);
+      ctx.lineJoin = "round";
+      for (const [lw, col] of [[wd * 2.4, mix(p.black, p.veil, 0.4)], [wd, p.range]] as const) {
+        ctx.strokeStyle = css(col);
+        ctx.lineWidth = lw;
+        for (const [cx, cy] of rangeTops) {
+          poly(hexCorners(cx, cy, HEX.tile));
+          ctx.stroke();
+        }
+      }
+      ctx.lineJoin = "miter";
     }
 
     // root routes of the open unit: dashed sea lines to its roots on other islands
@@ -338,7 +381,7 @@ export function TerritoryMap(props: {
     if (animating) frame.current = requestAnimationFrame(tick);
     // tick is stable; it always runs the latest draw (selection, states)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [T, items, status, riseOf, heightOf, selected]);
+  }, [T, items, status, riseOf, heightOf, selected, exam]);
   drawRef.current = draw;
 
   const schedule = useCallback(() => {
@@ -552,19 +595,33 @@ export function TerritoryMap(props: {
         {T.regions.map((reg) => {
           // zone label: name, then grade + 標高, on the land just above its tiles
           const own = reg.grade === grade;
+          const onZone = exam?.dim ? exam.onZone : undefined;
+          const full = !!exam?.zoneFull?.(reg.grade);
           return (
             <span
               key={`l-${reg.grade}`}
-              className={`terr-reg${own ? " is-own" : ""}`}
+              className={`terr-reg${own ? " is-own" : ""}${onZone ? " has-zone-btn" : ""}`}
               style={{ left: `${reg.label[0]}px`, top: `${reg.label[1]}px` }}
               data-region={reg.grade}
-              aria-hidden
+              aria-hidden={onZone ? undefined : true}
             >
-              <b className="reg-name">{zoneName(reg.grade)}</b>
-              <span className="reg-meta">
+              <b className="reg-name" aria-hidden>{zoneName(reg.grade)}</b>
+              <span className="reg-meta" aria-hidden>
                 <i>{reg.grade}</i>
                 {app.map.terr.elevation(reg.metres)}
               </span>
+              {onZone && (
+                <button
+                  type="button"
+                  className={`reg-all${full ? " is-full" : ""}`}
+                  onClick={() => onZone(reg.grade)}
+                  aria-label={(full ? app.exam.zoneNoneLabel : app.exam.zoneAllLabel)(reg.grade, zoneName(reg.grade))}
+                  data-testid="zone-all"
+                  data-grade={reg.grade}
+                >
+                  {full ? app.exam.zoneNone : app.exam.zoneAll}
+                </button>
+              )}
             </span>
           );
         })}
@@ -613,21 +670,25 @@ export function TerritoryMap(props: {
           const u = T.byId.get(t.unit.id);
           if (!u) return null;
           const look = lookOf(t.status);
+          const inRange = !!exam?.range.has(t.unit.id);
+          const todo = !!exam?.todo.has(t.unit.id);
           return (
             <button
               key={t.unit.id}
               type="button"
-              className={`terr-unit st-${t.status}${litSet.has(t.unit.id) ? " is-lit" : ""}${selected === t.unit.id ? " is-sel" : ""}${pointed === t.unit.id ? " is-pointed" : ""}${selected && rootIds(selected).includes(t.unit.id) ? " is-root" : ""}${t.unit.appGrade === grade ? " is-own" : ""}`}
+              className={`terr-unit st-${t.status}${inRange ? " is-range" : ""}${todo ? " is-todo" : ""}${litSet.has(t.unit.id) ? " is-lit" : ""}${selected === t.unit.id ? " is-sel" : ""}${pointed === t.unit.id ? " is-pointed" : ""}${selected && rootIds(selected).includes(t.unit.id) ? " is-root" : ""}${t.unit.appGrade === grade ? " is-own" : ""}`}
               data-unit={t.unit.id}
               data-status={t.status}
-              aria-label={tileLabel(t)}
-              aria-pressed={selected === t.unit.id}
+              aria-label={exam?.dim ? `${tileLabel(t)}（${inRange ? app.exam.inRange : app.exam.notInRange}）` : tileLabel(t)}
+              aria-pressed={exam?.dim ? inRange : selected === t.unit.id}
+              data-range={exam ? (inRange ? "1" : "0") : undefined}
               onClick={() => {
                 if (gesture.current.moved) return;
                 onSelect(selected === t.unit.id ? null : t.unit.id);
               }}
             >
               <span className="terr-mark" aria-hidden>
+                {todo && <span className="terr-todo" />}
                 {look.pulse && <span className="terr-pulse" />}
                 {look.flag && (
                   <svg className="terr-flag" viewBox="0 0 20 30" width="20" height="30">
