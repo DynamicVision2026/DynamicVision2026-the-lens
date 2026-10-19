@@ -10,6 +10,8 @@ Students or parents photograph homework, workbook pages and graded tests. Lens S
 - Reader test photos + answer key (original synthetic pages): `fixtures/`
 - Build, run, deploy, screenshots: `docs/BUILD-NOTES-v0.md`; deploy: `bash apps/snap/deploy.sh <project>` from the repo root
 - 単元マップ = a curriculum star chart (`src/lib/starmap.ts`): four lanes, grades rising upward; the child's grade and the grade below in full, other grades as a compact far sky (tap to open); units with data glow and link to their roots in the grade below; 「一覧」 keeps the tile view
+- 学習レポート (`/app/report`, `src/lib/report.ts`): the parent's one-glance page and the app home once pages exist — one segmented bar of the grade's units (マスター / 復習ずみ / 復習が必要 / まだ), 次にやること (up to 3 red units → テスト前リスト), red units of earlier grades with the unit they support, この1週間, unit chips
+- テスト前リスト: gold units' older ✕ sit in a collapsed 「念のため」 section and do not count against 準備度; `?units=a,b` preselects units
 - Home-screen app: `public/manifest.webmanifest`, `public/sw.js` (offline app shell, never caches `/api`), icons from `node scripts/icons.mjs`
 - Data safety: persistent-storage request after the first 保存, install tip, and ふりかえり → バックアップ (one JSON file, restore merges by page id)
 

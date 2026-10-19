@@ -59,8 +59,11 @@ export function MapScreen({ grade }: { grade: Grade }) {
       {nUnfiled > 0 && <p className="notice notice-warn">{app.map.unfiled(nUnfiled)}</p>}
       {view === "sky" ? <SkyView tiles={tiles} grade={grade} lit={lit} /> : <ListView pages={pages} grade={grade} lit={lit} />}
       {toast && (
-        <div className="toast" role="status" data-testid="lit-toast">
-          {app.map.litToast(saved, lit.length > 0)}
+        <div className="toast toast-row" role="status">
+          <span data-testid="lit-toast">{app.map.litToast(saved, lit.length > 0)}</span>
+          <Link to="/app/report" className="toast-link" data-testid="toast-report">
+            {app.map.toReport}
+          </Link>
         </div>
       )}
     </div>

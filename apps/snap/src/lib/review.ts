@@ -32,16 +32,34 @@ export function testList(pages: SavedPage[], unitIds: Iterable<string>): ListIte
   return items;
 }
 
-/** Share (0–100) of problems in range that need nothing more tonight; null when no data. */
+/**
+ * テスト前リスト split for the screen:
+ *   main      — ✕ / low-confidence problems of the chosen units that are not gold (マスター).
+ *   nennotame — 念のため: the older ✕ / low-confidence problems of chosen gold units. Their newest
+ *               page is all ○, so these are an optional re-check, not tonight's work.
+ */
+export function splitTestList(pages: SavedPage[], unitIds: Iterable<string>): { main: ListItem[]; nennotame: ListItem[] } {
+  const gold = goldUnits(pages);
+  const main: ListItem[] = [];
+  const nennotame: ListItem[] = [];
+  for (const item of testList(pages, unitIds)) (gold.has(item.problem.unit!) ? nennotame : main).push(item);
+  return { main, nennotame };
+}
+
+/**
+ * Share (0–100) of problems in range that need nothing more tonight; null when no data.
+ * Old ✕ of gold units are not pending (they sit in 念のため, outside the main list).
+ */
 export function readiness(pages: SavedPage[], unitIds: Iterable<string>): number | null {
   const want = new Set(unitIds);
+  const gold = goldUnits(pages);
   let total = 0;
   let pending = 0;
   for (const page of pages)
     for (const p of page.problems) {
       if (!p.unit || !want.has(p.unit)) continue;
       total++;
-      if (reasonFor(p) && !p.reviewed) pending++;
+      if (reasonFor(p) && !p.reviewed && !gold.has(p.unit)) pending++;
     }
   return total === 0 ? null : Math.round(((total - pending) / total) * 100);
 }
@@ -102,6 +120,13 @@ function unitStats(pages: SavedPage[]): Map<string, UnitStats> {
 function tileOf(unit: Unit, s: UnitStats | undefined): Tile {
   const status: TileStatus = !s ? "empty" : s.latestAllOk ? "gold" : s.pending > 0 ? "review" : "ok";
   return { unit, count: s?.count ?? 0, wrong: s?.wrong ?? 0, status };
+}
+
+/** Units that are gold (マスター): the newest page with problems in the unit has only ○ there. */
+export function goldUnits(pages: SavedPage[]): Set<string> {
+  const out = new Set<string>();
+  for (const [id, s] of unitStats(pages)) if (s.latestAllOk) out.add(id);
+  return out;
 }
 
 /** マップ tiles for all 110 units, in curriculum order. */

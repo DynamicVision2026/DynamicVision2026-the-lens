@@ -86,6 +86,16 @@ CER ignores `[figure]` notes (the prompt asks for them; truth text does not incl
 
 Tests: 74 (vitest, 10 files; new: `starmap.test.ts` 17, `backup.test.ts` 4, `sw.test.ts` 4). Screenshots added: `07-saved-lit` (mid-flare), `08-starmap` (near 小5/小4, far bands, red 小3 and gold 小6 visible from afar), `08s-starmap-sheet`, `08e-starmap-expanded` (小3 opened), `08l-map-list`, `15-install-tip`, `16-backup` (old `08-map` / `08b-map-other-grade` removed: the tile view is now `08l`).
 
+## v0.2 (19 Oct 2026): 学習レポート + 念のため
+
+- **テスト前リスト 念のため**: `splitTestList()` in `review.ts` puts the ✕ / low-confidence problems of gold (マスター) units into a collapsed `<details>` 「念のため（最新のページでは全問○の単元）」 with a count (same card, same 「復習した」 tick); the main list keeps every other unit unchanged. `readiness()` no longer counts gold units' old ✕ as pending. Main list empty but 念のため not → 「選んだ単元で、今夜やる問題はありません。念のための見直しは下にあります。」. `?units=5-C3,5-D2` selects exactly those units (parsed like `?lit=`); `?unit=` still works.
+- **学習レポート** (`/app/report`, `src/screens/Report.tsx`, pure logic in `src/lib/report.ts`): light theme; title + 最後に撮った日 / page count; one segmented bar of the child's grade units (マスター / 復習ずみ / 復習が必要 / まだ, light map colours, `role="img"` with the counts as its label, plus a text line with swatches; zero states omitted); 次にやること (red units of the grade, most open ✕ first, up to 3, one button → `/app/list?units=…`); 前の学年で気になる単元 (red units of earlier grades, nearest grade first, up to 3; `supports` = the child's-grade unit whose star-chart root path reaches it, red preferred, e.g. 小3 除法 → 小5「整数の性質」のもと; none known → no arrow line); この1週間 (pages / problems / ✕ saved in the last 7 days by createdAt); unit chips for マスター / 復習が必要 / 復習ずみ (まだ only counted) → that unit's list; link to the map. No pages → a card explaining the four states + 「ページを撮る」.
+- **App home**: `/app` (and unknown `/app/*`) → `/app/report` when pages exist, `/app/snap` when none; choosing a grade goes through the same redirect. After 保存 the map + toast stay; the toast now carries 「レポートを見る」.
+- **Tab bar**: 5 tabs (撮る / レポート / マップ / テスト前 / ふりかえり), 24 px line icons in `currentColor` (inline SVG in `App.tsx`), 0.72rem labels, no wrap at 390 px.
+- New token `--c-empty-strong` (まだ in the report bar).
+
+Tests: 82 (11 files; new `report.test.ts` 8: 念のため split, readiness, unchanged non-gold units, state counts, next-to-do order, earlier-grade reds with supported unit, last-7-days, empty). Screenshots added: `17-report`, `17e-report-empty`, `09n-test-list-nennotame`. `screens.py` computes the この1週間 expectation from today's date (the seed pages are fixed dates).
+
 ## Known gaps
 
 - **Claude reader not run here** (no key in this environment): implemented and type-checked only. Default `READER_MODEL` is `claude-haiku-5-5` (`claude-sonnet-5-5` as the higher-accuracy option); run `pnpm eval --reader claude` with each before launch.
@@ -102,4 +112,7 @@ Tests: 74 (vitest, 10 files; new: `starmap.test.ts` 17, `backup.test.ts` 4, `sw.
 - Star labels show up to 3 short lines (10–10.5 px); the longest topic (小3 二等辺三角形・正三角形、角、円と球) is cut with 「…」 on the chart and shown in full in the sheet.
 - The service worker was checked in Chromium (Playwright: offline reload of `/app/map` works, no `/api` entries in the cache) and in a unit test; not yet on a real iPhone. iOS may still clear site data for web pages not added to the home screen, which is why the install tip and backup exist.
 - `navigator.storage.persist()` is a request; Chrome may decline it for sites that are not installed or bookmarked. The result is stored but not shown.
+- 学習レポート fits one phone screen down to 次にやること; 前の学年, この1週間 and the chips need one short scroll on a 390×844 phone. The 復習が必要 chip group repeats the 次にやること units (kept as specified; dropping it would save ~50 px).
+- 「最後に撮った日」 and この1週間 use the device clock and local time; a page saved on another device with a skewed clock (backup restore) can fall outside the week.
+- 準備度 is still shown as a percentage of problems in range with nothing left to do (existing v0 wording); it describes review progress, not understanding, but the founder may want to re-check it against the no-score rule.
 - Anthropic SDK 0.32 triggers a harmless Node `punycode` deprecation warning; upgrading the SDK will remove it.
