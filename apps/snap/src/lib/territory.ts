@@ -608,6 +608,12 @@ export function buildHud(pages: SavedPage[], grade: Grade, now = new Date()): Hu
 
 // ---------- detail sheet ----------
 
+/** 「10/19」 from an ISO time (device time); "" when it cannot be read. */
+export function shortDate(iso: string): string {
+  const d = new Date(iso);
+  return Number.isNaN(d.getTime()) ? "" : `${d.getMonth() + 1}/${d.getDate()}`;
+}
+
 export interface HistoryRow {
   pageId: string;
   /** 「10/19」 (device time). */
@@ -624,11 +630,10 @@ export function unitHistory(pages: SavedPage[], unitId: string): HistoryRow[] {
   for (const pg of pages) {
     const ps = pg.problems.filter((p) => p.unit === unitId);
     if (ps.length === 0) continue;
-    const d = new Date(pg.createdAt);
     rows.push({
       at: pg.createdAt,
       pageId: pg.id,
-      date: Number.isNaN(d.getTime()) ? "" : `${d.getMonth() + 1}/${d.getDate()}`,
+      date: shortDate(pg.createdAt),
       type: app.pageType[pg.pageType] ?? app.pageType.other,
       wrong: ps.filter((p) => p.mark === "✕").length,
       ok: ps.filter((p) => p.mark === "○").length,

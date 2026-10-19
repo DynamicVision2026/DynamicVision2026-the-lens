@@ -22,7 +22,11 @@ Flow: landing → waitlist → /app grade 小5 → the map is home (empty territ
       → gated server: 招待コード prompt, wrong code → 403 → asked again → right code reads.
 Journey (J*, for the founder): fresh 小5 profile on the journey server → J1 empty territory (home) → 撮る →
       the live 4年 sheet → J2 confirm (AI判定) → 保存 → J3 fly + tiles rising + toast → J4 HUD with
-      red flags, 次にやること 2 → J5 次にやること → 平均 sheet (history, routes) → J6 テスト前リスト from the sheet.
+      red flags, 次にやること 2 → J5 次にやること → 平均 sheet at half height (history, routes, its ✕ problem)
+      → J6 テスト前リスト from the sheet.
+Unit sheet (21*): 5-C3 sheet half height → ticks → 「この単元の問題を見る」 (full height, 問題 at the top, 21) →
+      thumbnail → page viewer (21v: photo, double-tap zoom, the page's problems with 割合 highlighted) → close
+      keeps the sheet and its scroll → back closes the viewer, then the sheet; the map camera returns.
 """
 import json, os, re, sys, tempfile
 from pathlib import Path
@@ -262,11 +266,26 @@ with sync_playwright() as p:
     page.wait_for_timeout(300)
     shot(page, "18-map-home", full=False)
 
-    # 5c. Tap a tile → the detail sheet (counts, history, roots); root routes drawn; HUD card steps aside
+    # 5c. Tap a tile → the unit sheet at half height (layer 3: zone, counts, roots, history; layer 4: the
+    #     unit's problems); root routes drawn; HUD card steps aside. The view before the tap is remembered.
+    cam0 = page.locator(".terr-reg.is-own").bounding_box()
     page.locator('button.terr-unit[data-unit="5-C3"]').click()
     sheet = page.get_by_test_id("star-sheet")
     expect(sheet).to_be_visible()
     expect(sheet).to_contain_text("割合")
+    expect(sheet).to_have_attribute("data-size", "half")
+    expect(sheet.get_by_test_id("sheet-zone")).to_have_text("深い森林帯")
+    sb = sheet.bounding_box()
+    assert 844 * 0.4 < sb["height"] <= 844 * 0.57 + 1, sb  # half height, the map above it
+    probs = sheet.get_by_test_id("unit-problem")
+    expect(probs).to_have_count(5)  # p01: 5 problems in 割合, newest first, page order
+    expect(probs.nth(0)).to_contain_text("問1")
+    expect(sheet.locator('[data-testid=unit-problem][data-mark=x]')).to_have_count(2)
+    expect(sheet.get_by_test_id("up-tick")).to_have_count(2)  # only the ✕ (same ticks as the テスト前リスト)
+    expect(sheet.locator('[data-testid=unit-problem][data-source=teacher] [data-testid=up-source]').first).to_have_text("先生の印")
+    expect(sheet.locator('[data-testid=unit-problem][data-source=parent] [data-testid=up-source]')).to_have_text("保護者")
+    expect(sheet.get_by_test_id("photo-thumb")).to_have_count(5)
+    expect(sheet.get_by_test_id("sheet-nennotame")).to_have_count(0)
     expect(sheet.get_by_test_id("sheet-history").locator("li")).to_have_count(1)
     expect(sheet.get_by_test_id("sheet-history")).to_contain_text("テスト")
     expect(sheet.get_by_test_id("sheet-history")).to_contain_text("✕2")
@@ -276,18 +295,81 @@ with sync_playwright() as p:
     expect(page.locator('button.terr-unit.is-sel[data-unit="5-C3"] .terr-pin')).to_contain_text("割合")
     expect(page.get_by_test_id("hud-card")).to_be_hidden()
     expect(page.get_by_test_id("snap-fab")).to_have_count(0)  # never covers the open sheet
-    expect(sheet.get_by_role("link", name="この単元の問題を見る")).to_have_attribute("href", "/app/list?unit=5-C3")
+    expect(sheet.get_by_test_id("sheet-list")).to_have_attribute("href", "/app/list?unit=5-C3")
     expect(sheet.get_by_test_id("sheet-report")).to_have_attribute("href", "/app/report")
     page.wait_for_timeout(900)  # the camera settles above the sheet
     pin = page.locator('button.terr-unit.is-sel .terr-pin').bounding_box()
     assert pin["y"] > 56 and pin["y"] + pin["height"] < sheet.bounding_box()["y"], (pin, sheet.bounding_box())
     shot(page, "08s-map-sheet", full=False)
-    sheet.locator('button.root-btn[data-unit="4-C2"]').click()  # fly to the root on the 小4 island
+    # the 「復習した」 tick in the sheet is the テスト前リスト's: tick, untick (persisted), the tile follows
+    tick = sheet.get_by_test_id("up-tick").first
+    tick.check()
+    expect(page.locator('button.terr-unit[data-unit="5-C3"]')).to_have_attribute("data-status", "review")  # one ✕ left
+    tick.uncheck()
+    # 「この単元の問題を見る」 = full height + the 問題 section at the top of the sheet
+    sheet.get_by_test_id("sheet-to-problems").click()
+    expect(sheet).to_have_attribute("data-size", "full")
+    page.wait_for_timeout(500)
+    pb = sheet.get_by_test_id("sheet-problems").bounding_box()
+    hb = sheet.locator(".sheet-head").bounding_box()
+    assert abs(pb["y"] - (hb["y"] + hb["height"])) < 24, (pb, hb)
+    shot(page, "21-sheet-full", full=False)
+    # 21v. A thumbnail → the page viewer over the map: the photo, the page's problems, this unit's highlighted
+    body = sheet.get_by_test_id("sheet-body")
+    scroll0 = body.evaluate("el => el.scrollTop")
+    probs.nth(1).get_by_test_id("photo-thumb").click()
+    viewer = page.get_by_test_id("page-viewer")
+    expect(viewer).to_be_visible()
+    expect(viewer.get_by_test_id("viewer-photo")).to_be_visible()
+    expect(viewer.locator(".pv-row")).to_have_count(5)
+    expect(viewer.locator(".pv-row.is-unit")).to_have_count(5)
+    expect(viewer.locator(".pv-row.is-unit").first).to_contain_text("この単元（割合）")
+    stage = viewer.get_by_test_id("viewer-stage")
+    stage.dblclick()  # double tap → zoomed in; 元の大きさ resets
+    expect(stage).to_have_attribute("data-zoomed", "1")
+    expect(viewer.get_by_test_id("viewer-reset")).to_be_visible()
+    viewer.get_by_test_id("viewer-reset").click()
+    expect(stage).to_have_attribute("data-zoomed", "0")
+    page.wait_for_timeout(300)
+    shot(page, "21v-page-viewer", full=False)
+    # close → the same sheet (full height, same scroll); the map under it never moved
+    viewer.get_by_test_id("viewer-close").click()
+    expect(viewer).to_have_count(0)
+    expect(sheet).to_have_attribute("data-size", "full")
+    expect(sheet).to_contain_text("割合")
+    assert abs(body.evaluate("el => el.scrollTop") - scroll0) < 2
+    # back (iPhone swipe-back) peels the layers: viewer → sheet → (map stays)
+    sheet.get_by_test_id("hist-row").first.click()
+    expect(viewer).to_be_visible()
+    page.go_back()
+    expect(viewer).to_have_count(0)
+    expect(sheet).to_be_visible()
+    expect(page).to_have_url(re.compile(re.escape(BASE + "/app/map") + "$"))
+    sheet.get_by_test_id("sheet-grab").click()  # tap the handle: back to half height
+    expect(sheet).to_have_attribute("data-size", "half")
+    sheet.locator('button.root-btn[data-unit="4-C2"]').click()  # fly to the root on the 小4 island (same entry)
     expect(sheet).to_contain_text("簡単な割合")
     expect(page.locator('button.terr-unit.is-sel[data-unit="4-C2"]')).to_have_count(1)
+    page.go_back()
+    expect(sheet).to_have_count(0)
+    expect(page).to_have_url(re.compile(re.escape(BASE + "/app/map") + "$"))
+    expect(page.get_by_test_id("snap-fab")).to_be_visible()
+    page.wait_for_timeout(900)  # the camera flies back to where it was before the sheet
+    cam1 = page.locator(".terr-reg.is-own").bounding_box()
+    assert abs(cam1["x"] - cam0["x"]) < 2 and abs(cam1["y"] - cam0["y"]) < 2, (cam0, cam1)
+    # drag the handle down closes; Esc closes; a tap on the map closes
+    page.locator('button.terr-unit[data-unit="5-C3"]').click()
+    expect(sheet).to_be_visible()
+    gb = sheet.get_by_test_id("sheet-grab").bounding_box()
+    page.mouse.move(gb["x"] + gb["width"] / 2, gb["y"] + 10)
+    page.mouse.down()
+    for i in range(1, 8):
+        page.mouse.move(gb["x"] + gb["width"] / 2, gb["y"] + 10 + i * 25)
+    page.mouse.up()
+    expect(sheet).to_have_count(0)
+    page.locator('button.terr-unit[data-unit="5-C3"]').click()
     page.keyboard.press("Escape")
     expect(sheet).to_have_count(0)
-    expect(page.get_by_test_id("snap-fab")).to_be_visible()
 
     # 5c2. 次にやること: the badge pans to the red-flagged tiles one by one, opening each one's detail
     page.get_by_test_id("hud-next").click()
@@ -417,6 +499,18 @@ with sync_playwright() as p:
     expect(page.locator('button.terr-unit.is-sel[data-unit="3-A4"]')).to_have_count(1)
     page.wait_for_timeout(800)
     shot(page, "18u-map-unit-from-report", full=False)
+    # seed pages have no photo: the placeholder still opens the viewer (problems, no photo)
+    page.get_by_test_id("star-sheet").get_by_test_id("photo-thumb").first.click()
+    expect(page.get_by_test_id("viewer-nophoto")).to_be_visible()
+    expect(page.get_by_test_id("page-viewer").locator(".pv-row.is-unit")).to_have_count(1)
+    page.keyboard.press("Escape")
+    expect(page.get_by_test_id("page-viewer")).to_have_count(0)
+    # back closes the sheet first and keeps the map; the next back returns to the report
+    page.go_back()
+    expect(page.get_by_test_id("star-sheet")).to_have_count(0)
+    expect(page).to_have_url(BASE + "/app/map?unit=3-A4")
+    page.go_back()
+    expect(page).to_have_url(BASE + "/app/report")
     page.goto(BASE + "/app/report")
     page.get_by_test_id("report-open-list").click()
     expect(page).to_have_url(BASE + "/app/list?units=5-C3,5-C1")
@@ -758,13 +852,21 @@ with sync_playwright() as p:
     expect(jsheet.get_by_test_id("sheet-history")).to_contain_text("ドリル")
     expect(jsheet.get_by_test_id("sheet-history")).to_contain_text("✕1")
     expect(jsheet.get_by_test_id("tour-next")).to_have_text("次へ（1/2）")
-    expect(jsheet.get_by_role("link", name="この単元の問題を見る")).to_have_attribute("href", "/app/list?unit=5-D2")
+    expect(jsheet.get_by_test_id("sheet-list")).to_have_attribute("href", "/app/list?unit=5-D2")
     expect(jp.locator("button.terr-unit.is-root")).not_to_have_count(0)
     expect(jp.get_by_test_id("snap-fab")).to_have_count(0)
+    # layer 4 in the half-height sheet: the ✕ problem of 平均 (AI判定, 正答（AI）, tick, photo) on the first screen
+    jprob = jsheet.get_by_test_id("unit-problem")
+    expect(jprob).to_have_count(1)
+    expect(jprob.nth(0)).to_contain_text("平均点を求めなさい")
+    expect(jprob.nth(0).get_by_test_id("up-source")).to_have_text("AI判定")
+    expect(jprob.nth(0).get_by_test_id("photo-thumb")).to_have_count(1)
     jp.wait_for_timeout(1000)
+    jb = jprob.nth(0).locator(".up-q").bounding_box()
+    assert jb["y"] + jb["height"] < 844, jb
     shot(jp, "J5-sheet", full=False)
-    # J6: テスト前リスト from the sheet: the ✕ problem of 平均
-    jsheet.get_by_role("link", name="この単元の問題を見る").click()
+    # J6: テスト前リスト from the sheet (multi-unit review stays its own screen): the ✕ problem of 平均
+    jsheet.get_by_test_id("sheet-list").click()
     expect(jp).to_have_url(JOURNEY + "/app/list?unit=5-D2")
     jitems = jp.get_by_test_id("review-item")
     expect(jitems).to_have_count(1)

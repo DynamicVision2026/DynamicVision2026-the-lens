@@ -2,6 +2,7 @@ import { type MutableRefObject, useCallback, useEffect, useImperativeHandle, use
 import { app } from "../copy";
 import type { Grade } from "../curriculum";
 import type { Tile, TileStatus } from "../lib/review";
+import { cameraStep } from "../lib/layers";
 import { rootIds } from "../lib/starmap";
 import {
   type Box,
@@ -433,6 +434,24 @@ export function TerritoryMap(props: {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // the sheet opening / closing (lib/layers cameraStep): remember the view when it opens, fly back to it
+  // when it closes, unless the student moved the map meanwhile. The page viewer over the sheet does not
+  // change sheetOpen, so it never moves the camera. Declared before the framing effect below, which
+  // runs in the same commit and must see the view from before the sheet.
+  const before = useRef<Cam | null>(null);
+  const wasOpen = useRef(false);
+  const moved = useRef(false);
+  useEffect(() => {
+    const step = cameraStep(wasOpen.current, sheetOpen, moved.current);
+    wasOpen.current = sheetOpen;
+    if (step === "save") {
+      before.current = fly.current?.to ?? cam.current;
+      moved.current = false;
+    } else if (step === "restore" && before.current) setCam(before.current, true);
+    if (!sheetOpen) before.current = null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sheetOpen]);
+
   // open unit (tap, 次にやること, ?unit=, a root in the sheet): bring it and its roots above the sheet
   useEffect(() => {
     if (!selected || !started.current) return;
@@ -470,9 +489,11 @@ export function TerritoryMap(props: {
         gesture.current.moved = true;
         wrap.current?.setPointerCapture?.(e.pointerId);
       }
+      moved.current = true;
       cam.current = panBy(cam.current, v, dx, dy, T);
     } else if (ptrs.current.size === 2) {
       gesture.current.moved = true;
+      moved.current = true;
       ptrs.current.set(e.pointerId, cur);
       const [a, b] = [...ptrs.current.values()];
       const d = Math.hypot(a.x - b.x, a.y - b.y);
@@ -497,6 +518,7 @@ export function TerritoryMap(props: {
     if (now - gesture.current.lastTap < 320) {
       // double tap: zoom in there
       gesture.current.lastTap = 0;
+      moved.current = true;
       setCam(zoomAt(cam.current, view.current, 1.7, p.x, p.y, T), true);
       return;
     }
@@ -508,6 +530,7 @@ export function TerritoryMap(props: {
   const onWheel = (e: React.WheelEvent) => {
     if (!cam.current) return;
     const p = local(e);
+    moved.current = true;
     lastZoom.current = performance.now();
     cam.current = zoomAt(cam.current, view.current, Math.exp(-e.deltaY * 0.0015), p.x, p.y, T);
     schedule();
