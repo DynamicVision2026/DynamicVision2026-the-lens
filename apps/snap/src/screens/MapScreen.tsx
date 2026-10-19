@@ -6,6 +6,7 @@ import { PhotoThumb } from "../components/PhotoThumb";
 import { SnapFab } from "../components/SnapFab";
 import { TerrGlyph } from "../components/TerrGlyph";
 import { type ExamLook, type MapApi, TerritoryMap } from "../components/TerritoryMap";
+import { VideoLink, YouTubeGlyph } from "../components/VideoLink";
 import { WelcomeCard } from "../components/WelcomeCard";
 import { app } from "../copy";
 import { type Grade, type Unit, isHighSchool, unitById } from "../curriculum";
@@ -13,12 +14,14 @@ import { type ExamStore, type PlanItem, buildPlan, countdown, currentTest, defau
 import { focusFromParam, savedToast } from "../lib/home";
 import { type NavStep, arrivalStep, closeTop, layersOf, openExam, openShare, openSheet, openViewer, openYears } from "../lib/layers";
 import type { SavedPage } from "../lib/model";
+import { LEVELS_DESC, type Level, type UnitLevel, keyOf, levelName } from "../lib/ladder";
 import { type MapSection, type Tile, mapSections, mapTiles, parseLit, unfiled } from "../lib/review";
 import { sheetData } from "../lib/starmap";
 import { setReviewed } from "../lib/store";
 import { type Hud, LEVELS, STRANDS, buildHud, colorKeyOf, zoneName } from "../lib/territory";
 import { type SheetProblem, type UnitSheet, unitSheet } from "../lib/unitsheet";
 import { type YearRow, yearlyRecord } from "../lib/yearly";
+import { channelUrl, unitVideoUrl } from "../lib/youtube";
 import { readPref, usePages, writePref } from "../state";
 import { ExamDate, ExamSummary, PlanSheet, RangeBar } from "./ExamMode";
 
@@ -305,6 +308,18 @@ function TerritoryView(props: {
               >
                 {app.map.terr.year.title}
               </button>
+              <a
+                role="menuitem"
+                href={channelUrl()}
+                target="_blank"
+                rel="noopener"
+                aria-label={app.video.channelLabel}
+                onClick={() => setMenu(false)}
+                data-testid="menu-youtube"
+              >
+                <YouTubeGlyph />
+                {app.video.button}
+              </a>
             </div>
           )}
           {examStep && test && (
@@ -403,12 +418,15 @@ function TerritoryView(props: {
   );
 }
 
-/** Top-right card: one compact line (制覇 N / total of the child's grade, 要復習) + the whole-map 小・中・高 bars. */
+/**
+ * Top-right card: one compact line (制覇 N / total of the child's grade) + the whole-map 小・中・高 bars +
+ * the child's grade by ladder step (「定着 1 ・ マスター 2 ・ 挑戦中 1」, highest first, 挑戦中 in red).
+ */
 function HudCard({ hud }: { hud: Hud }) {
   const t = app.map.terr;
-  const review = hud.counts.review;
+  const shown = LEVELS_DESC.filter((l) => l > 0 && hud.counts[keyOf(l)] > 0);
   return (
-    <section className="hud-card" aria-label={t.hudLabel(hud.grade, hud.taken, hud.total, review)} data-testid="hud-card">
+    <section className="hud-card" aria-label={t.hudLabel(hud.grade, hud.taken, hud.total, hud.levelsLine)} data-testid="hud-card">
       <div className="hud-line">
         <span className="hud-t">{t.hudTitle(hud.grade)}</span>
         <span className="hud-n" data-testid="hud-taken">
@@ -428,16 +446,22 @@ function HudCard({ hud }: { hud: Hud }) {
           </div>
         );
       })}
-      {review > 0 && (
-        <div className="hud-review" data-testid="hud-review">
-          {t.review(review)}
+      {shown.length > 0 && (
+        <div className="hud-levels" data-testid="hud-levels" aria-hidden>
+          {shown.map((l, i) => (
+            <span key={l} className={`hl hl-${keyOf(l)}`}>
+              {app.ladder.count(levelName(l), hud.counts[keyOf(l)])}
+              {/* the separator ends the item, so a wrapped line never starts with it */}
+              {i < shown.length - 1 && <i className="hl-sep">{app.ladder.sep.trim()}</i>}
+            </span>
+          ))}
         </div>
       )}
     </section>
   );
 }
 
-/** Bottom-left: a small 「凡例」 button; open, the strand legend + the four territory states. */
+/** Bottom-left: a small 「凡例」 button; open, the strand legend + the five ladder steps. */
 function Legend() {
   const t = app.map.terr;
   const [open, setOpen] = useState(false);
@@ -458,10 +482,10 @@ function Legend() {
             </li>
           </ul>
           <ul className="lg-states" data-testid="legend-states">
-            {(["empty", "ok", "review", "gold"] as const).map((s) => (
-              <li key={s}>
-                <TerrGlyph status={s} size={22} />
-                {t.states[s]}
+            {([0, 1, 2, 3, 4] as const).map((l) => (
+              <li key={l} data-level={l}>
+                <TerrGlyph level={l} size={22} />
+                {levelName(l)}
               </li>
             ))}
           </ul>
@@ -603,9 +627,10 @@ export function Sheet(props: {
           </button>
         </div>
         <h2 id="sheet-title" className="sheet-title">
-          <TerrGlyph status={tile.status} color={colorKeyOf(unit)} size={34} />
+          <TerrGlyph level={tile.level} color={colorKeyOf(unit)} size={34} />
           {unit.topic}
         </h2>
+        <LadderBar ladder={record.ladder} next={record.next} />
       </div>
       <div ref={body} className="sheet-body" data-testid="sheet-body">
         <dl className="sheet-stats">
@@ -615,19 +640,16 @@ export function Sheet(props: {
           </div>
           <div>
             <dt>{s.wrong}</dt>
-            <dd className={tile.wrong > 0 && tile.status !== "gold" ? "sum-review" : ""}>{tile.status === "gold" ? 0 : tile.wrong}</dd>
+            <dd className={tile.wrong > 0 && tile.level < 3 ? "sum-trying" : ""}>{tile.level >= 3 ? 0 : tile.wrong}</dd>
           </div>
-          <div className="sheet-state">
-            <dt>{s.state}</dt>
-            <dd className={`sum-${tile.status}`}>{app.map.terr.states[tile.status]}</dd>
-          </div>
+          {/* the step itself is the ladder bar under the title; this cell leads to the problems */}
+          {nProblems > 0 && (
+            <button type="button" className="sheet-to-probs" onClick={toProblems} data-testid="sheet-to-problems">
+              {s.open}
+              <span aria-hidden>↓</span>
+            </button>
+          )}
         </dl>
-        {nProblems > 0 && (
-          <button type="button" className="sheet-to-probs" onClick={toProblems} data-testid="sheet-to-problems">
-            {s.open}
-            <span aria-hidden>↓</span>
-          </button>
-        )}
         <h3 className="sheet-h">{t.history}</h3>
         {history.length === 0 ? (
           <p className="sheet-none">{t.noHistory}</p>
@@ -655,10 +677,13 @@ export function Sheet(props: {
           </ol>
         )}
         <section ref={probs} className="sheet-probs" aria-labelledby="sheet-probs-h" data-testid="sheet-problems">
-          <h3 id="sheet-probs-h" className="sheet-h sheet-probs-h">
-            {s.problems}
-            {nProblems > 0 && <span className="sheet-probs-n">{s.problemsCount(nProblems)}</span>}
-          </h3>
+          <div className="sheet-probs-top">
+            <h3 id="sheet-probs-h" className="sheet-h sheet-probs-h">
+              {s.problems}
+              {nProblems > 0 && <span className="sheet-probs-n">{s.problemsCount(nProblems)}</span>}
+            </h3>
+            <VideoLink href={unitVideoUrl(unit.topic)} label={app.video.unitLabel(unit.topic)} testid="sheet-youtube" />
+          </div>
           {nProblems === 0 && <p className="sheet-none">{s.noProblems}</p>}
           {record.problems.length > 0 && (
             <ol className="unit-probs" data-testid="unit-problems">
@@ -690,7 +715,7 @@ export function Sheet(props: {
             {roots.map((r) => (
               <li key={r.unit.id}>
                 <button type="button" className="root-btn" onClick={() => onPick(r.unit.id)} data-unit={r.unit.id}>
-                  <TerrGlyph status={r.status} color={colorKeyOf(r.unit)} size={28} />
+                  <TerrGlyph level={r.level} color={colorKeyOf(r.unit)} size={28} />
                   <span className="root-grade">{r.unit.appGrade}</span>
                   <span className="root-topic">{r.unit.topic}</span>
                   <span className="root-go" aria-hidden>›</span>
@@ -709,6 +734,28 @@ export function Sheet(props: {
         </div>
       </div>
     </section>
+  );
+}
+
+/** The sheet's 5-step ladder: ●●●●○ マスター, then one line on what makes the next step. */
+function LadderBar({ ladder, next }: { ladder: UnitLevel; next: string }) {
+  const steps: Level[] = [0, 1, 2, 3, 4];
+  return (
+    <div className={`ladder ladder-${ladder.key}`} data-testid="sheet-ladder" data-level={ladder.level}>
+      <p className="ladder-row" role="img" aria-label={app.ladder.barLabel(ladder.level + 1, ladder.name)}>
+        <span className="ladder-dots" aria-hidden>
+          {steps.map((l) => (
+            <i key={l} className={`ld${l <= ladder.level ? " is-on" : ""}${l === ladder.level ? " is-cur" : ""}`} />
+          ))}
+        </span>
+        <b className="ladder-name" aria-hidden>
+          {ladder.name}
+        </b>
+      </p>
+      <p className="ladder-next" data-testid="sheet-next-step">
+        {next}
+      </p>
+    </div>
   );
 }
 
@@ -783,11 +830,13 @@ function ListHeader() {
   return (
     <>
       <p className="muted">{app.map.body}</p>
-      <div className="legend">
-        <span><i className="dot dot-review" />{app.map.legend.review}</span>
-        <span><i className="dot dot-ok" />{app.map.legend.ok}</span>
-        <span><i className="dot dot-gold" />{app.map.legend.gold}</span>
-        <span><i className="dot dot-empty" />{app.map.legend.empty}</span>
+      <div className="legend" data-testid="list-legend">
+        {LEVELS_DESC.map((l) => (
+          <span key={l}>
+            <i className={`dot dot-${keyOf(l)}`} />
+            {app.map.legend[keyOf(l)]}
+          </span>
+        ))}
       </div>
     </>
   );
@@ -843,9 +892,13 @@ function Section(props: { section: MapSection; open: boolean; onToggle: (g: Grad
         <span className="sec-grade">{grade}</span>
         {own && <span className="sec-own">{app.map.own}</span>}
         <span className="sec-sum">
-          {counts.review > 0 && <span className="sum sum-review">{app.map.sum.review(counts.review)}</span>}
-          {counts.gold > 0 && <span className="sum sum-gold">{app.map.sum.gold(counts.gold)}</span>}
-          {counts.ok > 0 && <span className="sum sum-ok">{app.map.sum.ok(counts.ok)}</span>}
+          {(["trying", "settled", "master", "reviewed"] as const).map((k) =>
+            counts[k] > 0 ? (
+              <span key={k} className={`sum sum-${k}`}>
+                {app.map.sum[k](counts[k])}
+              </span>
+            ) : null,
+          )}
           <span>{app.map.units(tiles.length)}</span>
         </span>
       </summary>
@@ -861,20 +914,21 @@ function Tiles({ tiles, showSubject, lit }: { tiles: Tile[]; showSubject: boolea
         <li key={t.unit.id}>
           <Link
             to={`/app/list?unit=${encodeURIComponent(t.unit.id)}`}
-            className={`tile tile-${t.status}${lit.has(t.unit.id) ? " is-lit" : ""}`}
+            className={`tile tile-${t.key}${lit.has(t.unit.id) ? " is-lit" : ""}`}
             data-unit={t.unit.id}
-            data-status={t.status}
+            data-status={t.key}
+            data-level={t.level}
           >
             <span className="tile-code">
               {showSubject ? `${t.unit.grade} ` : ""}
               {t.unit.unit}
-              {t.status === "gold" && <span className="tile-star"> {app.map.star}</span>}
+              {t.level >= 3 && <span className="tile-star"> {t.level === 4 ? app.ladder.names.settled : app.map.star}</span>}
             </span>
             <span className="tile-topic">{t.unit.topic}</span>
             <span className="tile-stats">
               {t.count > 0 ? app.map.problems(t.count) : "—"}
-              {/* A gold tile hides old ✕ counts: the newest test proved the unit. */}
-              {t.wrong > 0 && t.status !== "gold" && <b className="tile-wrong">{app.map.wrong(t.wrong)}</b>}
+              {/* A マスター / 定着 tile hides old ✕ counts: the newest page proved the unit. */}
+              {t.wrong > 0 && t.level < 3 && <b className="tile-wrong">{app.map.wrong(t.wrong)}</b>}
             </span>
           </Link>
         </li>

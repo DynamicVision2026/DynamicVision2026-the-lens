@@ -1,6 +1,7 @@
 import { GRADES, type Grade, type Unit, unitsForGrade } from "../curriculum";
 import type { SavedPage } from "./model";
-import { type Tile, type TileStatus, mapTiles } from "./review";
+import { type LevelCounts, type LevelKey, zeroCounts } from "./ladder";
+import { type Tile, mapTiles } from "./review";
 import { rootPath } from "./starmap";
 
 /**
@@ -9,10 +10,10 @@ import { rootPath } from "./starmap";
  * score, a percentage of understanding, or a promise.
  */
 
-/** Order of the segmented bar, left to right. */
-export const BAR_ORDER: TileStatus[] = ["gold", "ok", "review", "empty"];
+/** Order of the segmented bar, left to right: the ladder from the top (定着) down to まだ. */
+export const BAR_ORDER: LevelKey[] = ["settled", "master", "reviewed", "trying", "mada"];
 /** Unit chip groups (まだ units are only counted, not listed). */
-export const CHIP_ORDER = ["gold", "review", "ok"] as const;
+export const CHIP_ORDER = ["settled", "master", "trying", "reviewed"] as const;
 export type ChipState = (typeof CHIP_ORDER)[number];
 
 const MAX_NEXT = 3;
@@ -38,9 +39,9 @@ export interface Report {
   pages: number;
   /** createdAt of the newest page, null when there are none. */
   lastAt: string | null;
-  /** Units of the child's grade, and how many are in each state. */
+  /** Units of the child's grade, and how many are on each step of the ladder. */
   total: number;
-  counts: Record<TileStatus, number>;
+  counts: LevelCounts;
   next: ReviewUnit[];
   earlier: EarlierUnit[];
   /** Every red unit of an earlier grade (same order as `earlier`, not capped). */
@@ -56,23 +57,23 @@ function openWrong(pages: SavedPage[]): Map<string, number> {
   return m;
 }
 
-/** Counts of each state among one grade's tiles. */
-export function stateCounts(tiles: Tile[], grade: Grade): { total: number; counts: Record<TileStatus, number> } {
-  const counts: Record<TileStatus, number> = { gold: 0, ok: 0, review: 0, empty: 0 };
+/** Units on each step among one grade's tiles. */
+export function stateCounts(tiles: Tile[], grade: Grade): { total: number; counts: LevelCounts } {
+  const counts = zeroCounts();
   let total = 0;
   for (const t of tiles)
     if (t.unit.appGrade === grade) {
-      counts[t.status]++;
+      counts[t.key]++;
       total++;
     }
   return { total, counts };
 }
 
-/** 次にやること: red units of the child's grade, most open ✕ first (ties: curriculum order), up to 3. */
+/** 次にやること: red (挑戦中) units of the child's grade, most open ✕ first (ties: curriculum order), up to 3. */
 export function nextToDo(tiles: Tile[], grade: Grade, wrong: Map<string, number>, max = MAX_NEXT): ReviewUnit[] {
   return tiles
     .map((t, i) => ({ t, i }))
-    .filter(({ t }) => t.unit.appGrade === grade && t.status === "review")
+    .filter(({ t }) => t.unit.appGrade === grade && t.level === 1)
     .map(({ t, i }) => ({ unit: t.unit, wrong: wrong.get(t.unit.id) ?? 0, i }))
     .sort((a, b) => b.wrong - a.wrong || a.i - b.i)
     .slice(0, max)
@@ -87,13 +88,13 @@ export function nextToDo(tiles: Tile[], grade: Grade, wrong: Map<string, number>
 export function earlierRed(tiles: Tile[], grade: Grade, wrong: Map<string, number>, max = MAX_EARLIER): EarlierUnit[] {
   const gi = GRADES.indexOf(grade);
   const byId = new Map(tiles.map((t) => [t.unit.id, t]));
-  const rank = (s: TileStatus | undefined) => (s === "review" ? 0 : s === "empty" || !s ? 2 : 1);
+  const rank = (lv: number | undefined) => (lv === 1 ? 0 : !lv ? 2 : 1);
   const own = unitsForGrade(grade)
-    .map((u, i) => ({ u, i, path: rootPath(u.id).units, r: rank(byId.get(u.id)?.status) }))
+    .map((u, i) => ({ u, i, path: rootPath(u.id).units, r: rank(byId.get(u.id)?.level) }))
     .sort((a, b) => a.r - b.r || a.i - b.i);
   return tiles
     .map((t, i) => ({ t, i }))
-    .filter(({ t }) => GRADES.indexOf(t.unit.appGrade) < gi && t.status === "review")
+    .filter(({ t }) => GRADES.indexOf(t.unit.appGrade) < gi && t.level === 1)
     .map(({ t, i }) => ({ unit: t.unit, wrong: wrong.get(t.unit.id) ?? 0, i, g: GRADES.indexOf(t.unit.appGrade) }))
     .sort((a, b) => b.g - a.g || b.wrong - a.wrong || a.i - b.i)
     .slice(0, max)
@@ -115,11 +116,11 @@ export function lastWeek(pages: SavedPage[], now: Date): WeekCounts {
 }
 
 export function buildReport(pages: SavedPage[], grade: Grade, now = new Date()): Report {
-  const tiles = mapTiles(pages);
+  const tiles = mapTiles(pages, now);
   const wrong = openWrong(pages);
   const { total, counts } = stateCounts(tiles, grade);
-  const chips: Record<ChipState, Unit[]> = { gold: [], review: [], ok: [] };
-  for (const t of tiles) if (t.unit.appGrade === grade && t.status !== "empty") chips[t.status].push(t.unit);
+  const chips: Record<ChipState, Unit[]> = { settled: [], master: [], trying: [], reviewed: [] };
+  for (const t of tiles) if (t.unit.appGrade === grade && t.key !== "mada") chips[t.key].push(t.unit);
   let lastAt: string | null = null;
   for (const pg of pages) if (lastAt === null || pg.createdAt > lastAt) lastAt = pg.createdAt;
   const earlierAll = earlierRed(tiles, grade, wrong, Infinity);

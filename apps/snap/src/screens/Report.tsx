@@ -50,7 +50,7 @@ function dateOf(iso: string | null): string {
 
 function Glance({ data }: { data: ReportData }) {
   const shown = BAR_ORDER.filter((s) => data.counts[s] > 0);
-  const summary = `${r.of(data.total)} ${shown.map((s) => `${r.state[s]} ${data.counts[s]}`).join(" ・ ")}`;
+  const summary = `${r.of(data.total)} ${shown.map((s) => `${app.ladder.names[s]} ${data.counts[s]}`).join(" ・ ")}`;
   return (
     <section className="card glance" aria-labelledby="glance-h">
       <h2 id="glance-h" className="sr-only">{r.barLabel}</h2>
@@ -64,7 +64,7 @@ function Glance({ data }: { data: ReportData }) {
         {shown.map((s) => (
           <span key={s} className="glance-item">
             <i className={`sw sw-${s}`} />
-            {r.state[s]} <b>{data.counts[s]}</b>
+            {app.ladder.names[s]} <b>{data.counts[s]}</b>
           </span>
         ))}
       </p>
@@ -144,9 +144,9 @@ function Week({ data }: { data: ReportData }) {
 }
 
 function Chips({ data }: { data: ReportData }) {
-  // Red units already shown in 次にやること are not repeated here (one-glance: no duplicates).
+  // 挑戦中 units already shown in 次にやること are not repeated here (one-glance: no duplicates).
   const inNext = new Set(data.next.map((n) => n.unit.id));
-  const chipsFor = (s: (typeof CHIP_ORDER)[number]) => (s === "review" ? data.chips[s].filter((u) => !inNext.has(u.id)) : data.chips[s]);
+  const chipsFor = (s: (typeof CHIP_ORDER)[number]) => (s === "trying" ? data.chips[s].filter((u) => !inNext.has(u.id)) : data.chips[s]);
   const groups = CHIP_ORDER.filter((s) => chipsFor(s).length > 0);
   if (groups.length === 0) return null;
   return (
@@ -155,7 +155,7 @@ function Chips({ data }: { data: ReportData }) {
         <div key={s} className="chip-group" data-state={s}>
           <h3 className="chip-h">
             <i className={`sw sw-${s}`} />
-            {r.state[s]}
+            {app.ladder.names[s]}
           </h3>
           <div className="mini-chips">
             {chipsFor(s).map((u: Unit) => (
@@ -185,8 +185,8 @@ function EmptyReport({ grade }: { grade: Grade }) {
           {BAR_ORDER.map((s) => (
             <li key={s}>
               <i className={`sw sw-${s}`} />
-              <b>{r.state[s]}</b>
-              <span>{r.stateHint[s]}</span>
+              <b>{app.ladder.names[s]}</b>
+              <span>{app.ladder.hints[s]}</span>
             </li>
           ))}
         </ul>

@@ -53,12 +53,12 @@ describe("学習レポート", () => {
 
   it("counts the states of the child's grade units", () => {
     expect(rep.total).toBe(15);
-    expect(rep.counts).toEqual({ gold: 2, ok: 2, review: 2, empty: 9 });
+    expect(rep.counts).toEqual({ settled: 0, master: 2, reviewed: 2, trying: 2, mada: 9 });
     expect(rep.pages).toBe(5);
     expect(rep.lastAt).toBe("2026-10-18T09:00:00Z");
-    expect(rep.chips.gold.map((u) => u.id)).toEqual(["5-A1", "5-B1"]);
-    expect(rep.chips.review.map((u) => u.id)).toEqual(["5-C1", "5-C3"]);
-    expect(rep.chips.ok.map((u) => u.id)).toEqual(["5-A3", "5-D1"]);
+    expect(rep.chips.master.map((u) => u.id)).toEqual(["5-A1", "5-B1"]);
+    expect(rep.chips.trying.map((u) => u.id)).toEqual(["5-C1", "5-C3"]);
+    expect(rep.chips.reviewed.map((u) => u.id)).toEqual(["5-A3", "5-D1"]);
   });
 
   it("次にやること: red units of the grade, most open ✕ first, up to 3", () => {
@@ -90,8 +90,8 @@ describe("学習レポート", () => {
   it("empty state: no pages", () => {
     const e = buildReport([], "小5", NOW);
     expect(e).toMatchObject({ pages: 0, lastAt: null, total: 15, next: [], earlier: [] });
-    expect(e.counts).toEqual({ gold: 0, ok: 0, review: 0, empty: 15 });
+    expect(e.counts).toEqual({ settled: 0, master: 0, reviewed: 0, trying: 0, mada: 15 });
     expect(e.week).toEqual({ pages: 0, problems: 0, wrong: 0 });
-    expect(e.chips).toEqual({ gold: [], review: [], ok: [] });
+    expect(e.chips).toEqual({ settled: [], master: [], trying: [], reviewed: [] });
   });
 });

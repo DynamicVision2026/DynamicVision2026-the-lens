@@ -30,7 +30,7 @@ describe("empty map: all unexplored territory + one small card (no dead end)", (
   it("with no pages every tile is unexplored (まだ), nothing is taken and nothing is flagged", () => {
     const h = map([]);
     expect(h.match(/<button [^>]*class="terr-unit/g)).toHaveLength(110);
-    expect(h.match(/data-status="empty"/g)).toHaveLength(110);
+    expect(h.match(/data-status="mada"/g)).toHaveLength(110);
     expect(h).not.toContain("terr-flag");
     expect(buildHud([], "小5")).toMatchObject({ taken: 0, flagged: 0, next: [] });
   });
@@ -55,21 +55,22 @@ describe("territory map markup", () => {
       ],
     },
   ];
-  it("every tile is a button named 「小5 平均：復習が必要（✕2）」; flags on red tiles, crowns on gold; 12 zone labels + trail markers", () => {
+  it("every tile is a button named 「小5 平均：挑戦中（✕2）」; flags on 挑戦中 tiles, a star on マスター; 12 zone labels + trail markers", () => {
     const h = map(pages);
-    expect(h).toContain('aria-label="小5 平均：復習が必要（✕2）"');
+    expect(h).toContain('aria-label="小5 平均：挑戦中（✕2）"');
     expect(h).toContain('aria-label="小5 整数の性質：マスター"');
     const red = h.match(/<button [^>]*data-unit="5-D2"[^>]*>.*?<\/button>/)?.[0] ?? "";
     expect(red).toContain("terr-flag");
     expect(red).toContain("terr-pulse");
     const gold = h.match(/<button [^>]*data-unit="5-A1"[^>]*>.*?<\/button>/)?.[0] ?? "";
-    expect(gold).toContain("terr-crown");
+    expect(gold).toContain("terr-star");
+    expect(gold).not.toContain("terr-crown");
     expect(h.match(/data-region=/g)).toHaveLength(12);
     expect(h).toMatch(/class="terr-reg is-own"[^>]*data-region="小5"/);
     expect(text(h.match(/<span class="terr-reg is-own".*?<\/span><\/span>/)?.[0] ?? "")).toBe("深い森林帯小5標高 500");
     // trail markers: 制覇 N/M on every zone, 「あなたはここ」 only on the child's
     expect(h.match(/data-waypoint=/g)).toHaveLength(12);
-    expect(h).toContain('aria-label="小5 深い森林帯：制覇 2／15"');
+    expect(h).toContain('aria-label="小5 深い森林帯：制覇 2／15（マスター 1 ・ 挑戦中 1）"');
     expect(h.match(/あなたはここ/g)).toHaveLength(1);
     expect(h).toMatch(/data-waypoint="小5"[^>]*>.*?あなたはここ.*?制覇 2\/15/);
   });

@@ -9,7 +9,7 @@ Flow: landing → waitlist → /app grade 小5 → the map is home (empty territ
       → seed earlier pages (gold / green / red units)
       → upload p06 (AI判定 + 単元を確認, then やめる) → upload p01 (teacher marks + 正答（AI）, one
       先生の印とAIの判定がちがいます note) → confirm → save → 領土マップ: fly to 小5, 5-C3 rises → HUD
-      (制覇 6/15, 小中高 bars, 要復習, 次にやること 3) → tap 5-C3 → sheet (history, roots, routes) → root
+      (制覇 6/15, 小中高 bars, counts by ladder step, 次にやること 3) → tap 5-C3 → sheet (history, roots, routes) → root
       flies to 小4 → 次にやること tour (one by one, 次へ) → pan / zoom out / 現在地 → 一覧 (tile view)
       → /app = map → half the continent (19) + zoom (19z) → the whole continent coast → summit (20) + the
       小5 zone (20z); 年度の記録 with two school years (20y) → its 2025年度 row flies to the 小4 zone
@@ -44,16 +44,17 @@ BASE = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8093"
 GATED = sys.argv[2] if len(sys.argv) > 2 else "http://localhost:8094"
 JOURNEY = sys.argv[3] if len(sys.argv) > 3 else "http://localhost:8095"
 
-# Earlier saved pages for 小5 (IndexedDB seed), so the map shows every state:
-#   5-A1 gold (newest test all ○), 5-B1 gold (old ✕ then a later all-○ test),
-#   5-A3 green (✕ reviewed), 5-C1 red (✕ not reviewed), 5-D1 green (drill, no marks),
-#   4-A2 red, 4-C2 green and 4-B4 gold in 小4 (4-C2 簡単な割合 is the root of 5-C3 割合);
-#   other islands: 3-A4 red in 小3, 6-C2 gold in 小6.
+# Earlier saved pages for 小5 (IndexedDB seed), so the map shows every step of the 5-step ladder:
+#   5-A1 定着 (all ○ on 9/15 and again on 10/1, 16 days later), 5-B1 マスター (old ✕ then a later all-○ test),
+#   5-A3 復習ずみ (✕ reviewed), 5-C1 挑戦中 (✕ not reviewed), 5-D1 復習ずみ (drill, no marks),
+#   4-A2 挑戦中, 4-C2 復習ずみ and 4-B4 マスター in 小4 (4-C2 簡単な割合 is the root of 5-C3 割合);
+#   other islands: 3-A4 挑戦中 in 小3, 6-C2 マスター in 小6.
 SEED_JS = """async () => {
   const P = (id, at, type, probs) => ({ id, createdAt: at, grade: "小5", pageType: type, score: null,
     problems: probs.map(([unit, mark, reviewed], i) => ({ n: i + 1, q: "（見本）問題 " + (i + 1), unit, answer: "1",
       mark, confidence: 0.95, reviewed: !!reviewed })) });
   const pages = [
+    P("seed0", "2026-09-15T09:00:00.000Z", "test", [["5-A1","○"],["5-A1","○"]]),
     P("seed1", "2026-10-01T09:00:00.000Z", "test", [["5-A1","○"],["5-A1","○"],["5-A1","○"],["5-A3","✕",true],["5-A3","○"]]),
     P("seed2", "2026-10-03T09:00:00.000Z", "drill", [["5-B1","✕"],["5-B1","✕"],["5-D1",null],["5-D1",null],["5-C1","✕"],["5-C1","○"]]),
     P("seed3", "2026-10-10T09:00:00.000Z", "test", [["5-B1","○"],["5-B1","○"],["5-B1","○"],["4-A2","✕"]]),
@@ -285,15 +286,18 @@ with sync_playwright() as p:
     expect(page.locator(".terr-reg")).to_have_count(12)
     expect(page.locator('.terr-reg.is-own')).to_have_text("深い森林帯小5標高 500")
     expect(page.locator(".terr-wp")).to_have_count(12)
-    expect(page.locator('.terr-wp[data-waypoint="小5"]')).to_have_attribute("aria-label", "小5 深い森林帯：制覇 6／15")
-    expect(page.locator('.terr-wp[data-waypoint="小5"] .wp-badge')).to_have_text("制覇 6/15")
+    expect(page.locator('.terr-wp[data-waypoint="小5"]')).to_have_attribute("aria-label", "小5 深い森林帯：制覇 6／15（定着 1 ・ マスター 1 ・ 復習ずみ 2 ・ 挑戦中 2）")
+    expect(page.locator('.terr-wp[data-waypoint="小5"] .wp-badge')).to_have_text("制覇 6/15定着 1 ・ マスター 1 ・ 復習ずみ 2 ・ 挑戦中 2")
     expect(page.get_by_test_id("terr-here")).to_have_count(1)
     expect(page.locator('.terr-wp[data-waypoint="小5"]').get_by_test_id("terr-here")).to_have_text("あなたはここ")
-    for unit, st in [("5-C3", "review"), ("5-A1", "gold"), ("5-B1", "gold"), ("5-A3", "ok"), ("5-D1", "ok"),
-                     ("5-C1", "review"), ("5-A2", "empty"), ("4-A2", "review"), ("4-C2", "ok"), ("4-B4", "gold"),
-                     ("3-A4", "review"), ("6-C2", "gold")]:
+    for unit, st in [("5-C3", "trying"), ("5-A1", "settled"), ("5-B1", "master"), ("5-A3", "reviewed"), ("5-D1", "reviewed"),
+                     ("5-C1", "trying"), ("5-A2", "mada"), ("4-A2", "trying"), ("4-C2", "reviewed"), ("4-B4", "master"),
+                     ("3-A4", "trying"), ("6-C2", "master")]:
         expect(page.locator(f'.terr-layer [data-unit="{unit}"]')).to_have_attribute("data-status", st)
-    expect(page.locator('button.terr-unit[data-unit="5-C3"]')).to_have_attribute("aria-label", "小5 割合：復習が必要（✕2）")
+    expect(page.locator('button.terr-unit[data-unit="5-C3"]')).to_have_attribute("aria-label", "小5 割合：挑戦中（✕2）")
+    expect(page.locator('button.terr-unit[data-unit="5-A1"]')).to_have_attribute("aria-label", "小5 整数の性質：定着")
+    expect(page.locator('button.terr-unit[data-unit="5-B1"] .terr-star')).to_have_count(1)
+    expect(page.locator('button.terr-unit[data-unit="5-B1"] .terr-crown')).to_have_count(0)
     expect(page.locator('button.terr-unit[data-unit="5-C3"] .terr-flag')).to_have_count(1)
     expect(page.locator('button.terr-unit[data-unit="5-A1"] .terr-crown')).to_have_count(1)
     expect(page.locator("button.terr-unit .terr-flag")).to_have_count(4)  # 5-C3, 5-C1, 4-A2, 3-A4
@@ -301,16 +305,27 @@ with sync_playwright() as p:
     expect(hud.locator(".hud-t")).to_have_text("制覇（小5）")
     expect(page.get_by_test_id("hud-taken")).to_have_text("6 / 15")
     expect(hud.locator(".hud-bar em")).to_have_text(["11/66", "0/23", "0/21"])
-    expect(page.get_by_test_id("hud-review")).to_have_text("要復習 2")
+    expect(page.get_by_test_id("hud-levels")).to_have_text("定着 1・マスター 1・復習ずみ 2・挑戦中 2")
     expect(page.get_by_test_id("hud-next")).to_have_text("次にやること 3")
-    # the legend starts folded to a small 「凡例」 button; open → strands + the four states
+    # the legend starts folded to a small 「凡例」 button; open → strands + the five ladder steps
     expect(page.get_by_test_id("map-legend")).to_have_count(0)
     expect(page.get_by_test_id("legend-toggle")).to_have_text("凡例")
     page.get_by_test_id("legend-toggle").click()
     expect(page.get_by_test_id("map-legend")).to_contain_text("数と計算 / 数と式")
-    expect(page.get_by_test_id("legend-states")).to_have_text("まだ復習ずみ復習が必要マスター")
+    expect(page.get_by_test_id("legend-states")).to_have_text("まだ挑戦中復習ずみマスター定着")
     page.wait_for_timeout(200)
     shot(page, "18g-map-legend", full=False)
+    # 23: the 小5 zone close up, all five steps visible (まだ flat … 定着 tallest with a crown), legend open
+    for lvl in range(5):
+        expect(page.locator(f'.terr-layer button.terr-unit.is-own[data-level="{lvl}"]').first).to_be_attached()
+    page.get_by_test_id("zoom-in").click()
+    page.wait_for_timeout(900)
+    for unit in ["5-A1", "5-B1", "5-A3", "5-C1", "5-A2"]:  # 定着, マスター, 復習ずみ, 挑戦中, まだ on screen
+        b = page.locator(f'button.terr-unit[data-unit="{unit}"]').bounding_box()
+        assert b and 0 <= b["x"] <= 390 and 60 < b["y"] < 844, (unit, b)
+    shot(page, "23-ladder-map", full=False)
+    page.get_by_test_id("compass").click()
+    page.wait_for_timeout(900)
     page.get_by_test_id("legend-toggle").click()
     expect(page.get_by_test_id("map-legend")).to_have_count(0)
     expect(page.get_by_test_id("snap-fab")).to_be_visible()
@@ -361,7 +376,7 @@ with sync_playwright() as p:
     # the 「復習した」 tick in the sheet is the テスト前リスト's: tick, untick (persisted), the tile follows
     tick = sheet.get_by_test_id("up-tick").first
     tick.check()
-    expect(page.locator('button.terr-unit[data-unit="5-C3"]')).to_have_attribute("data-status", "review")  # one ✕ left
+    expect(page.locator('button.terr-unit[data-unit="5-C3"]')).to_have_attribute("data-status", "trying")  # one ✕ left
     tick.uncheck()
     # 「この単元の問題を見る」 = full height + the 問題 section at the top of the sheet
     sheet.get_by_test_id("sheet-to-problems").click()
@@ -428,6 +443,43 @@ with sync_playwright() as p:
     page.keyboard.press("Escape")
     expect(sheet).to_have_count(0)
 
+    # 23s. The 5-step ladder in the sheet: 5-B1 平面図形 is マスター (all ○ on 10/10) → ●●●●○, the next step with
+    #      the day from which 定着 is possible, and 「解説動画（YouTube）」 near its problems (channel search)
+    page.locator('button.terr-unit[data-unit="5-B1"]').click()
+    expect(sheet).to_contain_text("平面図形")
+    lad = sheet.get_by_test_id("sheet-ladder")
+    expect(lad).to_have_attribute("data-level", "3")
+    expect(lad.locator(".ld.is-on")).to_have_count(4)
+    expect(lad.locator(".ladder-name")).to_have_text("マスター")
+    settle = date(2026, 10, 24)
+    expect(sheet.get_by_test_id("sheet-next-step")).to_have_text(
+        "2週間後にもう一度全問○なら『定着』です（10/24以降）。" if date.today() < settle else "次のページでもう一度全問○なら『定着』です。")
+    syt = sheet.get_by_test_id("sheet-youtube")
+    expect(syt).to_have_attribute("href", "https://www.youtube.com/@Domo-ai/search?query=%E5%B9%B3%E9%9D%A2%E5%9B%B3%E5%BD%A2")
+    expect(syt).to_have_attribute("target", "_blank")
+    expect(syt).to_have_attribute("rel", "noopener")
+    expect(sheet).to_contain_text("動画がまだない単元もあります")
+    sheet.get_by_test_id("sheet-to-problems").click()
+    expect(sheet).to_have_attribute("data-size", "full")
+    page.wait_for_timeout(600)
+    yb = syt.bounding_box()
+    assert yb and lad.bounding_box()["y"] < yb["y"] < 844 - 120, yb  # ladder and button on one screen
+    shot(page, "23s-ladder-sheet", full=False)
+    # 定着 (5-A1): the top step, its own line; 挑戦中 (5-C1): how to reach 復習ずみ
+    sheet.get_by_test_id("sheet-close").click()
+    page.locator('button.terr-unit[data-unit="5-A1"]').dispatch_event("click")  # small neighbouring buttons at this zoom
+    expect(sheet.get_by_test_id("sheet-ladder")).to_have_attribute("data-level", "4")
+    expect(sheet.get_by_test_id("sheet-ladder").locator(".ld.is-on")).to_have_count(5)
+    expect(sheet.get_by_test_id("sheet-next-step")).to_have_text("いちばん上の段です。ときどき解き直して、保ちましょう。")
+    page.keyboard.press("Escape")
+    page.locator('button.terr-unit[data-unit="5-C1"]').dispatch_event("click")  # small neighbouring buttons at this zoom
+    expect(sheet.get_by_test_id("sheet-ladder").locator(".ladder-name")).to_have_text("挑戦中")
+    expect(sheet.get_by_test_id("sheet-next-step")).to_have_text("✕の問題を解き直して「復習した」にすると『復習ずみ』です。")
+    page.keyboard.press("Escape")
+    expect(sheet).to_have_count(0)
+    page.get_by_test_id("compass").click()
+    page.wait_for_timeout(900)
+
     # 5c2. 次にやること: the badge pans to the red-flagged tiles one by one, opening each one's detail
     page.get_by_test_id("hud-next").click()
     expect(sheet).to_contain_text("割合")
@@ -462,7 +514,11 @@ with sync_playwright() as p:
 
     # 5d. 一覧: the tile list (accessible fallback) from the HUD menu, choice remembered
     page.get_by_test_id("hud-menu").click()
-    expect(page.get_by_test_id("hud-menu-pop").get_by_role("menuitem")).to_have_text(["一覧で見る", "年度の記録"])
+    expect(page.get_by_test_id("hud-menu-pop").get_by_role("menuitem")).to_have_text(["一覧で見る", "年度の記録", "解説動画（YouTube）"])
+    yt = page.get_by_test_id("menu-youtube")
+    expect(yt).to_have_attribute("href", "https://www.youtube.com/@Domo-ai")
+    expect(yt).to_have_attribute("target", "_blank")
+    expect(yt).to_have_attribute("rel", "noopener")
     page.get_by_test_id("map-to-list").click()
     secs = page.locator("details.grade-sec")
     expect(secs).to_have_count(12)
@@ -471,11 +527,15 @@ with sync_playwright() as p:
     expect(page.locator("details.grade-sec[open]")).to_have_count(1)
     assert page.locator("a.tile").count() == 110
     tile = page.locator('a.tile[data-unit="5-C3"]')
-    expect(tile).to_have_attribute("data-status", "review")
+    expect(tile).to_have_attribute("data-status", "trying")
     expect(tile).to_contain_text("割合")
     expect(tile).to_contain_text("✕ 2")
     expect(tile).to_contain_text("5問")
-    expect(page.locator('details[data-grade="小4"] .sum-review')).to_have_text("復習 1")
+    expect(page.locator('details[data-grade="小4"] .sum-trying')).to_have_text("挑戦中 1")
+    expect(page.locator('a.tile[data-unit="5-A1"]')).to_have_attribute("data-status", "settled")
+    expect(page.locator('a.tile[data-unit="5-A1"] .tile-star')).to_have_text(" 定着")
+    expect(page.locator('details[data-grade="小5"] .sum-settled')).to_have_text("定着 1")
+    expect(page.get_by_test_id("list-legend").locator("span")).to_have_count(5)
     page.reload()
     expect(page.locator("details.grade-sec")).to_have_count(12)  # remembered
     page.evaluate("window.scrollTo({ top: 0, behavior: 'instant' })")
@@ -522,9 +582,9 @@ with sync_playwright() as p:
     expect(page.locator("nav.tabbar a.tab-active")).to_have_text("マップ")
     expect(page.get_by_test_id("report-back")).to_have_attribute("href", "/app/map")
     expect(page.get_by_role("heading", level=1)).to_have_text("小5の学習レポート")
-    expect(page.locator(".report-meta")).to_contain_text("これまでに5ページ")
-    expect(page.get_by_test_id("glance-sum")).to_have_text("15単元のうちマスター 2復習ずみ 2復習が必要 2まだ 9")
-    expect(page.get_by_test_id("glance-bar")).to_have_attribute("aria-label", "15単元のうち マスター 2 ・ 復習ずみ 2 ・ 復習が必要 2 ・ まだ 9")
+    expect(page.locator(".report-meta")).to_contain_text("これまでに6ページ")
+    expect(page.get_by_test_id("glance-sum")).to_have_text("15単元のうち定着 1マスター 1復習ずみ 2挑戦中 2まだ 9")
+    expect(page.get_by_test_id("glance-bar")).to_have_attribute("aria-label", "15単元のうち 定着 1 ・ マスター 1 ・ 復習ずみ 2 ・ 挑戦中 2 ・ まだ 9")
     nxt = page.get_by_test_id("report-next")
     expect(nxt.locator(".report-row")).to_have_count(2)
     expect(nxt.locator(".report-row").nth(0)).to_contain_text("割合")
@@ -538,15 +598,17 @@ with sync_playwright() as p:
     from datetime import datetime, timedelta, timezone
     since = datetime.now(timezone.utc) - timedelta(days=7)
     week = [1, 5, 2]
-    for at, n, x in [("2026-10-01", 5, 1), ("2026-10-03", 6, 3), ("2026-10-10", 4, 1), ("2026-10-12", 7, 2)]:
+    for at, n, x in [("2026-09-15", 2, 0), ("2026-10-01", 5, 1), ("2026-10-03", 6, 3), ("2026-10-10", 4, 1), ("2026-10-12", 7, 2)]:
         if datetime.fromisoformat(at + "T09:00:00+00:00") >= since:
             week = [week[0] + 1, week[1] + n, week[2] + x]
     expect(page.get_by_test_id("report-week").locator("dd")).to_have_text([str(v) for v in week])
     chips = page.get_by_test_id("report-chips")
-    expect(chips.locator(".mc-gold")).to_have_count(2)
-    expect(chips.locator(".mc-review")).to_have_count(0)  # already in 次にやること
-    expect(chips.locator(".mc-ok")).to_have_count(2)
-    expect(chips.locator('.mc-gold[data-unit="5-B1"]')).to_have_attribute("href", "/app/map?unit=5-B1")
+    expect(chips.locator(".mc-settled")).to_have_count(1)
+    expect(chips.locator('.mc-settled[data-unit="5-A1"]')).to_have_attribute("href", "/app/map?unit=5-A1")
+    expect(chips.locator(".mc-master")).to_have_count(1)
+    expect(chips.locator(".mc-trying")).to_have_count(0)  # already in 次にやること
+    expect(chips.locator(".mc-reviewed")).to_have_count(2)
+    expect(chips.locator('.mc-master[data-unit="5-B1"]')).to_have_attribute("href", "/app/map?unit=5-B1")
     expect(page.get_by_role("link", name="単元マップで全体を見る")).to_have_attribute("href", "/app/map")
     shot(page, "17-report")
     # a unit on another island from the report: the map flies there and opens its sheet (?unit=3-A4)
@@ -621,7 +683,7 @@ with sync_playwright() as p:
     d.save_as(str(backup_path))
     data = json.loads(backup_path.read_text())
     assert data["app"] == "lens-snap" and data["version"] == 1 and data["grade"] == "小5"
-    assert len(data["pages"]) == 5 and any("photo" in pg for pg in data["pages"]), len(data["pages"])
+    assert len(data["pages"]) == 6 and any("photo" in pg for pg in data["pages"]), len(data["pages"])
     expect(page.get_by_test_id("backup-last")).to_contain_text("最後のバックアップ：")
     expect(page.get_by_text("そろそろバックアップを保存しておくと安心です。")).to_have_count(0)
     page.on("dialog", lambda dlg: dlg.accept())
@@ -703,7 +765,7 @@ with sync_playwright() as p:
     expect(own).to_have_text("入り江小2標高 40")
     ob = own.bounding_box()
     assert 0 < ob["x"] < 390 and 56 < ob["y"] < 844 - 64, ob
-    for unit, st in [("2-A2", "review"), ("2-B1", "gold"), ("2-C1", "ok"), ("1-A2", "review"), ("2-A1", "empty")]:
+    for unit, st in [("2-A2", "trying"), ("2-B1", "master"), ("2-C1", "reviewed"), ("1-A2", "trying"), ("2-A1", "mada")]:
         expect(y.locator(f'.terr-layer [data-unit="{unit}"]')).to_have_attribute("data-status", st)
     y.wait_for_timeout(300)
     shot(y, "18y-map-home-young", full=False)
@@ -722,10 +784,10 @@ with sync_playwright() as p:
     expect(k.get_by_test_id("grade-check")).to_have_count(0)
     expect(k.get_by_test_id("hud-card").locator(".hud-t")).to_have_text("制覇（高2）")
     expect(k.get_by_test_id("hud-taken")).to_have_text("3 / 8")
-    expect(k.get_by_test_id("hud-review")).to_have_text("要復習 1")
+    expect(k.get_by_test_id("hud-levels")).to_have_text("マスター 1・復習ずみ 1・挑戦中 1")
     expect(k.get_by_test_id("hud-next")).to_have_text("次にやること 2")
     expect(k.locator(".terr-reg.is-own")).to_have_text("氷河帯高2標高 3,100")
-    for unit, st in [("h-II-4", "review"), ("h-B-1", "gold"), ("h-II-1", "ok"), ("h-I-3", "review"), ("h-II-2", "empty")]:
+    for unit, st in [("h-II-4", "trying"), ("h-B-1", "master"), ("h-II-1", "reviewed"), ("h-I-3", "trying"), ("h-II-2", "mada")]:
         expect(k.locator(f'.terr-layer [data-unit="{unit}"]')).to_have_attribute("data-status", st)
     kb = k.locator(".terr-reg.is-own").bounding_box()
     assert 0 < kb["x"] < 390 and 56 < kb["y"] < 844 - 64, kb
@@ -851,7 +913,7 @@ with sync_playwright() as p:
     expect(welcome).to_contain_text("プリントを撮ると、その単元が自分の領土になります")
     expect(jp.get_by_test_id("welcome-snap")).to_have_attribute("href", "/app/snap")
     expect(jp.locator("button.terr-unit")).to_have_count(110)
-    expect(jp.locator('button.terr-unit:not([data-status="empty"])')).to_have_count(0)
+    expect(jp.locator('button.terr-unit:not([data-status="mada"])')).to_have_count(0)
     expect(jp.get_by_test_id("hud-taken")).to_have_text("0 / 15")
     expect(jp.get_by_test_id("hud-next")).to_have_count(0)
     expect(jp.locator("nav.tabbar a.tab-active")).to_have_text("マップ")
@@ -881,7 +943,7 @@ with sync_playwright() as p:
     expect(jp.get_by_test_id("lit-toast")).to_have_text("4問を保存しました：✕ 2問（平均、数量の関係を表す式）・○ 2問")
     expect(jp.get_by_test_id("toast-report")).to_have_text("レポートを見る")
     expect(jp.locator("button.terr-unit.is-lit")).to_have_count(3)
-    for unit, st in [("4-A4", "gold"), ("5-D2", "review"), ("4-A6", "review")]:  # all ○ on its newest page → gold
+    for unit, st in [("4-A4", "master"), ("5-D2", "trying"), ("4-A6", "trying")]:  # all ○ on its newest page → gold
         expect(jp.locator(f'button.terr-unit[data-unit="{unit}"]')).to_have_attribute("data-status", st)
     jp.wait_for_timeout(820)  # fly done (0.65 s), tiles rising (0.8 s)
     shot(jp, "J3-saved-map", full=False)
@@ -892,11 +954,11 @@ with sync_playwright() as p:
     for unit in ["4-A4", "5-D2", "4-A6"]:
         b = jp.locator(f'button.terr-unit[data-unit="{unit}"]').bounding_box()
         assert toast_bottom - 8 < b["y"] and b["y"] + b["height"] < 844 - 64 and 0 <= b["x"] and b["x"] + b["width"] <= 390, (unit, b, toast_bottom)
-    # J4: the toast goes; HUD: 制覇 1 / 15 in 小5, 要復習 1, 次にやること 2 (平均, then 小4 数量の関係を表す式); red flags
+    # J4: the toast goes; HUD: 制覇 1 / 15 in 小5, 挑戦中 1, 次にやること 2 (平均, then 小4 数量の関係を表す式); red flags
     jp.wait_for_timeout(4600)
     expect(jp.get_by_test_id("lit-toast")).to_have_count(0)
     expect(jp.get_by_test_id("hud-taken")).to_have_text("1 / 15")
-    expect(jp.get_by_test_id("hud-review")).to_have_text("要復習 1")
+    expect(jp.get_by_test_id("hud-levels")).to_have_text("挑戦中 1")
     expect(jp.get_by_test_id("hud-next")).to_have_text("次にやること 2")
     expect(jp.locator("button.terr-unit .terr-flag")).to_have_count(2)
     expect(jp.get_by_test_id("snap-fab")).to_be_visible()
@@ -943,8 +1005,8 @@ with sync_playwright() as p:
     expect(ep).to_have_url(BASE + "/app/map")
     ep.evaluate(exam_seed_js())
     ep.reload()
-    expect(ep.locator('button.terr-unit[data-unit="5-D2"]')).to_have_attribute("data-status", "review")
-    for unit, st in [("5-B3", "gold"), ("5-C3", "gold"), ("4-A6", "review"), ("4-A4", "gold")]:
+    expect(ep.locator('button.terr-unit[data-unit="5-D2"]')).to_have_attribute("data-status", "trying")
+    for unit, st in [("5-B3", "master"), ("5-C3", "master"), ("4-A6", "trying"), ("4-A4", "master")]:
         expect(ep.locator(f'button.terr-unit[data-unit="{unit}"]')).to_have_attribute("data-status", st)
     expect(ep.get_by_test_id("hud-exam")).to_have_text("テスト前モード")
     tomorrow = (date.today() + timedelta(days=1)).isoformat()
@@ -1012,6 +1074,15 @@ with sync_playwright() as p:
         b = ep.locator(f'button.terr-unit[data-unit="{unit}"]').bounding_box()
         assert 56 < b["y"] < top and 0 <= b["x"] <= 390, (unit, b, top)
     shot(ep, "22c-exam-plan", full=False)
+    # 23e: one 「解説動画（YouTube）」 in the plan header (the channel, new tab), not one per card
+    pyt = ep.get_by_test_id("plan-youtube")
+    expect(pyt).to_have_count(1)
+    expect(pyt).to_have_attribute("href", "https://www.youtube.com/@Domo-ai")
+    expect(pyt).to_have_attribute("target", "_blank")
+    expect(pyt).to_have_attribute("rel", "noopener")
+    expect(plan.locator(".plan-head").get_by_test_id("plan-youtube")).to_have_count(1)
+    expect(ep.get_by_test_id("plan-body").get_by_test_id("plan-youtube")).to_have_count(0)
+    shot(ep, "23e-exam-youtube", full=False)
     # 22d: re-solve first, then 「答えを確かめる」 (② 小4 数量の関係を表す式, 正答（AI） 480円)
     ep.get_by_test_id("plan-grab").click()
     expect(plan).to_have_attribute("data-size", "full")
@@ -1041,7 +1112,7 @@ with sync_playwright() as p:
     flags = ep.locator("button.terr-unit .terr-flag").count()
     root_card.get_by_test_id("plan-tick").check()
     expect(ep.get_by_test_id("plan-count")).to_have_text("復習した 1 / 4")
-    expect(ep.locator('button.terr-unit[data-unit="4-A6"]')).to_have_attribute("data-status", "ok")
+    expect(ep.locator('button.terr-unit[data-unit="4-A6"]')).to_have_attribute("data-status", "reviewed")
     expect(ep.locator("button.terr-unit .terr-flag")).to_have_count(flags - 1)
     expect(ep.locator("button.terr-unit.is-todo")).to_have_count(1)
     expect(ep.get_by_test_id("exam-secured")).to_have_text("小4 数量の関係を表す式：✕をすべて復習しました（復習ずみ）")
@@ -1073,7 +1144,7 @@ with sync_playwright() as p:
     expect(ep.get_by_test_id("exam-countdown")).to_have_count(0)
     expect(ep.get_by_test_id("hud-exam")).to_be_visible()
     expect(ep.locator('button.terr-unit[data-range="1"]')).to_have_count(0)
-    expect(ep.locator('button.terr-unit[data-unit="4-A6"]')).to_have_attribute("data-status", "ok")
+    expect(ep.locator('button.terr-unit[data-unit="4-A6"]')).to_have_attribute("data-status", "reviewed")
     expect(ep).to_have_url(BASE + "/app/map")
     # reopen: the current test opens straight on the plan, the tick kept; 「日付・範囲を変える」 remembers the range
     ep.get_by_test_id("hud-exam").click()
@@ -1088,7 +1159,7 @@ with sync_playwright() as p:
     expect(ep.get_by_test_id("plan-count")).to_have_text("復習した 4 / 4")
     expect(ep.get_by_test_id("plan-done")).to_contain_text("今夜の作戦は完了です")
     expect(ep.get_by_test_id("plan-done")).to_contain_text("念のための見直しがあと1問あります")
-    expect(ep.locator('button.terr-unit[data-unit="5-D2"]')).to_have_attribute("data-status", "ok")
+    expect(ep.locator('button.terr-unit[data-unit="5-D2"]')).to_have_attribute("data-status", "reviewed")
     ep.keyboard.press("Escape")
     expect(plan).to_have_count(0)
     ec.close()

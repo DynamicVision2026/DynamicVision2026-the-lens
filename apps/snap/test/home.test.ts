@@ -55,7 +55,7 @@ describe("?unit= opens that unit's sheet", () => {
     expect(f).toEqual({ selected: "5-C3" });
     const sheet = sheetData(f.selected!, mapTiles(PAGES));
     expect(sheet?.unit.topic).toBe("割合");
-    expect(sheet?.tile.status).toBe("review");
+    expect(sheet?.tile.key).toBe("trying");
   });
 
   it("a unit on another island is selected too; unknown or missing → nothing selected", () => {
@@ -72,7 +72,7 @@ describe("the map's 次にやること data = the 学習レポート's data", ()
     expect(s).toEqual(stripFromReport(r));
     expect(s.total).toBe(r.total);
     expect(s.counts).toEqual(r.counts);
-    expect(s.counts).toEqual({ gold: 2, ok: 2, review: 2, empty: 9 });
+    expect(s.counts).toEqual({ settled: 0, master: 2, reviewed: 2, trying: 2, mada: 9 });
     expect(r.next.map((n) => n.unit.id)).toEqual(["5-C3", "5-C1"]);
     expect(s.next.slice(0, r.next.length)).toEqual(r.next);
     expect(s.next.map((n) => [n.unit.id, n.wrong])).toEqual([["5-C3", 2], ["5-C1", 1], ["4-A2", 1]]);
@@ -97,7 +97,7 @@ describe("the map's 次にやること data = the 学習レポート's data", ()
 
   it("no pages: everything まだ, nothing to do, no list link, no earlier line", () => {
     const s = buildStrip([], "小5", NOW);
-    expect(s.counts).toEqual({ gold: 0, ok: 0, review: 0, empty: 15 });
+    expect(s.counts).toEqual({ settled: 0, master: 0, reviewed: 0, trying: 0, mada: 15 });
     expect(s.next).toEqual([]);
     expect(s.nextList).toBeNull();
     expect(s.earlier).toEqual([]);

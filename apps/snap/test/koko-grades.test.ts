@@ -55,9 +55,9 @@ describe("territory for a 高2 child", () => {
 
   it("tiles and counts are per school year", () => {
     const tiles = mapTiles(KOKO2);
-    expect(gradeCounts(tiles, "高2")).toEqual({ review: 1, ok: 1, gold: 1, empty: 5 });
-    expect(gradeCounts(tiles, "高1")).toMatchObject({ review: 1, empty: 6 });
-    expect(gradeCounts(tiles, "高3")).toMatchObject({ empty: 6 });
+    expect(gradeCounts(tiles, "高2")).toEqual({ trying: 1, reviewed: 1, master: 1, settled: 0, mada: 5 });
+    expect(gradeCounts(tiles, "高1")).toMatchObject({ trying: 1, mada: 6 });
+    expect(gradeCounts(tiles, "高3")).toMatchObject({ mada: 6 });
   });
 });
 
@@ -65,18 +65,18 @@ describe("report + HUD for a 高2 child", () => {
   it("counts the 8 units of 高2; 数学I ✕ shows as an earlier-grade unit with the 高2 unit it supports", () => {
     const r = buildReport(KOKO2, "高2", NOW);
     expect(r.total).toBe(8);
-    expect(r.counts).toEqual({ gold: 1, ok: 1, review: 1, empty: 5 });
+    expect(r.counts).toEqual({ settled: 0, master: 1, reviewed: 1, trying: 1, mada: 5 });
     expect(r.next.map((n) => [n.unit.id, n.wrong])).toEqual([["h-II-4", 2]]);
     expect(r.earlierIds).toEqual(["h-I-3"]);
     expect(r.earlier[0].supports?.appGrade).toBe("高2");
-    expect(r.chips.gold.map((u) => u.id)).toEqual(["h-B-1"]);
+    expect(r.chips.master.map((u) => u.id)).toEqual(["h-B-1"]);
     const s = buildStrip(KOKO2, "高2", NOW);
     expect([s.grade, s.total, s.earlier]).toEqual(["高2", 8, ["h-I-3"]]);
     // ?unit= on any island opens that unit
     expect(focusFromParam("h-III-2", "高2")).toEqual({ selected: "h-III-2" });
     // HUD: 高2 card = the report's counts; the 高 bar counts the whole high school
     const hud = buildHud(KOKO2, "高2", NOW);
-    expect([hud.taken, hud.total, hud.counts.review]).toEqual([3, 8, 1]);
+    expect([hud.taken, hud.total, hud.counts.trying]).toEqual([3, 8, 1]);
     expect(hud.levels["高"]).toEqual({ taken: 4, total: 21 });
     expect(hud.next).toEqual(["h-II-4", "h-I-3"]);
   });

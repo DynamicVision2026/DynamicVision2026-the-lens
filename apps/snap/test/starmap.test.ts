@@ -97,8 +97,8 @@ describe("sheet data", () => {
     const tiles = mapTiles([page]);
     const d = sheetData("5-C3", tiles)!;
     expect(d.unit.topic).toBe("割合");
-    expect(d.tile).toMatchObject({ count: 2, wrong: 1, status: "review" });
-    expect(d.roots[0]).toMatchObject({ status: "gold" });
+    expect(d.tile).toMatchObject({ count: 2, wrong: 1, key: "trying" });
+    expect(d.roots[0]).toMatchObject({ level: 3 });
     expect(d.roots[0].unit.id).toBe("4-C2");
     expect(sheetData("1-A1", tiles)!.roots).toEqual([]);
     expect(sheetData("nope", tiles)).toBeNull();
@@ -106,7 +106,7 @@ describe("sheet data", () => {
 
   it("grade summary counts", () => {
     const c = gradeCounts(mapTiles([page]), "小5");
-    expect(c).toMatchObject({ review: 1, gold: 0, ok: 0 });
-    expect(c.empty).toBe(14);
+    expect(c).toMatchObject({ trying: 1, master: 0, reviewed: 0, settled: 0 });
+    expect(c.mada).toBe(14);
   });
 });

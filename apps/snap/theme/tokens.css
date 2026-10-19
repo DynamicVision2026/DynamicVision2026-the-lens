@@ -24,6 +24,10 @@
   --c-gold: #c99a1e;          /* マスター tile border / dot (warm gold on paper) */
   --c-gold-strong: #8a6510;   /* gold text: readable on paper and on the tint */
   --c-gold-tint: #fbf0d2;
+  --c-settled: #9c6a00;       /* 定着 (Lv4): deeper amber than マスター, still warm gold */
+  --c-settled-strong: #6e4a00;/* 定着 text on paper and on its tint */
+  --c-settled-tint: #f5e2b0;
+  --c-yt: #e62117;            /* YouTube play mark (解説動画 button) */
   --c-glow: rgba(232, 168, 40, 0.6); /* light-up pulse after 保存 */
   --c-on-dark: #ffffff;
   --c-shadow: rgba(30, 45, 74, 0.08);
@@ -53,9 +57,10 @@
   --terr-h-a: #2a9d8f;               /* 数学A */
   --terr-h-b: #7b6cd9;               /* 数学B */
   --terr-h-c: #3a86ff;               /* 数学C */
-  --terr-gold: #f6c33a;              /* マスター column */
-  --terr-gold-glint: #fff6d0;
-  --terr-red: #e63946;               /* 復習が必要: flag, pulse, route */
+  --terr-gold: #f6c33a;              /* マスター / 定着 column */
+  --terr-gold-glint: #fff6d0;        /* 定着: its solid light cap; star / crown glint */
+  --terr-settled-glow: rgba(255, 226, 120, 0.5);  /* 定着: the soft glow around the patch's top edges */
+  --terr-red: #e63946;               /* 挑戦中: flag, pulse, route */
   --terr-red-soft: rgba(230, 57, 70, 0.28);
   --terr-route: rgba(230, 57, 70, 0.55);
   --terr-root: #1e2a3a;              /* root routes while a unit is open */
@@ -120,7 +125,9 @@
   --terr-glass-dim: rgba(238, 243, 247, 0.62);
   --terr-cyan: #5ee0e6;              /* beacon, own-zone accent */
   --terr-cyan-soft: rgba(94, 224, 230, 0.32);
-  --terr-red-hud: #ff7a83;           /* 要復習 on dark glass */
+  --terr-red-hud: #ff7a83;           /* 挑戦中 on dark glass */
+  --terr-gold-hud: #ffd76a;          /* マスター / 定着 counts on dark glass */
+  --terr-ok-hud: #8fe0b8;            /* 復習ずみ count on dark glass */
 
   --radius: 14px;
   --radius-sm: 10px;

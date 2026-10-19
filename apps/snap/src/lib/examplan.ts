@@ -10,9 +10,9 @@ import { type SheetProblem, markSourceLabel } from "./unitsheet";
 /**
  * テスト前モード = 「今夜、何を復習すればいい？」 on the map. Pure: the test date and its countdown, the
  * default range, the stored tests (one per date, localStorage via the screen), and 今夜の作戦:
- *   ① まず解き直す   — unreviewed ✕ of the range units that are not gold, newest first, grouped by unit;
+ *   ① まず解き直す   — unreviewed ✕ of the range units below マスター (Lv < 3), newest first, grouped by unit;
  *   ② つまずきのもと — unreviewed ✕ of the もとになる単元 (earlier grades) of the range units;
- *   ③ 念のため       — older ✕ of gold range units + low-confidence readings in the range (collapsed).
+ *   ③ 念のため       — older ✕ of マスター / 定着 range units + low-confidence readings in the range (collapsed).
  * No scores and no promise of results: the plan only counts problems and estimates minutes.
  */
 

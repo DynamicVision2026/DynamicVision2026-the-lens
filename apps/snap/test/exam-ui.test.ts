@@ -120,7 +120,7 @@ describe("entry flow markup", () => {
     const look: ExamLook = { range: new Set(RANGE), dim: true, todo: new Set(), onZone: noop, zoneFull: () => false };
     const s = html(createElement(TerritoryMap, { tiles, grade: "小5", selected: null, onSelect: noop, lit: [], pointed: null, sheetOpen: false, api: { current: null }, exam: look }));
     expect(count(s, 'data-range="1"')).toBe(3);
-    expect(s).toMatch(/aria-label="小5 平均：復習が必要（✕3）（範囲に入っています）" aria-pressed="true"/);
+    expect(s).toMatch(/aria-label="小5 平均：挑戦中（✕3）（範囲に入っています）" aria-pressed="true"/);
     expect(count(s, 'data-testid="zone-all"')).toBe(12);
     expect(s).toContain("この地帯を全部");
     const plan = html(createElement(TerritoryMap, { tiles, grade: "小5", selected: null, onSelect: noop, lit: [], pointed: null, sheetOpen: true, api: { current: null }, exam: { range: new Set(RANGE), dim: false, todo: new Set(["5-D2", "4-A6"]) } }));

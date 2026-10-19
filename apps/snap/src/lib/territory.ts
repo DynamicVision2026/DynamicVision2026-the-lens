@@ -2,7 +2,8 @@ import { GRADES, type Grade, UNITS, type Unit, unitById } from "../curriculum";
 import { app } from "../copy";
 import type { SavedPage } from "./model";
 import { buildReport } from "./report";
-import { type Tile, type TileStatus, mapTiles } from "./review";
+import { type Level as Step, type LevelCounts, countsLine, levelName, zeroCounts } from "./ladder";
+import { type Tile, mapTiles } from "./review";
 import { STRIP_NEXT, stripFromReport } from "./home";
 import { type Terrain, type Zone, buildTerrain } from "./terrain";
 
@@ -164,8 +165,12 @@ export const GROUND: Record<Zone, Ground> = {
 export const PROJ = { gy: 0.72, hy: 0.7 };
 /** Hex radii (video: tile body 0.96, cap 0.80, land 1.0). */
 export const HEX = { tile: 0.96, cap: 0.8, land: 1.0 };
-/** Column heights above the ground: まだ nearly flat; taken = its seeded height; マスター higher. */
-export const HEIGHT = { empty: 0.16, goldLift: 0.45 };
+/**
+ * Column heights above the ground, rising with the ladder: まだ nearly flat; 挑戦中 low (halfway between
+ * flat and its seeded height); 復習ずみ its seeded height; マスター + masterLift; 定着 + goldLift (the
+ * tallest: goldLift is also the clearance the terrain keeps around every tile).
+ */
+export const HEIGHT = { empty: 0.16, tryingShare: 0.5, masterLift: 0.27, goldLift: 0.45 };
 
 export interface TerrHex {
   q: number;
@@ -363,22 +368,30 @@ export interface TileLook {
   height: (h: number) => number;
   /** Colour family to fill with: the strand / subject colour, unexplored or gold. */
   fill: "unex" | "strand" | "gold";
+  /** 挑戦中: red flag (+ a soft pulse). */
   flag: boolean;
-  crown: boolean;
   pulse: boolean;
+  /** マスター: a star over the column. */
+  star: boolean;
+  /** 定着: a crown, a solid light cap and a subtle glow. */
+  crown: boolean;
+  glow: boolean;
 }
 
-/** The four existing tile states (review.ts) as territory: no rules of its own. */
-export function lookOf(status: TileStatus): TileLook {
-  switch (status) {
-    case "empty":
-      return { height: () => HEIGHT.empty, fill: "unex", flag: false, crown: false, pulse: false };
-    case "ok":
-      return { height: (h) => h, fill: "strand", flag: false, crown: false, pulse: false };
-    case "review":
-      return { height: (h) => h, fill: "strand", flag: true, crown: false, pulse: true };
-    case "gold":
-      return { height: (h) => h + HEIGHT.goldLift, fill: "gold", flag: false, crown: true, pulse: false };
+/** The ladder's five steps (lib/ladder.ts) as territory: the column rises with the step; no rules of its own. */
+export function lookOf(level: Step): TileLook {
+  const base = { flag: false, pulse: false, star: false, crown: false, glow: false };
+  switch (level) {
+    case 0:
+      return { ...base, height: () => HEIGHT.empty, fill: "unex" };
+    case 1:
+      return { ...base, height: (h) => HEIGHT.empty + (h - HEIGHT.empty) * HEIGHT.tryingShare, fill: "strand", flag: true, pulse: true };
+    case 2:
+      return { ...base, height: (h) => h, fill: "strand" };
+    case 3:
+      return { ...base, height: (h) => h + HEIGHT.masterLift, fill: "gold", star: true };
+    case 4:
+      return { ...base, height: (h) => h + HEIGHT.goldLift, fill: "gold", crown: true, glow: true };
   }
 }
 
@@ -430,8 +443,8 @@ export function drawOrder<T extends { z: number; x: number }>(items: T[]): T[] {
 }
 
 /** Projected bounds of a unit's patch at its current look. */
-export function unitBox(u: UnitTerritory, status: TileStatus): Box {
-  const look = lookOf(status);
+export function unitBox(u: UnitTerritory, level: Step): Box {
+  const look = lookOf(level);
   const pts: [number, number][] = [];
   for (const t of u.hexes) {
     pts.push(project(t.x - 1, t.z - 1, t.e + look.height(t.h)));
@@ -572,10 +585,13 @@ export type Level = (typeof LEVELS)[number];
 
 export interface Hud {
   grade: Grade;
-  /** 制覇した単元 of the child's grade: every unit with data (red ones are still the child's, under attack). */
+  /** 制覇した単元 of the child's grade: every unit with data, Lv ≥ 1 (red ones are still the child's, under attack). */
   taken: number;
   total: number;
-  counts: Record<TileStatus, number>;
+  /** Units of the child's grade on each step (= the report's counts). */
+  counts: LevelCounts;
+  /** 「定着 1 ・ マスター 2 ・ 挑戦中 1」 (steps with units, highest first). */
+  levelsLine: string;
   /** Whole map, per school: units with data / all units. */
   levels: Record<Level, { taken: number; total: number }>;
   /** Red flags on the whole map. */
@@ -588,20 +604,21 @@ export interface Hud {
 export function buildHud(pages: SavedPage[], grade: Grade, now = new Date()): Hud {
   const r = buildReport(pages, grade, now);
   const strip = stripFromReport(r);
-  const tiles = mapTiles(pages);
+  const tiles = mapTiles(pages, now);
   const levels = { 小: { taken: 0, total: 0 }, 中: { taken: 0, total: 0 }, 高: { taken: 0, total: 0 } } as Hud["levels"];
   for (const t of tiles) {
     const l = levels[t.unit.level as Level];
     l.total++;
-    if (t.status !== "empty") l.taken++;
+    if (t.level > 0) l.taken++;
   }
   return {
     grade,
-    taken: r.total - r.counts.empty,
+    taken: r.total - r.counts.mada,
     total: r.total,
     counts: r.counts,
+    levelsLine: countsLine(r.counts),
     levels,
-    flagged: tiles.filter((t) => t.status === "review").length,
+    flagged: tiles.filter((t) => t.level === 1).length,
     next: strip.next.slice(0, STRIP_NEXT).map((n) => n.unit.id),
   };
 }
@@ -643,10 +660,9 @@ export function unitHistory(pages: SavedPage[], unitId: string): HistoryRow[] {
   return rows.sort((a, b) => b.at.localeCompare(a.at)).map(({ at: _at, ...r }) => r);
 }
 
-/** Accessible name of a tile: 「小5 平均：復習が必要（✕2）」. */
+/** Accessible name of a tile: 「小5 平均：挑戦中（✕2）」. */
 export function tileLabel(t: Tile): string {
-  const s = app.map.terr.states[t.status];
-  return `${t.unit.appGrade} ${t.unit.topic}：${s}${t.status === "review" ? `（✕${t.wrong}）` : ""}`;
+  return `${t.unit.appGrade} ${t.unit.topic}：${levelName(t.level)}${t.level === 1 ? `（✕${t.wrong}）` : ""}`;
 }
 
 /** Grade of a unit id (for flying to its zone). */
@@ -658,20 +674,23 @@ export function gradeOfUnit(id: string): Grade | null {
 
 export interface ZoneProgress {
   grade: Grade;
-  /** Units with data (any state but まだ). */
+  /** Units with data (Lv ≥ 1). */
   taken: number;
   total: number;
+  /** Units of the zone on each step. */
+  counts: LevelCounts;
   /** Every unit of the zone taken: the trail marker becomes a planted flag. */
   complete: boolean;
 }
 
 /** 制覇 N/M per zone, from the same tiles as the map. */
 export function zoneProgress(tiles: Tile[]): Map<Grade, ZoneProgress> {
-  const out = new Map<Grade, ZoneProgress>(GRADES.map((g) => [g, { grade: g, taken: 0, total: 0, complete: false }]));
+  const out = new Map<Grade, ZoneProgress>(GRADES.map((g) => [g, { grade: g, taken: 0, total: 0, counts: zeroCounts(), complete: false }]));
   for (const t of tiles) {
     const z = out.get(t.unit.appGrade)!;
     z.total++;
-    if (t.status !== "empty") z.taken++;
+    z.counts[t.key]++;
+    if (t.level > 0) z.taken++;
   }
   for (const z of out.values()) z.complete = z.total > 0 && z.taken === z.total;
   return out;
