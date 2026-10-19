@@ -3,6 +3,7 @@
 #
 #   bash apps/snap/deploy.sh <lens-project-id>            # deploy / redeploy
 #   bash apps/snap/deploy.sh <lens-project-id> --set-key  # also store (or replace) the Anthropic API key
+#   bash apps/snap/deploy.sh <lens-project-id> --set-shopify  # store the Shopify access token (pass unlock by order number)
 #
 # Safe to run again: every step checks first and only creates what is missing.
 # Isolation: uses only the 視点レンズ project you pass; creates its own service (lens-snap), bucket,
@@ -18,6 +19,7 @@ REPO=lens-snap
 IMAGE="${REGION}-docker.pkg.dev/${PROJECT}/${REPO}/app:$(date +%Y%m%d-%H%M%S)"
 KEY_SECRET=anthropic-api-key
 CODE_SECRET=lens-snap-pilot-code
+SHOP_SECRET=shopify-admin-token
 g() { gcloud --project "$PROJECT" "$@"; }
 has_secret() { g secrets describe "$1" >/dev/null 2>&1; }
 
@@ -47,10 +49,22 @@ if [ "$SET_KEY" = "--set-key" ]; then
   unset KEY
 fi
 
+if [ "$SET_KEY" = "--set-shopify" ]; then
+  # Dev Dashboard app (2026+): Client ID + Client secret. A legacy custom app's shpat_ token also works:
+  # paste it as the Client ID and leave the secret empty.
+  read -r -p "Shopify app Client ID (or a legacy shpat_ token), then Enter: " CID
+  read -r -s -p "Shopify app Client secret (input hidden; empty for a shpat_ token), then Enter: " CSEC; echo
+  if [ -n "$CSEC" ]; then TOK="${CID}:${CSEC}"; else TOK="$CID"; fi
+  unset CID CSEC
+  if has_secret "$SHOP_SECRET"; then printf '%s' "$TOK" | g secrets versions add "$SHOP_SECRET" --data-file=- >/dev/null
+  else printf '%s' "$TOK" | g secrets create "$SHOP_SECRET" --data-file=- >/dev/null; fi
+  unset TOK
+fi
+
 echo "== 4/6 permissions for the service account"
 NUM="$(g projects describe "$PROJECT" --format 'value(projectNumber)')"
 SA="${NUM}-compute@developer.gserviceaccount.com"
-for s in "$CODE_SECRET" "$KEY_SECRET"; do
+for s in "$CODE_SECRET" "$KEY_SECRET" "$SHOP_SECRET"; do
   has_secret "$s" && g secrets add-iam-policy-binding "$s" --member "serviceAccount:$SA" \
     --role roles/secretmanager.secretAccessor >/dev/null
 done
@@ -65,6 +79,8 @@ COMMIT="$(git rev-parse HEAD)"   # shown in /api/health; the auto-deploy compare
 SECRETS="PILOT_CODE=${CODE_SECRET}:latest"
 if has_secret "$KEY_SECRET"; then SECRETS="${SECRETS},ANTHROPIC_API_KEY=${KEY_SECRET}:latest"
 else echo "   (no API key yet: the app runs with the practice reader; add it later with --set-key)"; fi
+if has_secret "$SHOP_SECRET"; then SECRETS="${SECRETS},SHOPIFY_TOKEN=${SHOP_SECRET}:latest"
+else echo "   (no Shopify token yet: unlock by order number is off, codes still work; add it with --set-shopify)"; fi
 # max-instances 1: the rate limits and the daily cap are counted in memory.
 g run deploy "$SERVICE" --image "$IMAGE" --region "$REGION" --allow-unauthenticated \
   --execution-environment gen2 --max-instances 1 --memory 1Gi --cpu 1 \

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { copy, landingUi } from "../copy";
+import { app, copy, landingUi } from "../copy";
 import { Footer, useMeta } from "./Landing";
 
 /** /privacy — built only from existing copy (privacy FAQ, notThis privacy item, waitlist note). */
@@ -21,6 +21,10 @@ export function Privacy() {
       <section className="lp-section">
         <h2>{faq.q}</h2>
         <p>{faq.a}</p>
+      </section>
+      <section className="lp-section" data-testid="privacy-plans">
+        <h2>{app.plan.privacyTitle}</h2>
+        <p>{app.plan.privacyBody}</p>
       </section>
       <section className="lp-section">
         <h2>{copy.waitlist.heading}</h2>

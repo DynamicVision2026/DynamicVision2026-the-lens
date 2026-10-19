@@ -10,6 +10,7 @@ import { Archive } from "./screens/Archive";
 import { Landing } from "./screens/Landing";
 import { MapScreen } from "./screens/MapScreen";
 import { Onboarding } from "./screens/Onboarding";
+import { PlanScreen } from "./screens/PlanScreen";
 import { Privacy } from "./screens/Privacy";
 import { Report } from "./screens/Report";
 import { Snap } from "./screens/Snap";
@@ -77,6 +78,7 @@ function AppArea() {
           <Route path="exam" element={<MapScreen grade={grade} examEntry />} />
           <Route path="list" element={<TestList grade={grade} />} />
           <Route path="archive" element={<Archive />} />
+          <Route path="plan" element={<PlanScreen />} />
           <Route path="*" element={<Navigate to="/app" replace />} />
         </Routes>
       </main>

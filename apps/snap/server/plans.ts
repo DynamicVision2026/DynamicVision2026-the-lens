@@ -1,0 +1,387 @@
+import { createHash, createHmac, randomBytes, timingSafeEqual } from "node:crypto";
+import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
+import { dirname, join } from "node:path";
+import type { Now } from "./limits";
+
+/**
+ * Plans: the free plan (FREE_MONTHLY photos a month per device, no signup) and the 1-year pass
+ * (¥5,800 on the Shopify store, or bundled with the course). No accounts and no personal data:
+ * - a device is a random id signed by the server (header x-device), issued once by POST /api/device;
+ * - a pass is a license key (header x-license) shared by up to MAX_DEVICES family devices;
+ * - a Shopify order is stored only as its id, expiry and a keyed hash of the buyer's email.
+ * Everything lives as small JSON files in one folder (the Cloud Storage FUSE mount in production).
+ */
+
+export const FREE_MONTHLY = 30;
+export const PASS_DAYS = 365;
+export const MAX_DEVICES = 3;
+/** Fair use for a pass: photos per device per day (a whole class's worth of sheets is still fine). */
+export const PASS_DAILY = 100;
+const DAY = 24 * 60 * 60 * 1000;
+const JST = 9 * 60 * 60 * 1000;
+
+// ---------------------------------------------------------------- storage
+
+export interface Store {
+  get<T>(key: string): Promise<T | null>;
+  put(key: string, value: unknown): Promise<void>;
+}
+
+/** One JSON file per key under `dir` (keys are validated, never user paths). */
+export class FileStore implements Store {
+  constructor(private dir: string) {}
+  private path(key: string) {
+    if (!/^[a-z]+(\/[A-Za-z0-9_-]+)+$/.test(key)) throw new Error("bad key");
+    return join(this.dir, `${key}.json`);
+  }
+  async get<T>(key: string): Promise<T | null> {
+    try {
+      return JSON.parse(await readFile(this.path(key), "utf8")) as T;
+    } catch (e) {
+      if ((e as NodeJS.ErrnoException).code === "ENOENT") return null;
+      throw e;
+    }
+  }
+  async put(key: string, value: unknown) {
+    const p = this.path(key);
+    await mkdir(dirname(p), { recursive: true });
+    const tmp = `${p}.${randomBytes(4).toString("hex")}.tmp`;
+    await writeFile(tmp, JSON.stringify(value));
+    await rename(tmp, p);
+  }
+}
+
+export class MemStore implements Store {
+  m = new Map<string, string>();
+  async get<T>(key: string) {
+    const v = this.m.get(key);
+    return v === undefined ? null : (JSON.parse(v) as T);
+  }
+  async put(key: string, value: unknown) {
+    this.m.set(key, JSON.stringify(value));
+  }
+}
+
+/** The signing secret: SIGNING_KEY, else one generated once and kept next to the plan files. */
+export async function signingKey(dir: string, fromEnv?: string): Promise<string> {
+  if (fromEnv?.trim()) return fromEnv.trim();
+  const p = join(dir, "signing-key");
+  try {
+    const k = (await readFile(p, "utf8")).trim();
+    if (k.length >= 32) return k;
+  } catch {
+    /* first start */
+  }
+  const k = randomBytes(32).toString("hex");
+  await mkdir(dir, { recursive: true });
+  await writeFile(p, k, { mode: 0o600 });
+  return k;
+}
+
+// ---------------------------------------------------------------- ids
+
+const b64url = (b: Buffer) => b.toString("base64url");
+const sign = (secret: string, s: string) => b64url(createHmac("sha256", secret).update(s).digest()).slice(0, 22);
+const eq = (a: string, b: string) => a.length === b.length && timingSafeEqual(Buffer.from(a), Buffer.from(b));
+
+export function newDeviceToken(secret: string): string {
+  const id = b64url(randomBytes(12));
+  return `d1.${id}.${sign(secret, `device:${id}`)}`;
+}
+/** The device id inside a valid token, else null. */
+export function deviceId(secret: string, token: string | undefined | null): string | null {
+  const m = /^d1\.([A-Za-z0-9_-]{16})\.([A-Za-z0-9_-]{22})$/.exec((token ?? "").trim());
+  if (!m) return null;
+  return eq(m[2], sign(secret, `device:${m[1]}`)) ? m[1] : null;
+}
+
+/** Crockford-ish alphabet: no 0/O, 1/I/L, so a code read aloud or typed from paper works. */
+const ALPHA = "23456789ABCDEFGHJKMNPQRSTUVWXYZ";
+export function newLicenseKey(): string {
+  const b = randomBytes(12);
+  const chars = [...b].map((x) => ALPHA[x % ALPHA.length]);
+  return `LS-${chars.slice(0, 4).join("")}-${chars.slice(4, 8).join("")}-${chars.slice(8, 12).join("")}`;
+}
+/** Normalises what a person typed (spaces, lowercase, missing dashes or the LS- prefix). */
+export function normLicense(s: string | undefined | null): string | null {
+  const raw = (s ?? "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+  const body = raw.length === 14 && raw.startsWith("LS") ? raw.slice(2) : raw;
+  if (body.length !== 12 || [...body].some((c) => !ALPHA.includes(c))) return null;
+  return `LS-${body.slice(0, 4)}-${body.slice(4, 8)}-${body.slice(8, 12)}`;
+}
+const licKey = (k: string) => `lic/${k.replace(/-/g, "")}`;
+
+export function emailHash(secret: string, email: string): string {
+  return createHmac("sha256", secret).update(`email:${email.trim().toLowerCase()}`).digest("hex").slice(0, 32);
+}
+
+// ---------------------------------------------------------------- records
+
+export interface License {
+  key: string;
+  /** "order" = a Shopify order (pass or course), "code" = a code handed out (course sold elsewhere, gifts). */
+  kind: "order" | "code";
+  /** ISO time the pass ends; null for a code not used yet (its year starts at first use). */
+  expiresAt: string | null;
+  devices: string[];
+  createdAt: string;
+  /** Shopify order id (gid) for kind "order". */
+  order?: string;
+  note?: string;
+}
+
+interface OrderRecord {
+  license: string;
+  email: string; // keyed hash, never the address
+}
+
+export function monthKey(now: number): string {
+  return new Date(now + JST).toISOString().slice(0, 7);
+}
+export function dayKey(now: number): string {
+  return new Date(now + JST).toISOString().slice(0, 10);
+}
+/** The next 1st of the month, 00:00 in Japan. */
+export function monthResetsAt(now: number): string {
+  const d = new Date(now + JST);
+  const next = Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1) - JST;
+  return new Date(next).toISOString();
+}
+
+export type PlanView =
+  | { plan: "free"; used: number; limit: number; remaining: number; resetsAt: string; expired?: string }
+  | { plan: "pass"; kind: License["kind"]; expiresAt: string; license: string };
+
+export type Gate = { ok: true; charge: () => Promise<void> } | { ok: false; error: "quota" | "pass_daily" | "device_limit" };
+
+export interface PlansOptions {
+  store: Store;
+  secret: string;
+  now?: Now;
+  freeMonthly?: number;
+}
+
+export class Plans {
+  private store: Store;
+  private secret: string;
+  private now: Now;
+  readonly freeMonthly: number;
+  constructor(o: PlansOptions) {
+    this.store = o.store;
+    this.secret = o.secret;
+    this.now = o.now ?? Date.now;
+    this.freeMonthly = o.freeMonthly ?? FREE_MONTHLY;
+  }
+
+  newDevice() {
+    return newDeviceToken(this.secret);
+  }
+  device(token: string | undefined | null) {
+    return deviceId(this.secret, token);
+  }
+
+  private async usage(key: string) {
+    return (await this.store.get<{ n: number }>(key))?.n ?? 0;
+  }
+  private async bump(key: string) {
+    await this.store.put(key, { n: (await this.usage(key)) + 1 });
+  }
+
+  /** The license for this header, if it exists, is active and this device may use it (joins when there is room). */
+  private async activeLicense(dev: string, header: string | undefined | null): Promise<License | "device_limit" | "expired" | null> {
+    const k = normLicense(header);
+    if (!k) return null;
+    const lic = await this.store.get<License>(licKey(k));
+    if (!lic) return null;
+    const now = this.now();
+    if (lic.expiresAt && Date.parse(lic.expiresAt) <= now) return "expired";
+    if (!lic.devices.includes(dev)) {
+      if (lic.devices.length >= MAX_DEVICES) return "device_limit";
+      lic.devices.push(dev);
+    }
+    if (!lic.expiresAt) lic.expiresAt = new Date(now + PASS_DAYS * DAY).toISOString(); // a code's year starts now
+    await this.store.put(licKey(k), lic);
+    return lic;
+  }
+
+  async view(dev: string, licenseHeader?: string | null): Promise<PlanView> {
+    const lic = await this.activeLicense(dev, licenseHeader);
+    if (lic && typeof lic === "object") return { plan: "pass", kind: lic.kind, expiresAt: lic.expiresAt as string, license: lic.key };
+    const now = this.now();
+    const used = await this.usage(`usage/${monthKey(now)}/${dev}`);
+    const v: PlanView = {
+      plan: "free",
+      used,
+      limit: this.freeMonthly,
+      remaining: Math.max(0, this.freeMonthly - used),
+      resetsAt: monthResetsAt(now),
+    };
+    if (lic === "expired") v.expired = normLicense(licenseHeader) ?? undefined;
+    return v;
+  }
+
+  /** May this device read one more photo now? `charge()` counts it (call it after a successful read). */
+  async gate(dev: string, licenseHeader?: string | null): Promise<Gate> {
+    const now = this.now();
+    const lic = await this.activeLicense(dev, licenseHeader);
+    if (lic === "device_limit") return { ok: false, error: "device_limit" };
+    if (lic && typeof lic === "object") {
+      const key = `usage/pass/${dayKey(now)}-${dev}`;
+      if ((await this.usage(key)) >= PASS_DAILY) return { ok: false, error: "pass_daily" };
+      return { ok: true, charge: () => this.bump(key) };
+    }
+    const key = `usage/${monthKey(now)}/${dev}`;
+    if ((await this.usage(key)) >= this.freeMonthly) return { ok: false, error: "quota" };
+    return { ok: true, charge: () => this.bump(key) };
+  }
+
+  /** Activates a typed code (handed out for the course, gifts, pilot families). */
+  async redeem(dev: string, code: string): Promise<{ ok: true; view: PlanView } | { ok: false; error: "bad_code" | "expired" | "device_limit" }> {
+    const k = normLicense(code);
+    const lic = k ? await this.store.get<License>(licKey(k)) : null;
+    if (!lic || !k) return { ok: false, error: "bad_code" };
+    const r = await this.activeLicense(dev, k);
+    if (r === "expired" || r === "device_limit") return { ok: false, error: r };
+    return { ok: true, view: await this.view(dev, k) };
+  }
+
+  /**
+   * A verified Shopify order → its pass (one license per order; claiming again, e.g. on the second
+   * family device, returns the same license after the same email check).
+   */
+  async claimOrder(
+    dev: string,
+    email: string,
+    lookup: () => Promise<VerifiedOrder | OrderProblem>,
+    orderNumber: string,
+  ): Promise<{ ok: true; view: PlanView } | { ok: false; error: OrderProblem | "device_limit" | "expired" }> {
+    const eh = emailHash(this.secret, email);
+    const idx = `order/n${orderNumber.replace(/\D/g, "")}`;
+    const known = await this.store.get<OrderRecord>(idx);
+    if (known) {
+      if (!eq(known.email, eh)) return { ok: false, error: "not_found" };
+      const r = await this.activeLicense(dev, known.license);
+      if (r === "expired" || r === "device_limit") return { ok: false, error: r };
+      return { ok: true, view: await this.view(dev, known.license) };
+    }
+    const found = await lookup();
+    if (typeof found === "string") return { ok: false, error: found };
+    const expires = Date.parse(found.paidAt) + PASS_DAYS * DAY;
+    if (expires <= this.now()) return { ok: false, error: "expired" };
+    const key = newLicenseKey();
+    const lic: License = {
+      key,
+      kind: "order",
+      expiresAt: new Date(expires).toISOString(),
+      devices: [dev],
+      createdAt: new Date(this.now()).toISOString(),
+      order: found.id,
+    };
+    await this.store.put(licKey(key), lic);
+    await this.store.put(idx, { license: key, email: eh } satisfies OrderRecord);
+    return { ok: true, view: await this.view(dev, key) };
+  }
+}
+
+// ---------------------------------------------------------------- Shopify
+
+export interface VerifiedOrder {
+  id: string;
+  paidAt: string;
+}
+export type OrderProblem = "not_found" | "not_paid" | "no_pass_item" | "not_configured" | "verify_failed";
+
+export interface ShopifyConfig {
+  store: string; // xxx.myshopify.com
+  /** Only for local tests (a stand-in Shopify): defaults to https://<store>. */
+  base?: string;
+  token?: string; // Admin API access token (read_orders)
+  apiVersion: string;
+  /** SKUs that grant the pass: the ¥5,800 annual plan and the course. */
+  skus: string[];
+}
+
+interface ShopifyOrderNode {
+  id: string;
+  name: string;
+  email: string | null;
+  cancelledAt: string | null;
+  processedAt: string;
+  displayFinancialStatus: string | null;
+  lineItems: { nodes: { sku: string | null; quantity: number }[] };
+}
+
+/** The pure part of the check (unit-tested): which order, if any, grants a pass. */
+export function pickOrder(nodes: ShopifyOrderNode[], number: string, email: string, skus: string[]): VerifiedOrder | OrderProblem {
+  const want = `#${number.replace(/\D/g, "")}`;
+  const mail = email.trim().toLowerCase();
+  const o = nodes.find((n) => n.name.replace(/\s/g, "") === want && (n.email ?? "").trim().toLowerCase() === mail);
+  if (!o) return "not_found";
+  if (o.cancelledAt || !["PAID", "PARTIALLY_REFUNDED"].includes(o.displayFinancialStatus ?? "")) return "not_paid";
+  const set = new Set(skus.map((s) => s.trim().toUpperCase()).filter(Boolean));
+  if (!o.lineItems.nodes.some((li) => li.quantity > 0 && set.has((li.sku ?? "").trim().toUpperCase()))) return "no_pass_item";
+  return { id: o.id, paidAt: o.processedAt };
+}
+
+export type Fetch = (url: string, init: { method: string; headers: Record<string, string>; body: string }) => Promise<{ ok: boolean; status: number; json(): Promise<unknown> }>;
+
+/**
+ * The Admin API token. SHOPIFY_TOKEN is either a legacy custom-app token (shpat_…, permanent) or
+ * "<client id>:<client secret>" of a Dev Dashboard app (since 2026): then a token is asked with the
+ * client credentials grant and reused until shortly before it expires (24 h).
+ */
+const tokenCache = new Map<string, { token: string; until: number }>();
+export async function shopifyToken(cfg: ShopifyConfig, f: Fetch, now = Date.now()): Promise<string | null> {
+  const t = cfg.token?.trim();
+  if (!t) return null;
+  const i = t.indexOf(":");
+  if (t.startsWith("shpat_") || i < 0) return t;
+  const hit = tokenCache.get(t);
+  if (hit && hit.until > now) return hit.token;
+  const r = await f(`${cfg.base ?? `https://${cfg.store}`}/admin/oauth/access_token`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ grant_type: "client_credentials", client_id: t.slice(0, i), client_secret: t.slice(i + 1) }),
+  });
+  if (!r.ok) {
+    console.error("shopify token failed: http", r.status);
+    return null;
+  }
+  const j = (await r.json()) as { access_token?: string; expires_in?: number };
+  if (!j.access_token) return null;
+  tokenCache.set(t, { token: j.access_token, until: now + Math.max(60, (j.expires_in ?? 86399) - 600) * 1000 });
+  return j.access_token;
+}
+
+export async function lookupShopifyOrder(cfg: ShopifyConfig, number: string, email: string, f: Fetch = fetch as unknown as Fetch): Promise<VerifiedOrder | OrderProblem> {
+  if (!cfg.token) return "not_configured";
+  const digits = number.replace(/\D/g, "");
+  if (!digits) return "not_found";
+  const query = `query($q: String!) { orders(first: 5, query: $q) { nodes { id name email cancelledAt processedAt displayFinancialStatus lineItems(first: 50) { nodes { sku quantity } } } } }`;
+  try {
+    const token = await shopifyToken(cfg, f);
+    if (!token) return "verify_failed";
+    const r = await f(`${cfg.base ?? `https://${cfg.store}`}/admin/api/${cfg.apiVersion}/graphql.json`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Shopify-Access-Token": token },
+      body: JSON.stringify({ query, variables: { q: `name:${digits}` } }),
+    });
+    if (!r.ok) {
+      console.error("shopify lookup failed: http", r.status);
+      return "verify_failed";
+    }
+    const j = (await r.json()) as { data?: { orders?: { nodes?: ShopifyOrderNode[] } }; errors?: unknown };
+    const nodes = j.data?.orders?.nodes;
+    if (!nodes) {
+      console.error("shopify lookup failed: no data", JSON.stringify(j.errors ?? null).slice(0, 200));
+      return "verify_failed";
+    }
+    return pickOrder(nodes, digits, email, cfg.skus);
+  } catch (e) {
+    console.error("shopify lookup failed:", e instanceof Error ? e.message.slice(0, 120) : "unknown");
+    return "verify_failed";
+  }
+}
+
+/** Stable short id for logs (never log the email or the license). */
+export const shortHash = (s: string) => createHash("sha256").update(s).digest("hex").slice(0, 8);

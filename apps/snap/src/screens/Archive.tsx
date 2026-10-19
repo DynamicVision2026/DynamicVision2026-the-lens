@@ -4,13 +4,16 @@ import { PhotoThumb } from "../components/PhotoThumb";
 import { app } from "../copy";
 import { unitById } from "../curriculum";
 import { deletePage } from "../lib/store";
+import { usePlan } from "../lib/plan";
 import { usePages } from "../state";
+import { PlanChip } from "./PlanScreen";
 
 type Period = keyof typeof app.archive.period;
 const DAYS: Record<Period, number> = { all: Infinity, today: 1, week: 7, month: 30 };
 
 export function Archive() {
   const { pages, reload } = usePages();
+  const { plan } = usePlan();
   const [unit, setUnit] = useState("");
   const [onlyWrong, setOnlyWrong] = useState(false);
   const [period, setPeriod] = useState<Period>("all");
@@ -32,7 +35,10 @@ export function Archive() {
 
   return (
     <div className="page page-archive">
-      <h1>{app.archive.title}</h1>
+      <div className="snap-head">
+        <h1>{app.archive.title}</h1>
+        <PlanChip plan={plan} />
+      </div>
       <BackupCard pages={pages} onRestored={reload} />
       <div className="filters">
         <select className="select" value={unit} onChange={(e) => setUnit(e.target.value)} aria-label={app.archive.allUnits}>

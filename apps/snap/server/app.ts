@@ -3,6 +3,7 @@ import { toGrade } from "../src/curriculum";
 import { WaitlistSchema } from "../src/lib/waitlist";
 import type { Reader } from "../src/reader";
 import { DailyCap, type Now, RateLimiter, clientKey, safeEqual } from "./limits";
+import { type Fetch, type Plans, type ShopifyConfig, lookupShopifyOrder } from "./plans";
 import { type WaitlistTarget, writeSignup } from "./waitlist-store";
 
 export const MAX_IMAGE_BYTES = 12 * 1024 * 1024;
@@ -21,6 +22,12 @@ export interface AppOptions {
   readDailyCap?: number;
   waitlistPerIpHour?: number;
   now?: Now;
+  /** Free plan + 1-year pass. When unset (older tests), /read is not metered. */
+  plans?: Plans;
+  shopify?: ShopifyConfig;
+  shopifyFetch?: Fetch;
+  /** Where the ¥5,800 pass is bought (Shopify product page). */
+  buyUrl?: string;
 }
 
 /** @hono/node-server puts the Node request in c.env.incoming. */
@@ -37,6 +44,9 @@ export function createApi(opts: AppOptions) {
   const readIp = new RateLimiter(opts.readPerIpHour ?? 20, HOUR, now);
   const readDay = new DailyCap(opts.readDailyCap ?? 300, now);
   const waitIp = new RateLimiter(opts.waitlistPerIpHour ?? 10, HOUR, now);
+  const deviceIp = new RateLimiter(10, HOUR, now);
+  const claimIp = new RateLimiter(10, HOUR, now);
+  const { plans } = opts;
   const target: WaitlistTarget = { dir: opts.waitlistDir || undefined, path: opts.waitlistPath };
 
   const api = new Hono<Env>();
@@ -46,8 +56,48 @@ export function createApi(opts: AppOptions) {
   // commit: the git commit this revision was built from (set by the auto-deploy; null when deployed by hand)
   api.get("/health", (c) => c.json({ ok: true, reader: reader.name, pilotGate: !!pilotCode, commit: process.env.APP_COMMIT?.trim() || null }));
 
+  // ---- plans: free (per device, per month) and the 1-year pass ----
+  api.post("/device", (c) => {
+    if (!plans) return c.json({ error: "not_configured" }, 404);
+    if (!deviceIp.hit(keyOf(c))) return c.json({ error: "rate_limited" }, 429);
+    return c.json({ device: plans.newDevice() });
+  });
+  const devOf = (c: { req: { header: (n: string) => string | undefined } }) => plans?.device(c.req.header("x-device")) ?? null;
+  const planJson = async (dev: string, license: string | null | undefined) => ({ ...(await plans!.view(dev, license)), buyUrl: opts.buyUrl ?? null });
+  api.get("/plan", async (c) => {
+    if (!plans) return c.json({ error: "not_configured" }, 404);
+    const dev = devOf(c);
+    if (!dev) return c.json({ error: "device_required" }, 401);
+    return c.json(await planJson(dev, c.req.header("x-license")));
+  });
+  api.post("/claim", async (c) => {
+    if (!plans) return c.json({ error: "not_configured" }, 404);
+    const dev = devOf(c);
+    if (!dev) return c.json({ error: "device_required" }, 401);
+    if (!claimIp.hit(keyOf(c))) return c.json({ error: "rate_limited" }, 429);
+    const body = (await c.req.json().catch(() => null)) as { order?: unknown; email?: unknown } | null;
+    const order = typeof body?.order === "string" ? body.order.replace(/\D/g, "").slice(0, 12) : "";
+    const email = typeof body?.email === "string" ? body.email.trim().slice(0, 200) : "";
+    if (!order || !email.includes("@")) return c.json({ error: "invalid" }, 400);
+    const r = await plans.claimOrder(dev, email, () => (opts.shopify ? lookupShopifyOrder(opts.shopify, order, email, opts.shopifyFetch) : Promise.resolve("not_configured" as const)), order);
+    if (!r.ok) return c.json({ error: r.error }, r.error === "verify_failed" || r.error === "not_configured" ? 503 : 400);
+    return c.json({ ...r.view, buyUrl: opts.buyUrl ?? null });
+  });
+  api.post("/redeem", async (c) => {
+    if (!plans) return c.json({ error: "not_configured" }, 404);
+    const dev = devOf(c);
+    if (!dev) return c.json({ error: "device_required" }, 401);
+    if (!claimIp.hit(keyOf(c))) return c.json({ error: "rate_limited" }, 429);
+    const body = (await c.req.json().catch(() => null)) as { code?: unknown } | null;
+    const r = await plans.redeem(dev, typeof body?.code === "string" ? body.code.slice(0, 40) : "");
+    if (!r.ok) return c.json({ error: r.error }, 400);
+    return c.json({ ...r.view, buyUrl: opts.buyUrl ?? null });
+  });
+
   api.post("/read", async (c) => {
     if (pilotCode && !safeEqual((c.req.header("x-pilot-code") ?? "").trim().toLowerCase(), pilotCode.trim().toLowerCase())) return c.json({ error: "pilot_code" }, 403);
+    const dev = devOf(c);
+    if (plans && !dev) return c.json({ error: "device_required" }, 401);
     if (!readIp.hit(keyOf(c))) return c.json({ error: "rate_limited" }, 429);
     const len = Number(c.req.header("content-length") ?? 0);
     if (len > MAX_IMAGE_BYTES + 64 * 1024) return c.json({ error: "too_large" }, 413);
@@ -65,11 +115,15 @@ export function createApi(opts: AppOptions) {
     if (file.size > MAX_IMAGE_BYTES) return c.json({ error: "too_large" }, 413);
     const mime = file.type || "image/jpeg";
     if (!IMAGE_TYPES.includes(mime)) return c.json({ error: "unsupported_type" }, 415);
+    // The plan (free: FREE_MONTHLY a month; pass: fair use a day), counted only for successful reads.
+    const gate = plans && dev ? await plans.gate(dev, c.req.header("x-license")) : null;
+    if (gate && !gate.ok) return c.json({ error: gate.error }, 402);
     // The global cap counts only requests that will actually reach the model.
     if (!readDay.hit()) return c.json({ error: "daily_cap" }, 429);
     try {
       const bytes = new Uint8Array(await file.arrayBuffer());
       const page = await reader.read(bytes, mime, grade);
+      if (gate?.ok) await gate.charge().catch((e) => console.error("usage write failed:", (e as NodeJS.ErrnoException)?.code ?? "unknown"));
       return c.json(page);
     } catch (e) {
       // Log only the error class/message, never the image or the reader's text.

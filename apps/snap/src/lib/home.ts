@@ -18,7 +18,7 @@ export function homePath(): "/app/map" {
 
 /** Screens that are not the map get a 「‹ マップにもどる」 link at the top (the report has its own). */
 export function showsBackToMap(pathname: string): boolean {
-  return ["/app/snap", "/app/list", "/app/archive", "/app/grade"].some((p) => pathname.startsWith(p));
+  return ["/app/snap", "/app/list", "/app/archive", "/app/grade", "/app/plan"].some((p) => pathname.startsWith(p));
 }
 
 export type TabKey = "snap" | "map" | "list" | "archive";
@@ -36,6 +36,7 @@ export const APP_TABS: { key: TabKey; to: string }[] = [
 export function activeTab(pathname: string): TabKey | null {
   if (pathname.startsWith("/app/report")) return "map";
   if (pathname.startsWith("/app/list")) return "list";
+  if (pathname.startsWith("/app/plan")) return "archive";
   return APP_TABS.find((t) => pathname.startsWith(t.to))?.key ?? null;
 }
 
