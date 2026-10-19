@@ -34,6 +34,12 @@ export const NO_LAYERS: Layers = { sheet: null, viewer: null, years: false, exam
 /** What history.state / location.state holds for a layer entry. */
 export type LayerState = { snap: Layers };
 
+/**
+ * The テスト前 tab's entry state (`/app/exam`): the plan, which falls back to the date step when no
+ * test is set. d = 0, so closing the mode replaces the entry and the screen moves to the map.
+ */
+export const EXAM_ENTRY: LayerState = { snap: { ...NO_LAYERS, exam: "plan" } };
+
 /** Layers from a history entry's state (anything else → none open). */
 export function layersOf(state: unknown): Layers {
   const s = (state as { snap?: Partial<Layers> } | null)?.snap;

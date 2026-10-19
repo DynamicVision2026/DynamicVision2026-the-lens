@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { app } from "../src/copy";
-import { APP_TABS, STRIP_NEXT, activeTab, buildStrip, focusFromParam, homePath, mapUnitUrl, savedToast, stripFromReport } from "../src/lib/home";
+import { APP_TABS, STRIP_NEXT, showsBackToMap, activeTab, buildStrip, focusFromParam, homePath, mapUnitUrl, savedToast, stripFromReport } from "../src/lib/home";
 import { type SavedPage, type SavedProblem, draftFromResult, pageFromDraft } from "../src/lib/model";
 import { buildReport, listUrl } from "../src/lib/report";
 import { litMapUrl, mapTiles } from "../src/lib/review";
@@ -35,7 +35,7 @@ describe("map is home", () => {
     expect(APP_TABS).toHaveLength(4);
     expect(APP_TABS[0]).toEqual({ key: "map", to: "/app/map" });
     expect(APP_TABS.map((t) => app.nav[t.key])).toEqual(["マップ", "撮る", "テスト前", "ふりかえり"]);
-    expect(APP_TABS.map((t) => t.to)).toEqual(["/app/map", "/app/snap", "/app/list", "/app/archive"]);
+    expect(APP_TABS.map((t) => t.to)).toEqual(["/app/map", "/app/snap", "/app/exam", "/app/archive"]);
     expect(APP_TABS.map((t) => t.to)).not.toContain("/app/report");
   });
 
@@ -43,6 +43,10 @@ describe("map is home", () => {
     expect(activeTab("/app/report")).toBe("map");
     expect(activeTab("/app/map")).toBe("map");
     expect(activeTab("/app/list")).toBe("list");
+    expect(activeTab("/app/exam")).toBe("list");
+    // every screen that is not the map has a way back to it
+    for (const p of ["/app/snap", "/app/list", "/app/archive", "/app/grade"]) expect(showsBackToMap(p)).toBe(true);
+    for (const p of ["/app/map", "/app/exam", "/app/report"]) expect(showsBackToMap(p)).toBe(false);
     expect(activeTab("/app/snap")).toBe("snap");
     expect(activeTab("/app/grade")).toBeNull();
   });

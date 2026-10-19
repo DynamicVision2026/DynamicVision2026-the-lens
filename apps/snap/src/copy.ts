@@ -185,7 +185,7 @@ export const landingUi = {
 };
 
 export const app = {
-  nav: { map: "マップ", snap: "撮る", list: "テスト前", archive: "ふりかえり" },
+  nav: { map: "マップ", snap: "撮る", list: "テスト前", archive: "ふりかえり", backToMap: "マップにもどる" },
   onboarding: {
     title: "学年を選んでください",
     body: "その学年の単元で整理します。あとから変えられます。",

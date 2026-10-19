@@ -772,6 +772,10 @@ body:has(.terr-page) .main { padding-bottom: 0; max-width: none; } /* the map is
 .mc-trying { background: var(--c-wrong-tint); border-color: var(--c-wrong); color: var(--c-wrong); }
 .mc-reviewed { background: var(--c-ok-tint); border-color: var(--c-ok); color: var(--c-ok); }
 .report-back { justify-self: start; display: inline-flex; align-items: center; min-height: 40px; margin: -8px 0 -6px; font-size: 0.88rem; font-weight: 700; color: var(--c-navy-soft); text-decoration: none; }
+/* 「‹ マップにもどる」 at the top of 撮る / テスト前リスト / ふりかえり / 学年 */
+.back-to-map { display: flex; width: min(100%, 980px); margin: 0 auto; padding: 12px 16px 0; box-sizing: border-box; }
+.back-to-map > a { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 18px 0 12px; border: 1px solid var(--c-line); border-radius: 999px; background: var(--c-surface); font-size: 0.95rem; font-weight: 700; color: var(--c-navy); text-decoration: none; }
+.back-to-map > a span { font-size: 1.3rem; line-height: 1; }
 .report-more { justify-self: center; display: inline-flex; align-items: center; gap: 4px; min-height: 44px; font-weight: 700; color: var(--c-navy-soft); }
 
 .report-empty { display: grid; gap: 10px; padding: 18px 16px; }
