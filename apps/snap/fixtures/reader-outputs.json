@@ -95,12 +95,12 @@
     "answer": "2800人",
     "mark": "○",
     "confidence": 0.95,
-    "correct_answer": "2800人",
-    "judge": "○",
+    "correct_answer": "300人",
+    "judge": "✕",
     "unit_confidence": 0.95
    }
   ],
-  "notes": "Title 5年 割合 テスト. Page tilted; all text legible."
+  "notes": "Title 5年 割合 テスト. Page tilted; all text legible. Mock: Q5 judge deliberately disagrees with the teacher (the AI computed only the increase, 300人) so the confirm screen shows the 先生の印とAIの判定がちがいます note; the teacher's ○ still wins."
  },
  "p06": {
   "page_type": "drill",

@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { isGrade } from "../src/curriculum";
+import { toGrade } from "../src/curriculum";
 import { WaitlistSchema } from "../src/lib/waitlist";
 import type { Reader } from "../src/reader";
 import { DailyCap, type Now, RateLimiter, clientKey, safeEqual } from "./limits";
@@ -56,9 +56,10 @@ export function createApi(opts: AppOptions) {
     } catch {
       return c.json({ error: "bad_request" }, 400);
     }
-    const grade = form.get("grade");
+    // toGrade: an app still holding the old combined 「高校」 is read as 高1.
+    const grade = toGrade(form.get("grade"));
     const file = form.get("image");
-    if (!isGrade(grade)) return c.json({ error: "grade_required" }, 400);
+    if (!grade) return c.json({ error: "grade_required" }, 400);
     if (!(file instanceof File)) return c.json({ error: "image_required" }, 400);
     if (file.size > MAX_IMAGE_BYTES) return c.json({ error: "too_large" }, 413);
     const mime = file.type || "image/jpeg";

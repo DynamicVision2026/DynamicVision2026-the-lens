@@ -21,6 +21,16 @@ export function finalMark(teacher: Mark, judge: Mark): { mark: Mark; markSource:
 }
 
 /**
+ * The teacher's mark and the AI's own judgment differ (teacher ○ / AI ✕ or the other way round).
+ * Shown on the confirm screen as a neutral 「印を確認してください」: either the AI slipped, the red
+ * mark was misread, or the teacher's mark deserves a second look. The teacher's mark still wins;
+ * once the parent taps a mark (source parent) the note goes. No AI judgment → no note.
+ */
+export function judgeDisagrees(p: { mark: Mark; markSource?: MarkSource; aiJudge?: Mark }): boolean {
+  return p.markSource === "teacher" && !!p.mark && !!p.aiJudge && p.aiJudge !== p.mark;
+}
+
+/**
  * Source of a stored mark, back-compatible with pages saved before markSource existed
  * (and their backups): missing → "teacher" when a mark is set, else null.
  */

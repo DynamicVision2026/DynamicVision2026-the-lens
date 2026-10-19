@@ -1,7 +1,6 @@
 import { type IDBPDatabase, openDB } from "idb";
 import { newPages } from "./backup";
-import { withMarkSources } from "./marks";
-import type { SavedPage } from "./model";
+import { type SavedPage, migratePage } from "./model";
 
 /** Everything lives in this device's IndexedDB. Nothing is sent to the server. */
 const DB_NAME = "lens-snap";
@@ -22,7 +21,7 @@ export async function savePage(page: SavedPage): Promise<void> {
 }
 
 export async function allPages(): Promise<SavedPage[]> {
-  const pages = ((await (await db()).getAll(STORE)) as SavedPage[]).map(withMarkSources);
+  const pages = ((await (await db()).getAll(STORE)) as SavedPage[]).map(migratePage);
   return pages.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 }
 

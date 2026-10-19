@@ -5,13 +5,15 @@ Usage: pnpm build
        PORT=8094 PILOT_CODE=kumo42 node dist-server/index.js &     # gated server (招待コード)
        PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers python3 scripts/screens.py [base_url] [gated_url]
 Flow: landing → waitlist → /app grade 小5 → seed earlier pages (gold / green / red units)
-      → upload p06 (AI判定 + 単元を確認, then やめる) → upload p01 (mock reader) → confirm → save → 単元星図 flares 5-C3 → full star chart
+      → upload p06 (AI判定 + 単元を確認, then やめる) → upload p01 (teacher marks + 正答（AI）, one
+      先生の印とAIの判定がちがいます note) → confirm → save → 単元星図 flares 5-C3 → full star chart
       → sheet on 5-C3 with its roots → 一覧 (tile view) → /app opens the map with the report strip
       (bar, 次にやること → star + sheet, 前の学年 → far band opened + stars ringed, fold remembered)
       → 学習レポート (詳しく: every unit opens its star via ?unit=) → its button opens the list with
       exactly those units → テスト前リスト
       with 5-C3 = exactly the 2 ✕ problems → + gold 5-B1: its old ✕ in 念のため → archive → backup download / restore / invalid file → offline reload (service
-      worker) → Android install button → retake → iPhone install tip → empty レポート (no pages)
+      worker) → Android install button → retake → iPhone install tip → 小2 and 高2 homes → legacy 「高校」 → 高1
+      → empty レポート (no pages)
       → gated server: 招待コード prompt, wrong code → 403 → asked again → right code reads.
 """
 import json, os, re, sys, tempfile
@@ -52,6 +54,12 @@ SEED_JS = """async () => {
 SEED_YOUNG_JS = SEED_JS.replace('grade: "小5"', 'grade: "小2"').split("const pages = [")[0] + """const pages = [
     P("y1", "2026-10-14T09:00:00.000Z", "drill", [["2-A2","✕"],["2-A2","✕"],["2-A2","○"],["2-C1","✕",true],["1-A2","✕"]]),
     P("y2", "2026-10-16T09:00:00.000Z", "test", [["2-B1","○"],["2-B1","○"]]),
+  ];""" + SEED_JS.split("];", 1)[1]
+# A 高2 child (高校 = three grades since 19 Oct): red 数学II 三角関数, gold 数学B 数列, green いろいろな式,
+# red 数学I 二次関数 in the year below.
+SEED_KOKO2_JS = SEED_JS.replace('grade: "小5"', 'grade: "高2"').split("const pages = [")[0] + """const pages = [
+    P("k1", "2026-10-14T09:00:00.000Z", "test", [["h-II-4","✕"],["h-II-4","✕"],["h-II-4","○"],["h-II-1","✕",true],["h-I-3","✕"]]),
+    P("k2", "2026-10-16T09:00:00.000Z", "test", [["h-B-1","○"],["h-B-1","○"]]),
   ];""" + SEED_JS.split("];", 1)[1]
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "docs" / "screens"
@@ -124,6 +132,10 @@ with sync_playwright() as p:
     # 3. /app onboarding → 小5
     page.goto(BASE + "/app")
     expect(page.get_by_role("heading", name="学年を選んでください")).to_be_visible()
+    # 12 grades in a 3-column grid: 小1–3 / 小4–6 / 中1–3 / 高1–3 (never one combined 高校)
+    expect(page.locator(".grade-grid [role=radio]")).to_have_text(["小1", "小2", "小3", "小4", "小5", "小6", "中1", "中2", "中3", "高1", "高2", "高3"])
+    rows = {round(b["y"]) for b in (page.locator(".grade-grid [role=radio]").nth(i).bounding_box() for i in range(12))}
+    assert len(rows) == 4, rows
     page.get_by_role("radio", name="小5").click()
     shot(page, "04-onboarding-grade")
     page.get_by_role("button", name="はじめる").click()
@@ -157,16 +169,25 @@ with sync_playwright() as p:
     expect(page.get_by_test_id("unit-check")).to_have_count(0)
     page.get_by_role("button", name="やめる").click()
 
-    # 4b. Upload p01 (graded test) → confirm: every mark is the teacher's (先生の印), no AI answer shown
+    # 4b. Upload p01 (graded test) → confirm: every mark is the teacher's (先生の印); the AI still solves
+    #     each problem (正答（AI） under every toggle) and Q5, where its judgment differs, gets a neutral note.
     page.get_by_test_id("file-input").set_input_files(str(ROOT / "fixtures" / "photos" / "p01.jpg"))
     expect(page.get_by_role("heading", name="読み取り結果の確認")).to_be_visible(timeout=15000)
     cards = page.get_by_test_id("problem-card")
     expect(cards).to_have_count(5)
     expect(page.locator('[data-testid=mark-source][data-source=teacher]')).to_have_count(5)
     expect(page.get_by_test_id("mark-source").first).to_have_text("先生の印")
-    expect(page.get_by_test_id("ai-answer")).to_have_count(0)
+    expect(page.get_by_test_id("ai-answer")).to_have_count(5)
+    expect(cards.nth(2).get_by_test_id("ai-answer")).to_have_text("正答（AI）：42L")
     expect(page.get_by_test_id("unit-check")).to_have_count(0)
+    expect(page.get_by_test_id("mark-disagree")).to_have_count(1)
+    expect(cards.nth(4).get_by_test_id("mark-disagree")).to_have_text("先生の印とAIの判定がちがいます。印を確認してください。")
+    expect(cards.nth(4).get_by_role("radio", name="○")).to_have_attribute("aria-checked", "true")  # the teacher's mark wins
     shot(page, "06b-confirm-teacher")
+    # A parent tap on that card clears the note (the mark is now the parent's; ○ keeps the saved result unchanged)
+    cards.nth(4).get_by_role("radio", name="○").click()
+    expect(page.get_by_test_id("mark-disagree")).to_have_count(0)
+    expect(cards.nth(4).get_by_test_id("mark-source")).to_have_count(0)
     page.get_by_role("button", name="保存する").click()
 
     # 5a. Light-up: straight to the 単元星図, 5-C3 flares and its root line draws down; toast stays
@@ -184,9 +205,9 @@ with sync_playwright() as p:
     page.goto(BASE + "/app/map")
     expect(page.locator(".sky-page")).to_have_count(1)
     expect(page.locator("button.star-node")).to_have_count(31)  # 小5 (15) + 小4 (16)
-    # far sky: one merged 「これから学ぶ単元（小6〜高校）」 row on top + 小3, 小2, 小1 as their own bands
+    # far sky: one merged 「これから学ぶ単元（小6〜高3）」 row on top + 小3, 小2, 小1 as their own bands
     expect(page.locator("button.far-band")).to_have_count(4)
-    expect(page.get_by_test_id("upper-band")).to_have_text("これから学ぶ単元（小6〜高校）")
+    expect(page.get_by_test_id("upper-band")).to_have_text("これから学ぶ単元（小6〜高3）")
     expect(page.locator(".sky-hint")).to_have_text("下の学年の単元が、上の学年の単元のもとになっています。")
     expect(page.locator("g.far-star")).to_have_count(110 - 31)
     expect(page.locator(".sky-band-label.is-own")).to_contain_text("小5")
@@ -232,11 +253,13 @@ with sync_playwright() as p:
     page.get_by_role("button", name="たたむ", exact=True).click()
     expect(page.locator('button.far-band[data-grade="小3"]')).to_have_count(1)
 
-    # 5c3. The merged upper row expands into 小6 … 高校 as individual far bands; 「たたむ」 merges them again
+    # 5c3. The merged upper row expands into 小6 … 高3 as individual far bands; 「たたむ」 merges them again
     page.get_by_test_id("upper-band").click()
     expect(page.get_by_test_id("upper-band")).to_have_count(0)
-    expect(page.get_by_test_id("upper-head")).to_contain_text("これから学ぶ単元（小6〜高校）")
-    expect(page.locator("button.far-band")).to_have_count(8)
+    expect(page.get_by_test_id("upper-head")).to_contain_text("これから学ぶ単元（小6〜高3）")
+    expect(page.locator("button.far-band")).to_have_count(10)  # 小6 中1 中2 中3 高1 高2 高3 + 小3 小2 小1
+    for g in ["高1", "高2", "高3"]:
+        expect(page.locator(f'button.far-band[data-grade="{g}"]')).to_have_count(1)
     expect(page.locator('.sky-canvas [data-unit="6-C2"]')).to_have_attribute("data-status", "gold")
     page.get_by_role("button", name="これから学ぶ単元をたたむ").click()
     expect(page.get_by_test_id("upper-band")).to_have_count(1)
@@ -245,7 +268,7 @@ with sync_playwright() as p:
     # 5d. 一覧: the tile view (accessible fallback), choice remembered
     page.get_by_role("radio", name="一覧").click()
     secs = page.locator("details.grade-sec")
-    expect(secs).to_have_count(10)
+    expect(secs).to_have_count(12)
     expect(secs.first).to_have_attribute("data-grade", "小5")
     expect(secs.first).to_have_attribute("open", "")
     expect(page.locator("details.grade-sec[open]")).to_have_count(1)
@@ -257,7 +280,7 @@ with sync_playwright() as p:
     expect(tile).to_contain_text("5問")
     expect(page.locator('details[data-grade="小4"] .sum-review')).to_have_text("復習 1")
     page.reload()
-    expect(page.locator("details.grade-sec")).to_have_count(10)  # remembered
+    expect(page.locator("details.grade-sec")).to_have_count(12)  # remembered
     page.evaluate("window.scrollTo({ top: 0, behavior: 'instant' })")
     shot(page, "08l-map-list")
     page.get_by_role("radio", name="星図").click()
@@ -487,7 +510,7 @@ with sync_playwright() as p:
     y.goto(BASE + "/app")
     expect(y).to_have_url(BASE + "/app/map")
     expect(y.get_by_test_id("map-strip").locator(".strip-title")).to_have_text("小2の7単元")
-    expect(y.get_by_test_id("upper-band")).to_have_text("これから学ぶ単元（小3〜高校）")
+    expect(y.get_by_test_id("upper-band")).to_have_text("これから学ぶ単元（小3〜高3）")
     expect(y.locator("button.far-band")).to_have_count(1)  # only the merged row: 小1 is near (the grade below)
     expect(y.get_by_test_id("strip-earlier")).to_have_text("前の学年に✕のある単元があります（1）+")
     own = y.locator(".sky-band-label.is-own")
@@ -498,6 +521,54 @@ with sync_playwright() as p:
     y.wait_for_timeout(300)
     shot(y, "18y-map-home-young", full=False)
     young.close()
+
+    # 8b3. A 高2 child: own band 高2 with 高1 below (near), only 高3 merged above, 数学I ✕ as the earlier unit
+    k2 = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2, locale="ja-JP", is_mobile=True, has_touch=True)
+    k = k2.new_page()
+    k.on("pageerror", lambda err: errors.append(str(err)))
+    k.goto(BASE + "/app")
+    k.evaluate("localStorage.setItem('lens-snap:grade', '高2')")
+    k.evaluate(SEED_KOKO2_JS)
+    k.goto(BASE + "/app")
+    expect(k).to_have_url(BASE + "/app/map")
+    expect(k.get_by_test_id("grade-chip")).to_have_text("高2")
+    expect(k.get_by_test_id("grade-check")).to_have_count(0)
+    expect(k.get_by_test_id("map-strip").locator(".strip-title")).to_have_text("高2の8単元")
+    expect(k.get_by_test_id("strip-counts")).to_have_text("マスター1復習ずみ1復習が必要1まだ5")
+    expect(k.get_by_test_id("upper-band")).to_have_text("これから学ぶ単元（高3）")
+    expect(k.locator("button.far-band")).to_have_count(10)  # 高3 (merged) + 中3 … 小1
+    expect(k.locator("button.star-node")).to_have_count(8 + 7)  # 高2 + 高1
+    expect(k.get_by_test_id("strip-earlier")).to_have_text("前の学年に✕のある単元があります（1）+")
+    expect(k.locator(".sky-band-label.is-own")).to_contain_text("高2")
+    for unit, st in [("h-II-4", "review"), ("h-B-1", "gold"), ("h-II-1", "ok"), ("h-I-3", "review"), ("h-II-2", "empty")]:
+        expect(k.locator(f'.sky-canvas [data-unit="{unit}"]')).to_have_attribute("data-status", st)
+    assert k.locator(".sky-band-label.is-own").bounding_box()["y"] + 46 < 844 - 64
+    k.wait_for_timeout(300)
+    shot(k, "18k-map-home-koko2", full=False)
+    k.goto(BASE + "/app/report")
+    expect(k.get_by_role("heading", level=1)).to_have_text("高2の学習レポート")
+    expect(k.get_by_test_id("report-earlier").locator('[data-unit="h-I-3"]')).to_contain_text("二次関数")
+    k2.close()
+
+    # 8b4. Migration: a device that saved the old combined 「高校」 opens as 高1, the badge asks for a check
+    mg = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2, locale="ja-JP", is_mobile=True, has_touch=True)
+    m = mg.new_page()
+    m.on("pageerror", lambda err: errors.append(str(err)))
+    m.goto(BASE + "/app")
+    m.evaluate("localStorage.setItem('lens-snap:grade', '高校')")
+    m.goto(BASE + "/app/snap")
+    expect(m.get_by_test_id("grade-chip")).to_have_text("高1")
+    expect(m.get_by_test_id("grade-check")).to_contain_text("学年を「高1」にしました。")
+    assert m.evaluate("localStorage.getItem('lens-snap:grade')") == "高1"
+    m.reload()
+    expect(m.get_by_test_id("grade-check")).to_be_visible()  # until the parent answers
+    shot(m, "04m-grade-migrated", full=False)
+    m.get_by_test_id("grade-chip").click()
+    m.get_by_role("radio", name="高2").click()
+    m.get_by_role("button", name="はじめる").click()
+    expect(m.get_by_test_id("grade-chip")).to_have_text("高2")
+    expect(m.get_by_test_id("grade-check")).to_have_count(0)
+    mg.close()
 
     # 8c. 学習レポート with no pages yet: a friendly card + 「ページを撮る」; /app starts at 撮る
     ctx3 = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2, locale="ja-JP", is_mobile=True, has_touch=True)

@@ -79,7 +79,7 @@ describe("whole-curriculum map", () => {
     for (const s of secs) expect(s.tiles.every((t) => t.unit.appGrade === s.grade)).toBe(true);
   });
 
-  it("puts the child's own grade first, then 小1 … 高校 in order", () => {
+  it("puts the child's own grade first, then 小1 … 高3 in order", () => {
     const secs = mapSections([], "中1");
     expect(secs[0]).toMatchObject({ grade: "中1", own: true });
     expect(secs.slice(1).map((s) => s.grade)).toEqual(GRADES.filter((g) => g !== "中1"));

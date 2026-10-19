@@ -15,6 +15,8 @@ Students or parents photograph homework, workbook pages and graded tests. Lens S
 - テスト前リスト: gold units' older ✕ sit in a collapsed 「念のため」 section and do not count against 準備度; `?units=a,b` preselects units
 - Home-screen app: `public/manifest.webmanifest`, `public/sw.js` (offline app shell, never caches `/api`), icons from `node scripts/icons.mjs`
 - **AI ○✕ + unit check** (v0.4): the reader also solves each problem (`correct_answer`) and judges the child's answer (`judge`); the saved ○✕ is the teacher's red mark, else the AI's judgment, else none (`src/lib/marks.ts`, `markSource` teacher / ai / parent). Each unit comes with `unit_confidence` and `unit_alt`; below 0.7 the confirm card shows 「単元を確認してください」 and offers the alternative first (候補)
+- **Grades** (v0.5): 12 — 小1…小6, 中1…中3, **高1 / 高2 / 高3** (never one combined 高校). 高校 units keep their ids and are placed by `HIGH_SCHOOL_YEAR` in `src/curriculum.ts` (高1 = 数学I + A, 高2 = II + B, 高3 = III + C; schools vary). Saved data with the old 「高校」 (localStorage, IndexedDB, backups, `/api/read`) is read as 高1 and the grade badge asks the parent to check it once
+- **Teacher-marked and unmarked pages** (v0.5): the AI solves every problem; 「正答（AI）」 shows under every toggle, and when the AI's judgment differs from the teacher's red mark a neutral 「先生の印とAIの判定がちがいます。印を確認してください。」 appears (teacher's mark still wins; a parent tap clears it). Each saved problem keeps `aiJudge`
 - Data safety: persistent-storage request after the first 保存, install tip, and ふりかえり → バックアップ (one JSON file, restore merges by page id)
 
 ## Environment
@@ -37,7 +39,7 @@ From the repo root, with the key from Secret Manager (project = the Lens Snap pr
 ANTHROPIC_API_KEY=$(gcloud secrets versions access latest --secret anthropic-api-key) pnpm --filter @lens/snap eval:units --reader claude
 ```
 
-Options: `--model claude-sonnet-5-5` (default `READER_MODEL` or `claude-haiku-5-5`), `--file fixtures/unit-eval.json` (220 problems, 2 per unit: a = typical, b = look-alike trap). Text only (no photos), same prompt and unit list as the app, 4 calls at a time with retry on 429 / 529. Prints overall, a / b and per-grade accuracy, every miss (`id: got X (alt Y) ≠ truth Z — q`) and the most frequent wrong pairs; writes `apps/snap/eval-out/units-<model>-<date>.json` (git-ignored). Without a key it runs a keyword baseline and says so.
+Options: `--model claude-sonnet-5-5` (default `READER_MODEL` or `claude-haiku-5-5`), `--file fixtures/unit-eval.json` (220 problems, 2 per unit: a = typical, b = look-alike trap; 高校 items carry their school year 高1 / 高2 / 高3). Text only (no photos), same prompt and unit list as the app, 4 calls at a time with retry on 429 / 529. Prints overall, a / b and per-grade accuracy, every miss (`id: got X (alt Y) ≠ truth Z — q`) and the most frequent wrong pairs; writes `apps/snap/eval-out/units-<model>-<date>.json` (git-ignored). Without a key it runs a keyword baseline and says so.
 
 Limits are in memory: run one instance (`--max-instances 1`). Export signups with `node scripts/waitlist-export.mjs <dir-or-jsonl> > waitlist.csv`.
 

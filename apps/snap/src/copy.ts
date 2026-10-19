@@ -73,12 +73,12 @@ export const copy = {
       {
         title: "点数アップをお約束するものではありません",
         body:
-          "採点もしません。先生がつけた○✕を、そのまま記録するだけです。Lens Snap がお手伝いするのは、テスト前に「何をやるか」を決めるところです。",
+          "点数はつけません。○✕は、先生の印があればそれを記録し、印のない宿題やドリルはAIが判定します（保護者の方がいつでも直せます）。Lens Snap がお手伝いするのは、テスト前に「何をやるか」を決めるところです。",
       },
       {
-        title: "答えを教えるアプリではありません",
+        title: "答えを丸写しするためのアプリではありません",
         body:
-          "問題を解いたり、答えを表示したりはしません。考えるのは、お子さま自身です。",
+          "○✕を確かめるための正答は、確認画面に小さく表示するだけです。解き方を考えるのは、お子さま自身です。",
       },
       {
         title: "写真は、お使いのスマホの中に保存されます",
@@ -131,7 +131,9 @@ export const copy = {
       "中学1年生",
       "中学2年生",
       "中学3年生",
-      "高校生",
+      "高校1年生",
+      "高校2年生",
+      "高校3年生",
       "その他",
     ],
     // アンケートQ1と同じ選択肢（数字を比べられるように揃えています）
@@ -219,6 +221,7 @@ export const app = {
     unitSuggest: "候補",
     source: { teacher: "先生の印", ai: "AI判定", parent: "" } as Record<"teacher" | "ai" | "parent", string>,
     correctAnswer: (a: string) => `正答（AI）：${a}`,
+    disagree: "先生の印とAIの判定がちがいます。印を確認してください。",
     save: "保存する",
     cancel: "やめる",
     empty: "問題が見つかりませんでした。",
@@ -260,7 +263,7 @@ export const app = {
       unfold: "ひらく",
       foldedNext: (n: number) => (n > 0 ? `次にやること ${n}` : "次にやること なし"),
     },
-    chartLabel: "単元マップ（星図）。下が小1、上が高校です。",
+    chartLabel: "単元マップ（星図）。下が小1、上が高3です。",
     openBand: (g: string) => `${g}の単元をひらく`,
     fold: "たたむ",
     upperBand: (from: string, to: string) => (from === to ? `これから学ぶ単元（${to}）` : `これから学ぶ単元（${from}〜${to}）`),
@@ -357,6 +360,11 @@ export const app = {
     empty: "保存したページはまだありません。",
     page: (d: string, n: number) => `${d}・${n}問`,
   },
-  grade: { change: "学年を変える" },
+  grade: {
+    change: "学年を変える",
+    // Shown once after the old combined 「高校」 was read as 高1 (19 Oct 2026)
+    migrated: (g: string) => `学年を「${g}」にしました。高2・高3のときは、右上の学年をタップして変えてください。`,
+    ok: "このままでよい",
+  },
   pageType: { test: "テスト", drill: "ドリル", note: "ノート", other: "プリント" } as Record<string, string>,
 };

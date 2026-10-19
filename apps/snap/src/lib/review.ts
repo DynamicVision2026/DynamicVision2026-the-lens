@@ -143,7 +143,7 @@ export interface MapSection {
   counts: Record<TileStatus, number>;
 }
 
-/** Whole-curriculum map: one section per grade, the child's own grade first, then 小1 … 高校. */
+/** Whole-curriculum map: one section per grade, the child's own grade first, then 小1 … 高3. */
 export function mapSections(pages: SavedPage[], grade: Grade): MapSection[] {
   const tiles = mapTiles(pages);
   const sections = GRADES.map((g): MapSection => {
