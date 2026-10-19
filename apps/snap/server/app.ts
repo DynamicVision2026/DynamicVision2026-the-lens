@@ -43,7 +43,8 @@ export function createApi(opts: AppOptions) {
   const keyOf = (c: { req: { header: (n: string) => string | undefined }; env: Env["Bindings"] | undefined }) =>
     clientKey(c.req.header("x-forwarded-for"), c.env?.incoming?.socket?.remoteAddress);
 
-  api.get("/health", (c) => c.json({ ok: true, reader: reader.name, pilotGate: !!pilotCode }));
+  // commit: the git commit this revision was built from (set by the auto-deploy; null when deployed by hand)
+  api.get("/health", (c) => c.json({ ok: true, reader: reader.name, pilotGate: !!pilotCode, commit: process.env.APP_COMMIT?.trim() || null }));
 
   api.post("/read", async (c) => {
     if (pilotCode && !safeEqual((c.req.header("x-pilot-code") ?? "").trim().toLowerCase(), pilotCode.trim().toLowerCase())) return c.json({ error: "pilot_code" }, 403);

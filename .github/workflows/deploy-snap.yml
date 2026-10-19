@@ -1,0 +1,115 @@
+name: Deploy Lens Snap
+
+# Auto-deploy of apps/snap to Cloud Run (service lens-snap, project shiten-lens-511712).
+# Runs after "Validate Lens Cards" (the validate + apps checks) finishes GREEN on main, so nothing that
+# failed CI is ever deployed. Skips when nothing the image is built from changed since the live revision.
+# Only the image changes: secrets, env, volumes and limits stay as apps/snap/deploy.sh set them
+# (run deploy.sh by hand only to change those).
+# Auth: Workload Identity Federation, no keys (one-time setup: apps/snap/setup-autodeploy.sh).
+# If the new revision fails its health check, traffic goes back to the previous one.
+
+on:
+  workflow_run:
+    workflows: ["Validate Lens Cards"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: deploy-lens-snap
+  cancel-in-progress: false
+
+env:
+  PROJECT: shiten-lens-511712
+  REGION: asia-northeast1
+  SERVICE: lens-snap
+  PROVIDER: projects/453311523826/locations/global/workloadIdentityPools/github/providers/github-repo
+  DEPLOYER: github-deployer@shiten-lens-511712.iam.gserviceaccount.com
+
+jobs:
+  deploy:
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 0
+
+      - name: Sign in to Google Cloud (no keys)
+        id: auth
+        continue-on-error: true
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ env.PROVIDER }}
+          service_account: ${{ env.DEPLOYER }}
+
+      - name: Auto-deploy not set up yet
+        if: steps.auth.outcome != 'success'
+        run: |
+          echo "::warning::Lens Snap auto-deploy is not set up yet (or the sign-in failed). Run once in Cloud Shell: bash apps/snap/setup-autodeploy.sh shiten-lens-511712"
+
+      - uses: google-github-actions/setup-gcloud@v2
+        if: steps.auth.outcome == 'success'
+
+      - name: Anything to deploy?
+        id: what
+        if: steps.auth.outcome == 'success'
+        run: |
+          SHA="$(git rev-parse HEAD)"
+          LIVE="$(gcloud run services describe "$SERVICE" --region "$REGION" --project "$PROJECT" --format 'value(metadata.labels.commit)' || true)"
+          PREV="$(gcloud run services describe "$SERVICE" --region "$REGION" --project "$PROJECT" --format 'value(status.latestReadyRevisionName)')"
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+          echo "prev=$PREV" >> "$GITHUB_OUTPUT"
+          echo "live commit: ${LIVE:-unknown}, this commit: $SHA, live revision: $PREV"
+          PATHS=(apps/snap package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc .github/workflows/deploy-snap.yml)
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ -z "$LIVE" ] || ! git cat-file -e "$LIVE^{commit}" 2>/dev/null; then
+            echo "go=yes" >> "$GITHUB_OUTPUT"
+          elif [ "$LIVE" = "$SHA" ]; then
+            echo "already live"; echo "go=no" >> "$GITHUB_OUTPUT"
+          elif git diff --quiet "$LIVE" "$SHA" -- "${PATHS[@]}"; then
+            echo "no Lens Snap changes since the live revision"; echo "go=no" >> "$GITHUB_OUTPUT"
+          else
+            git diff --stat "$LIVE" "$SHA" -- "${PATHS[@]}" | tail -1
+            echo "go=yes" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build the image (Cloud Build)
+        id: build
+        if: steps.what.outputs.go == 'yes'
+        run: |
+          IMAGE="$REGION-docker.pkg.dev/$PROJECT/lens-snap/app:${{ steps.what.outputs.sha }}"
+          gcloud builds submit --project "$PROJECT" --config apps/snap/cloudbuild.yaml \
+            --substitutions "_IMAGE=$IMAGE" --suppress-logs .
+          echo "image=$IMAGE" >> "$GITHUB_OUTPUT"
+
+      - name: Deploy (image only; settings unchanged)
+        if: steps.what.outputs.go == 'yes'
+        run: |
+          gcloud run deploy "$SERVICE" --project "$PROJECT" --region "$REGION" \
+            --image "${{ steps.build.outputs.image }}" \
+            --update-labels "commit=${{ steps.what.outputs.sha }}" \
+            --update-env-vars "APP_COMMIT=${{ steps.what.outputs.sha }}" --quiet
+          # after a rollback the traffic is pinned to the old revision: send it to the new one
+          gcloud run services update-traffic "$SERVICE" --project "$PROJECT" --region "$REGION" --to-latest --quiet
+
+      - name: Health check (roll back if it fails)
+        if: steps.what.outputs.go == 'yes'
+        run: |
+          URL="$(gcloud run services describe "$SERVICE" --region "$REGION" --project "$PROJECT" --format 'value(status.url)')"
+          for _ in 1 2 3 4 5 6; do
+            BODY="$(curl -fsS "$URL/api/health" || true)"
+            if echo "$BODY" | grep -q '"ok":true' && echo "$BODY" | grep -q "${{ steps.what.outputs.sha }}" \
+               && curl -fsS "$URL/app" | grep -qi "<div id=\"root\""; then
+              echo "live: $BODY"; exit 0
+            fi
+            sleep 10
+          done
+          echo "::error::New revision is not healthy; sending traffic back to ${{ steps.what.outputs.prev }}"
+          gcloud run services update-traffic "$SERVICE" --project "$PROJECT" --region "$REGION" \
+            --to-revisions "${{ steps.what.outputs.prev }}=100"
+          exit 1

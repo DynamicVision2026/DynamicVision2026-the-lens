@@ -798,5 +798,58 @@
    }
   ],
   "notes": "Mock of the founder's live test (19 Oct 2026) of a 4年 sheet read for a 小5 profile. No teacher marks; ○✕ are the AI's judgments. Q2's table is empty (no answer). Q4 is a partly cut-off duplicate of Q3."
+ },
+ "zukei5": {
+  "page_type": "drill",
+  "grade_guess": "小5",
+  "score": null,
+  "retake": false,
+  "problems": [
+   {
+    "n": 1,
+    "q": "下の平行四辺形の面積を求めなさい。 [底辺15cm 高さ8cm]",
+    "unit": "5-B3",
+    "answer": "15 × 8 = 120 / 答え 120 cm²",
+    "mark": null,
+    "confidence": 0.9,
+    "judge": "○",
+    "correct_answer": "120 cm²",
+    "unit_confidence": 0.9
+   },
+   {
+    "n": 2,
+    "q": "次の表は、あるクラスのテストの点数です。平均点を求めなさい。 [表なし]",
+    "unit": "5-D2",
+    "answer": null,
+    "mark": null,
+    "confidence": 0.8,
+    "judge": "✕",
+    "correct_answer": null,
+    "unit_confidence": 0.85
+   },
+   {
+    "n": 3,
+    "q": "次の表は、あるクラスのテストの点数です。平均点を求めなさい。 [表: 点数 70点 / 80点 / 90点 / 100点、人数 2人 / 4人 / 3人 / 10人]",
+    "unit": "5-D2",
+    "answer": null,
+    "mark": null,
+    "confidence": 0.85,
+    "judge": "✕",
+    "correct_answer": "約91.1点（1730÷19）",
+    "unit_confidence": 0.85
+   },
+   {
+    "n": 4,
+    "q": "定価4000円の品物を15%引きで買いました。値引きされた金額はいくらですか。",
+    "unit": "5-C3",
+    "answer": "4000 × 0.15 = 600 / 答え 600 円",
+    "mark": null,
+    "confidence": 0.9,
+    "judge": "○",
+    "correct_answer": "600円",
+    "unit_confidence": 0.9
+   }
+  ],
+  "notes": "The founder's iPad test (19 Oct 2026): 5年 図形と割合. Printed numbers are 1, 2, 2, 3; problems are numbered in reading order (left column first). Problem 2 is a 平均 question whose table is not in the visible area and whose 式 and 答え are blank. Problem 3 is the 平均 table at top right, with no written answer. Problem 4 asks for the discount amount, and the student wrote 600 円 (the question asks for the discounted amount, so the answer as written is kept). No red marks or score are visible. The name on the sheet is omitted."
  }
 }

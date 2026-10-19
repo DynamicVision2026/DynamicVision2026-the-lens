@@ -61,6 +61,7 @@ echo "== 5/6 build the image (Cloud Build, ~3-5 min)"
 g builds submit --config apps/snap/cloudbuild.yaml --substitutions "_IMAGE=$IMAGE" .
 
 echo "== 6/6 deploy"
+COMMIT="$(git rev-parse HEAD)"   # shown in /api/health; the auto-deploy compares against it
 SECRETS="PILOT_CODE=${CODE_SECRET}:latest"
 if has_secret "$KEY_SECRET"; then SECRETS="${SECRETS},ANTHROPIC_API_KEY=${KEY_SECRET}:latest"
 else echo "   (no API key yet: the app runs with the practice reader; add it later with --set-key)"; fi
@@ -68,7 +69,8 @@ else echo "   (no API key yet: the app runs with the practice reader; add it lat
 g run deploy "$SERVICE" --image "$IMAGE" --region "$REGION" --allow-unauthenticated \
   --execution-environment gen2 --max-instances 1 --memory 1Gi --cpu 1 \
   --set-secrets "$SECRETS" \
-  --set-env-vars "READER_MODEL=${READER_MODEL:-claude-haiku-5-5},READ_PER_IP_HOUR=20,READ_DAILY_CAP=300,WAITLIST_DIR=/data/waitlist" \
+  --set-env-vars "READER_MODEL=${READER_MODEL:-claude-haiku-5-5},READ_PER_IP_HOUR=20,READ_DAILY_CAP=300,WAITLIST_DIR=/data/waitlist,APP_COMMIT=${COMMIT}" \
+  --update-labels "commit=${COMMIT}" \
   --add-volume "name=waitlist,type=cloud-storage,bucket=${BUCKET},mount-options=uid=1000;gid=1000" \
   --add-volume-mount "volume=waitlist,mount-path=/data"
 
