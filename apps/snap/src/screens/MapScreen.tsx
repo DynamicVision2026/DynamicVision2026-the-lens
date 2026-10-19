@@ -1,15 +1,17 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { PageViewer } from "../components/PageViewer";
+import { useSheetDrag } from "../components/useSheetDrag";
 import { PhotoThumb } from "../components/PhotoThumb";
 import { SnapFab } from "../components/SnapFab";
 import { TerrGlyph } from "../components/TerrGlyph";
-import { type MapApi, TerritoryMap } from "../components/TerritoryMap";
+import { type ExamLook, type MapApi, TerritoryMap } from "../components/TerritoryMap";
 import { WelcomeCard } from "../components/WelcomeCard";
 import { app } from "../copy";
 import { type Grade, type Unit, isHighSchool, unitById } from "../curriculum";
+import { type ExamStore, type PlanItem, buildPlan, countdown, currentTest, defaultRange, keepTick, parseStore, toggleUnit, toggleZone, withTest, zoneFull } from "../lib/examplan";
 import { focusFromParam, savedToast } from "../lib/home";
-import { type NavStep, arrivalStep, closeTop, layersOf, openSheet, openViewer, openYears } from "../lib/layers";
+import { type NavStep, arrivalStep, closeTop, layersOf, openExam, openShare, openSheet, openViewer, openYears } from "../lib/layers";
 import type { SavedPage } from "../lib/model";
 import { type MapSection, type Tile, mapSections, mapTiles, parseLit, unfiled } from "../lib/review";
 import { sheetData } from "../lib/starmap";
@@ -18,6 +20,7 @@ import { type Hud, LEVELS, STRANDS, buildHud, colorKeyOf, zoneName } from "../li
 import { type SheetProblem, type UnitSheet, unitSheet } from "../lib/unitsheet";
 import { type YearRow, yearlyRecord } from "../lib/yearly";
 import { readPref, usePages, writePref } from "../state";
+import { ExamDate, ExamSummary, PlanSheet, RangeBar } from "./ExamMode";
 
 const TOAST_MS = 4500;
 /** Rows of the unit's history shown in the sheet before 「ほか Nページ」. */
@@ -147,7 +150,87 @@ function TerritoryView(props: {
     if (!selected) setTour(null);
   }, [selected]);
 
+  // ---------- テスト前モード (a layer: date → range → plan; the parent summary over the plan) ----------
+  const examKey = `exam:${grade}`;
+  const [store, setStore] = useState<ExamStore>(() => parseStore(readPref(examKey)));
+  const save = (st: ExamStore) => {
+    setStore(st);
+    writePref(examKey, JSON.stringify(st));
+  };
+  const now = useMemo(() => new Date(), [layers.exam]); // eslint-disable-line react-hooks/exhaustive-deps
+  const test = currentTest(store, now);
+  // range / plan without a test (e.g. a stale history entry after the day passed): ask the date first
+  const examStep = layers.exam && layers.exam !== "date" && !test ? "date" : layers.exam;
+  const [draft, setDraft] = useState<string[] | null>(null);
+  useEffect(() => {
+    if (examStep === "range" && draft === null && test) setDraft(test.units);
+    if (examStep !== "range" && draft !== null) setDraft(null);
+  }, [examStep, draft, test]);
+  const plan = useMemo(() => (test && examStep === "plan" ? buildPlan(pages, test.units, test.kept) : null), [pages, test, examStep]);
+  const [viewerUnit, setViewerUnit] = useState<string | null>(null);
+  const [focusUnit, setFocusUnit] = useState<string | null>(null);
+  const examLook = useMemo<ExamLook | null>(() => {
+    if (examStep === "range" && draft)
+      return {
+        range: new Set(draft),
+        dim: true,
+        todo: new Set(),
+        onZone: (g) => setDraft((r) => toggleZone(r ?? [], g).range),
+        zoneFull: (g) => zoneFull(draft, g),
+      };
+    if (examStep === "plan" && test && plan) return { range: new Set(test.units), dim: false, todo: new Set(plan.todo) };
+    return null;
+  }, [examStep, draft, test, plan]);
+  const enterExam = () => {
+    setMenu(false);
+    setTour(null);
+    go(openExam(layers, test ? "plan" : "date"));
+  };
+  const pickDay = (day: string) => {
+    const t = store.tests[day] ?? { date: day, units: defaultRange(pages, grade), kept: [] };
+    save(withTest(store, t));
+    setDraft(t.units);
+    go(openExam(layers, "range"));
+  };
+  const decide = () => {
+    if (!test || !draft || draft.length === 0) return;
+    save(withTest(store, { ...test, units: draft }));
+    go(openExam(layers, "plan"));
+  };
+  // a tick that reviews the unit's last ✕: its red flag lowers on the map; say so for a moment
+  const [secured, setSecured] = useState<string | null>(null);
+  useEffect(() => {
+    if (!secured) return;
+    const t = setTimeout(() => setSecured(null), TOAST_MS);
+    return () => clearTimeout(t);
+  }, [secured]);
+  const tickPlan = (item: PlanItem, checked: boolean) => {
+    const others = pages.some((pg) => pg.problems.some((p, j) => p.unit === item.unit.id && p.mark === "✕" && !p.reviewed && !(pg.id === item.page.id && j === item.index)));
+    if (checked && item.reason === "wrong" && !others) setSecured(app.exam.secured(`${item.unit.appGrade} ${item.unit.topic}`));
+    props.onTick(item.page.id, item.index, checked);
+    if (test) save(withTest(store, keepTick(test, item.key, checked)));
+  };
+  // the camera: the child's zone while picking; the range and tonight's units above the plan
+  useEffect(() => {
+    if (examStep === "range") api.current?.home();
+    if (examStep === "plan" && test && plan) {
+      const ids = [...new Set([...test.units, ...plan.planUnits])];
+      requestAnimationFrame(() => api.current?.frameUnits(ids, "top"));
+    }
+    // on entering a step only
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [examStep]);
+
   const select = (id: string | null) => {
+    if (examStep === "range") {
+      if (id) setDraft((r) => toggleUnit(r ?? [], id));
+      return;
+    }
+    if (examStep === "plan") {
+      if (id) setFocusUnit(id);
+      return;
+    }
+    if (examStep) return;
     if (id) go(openSheet(layers, id));
     else if (selected) go(closeTop(layers));
     if (id === null || (tour !== null && hud.next[tour] !== id)) setTour(null);
@@ -160,7 +243,7 @@ function TerritoryView(props: {
   };
 
   useEffect(() => {
-    if (!selected && !layers.years && !menu) return;
+    if (!selected && !layers.years && !layers.exam && !menu) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "Escape") return;
       if (menu) setMenu(false);
@@ -172,11 +255,22 @@ function TerritoryView(props: {
 
   const data = selected ? sheetData(selected, tiles) : null;
   const record = useMemo(() => (selected ? unitSheet(pages, selected) : null), [pages, selected]);
-  const viewerPage = data && layers.viewer ? pages.find((pg) => pg.id === layers.viewer) : undefined;
+  const viewerPage = (data || plan) && layers.viewer ? pages.find((pg) => pg.id === layers.viewer) : undefined;
+  const sheetLike = !!data || layers.years || examStep === "plan" || examStep === "date";
   return (
-    <div className={`terr${empty ? " is-empty" : ""}${data || layers.years ? " has-sheet" : ""}`}>
-      <TerritoryMap tiles={tiles} grade={grade} selected={data ? selected : null} onSelect={select} lit={lit} pointed={pointed} sheetOpen={!!data} api={api} />
-      <div className="terr-hud" aria-hidden={viewerPage ? true : undefined}>
+    <div className={`terr${empty ? " is-empty" : ""}${sheetLike ? " has-sheet" : ""}${examStep ? ` is-exam exam-${examStep}` : ""}`}>
+      <TerritoryMap
+        tiles={tiles}
+        grade={grade}
+        selected={data ? selected : null}
+        onSelect={select}
+        lit={lit}
+        pointed={pointed}
+        sheetOpen={!!data || examStep === "plan"}
+        api={api}
+        exam={examLook}
+      />
+      <div className="terr-hud" aria-hidden={viewerPage || layers.share ? true : undefined}>
         <div className="hud-tl">
           <div className="hud-brand">
             <h1 className="hud-title">{app.map.title}</h1>
@@ -213,7 +307,21 @@ function TerritoryView(props: {
               </button>
             </div>
           )}
-          {hud.next.length > 0 && (
+          {examStep && test && (
+            <p className="hud-countdown" data-testid="exam-countdown">
+              {countdown(test.date, now)}
+            </p>
+          )}
+          {!examStep && !empty && (
+            <button type="button" className="hud-exam" onClick={enterExam} aria-label={app.exam.modeLabel} data-testid="hud-exam">
+              <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden focusable="false">
+                <rect x="3" y="4.5" width="14" height="12.5" rx="2" />
+                <path d="M3 8.5h14M7 2.5v4M13 2.5v4M7.5 13l2 2 3.5-4" />
+              </svg>
+              {app.exam.mode}
+            </button>
+          )}
+          {!examStep && hud.next.length > 0 && (
             <button type="button" className={`hud-next${tour !== null ? " is-on" : ""}`} onClick={nextStep} aria-label={app.map.terr.nextLabel(hud.next.length)} data-testid="hud-next">
               <span className="hud-next-flag" aria-hidden />
               {app.map.terr.next(hud.next.length)}
@@ -240,8 +348,33 @@ function TerritoryView(props: {
             <span className="hud-compass-label">{app.map.terr.here}</span>
           </button>
         </div>
-        {!empty && !data && !layers.years && <SnapFab />}
+        {!empty && !data && !layers.years && !examStep && <SnapFab />}
+        {examStep === "range" && draft && <RangeBar range={draft} onDecide={decide} onClose={() => go(closeTop(layers))} />}
       </div>
+      {examStep === "date" && <ExamDate now={now} initial={store.current} onPick={pickDay} onClose={() => go(closeTop(layers))} />}
+      {examStep === "plan" && plan && test && (
+        <PlanSheet
+          plan={plan}
+          day={test.date}
+          now={now}
+          hidden={!!viewerPage || layers.share}
+          onClose={() => go(closeTop(layers))}
+          onTick={tickPlan}
+          onOpenPage={(it) => {
+            setViewerUnit(it.unit.id);
+            go(openViewer(layers, it.page.id));
+          }}
+          onShare={() => go(openShare(layers))}
+          onChange={() => go(openExam(layers, "date"))}
+          focusUnit={focusUnit}
+        />
+      )}
+      {secured && examStep === "plan" && !viewerPage && !layers.share && (
+        <div className="toast toast-map exam-secured" role="status" data-testid="exam-secured">
+          <span className="toast-text">{secured}</span>
+        </div>
+      )}
+      {layers.share && plan && test && <ExamSummary plan={plan} day={test.date} now={now} onClose={() => go(closeTop(layers))} />}
       {layers.years && (
         <YearSheet
           rows={yearRows}
@@ -265,7 +398,7 @@ function TerritoryView(props: {
           tour={tour !== null && hud.next[tour] === selected ? { i: tour + 1, n: hud.next.length, next: nextStep } : null}
         />
       )}
-      {viewerPage && <PageViewer page={viewerPage} unitId={selected} onClose={() => go(closeTop(layers))} />}
+      {viewerPage && <PageViewer page={viewerPage} unitId={selected ?? viewerUnit} onClose={() => go(closeTop(layers))} />}
     </div>
   );
 }
@@ -388,11 +521,6 @@ function YearSheet({ rows, onClose, onPick }: { rows: YearRow[]; onClose: () => 
   );
 }
 
-/** Half height of the unit sheet (share of the window) and the drag thresholds. */
-const SHEET_HALF = 0.56;
-const DRAG_UP = 40;
-const DRAG_DOWN = 60;
-
 /**
  * The unit sheet = layer 3 (record: state, counts, もとになる単元, history) + layer 4 (this unit's
  * problems, newest first, with marks, the 「復習した」 tick and the page photo). Half height by default
@@ -415,48 +543,16 @@ export function Sheet(props: {
   const s = app.map.sheet;
   const t = app.map.terr;
   const history = record.history;
-  const ref = useRef<HTMLElement>(null);
+  const sheet = useSheetDrag(onClose);
+  const { full, setFull } = sheet;
   const body = useRef<HTMLDivElement>(null);
   const probs = useRef<HTMLElement>(null);
-  const [full, setFull] = useState(false);
-  const [dragH, setDragH] = useState<number | null>(null);
   const [allHistory, setAllHistory] = useState(false);
-  const drag = useRef<{ y: number; h: number; moved: boolean } | null>(null);
   useEffect(() => {
     body.current?.scrollTo?.({ top: 0 });
     setAllHistory(false);
   }, [unit.id]);
 
-  const maxH = () => {
-    const top = document.querySelector(".topbar")?.getBoundingClientRect().bottom ?? 56;
-    return window.innerHeight - Math.max(0, top) - 8;
-  };
-  const onGrabDown = (e: React.PointerEvent) => {
-    if ((e.target as Element).closest("button:not(.sheet-grab)")) return;
-    drag.current = { y: e.clientY, h: ref.current?.getBoundingClientRect().height ?? 0, moved: false };
-  };
-  const onGrabMove = (e: React.PointerEvent) => {
-    const d = drag.current;
-    if (!d) return;
-    const dy = e.clientY - d.y;
-    if (!d.moved && Math.abs(dy) < 6) return;
-    if (!d.moved) (e.currentTarget as Element).setPointerCapture?.(e.pointerId); // a drag, not a tap on the handle
-    d.moved = true;
-    setDragH(Math.max(80, Math.min(maxH(), d.h - dy)));
-  };
-  const onGrabUp = (e: React.PointerEvent) => {
-    const d = drag.current;
-    drag.current = null;
-    if (!d || !d.moved) return;
-    const dy = e.clientY - d.y;
-    const h = d.h - dy;
-    setDragH(null);
-    if (dy < -DRAG_UP) setFull(true);
-    else if (dy > DRAG_DOWN) {
-      if (full && h >= window.innerHeight * SHEET_HALF * 0.6) setFull(false);
-      else onClose();
-    }
-  };
   /** 「この単元の問題を見る」: full height, then the 問題 section at the top of the sheet. */
   const toProblems = () => {
     setFull(true);
@@ -471,9 +567,9 @@ export function Sheet(props: {
   const nProblems = record.problems.length + record.nennotame.length;
   return (
     <section
-      ref={ref}
-      className={`sheet terr-sheet unit-sheet${full ? " is-full" : ""}${dragH !== null ? " is-drag" : ""}`}
-      style={dragH !== null ? { height: `${dragH}px`, maxHeight: `${dragH}px` } : undefined}
+      ref={sheet.ref}
+      className={`sheet terr-sheet unit-sheet${full ? " is-full" : ""}${sheet.dragging ? " is-drag" : ""}`}
+      style={sheet.style}
       role="dialog"
       aria-modal="false"
       aria-labelledby="sheet-title"
@@ -482,7 +578,7 @@ export function Sheet(props: {
       data-testid="star-sheet"
       data-size={full ? "full" : "half"}
     >
-      <div className="sheet-head" onPointerDown={onGrabDown} onPointerMove={onGrabMove} onPointerUp={onGrabUp} onPointerCancel={onGrabUp}>
+      <div className="sheet-head" {...sheet.headProps}>
         <button
           type="button"
           className="sheet-grab"

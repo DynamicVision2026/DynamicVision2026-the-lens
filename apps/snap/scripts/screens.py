@@ -24,11 +24,19 @@ Journey (J*, for the founder): fresh 小5 profile on the journey server → J1 e
       the live 4年 sheet → J2 confirm (AI判定) → 保存 → J3 fly + tiles rising + toast → J4 HUD with
       red flags, 次にやること 2 → J5 次にやること → 平均 sheet at half height (history, routes, its ✕ problem)
       → J6 テスト前リスト from the sheet.
+テスト前モード (22*, the founder's real example): a 小5 child with his three sheets (the live 4年 sheet with
+      the AI's marks, 5年 図形と割合, 5年 多角形と面積; fixtures/exam-demo.json) → HUD 「テスト前モード」 →
+      「テストはいつですか？」 (22a) → 明日 → range on the dimmed map (default = 小5 units with data; tap, 「この地帯を全部」,
+      22b) → 決定 → 今夜の作戦 at half height over the map (22c: ①②③, 4問・約20分, range outlined, tonight's
+      units pulsing) → full → ② → 「答えを確かめる」 (22d) → photo → viewer → back → tick → 1 / 4 and the 小4 tile
+      loses its flag (22e) → 共有用にまとめる (22f) → Web Share text → back, back (mode off) → reopen (ticks kept)
+      → all ① ② ticked → 「今夜の作戦は完了です」.
 Unit sheet (21*): 5-C3 sheet half height → ticks → 「この単元の問題を見る」 (full height, 問題 at the top, 21) →
       thumbnail → page viewer (21v: photo, double-tap zoom, the page's problems with 割合 highlighted) → close
       keeps the sheet and its scroll → back closes the viewer, then the sheet; the map camera returns.
 """
-import json, os, re, sys, tempfile
+import base64, json, os, re, sys, tempfile
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from playwright.sync_api import sync_playwright, expect
 
@@ -79,6 +87,55 @@ SEED_YEARS_JS = SEED_JS.replace('    P("seed4",', """    P("old1", "2025-06-12T0
     P("old2", "2026-02-10T09:00:00.000Z", "drill", [["4-C2","○"],["4-C2","✕"]]),
     P("seed4",""")
 ROOT = Path(__file__).resolve().parent.parent
+
+
+def exam_seed_js():
+    """The founder's three sheets for a 小5 child (テスト前モード demo, 22*), newest last:
+    (a) the live 4年 sheet (fixture live4) with the AI's marks as in J2 and its photo;
+    (c) 5年 多角形と面積: answered → ○ (AI); Q3's table and work disagree (reader notes) → no mark, reading
+        confidence 0.55 (要確認 → ③ 念のため);
+    (b) 5年 図形と割合: answered → ○, blank → ✕ (AI).
+    The 5年 pages have no photo (the reader outputs only)."""
+    fx = json.loads((ROOT / "fixtures" / "reader-outputs.json").read_text())["live4"]["problems"]
+    demo = json.loads((ROOT / "fixtures" / "exam-demo.json").read_text())
+    photo = base64.b64encode((ROOT / "fixtures" / "photos" / "live4.jpg").read_bytes()).decode()
+    now = datetime.now(timezone.utc)
+    at = lambda days: (now - timedelta(days=days)).strftime("%Y-%m-%dT%H:%M:%S.000Z")
+
+    def prob(i, p, mark, correct, conf=None):
+        return {"n": i + 1, "q": p["q"], "unit": p["unit"], "answer": p.get("answer"), "mark": mark, "markSource": "ai" if mark else None,
+                "correctAnswer": correct, "aiJudge": mark, "confidence": p["confidence"] if conf is None else conf, "reviewed": False}
+
+    live = [prob(i, p, p["judge"], p.get("correct_answer")) for i, p in enumerate(fx)]
+    pp, zp = demo["poly5"]["problems"], demo["zukei5"]["problems"]
+    poly = [prob(0, pp[0], "○", "100 cm²"), prob(1, pp[1], "○", None), prob(2, pp[2], None, None, 0.55), prob(3, pp[3], "○", "2400円")]
+    zukei = [prob(0, zp[0], "○", "120 cm²"), prob(1, zp[1], "✕", None), prob(2, zp[2], "✕", None), prob(3, zp[3], "○", "600円")]
+    page = lambda pid, days, probs: {"id": pid, "createdAt": at(days), "grade": "小5", "pageType": "drill", "score": None, "problems": probs}
+    pages = [dict(page("f-live4", 5, live), photoB64=photo), page("f-poly", 3, poly), page("f-zukei", 1, zukei)]
+    return """async () => {
+  const pages = %s;
+  for (const p of pages) {
+    if (!p.photoB64) continue;
+    const bin = atob(p.photoB64);
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    p.photo = { bytes: bytes.buffer, mime: "image/jpeg" };
+    delete p.photoB64;
+  }
+  await new Promise((res, rej) => {
+    const req = indexedDB.open("lens-snap", 1);
+    req.onupgradeneeded = () => req.result.createObjectStore("pages", { keyPath: "id" });
+    req.onerror = () => rej(req.error);
+    req.onsuccess = () => {
+      const tx = req.result.transaction("pages", "readwrite");
+      for (const p of pages) tx.objectStore("pages").put(p);
+      tx.oncomplete = () => { req.result.close(); res(); };
+      tx.onerror = () => rej(tx.error);
+    };
+  });
+}""" % json.dumps(pages, ensure_ascii=False)
+
+
 OUT = ROOT / "docs" / "screens"
 OUT.mkdir(parents=True, exist_ok=True)
 TMP = Path(tempfile.mkdtemp(prefix="lens-snap-shots-"))
@@ -873,6 +930,168 @@ with sync_playwright() as p:
     expect(jitems.nth(0)).to_contain_text("平均点を求めなさい")
     shot(jp, "J6-list", full=False)
     jc.close()
+
+    # E. テスト前モード with the founder's real example (open server): test tomorrow, range 平面図形の面積 + 割合 + 平均.
+    ec = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2, locale="ja-JP", is_mobile=True, has_touch=True)
+    # Web Share: record what would be shared (headless has no share sheet)
+    ec.add_init_script("navigator.share = (d) => { window.__shared = d; return Promise.resolve(); };")
+    ep = ec.new_page()
+    ep.on("pageerror", lambda err: errors.append(str(err)))
+    ep.goto(BASE + "/app")
+    ep.get_by_role("radio", name="小5").click()
+    ep.get_by_role("button", name="はじめる").click()
+    expect(ep).to_have_url(BASE + "/app/map")
+    ep.evaluate(exam_seed_js())
+    ep.reload()
+    expect(ep.locator('button.terr-unit[data-unit="5-D2"]')).to_have_attribute("data-status", "review")
+    for unit, st in [("5-B3", "gold"), ("5-C3", "gold"), ("4-A6", "review"), ("4-A4", "gold")]:
+        expect(ep.locator(f'button.terr-unit[data-unit="{unit}"]')).to_have_attribute("data-status", st)
+    expect(ep.get_by_test_id("hud-exam")).to_have_text("テスト前モード")
+    tomorrow = (date.today() + timedelta(days=1)).isoformat()
+    # 22a: one question first
+    ep.get_by_test_id("hud-exam").click()
+    expect(ep.get_by_test_id("exam-date")).to_contain_text("テストはいつですか？")
+    expect(ep.get_by_test_id("exam-tomorrow")).to_have_attribute("data-day", tomorrow)
+    expect(ep.get_by_test_id("hud-next")).to_have_count(0)
+    expect(ep.get_by_test_id("snap-fab")).to_have_count(0)
+    ep.wait_for_timeout(300)
+    shot(ep, "22a-exam-entry", full=False)
+    # the date question is a history layer: back = the map as it was
+    ep.go_back()
+    expect(ep.get_by_test_id("exam-date")).to_have_count(0)
+    expect(ep).to_have_url(BASE + "/app/map")
+    ep.get_by_test_id("hud-exam").click()
+    ep.get_by_test_id("exam-pick").click()
+    expect(ep.get_by_test_id("exam-day-input")).to_be_visible()
+    ep.get_by_test_id("exam-tomorrow").click()
+    # range on the dimmed map: default = the 小5 units with data; tap a tile in / out; 「この地帯を全部」
+    bar = ep.get_by_test_id("exam-rangebar")
+    expect(ep.get_by_test_id("exam-range-count")).to_have_text("範囲 3単元")
+    expect(bar).to_contain_text("小5 平面図形の面積・割合・平均")
+    expect(ep.locator('button.terr-unit[data-range="1"]')).to_have_count(3)
+    expect(ep.get_by_test_id("zone-all")).to_have_count(12)
+    tap = lambda unit: ep.locator(f'button.terr-unit[data-unit="{unit}"]').evaluate("b => b.click()")
+    tap("5-A4")  # 分数 (no page yet) in …
+    expect(ep.get_by_test_id("exam-range-count")).to_have_text("範囲 4単元")
+    expect(ep.locator('button.terr-unit[data-unit="5-A4"]')).to_have_attribute("aria-pressed", "true")
+    tap("5-A4")  # … and out again
+    expect(ep.get_by_test_id("exam-range-count")).to_have_text("範囲 3単元")
+    ep.locator('[data-testid=zone-all][data-grade="小5"]').evaluate("b => b.click()")
+    expect(ep.get_by_test_id("exam-range-count")).to_have_text("範囲 15単元")
+    ep.locator('[data-testid=zone-all][data-grade="小5"]').evaluate("b => b.click()")
+    expect(ep.get_by_test_id("exam-range-count")).to_have_text("範囲 0単元")
+    expect(ep.get_by_test_id("exam-decide")).to_be_disabled()
+    for unit in ["5-B3", "5-C3", "5-D2"]:
+        tap(unit)
+    expect(ep.get_by_test_id("exam-range-count")).to_have_text("範囲 3単元")
+    for unit in ["5-B3", "5-C3", "5-D2"]:  # the range tiles on screen, above the bar
+        b = ep.locator(f'button.terr-unit[data-unit="{unit}"]').bounding_box()
+        assert 0 <= b["x"] <= 390 and 160 < b["y"] < bar.bounding_box()["y"], (unit, b)
+    ep.wait_for_timeout(700)
+    shot(ep, "22b-exam-range", full=False)
+    # 今夜の作戦
+    ep.get_by_test_id("exam-decide").click()
+    plan = ep.get_by_test_id("exam-plan")
+    expect(plan).to_have_attribute("data-size", "half")
+    expect(ep.get_by_test_id("plan-title")).to_have_text("明日のテスト・範囲 3単元")
+    expect(ep.get_by_test_id("plan-line")).to_have_text("今夜やること：4問 ・ めやす 約20分")
+    expect(ep.get_by_test_id("plan-count")).to_have_text("復習した 0 / 4")
+    expect(ep.get_by_test_id("exam-countdown")).to_have_text("テストまで あと1日")
+    expect(ep.get_by_test_id("overview-row")).to_have_count(3)
+    expect(ep.get_by_test_id("plan-first").get_by_test_id("plan-card")).to_have_count(3)
+    expect(ep.get_by_test_id("plan-roots").get_by_test_id("plan-group")).to_contain_text("小4 数量の関係を表す式 — 小5 平均 のもと")
+    expect(ep.get_by_test_id("plan-extra").get_by_test_id("plan-card")).to_have_count(0)  # ③ collapsed
+    expect(ep.get_by_test_id("plan-missing")).to_have_count(0)
+    expect(ep.locator('button.terr-unit[data-range="1"]')).to_have_count(3)
+    expect(ep.locator("button.terr-unit.is-todo")).to_have_count(2)  # 平均 and 小4 数量の関係を表す式 pulse
+    stored = json.loads(ep.evaluate("localStorage.getItem('lens-snap:exam:小5')"))
+    assert stored["current"] == tomorrow and stored["tests"][tomorrow]["units"] == ["5-B3", "5-C3", "5-D2"], stored
+    ep.wait_for_timeout(1000)  # camera: the range and tonight's units above the plan
+    top = plan.bounding_box()["y"]
+    for unit in ["5-B3", "5-C3", "5-D2", "4-A6"]:
+        b = ep.locator(f'button.terr-unit[data-unit="{unit}"]').bounding_box()
+        assert 56 < b["y"] < top and 0 <= b["x"] <= 390, (unit, b, top)
+    shot(ep, "22c-exam-plan", full=False)
+    # 22d: re-solve first, then 「答えを確かめる」 (② 小4 数量の関係を表す式, 正答（AI） 480円)
+    ep.get_by_test_id("plan-grab").click()
+    expect(plan).to_have_attribute("data-size", "full")
+    ep.get_by_test_id("overview-row").nth(1).click()
+    root_card = ep.get_by_test_id("plan-roots").get_by_test_id("plan-card").first
+    expect(root_card.get_by_test_id("plan-answer")).to_have_count(0)
+    root_card.get_by_test_id("plan-check").click()
+    expect(root_card.get_by_test_id("plan-answer")).to_contain_text("正答（AI）：480円")
+    ep.wait_for_timeout(500)  # the smooth jump is done; start the shot at the ② heading
+    ep.get_by_test_id("plan-body").evaluate("b => { b.scrollTop = b.querySelector('[data-testid=plan-roots]').offsetTop - 4; }")
+    ab = root_card.get_by_test_id("plan-answer").bounding_box()
+    assert ab["y"] + ab["height"] < 844, ab
+    shot(ep, "22d-exam-reveal", full=False)
+    # its page photo → the viewer (this unit's problems highlighted) → back to the plan, same URL
+    root_card.get_by_test_id("photo-thumb").click()
+    viewer = ep.get_by_test_id("page-viewer")
+    expect(viewer).to_be_visible()
+    expect(ep.get_by_test_id("viewer-photo")).to_be_visible()
+    expect(viewer.locator('.pv-row[data-unit-row="1"]')).to_have_count(2)
+    ep.go_back()
+    expect(viewer).to_have_count(0)
+    expect(plan).to_be_visible()
+    expect(ep).to_have_url(BASE + "/app/map")
+    # 22e: tick it → 1 / 4; its unit's last ✕ → the 小4 tile loses its flag (復習ずみ), said for a moment
+    ep.get_by_test_id("plan-grab").click()
+    expect(plan).to_have_attribute("data-size", "half")
+    flags = ep.locator("button.terr-unit .terr-flag").count()
+    root_card.get_by_test_id("plan-tick").check()
+    expect(ep.get_by_test_id("plan-count")).to_have_text("復習した 1 / 4")
+    expect(ep.locator('button.terr-unit[data-unit="4-A6"]')).to_have_attribute("data-status", "ok")
+    expect(ep.locator("button.terr-unit .terr-flag")).to_have_count(flags - 1)
+    expect(ep.locator("button.terr-unit.is-todo")).to_have_count(1)
+    expect(ep.get_by_test_id("exam-secured")).to_have_text("小4 数量の関係を表す式：✕をすべて復習しました（復習ずみ）")
+    root_card.scroll_into_view_if_needed()
+    ep.wait_for_timeout(500)
+    shot(ep, "22e-exam-progress", full=False)
+    # 22f: the parent summary (one screen), shared as text with the Web Share API
+    ep.get_by_test_id("plan-share").click()
+    summary = ep.get_by_test_id("exam-summary")
+    expect(ep.get_by_test_id("summary-when")).to_have_text(re.compile(r"^明日のテスト（\d+/\d+）$"))
+    expect(ep.get_by_test_id("summary-range")).to_have_text("小5 平面図形の面積・割合・平均")
+    expect(ep.get_by_test_id("summary-tonight")).to_have_text("今夜やること：4問 ・ めやす 約20分")
+    expect(summary.locator(".sum-row")).to_have_count(3)
+    expect(summary.locator(".sum-row.is-done")).to_contain_text("1問 済")
+    expect(ep.get_by_test_id("summary-progress")).to_have_text("復習した 1 / 4")
+    sb = summary.locator(".sum-card").bounding_box()
+    assert sb["y"] + sb["height"] < 844, sb  # one screen
+    ep.wait_for_timeout(300)
+    shot(ep, "22f-exam-share", full=False)
+    ep.get_by_test_id("summary-share").click()
+    shared = ep.evaluate("window.__shared")
+    assert shared["text"].startswith("【テスト前の作戦】明日のテスト") and "②つまずきのもと：小4 数量の関係を表す式 — 小5 平均 のもと 1問 済" in shared["text"], shared
+    # back: summary → plan → the map (mode off), the tile stays 復習ずみ
+    ep.go_back()
+    expect(summary).to_have_count(0)
+    expect(plan).to_be_visible()
+    ep.go_back()
+    expect(plan).to_have_count(0)
+    expect(ep.get_by_test_id("exam-countdown")).to_have_count(0)
+    expect(ep.get_by_test_id("hud-exam")).to_be_visible()
+    expect(ep.locator('button.terr-unit[data-range="1"]')).to_have_count(0)
+    expect(ep.locator('button.terr-unit[data-unit="4-A6"]')).to_have_attribute("data-status", "ok")
+    expect(ep).to_have_url(BASE + "/app/map")
+    # reopen: the current test opens straight on the plan, the tick kept; 「日付・範囲を変える」 remembers the range
+    ep.get_by_test_id("hud-exam").click()
+    expect(ep.get_by_test_id("plan-count")).to_have_text("復習した 1 / 4")
+    ep.get_by_test_id("plan-change").click()
+    ep.get_by_test_id("exam-tomorrow").click()
+    expect(ep.get_by_test_id("exam-range-count")).to_have_text("範囲 3単元")
+    ep.get_by_test_id("exam-decide").click()
+    # everything in ① and ② ticked → a calm completion, what is left in 念のため
+    for i in range(3):
+        ep.get_by_test_id("plan-first").get_by_test_id("plan-tick").nth(i).check()
+    expect(ep.get_by_test_id("plan-count")).to_have_text("復習した 4 / 4")
+    expect(ep.get_by_test_id("plan-done")).to_contain_text("今夜の作戦は完了です")
+    expect(ep.get_by_test_id("plan-done")).to_contain_text("念のための見直しがあと1問あります")
+    expect(ep.locator('button.terr-unit[data-unit="5-D2"]')).to_have_attribute("data-status", "ok")
+    ep.keyboard.press("Escape")
+    expect(plan).to_have_count(0)
+    ec.close()
 
     assert not errors, errors
     browser.close()

@@ -59,6 +59,9 @@
   --terr-red-soft: rgba(230, 57, 70, 0.28);
   --terr-route: rgba(230, 57, 70, 0.55);
   --terr-root: #1e2a3a;              /* root routes while a unit is open */
+  --terr-range: #ffe45c;             /* テスト前モード: outline of the test range tiles */
+  --terr-range-soft: rgba(255, 228, 92, 0.34);
+  --terr-veil: rgba(16, 26, 40, 0.46);  /* テスト前モード: the land dims while the range is picked */
   --terr-ink: #1e2a3a;               /* HUD text (video navy) */
   --terr-ink-soft: #6a7a8c;
   --terr-ink-dim: #8a97a6;
