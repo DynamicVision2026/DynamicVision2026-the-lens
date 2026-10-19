@@ -4,3 +4,4 @@ dist-server/
 data-private/
 .env
 *.log
+eval-out/

@@ -67,8 +67,9 @@ export function readiness(pages: SavedPage[], unitIds: Iterable<string>): number
 /**
  * マップ tile status, decided in this order:
  *   gold   — マスター: on the newest saved page that has problems in this unit, every one of
- *            them is marked ○ by the teacher (null marks do not count). Proven on a real
- *            test, never self-reported: ticking 「復習した」 cannot make a tile gold.
+ *            them has a final mark of ○ (teacher's red mark, else the AI's judgment, or the
+ *            parent's choice on the confirm screen; see lib/marks.ts). null marks do not count.
+ *            Ticking 「復習した」 cannot make a tile gold.
  *   review — has a ✕ not yet ticked 「復習した」.
  *   ok     — has data, every ✕ reviewed.
  *   empty  — no problems yet.

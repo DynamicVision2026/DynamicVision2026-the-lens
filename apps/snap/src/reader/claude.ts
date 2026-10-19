@@ -22,20 +22,43 @@ export class ClaudeReader implements Reader {
     this.name = `claude:${this.model}`;
   }
 
+  /** The model id (for eval output file names). */
+  get modelId(): string {
+    return this.model;
+  }
+
   async read(image: Uint8Array, _mime: string, grade: Grade): Promise<PageResult> {
     const jpeg = await downscale(image);
+    return this.ask(
+      [
+        { type: "image", source: { type: "base64", media_type: "image/jpeg", data: jpeg.toString("base64") } },
+        { type: "text", text: readerPrompt(grade, "photo") },
+      ],
+      grade,
+      4096,
+    );
+  }
+
+  /**
+   * Same prompt and schema with a problem's text instead of a photo (the unit-tagging eval:
+   * tagging depends on the text, so the eval needs no images).
+   */
+  async readText(problemText: string, grade: Grade): Promise<PageResult> {
+    return this.ask(
+      [
+        { type: "text", text: readerPrompt(grade, "text") },
+        { type: "text", text: `Problem text:\n${problemText}` },
+      ],
+      grade,
+      1024,
+    );
+  }
+
+  private async ask(content: Anthropic.MessageParam["content"], grade: Grade, maxTokens: number): Promise<PageResult> {
     const msg = await this.client.messages.create({
       model: this.model,
-      max_tokens: 4096,
-      messages: [
-        {
-          role: "user",
-          content: [
-            { type: "image", source: { type: "base64", media_type: "image/jpeg", data: jpeg.toString("base64") } },
-            { type: "text", text: readerPrompt(grade) },
-          ],
-        },
-      ],
+      max_tokens: maxTokens,
+      messages: [{ role: "user", content }],
     });
     const text = msg.content.map((c) => (c.type === "text" ? c.text : "")).join("");
     return toPageResult(extractJson(text), grade);

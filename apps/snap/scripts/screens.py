@@ -5,7 +5,7 @@ Usage: pnpm build
        PORT=8094 PILOT_CODE=kumo42 node dist-server/index.js &     # gated server (招待コード)
        PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers python3 scripts/screens.py [base_url] [gated_url]
 Flow: landing → waitlist → /app grade 小5 → seed earlier pages (gold / green / red units)
-      → upload p01 (mock reader) → confirm → save → 単元星図 flares 5-C3 → full star chart
+      → upload p06 (AI判定 + 単元を確認, then やめる) → upload p01 (mock reader) → confirm → save → 単元星図 flares 5-C3 → full star chart
       → sheet on 5-C3 with its roots → 一覧 (tile view) → /app opens the map with the report strip
       (bar, 次にやること → star + sheet, 前の学年 → far band opened + stars ringed, fold remembered)
       → 学習レポート (詳しく: every unit opens its star via ?unit=) → its button opens the list with
@@ -131,12 +131,42 @@ with sync_playwright() as p:
     shot(page, "05-snap")
     page.evaluate(SEED_JS)
 
-    # 4. Upload p01 → confirm
+    # 4a. Upload p06 (drill, no teacher marks) → confirm: ○✕ prefilled by the AI (AI判定 + 正答（AI）),
+    #     one 「単元を確認してください」 pill (unit_confidence 0.62) with 5-C3 offered first as 候補.
+    page.get_by_test_id("file-input").set_input_files(str(ROOT / "fixtures" / "photos" / "p06.jpg"))
+    expect(page.get_by_role("heading", name="読み取り結果の確認")).to_be_visible(timeout=15000)
+    cards = page.get_by_test_id("problem-card")
+    expect(cards).to_have_count(5)
+    expect(page.get_by_test_id("unit-check")).to_have_count(1)
+    expect(cards.nth(2).get_by_test_id("unit-check")).to_have_text("単元を確認してください")
+    expect(cards.nth(2).locator("select optgroup").first).to_have_attribute("label", "候補")
+    expect(cards.nth(2).locator("select option").nth(1)).to_have_attribute("value", "5-C3")
+    expect(page.get_by_test_id("mark-source")).to_have_count(5)
+    expect(page.locator('[data-testid=mark-source][data-source=ai]')).to_have_count(5)
+    expect(cards.nth(4).get_by_test_id("ai-answer")).to_have_text("正答（AI）：3000人")
+    expect(cards.nth(4).get_by_role("radio", name="✕")).to_have_attribute("aria-checked", "true")
+    expect(cards.nth(0).locator(".field > span").nth(2)).to_have_text("○✕")
+    assert "%" not in (cards.nth(2).inner_text()), "no numbers for confidence"
+    shot(page, "06-confirm")
+    # Parent taps ✕ on card 1 → the AI label goes (source parent), the AI's answer stays as a hint
+    cards.nth(0).get_by_role("radio", name="✕").click()
+    expect(cards.nth(0).get_by_test_id("mark-source")).to_have_count(0)
+    expect(cards.nth(0).get_by_test_id("ai-answer")).to_have_text("正答（AI）：84点")
+    # Picking the suggested unit hides the pill
+    cards.nth(2).locator("select").select_option("5-C3")
+    expect(page.get_by_test_id("unit-check")).to_have_count(0)
+    page.get_by_role("button", name="やめる").click()
+
+    # 4b. Upload p01 (graded test) → confirm: every mark is the teacher's (先生の印), no AI answer shown
     page.get_by_test_id("file-input").set_input_files(str(ROOT / "fixtures" / "photos" / "p01.jpg"))
     expect(page.get_by_role("heading", name="読み取り結果の確認")).to_be_visible(timeout=15000)
     cards = page.get_by_test_id("problem-card")
     expect(cards).to_have_count(5)
-    shot(page, "06-confirm")
+    expect(page.locator('[data-testid=mark-source][data-source=teacher]')).to_have_count(5)
+    expect(page.get_by_test_id("mark-source").first).to_have_text("先生の印")
+    expect(page.get_by_test_id("ai-answer")).to_have_count(0)
+    expect(page.get_by_test_id("unit-check")).to_have_count(0)
+    shot(page, "06b-confirm-teacher")
     page.get_by_role("button", name="保存する").click()
 
     # 5a. Light-up: straight to the 単元星図, 5-C3 flares and its root line draws down; toast stays

@@ -85,6 +85,7 @@ input:not([type="checkbox"]):not([type="radio"]), .select {
 .notice .row { margin-top: 10px; }
 .pill { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 0.8rem; font-weight: 700; background: var(--c-navy-tint); color: var(--c-navy); }
 .pill-warn { background: var(--c-accent-tint); color: var(--c-accent-strong); }
+.pill-amber { background: var(--c-gold-tint); color: var(--c-gold-strong); }
 .pill-wrong { background: var(--c-wrong); color: var(--c-on-dark); }
 
 /* ---------- landing ---------- */
@@ -155,8 +156,12 @@ input:not([type="checkbox"]):not([type="radio"]), .select {
 .card { background: var(--c-surface); border-radius: var(--radius); padding: 16px; box-shadow: 0 1px 3px var(--c-shadow); }
 .problem { display: grid; gap: 12px; border-left: 4px solid transparent; }
 .problem.is-wrong { border-left-color: var(--c-wrong); }
-.problem-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-.problem-n { font-weight: 800; color: var(--c-navy); }
+.problem-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; }
+.problem-n { font-weight: 800; color: var(--c-navy); margin-right: auto; }
+/* ○✕ row: where the mark came from (先生の印 / AI判定) and the AI's answer */
+.mark-source { font-size: 0.72rem; font-weight: 700; color: var(--c-muted); margin-top: -2px; }
+.mark-source[data-source="ai"] { color: var(--c-navy); }
+.mark-key { font-size: 0.78rem; color: var(--c-muted); }
 .problem-q { margin: 0; font-size: 1rem; }
 .sticky-actions {
   position: sticky; bottom: calc(72px + env(safe-area-inset-bottom)); display: flex; gap: 10px; margin-top: 16px;
