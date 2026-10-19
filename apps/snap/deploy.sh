@@ -37,7 +37,7 @@ echo "== 3/6 secrets"
 # Pilot code: the app (/app) only reads photos for people who have this code. The landing page and
 # waitlist stay open to everyone.
 if ! has_secret "$CODE_SECRET"; then
-  CODE="$(LC_ALL=C tr -dc 'a-z0-9' </dev/urandom | head -c 8)"
+  CODE="$(od -An -N4 -tx1 /dev/urandom | tr -d ' \n')"   # 8 hex chars; no SIGPIPE under pipefail
   printf '%s' "$CODE" | g secrets create "$CODE_SECRET" --data-file=- >/dev/null
 fi
 if [ "$SET_KEY" = "--set-key" ]; then
