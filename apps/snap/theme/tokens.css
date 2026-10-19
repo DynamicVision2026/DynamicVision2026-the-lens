@@ -30,36 +30,50 @@
   --c-focus: rgba(224, 122, 79, 0.45);
 
   /*
-   * 単元星図 (map screen only): deep navy sky, faint graticule, starlight ink.
-   * Contrast (WCAG): ink 13.9:1 on sky / 12.3:1 on the lit band; ink-soft 8.9 / 7.9;
-   * ink-dim 6.8 / 6.0; state colours as text ≥ 5.9:1 on every sky surface.
+   * 領土マップ (map screen): the same map as the video 「日本の算数・数学マップ」 (mathvid/map.html).
+   * Base colours = the video's palette as it renders on screen (sampled from its frames); the canvas
+   * derives caps (lighter) and side faces (darker) from these. Strands = the video legend;
+   * 高校 columns use the video's subject colours.
    */
-  --sky-bg: #13203a;
-  --sky-band-own: #19294a;          /* the child's own grade band, slightly lighter */
-  --sky-surface: #1a2a47;           /* bottom sheet */
-  --sky-head: rgba(19, 32, 58, 0.92); /* sticky lane header */
-  --sky-lattice: rgba(150, 172, 214, 0.08);
-  --sky-line: rgba(170, 192, 235, 0.34);  /* constellation (root) lines, units with data only */
-  --sky-line-hi: #e8eef8;                 /* the open star's root path */
-  --sky-ink: #e8eef8;
-  --sky-ink-soft: #b4c1d9;
-  --sky-ink-dim: #9aa9c4;
-  --sky-speck: #c9d4ea;
-  --sky-red: #ff8273;               /* 復習が必要 */
-  --sky-red-halo: rgba(255, 130, 115, 0.38);
-  --sky-green: #45d3b0;             /* 復習ずみ */
-  --sky-gold: #ffcc55;              /* マスター */
-  --sky-gold-glow: rgba(255, 204, 85, 0.55);
-  --sky-grey: #8794ae;              /* まだ (hollow) */
-  --sky-flare: rgba(255, 236, 190, 0.9);  /* light-up after 保存 */
-  --sky-chip: rgba(232, 238, 248, 0.1);
-  --sky-lift: rgba(120, 160, 230, 0.16);  /* faint radial lift behind the child's band */
-  --sky-lift-out: rgba(120, 160, 230, 0);
-  --sky-strip: rgba(26, 42, 71, 0.72);    /* report strip on the map: a pane of the same sky */
-  --sky-strip-fade: rgba(26, 42, 71, 0.18);  /* strip fades into the sky at its foot */
-  --sky-strip-edge: rgba(170, 192, 235, 0.14);
-  --sky-bar-empty: rgba(135, 148, 174, 0.38); /* まだ in the strip bar: present, the quietest segment */
-  --sky-red-soft: rgba(255, 130, 115, 0.14);  /* ✕ pill / earlier-grade line on the sky */
+  --terr-sea: #83bdc8;
+  --terr-sea-haze: #b4dce4;          /* far sea, top of the screen (the video's fog) */
+  --terr-grid: rgba(255, 255, 255, 0.28);
+  --terr-sand: #e6dcb8;
+  --terr-sand-gap: #cbbf98;
+  --terr-grass: #b3cb8d;
+  --terr-grass-hs: #b9cfa2;
+  --terr-unex: #e3e6e6;              /* まだ: unexplored (faint strand tint mixed in) */
+  --terr-num: #ff7a59;               /* 数と計算 / 数と式 */
+  --terr-geo: #4aa3f0;               /* 図形 */
+  --terr-rel: #3fbf7f;               /* 測定・変化と関係 / 関数 */
+  --terr-data: #a77bf3;              /* データの活用 */
+  --terr-h-i: #ffb703;               /* 数学I */
+  --terr-h-ii: #fb8500;              /* 数学II */
+  --terr-h-iii: #e63946;             /* 数学III */
+  --terr-h-a: #2a9d8f;               /* 数学A */
+  --terr-h-b: #7b6cd9;               /* 数学B */
+  --terr-h-c: #3a86ff;               /* 数学C */
+  --terr-gold: #f6c33a;              /* マスター column */
+  --terr-gold-glint: #fff6d0;
+  --terr-red: #e63946;               /* 復習が必要: flag, pulse, route */
+  --terr-red-soft: rgba(230, 57, 70, 0.28);
+  --terr-route: rgba(230, 57, 70, 0.55);
+  --terr-root: #1e2a3a;              /* root routes while a unit is open */
+  --terr-ink: #1e2a3a;               /* HUD text (video navy) */
+  --terr-ink-soft: #6a7a8c;
+  --terr-ink-dim: #8a97a6;
+  --terr-yellow: #ffd54a;            /* brand pill text, own island label */
+  --terr-card: rgba(255, 255, 255, 0.93);
+  --terr-card-solid: #ffffff;
+  --terr-bar: #e3e9ef;
+  --terr-bar-e: #ff7a59;
+  --terr-bar-j: #4aa3f0;
+  --terr-bar-h: #e8833a;
+  --terr-label-shadow: rgba(30, 42, 58, 0.6);
+  --terr-label-glow: rgba(30, 42, 58, 0.4);
+  --terr-card-shadow: rgba(20, 40, 60, 0.45);
+  --terr-white: #ffffff;
+  --terr-black: #000000;
 
   --radius: 14px;
   --radius-sm: 10px;

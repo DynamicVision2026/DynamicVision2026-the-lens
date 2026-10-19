@@ -5,21 +5,22 @@ Usage: pnpm build
        PORT=8094 PILOT_CODE=kumo42 node dist-server/index.js &     # gated server (招待コード)
        PORT=8095 MOCK_FALLBACK=live4 node dist-server/index.js &  # journey server (the founder's live 4年 sheet)
        PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers python3 scripts/screens.py [base_url] [gated_url] [journey_url]
-Flow: landing → waitlist → /app grade 小5 → the map is home (empty sky + welcome card, floating 撮る)
+Flow: landing → waitlist → /app grade 小5 → the map is home (empty territory + card → 撮る)
       → seed earlier pages (gold / green / red units)
       → upload p06 (AI判定 + 単元を確認, then やめる) → upload p01 (teacher marks + 正答（AI）, one
-      先生の印とAIの判定がちがいます note) → confirm → save → 単元星図 flares 5-C3 → full star chart
-      → sheet on 5-C3 with its roots → 一覧 (tile view) → /app opens the map with the report strip
-      (bar, 次にやること → star + sheet, 前の学年 → far band opened + stars ringed, fold remembered)
-      → 学習レポート (詳しく: every unit opens its star via ?unit=) → its button opens the list with
+      先生の印とAIの判定がちがいます note) → confirm → save → 領土マップ: fly to 小5, 5-C3 rises → HUD
+      (制覇 6/15, 小中高 bars, 要復習, 次にやること 3) → tap 5-C3 → sheet (history, roots, routes) → root
+      flies to 小4 → 次にやること tour (one by one, 次へ) → pan / zoom out / 現在地 → 一覧 (tile view)
+      → /app = map → whole map (19) + zoom (19z)
+      → 学習レポート (every unit opens its tile via ?unit=) → its button opens the list with
       exactly those units → テスト前リスト
       with 5-C3 = exactly the 2 ✕ problems → + gold 5-B1: its old ✕ in 念のため → archive → backup download / restore / invalid file → offline reload (service
       worker) → Android install button → retake → iPhone install tip → 小2 and 高2 homes → legacy 「高校」 → 高1
       → empty レポート (no pages)
       → gated server: 招待コード prompt, wrong code → 403 → asked again → right code reads.
-Journey (J*, for the founder): fresh 小5 profile on the journey server → J1 empty map (home) → 撮る →
-      the live 4年 sheet → J2 confirm (AI判定) → 保存 → J3 lit stars + toast (mid-flare) → J4 strip with
-      次にやること 平均 / 数量の関係を表す式 → J5 sheet on the red 平均 star → J6 テスト前リスト from the strip.
+Journey (J*, for the founder): fresh 小5 profile on the journey server → J1 empty territory (home) → 撮る →
+      the live 4年 sheet → J2 confirm (AI判定) → 保存 → J3 fly + tiles rising + toast → J4 HUD with
+      red flags, 次にやること 2 → J5 次にやること → 平均 sheet (history, routes) → J6 テスト前リスト from the sheet.
 """
 import json, os, re, sys, tempfile
 from pathlib import Path
@@ -33,7 +34,7 @@ JOURNEY = sys.argv[3] if len(sys.argv) > 3 else "http://localhost:8095"
 #   5-A1 gold (newest test all ○), 5-B1 gold (old ✕ then a later all-○ test),
 #   5-A3 green (✕ reviewed), 5-C1 red (✕ not reviewed), 5-D1 green (drill, no marks),
 #   4-A2 red, 4-C2 green and 4-B4 gold in 小4 (4-C2 簡単な割合 is the root of 5-C3 割合);
-#   far sky: 3-A4 red in 小3, 6-C2 gold in 小6 (visible as coloured stars from afar).
+#   other islands: 3-A4 red in 小3, 6-C2 gold in 小6.
 SEED_JS = """async () => {
   const P = (id, at, type, probs) => ({ id, createdAt: at, grade: "小5", pageType: type, score: null,
     problems: probs.map(([unit, mark, reviewed], i) => ({ n: i + 1, q: "（見本）問題 " + (i + 1), unit, answer: "1",
@@ -75,7 +76,7 @@ TMP = Path(tempfile.mkdtemp(prefix="lens-snap-shots-"))
 
 def shot(page, name, full=True):
     # Full-page captures: un-fix the bars so they render once at their natural place.
-    style = page.add_style_tag(content=".tabbar,.topbar,.sticky-actions,.sky-lanes{position:static!important}") if full else None
+    style = page.add_style_tag(content=".tabbar,.topbar,.sticky-actions{position:static!important}") if full else None
     page.screenshot(path=str(OUT / f"{name}.png"), full_page=full)
     if style:
         style.evaluate("el => el.remove()")
@@ -145,11 +146,11 @@ with sync_playwright() as p:
     page.get_by_role("radio", name="小5").click()
     shot(page, "04-onboarding-grade")
     page.get_by_role("button", name="はじめる").click()
-    # The map is home, also before any page: the grade's sky + the welcome card, tabs マップ first
+    # The map is home, also before any page: unexplored territory + the card, tabs マップ first
     expect(page).to_have_url(BASE + "/app/map")
-    expect(page.get_by_test_id("map-welcome")).to_contain_text("小5の単元マップ")
+    expect(page.get_by_test_id("map-welcome")).to_contain_text("プリントを撮ると、その単元が自分の領土になります")
     expect(page.locator("nav.tabbar a")).to_have_text(["マップ", "撮る", "テスト前", "ふりかえり"])
-    page.get_by_test_id("snap-fab").click()
+    page.get_by_test_id("welcome-snap").click()
     expect(page.get_by_role("heading", name="ページを撮りましょう")).to_be_visible()
     shot(page, "05-snap")
     page.evaluate(SEED_JS)
@@ -201,83 +202,108 @@ with sync_playwright() as p:
     expect(cards.nth(4).get_by_test_id("mark-source")).to_have_count(0)
     page.get_by_role("button", name="保存する").click()
 
-    # 5a. Light-up: straight to the 単元星図, 5-C3 flares and its root line draws down; toast stays
+    # 5a. After 保存: the camera flies to the island, the new tiles rise; toast stays (top, compact)
     expect(page).to_have_url(re.compile(re.escape(BASE + "/app/map?saved=5&lit=5-C3&page=") + r"[\w-]+$"))
     expect(page.get_by_test_id("lit-toast")).to_have_text("5問を保存しました：✕ 2問（割合）・○ 3問")
     expect(page.get_by_test_id("toast-report")).to_have_attribute("href", "/app/report")
-    lit = page.locator('button.star-node.is-lit[data-unit="5-C3"]')
-    expect(lit).to_have_count(1)
-    expect(page.locator('path.sky-edge.is-lit[data-edge="5-C3>4-C2"]')).to_have_count(1)
-    page.wait_for_timeout(430)  # mid-flare (1.2 s), line half drawn
+    expect(page.locator('button.terr-unit.is-lit[data-unit="5-C3"]')).to_have_count(1)
+    page.wait_for_timeout(820)  # fly (0.65 s) done, tiles rising (0.8 s)
     shot(page, "07-saved-lit", full=False)
 
-    # 5b. Full star chart: near sky (小5 + 小4) with labels, far bands compact; coloured far stars
+    # 5b. Territory map: 110 tiles (units) on 12 islands, HUD = the report's numbers
     page.wait_for_timeout(4600)  # toast gone
     page.goto(BASE + "/app/map")
-    expect(page.locator(".sky-page")).to_have_count(1)
-    expect(page.locator("button.star-node")).to_have_count(31)  # 小5 (15) + 小4 (16)
-    # far sky: one merged 「これから学ぶ単元（小6〜高3）」 row on top + 小3, 小2, 小1 as their own bands
-    expect(page.locator("button.far-band")).to_have_count(4)
-    expect(page.get_by_test_id("upper-band")).to_have_text("これから学ぶ単元（小6〜高3）")
-    expect(page.locator(".sky-hint")).to_have_text("下の学年の単元が、上の学年の単元のもとになっています。")
-    expect(page.locator("g.far-star")).to_have_count(110 - 31)
-    expect(page.locator(".sky-band-label.is-own")).to_contain_text("小5")
+    expect(page.locator(".terr-page")).to_have_count(1)
+    expect(page.locator("button.terr-unit")).to_have_count(110)
+    expect(page.locator(".terr-isl")).to_have_count(12)
+    expect(page.locator('.terr-isl.is-own')).to_have_text("小5")
     for unit, st in [("5-C3", "review"), ("5-A1", "gold"), ("5-B1", "gold"), ("5-A3", "ok"), ("5-D1", "ok"),
                      ("5-C1", "review"), ("5-A2", "empty"), ("4-A2", "review"), ("4-C2", "ok"), ("4-B4", "gold"),
                      ("3-A4", "review"), ("6-C2", "gold")]:
-        expect(page.locator(f'.sky-canvas [data-unit="{unit}"]')).to_have_attribute("data-status", st)
-    expect(page.get_by_test_id("strip-counts")).to_contain_text("復習が必要2")
-    # plain load: top of the page (strip), the child's grade band starts on the first screen
-    assert page.evaluate("window.scrollY") == 0
-    box = page.locator('button.star-node[data-unit="5-C3"]').bounding_box()
-    assert 0 < box["y"] < 844 - 64, box
-    # constellations only where there is data (plus none for empty units)
-    expect(page.locator('path.sky-edge[data-edge="5-C3>4-C2"]')).to_have_count(1)
-    expect(page.locator('path.sky-edge[data-edge="5-A2>4-A4"]')).to_have_count(0)
-    shot(page, "08-starmap")
+        expect(page.locator(f'.terr-layer [data-unit="{unit}"]')).to_have_attribute("data-status", st)
+    expect(page.locator('button.terr-unit[data-unit="5-C3"]')).to_have_attribute("aria-label", "小5 割合：復習が必要（✕2）")
+    expect(page.locator('button.terr-unit[data-unit="5-C3"] .terr-flag')).to_have_count(1)
+    expect(page.locator('button.terr-unit[data-unit="5-A1"] .terr-crown')).to_have_count(1)
+    expect(page.locator("button.terr-unit .terr-flag")).to_have_count(4)  # 5-C3, 5-C1, 4-A2, 3-A4
+    hud = page.get_by_test_id("hud-card")
+    expect(hud.locator(".hud-t")).to_have_text("制覇した単元（小5）")
+    expect(page.get_by_test_id("hud-taken")).to_have_text("6 / 15")
+    expect(hud.locator(".hud-bar em")).to_have_text(["11/66", "0/23", "0/21"])
+    expect(page.get_by_test_id("hud-review")).to_have_text("要復習 2")
+    expect(page.get_by_test_id("hud-next")).to_have_text("次にやること 3")
+    expect(page.get_by_test_id("map-legend")).to_contain_text("数と計算 / 数と式")
+    expect(page.get_by_test_id("legend-states")).to_have_text("まだ復習ずみ復習が必要マスター")
+    expect(page.get_by_test_id("snap-fab")).to_be_visible()
+    # on load: the child's island fills ~70 % of the width, centred
+    lab = page.locator(".terr-isl.is-own").bounding_box()
+    assert 60 < lab["x"] + lab["width"] / 2 < 330 and 150 < lab["y"] < 700, lab
+    # controls do not collide: 撮る, the compass and the legend
+    fb, cb, lb = (page.get_by_test_id(t).bounding_box() for t in ("snap-fab", "compass", "map-legend"))
+    assert fb["x"] + fb["width"] <= cb["x"] and lb["x"] + lb["width"] <= fb["x"], (fb, cb, lb)
+    page.wait_for_timeout(300)
+    shot(page, "18-map-home", full=False)
 
-    # 5c. Sheet on a red unit: counts, roots (tappable), root path highlighted, everything else dimmed
-    page.locator('button.star-node[data-unit="5-C3"]').click()
+    # 5c. Tap a tile → the detail sheet (counts, history, roots); root routes drawn; HUD card steps aside
+    page.locator('button.terr-unit[data-unit="5-C3"]').click()
     sheet = page.get_by_test_id("star-sheet")
     expect(sheet).to_be_visible()
     expect(sheet).to_contain_text("割合")
+    expect(sheet.get_by_test_id("sheet-history").locator("li")).to_have_count(1)
+    expect(sheet.get_by_test_id("sheet-history")).to_contain_text("テスト")
+    expect(sheet.get_by_test_id("sheet-history")).to_contain_text("✕2")
     expect(sheet).to_contain_text("もとになる単元")
     expect(sheet.locator('button.root-btn[data-unit="4-C2"]')).to_be_visible()
-    expect(page.locator('path.sky-edge.is-path[data-edge="5-C3>4-C2"]')).to_have_count(1)
-    expect(page.locator('button.star-node.is-path[data-unit="4-C2"]')).to_have_count(1)
-    expect(page.locator('button.star-node.is-dim[data-unit="5-A1"]')).to_have_count(1)
+    expect(page.locator('button.terr-unit.is-root[data-unit="4-C2"]')).to_have_count(1)
+    expect(page.locator('button.terr-unit.is-sel[data-unit="5-C3"] .terr-pin')).to_contain_text("割合")
+    expect(page.get_by_test_id("hud-card")).to_be_hidden()
+    expect(page.get_by_test_id("snap-fab")).to_have_count(0)  # never covers the open sheet
     expect(sheet.get_by_role("link", name="この単元の問題を見る")).to_have_attribute("href", "/app/list?unit=5-C3")
     expect(sheet.get_by_test_id("sheet-report")).to_have_attribute("href", "/app/report")
-    page.wait_for_timeout(1000)  # smooth scroll settles
-    shot(page, "08s-starmap-sheet", full=False)
-    sheet.locator('button.root-btn[data-unit="4-C2"]').click()  # jump to the root
+    page.wait_for_timeout(900)  # the camera settles above the sheet
+    pin = page.locator('button.terr-unit.is-sel .terr-pin').bounding_box()
+    assert pin["y"] > 56 and pin["y"] + pin["height"] < sheet.bounding_box()["y"], (pin, sheet.bounding_box())
+    shot(page, "08s-map-sheet", full=False)
+    sheet.locator('button.root-btn[data-unit="4-C2"]').click()  # fly to the root on the 小4 island
     expect(sheet).to_contain_text("簡単な割合")
+    expect(page.locator('button.terr-unit.is-sel[data-unit="4-C2"]')).to_have_count(1)
     page.keyboard.press("Escape")
     expect(sheet).to_have_count(0)
+    expect(page.get_by_test_id("snap-fab")).to_be_visible()
 
-    # 5c2. Tap a far band → it opens (labels, tap targets); 「たたむ」 closes it again
-    page.locator('button.far-band[data-grade="小3"]').click()
-    expect(page.locator('button.star-node[data-unit="3-A4"]')).to_have_attribute("data-status", "review")
-    expect(page.locator("button.far-band")).to_have_count(3)
-    page.wait_for_timeout(300)
-    shot(page, "08e-starmap-expanded", full=False)
-    page.get_by_role("button", name="たたむ", exact=True).click()
-    expect(page.locator('button.far-band[data-grade="小3"]')).to_have_count(1)
+    # 5c2. 次にやること: the badge pans to the red-flagged tiles one by one, opening each one's detail
+    page.get_by_test_id("hud-next").click()
+    expect(sheet).to_contain_text("割合")
+    expect(page.locator('button.terr-unit.is-pointed[data-unit="5-C3"]')).to_have_count(1)
+    expect(page.get_by_test_id("tour-next")).to_have_text("次へ（1/3）")
+    page.wait_for_timeout(900)
+    shot(page, "18n-map-next", full=False)
+    page.get_by_test_id("tour-next").click()
+    expect(sheet).to_contain_text("伴って変わる二つの数量")
+    expect(page.get_by_test_id("tour-next")).to_have_text("次へ（2/3）")
+    page.get_by_test_id("tour-next").click()
+    expect(sheet).to_contain_text("概数")
+    expect(page.locator('button.terr-unit.is-pointed[data-unit="4-A2"]')).to_have_count(1)
+    page.keyboard.press("Escape")
 
-    # 5c3. The merged upper row expands into 小6 … 高3 as individual far bands; 「たたむ」 merges them again
-    page.get_by_test_id("upper-band").click()
-    expect(page.get_by_test_id("upper-band")).to_have_count(0)
-    expect(page.get_by_test_id("upper-head")).to_contain_text("これから学ぶ単元（小6〜高3）")
-    expect(page.locator("button.far-band")).to_have_count(10)  # 小6 中1 中2 中3 高1 高2 高3 + 小3 小2 小1
-    for g in ["高1", "高2", "高3"]:
-        expect(page.locator(f'button.far-band[data-grade="{g}"]')).to_have_count(1)
-    expect(page.locator('.sky-canvas [data-unit="6-C2"]')).to_have_attribute("data-status", "gold")
-    page.get_by_role("button", name="これから学ぶ単元をたたむ").click()
-    expect(page.get_by_test_id("upper-band")).to_have_count(1)
-    expect(page.locator("button.far-band")).to_have_count(4)
+    # 5c3. Pan / zoom: drag far away (clamped to the map), zoom out to all 12 islands, 現在地 brings 小5 back
+    page.mouse.move(200, 400)
+    page.mouse.down()
+    for i in range(1, 11):
+        page.mouse.move(200 - i * 150, 400 + i * 60)
+    page.mouse.up()
+    for _ in range(6):
+        page.get_by_test_id("zoom-out").click()
+    page.wait_for_timeout(800)
+    for g in ["小1", "小6", "中2", "高3"]:
+        b = page.locator(f'.terr-isl[data-island="{g}"]').bounding_box()
+        assert b and -40 < b["x"] < 430 and 56 < b["y"] < 844, (g, b)
+    page.get_by_test_id("compass").click()
+    page.wait_for_timeout(800)
+    lab2 = page.locator(".terr-isl.is-own").bounding_box()
+    assert abs(lab2["x"] - lab["x"]) < 2 and abs(lab2["y"] - lab["y"]) < 2, (lab, lab2)
 
-    # 5d. 一覧: the tile view (accessible fallback), choice remembered
-    page.get_by_role("radio", name="一覧").click()
+    # 5d. 一覧: the tile list (accessible fallback) from the HUD icon, choice remembered
+    page.get_by_test_id("map-to-list").click()
     secs = page.locator("details.grade-sec")
     expect(secs).to_have_count(12)
     expect(secs.first).to_have_attribute("data-grade", "小5")
@@ -294,71 +320,30 @@ with sync_playwright() as p:
     expect(page.locator("details.grade-sec")).to_have_count(12)  # remembered
     page.evaluate("window.scrollTo({ top: 0, behavior: 'instant' })")
     shot(page, "08l-map-list")
-    page.get_by_role("radio", name="星図").click()
-    expect(page.locator("button.star-node")).to_have_count(31)
+    page.get_by_role("radio", name="マップ").click()
+    expect(page.locator("button.terr-unit")).to_have_count(110)
 
-    # 5e. The map is home: /app opens it once pages exist, the report strip on top (same night sky)
+    # 5e. The map is home: /app opens it, マップ tab first and lit
     page.goto(BASE + "/app")
     expect(page).to_have_url(BASE + "/app/map")
     expect(page.locator("nav.tabbar a")).to_have_count(4)
     expect(page.locator("nav.tabbar a")).to_have_text(["マップ", "撮る", "テスト前", "ふりかえり"])
     expect(page.locator("nav.tabbar a.tab-active")).to_have_text("マップ")
-    strip = page.get_by_test_id("map-strip")
-    expect(strip).to_have_attribute("data-open", "true")
-    expect(strip.locator(".strip-title")).to_have_text("小5の15単元")
-    expect(page.get_by_test_id("strip-counts")).to_have_text("マスター2復習ずみ2復習が必要2まだ9")
-    expect(page.get_by_test_id("strip-bar")).to_have_attribute("aria-label", "小5の15単元 マスター 2・復習ずみ 2・復習が必要 2・まだ 9")
-    rows = page.get_by_test_id("strip-next").locator(".strip-row")
-    expect(rows).to_have_count(3)  # 小5's two red units, then the nearest earlier red unit (小4 概数)
-    expect(rows.nth(0)).to_contain_text("割合")
-    expect(rows.nth(0)).to_contain_text("✕ 2問")
-    expect(rows.nth(2)).to_have_attribute("data-unit", "4-A2")
-    expect(rows.nth(2).locator(".strip-grade")).to_have_text("小4")
-    expect(page.get_by_test_id("strip-open-list")).to_have_attribute("href", "/app/list?units=5-C3,5-C1,4-A2")
-    expect(page.get_by_test_id("snap-fab")).to_be_visible()
-    expect(page.get_by_test_id("strip-report")).to_have_attribute("href", "/app/report")
-    expect(page.get_by_test_id("strip-earlier")).to_have_text("前の学年に✕のある単元があります（2）+")
-    assert page.evaluate("window.scrollY") == 0
-    # one glance: the strip and the child's grade band (label + first row of stars) on the first screen
-    assert page.locator(".sky-band-label.is-own").bounding_box()["y"] < 844 - 64 - 46
-    page.wait_for_timeout(300)
-    shot(page, "18-map-home", full=False)
+    expect(page.get_by_test_id("map-strip")).to_have_count(0)  # no text-heavy strip on the map any more
 
-    # 次にやること row → that star selected on the chart, its sheet open
-    rows.nth(1).click()
-    expect(page.get_by_test_id("star-sheet")).to_contain_text("伴って変わる二つの数量")
-    expect(page.locator('button.star-node.is-sel[data-unit="5-C1"]')).to_have_count(1)
-    expect(page.get_by_test_id("snap-fab")).to_have_count(0)  # never covers the open sheet
-    page.keyboard.press("Escape")
-    expect(page.get_by_test_id("snap-fab")).to_be_visible()
+    # 5e2. The whole map, zoomed out: all 12 islands with this 小5 child's taken / flagged / gold tiles
+    for _ in range(6):
+        page.get_by_test_id("zoom-out").click()
+    page.wait_for_timeout(800)
+    shot(page, "19-territory-full", full=False)
+    page.get_by_test_id("compass").click()
+    for _ in range(2):
+        page.get_by_test_id("zoom-in").click()
+    page.wait_for_timeout(800)
+    shot(page, "19z-territory-zoom", full=False)
+    page.goto(BASE + "/app/report")
 
-    # 前の学年に✕: the far 小3 band opens and both earlier red stars are ringed; tap again → back
-    page.evaluate("window.scrollTo({ top: 0, behavior: 'instant' })")
-    page.get_by_test_id("strip-earlier").click()
-    expect(page.locator("button.far-band")).to_have_count(3)
-    expect(page.locator("button.star-node.is-marked")).to_have_count(2)
-    expect(page.locator('button.star-node.is-marked[data-unit="3-A4"]')).to_have_count(1)
-    expect(page.locator('button.star-node.is-marked[data-unit="4-A2"]')).to_have_count(1)
-    page.wait_for_timeout(1000)
-    shot(page, "18e-map-earlier", full=False)
-    page.evaluate("window.scrollTo({ top: 0, behavior: 'instant' })")
-    page.get_by_test_id("strip-earlier").click()
-    expect(page.locator("button.far-band")).to_have_count(4)
-    expect(page.locator(".is-marked")).to_have_count(0)
-
-    # Fold to one line; remembered after a reload; open again
-    page.get_by_test_id("strip-toggle").click()
-    expect(strip).to_have_attribute("data-open", "false")
-    expect(page.get_by_test_id("strip-toggle")).to_have_attribute("aria-label", "小5の15単元　マスター 2・復習ずみ 2・復習が必要 2・まだ 9　次にやること 3。ひらく")
-    page.reload()
-    expect(page.get_by_test_id("map-strip")).to_have_attribute("data-open", "false")
-    page.wait_for_timeout(300)
-    shot(page, "18c-map-home-collapsed", full=False)
-    page.get_by_test_id("strip-toggle").click()
-    expect(page.get_by_test_id("map-strip")).to_have_attribute("data-open", "true")
-
-    # 5f. 学習レポート = the map's 「詳しく」 page; every unit opens its star on the map
-    page.get_by_test_id("strip-report").click()
+    # 5f. 学習レポート = the map's 「詳しく」 page; every unit opens its tile on the map
     expect(page).to_have_url(BASE + "/app/report")
     expect(page.locator("nav.tabbar a.tab-active")).to_have_text("マップ")
     expect(page.get_by_test_id("report-back")).to_have_attribute("href", "/app/map")
@@ -390,11 +375,11 @@ with sync_playwright() as p:
     expect(chips.locator('.mc-gold[data-unit="5-B1"]')).to_have_attribute("href", "/app/map?unit=5-B1")
     expect(page.get_by_role("link", name="単元マップで全体を見る")).to_have_attribute("href", "/app/map")
     shot(page, "17-report")
-    # a far unit from the report: the map opens its band and its sheet (?unit=3-A4)
+    # a unit on another island from the report: the map flies there and opens its sheet (?unit=3-A4)
     earlier.locator('[data-unit="3-A4"]').click()
     expect(page).to_have_url(BASE + "/app/map?unit=3-A4")
     expect(page.get_by_test_id("star-sheet")).to_contain_text("除法")
-    expect(page.locator('button.star-node.is-sel[data-unit="3-A4"]')).to_have_count(1)
+    expect(page.locator('button.terr-unit.is-sel[data-unit="3-A4"]')).to_have_count(1)
     page.wait_for_timeout(800)
     shot(page, "18u-map-unit-from-report", full=False)
     page.goto(BASE + "/app/report")
@@ -477,7 +462,7 @@ with sync_playwright() as p:
     ctx.set_offline(True)
     page.goto(BASE + "/app/map")
     expect(page.get_by_role("heading", name="単元マップ")).to_be_visible()
-    expect(page.locator("button.star-node")).to_have_count(31)
+    expect(page.locator("button.terr-unit")).to_have_count(110)
     ctx.set_offline(False)
     assert page.evaluate("caches.keys()") == ["lens-snap-v1"]
     assert not page.evaluate("""caches.open('lens-snap-v1').then(c => c.keys()).then(ks => ks.some(r => new URL(r.url).pathname.startsWith('/api')))""")
@@ -516,7 +501,7 @@ with sync_playwright() as p:
     expect(ip.get_by_test_id("install-tip")).to_have_count(0)
     ios.close()
 
-    # 8b2. A young child (小2): the merged upper row keeps the child's band on the first screen
+    # 8b2. A young child (小2): the map opens on the 小2 island
     young = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2, locale="ja-JP", is_mobile=True, has_touch=True)
     y = young.new_page()
     y.on("pageerror", lambda err: errors.append(str(err)))
@@ -525,20 +510,20 @@ with sync_playwright() as p:
     y.evaluate(SEED_YOUNG_JS)
     y.goto(BASE + "/app")
     expect(y).to_have_url(BASE + "/app/map")
-    expect(y.get_by_test_id("map-strip").locator(".strip-title")).to_have_text("小2の7単元")
-    expect(y.get_by_test_id("upper-band")).to_have_text("これから学ぶ単元（小3〜高3）")
-    expect(y.locator("button.far-band")).to_have_count(1)  # only the merged row: 小1 is near (the grade below)
-    expect(y.get_by_test_id("strip-earlier")).to_have_text("前の学年に✕のある単元があります（1）+")
-    own = y.locator(".sky-band-label.is-own")
-    expect(own).to_contain_text("小2")
-    assert own.bounding_box()["y"] + 46 < 844 - 64, own.bounding_box()
+    expect(y.get_by_test_id("hud-card").locator(".hud-t")).to_have_text("制覇した単元（小2）")
+    expect(y.get_by_test_id("hud-taken")).to_have_text("3 / 7")
+    expect(y.get_by_test_id("hud-next")).to_have_text("次にやること 2")  # 2-A2, then 小1 1-A2
+    own = y.locator(".terr-isl.is-own")
+    expect(own).to_have_text("小2")
+    ob = own.bounding_box()
+    assert 0 < ob["x"] < 390 and 56 < ob["y"] < 844 - 64, ob
     for unit, st in [("2-A2", "review"), ("2-B1", "gold"), ("2-C1", "ok"), ("1-A2", "review"), ("2-A1", "empty")]:
-        expect(y.locator(f'.sky-canvas [data-unit="{unit}"]')).to_have_attribute("data-status", st)
+        expect(y.locator(f'.terr-layer [data-unit="{unit}"]')).to_have_attribute("data-status", st)
     y.wait_for_timeout(300)
     shot(y, "18y-map-home-young", full=False)
     young.close()
 
-    # 8b3. A 高2 child: own band 高2 with 高1 below (near), only 高3 merged above, 数学I ✕ as the earlier unit
+    # 8b3. A 高2 child: the map opens on the 高2 island (数学II + 数学B), 数学I ✕ on the 高1 island
     k2 = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2, locale="ja-JP", is_mobile=True, has_touch=True)
     k = k2.new_page()
     k.on("pageerror", lambda err: errors.append(str(err)))
@@ -549,16 +534,15 @@ with sync_playwright() as p:
     expect(k).to_have_url(BASE + "/app/map")
     expect(k.get_by_test_id("grade-chip")).to_have_text("高2")
     expect(k.get_by_test_id("grade-check")).to_have_count(0)
-    expect(k.get_by_test_id("map-strip").locator(".strip-title")).to_have_text("高2の8単元")
-    expect(k.get_by_test_id("strip-counts")).to_have_text("マスター1復習ずみ1復習が必要1まだ5")
-    expect(k.get_by_test_id("upper-band")).to_have_text("これから学ぶ単元（高3）")
-    expect(k.locator("button.far-band")).to_have_count(10)  # 高3 (merged) + 中3 … 小1
-    expect(k.locator("button.star-node")).to_have_count(8 + 7)  # 高2 + 高1
-    expect(k.get_by_test_id("strip-earlier")).to_have_text("前の学年に✕のある単元があります（1）+")
-    expect(k.locator(".sky-band-label.is-own")).to_contain_text("高2")
+    expect(k.get_by_test_id("hud-card").locator(".hud-t")).to_have_text("制覇した単元（高2）")
+    expect(k.get_by_test_id("hud-taken")).to_have_text("3 / 8")
+    expect(k.get_by_test_id("hud-review")).to_have_text("要復習 1")
+    expect(k.get_by_test_id("hud-next")).to_have_text("次にやること 2")
+    expect(k.locator(".terr-isl.is-own")).to_have_text("高2")
     for unit, st in [("h-II-4", "review"), ("h-B-1", "gold"), ("h-II-1", "ok"), ("h-I-3", "review"), ("h-II-2", "empty")]:
-        expect(k.locator(f'.sky-canvas [data-unit="{unit}"]')).to_have_attribute("data-status", st)
-    assert k.locator(".sky-band-label.is-own").bounding_box()["y"] + 46 < 844 - 64
+        expect(k.locator(f'.terr-layer [data-unit="{unit}"]')).to_have_attribute("data-status", st)
+    kb = k.locator(".terr-isl.is-own").bounding_box()
+    assert 0 < kb["x"] < 390 and 56 < kb["y"] < 844 - 64, kb
     k.wait_for_timeout(300)
     shot(k, "18k-map-home-koko2", full=False)
     k.goto(BASE + "/app/report")
@@ -595,7 +579,7 @@ with sync_playwright() as p:
     e.goto(BASE + "/app")
     expect(e).to_have_url(BASE + "/app/map")
     expect(e.get_by_test_id("map-welcome")).to_be_visible()
-    expect(e.get_by_test_id("map-strip")).to_have_count(0)
+    expect(e.get_by_test_id("hud-next")).to_have_count(0)
     e.goto(BASE + "/app/report")
     expect(e.get_by_test_id("report-empty")).to_contain_text("撮ると、ここにレポートができます")
     expect(e.get_by_test_id("report-back")).to_have_attribute("href", "/app/map")
@@ -633,27 +617,24 @@ with sync_playwright() as p:
     jp.goto(JOURNEY + "/app")
     jp.get_by_role("radio", name="小5").click()
     jp.get_by_role("button", name="はじめる").click()
-    # J1: home before any page = the map: the 小5 sky (all stars faint), welcome card, floating 撮る
+    # J1: home before any page = the map: all unexplored territory, 0 taken, one card → 撮る
     expect(jp).to_have_url(JOURNEY + "/app/map")
     welcome = jp.get_by_test_id("map-welcome")
-    expect(welcome.locator(".welcome-title")).to_have_text("小5の単元マップ")
-    expect(welcome).to_contain_text("プリントやテストを撮ると、その単元の星が光ります。")
-    expect(welcome.locator(".welcome-legend li")).to_have_text(["マスター", "復習ずみ", "復習が必要", "まだ"])
+    expect(welcome).to_contain_text("プリントを撮ると、その単元が自分の領土になります")
     expect(jp.get_by_test_id("welcome-snap")).to_have_attribute("href", "/app/snap")
-    expect(jp.locator("button.star-node")).to_have_count(31)
-    expect(jp.locator('button.star-node:not([data-status="empty"])')).to_have_count(0)
+    expect(jp.locator("button.terr-unit")).to_have_count(110)
+    expect(jp.locator('button.terr-unit:not([data-status="empty"])')).to_have_count(0)
+    expect(jp.get_by_test_id("hud-taken")).to_have_text("0 / 15")
+    expect(jp.get_by_test_id("hud-next")).to_have_count(0)
     expect(jp.locator("nav.tabbar a.tab-active")).to_have_text("マップ")
-    fab = jp.get_by_test_id("snap-fab")
-    expect(fab).to_be_visible()
-    fb = fab.bounding_box()
-    assert fb["x"] + fb["width"] <= 390 - 16 + 0.5 and fb["y"] + fb["height"] <= 844 - 64 - 8, fb
-    own = jp.locator(".sky-band-label.is-own")
-    expect(own).to_contain_text("小5")
-    assert own.bounding_box()["y"] + 46 < 844 - 64, own.bounding_box()  # the child's band starts on the first screen
+    own = jp.locator(".terr-isl.is-own")
+    expect(own).to_have_text("小5")
+    wb, cb = welcome.bounding_box(), jp.get_by_test_id("compass").bounding_box()
+    assert wb["x"] + wb["width"] <= cb["x"] and wb["y"] + wb["height"] <= 844 - 64, (wb, cb)
     jp.wait_for_timeout(300)
     shot(jp, "J1-empty-map", full=False)
     # 撮る from the map → the live sheet → confirm with the AI's ○✕ prefilled
-    fab.click()
+    jp.get_by_test_id("welcome-snap").click()
     jp.get_by_test_id("file-input").set_input_files(str(ROOT / "fixtures" / "photos" / "live4.jpg"))
     expect(jp.get_by_role("heading", name="読み取り結果の確認")).to_be_visible(timeout=15000)
     jcards = jp.get_by_test_id("problem-card")
@@ -667,52 +648,50 @@ with sync_playwright() as p:
     jp.evaluate("window.scrollTo({ top: 0, behavior: 'instant' })")
     shot(jp, "J2-confirm", full=False)
     jp.get_by_role("button", name="保存する").click()
-    # J3: straight back to the map: the three units flare, the toast says what changed
+    # J3: straight back to the map: the camera flies to the new tiles, they rise; the toast says what changed
     expect(jp).to_have_url(re.compile(re.escape(JOURNEY + "/app/map?saved=4&lit=4-A4,5-D2,4-A6&page=") + r"[\w-]+$"))
     expect(jp.get_by_test_id("lit-toast")).to_have_text("4問を保存しました：✕ 2問（平均、数量の関係を表す式）・○ 2問")
     expect(jp.get_by_test_id("toast-report")).to_have_text("レポートを見る")
-    expect(jp.locator("button.star-node.is-lit")).to_have_count(3)
+    expect(jp.locator("button.terr-unit.is-lit")).to_have_count(3)
     for unit, st in [("4-A4", "gold"), ("5-D2", "review"), ("4-A6", "review")]:  # all ○ on its newest page → gold
-        expect(jp.locator(f'button.star-node[data-unit="{unit}"]')).to_have_attribute("data-status", st)
-    # all three lit stars framed on the first screen, clear of the toast (top) and the tab bar
+        expect(jp.locator(f'button.terr-unit[data-unit="{unit}"]')).to_have_attribute("data-status", st)
+    jp.wait_for_timeout(820)  # fly done (0.65 s), tiles rising (0.8 s)
+    shot(jp, "J3-saved-map", full=False)
+    jp.wait_for_timeout(800)
+    # all three new tiles framed on the first screen, clear of the toast (top) and the tab bar
     toast_bottom = jp.locator(".toast-map").bounding_box()
     toast_bottom = toast_bottom["y"] + toast_bottom["height"]
     for unit in ["4-A4", "5-D2", "4-A6"]:
-        b = jp.locator(f'button.star-node[data-unit="{unit}"] .star-glyph').bounding_box()
-        assert toast_bottom - 8 < b["y"] and b["y"] + b["height"] < 844 - 64, (unit, b, toast_bottom)
-    jp.wait_for_timeout(430)  # mid-flare
-    shot(jp, "J3-saved-map", full=False)
-    # J4: a few seconds later the toast goes and the map glides back up to the strip, whose
-    #     次にやること = 平均 (小5) and 数量の関係を表す式 (小4), the new rows glowing once
+        b = jp.locator(f'button.terr-unit[data-unit="{unit}"]').bounding_box()
+        assert toast_bottom - 8 < b["y"] and b["y"] + b["height"] < 844 - 64 and 0 <= b["x"] and b["x"] + b["width"] <= 390, (unit, b, toast_bottom)
+    # J4: the toast goes; HUD: 制覇 1 / 15 in 小5, 要復習 1, 次にやること 2 (平均, then 小4 数量の関係を表す式); red flags
     jp.wait_for_timeout(4600)
     expect(jp.get_by_test_id("lit-toast")).to_have_count(0)
-    jp.wait_for_function("window.scrollY === 0", timeout=5000)
-    expect(jp.locator(".strip-row.is-fresh")).to_have_count(2)
-    jrows = jp.get_by_test_id("strip-next").locator(".strip-row")
-    expect(jrows).to_have_count(2)
-    expect(jrows.nth(0)).to_contain_text("平均")
-    expect(jrows.nth(1)).to_contain_text("数量の関係を表す式")
-    expect(jrows.nth(1).locator(".strip-grade")).to_have_text("小4")
-    expect(jp.get_by_test_id("strip-open-list")).to_have_attribute("href", "/app/list?units=5-D2,4-A6")
-    jp.wait_for_timeout(250)  # rows mid-glow
+    expect(jp.get_by_test_id("hud-taken")).to_have_text("1 / 15")
+    expect(jp.get_by_test_id("hud-review")).to_have_text("要復習 1")
+    expect(jp.get_by_test_id("hud-next")).to_have_text("次にやること 2")
+    expect(jp.locator("button.terr-unit .terr-flag")).to_have_count(2)
+    expect(jp.get_by_test_id("snap-fab")).to_be_visible()
     shot(jp, "J4-map-after", full=False)
-    # J5: tap the red 平均 star → its sheet
-    jp.locator('button.star-node[data-unit="5-D2"]').click()
+    # J5: 次にやること → the red 平均 tile: detail sheet with its history, root routes to 小4
+    jp.get_by_test_id("hud-next").click()
     jsheet = jp.get_by_test_id("star-sheet")
     expect(jsheet).to_contain_text("平均")
+    expect(jsheet.get_by_test_id("sheet-history").locator("li")).to_have_count(1)
+    expect(jsheet.get_by_test_id("sheet-history")).to_contain_text("ドリル")
+    expect(jsheet.get_by_test_id("sheet-history")).to_contain_text("✕1")
+    expect(jsheet.get_by_test_id("tour-next")).to_have_text("次へ（1/2）")
     expect(jsheet.get_by_role("link", name="この単元の問題を見る")).to_have_attribute("href", "/app/list?unit=5-D2")
+    expect(jp.locator("button.terr-unit.is-root")).not_to_have_count(0)
     expect(jp.get_by_test_id("snap-fab")).to_have_count(0)
     jp.wait_for_timeout(1000)
     shot(jp, "J5-sheet", full=False)
-    jp.keyboard.press("Escape")
-    # J6: テスト前リスト from the strip's button: exactly the two ✕ problems
-    jp.evaluate("window.scrollTo({ top: 0, behavior: 'instant' })")
-    jp.get_by_test_id("strip-open-list").click()
-    expect(jp).to_have_url(JOURNEY + "/app/list?units=5-D2,4-A6")
+    # J6: テスト前リスト from the sheet: the ✕ problem of 平均
+    jsheet.get_by_role("link", name="この単元の問題を見る").click()
+    expect(jp).to_have_url(JOURNEY + "/app/list?unit=5-D2")
     jitems = jp.get_by_test_id("review-item")
-    expect(jitems).to_have_count(2)
+    expect(jitems).to_have_count(1)
     expect(jitems.nth(0)).to_contain_text("平均点を求めなさい")
-    expect(jitems.nth(1)).to_contain_text("代金は全部でいくら")
     shot(jp, "J6-list", full=False)
     jc.close()
 

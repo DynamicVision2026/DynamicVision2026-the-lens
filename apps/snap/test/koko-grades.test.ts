@@ -6,13 +6,14 @@ import { buildStrip, focusFromParam } from "../src/lib/home";
 import { type SavedPage, migratePage } from "../src/lib/model";
 import { buildReport } from "../src/lib/report";
 import { mapTiles } from "../src/lib/review";
-import { SKY, gradeCounts, gradesAbove, layoutStarmap, nearGrades, rootIds } from "../src/lib/starmap";
+import { gradeCounts, rootIds } from "../src/lib/starmap";
+import { buildHud, territory } from "../src/lib/territory";
 import { _resetDbHandle, allPages, savePage } from "../src/lib/store";
 import { readerPrompt } from "../src/reader/prompt";
 import { toPageResult } from "../src/reader/schema";
 import type { Mark } from "../src/reader/schema";
 
-/** 高校 as three grades (19 Oct 2026): star chart, report, reader list and the 「高校」 → 高1 migration. */
+/** 高校 as three grades (19 Oct 2026): territory, report, reader list and the 「高校」 → 高1 migration. */
 
 let seq = 0;
 function page(grade: string, createdAt: string, probs: [string | null, Mark, boolean?][]): SavedPage {
@@ -33,31 +34,14 @@ const KOKO2 = [
   page("高2", "2026-10-15T09:00:00Z", [["h-B-1", "○"], ["h-B-1", "○"]]),
 ];
 
-describe("star chart for a 高2 child", () => {
-  it("near = 高2 + 高1; only 高3 above (one merged row); 中3 … 小1 as far bands", () => {
-    expect([...nearGrades("高2")].sort()).toEqual(["高1", "高2"]);
-    expect(gradesAbove("高2")).toEqual(["高3"]);
-    const L = layoutStarmap(358, nearGrades("高2"), { grades: gradesAbove("高2"), merged: true });
-    expect(L.nodes).toHaveLength(110);
-    expect(L.upper).toMatchObject({ merged: true, grades: ["高3"], y: 0, h: SKY.farH });
-    expect(L.bands.map((b) => b.grade)).toEqual(GRADES.filter((g) => g !== "高3").reverse());
-    expect(L.bands.find((b) => b.grade === "高2")).toMatchObject({ near: true, y: SKY.farH });
-    expect(L.bands.find((b) => b.grade === "高1")?.near).toBe(true);
-    expect(L.bands.find((b) => b.grade === "中3")?.near).toBe(false);
-    // Near 高2 stars are labelled 44 px buttons; 高3 stars sit in the merged row.
-    for (const n of L.nodes.filter((x) => x.grade === "高2")) expect([n.far, n.h >= 44]).toEqual([false, true]);
-    for (const n of L.nodes.filter((x) => x.grade === "高3")) expect([n.far, n.cy]).toEqual([true, SKY.farStarY]);
-    for (let i = 0; i < L.nodes.length; i++)
-      for (let j = i + 1; j < L.nodes.length; j++) {
-        const a = L.nodes[i];
-        const b = L.nodes[j];
-        expect(a.x < b.x + b.w - 0.001 && b.x < a.x + a.w - 0.001 && a.y < b.y + b.h && b.y < a.y + a.h, `${a.id} / ${b.id}`).toBe(false);
-      }
-  });
-
-  it("a 中3 child sees 「高1〜高3」 merged; a 高3 child has nothing above", () => {
-    expect(gradesAbove("中3")).toEqual(["高1", "高2", "高3"]);
-    expect(layoutStarmap(358, nearGrades("高3"), { grades: gradesAbove("高3"), merged: true }).upper).toBeNull();
+describe("territory for a 高2 child", () => {
+  it("territory: 高1 = 数学I + 数学A islands, 高2 = II + B, 高3 = III + C; each holds exactly its school year's units", () => {
+    const T = territory();
+    expect(T.byGrade.get("高1")!.districts.sort()).toEqual(["数学A", "数学I"]);
+    expect(T.byGrade.get("高2")!.districts.sort()).toEqual(["数学B", "数学II"]);
+    expect(T.byGrade.get("高3")!.districts.sort()).toEqual(["数学C", "数学III"]);
+    for (const g of ["高1", "高2", "高3"] as const)
+      expect(T.units.filter((u) => u.grade === g).map((u) => u.id).sort()).toEqual(UNITS.filter((u) => u.appGrade === g).map((u) => u.id).sort());
   });
 
   it("roots now run 数学II → 数学I and 数学III → 数学II (still 数学I → 中3)", () => {
@@ -77,7 +61,7 @@ describe("star chart for a 高2 child", () => {
   });
 });
 
-describe("report + strip for a 高2 child", () => {
+describe("report + HUD for a 高2 child", () => {
   it("counts the 8 units of 高2; 数学I ✕ shows as an earlier-grade unit with the 高2 unit it supports", () => {
     const r = buildReport(KOKO2, "高2", NOW);
     expect(r.total).toBe(8);
@@ -88,9 +72,13 @@ describe("report + strip for a 高2 child", () => {
     expect(r.chips.gold.map((u) => u.id)).toEqual(["h-B-1"]);
     const s = buildStrip(KOKO2, "高2", NOW);
     expect([s.grade, s.total, s.earlier]).toEqual(["高2", 8, ["h-I-3"]]);
-    // ?unit= on a 高3 star opens its band; 高1 is near already.
-    expect(focusFromParam("h-III-2", "高2")).toEqual({ selected: "h-III-2", opened: "高3" });
-    expect(focusFromParam("h-I-3", "高2")).toEqual({ selected: "h-I-3", opened: null });
+    // ?unit= on any island opens that unit
+    expect(focusFromParam("h-III-2", "高2")).toEqual({ selected: "h-III-2" });
+    // HUD: 高2 card = the report's counts; the 高 bar counts the whole high school
+    const hud = buildHud(KOKO2, "高2", NOW);
+    expect([hud.taken, hud.total, hud.counts.review]).toEqual([3, 8, 1]);
+    expect(hud.levels["高"]).toEqual({ taken: 4, total: 21 });
+    expect(hud.next).toEqual(["h-II-4", "h-I-3"]);
   });
 });
 

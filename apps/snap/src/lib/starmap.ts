@@ -2,10 +2,10 @@ import { GRADES, type Grade, UNITS, type Unit, isHighSchool, unitById } from "..
 import type { Tile, TileStatus } from "./review";
 
 /**
- * 単元星図: the 学習指導要領 as a night-sky chart.
- * Four vertical lanes (strands), grades as horizontal bands rising upward (小1 bottom, 高3 top).
- * Every unit is a star; each star links to its roots: same lane, nearest lower grade.
- * Pure functions only (no DOM), so layout and roots are unit-tested.
+ * Curriculum strands (lanes) and roots: each unit links to its もとになる単元 (same lane, nearest
+ * lower grade). Used by the territory map's sheet and root routes, and by the 学習レポート.
+ * (v0.1–v0.6 drew these as a star chart; since v0.7 the map is the territory map, lib/territory.ts.)
+ * Pure functions only (no DOM), unit-tested.
  */
 
 export const LANES = ["num", "geo", "rel", "data"] as const;
@@ -158,192 +158,6 @@ export function edgeKey(from: string, to: string): string {
   return `${from}>${to}`;
 }
 
-// ---------- layout ----------
-
-/**
- * Near sky vs far sky. "Near" bands (the child's grade, the grade below, and one band the child
- * opened) show every star with its label and a 44 px tap target. "Far" bands are one compact row:
- * each lane's stars sit side by side as a small cluster, no labels; the whole band is one tap
- * target that opens it.
- */
-export const SKY = {
-  /** Grade label strip at the top of a near band. */
-  bandHead: 26,
-  /** One star + its label (≥ 44 px tap target incl. 1 px inset each side). */
-  nodeH: 46,
-  bandPad: 8,
-  /** Star centre from the lane's left edge / node top. */
-  starX: 14,
-  starY: 14,
-  /** Far band: height, star row, gap between clustered stars. */
-  farH: 46,
-  farStarY: 31,
-  farGap: 12,
-  /** Head row above the expanded upper grades (label + 「たたむ」). */
-  upperHead: 34,
-};
-
-export interface SkyNode {
-  id: string;
-  lane: Lane;
-  grade: Grade;
-  /** In a far band: no label, not a button of its own. */
-  far: boolean;
-  /** Tap box (near) / the star's own small box (far). */
-  x: number;
-  y: number;
-  w: number;
-  h: number;
-  /** Star centre. */
-  cx: number;
-  cy: number;
-}
-export interface SkyBand {
-  grade: Grade;
-  near: boolean;
-  y: number;
-  h: number;
-}
-export interface SkyEdge {
-  key: string;
-  from: string;
-  to: string;
-  d: string;
-}
-/**
- * The grades above the child's grade. Merged: one compact far row at the top (every star of
- * those grades side by side per lane, faint), the whole row one button. Expanded: a thin head
- * row (label + 「たたむ」) above their individual far bands.
- */
-export interface SkyUpper {
-  grades: Grade[];
-  merged: boolean;
-  /** The merged row, or the head row when expanded. */
-  y: number;
-  h: number;
-}
-export interface SkyLayout {
-  width: number;
-  height: number;
-  laneW: number;
-  /** Individual bands (merged upper grades are not in here: see `upper`). */
-  bands: SkyBand[];
-  upper: SkyUpper | null;
-  nodes: SkyNode[];
-  edges: SkyEdge[];
-  byId: Map<string, SkyNode>;
-}
-
-/** Bands from the top of the chart: 高3 first, 小1 last (knowledge grows upward). */
-export const BANDS_TOP_DOWN: Grade[] = [...GRADES].reverse();
-
-/** Default near bands: the child's grade and the grade below it, plus one opened band. */
-export function nearGrades(own: Grade, opened: Grade | null = null): Set<Grade> {
-  const i = GRADES.indexOf(own);
-  const s = new Set<Grade>([own]);
-  if (i > 0) s.add(GRADES[i - 1]);
-  if (opened) s.add(opened);
-  return s;
-}
-
-/**
- * A root line: one gentle quadratic curve from the star down to its root, bowing left.
- * If another star sits on the straight way (same column, between the two), the bow is wider.
- */
-function edgePath(a: SkyNode, b: SkyNode, all: SkyNode[]): string {
-  const top = Math.min(a.cy, b.cy) + 8;
-  const bottom = Math.max(a.cy, b.cy) - 8;
-  const minX = Math.min(a.cx, b.cx);
-  const maxX = Math.max(a.cx, b.cx);
-  const blocked = all.some((n) => n !== a && n !== b && n.cy > top && n.cy < bottom && n.cx > minX - 10 && n.cx < maxX + 10);
-  const bow = blocked ? 40 : 16;
-  const qx = (a.cx + b.cx) / 2 - bow;
-  const qy = (a.cy + b.cy) / 2;
-  return `M${a.cx} ${a.cy}Q${qx.toFixed(1)} ${qy.toFixed(1)} ${b.cx} ${b.cy}`;
-}
-
-/** Grades above the child's grade, lowest first (小5 → 小6 … 高3; 高3 → none). */
-export function gradesAbove(own: Grade): Grade[] {
-  return GRADES.slice(GRADES.indexOf(own) + 1);
-}
-
-/** Lay out stars of one lane side by side in a far row (centred, gap shrinks to fit the lane). */
-function farRow(units: Unit[], li: number, laneW: number, cy: number, lane: Lane, nodes: SkyNode[]) {
-  const laneX = li * laneW;
-  const gap = units.length > 1 ? Math.min(SKY.farGap, (laneW - 16) / (units.length - 1)) : 0;
-  const x0 = laneX + laneW / 2 - (gap * (units.length - 1)) / 2;
-  units.forEach((u, k) => {
-    const cx = x0 + k * gap;
-    nodes.push({ id: u.id, lane, grade: u.appGrade, far: true, x: cx - gap / 2, y: cy - 5, w: Math.max(gap, 1), h: 10, cx, cy });
-  });
-}
-
-export function layoutStarmap(
-  width: number,
-  near: Iterable<Grade> = GRADES,
-  upperOpt: { grades: Grade[]; merged: boolean } | null = null,
-): SkyLayout {
-  const nearSet = new Set(near);
-  const laneW = width / LANES.length;
-  const bands: SkyBand[] = [];
-  const nodes: SkyNode[] = [];
-  let y = 0;
-  let upper: SkyUpper | null = null;
-  const upperSet = new Set(upperOpt && upperOpt.grades.length > 0 ? upperOpt.grades : []);
-  if (upperSet.size > 0) {
-    const merged = upperOpt!.merged && ![...upperSet].some((g) => nearSet.has(g));
-    if (merged) {
-      // One dense row: per lane, the upper grades' units from the lowest grade (left) up.
-      const low = [...upperSet].sort((a, b) => GRADES.indexOf(a) - GRADES.indexOf(b));
-      LANES.forEach((lane, li) =>
-        farRow(low.flatMap((g) => laneUnits(g, lane)), li, laneW, SKY.farStarY, lane, nodes),
-      );
-      upper = { grades: low, merged: true, y: 0, h: SKY.farH };
-      y = SKY.farH;
-    } else {
-      upper = { grades: [...upperSet].sort((a, b) => GRADES.indexOf(a) - GRADES.indexOf(b)), merged: false, y: 0, h: SKY.upperHead };
-      y = SKY.upperHead;
-    }
-  }
-  for (const grade of BANDS_TOP_DOWN) {
-    if (upper?.merged && upperSet.has(grade)) continue;
-    const stacks = LANES.map((lane) => laneUnits(grade, lane));
-    const isNear = nearSet.has(grade);
-    let h: number;
-    if (isNear) {
-      const rows = Math.max(1, ...stacks.map((s) => s.length));
-      h = SKY.bandHead + rows * SKY.nodeH + SKY.bandPad;
-      stacks.forEach((units, li) => {
-        const laneX = li * laneW;
-        units.forEach((u, k) => {
-          // The first unit sits lowest in its stack, later units rise above it. Stacks hang from the
-          // top of the band, so a root line to the band below stays short.
-          const top = y + SKY.bandHead + (units.length - 1 - k) * SKY.nodeH;
-          nodes.push({
-            id: u.id, lane: LANES[li], grade, far: false,
-            x: laneX + 1, y: top + 1, w: laneW - 2, h: SKY.nodeH - 2,
-            cx: laneX + SKY.starX, cy: top + SKY.starY,
-          });
-        });
-      });
-    } else {
-      h = SKY.farH;
-      stacks.forEach((units, li) => farRow(units, li, laneW, y + SKY.farStarY, LANES[li], nodes));
-    }
-    bands.push({ grade, near: isNear, y, h });
-    y += h;
-  }
-  const byId = new Map(nodes.map((n) => [n.id, n]));
-  const edges: SkyEdge[] = [];
-  for (const n of nodes)
-    for (const r of rootIds(n.id)) {
-      const m = byId.get(r)!;
-      if (m.cy <= n.cy) continue; // both inside the merged upper row: no line
-      edges.push({ key: edgeKey(n.id, r), from: n.id, to: r, d: edgePath(n, m, nodes) });
-    }
-  return { width, height: y, laneW, bands, upper, nodes, edges, byId };
-}
-
 // ---------- bottom sheet ----------
 
 export interface SheetData {
@@ -366,11 +180,4 @@ export function gradeCounts(tiles: Tile[], grade: Grade): Record<TileStatus, num
   const c: Record<TileStatus, number> = { gold: 0, review: 0, ok: 0, empty: 0 };
   for (const t of tiles) if (t.unit.appGrade === grade) c[t.status]++;
   return c;
-}
-
-/** Faint background specks (decoration only), deterministic so renders and screenshots are stable. */
-export function specks(width: number, height: number, n = Math.round(height / 30)): { x: number; y: number; r: number; o: number }[] {
-  let s = 20261019;
-  const rnd = () => ((s = (s * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff);
-  return Array.from({ length: n }, () => ({ x: rnd() * width, y: rnd() * height, r: 0.5 + rnd() * 0.7, o: 0.12 + rnd() * 0.28 }));
 }
