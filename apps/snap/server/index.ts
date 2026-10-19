@@ -24,6 +24,15 @@ const api = createApi({
   readDailyCap: envInt(process.env.READ_DAILY_CAP, 300),
 });
 app.route("/api", api);
+// Home-screen app files: the right type for the manifest, and the service worker always revalidated.
+app.use("/manifest.webmanifest", async (c, next) => {
+  await next();
+  if (c.res.ok) c.res.headers.set("Content-Type", "application/manifest+json");
+});
+app.use("/sw.js", async (c, next) => {
+  await next();
+  if (c.res.ok) c.res.headers.set("Cache-Control", "no-cache");
+});
 app.use("/*", serveStatic({ root: "./dist" }));
 // SPA fallback: every non-API route gets index.html.
 let indexHtml: string | undefined;

@@ -9,6 +9,9 @@ Students or parents photograph homework, workbook pages and graded tests. Lens S
 - Curriculum data: `data/units.json`
 - Reader test photos + answer key (original synthetic pages): `fixtures/`
 - Build, run, deploy, screenshots: `docs/BUILD-NOTES-v0.md`; deploy: `bash apps/snap/deploy.sh <project>` from the repo root
+- 単元マップ = a curriculum star chart (`src/lib/starmap.ts`): four lanes, grades rising upward, each unit linked to its roots in the grade below; 「一覧」 keeps the tile view
+- Home-screen app: `public/manifest.webmanifest`, `public/sw.js` (offline app shell, never caches `/api`), icons from `node scripts/icons.mjs`
+- Data safety: persistent-storage request after the first 保存, install tip, and ふりかえり → バックアップ (one JSON file, restore merges by page id)
 
 ## Environment
 

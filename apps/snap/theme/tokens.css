@@ -28,9 +28,35 @@
   --c-shadow: rgba(30, 45, 74, 0.08);
   --c-focus: rgba(224, 122, 79, 0.45);
 
+  /*
+   * 単元星図 (map screen only): deep navy sky, faint graticule, starlight ink.
+   * Contrast (WCAG): ink 13.9:1 on sky / 11.2:1 on the lit band; ink-soft 8.9 / 7.2;
+   * ink-dim 6.8 / 5.5; state colours as text ≥ 5.4:1 on every sky surface.
+   */
+  --sky-bg: #13203a;
+  --sky-band-own: #1d3054;          /* the child's own grade band, slightly lighter */
+  --sky-surface: #1a2a47;           /* bottom sheet */
+  --sky-head: rgba(19, 32, 58, 0.92); /* sticky lane header */
+  --sky-lattice: rgba(150, 172, 214, 0.13);
+  --sky-line: rgba(150, 175, 222, 0.32);  /* constellation (root) lines */
+  --sky-line-hi: #e8eef8;                 /* the open star's root path */
+  --sky-ink: #e8eef8;
+  --sky-ink-soft: #b4c1d9;
+  --sky-ink-dim: #9aa9c4;
+  --sky-speck: #c9d4ea;
+  --sky-red: #ff8273;               /* 復習が必要 */
+  --sky-red-halo: rgba(255, 130, 115, 0.38);
+  --sky-green: #45d3b0;             /* 復習ずみ */
+  --sky-gold: #ffcc55;              /* マスター */
+  --sky-gold-glow: rgba(255, 204, 85, 0.55);
+  --sky-grey: #8794ae;              /* まだ (hollow) */
+  --sky-flare: rgba(255, 236, 190, 0.9);  /* light-up after 保存 */
+  --sky-chip: rgba(232, 238, 248, 0.1);
+
   --radius: 14px;
   --radius-sm: 10px;
   --tap: 48px;
   --gutter: 16px;
+  --topbar-h: 56px;
   --font: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", system-ui, sans-serif;
 }

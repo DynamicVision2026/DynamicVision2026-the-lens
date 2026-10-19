@@ -120,7 +120,7 @@ input:not([type="checkbox"]):not([type="radio"]), .select {
 /* ---------- app shell ---------- */
 .shell { min-height: 100dvh; display: flex; flex-direction: column; }
 .topbar {
-  position: sticky; top: 0; z-index: 5; display: flex; justify-content: space-between; align-items: center;
+  position: sticky; top: 0; z-index: 5; display: flex; justify-content: space-between; align-items: center; min-height: var(--topbar-h);
   padding: 10px var(--gutter); background: var(--c-navy); color: var(--c-on-dark);
 }
 .brand { color: var(--c-on-dark); text-decoration: none; font-weight: 800; letter-spacing: 0.04em; }
@@ -249,3 +249,150 @@ input:not([type="checkbox"]):not([type="radio"]), .select {
 .mini-list li { display: grid; grid-template-columns: 22px 1fr auto; gap: 8px; font-size: 0.88rem; align-items: baseline; }
 .mini-list li.is-wrong .mini-mark { color: var(--c-wrong); font-weight: 800; }
 .mini-q { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---------- install tip ---------- */
+.install-tip {
+  display: flex; gap: 12px; align-items: flex-start; margin: 12px 0; padding: 14px;
+  border-radius: var(--radius); background: var(--c-surface); color: var(--c-text); box-shadow: 0 1px 3px var(--c-shadow);
+  border: 1.5px solid var(--c-accent);
+}
+.install-tip strong { color: var(--c-navy); display: block; }
+.install-tip p { margin: 4px 0 10px; font-size: 0.9rem; line-height: 1.6; }
+.install-tip .btn { min-height: 44px; padding: 0 16px; }
+.install-icon { flex: none; border-radius: 10px; }
+
+/* ---------- backup (ふりかえり) ---------- */
+.backup { margin: 12px 0 16px; }
+.backup h2 { font-size: 1rem; margin-bottom: 2px; }
+.backup > p { margin-bottom: 10px; }
+.backup-actions { display: grid; grid-template-columns: 1fr; gap: 8px; }
+.backup-actions .btn { padding: 0 16px; }
+.backup-last { margin: 10px 0 0; color: var(--c-muted); }
+.backup-remind { margin: 4px 0 0; color: var(--c-accent-strong); font-weight: 700; }
+.backup .notice { margin: 10px 0 0; }
+
+/* ---------- map header + view toggle ---------- */
+.map-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.map-head h1 { margin: 0; }
+.seg-sm { flex-wrap: nowrap; gap: 0; border: 1.5px solid var(--c-line); border-radius: 999px; padding: 2px; background: var(--c-surface); }
+.seg-sm .seg-item { min-height: 40px; min-width: 60px; border: 0; border-radius: 999px; font-size: 0.88rem; background: transparent; }
+.seg-sm .seg-item.is-on { background: var(--c-navy); color: var(--c-on-dark); }
+.map-head + .muted, .map-head + .sky-body { margin-top: 6px; }
+
+/* ---------- 単元星図 (map screen only: deep navy sky) ---------- */
+body:has(.sky-page) { background: var(--sky-bg); }
+.sky-page { background: var(--sky-bg); color: var(--sky-ink); min-height: calc(100dvh - var(--topbar-h)); }
+.sky-page h1 { color: var(--sky-ink); }
+.sky-page .seg-sm { background: var(--sky-chip); border-color: var(--sky-lattice); }
+.sky-page .seg-sm .seg-item { color: var(--sky-ink-soft); }
+.sky-page .seg-sm .seg-item.is-on { background: var(--sky-ink); color: var(--sky-bg); }
+.sky-page .notice-warn { background: var(--sky-chip); color: var(--sky-ink); }
+.sky-body { color: var(--sky-ink-soft); font-size: 0.92rem; margin: 6px 0 8px; }
+.sky-legend { display: flex; flex-wrap: wrap; gap: 2px 12px; font-size: 0.8rem; color: var(--sky-ink-soft); }
+.sky-legend span { display: inline-flex; align-items: center; gap: 0; }
+.sky-summary {
+  display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; margin: 8px 0 4px; padding: 8px 12px;
+  border-radius: var(--radius-sm); background: var(--sky-chip); font-size: 0.82rem; color: var(--sky-ink-soft);
+}
+.sky-summary b { color: var(--sky-ink); font-weight: 700; margin-right: 2px; }
+.sky-page .sum-review { color: var(--sky-red); }
+.sky-page .sum-ok { color: var(--sky-green); }
+.sky-page .sum-gold { color: var(--sky-gold); }
+.sky-page .sum-empty { color: var(--sky-ink-dim); }
+
+.sky { margin-top: 10px; }
+.sky-lanes {
+  position: sticky; top: var(--topbar-h); z-index: 3; display: grid; grid-template-columns: repeat(4, 1fr);
+  background: var(--sky-head); border-bottom: 1px solid var(--sky-lattice); backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.sky-lanes span { padding: 7px 2px; text-align: center; font-size: 0.75rem; font-weight: 700; color: var(--sky-ink); letter-spacing: 0.02em; }
+.sky-canvas { position: relative; width: 100%; }
+.sky-svg { position: absolute; inset: 0; display: block; }
+.sky-own { fill: var(--sky-band-own); }
+.sky-lat { stroke: var(--sky-lattice); stroke-width: 1; }
+.sky-lat-v { stroke-dasharray: 2 5; }
+.sky-tick { stroke: var(--sky-ink-dim); stroke-opacity: 0.45; stroke-width: 1; fill: none; }
+.sky-speck { fill: var(--sky-speck); }
+.sky-edge { fill: none; stroke: var(--sky-line); stroke-width: 1; transition: opacity 0.2s, stroke 0.2s; }
+.sky-edge.is-lit { stroke: var(--sky-flare); stroke-width: 1.4; stroke-dasharray: 1; stroke-dashoffset: 0; animation: edge-draw 1s ease-out 0.25s both; }
+.sky-edge.is-path { stroke: var(--sky-line-hi); stroke-width: 1.6; animation: none; }
+.sky-edge.is-dim { opacity: 0.18; }
+@keyframes edge-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+
+.sky-band-label { position: absolute; left: 4px; display: flex; align-items: center; gap: 6px; pointer-events: none; font-size: 0.74rem; font-weight: 700; color: var(--sky-ink-dim); line-height: 1; }
+.sky-band-label.is-own { color: var(--sky-ink); }
+.sky-own-tag { padding: 3px 8px; border-radius: 999px; background: var(--sky-ink); color: var(--sky-bg); font-size: 0.68rem; font-weight: 800; }
+
+.star-node {
+  position: absolute; padding: 0; border: 0; border-radius: 8px; background: transparent; cursor: pointer;
+  color: var(--sky-ink-soft); text-align: left; -webkit-tap-highlight-color: transparent; transition: opacity 0.2s;
+}
+.star-node.is-own { color: var(--sky-ink); }
+.star-node:focus-visible { outline: 2px solid var(--sky-ink); outline-offset: 0; }
+.star-node.is-sel { background: var(--sky-chip); }
+.star-node.is-dim { opacity: 0.28; }
+.star-node.is-path { color: var(--sky-ink); }
+.star-glyph { position: absolute; width: 26px; height: 26px; display: block; }
+.star-label {
+  position: absolute; left: 26px; right: 1px; top: 3px; font-size: 10.5px; line-height: 1.28; font-weight: 500;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere;
+}
+
+/* glyphs (also used in the legend and the sheet) */
+.glyph { display: block; overflow: visible; flex: none; }
+.g-empty { fill: var(--sky-bg); stroke: var(--sky-grey); stroke-width: 1.4; }
+.g-ok { fill: var(--sky-green); }
+.g-review { fill: var(--sky-red); }
+.g-halo { fill: none; stroke: var(--sky-red-halo); stroke-width: 3; }
+.g-gold { fill: var(--sky-gold); }
+.g-glow { fill: var(--sky-gold-glow); opacity: 0.35; }
+.g-flare { stroke: var(--sky-gold); stroke-width: 0.8; stroke-opacity: 0.6; stroke-linecap: round; }
+.g-lit { fill: none; stroke: var(--sky-flare); stroke-width: 1.2; stroke-opacity: 0.8; }
+.star-node.is-lit .glyph { transform-origin: center; transform-box: fill-box; animation: star-flare 1.2s ease-out 1; }
+@keyframes star-flare {
+  0% { transform: scale(1); filter: drop-shadow(0 0 0 var(--sky-flare)); }
+  35% { transform: scale(1.9); filter: drop-shadow(0 0 7px var(--sky-flare)); }
+  100% { transform: scale(1); filter: drop-shadow(0 0 2px var(--sky-flare)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .star-node.is-lit .glyph, .sky-edge.is-lit { animation: none; }
+  .star-node, .sky-edge { transition: none; }
+}
+
+/* bottom sheet */
+.sheet {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 12; max-width: 720px; margin: 0 auto;
+  max-height: 58dvh; overflow-y: auto; padding: 14px var(--gutter) calc(16px + env(safe-area-inset-bottom));
+  background: var(--sky-surface); color: var(--sky-ink); border-radius: 18px 18px 0 0;
+  border-top: 1px solid var(--sky-lattice); box-shadow: 0 -8px 28px var(--c-shadow); animation: sheet-in 0.2s ease-out;
+}
+@keyframes sheet-in { from { transform: translateY(16px); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .sheet { animation: none; } }
+.sheet-spacer { height: 52dvh; }
+.sheet-top { display: flex; align-items: center; justify-content: space-between; }
+.sheet-kicker { display: flex; gap: 8px; align-items: baseline; font-size: 0.85rem; color: var(--sky-ink-soft); }
+.sheet-grade { font-weight: 700; color: var(--sky-ink); }
+.sheet-code { font-weight: 400; }
+.sheet-close {
+  width: 44px; height: 44px; margin: -8px -10px -8px 0; border: 0; border-radius: 50%; background: transparent;
+  color: var(--sky-ink-soft); font-size: 1.6rem; line-height: 1; cursor: pointer;
+}
+.sheet-title { display: flex; align-items: center; gap: 4px; margin: 2px 0 10px; font-size: 1.2rem; color: var(--sky-ink); }
+.sheet-stats { display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 8px; margin: 0 0 12px; }
+.sheet-stats div { background: var(--sky-chip); border-radius: var(--radius-sm); padding: 6px 10px; }
+.sheet-stats dt { font-size: 0.72rem; color: var(--sky-ink-dim); }
+.sheet-stats dd { margin: 0; font-size: 1.05rem; font-weight: 700; }
+.sheet-h { font-size: 0.82rem; color: var(--sky-ink-soft); margin: 0 0 6px; font-weight: 700; }
+.sheet-none { font-size: 0.88rem; color: var(--sky-ink-soft); }
+.sheet-roots { list-style: none; padding: 0; margin: 0 0 14px; display: grid; gap: 6px; }
+.root-btn {
+  width: 100%; min-height: 44px; display: flex; align-items: center; gap: 6px; padding: 0 12px 0 6px;
+  border: 1px solid var(--sky-lattice); border-radius: var(--radius-sm); background: transparent; color: var(--sky-ink);
+  text-align: left; cursor: pointer;
+}
+.root-grade { font-size: 0.78rem; color: var(--sky-ink-soft); flex: none; }
+.root-topic { flex: 1; font-weight: 700; font-size: 0.92rem; }
+.root-go { color: var(--sky-ink-dim); font-size: 1.2rem; }
+.btn-sky { background: var(--sky-ink); color: var(--sky-bg); }
+.btn-sky:hover { background: var(--sky-ink-soft); }

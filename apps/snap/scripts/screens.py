@@ -5,11 +5,13 @@ Usage: pnpm build
        PORT=8094 PILOT_CODE=kumo42 node dist-server/index.js &     # gated server (招待コード)
        PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers python3 scripts/screens.py [base_url] [gated_url]
 Flow: landing → waitlist → /app grade 小5 → seed earlier pages (gold / green / red units)
-      → upload p01 (mock reader) → confirm → save → map lights up 5-C3 → full map
-      → テスト前リスト with 5-C3 = exactly the 2 ✕ problems → archive → retake
+      → upload p01 (mock reader) → confirm → save → 単元星図 flares 5-C3 → full star chart
+      → sheet on 5-C3 with its roots → 一覧 (tile view) → テスト前リスト with 5-C3 = exactly the
+      2 ✕ problems → archive → backup download / restore / invalid file → offline reload (service
+      worker) → Android install button → retake → iPhone install tip
       → gated server: 招待コード prompt, wrong code → 403 → asked again → right code reads.
 """
-import os, sys
+import json, os, re, sys, tempfile
 from pathlib import Path
 from playwright.sync_api import sync_playwright, expect
 
@@ -19,7 +21,7 @@ GATED = sys.argv[2] if len(sys.argv) > 2 else "http://localhost:8094"
 # Earlier saved pages for 小5 (IndexedDB seed), so the map shows every state:
 #   5-A1 gold (newest test all ○), 5-B1 gold (old ✕ then a later all-○ test),
 #   5-A3 green (✕ reviewed), 5-C1 red (✕ not reviewed), 5-D1 green (drill, no marks),
-#   4-A2 red in 小4 (shows in a collapsed section summary).
+#   4-A2 red, 4-C2 green and 4-B4 gold in 小4 (4-C2 簡単な割合 is the root of 5-C3 割合).
 SEED_JS = """async () => {
   const P = (id, at, type, probs) => ({ id, createdAt: at, grade: "小5", pageType: type, score: null,
     problems: probs.map(([unit, mark, reviewed], i) => ({ n: i + 1, q: "（見本）問題 " + (i + 1), unit, answer: "1",
@@ -28,6 +30,7 @@ SEED_JS = """async () => {
     P("seed1", "2026-10-01T09:00:00.000Z", "test", [["5-A1","○"],["5-A1","○"],["5-A1","○"],["5-A3","✕",true],["5-A3","○"]]),
     P("seed2", "2026-10-03T09:00:00.000Z", "drill", [["5-B1","✕"],["5-B1","✕"],["5-D1",null],["5-D1",null],["5-C1","✕"],["5-C1","○"]]),
     P("seed3", "2026-10-10T09:00:00.000Z", "test", [["5-B1","○"],["5-B1","○"],["5-B1","○"],["4-A2","✕"]]),
+    P("seed4", "2026-10-12T09:00:00.000Z", "drill", [["4-C2","✕",true],["4-C2","○"],["4-B4","○"],["4-B4","○"]]),
   ];
   await new Promise((res, rej) => {
     const req = indexedDB.open("lens-snap", 1);
@@ -44,11 +47,12 @@ SEED_JS = """async () => {
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "docs" / "screens"
 OUT.mkdir(parents=True, exist_ok=True)
+TMP = Path(tempfile.mkdtemp(prefix="lens-snap-shots-"))
 
 
 def shot(page, name, full=True):
     # Full-page captures: un-fix the bars so they render once at their natural place.
-    style = page.add_style_tag(content=".tabbar,.topbar,.sticky-actions{position:static!important}") if full else None
+    style = page.add_style_tag(content=".tabbar,.topbar,.sticky-actions,.sky-lanes{position:static!important}") if full else None
     page.screenshot(path=str(OUT / f"{name}.png"), full_page=full)
     if style:
         style.evaluate("el => el.remove()")
@@ -57,7 +61,7 @@ def shot(page, name, full=True):
 
 with sync_playwright() as p:
     browser = p.chromium.launch()
-    ctx = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2, locale="ja-JP", is_mobile=True, has_touch=True)
+    ctx = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2, locale="ja-JP", is_mobile=True, has_touch=True, accept_downloads=True)
     page = ctx.new_page()
     errors = []
     page.on("pageerror", lambda e: errors.append(str(e)))
@@ -126,17 +130,52 @@ with sync_playwright() as p:
     shot(page, "06-confirm")
     page.get_by_role("button", name="保存する").click()
 
-    # 5a. Light-up: straight to the map, 5-C3 glows, toast says where the problems went
+    # 5a. Light-up: straight to the 単元星図, 5-C3 flares and its root line draws down; toast stays
     expect(page).to_have_url(BASE + "/app/map?saved=5&lit=5-C3")
     expect(page.get_by_test_id("lit-toast")).to_have_text("5問を保存しました。光っている単元に入りました。")
-    lit = page.locator('a.tile.is-lit[data-unit="5-C3"]')
+    lit = page.locator('button.star-node.is-lit[data-unit="5-C3"]')
     expect(lit).to_have_count(1)
-    page.wait_for_timeout(450)  # mid-pulse (1.5 s animation)
+    expect(page.locator('path.sky-edge.is-lit[data-edge="5-C3>4-C2"]')).to_have_count(1)
+    page.wait_for_timeout(430)  # mid-flare (1.2 s), line half drawn
     shot(page, "07-saved-lit", full=False)
 
-    # 5b. Full map: own grade open and first, with red / green / gold tiles; other grades collapsed
+    # 5b. Full star chart: 110 stars, own grade lit, red / green / gold / grey states, 小4 data
     page.wait_for_timeout(4600)  # toast gone
     page.goto(BASE + "/app/map")
+    expect(page.locator(".sky-page")).to_have_count(1)
+    stars = page.locator("button.star-node")
+    expect(stars).to_have_count(110)
+    expect(page.locator(".sky-band-label.is-own")).to_contain_text("小5")
+    for unit, st in [("5-C3", "review"), ("5-A1", "gold"), ("5-B1", "gold"), ("5-A3", "ok"), ("5-D1", "ok"),
+                     ("5-C1", "review"), ("5-A2", "empty"), ("4-A2", "review"), ("4-C2", "ok"), ("4-B4", "gold")]:
+        expect(page.locator(f'button.star-node[data-unit="{unit}"]')).to_have_attribute("data-status", st)
+    expect(page.get_by_test_id("sky-summary")).to_contain_text("復習 2")
+    # own band scrolled into view on load
+    box = page.locator('button.star-node[data-unit="5-C3"]').bounding_box()
+    assert 0 < box["y"] < 844, box
+    assert page.locator("path.sky-edge").count() > 100
+    shot(page, "08-starmap")
+
+    # 5c. Sheet on a red unit: counts, roots (tappable), root path highlighted, everything else dimmed
+    page.locator('button.star-node[data-unit="5-C3"]').click()
+    sheet = page.get_by_test_id("star-sheet")
+    expect(sheet).to_be_visible()
+    expect(sheet).to_contain_text("割合")
+    expect(sheet).to_contain_text("もとになる単元")
+    expect(sheet.locator('button.root-btn[data-unit="4-C2"]')).to_be_visible()
+    expect(page.locator('path.sky-edge.is-path[data-edge="5-C3>4-C2"]')).to_have_count(1)
+    expect(page.locator('button.star-node.is-path[data-unit="4-C2"]')).to_have_count(1)
+    expect(page.locator('button.star-node.is-dim[data-unit="5-A1"]')).to_have_count(1)
+    expect(sheet.get_by_role("link", name="この単元の問題を見る")).to_have_attribute("href", "/app/list?unit=5-C3")
+    page.wait_for_timeout(1000)  # smooth scroll settles
+    shot(page, "08s-starmap-sheet", full=False)
+    sheet.locator('button.root-btn[data-unit="4-C2"]').click()  # jump to the root
+    expect(sheet).to_contain_text("簡単な割合")
+    page.keyboard.press("Escape")
+    expect(sheet).to_have_count(0)
+
+    # 5d. 一覧: the tile view (accessible fallback), choice remembered
+    page.get_by_role("radio", name="一覧").click()
     secs = page.locator("details.grade-sec")
     expect(secs).to_have_count(10)
     expect(secs.first).to_have_attribute("data-grade", "小5")
@@ -148,14 +187,13 @@ with sync_playwright() as p:
     expect(tile).to_contain_text("割合")
     expect(tile).to_contain_text("✕ 2")
     expect(tile).to_contain_text("5問")
-    for unit, st in [("5-A1", "gold"), ("5-B1", "gold"), ("5-A3", "ok"), ("5-D1", "ok"), ("5-C1", "review"), ("5-A2", "empty")]:
-        expect(page.locator(f'a.tile[data-unit="{unit}"]')).to_have_attribute("data-status", st)
     expect(page.locator('details[data-grade="小4"] .sum-review')).to_have_text("復習 1")
-    shot(page, "08-map")
-    page.locator('details[data-grade="小4"] > summary').click()
-    expect(page.locator('a.tile[data-unit="4-A2"]')).to_be_visible()
-    page.locator('details[data-grade="小4"]').scroll_into_view_if_needed()
-    shot(page, "08b-map-other-grade", full=False)
+    page.reload()
+    expect(page.locator("details.grade-sec")).to_have_count(10)  # remembered
+    page.evaluate("window.scrollTo({ top: 0, behavior: 'instant' })")
+    shot(page, "08l-map-list")
+    page.get_by_role("radio", name="星図").click()
+    expect(page.locator("button.star-node")).to_have_count(110)
 
     # 6. テスト前リスト with 5-C3 only → exactly the 2 ✕ problems
     page.goto(BASE + "/app/list")
@@ -175,13 +213,84 @@ with sync_playwright() as p:
     # 7. ふりかえり
     page.get_by_role("link", name="ふりかえり").click()
     expect(page.get_by_text("このページを削除").first).to_be_visible()
+    expect(page.get_by_test_id("backup-last")).to_have_text("まだバックアップしていません。")
+    expect(page.get_by_text("そろそろバックアップを保存しておくと安心です。")).to_be_visible()
     shot(page, "11-archive")
+
+    # 7b. Backup: download one JSON file, delete a page, restore → 1 page back; invalid file → clear message
+    with page.expect_download() as dl:
+        page.get_by_role("button", name="バックアップを保存").click()
+    d = dl.value
+    assert re.fullmatch(r"lens-snap-backup-\d{8}\.json", d.suggested_filename), d.suggested_filename
+    backup_path = TMP / d.suggested_filename
+    d.save_as(str(backup_path))
+    data = json.loads(backup_path.read_text())
+    assert data["app"] == "lens-snap" and data["version"] == 1 and data["grade"] == "小5"
+    assert len(data["pages"]) == 5 and any("photo" in pg for pg in data["pages"]), len(data["pages"])
+    expect(page.get_by_test_id("backup-last")).to_contain_text("最後のバックアップ：")
+    expect(page.get_by_text("そろそろバックアップを保存しておくと安心です。")).to_have_count(0)
+    page.on("dialog", lambda dlg: dlg.accept())
+    n_before = page.locator("li.card").count()
+    page.get_by_text("このページを削除").last.click()
+    expect(page.locator("li.card")).to_have_count(n_before - 1)
+    page.get_by_test_id("backup-input").set_input_files(str(backup_path))
+    expect(page.get_by_test_id("backup-msg")).to_have_text("1ページを戻しました。")
+    expect(page.locator("li.card")).to_have_count(n_before)
+    page.get_by_test_id("backup-input").set_input_files(files=[{"name": "x.json", "mimeType": "application/json", "buffer": b'{"app":"other"}'}])
+    expect(page.get_by_test_id("backup-msg")).to_contain_text("読み込めませんでした")
+    page.get_by_test_id("backup-input").set_input_files(str(backup_path))
+    expect(page.get_by_test_id("backup-msg")).to_have_text("新しいページはありませんでした（すべてこの端末にあります）。")
+    page.get_by_text("このページを削除").last.click()  # once more, for the screenshot of a real restore
+    page.get_by_test_id("backup-input").set_input_files(str(backup_path))
+    expect(page.get_by_test_id("backup-msg")).to_have_text("1ページを戻しました。")
+    page.evaluate("window.scrollTo({ top: 0, behavior: 'instant' })")
+    shot(page, "16-backup", full=False)
+
+    # 7c. Offline: the service worker serves the app shell (pages come from IndexedDB)
+    page.evaluate("navigator.serviceWorker.ready.then(() => true)")
+    page.goto(BASE + "/app/map")
+    page.wait_for_function("navigator.serviceWorker.controller !== null")
+    ctx.set_offline(True)
+    page.goto(BASE + "/app/map")
+    expect(page.get_by_role("heading", name="単元マップ")).to_be_visible()
+    expect(page.locator("button.star-node")).to_have_count(110)
+    ctx.set_offline(False)
+    assert page.evaluate("caches.keys()") == ["lens-snap-v1"]
+    assert not page.evaluate("""caches.open('lens-snap-v1').then(c => c.keys()).then(ks => ks.some(r => new URL(r.url).pathname.startsWith('/api')))""")
+
+    # 7d. Android / Chrome: beforeinstallprompt → 「ホーム画面に追加」 button on 撮る; dismiss is remembered
+    page.get_by_role("link", name="撮る").click()
+    expect(page.get_by_test_id("install-tip")).to_have_count(0)  # nothing to offer before the event
+    page.evaluate("""() => { const e = new Event('beforeinstallprompt', { cancelable: true });
+      e.prompt = async () => {}; e.userChoice = Promise.resolve({ outcome: 'dismissed' }); window.dispatchEvent(e); }""")
+    tip = page.get_by_test_id("install-tip")
+    expect(tip.get_by_role("button", name="ホーム画面に追加")).to_be_visible()
+    tip.get_by_role("button", name="閉じる").click()
+    expect(tip).to_have_count(0)
 
     # 8. Retake path (h03, mock reader says retake)
     page.get_by_role("link", name="撮る").click()
     page.get_by_test_id("file-input").set_input_files(str(ROOT / "fixtures" / "photos" / "h03.jpg"))
     expect(page.get_by_text("もう少し明るい所で撮り直してください。")).to_be_visible(timeout=15000)
     shot(page, "12-retake", full=False)
+
+    # 8b. iPhone Safari after the first 保存: install tip with the share-button steps (shown once)
+    ios = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2, locale="ja-JP", is_mobile=True, has_touch=True,
+                              user_agent="Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1")
+    ip = ios.new_page()
+    ip.on("pageerror", lambda e: errors.append(str(e)))
+    ip.goto(BASE + "/app")
+    ip.evaluate("localStorage.setItem('lens-snap:grade', '小5'); localStorage.setItem('lens-snap:saved-once', new Date().toISOString())")
+    ip.evaluate(SEED_JS)
+    ip.goto(BASE + "/app/snap")
+    itip = ip.get_by_test_id("install-tip")
+    expect(itip).to_contain_text("共有ボタン（□↑）→「ホーム画面に追加」")
+    shot(ip, "15-install-tip", full=False)
+    itip.get_by_role("button", name="閉じる").click()
+    ip.reload()
+    expect(ip.get_by_role("heading", name="ページを撮りましょう")).to_be_visible()
+    expect(ip.get_by_test_id("install-tip")).to_have_count(0)
+    ios.close()
 
     # 9. Gated server: 招待コード first, then grade; a wrong code is asked again on the snap screen
     ctx2 = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2, locale="ja-JP", is_mobile=True, has_touch=True)

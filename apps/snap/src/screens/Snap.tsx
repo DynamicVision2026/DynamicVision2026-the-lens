@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { InstallTip } from "../components/InstallTip";
 import { PilotCodeForm } from "../components/PilotCodeForm";
 import { UnitSelect } from "../components/UnitSelect";
 import { app } from "../copy";
@@ -8,6 +9,7 @@ import { preparePhoto } from "../lib/image";
 import { type DraftProblem, type SavedPage, draftFromResult, pageFromDraft } from "../lib/model";
 import { type ReadFailure, clearPilotCode, readFailure, readPilotCode } from "../lib/pilot";
 import { LOW_CONFIDENCE, litMapUrl } from "../lib/review";
+import { afterSave } from "../lib/pwa";
 import { savePage } from "../lib/store";
 import { type Mark, type PageResult, PageResultSchema } from "../reader/schema";
 
@@ -76,6 +78,7 @@ export function Snap({ grade }: { grade: Grade }) {
         onSave={async () => {
           const page = pageFromDraft(st.draft, { grade, pageType: st.result.pageType, score: st.result.score, photo: st.thumb });
           await savePage(page);
+          afterSave(); // first 保存: ask the browser to keep this data (persistent storage)
           // Straight to the map: the units this page went into light up.
           nav(litMapUrl(page));
         }}
@@ -125,6 +128,7 @@ export function Snap({ grade }: { grade: Grade }) {
         </div>
       )}
       <p className="muted small center">{app.snap.privacy}</p>
+      {st.s === "idle" && <InstallTip />}
     </div>
   );
 }
