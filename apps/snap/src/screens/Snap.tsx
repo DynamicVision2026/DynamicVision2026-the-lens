@@ -222,9 +222,9 @@ function Confirm(props: {
       </div>
     </>
   );
-  if (!twoCol) return <div className="page">{main}</div>;
+  if (!twoCol) return <div className="page" data-step="confirm">{main}</div>;
   return (
-    <div className="page confirm-2col" data-testid="confirm-2col">
+    <div className="page confirm-2col" data-step="confirm" data-testid="confirm-2col">
       <aside className="confirm-photo">
         <ZoomPhoto photo={thumb} alt={app.confirm.photo} />
       </aside>
