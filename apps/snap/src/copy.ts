@@ -177,7 +177,7 @@ export const landingUi = {
 };
 
 export const app = {
-  nav: { snap: "撮る", report: "レポート", map: "マップ", list: "テスト前", archive: "ふりかえり" },
+  nav: { snap: "撮る", map: "マップ", list: "テスト前", archive: "ふりかえり" },
   onboarding: {
     title: "学年を選んでください",
     body: "その学年の単元で整理します。あとから変えられます。",
@@ -237,17 +237,32 @@ export const app = {
       lit ? `${n}問を保存しました。光っている単元に入りました。` : `${n}問を保存しました。`,
     toReport: "レポートを見る",
     // 単元星図
-    skyBody: "下から上へ、学年ごとに単元がつながっています。",
     view: { sky: "星図", list: "一覧" },
     viewLabel: "表示のしかた",
     lanes: { num: "数と計算", geo: "図形", rel: "変化と関係", data: "データ" },
     skyLegend: { review: "復習が必要", ok: "復習ずみ", gold: "マスター", empty: "まだ" },
     status: { review: "復習が必要", ok: "復習ずみ", gold: "マスター（テストで全問○）", empty: "まだ問題がありません" },
-    gradeSummary: (g: string) => `${g}の単元`,
-    count: { review: (n: number) => `復習 ${n}`, ok: (n: number) => `復習ずみ ${n}`, gold: (n: number) => `マスター ${n}`, empty: (n: number) => `まだ ${n}` },
+    // レポートの帯 (top of the map: the 学習レポート at one glance)
+    strip: {
+      label: "学習のようす",
+      title: (g: string, n: number) => `${g}の${n}単元`,
+      next: "次にやること",
+      noNext: "いま、復習が必要な単元はありません。",
+      openList: "テスト前リストで見る",
+      toReport: "学習レポートをくわしく見る",
+      earlier: (n: number) => `前の学年に✕のある単元があります（${n}）`,
+      fold: "たたむ",
+      foldLabel: "学習のようすをたたむ",
+      unfold: "ひらく",
+      foldedNext: (n: number) => (n > 0 ? `次にやること ${n}` : "次にやること なし"),
+    },
     chartLabel: "単元マップ（星図）。下が小1、上が高校です。",
     openBand: (g: string) => `${g}の単元をひらく`,
     fold: "たたむ",
+    upperBand: (from: string, to: string) => (from === to ? `これから学ぶ単元（${to}）` : `これから学ぶ単元（${from}〜${to}）`),
+    upperOpen: (label: string) => `${label}を学年ごとにひらく`,
+    upperFold: "これから学ぶ単元をたたむ",
+    skyHint: "下の学年の単元が、上の学年の単元のもとになっています。",
     starLabel: (grade: string, code: string, topic: string, status: string) => `${grade} ${code} ${topic}、${status}`,
     sheet: {
       problems: "問題",
@@ -256,6 +271,7 @@ export const app = {
       roots: "もとになる単元",
       noRoots: "この単元が、この列のいちばん下です。",
       open: "この単元の問題を見る",
+      report: "学習レポート",
       close: "閉じる",
     },
   },
@@ -321,6 +337,7 @@ export const app = {
     weekWrong: "✕のついた問題",
     units: "単元",
     toMap: "単元マップで全体を見る",
+    backToMap: "単元マップにもどる",
     emptyTitle: "撮ると、ここにレポートができます",
     emptyBody:
       "宿題・ドリル・テストを撮っておくと、単元ごとのようすがこの1ページにまとまります。全問○の単元、復習が必要な単元、この1週間に撮った量が、ひと目でわかります。",

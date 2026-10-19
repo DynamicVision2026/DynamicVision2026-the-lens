@@ -1,7 +1,8 @@
 import type { ReactElement } from "react";
-import { NavLink, Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { Link, NavLink, Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { app } from "./copy";
 import type { Grade } from "./curriculum";
+import { APP_TABS, type TabKey, activeTab, homePath } from "./lib/home";
 import { Archive } from "./screens/Archive";
 import { Landing } from "./screens/Landing";
 import { MapScreen } from "./screens/MapScreen";
@@ -51,25 +52,19 @@ function AppArea() {
           <Route path="*" element={<Navigate to="/app" replace />} />
         </Routes>
       </main>
-      <nav className="tabbar">
-        <Tab to="/app/snap" icon="snap" label={app.nav.snap} />
-        <Tab to="/app/report" icon="report" label={app.nav.report} />
-        <Tab to="/app/map" icon="map" label={app.nav.map} />
-        <Tab to="/app/list" icon="list" label={app.nav.list} />
-        <Tab to="/app/archive" icon="archive" label={app.nav.archive} />
-      </nav>
+      <TabBar />
     </div>
   );
 }
 
-/** App home: the レポート once the family has saved pages, 撮る before that. */
+/** App home: the 単元マップ once the family has saved pages, 撮る before that. */
 function Home() {
   const { pages } = usePages();
   if (!pages) return <div className="page" />;
-  return <Navigate to={pages.length > 0 ? "/app/report" : "/app/snap"} replace />;
+  return <Navigate to={homePath(pages.length)} replace />;
 }
 
-type IconName = "snap" | "report" | "map" | "list" | "archive";
+type IconName = TabKey;
 
 /** Tab icons: 24 px line drawings in currentColor (no colour of their own). */
 const ICONS: Record<IconName, ReactElement> = {
@@ -77,12 +72,6 @@ const ICONS: Record<IconName, ReactElement> = {
     <>
       <path d="M4 8h3l1.5-2h7L17 8h3v11H4z" />
       <circle cx="12" cy="13.5" r="3.5" />
-    </>
-  ),
-  report: (
-    <>
-      <rect x="3.5" y="5" width="17" height="5" rx="2.5" />
-      <path d="M10 5v5M15 5v5M4 15h9M4 19h6" />
     </>
   ),
   map: <path d="M12 3.5l2.3 5.6 5.7.4-4.4 3.7 1.4 5.8L12 15.9 7 19l1.4-5.8L4 9.5l5.7-.4z" />,
@@ -95,13 +84,19 @@ const ICONS: Record<IconName, ReactElement> = {
   archive: <path d="M5 6h14M5 12h14M5 18h9" />,
 };
 
-function Tab({ to, icon, label }: { to: string; icon: IconName; label: string }) {
+/** Four tabs; the 学習レポート (the map's 「詳しく」 page) keeps マップ lit. */
+function TabBar() {
+  const on = activeTab(useLocation().pathname);
   return (
-    <NavLink to={to} className={({ isActive }) => `tab ${isActive ? "tab-active" : ""}`}>
-      <svg className="tab-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden focusable="false">
-        {ICONS[icon]}
-      </svg>
-      <span>{label}</span>
-    </NavLink>
+    <nav className="tabbar">
+      {APP_TABS.map((t) => (
+        <Link key={t.key} to={t.to} className={`tab ${on === t.key ? "tab-active" : ""}`} aria-current={on === t.key ? "page" : undefined}>
+          <svg className="tab-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden focusable="false">
+            {ICONS[t.key]}
+          </svg>
+          <span>{app.nav[t.key]}</span>
+        </Link>
+      ))}
+    </nav>
   );
 }

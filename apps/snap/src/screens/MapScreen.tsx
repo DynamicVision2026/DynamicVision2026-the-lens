@@ -1,15 +1,16 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { ReportStrip } from "../components/ReportStrip";
 import { StarGlyph, StarMap } from "../components/StarMap";
 import { app } from "../copy";
 import { type Grade, type Unit, unitById } from "../curriculum";
-import { type MapSection, type Tile, type TileStatus, mapSections, mapTiles, parseLit, unfiled } from "../lib/review";
-import { type SkyLayout, gradeCounts, nearGrades, sheetData } from "../lib/starmap";
+import { type Strip, buildStrip, earlierBand, focusFromParam } from "../lib/home";
+import { type MapSection, type Tile, mapSections, mapTiles, parseLit, unfiled } from "../lib/review";
+import { type SkyLayout, gradesAbove, nearGrades, sheetData } from "../lib/starmap";
 import { readPref, usePages, writePref } from "../state";
 
 const TOAST_MS = 4500;
 type View = "sky" | "list";
-const STATES: TileStatus[] = ["review", "ok", "gold", "empty"];
 
 const reduceMotion = () => window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
 const codeOf = (u: Unit) => (u.level === "高" ? `${u.grade} ${u.unit}` : u.unit);
@@ -19,6 +20,7 @@ export function MapScreen({ grade }: { grade: Grade }) {
   const [params] = useSearchParams();
   const lit = useMemo(() => parseLit(params.get("lit")), [params]);
   const saved = Number(params.get("saved") ?? 0);
+  const unitParam = params.get("unit");
   const [view, setViewState] = useState<View>(() => (readPref("map-view") === "list" ? "list" : "sky"));
   const setView = (v: View) => {
     writePref("map-view", v);
@@ -55,9 +57,13 @@ export function MapScreen({ grade }: { grade: Grade }) {
           ))}
         </div>
       </div>
-      {view === "sky" ? <SkyHeader tiles={tiles} grade={grade} /> : <ListHeader />}
+      {view === "list" && <ListHeader />}
       {nUnfiled > 0 && <p className="notice notice-warn">{app.map.unfiled(nUnfiled)}</p>}
-      {view === "sky" ? <SkyView tiles={tiles} grade={grade} lit={lit} /> : <ListView pages={pages} grade={grade} lit={lit} />}
+      {view === "sky" ? (
+        <SkyView tiles={tiles} grade={grade} lit={lit} unit={unitParam} strip={buildStrip(pages, grade)} />
+      ) : (
+        <ListView pages={pages} grade={grade} lit={lit} />
+      )}
       {toast && (
         <div className="toast toast-row" role="status">
           <span data-testid="lit-toast">{app.map.litToast(saved, lit.length > 0)}</span>
@@ -72,31 +78,10 @@ export function MapScreen({ grade }: { grade: Grade }) {
 
 // ---------- 星図 ----------
 
-function SkyHeader({ tiles, grade }: { tiles: Tile[]; grade: Grade }) {
-  const c = gradeCounts(tiles, grade);
-  return (
-    <>
-      <p className="sky-body">{app.map.skyBody}</p>
-      <div className="sky-legend">
-        {STATES.map((s) => (
-          <span key={s}>
-            <StarGlyph status={s} size={26} />
-            {app.map.skyLegend[s]}
-          </span>
-        ))}
-      </div>
-      <p className="sky-summary" data-testid="sky-summary">
-        <b>{app.map.gradeSummary(grade)}</b>
-        {STATES.map((s) => (
-          <span key={s} className={`sum-${s}`}>{app.map.count[s](c[s])}</span>
-        ))}
-      </p>
-    </>
-  );
-}
-
-function SkyView({ tiles, grade, lit }: { tiles: Tile[]; grade: Grade; lit: string[] }) {
-  const [selected, setSelected] = useState<string | null>(null);
+function SkyView({ tiles, grade, lit, unit, strip }: { tiles: Tile[]; grade: Grade; lit: string[]; unit: string | null; strip: Strip }) {
+  // ?unit=5-C3 (from the 学習レポート): that star selected, its sheet open, its far band opened.
+  const [focus] = useState(() => focusFromParam(unit, grade));
+  const [selected, setSelected] = useState<string | null>(focus.selected);
   // One far band may be opened. After 保存, a lit unit in a far grade opens that grade.
   const [opened, setOpened] = useState<Grade | null>(() => {
     const base = nearGrades(grade);
@@ -104,8 +89,14 @@ function SkyView({ tiles, grade, lit }: { tiles: Tile[]; grade: Grade; lit: stri
       const g = unitById(id)?.appGrade;
       if (g && !base.has(g)) return g;
     }
-    return null;
+    return focus.opened;
   });
+  // 前の学年の✕: those stars ringed (and the nearest far band holding one opened) while on.
+  const [marked, setMarked] = useState<Set<string> | null>(null);
+  // Grades above the child's: one merged row until tapped (a lit / ?unit= star up there expands them).
+  const [upperOpen, setUpperOpen] = useState(false);
+  const above = useMemo(() => gradesAbove(grade), [grade]);
+  const upper = above.length > 0 ? { grades: above, merged: !upperOpen && !(opened && above.includes(opened)) } : null;
   const near = useMemo(() => nearGrades(grade, opened), [grade, opened]);
   const geo = useRef<{ L: SkyLayout; canvas: HTMLDivElement } | null>(null);
   const scrolled = useRef(false);
@@ -141,15 +132,13 @@ function SkyView({ tiles, grade, lit }: { tiles: Tile[]; grade: Grade; lit: stri
       }
       if (scrolled.current) return;
       scrolled.current = true;
-      // On load: the first lit star (after 保存) in the middle, otherwise the child's grade band in view.
+      // On load: the first lit star (after 保存) in the middle; a ?unit= star above its sheet;
+      // otherwise the top of the page (the report strip, then the chart down to the child's grade).
       if (lit.length > 0) return scrollToStar(lit[0], 0.5, false);
-      const band = L.bands.find((b) => b.grade === grade);
-      if (band) {
-        const top = canvas.getBoundingClientRect().top + window.scrollY + band.y;
-        window.scrollTo({ top: Math.max(0, top - window.innerHeight * 0.3), behavior: "instant" });
-      }
+      if (focus.selected) return scrollToStar(focus.selected, 0.16, false);
+      window.scrollTo({ top: 0, behavior: "instant" });
     },
-    [lit, grade, scrollToStar],
+    [lit, focus, scrollToStar],
   );
 
   const select = useCallback(
@@ -180,9 +169,26 @@ function SkyView({ tiles, grade, lit }: { tiles: Tile[]; grade: Grade; lit: stri
     return () => window.removeEventListener("keydown", onKey);
   }, [selected]);
 
+  const toggleEarlier = () => {
+    const band = earlierBand(strip.earlier, grade);
+    if (marked) {
+      setMarked(null);
+      if (band && opened === band) setOpened(null);
+      return;
+    }
+    setSelected(null);
+    setMarked(new Set(strip.earlier));
+    const first = strip.earlier[0];
+    if (band && band !== opened) {
+      pending.current = first; // scroll once the band is laid out
+      setOpened(band);
+    } else scrollToStar(first, 0.2, true);
+  };
+
   const data = selected ? sheetData(selected, tiles) : null;
   return (
     <>
+      <ReportStrip strip={strip} onPick={(id) => select(id, true)} earlierOn={marked !== null} onEarlier={toggleEarlier} />
       <StarMap
         tiles={tiles}
         grade={grade}
@@ -190,11 +196,19 @@ function SkyView({ tiles, grade, lit }: { tiles: Tile[]; grade: Grade; lit: stri
         opened={opened}
         onOpen={(g) => {
           setSelected(null);
+          if (g === null) setMarked(null);
           pendingBand.current = g;
           setOpened(g);
         }}
         lit={lit}
+        upper={upper}
+        onUpper={(open) => {
+          setSelected(null);
+          setUpperOpen(open);
+          if (!open && opened && above.includes(opened)) setOpened(null);
+        }}
         selected={selected}
+        marked={marked}
         onSelect={(id) => select(id)}
         onLayout={onLayout}
       />
@@ -253,9 +267,14 @@ function Sheet({ data, onClose, onPick }: { data: NonNullable<ReturnType<typeof 
           ))}
         </ul>
       )}
-      <Link to={`/app/list?unit=${encodeURIComponent(unit.id)}`} className="btn btn-sky btn-block">
-        {s.open}
-      </Link>
+      <div className="sheet-foot">
+        <Link to={`/app/list?unit=${encodeURIComponent(unit.id)}`} className="btn btn-sky sheet-open">
+          {s.open}
+        </Link>
+        <Link to="/app/report" className="sheet-report" data-testid="sheet-report">
+          {s.report}
+        </Link>
+      </div>
     </section>
   );
 }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { GRADES, UNITS, unitById } from "../src/curriculum";
+import { GRADES, type Grade, UNITS, unitById } from "../src/curriculum";
 import type { SavedPage } from "../src/lib/model";
 import { mapTiles } from "../src/lib/review";
 import {
@@ -7,6 +7,7 @@ import {
   LANES,
   edgeKey,
   gradeCounts,
+  gradesAbove,
   laneOf,
   laneUnits,
   SKY,
@@ -152,6 +153,65 @@ describe("layout at phone width", () => {
       expect(L.byId.get(e.to)!.cy).toBeGreaterThan(L.byId.get(e.from)!.cy);
       expect(e.d).toMatch(/^M[\d.]+ [\d.]+Q-?[\d.]+ [\d.]+ [\d.]+ [\d.]+$/);
     }
+  });
+});
+
+describe("upper grades merged into one band (home)", () => {
+  // First screen at 390×844 above the chart, with the report strip open and 3 次にやること rows:
+  // topbar 56 + page top 14 + header 44 + strip ≤ 330 + lane header 30 + hint 24 ≈ 500 px.
+  const CHROME = 500;
+  const FIRST_SCREEN = 844 - 64; // minus the tab bar
+  const merged = (own: Grade) => layoutStarmap(358, nearGrades(own), { grades: gradesAbove(own), merged: true });
+
+  it("gradesAbove: next grade up to 高校; none for 高校", () => {
+    expect(gradesAbove("小5")).toEqual(["小6", "中1", "中2", "中3", "高校"]);
+    expect(gradesAbove("中3")).toEqual(["高校"]);
+    expect(gradesAbove("高校")).toEqual([]);
+  });
+
+  for (const own of GRADES) {
+    it(`${own}: the child's band starts right under one merged row; first star row on the first screen`, () => {
+      const L = merged(own);
+      const band = L.bands.find((b) => b.grade === own)!;
+      if (own === "高校") {
+        expect(L.upper).toBeNull();
+        expect(band.y).toBe(0);
+      } else {
+        expect(L.upper).toMatchObject({ merged: true, y: 0, h: SKY.farH, grades: gradesAbove(own) });
+        expect(band.y).toBe(SKY.farH);
+        for (const g of gradesAbove(own)) expect(L.bands.some((b) => b.grade === g)).toBe(false);
+      }
+      expect(CHROME + band.y + SKY.bandHead + SKY.nodeH).toBeLessThanOrEqual(FIRST_SCREEN);
+      // Grades below stay individual bands.
+      for (const g of GRADES.slice(0, GRADES.indexOf(own))) expect(L.bands.some((b) => b.grade === g)).toBe(true);
+    });
+  }
+
+  for (const own of ["小2", "小5"] as const) {
+    it(`${own}: all 110 stars placed, upper stars in one faint row, no overlaps, no lines inside the row`, () => {
+      const L = merged(own);
+      expect(L.nodes).toHaveLength(110);
+      const up = L.nodes.filter((n) => gradesAbove(own).includes(n.grade));
+      expect(up.every((n) => n.far && n.cy === SKY.farStarY)).toBe(true);
+      for (let i = 0; i < L.nodes.length; i++)
+        for (let j = i + 1; j < L.nodes.length; j++) {
+          const a = L.nodes[i];
+          const b = L.nodes[j];
+          const overlap = a.x < b.x + b.w - 0.001 && b.x < a.x + a.w - 0.001 && a.y < b.y + b.h && b.y < a.y + a.h;
+          expect(overlap, `${a.id} overlaps ${b.id}`).toBe(false);
+        }
+      for (const e of L.edges) expect(L.byId.get(e.to)!.cy).toBeGreaterThan(L.byId.get(e.from)!.cy);
+      // Expanded: a head row, then the upper grades as individual far bands again.
+      const X = layoutStarmap(358, nearGrades(own), { grades: gradesAbove(own), merged: false });
+      expect(X.upper).toMatchObject({ merged: false, y: 0, h: SKY.upperHead });
+      for (const g of gradesAbove(own)) expect(X.bands.find((b) => b.grade === g)).toMatchObject({ near: false, h: SKY.farH });
+    });
+  }
+
+  it("an opened upper grade (lit / ?unit=) cannot stay merged", () => {
+    const L = layoutStarmap(358, nearGrades("小5", "中1"), { grades: gradesAbove("小5"), merged: true });
+    expect(L.upper?.merged).toBe(false);
+    expect(L.bands.find((b) => b.grade === "中1")?.near).toBe(true);
   });
 });
 

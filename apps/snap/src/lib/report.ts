@@ -43,6 +43,8 @@ export interface Report {
   counts: Record<TileStatus, number>;
   next: ReviewUnit[];
   earlier: EarlierUnit[];
+  /** Every red unit of an earlier grade (same order as `earlier`, not capped). */
+  earlierIds: string[];
   week: WeekCounts;
   chips: Record<ChipState, Unit[]>;
 }
@@ -120,6 +122,7 @@ export function buildReport(pages: SavedPage[], grade: Grade, now = new Date()):
   for (const t of tiles) if (t.unit.appGrade === grade && t.status !== "empty") chips[t.status].push(t.unit);
   let lastAt: string | null = null;
   for (const pg of pages) if (lastAt === null || pg.createdAt > lastAt) lastAt = pg.createdAt;
+  const earlierAll = earlierRed(tiles, grade, wrong, Infinity);
   return {
     grade,
     pages: pages.length,
@@ -127,7 +130,8 @@ export function buildReport(pages: SavedPage[], grade: Grade, now = new Date()):
     total,
     counts,
     next: nextToDo(tiles, grade, wrong),
-    earlier: earlierRed(tiles, grade, wrong),
+    earlier: earlierAll.slice(0, MAX_EARLIER),
+    earlierIds: earlierAll.map((e) => e.unit.id),
     week: lastWeek(pages, now),
     chips,
   };

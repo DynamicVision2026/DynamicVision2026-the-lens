@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
 import { app } from "../copy";
 import type { Grade, Unit } from "../curriculum";
+import { mapUnitUrl } from "../lib/home";
 import { BAR_ORDER, CHIP_ORDER, type Report as ReportData, buildReport, listUrl } from "../lib/report";
 import { usePages } from "../state";
 
 const r = app.report;
 
-/** 学習レポート: the parent's one-glance page (light theme, one phone screen where possible). */
+/**
+ * 学習レポート: the 単元マップ's 「詳しく」 page (light theme). Every unit opens its star on the map;
+ * 「テスト前リストで見る」 goes to the list.
+ */
 export function Report({ grade }: { grade: Grade }) {
   const { pages } = usePages();
   if (!pages) return <div className="page" />;
@@ -14,6 +18,7 @@ export function Report({ grade }: { grade: Grade }) {
   const data = buildReport(pages, grade);
   return (
     <div className="page report" data-testid="report">
+      <BackToMap />
       <h1 className="report-title">{r.title(grade)}</h1>
       <p className="report-meta">{r.meta(dateOf(data.lastAt), data.pages)}</p>
       <Glance data={data} />
@@ -25,6 +30,15 @@ export function Report({ grade }: { grade: Grade }) {
         {r.toMap} <span aria-hidden>›</span>
       </Link>
     </div>
+  );
+}
+
+function BackToMap() {
+  return (
+    <Link to="/app/map" className="report-back" data-testid="report-back">
+      <span aria-hidden>‹ </span>
+      {r.backToMap}
+    </Link>
   );
 }
 
@@ -68,9 +82,11 @@ function Next({ data }: { data: ReportData }) {
         <>
           <ul className="report-rows">
             {data.next.map((n) => (
-              <li key={n.unit.id} className="report-row" data-unit={n.unit.id}>
-                <span className="report-unit">{n.unit.topic}</span>
-                <span className="pill pill-wrong-soft">{r.wrong(n.wrong)}</span>
+              <li key={n.unit.id}>
+                <Link to={mapUnitUrl(n.unit.id)} className="report-row report-link" data-unit={n.unit.id}>
+                  <span className="report-unit">{n.unit.topic}</span>
+                  <span className="pill pill-wrong-soft">{r.wrong(n.wrong)}</span>
+                </Link>
               </li>
             ))}
           </ul>
@@ -91,7 +107,7 @@ function Earlier({ data }: { data: ReportData }) {
       <ul className="report-rows">
         {data.earlier.map((e) => (
           <li key={e.unit.id}>
-            <Link to={listUrl([e.unit.id])} className="report-row report-link" data-unit={e.unit.id}>
+            <Link to={mapUnitUrl(e.unit.id)} className="report-row report-link" data-unit={e.unit.id}>
               <span className="report-unit">
                 <span className="report-grade">{e.unit.appGrade}</span>
                 {e.unit.topic}
@@ -143,7 +159,7 @@ function Chips({ data }: { data: ReportData }) {
           </h3>
           <div className="mini-chips">
             {chipsFor(s).map((u: Unit) => (
-              <Link key={u.id} to={listUrl([u.id])} className={`mini-chip mc-${s}`} data-unit={u.id}>
+              <Link key={u.id} to={mapUnitUrl(u.id)} className={`mini-chip mc-${s}`} data-unit={u.id}>
                 {u.topic}
               </Link>
             ))}
@@ -157,6 +173,7 @@ function Chips({ data }: { data: ReportData }) {
 function EmptyReport({ grade }: { grade: Grade }) {
   return (
     <div className="page report" data-testid="report-empty">
+      <BackToMap />
       <h1 className="report-title">{r.title(grade)}</h1>
       <section className="card report-empty">
         <div className="glance-bar glance-bar-empty" aria-hidden>

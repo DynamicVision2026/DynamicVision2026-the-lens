@@ -54,11 +54,17 @@ export function StarMap(props: {
   opened: Grade | null;
   onOpen: (g: Grade | null) => void;
   lit: string[];
+  /** Grades above the child's: merged into one row, or expanded (null for 高校). */
+  upper?: { grades: Grade[]; merged: boolean } | null;
+  onUpper?: (open: boolean) => void;
   selected: string | null;
+  /** Stars to ring (the earlier-grade ✕ units from the report strip). */
+  marked?: Set<string> | null;
   onSelect: (id: string | null) => void;
   onLayout?: (layout: SkyLayout, canvas: HTMLDivElement) => void;
 }) {
   const { tiles, grade, near, opened, onOpen, lit, selected, onSelect } = props;
+  const marked = props.marked ?? null;
   const canvas = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(DEFAULT_W);
 
@@ -74,7 +80,14 @@ export function StarMap(props: {
 
   const nearKey = [...near].sort().join(",");
   // nearKey: the set's contents, so a new Set with the same grades does not re-layout.
-  const L = useMemo(() => layoutStarmap(width, nearKey.split(",") as Grade[]), [width, nearKey]);
+  const upperIn = props.upper ?? null;
+  const upperKey = upperIn ? `${upperIn.grades.join(",")}|${upperIn.merged}` : "";
+  const L = useMemo(
+    () => layoutStarmap(width, nearKey.split(",") as Grade[], upperKey ? { grades: upperKey.split("|")[0].split(",") as Grade[], merged: upperKey.endsWith("true") } : null),
+    [width, nearKey, upperKey],
+  );
+  const up = L.upper;
+  const upLabel = up ? app.map.upperBand(up.grades[0], up.grades[up.grades.length - 1]) : "";
   const dots = useMemo(() => specks(L.width, L.height), [L]);
   const byId = useMemo(() => new Map(tiles.map((t) => [t.unit.id, t])), [tiles]);
   const path = useMemo(() => (selected ? rootPath(selected) : null), [selected]);
@@ -96,6 +109,7 @@ export function StarMap(props: {
           <span key={l}>{app.map.lanes[l]}</span>
         ))}
       </div>
+      <p className="sky-hint">{app.map.skyHint}</p>
       <div
         ref={canvas}
         className="sky-canvas"
@@ -119,7 +133,7 @@ export function StarMap(props: {
               <ellipse cx={L.width / 2} cy={own.y + own.h / 2} rx={L.width * 0.75} ry={own.h * 0.8} fill="url(#sky-lift)" />
             </>
           )}
-          {L.bands.slice(1).map((b) => (
+          {L.bands.filter((b) => b.y > 0).map((b) => (
             <line key={b.grade} className="sky-lat" x1={0} x2={L.width} y1={b.y + 0.5} y2={b.y + 0.5} />
           ))}
           {dots.map((d, i) => (
@@ -151,19 +165,41 @@ export function StarMap(props: {
             .map((n) => {
               const st = statusOf(n.id);
               const dim = path && !path.units.has(n.id);
+              const ring = marked?.has(n.id);
               return (
                 <g
                   key={n.id}
-                  className={`far-star${dim ? " is-dim" : ""}`}
+                  className={`far-star${dim ? " is-dim" : ""}${ring ? " is-marked" : ""}`}
                   transform={`translate(${n.cx.toFixed(1)} ${n.cy}) scale(${st === "empty" ? 0.8 : 0.5})`}
                   data-unit={n.id}
                   data-status={st}
                 >
+                  {ring && <circle className="g-mark" r="22" />}
                   {marks(st, false)}
                 </g>
               );
             })}
         </svg>
+        {up?.merged && (
+          <button
+            type="button"
+            className="far-band upper-band"
+            style={{ top: up.y, height: up.h }}
+            data-testid="upper-band"
+            aria-label={app.map.upperOpen(upLabel)}
+            onClick={() => props.onUpper?.(true)}
+          >
+            <span>{upLabel}</span>
+          </button>
+        )}
+        {up && !up.merged && (
+          <div className="sky-band-label upper-head" style={{ top: up.y + 4 }} data-testid="upper-head">
+            <span>{upLabel}</span>
+            <button type="button" className="sky-fold" aria-label={app.map.upperFold} onClick={() => props.onUpper?.(false)}>
+              {app.map.fold}
+            </button>
+          </div>
+        )}
         {L.bands.map((b) =>
           b.near ? (
             <div key={b.grade} className={`sky-band-label${b.grade === grade ? " is-own" : ""}`} style={{ top: b.y + 5 }}>
@@ -201,7 +237,7 @@ export function StarMap(props: {
               <button
                 key={n.id}
                 type="button"
-                className={`star-node${t.status === "empty" ? "" : " has-data"}${n.grade === grade ? " is-own" : ""}${isLit ? " is-lit" : ""}${selected === n.id ? " is-sel" : ""}${inPath ? " is-path" : ""}${path && !inPath ? " is-dim" : ""}`}
+                className={`star-node${t.status === "empty" ? "" : " has-data"}${n.grade === grade ? " is-own" : ""}${isLit ? " is-lit" : ""}${selected === n.id ? " is-sel" : ""}${inPath ? " is-path" : ""}${path && !inPath ? " is-dim" : ""}${marked?.has(n.id) ? " is-marked" : ""}`}
                 style={{ left: n.x, top: n.y, width: n.w, height: n.h }}
                 data-unit={n.id}
                 data-status={t.status}
