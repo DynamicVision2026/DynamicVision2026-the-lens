@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { GRADES, type Grade } from "../curriculum";
 import { MARKS } from "../reader/schema";
+import { MARK_SOURCES, withMarkSources } from "./marks";
 import type { SavedPage } from "./model";
 
 /**
@@ -19,6 +20,9 @@ const ProblemSchema = z.object({
   unit: z.string().nullable(),
   answer: z.string().nullable(),
   mark: z.enum(MARKS).nullable(),
+  // Added 19 Oct 2026; older backups have neither (markSource then → "teacher" if a mark is set).
+  markSource: z.enum(MARK_SOURCES).nullable().optional(),
+  correctAnswer: z.string().nullable().optional(),
   confidence: z.number().min(0).max(1),
   reviewed: z.boolean(),
 });
@@ -82,10 +86,12 @@ export function parseBackup(text: string): SavedPage[] {
   }
   const r = BackupSchema.safeParse(json);
   if (!r.success) throw new BackupError(r.error.issues[0]?.message ?? "invalid");
-  return r.data.pages.map(({ photo, ...p }) => ({
-    ...p,
-    ...(photo ? { photo: { mime: photo.mime, bytes: fromBase64(photo.base64) } } : {}),
-  }));
+  return r.data.pages.map(({ photo, ...p }) =>
+    withMarkSources({
+      ...p,
+      ...(photo ? { photo: { mime: photo.mime, bytes: fromBase64(photo.base64) } } : {}),
+    }),
+  );
 }
 
 /** Pages from the backup that this device does not have yet (by id; duplicates in the file count once). */

@@ -50,7 +50,8 @@ describe("backup / restore", () => {
     const back = await allPages();
     expect(back.map((p) => p.id)).toEqual(["b", "a"]);
     const ra = back.find((p) => p.id === "a")!;
-    expect(ra.problems).toEqual(a.problems);
+    // Pages saved before markSource existed come back with it filled in (mark set → teacher).
+    expect(ra.problems).toEqual(a.problems.map((p) => ({ ...p, markSource: p.mark ? "teacher" : null })));
     expect(ra.score).toBe("80");
     expect(ra.photo!.mime).toBe("image/jpeg");
     expect(Buffer.from(ra.photo!.bytes).equals(jpeg)).toBe(true);

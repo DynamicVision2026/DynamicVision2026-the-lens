@@ -10,7 +10,8 @@
     "start": "node dist-server/index.js",
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "eval": "tsx scripts/eval.ts"
+    "eval": "tsx scripts/eval.ts",
+    "eval:units": "tsx scripts/eval-units.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.32.1",

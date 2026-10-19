@@ -1,5 +1,6 @@
 import { type IDBPDatabase, openDB } from "idb";
 import { newPages } from "./backup";
+import { withMarkSources } from "./marks";
 import type { SavedPage } from "./model";
 
 /** Everything lives in this device's IndexedDB. Nothing is sent to the server. */
@@ -21,7 +22,7 @@ export async function savePage(page: SavedPage): Promise<void> {
 }
 
 export async function allPages(): Promise<SavedPage[]> {
-  const pages = (await (await db()).getAll(STORE)) as SavedPage[];
+  const pages = ((await (await db()).getAll(STORE)) as SavedPage[]).map(withMarkSources);
   return pages.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 }
 

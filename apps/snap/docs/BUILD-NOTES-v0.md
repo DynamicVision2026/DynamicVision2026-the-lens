@@ -10,7 +10,7 @@ pnpm dev                   # API on :8080 (tsx watch) + Vite on :5173 (proxies /
 pnpm build && pnpm start   # one server on :8080 serving dist/ + /api/*
 ```
 
-Checks: `pnpm test` (vitest), `pnpm typecheck`, `pnpm eval --reader mock` (or `--reader claude` with a key).
+Checks: `pnpm test` (vitest), `pnpm typecheck`, `pnpm eval --reader mock` (or `--reader claude` with a key), `pnpm eval:units` (unit tagging, text only; `--reader claude` with a key — see README for the Cloud Shell one-liner).
 UI walkthrough + screenshots (two built servers: one open, one with a pilot code):
 
 ```bash
@@ -111,6 +111,20 @@ Founder decision: the star chart is the main dashboard for parents and students;
 
 Tests: 104 (12 files; `starmap.test.ts` +14 for the merged upper row: gradesAbove, own band right under it for every grade, 小2 / 小5 no overlaps + no flat lines + expanded bands, an opened upper grade never merged; new `home.test.ts` 8: home routing, 4 tabs, active tab on the report, `?unit=` near/far/unknown + its sheet, strip = report data, earlier ids uncapped + band, no-pages strip). Screenshots added: `18-map-home` (first screen at 390×844), `18c-map-home-collapsed`, `18e-map-earlier` (小3 opened, 4-A2 and 3-A4 ringed), `18u-map-unit-from-report` (`?unit=3-A4`), `18y-map-home-young` (a 小2 child: strip, merged 「これから学ぶ単元（小3〜高校）」, 小2 and 小1 on the first screen). `screens.py` now checks `/app` → map, the tabs, the strip, row → sheet, the earlier toggle, the fold surviving a reload, and the report's links to the map.
 
+## v0.4 (19 Oct 2026): AI ○✕ + unit tagging accuracy
+
+Founder decisions after the live iPhone test: (A) the engine judges ○/✕ itself; (B) first, the problem → unit link must be accurate.
+
+- **Prompt** (`src/reader/prompt.ts`): each unit line still carries grade, code, topic and covers. New 「How to choose the unit」 block: decide by the mathematics tested, not surface words; compare with the covers; when two units fit, the child's grade wins unless the content is clearly below it; then the look-alike lines for this grade's list (`src/reader/lookalikes.ts`, 31 hand-made groups from `data/units.json`: 割合 4-C2 / 5-C3 / 6-C2, 5-C2 vs 5-C3, 比例 5-C1 / 6-C1 / j1-C1 / j2-C1 / j3-C1, 面積 4-B4 / 5-B3 / 6-B3 / 6-B2, 円周 vs 円の面積, 体積, 時刻 1-C2 / 2-C2 / 3-C2, 量の単位, 小数, 分数, 式, 方程式, グラフ, 代表値, 確率 …). Only the ids in the page's list are printed (tested for every grade); identical topic names not separated by a line get a "decide by the covers" line. Per problem the model now returns `unit_confidence`, `unit_alt`, `correct_answer` and `judge` (○ equal incl. equivalent forms; ✕ wrong / blank / 式 only; null undecidable). "Never correct the student's text" stays: `answer` and `mark` are as written; solving only fills `correct_answer` / `judge`. `readerPrompt(grade, "text")` = same prompt for a problem given as text.
+- **Schema** (`toPageResult`): `unitConfidence` (0–1, else 0.8), `unitAlt` (in the allowed list and ≠ unit, else null), `correctAnswer`, `judge` (normalised like marks: 正解 / maru / true → ○, 不正解 / batsu / × / false → ✕; ✓ deliberately unmapped).
+- **Final mark** (`src/lib/marks.ts`, pure): teacher's red mark → `teacher`; else `judge` → `ai`; else null. A tap on the confirm screen → `parent`. Saved problems carry `markSource` and `correctAnswer`; pages and backups without `markSource` read as `teacher` when a mark is set (`withMarkSources` in `allPages()` and `parseBackup`; backup version stays 1). Map, report, テスト前リスト and gold use the final mark unchanged.
+- **Confirm screen**: row label 「○✕」; under the toggle a tiny 「先生の印」 or 「AI判定」 (none after a parent tap); 「正答（AI）：3000人」 in small muted text when the mark is not the teacher's. Amber pill 「単元を確認してください」 when `unitConfidence < 0.7` until the unit is picked; the dropdown starts with a 「候補」 group holding `unit_alt`.
+- **ClaudeReader.readText(text, grade)**: same prompt + schema, text block instead of the image.
+- **`pnpm eval:units`** (`scripts/eval-units.ts`, helpers in `src/lib/unit-eval.ts`): see README. Fixture `fixtures/unit-eval.json`: 220 problems by the curriculum agent (2 per unit, ids `<unit>-a|b`, each with a `note` on why), validated here: all 110 units twice, every id known and inside its grade's reader list. No-key run = keyword baseline (36.4% on the 220: a floor, not the AI).
+- **Mock**: `fixtures/reader-outputs.json` p01 (teacher marks + matching judge), p06 (no marks: AI ○○○○✕, Q3 unit_confidence 0.62 with alt 5-C3), p10 (AI ✕ on 2m³).
+
+Tests: 120 (13 files; new `judge-units.test.ts` 16: precedence, draft → saved with source, AI ✕ on the list, judge normalisation, unit_confidence default, unit_alt validation, pill threshold, mock p06, back-compat pages + v1 backups, look-alike ids valid / co-occurring / never outside the list, prompt fields for every grade, eval fixture validation + summary). Screenshots: `06-confirm` is now p06 (AI判定 ×5, 正答（AI）, one 単元を確認 pill), new `06b-confirm-teacher` (p01, 先生の印). `screens.py` also checks parent tap → label gone, picking 候補 → pill gone.
+
 ## Known gaps
 
 - **Claude reader not run here** (no key in this environment): implemented and type-checked only. Default `READER_MODEL` is `claude-haiku-5-5` (`claude-sonnet-5-5` as the higher-accuracy option); run `pnpm eval --reader claude` with each before launch.
@@ -120,6 +134,8 @@ Tests: 104 (12 files; `starmap.test.ts` +14 for the merged upper row: gradesAbov
 - HEIC photos on non-Safari browsers are uploaded as-is; the MockReader ignores format, sharp may not decode HEIC in the Claude path.
 - **Per-IP limit trusts the first `x-forwarded-for` entry**, which a client can set itself (Google's front end appends the real address after it). A determined user can rotate it to dodge `READ_PER_IP_HOUR`; the global `READ_DAILY_CAP` and the pilot code still bound spend. If abuse appears, key on the last-but-one entry instead.
 - Limits reset on every restart / new revision (in memory by design).
+- **AI judgment and the new tagging rules are not measured yet** (no key here). Run `eval:units --reader claude` with haiku and sonnet; `pnpm eval` still scores the teacher's mark only (judge accuracy vs `truth.json` keys is a next step).
+- Gold now also follows AI ○ (final mark): a drill page judged all ○ by the AI can make a unit gold. If gold should stay "proven by a teacher", restrict it to `markSource === "teacher"` in `unitStats`.
 - Gold is decided from the page marks; the user can still toggle ○/✕ on the confirm screen, so "proven on a test" relies on the user keeping the teacher's marks. Pages of any type (test/drill/note) count; restricting gold to `pageType: "test"` is a one-line change if wanted.
 - Landing: `{CONTACT_EMAIL}` not set, so the footer contact line is omitted; `/privacy` is built only from existing copy (no full legal policy yet).
 - Far → near root lines are not drawn softly (they would run through a whole stack); they appear on the selected path and the light-up. Some near curves in the 8-unit 数と計算 stacks still run long beside the stars.
@@ -132,3 +148,13 @@ Tests: 104 (12 files; `starmap.test.ts` +14 for the merged upper row: gradesAbov
 - 「最後に撮った日」 and この1週間 use the device clock and local time; a page saved on another device with a skewed clock (backup restore) can fall outside the week.
 - 準備度 is still shown as a percentage of problems in range with nothing left to do (existing v0 wording); it describes review progress, not understanding, but the founder may want to re-check it against the no-score rule.
 - Anthropic SDK 0.32 triggers a harmless Node `punycode` deprecation warning; upgrading the SDK will remove it.
+
+### Unit-tagging blind test (19 Oct 2026, Haiku-class proxy, text mode, anonymous ids)
+| Prompt | Top-1 | Ordinary (a) | Look-alike (b) | Within 1st/2nd choice |
+|---|---|---|---|---|
+| v0.3 (units + covers) | 215/220 (97.7%) | 110/110 | 105/110 | — |
+| v0.4 (how-to-choose + look-alikes + unit_alt) | 213/220 (96.8%) | 110/110 | 103/110 | 218/220 (99.1%) |
+Misses are all neighbouring units (e.g. 6-C1 反比例 → 6-A2 文字と式, 5-D1 円グラフ → 5-C3 割合, h-I-4 ↔ h-B-2).
+Check rule chosen from this run: show 「単元を確認してください」 when confidence < 0.7, or ≤ 0.8 with a second choice →
+flags 31/220 (14%), catches 5 of 7 misses; silent wrong tags 2/220 (0.9%). Re-measure with the real model:
+`ANTHROPIC_API_KEY=$(gcloud secrets versions access latest --secret anthropic-api-key) pnpm --filter @lens/snap eval:units --reader claude`.

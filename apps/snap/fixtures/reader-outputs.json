@@ -50,7 +50,10 @@
     "unit": "5-C3",
     "answer": "600円",
     "mark": "○",
-    "confidence": 0.95
+    "confidence": 0.95,
+    "correct_answer": "600円",
+    "judge": "○",
+    "unit_confidence": 0.95
    },
    {
     "n": 2,
@@ -58,7 +61,10 @@
     "unit": "5-C3",
     "answer": "60%",
     "mark": "○",
-    "confidence": 0.95
+    "confidence": 0.95,
+    "correct_answer": "60%",
+    "judge": "○",
+    "unit_confidence": 0.95
    },
    {
     "n": 3,
@@ -66,7 +72,10 @@
     "unit": "5-C3",
     "answer": "4.2L",
     "mark": "✕",
-    "confidence": 0.93
+    "confidence": 0.93,
+    "correct_answer": "42L",
+    "judge": "✕",
+    "unit_confidence": 0.9
    },
    {
     "n": 4,
@@ -74,7 +83,10 @@
     "unit": "5-C3",
     "answer": "22.4",
     "mark": "✕",
-    "confidence": 0.95
+    "confidence": 0.95,
+    "correct_answer": "140",
+    "judge": "✕",
+    "unit_confidence": 0.95
    },
    {
     "n": 5,
@@ -82,7 +94,10 @@
     "unit": "5-C3",
     "answer": "2800人",
     "mark": "○",
-    "confidence": 0.95
+    "confidence": 0.95,
+    "correct_answer": "2800人",
+    "judge": "○",
+    "unit_confidence": 0.95
    }
   ],
   "notes": "Title 5年 割合 テスト. Page tilted; all text legible."
@@ -98,7 +113,10 @@
     "unit": "5-D2",
     "answer": "84点",
     "mark": null,
-    "confidence": 0.95
+    "confidence": 0.95,
+    "correct_answer": "84点",
+    "judge": "○",
+    "unit_confidence": 0.95
    },
    {
     "n": 2,
@@ -106,7 +124,10 @@
     "unit": "5-D2",
     "answer": "60g",
     "mark": null,
-    "confidence": 0.95
+    "confidence": 0.95,
+    "correct_answer": "60g",
+    "judge": "○",
+    "unit_confidence": 0.95
    },
    {
     "n": 3,
@@ -114,7 +135,11 @@
     "unit": "5-C2",
     "answer": "12m²の花だん",
     "mark": null,
-    "confidence": 0.93
+    "confidence": 0.93,
+    "correct_answer": "12m²の花だん",
+    "judge": "○",
+    "unit_confidence": 0.62,
+    "unit_alt": "5-C3"
    },
    {
     "n": 4,
@@ -122,7 +147,10 @@
     "unit": "5-C2",
     "answer": "25L",
     "mark": null,
-    "confidence": 0.95
+    "confidence": 0.95,
+    "correct_answer": "25L",
+    "judge": "○",
+    "unit_confidence": 0.9
    },
    {
     "n": 5,
@@ -130,7 +158,10 @@
     "unit": "5-C2",
     "answer": null,
     "mark": null,
-    "confidence": 0.95
+    "confidence": 0.95,
+    "correct_answer": "3000人",
+    "judge": "✕",
+    "unit_confidence": 0.95
    }
   ],
   "notes": "Title 平均と単位量あたりの大きさ. No score or marks. Q5 blank."
@@ -146,7 +177,9 @@
     "unit": "5-B4",
     "answer": "240cm³",
     "mark": null,
-    "confidence": 0.6
+    "confidence": 0.6,
+    "correct_answer": "240cm³",
+    "judge": "○"
    },
    {
     "n": 2,
@@ -154,7 +187,9 @@
     "unit": "5-B4",
     "answer": "343cm³",
     "mark": null,
-    "confidence": 0.85
+    "confidence": 0.85,
+    "correct_answer": "343cm³",
+    "judge": "○"
    },
    {
     "n": 3,
@@ -162,7 +197,9 @@
     "unit": "5-B4",
     "answer": "60L",
     "mark": null,
-    "confidence": 0.85
+    "confidence": 0.85,
+    "correct_answer": "60L",
+    "judge": "○"
    },
    {
     "n": 4,
@@ -170,7 +207,9 @@
     "unit": "5-B4",
     "answer": "200000cm³",
     "mark": null,
-    "confidence": 0.65
+    "confidence": 0.65,
+    "correct_answer": "2000000cm³",
+    "judge": "✕"
    }
   ],
   "notes": "Title 体積. Low-resolution photo. Q1 figure labels are tiny/blurred (best reading 8cm, 5cm, 6cm). Q4 answer: number of zeros (read as 200000) and whether the unit superscript is ³ or ² are uncertain. No marks or score."

@@ -6,7 +6,8 @@ import { UnitSelect } from "../components/UnitSelect";
 import { app } from "../copy";
 import type { Grade } from "../curriculum";
 import { preparePhoto } from "../lib/image";
-import { type DraftProblem, type SavedPage, draftFromResult, pageFromDraft } from "../lib/model";
+import { needsUnitCheck } from "../lib/marks";
+import { type DraftProblem, type SavedPage, draftFromResult, pageFromDraft, withParentMark } from "../lib/model";
 import { type ReadFailure, clearPilotCode, readFailure, readPilotCode } from "../lib/pilot";
 import { LOW_CONFIDENCE, litMapUrl } from "../lib/review";
 import { afterSave } from "../lib/pwa";
@@ -160,11 +161,16 @@ function Confirm(props: {
             <div className="problem-head">
               <span className="problem-n">{app.confirm.problem(i + 1)}</span>
               {!p.edited && p.confidence < LOW_CONFIDENCE && <span className="pill pill-warn">{app.confirm.low}</span>}
+              {needsUnitCheck(p) && (
+                <span className="pill pill-amber" data-testid="unit-check">
+                  {app.confirm.unitCheck}
+                </span>
+              )}
             </div>
             <p className="problem-q">{p.q}</p>
             <label className="field">
               <span>{app.confirm.unit}</span>
-              <UnitSelect grade={props.grade} value={p.unit} onChange={(unit) => set(i, { unit })} />
+              <UnitSelect grade={props.grade} value={p.unit} suggest={p.unitAlt} onChange={(unit) => set(i, { unit, unitEdited: true })} />
             </label>
             <label className="field">
               <span>{app.confirm.answer}</span>
@@ -172,7 +178,17 @@ function Confirm(props: {
             </label>
             <div className="field">
               <span>{app.confirm.mark}</span>
-              <MarkToggle value={p.mark} onChange={(mark) => set(i, { mark })} />
+              <MarkToggle value={p.mark} onChange={(mark) => props.onChange(draft.map((d, j) => (j === i ? withParentMark(d, mark) : d)))} />
+              {p.markSource && p.markSource !== "parent" && p.mark && (
+                <small className="mark-source" data-testid="mark-source" data-source={p.markSource}>
+                  {app.confirm.source[p.markSource]}
+                </small>
+              )}
+              {p.correctAnswer && p.markSource !== "teacher" && (
+                <small className="mark-key" data-testid="ai-answer">
+                  {app.confirm.correctAnswer(p.correctAnswer)}
+                </small>
+              )}
             </div>
           </li>
         ))}
