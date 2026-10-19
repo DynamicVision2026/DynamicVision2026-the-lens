@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BackupCard } from "../components/BackupCard";
 import { PhotoThumb } from "../components/PhotoThumb";
 import { app } from "../copy";
 import { unitById } from "../curriculum";
@@ -32,6 +33,7 @@ export function Archive() {
   return (
     <div className="page">
       <h1>{app.archive.title}</h1>
+      <BackupCard pages={pages} onRestored={reload} />
       <div className="filters">
         <select className="select" value={unit} onChange={(e) => setUnit(e.target.value)} aria-label={app.archive.allUnits}>
           <option value="">{app.archive.allUnits}</option>

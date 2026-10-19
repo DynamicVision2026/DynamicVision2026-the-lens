@@ -9,13 +9,16 @@ Students or parents photograph homework, workbook pages and graded tests. Lens S
 - Curriculum data: `data/units.json`
 - Reader test photos + answer key (original synthetic pages): `fixtures/`
 - Build, run, deploy, screenshots: `docs/BUILD-NOTES-v0.md`; deploy: `bash apps/snap/deploy.sh <project>` from the repo root
+- 単元マップ = a curriculum star chart (`src/lib/starmap.ts`): four lanes, grades rising upward; the child's grade and the grade below in full, other grades as a compact far sky (tap to open); units with data glow and link to their roots in the grade below; 「一覧」 keeps the tile view
+- Home-screen app: `public/manifest.webmanifest`, `public/sw.js` (offline app shell, never caches `/api`), icons from `node scripts/icons.mjs`
+- Data safety: persistent-storage request after the first 保存, install tip, and ふりかえり → バックアップ (one JSON file, restore merges by page id)
 
 ## Environment
 
 | Var | Default | Meaning |
 | --- | --- | --- |
 | `ANTHROPIC_API_KEY` | — | Claude reader when set; MockReader (fixture outputs) when absent |
-| `READER_MODEL` | `claude-sonnet-5` | Model id for the Claude reader |
+| `READER_MODEL` | `claude-haiku-5-5` | Model id for the Claude reader; `claude-sonnet-5-5` for higher accuracy |
 | `PILOT_CODE` | — | If set, photo reading needs this 招待コード (header `x-pilot-code`); 403 otherwise |
 | `READ_PER_IP_HOUR` | `20` | Reads per client per hour (429 `rate_limited`) |
 | `READ_DAILY_CAP` | `300` | Reads for everyone per UTC day (429 `daily_cap`) |

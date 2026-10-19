@@ -1,4 +1,5 @@
 import { type IDBPDatabase, openDB } from "idb";
+import { newPages } from "./backup";
 import type { SavedPage } from "./model";
 
 /** Everything lives in this device's IndexedDB. Nothing is sent to the server. */
@@ -37,7 +38,23 @@ export async function setReviewed(pageId: string, index: number, reviewed: boole
   return page;
 }
 
-/** For tests: forget the cached connection. */
-export function _resetDbHandle() {
+/**
+ * Restore from a backup: pages already on this device are kept untouched, new ids are added.
+ * Returns how many pages were added. One transaction: either all new pages land or none.
+ */
+export async function importPages(incoming: SavedPage[]): Promise<number> {
+  const d = await db();
+  const tx = d.transaction(STORE, "readwrite");
+  const existing = (await tx.store.getAllKeys()) as string[];
+  const add = newPages(existing, incoming);
+  for (const p of add) await tx.store.put(p);
+  await tx.done;
+  return add.length;
+}
+
+/** For tests: close and forget the cached connection. */
+export async function _resetDbHandle() {
+  const p = dbp;
   dbp = null;
+  if (p) (await p).close();
 }

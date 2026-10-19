@@ -10,8 +10,8 @@ nothing with lens-web (lens.domo-ai.com) except the project and the domain name.
 | Image | Cloud Build, `apps/snap/Dockerfile`, repo root as context, workspace lockfile | Reproducible install of @lens/snap only |
 | `ANTHROPIC_API_KEY` | Secret Manager `anthropic-api-key` (optional; added with `--set-key`) | Without it the practice (mock) reader runs |
 | `PILOT_CODE` | Secret Manager `lens-snap-pilot-code` (generated once) | `/app` reads photos only for invited families; landing + waitlist stay public |
-| `READER_MODEL` | `claude-sonnet-5` | Change to compare models |
-| `READ_PER_IP_HOUR`, `READ_DAILY_CAP` | 20, 300 | Caps the AI bill; at ~¥3 per photo, 300/day ≈ ¥900/day at most |
+| `READER_MODEL` | `claude-haiku-5-5` (≈¥0.2 per photo) | `READER_MODEL=claude-sonnet-5-5 bash apps/snap/deploy.sh …` switches to Sonnet (≈¥3 per photo) |
+| `READ_PER_IP_HOUR`, `READ_DAILY_CAP` | 20, 300 | Caps the AI bill; at ≈¥0.2 per photo (Haiku), 300/day ≈ ¥60/day at most (≈¥900 with Sonnet) |
 | `WAITLIST_DIR` | `/data/waitlist` on bucket `<project>-lens-snap-waitlist` (Cloud Storage FUSE volume, uid 1000) | One small file per signup; survives restarts |
 | `--max-instances 1` | set | Rate limits are counted in memory |
 
@@ -40,7 +40,7 @@ set it to **DNS only** (grey cloud) so Google can issue the certificate (15–60
 ## Check
 
 ```sh
-curl -s https://snap.domo-ai.com/api/health        # {"ok":true,"reader":"claude:claude-sonnet-5","pilotGate":true}
+curl -s https://snap.domo-ai.com/api/health        # {"ok":true,"reader":"claude:claude-haiku-5-5","pilotGate":true}
 ```
 Open `/`, `/?h=c`, `/privacy`; sign up once with a test address; then confirm a file appeared in the
 bucket (`gcloud storage ls gs://<project>-lens-snap-waitlist/waitlist/`).
