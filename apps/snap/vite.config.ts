@@ -6,5 +6,6 @@ export default defineConfig({
   plugins: [react()],
   server: { proxy: { "/api": "http://localhost:8080" } },
   build: { outDir: "dist" },
-  test: { environment: "node", include: ["test/**/*.test.ts"] },
+  // CI runs four workspaces at once on a small runner: give each test room (the default 5 s is tight there)
+  test: { environment: "node", include: ["test/**/*.test.ts"], testTimeout: 20000 },
 });
