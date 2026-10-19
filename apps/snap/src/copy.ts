@@ -233,6 +233,7 @@ export const app = {
     empty: "問題が見つかりませんでした。",
     score: (s: string) => `点数 ${s}`,
     notes: "メモ",
+    photo: "撮った写真",
   },
   map: {
     title: "単元マップ",

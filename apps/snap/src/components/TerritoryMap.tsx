@@ -4,6 +4,7 @@ import type { Grade } from "../curriculum";
 import { type Level, countsLine } from "../lib/ladder";
 import type { Tile } from "../lib/review";
 import { cameraStep } from "../lib/layers";
+import { useLayout } from "../lib/layout";
 import { rootIds } from "../lib/starmap";
 import {
   type Box,
@@ -23,8 +24,10 @@ import {
   homeCam,
   lerpCam,
   lookOf,
+  openRegion,
   panBy,
   project,
+  refitCam,
   territory,
   tileLabel,
   toWorld,
@@ -165,6 +168,25 @@ export function TerritoryMap(props: {
   const cellUnit = useMemo(() => new Map(T.hexes.map((t) => [`${t.q},${t.r}`, t.unitId])), [T]);
   const progress = useMemo(() => zoneProgress(tiles), [tiles]);
   const litSet = useMemo(() => new Set(lit), [lit]);
+  // tablets: zone labels, trail badges and flags a little larger on the big canvas (phone unchanged)
+  const big = useLayout().big;
+  const labelScale = big ? 1.15 : 1;
+  /** The camera is at the child's zone (load, 現在地): a rotation re-homes instead of keeping the point. */
+  const homed = useRef(false);
+  /** Home view of a grade's zone; in landscape the zone keeps clear of the HUD's left column (measured). */
+  const homeOf = useCallback(
+    (g: Grade) => {
+      const v = view.current;
+      let inset = 0;
+      if (v.w > v.h) {
+        const tl = wrap.current?.parentElement?.querySelector(".hud-tl")?.getBoundingClientRect();
+        const wl = wrap.current?.getBoundingClientRect().left ?? 0;
+        if (tl) inset = tl.right - wl + 12;
+      }
+      return homeCam(T, g, v, inset);
+    },
+    [T],
+  );
 
   /** Rise progress of a unit (0 = still flat, 1 = up); 1 when it is not rising. */
   const riseOf = useCallback((id: string, now: number) => {
@@ -407,9 +429,9 @@ export function TerritoryMap(props: {
       ly.style.setProperty("--inv", String(1 / cm.k));
       ly.style.setProperty("--k", String(cm.k));
       // flags, crowns and pins keep their screen size, shrinking only when the whole map is in view
-      ly.style.setProperty("--mk", String(Math.min(1, Math.max(0.42, cm.k / 16)) / cm.k));
+      ly.style.setProperty("--mk", String((labelScale * Math.min(1, Math.max(0.42, cm.k / 16))) / cm.k));
       // zone labels and trail badges: full size near, down to 60 % when the whole continent is in view
-      ly.style.setProperty("--lk", String(Math.min(1, Math.max(0.6, cm.k / 12)) / cm.k));
+      ly.style.setProperty("--lk", String((labelScale * Math.min(1, Math.max(0.6, cm.k / 12))) / cm.k));
       for (const el of ly.querySelectorAll<HTMLElement>("[data-unit]")) {
         const id = el.dataset.unit!;
         const a = T.byId.get(id)!.anchor;
@@ -421,7 +443,7 @@ export function TerritoryMap(props: {
     if (animating) frame.current = requestAnimationFrame(tick);
     // tick is stable; it always runs the latest draw (selection, states)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [T, items, cellUnit, status, riseOf, heightOf, selected, exam]);
+  }, [T, items, cellUnit, status, riseOf, heightOf, selected, exam, labelScale]);
   drawRef.current = draw;
 
   const schedule = useCallback(() => {
@@ -457,12 +479,16 @@ export function TerritoryMap(props: {
       const b = unionBox(boxes);
       let region: Box = { x0: 16, y0: v.h * 0.14, x1: v.w - 16, y1: v.h * 0.86 };
       if (where === "top") {
-        // the band between the brand pill and the open sheet (measured; the sheet is fixed to the window)
-        const sheet = document.querySelector(".sheet");
-        const wt = wrap.current?.getBoundingClientRect().top ?? 0;
-        const bottom = sheet ? sheet.getBoundingClientRect().top - wt : v.h * 0.45;
-        region = { x0: 16, y0: 110, x1: v.w - 16, y1: Math.max(160, Math.min(v.h, bottom) - 12) };
+        // what the open sheet leaves visible (measured; the sheet is fixed to the window): the band above a
+        // bottom sheet, or the map left of the side panel in wide layouts
+        const sheet = document.querySelector(".sheet")?.getBoundingClientRect();
+        const wr = wrap.current?.getBoundingClientRect();
+        const ox = wr?.left ?? 0;
+        const oy = wr?.top ?? 0;
+        const tl = wrap.current?.parentElement?.querySelector(".hud-tl")?.getBoundingClientRect();
+        region = openRegion(v, sheet ? { x: sheet.left - ox, y: sheet.top - oy, w: sheet.width, h: sheet.height } : null, tl ? tl.right - ox + 12 : 0);
       }
+      homed.current = false;
       const curK = cam.current?.k ?? homeK;
       setCam(frameBox(b, v, T, { fill: where === "top" ? 0.8 : 0.62, region, maxK: Math.max(homeK * 1.25, curK) }), animate);
     },
@@ -472,20 +498,30 @@ export function TerritoryMap(props: {
   useImperativeHandle(
     props.api,
     () => ({
-      home: () => setCam(homeCam(T, grade, view.current), true),
+      home: () => {
+        setCam(homeOf(grade), true);
+        homed.current = true;
+      },
       zoom: (f) => {
+        homed.current = false;
         // rapid taps build on where the camera is going, not where it is mid-flight
         const c = fly.current?.to ?? cam.current;
         if (c) setCam(zoomAt(c, view.current, f, view.current.w / 2, view.current.h / 2, T), true);
       },
       frameUnits: (ids, where) => frameUnits(ids, where),
-      flyToGrade: (g) => setCam(homeCam(T, g, view.current), true),
+      flyToGrade: (g) => {
+        setCam(homeOf(g), true);
+        homed.current = false;
+      },
     }),
-    [T, grade, setCam, frameUnits],
+    [T, grade, setCam, frameUnits, homeOf],
   );
 
   // ---------- size, palette, first camera ----------
   const started = useRef(false);
+  // the latest props / callbacks for the resize handler (it is set up once)
+  const latest = useRef({ selected, sheetOpen, frameUnits });
+  latest.current = { selected, sheetOpen, frameUnits };
   useLayoutEffect(() => {
     const el = wrap.current;
     if (!el) return;
@@ -493,10 +529,11 @@ export function TerritoryMap(props: {
     const measure = () => {
       const w = Math.max(200, el.clientWidth);
       const h = Math.max(200, el.clientHeight);
+      const prev = view.current;
       view.current = { w, h };
       if (!started.current) {
         started.current = true;
-        const home = homeCam(T, grade, view.current);
+        const home = homeOf(grade);
         if (lit.length > 0 && !reduceMotion()) {
           // after 保存: start a little further out, fly to the new tiles, then they rise
           cam.current = clampCam({ ...home, k: home.k * 0.7 }, T, view.current);
@@ -505,8 +542,21 @@ export function TerritoryMap(props: {
         } else if (lit.length > 0) {
           cam.current = home;
           frameUnits(lit, "full", false);
-        } else cam.current = home;
-      } else if (cam.current) cam.current = clampCam(cam.current, T, view.current);
+        } else {
+          cam.current = home;
+          homed.current = true;
+        }
+      } else if (cam.current && (prev.w !== w || prev.h !== h)) {
+        // rotation / Split View / Slide Over: frame again for the new size (no reload)
+        const { selected: sel, sheetOpen: open, frameUnits: frame } = latest.current;
+        const target = fly.current?.to ?? cam.current;
+        fly.current = null;
+        if (before.current) before.current = refitCam(before.current, prev, view.current, T);
+        if (homed.current) cam.current = homeOf(grade);
+        else cam.current = refitCam(target, prev, view.current, T);
+        // an open unit stays beside / above its sheet (the sheet itself moves with the layout)
+        if (sel && open) requestAnimationFrame(() => frame([sel, ...rootIds(sel)], "top", false));
+      }
       schedule();
     };
     measure();
@@ -522,6 +572,7 @@ export function TerritoryMap(props: {
   // change sheetOpen, so it never moves the camera. Declared before the framing effect below, which
   // runs in the same commit and must see the view from before the sheet.
   const before = useRef<Cam | null>(null);
+  const beforeHomed = useRef(false);
   const wasOpen = useRef(false);
   const moved = useRef(false);
   useEffect(() => {
@@ -529,8 +580,12 @@ export function TerritoryMap(props: {
     wasOpen.current = sheetOpen;
     if (step === "save") {
       before.current = fly.current?.to ?? cam.current;
+      beforeHomed.current = homed.current;
       moved.current = false;
-    } else if (step === "restore" && before.current) setCam(before.current, true);
+    } else if (step === "restore" && before.current) {
+      setCam(before.current, true);
+      homed.current = beforeHomed.current;
+    }
     if (!sheetOpen) before.current = null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sheetOpen]);
@@ -573,10 +628,12 @@ export function TerritoryMap(props: {
         wrap.current?.setPointerCapture?.(e.pointerId);
       }
       moved.current = true;
+      homed.current = false;
       cam.current = panBy(cam.current, v, dx, dy, T);
     } else if (ptrs.current.size === 2) {
       gesture.current.moved = true;
       moved.current = true;
+      homed.current = false;
       ptrs.current.set(e.pointerId, cur);
       const [a, b] = [...ptrs.current.values()];
       const d = Math.hypot(a.x - b.x, a.y - b.y);
@@ -602,6 +659,7 @@ export function TerritoryMap(props: {
       // double tap: zoom in there
       gesture.current.lastTap = 0;
       moved.current = true;
+      homed.current = false;
       setCam(zoomAt(cam.current, view.current, 1.7, p.x, p.y, T), true);
       return;
     }
@@ -614,6 +672,7 @@ export function TerritoryMap(props: {
     if (!cam.current) return;
     const p = local(e);
     moved.current = true;
+    homed.current = false;
     lastZoom.current = performance.now();
     cam.current = zoomAt(cam.current, view.current, Math.exp(-e.deltaY * 0.0015), p.x, p.y, T);
     schedule();

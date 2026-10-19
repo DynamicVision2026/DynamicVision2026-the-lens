@@ -318,7 +318,7 @@ input:not([type="checkbox"]):not([type="radio"]), .select {
 
 /* ---------- 領土マップ (map screen: the same map as the video 「日本の算数・数学マップ」) ---------- */
 body:has(.terr-page) { background: var(--terr-sea); }
-body:has(.terr-page) .main { padding-bottom: 0; }
+body:has(.terr-page) .main { padding-bottom: 0; max-width: none; } /* the map is always full width */
 .terr-page {
   position: relative; padding: 0; overflow: hidden; color: var(--terr-ink);
   height: calc(100dvh - var(--topbar-h) - 64px - env(safe-area-inset-bottom));
@@ -1009,3 +1009,102 @@ body:has(.terr-page) .main { padding-bottom: 0; }
   border-radius: 0 0 6px 6px; color: inherit; font-size: 0.86rem; font-weight: 700; letter-spacing: 0.04em; text-decoration: none;
 }
 .hud-menu-pop a:hover, .hud-menu-pop a:focus-visible { background: var(--terr-glass-line); }
+
+/* ---------- tablets and wide screens (v0.12): html[data-layout] / [data-hud] / [data-short] from src/lib/layout.ts ----------
+   phone  (< 600 px wide): everything above, unchanged.
+   tablet (≥ 600 px, portrait): bottom tabs; bottom sheets centred (max 720 px) at ~45 % height; HUD a size up.
+   wide   (landscape ≥ 900 px, or landscape < 500 px tall = a phone sideways): a slim left rail instead of the top
+          bar and the bottom tabs; sheets become a full-height right-hand panel (--panel-w, set from JS);
+          content pages get a wider column with two columns where natural. */
+:root { --rail-w: 88px; --panel-w: 400px; --wide-max: 960px; }
+html[data-short] { --rail-w: 76px; }
+
+/* left rail (wide): brand + grade chip on navy, then the four tabs stacked */
+html[data-layout="wide"] .shell.has-rail { padding-left: calc(var(--rail-w) + env(safe-area-inset-left)); }
+html[data-layout="wide"] .main { max-width: var(--wide-max); padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
+html[data-layout="wide"] body:has(.terr-page) .main { max-width: none; padding-bottom: 0; }
+.tabbar-rail {
+  top: 0; right: auto; width: calc(var(--rail-w) + env(safe-area-inset-left));
+  grid-template-columns: 1fr; grid-auto-rows: min-content; align-content: start; overflow-y: auto;
+  padding: 0 0 env(safe-area-inset-bottom) env(safe-area-inset-left); border-top: 0; border-right: 1px solid var(--c-line);
+}
+.rail-head { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 4px; padding: calc(14px + env(safe-area-inset-top)) 6px 14px; background: var(--c-navy); }
+.rail-brand { font-size: 0.74rem; line-height: 1.25; text-align: center; letter-spacing: 0.02em; }
+.rail-head .grade-chip { padding: 4px 12px; }
+.tabbar-rail .tab { min-height: 72px; font-size: 0.74rem; }
+.tabbar-rail .tab-active { box-shadow: inset 3px 0 0 var(--c-accent); }
+html[data-short] .rail-head { gap: 4px; padding: calc(6px + env(safe-area-inset-top)) 4px 8px; }
+html[data-short] .tabbar-rail .tab { min-height: 56px; gap: 1px; }
+
+/* the map: full screen (no top bar, no bottom tabs in wide) */
+html[data-layout="wide"] .terr-page { height: 100dvh; min-height: 300px; }
+html[data-layout="wide"] .hud-card { right: calc(12px + env(safe-area-inset-right)); }
+html[data-layout="wide"] .hud-ctrl { right: calc(12px + env(safe-area-inset-right)); bottom: calc(12px + env(safe-area-inset-bottom)); }
+html[data-layout="wide"] .hud-legend-wrap { bottom: calc(12px + env(safe-area-inset-bottom)); }
+/* tablets: the HUD a size up in its corners (touch targets ≥ 44 px, text not tiny on the big canvas) */
+html[data-hud="lg"] :is(.hud-tl, .hud-card, .hud-legend-wrap, .hud-ctrl) { zoom: 1.2; }
+html[data-hud="lg"] .terr .fab-snap { right: 100px; bottom: 16px; min-height: 60px; padding: 0 24px 0 20px; font-size: 1.12rem; border-radius: 14px; }
+html[data-hud="lg"] .terr-empty { right: auto; width: min(440px, calc(100% - 140px)); bottom: 16px; padding: 16px 18px; }
+html[data-hud="lg"] .terr-empty-body { font-size: 1rem; }
+html[data-hud="lg"] .exam-banner { left: 50%; right: auto; top: 14px; width: min(440px, calc(100% - 440px)); transform: translateX(-50%); }
+html[data-hud="lg"] .exam-rangebar { left: 50%; right: auto; bottom: 16px; width: min(640px, calc(100% - 200px)); transform: translateX(-50%); }
+/* phone sideways: the zoom buttons and the compass side by side, so the short screen keeps its middle free */
+html[data-short] .hud-ctrl { flex-direction: row; align-items: flex-end; }
+html[data-short] .terr .fab-snap { right: auto; left: 50%; transform: translateX(-50%); bottom: calc(12px + env(safe-area-inset-bottom)); }
+
+/* toasts and floating buttons beside the rail */
+html[data-layout="wide"] .toast { left: calc(var(--rail-w) + env(safe-area-inset-left) + var(--gutter)); bottom: calc(16px + env(safe-area-inset-bottom)); }
+html[data-layout="wide"] .toast-map { top: 12px; bottom: auto; }
+html[data-layout="wide"] .exam-secured { right: calc(var(--panel-w) + var(--gutter)); }
+html[data-layout="wide"] [data-view="list"] .fab-snap {
+  right: max(var(--gutter), calc((100vw - var(--rail-w) - var(--wide-max)) / 2 + var(--gutter))); bottom: calc(16px + env(safe-area-inset-bottom));
+}
+html[data-layout="wide"] .sticky-actions { bottom: env(safe-area-inset-bottom); }
+
+/* sheets: tablet portrait = the phone's bottom sheet, centred, ~45 % high */
+html[data-layout="tablet"] .sheet:not(.is-full) { max-height: 45dvh; }
+/* wide = a full-height panel on the right; the map stays visible and pannable on the left */
+html[data-layout="wide"] .sheet {
+  top: 0; bottom: 0; left: auto; right: 0; width: var(--panel-w); max-width: none; height: 100dvh; max-height: none; margin: 0;
+  padding: calc(14px + env(safe-area-inset-top)) calc(var(--gutter) + env(safe-area-inset-right)) calc(16px + env(safe-area-inset-bottom)) var(--gutter);
+  border-radius: 20px 0 0 20px; box-shadow: -14px 0 30px -14px var(--terr-card-shadow); animation-name: panel-in;
+}
+@keyframes panel-in { from { transform: translateX(24px); opacity: 0; } }
+html[data-layout="wide"] .unit-sheet, html[data-layout="wide"] .unit-sheet.is-full { height: 100dvh; max-height: none; padding: env(safe-area-inset-top) env(safe-area-inset-right) 0 0; }
+html[data-layout="wide"] .sheet-grab { display: none; }
+html[data-layout="wide"] .sheet-head { padding-top: 14px; cursor: auto; touch-action: auto; }
+
+/* page viewer: full width on tablets; landscape = photo left, the page's problems in a right-hand column */
+html:is([data-layout="tablet"], [data-layout="wide"]) .pv { max-width: none; }
+html[data-layout="wide"] .pv { display: grid; grid-template-columns: minmax(0, 1fr) var(--panel-w); grid-template-rows: auto minmax(0, 1fr); }
+html[data-layout="wide"] .pv-top { grid-column: 1; grid-row: 1; padding-left: calc(var(--gutter) + env(safe-area-inset-left)); }
+html[data-layout="wide"] .pv-stage { grid-column: 1; grid-row: 2; }
+html[data-layout="wide"] .pv-list-wrap {
+  grid-column: 2; grid-row: 1 / 3; max-height: none; border-radius: 18px 0 0 18px;
+  padding: calc(18px + env(safe-area-inset-top)) calc(var(--gutter) + env(safe-area-inset-right)) 0 var(--gutter);
+}
+/* the parent summary: one readable column */
+html:is([data-layout="tablet"], [data-layout="wide"]) .exam-sum { max-width: none; }
+html:is([data-layout="tablet"], [data-layout="wide"]) .exam-sum > * { flex: none; width: 100%; max-width: 640px; margin-left: auto; margin-right: auto; }
+
+/* confirm after a snap (tablets): the photo on the left (pinch to zoom), the problem cards on the right */
+.main:has(.confirm-2col) { max-width: 1240px; }
+.confirm-2col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+html[data-layout="wide"] .confirm-2col { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 28px; }
+.confirm-photo { position: sticky; top: calc(var(--topbar-h) + 16px); height: calc(100dvh - var(--topbar-h) - 64px - 36px - env(safe-area-inset-bottom)); min-height: 320px; }
+html[data-layout="wide"] .confirm-photo { top: 16px; height: calc(100dvh - 32px - env(safe-area-inset-bottom)); }
+.zp { position: relative; height: 100%; margin: 0; border-radius: var(--radius); background: var(--c-navy); overflow: hidden; }
+.zp-stage { position: absolute; inset: 0; overflow: hidden; touch-action: none; cursor: zoom-in; user-select: none; -webkit-user-select: none; }
+.zp-stage[data-zoomed="1"] { cursor: grab; }
+.zp-body { position: absolute; inset: 0; display: grid; place-items: center; padding: 12px; transform-origin: 50% 50%; will-change: transform; }
+.zp-body img { max-width: 100%; max-height: 100%; border-radius: 4px; -webkit-user-drag: none; pointer-events: none; }
+.zp-hint { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); margin: 0; padding: 3px 12px; border-radius: 999px; background: var(--c-surface); color: var(--c-navy); font-size: 0.76rem; white-space: nowrap; pointer-events: none; opacity: 0.92; }
+.zp-stage[data-zoomed="1"] .zp-hint { display: none; }
+.zp-reset { position: absolute; top: 10px; right: 10px; min-height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: var(--c-surface); color: var(--c-navy); font: inherit; font-size: 0.86rem; font-weight: 700; cursor: pointer; }
+
+/* other screens: readable widths, two columns where natural (never edge to edge on a 1366 px iPad Pro) */
+html:is([data-layout="tablet"], [data-layout="wide"]) .snap-page { max-width: 560px; margin: 0 auto; }
+html[data-layout="wide"] :is(.page-list, .page-archive) .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+html[data-layout="wide"] [data-view="list"] .tiles { grid-template-columns: repeat(4, 1fr); }
+html[data-layout="wide"] .report { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; column-gap: 16px; }
+html[data-layout="wide"] .report > :is(.report-back, .report-title, .report-meta, .glance, .report-more) { grid-column: 1 / -1; }
