@@ -289,7 +289,7 @@ body:has(.sky-page) { background: var(--sky-bg); }
 .sky-page .notice-warn { background: var(--sky-chip); color: var(--sky-ink); }
 .sky-body { color: var(--sky-ink-soft); font-size: 0.92rem; margin: 6px 0 8px; }
 .sky-legend { display: flex; flex-wrap: wrap; gap: 2px 12px; font-size: 0.8rem; color: var(--sky-ink-soft); }
-.sky-legend span { display: inline-flex; align-items: center; gap: 0; }
+.sky-legend span { display: inline-flex; align-items: center; gap: 2px; }
 .sky-summary {
   display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; margin: 8px 0 4px; padding: 8px 12px;
   border-radius: var(--radius-sm); background: var(--sky-chip); font-size: 0.82rem; color: var(--sky-ink-soft);
@@ -308,51 +308,68 @@ body:has(.sky-page) { background: var(--sky-bg); }
 }
 .sky-lanes span { padding: 7px 2px; text-align: center; font-size: 0.75rem; font-weight: 700; color: var(--sky-ink); letter-spacing: 0.02em; }
 .sky-canvas { position: relative; width: 100%; }
-.sky-svg { position: absolute; inset: 0; display: block; }
+.sky-svg { position: absolute; inset: 0; display: block; overflow: visible; }
 .sky-own { fill: var(--sky-band-own); }
+.lift-in { stop-color: var(--sky-lift); }
+.lift-out { stop-color: var(--sky-lift-out); }
 .sky-lat { stroke: var(--sky-lattice); stroke-width: 1; }
-.sky-lat-v { stroke-dasharray: 2 5; }
-.sky-tick { stroke: var(--sky-ink-dim); stroke-opacity: 0.45; stroke-width: 1; fill: none; }
 .sky-speck { fill: var(--sky-speck); }
-.sky-edge { fill: none; stroke: var(--sky-line); stroke-width: 1; transition: opacity 0.2s, stroke 0.2s; }
-.sky-edge.is-lit { stroke: var(--sky-flare); stroke-width: 1.4; stroke-dasharray: 1; stroke-dashoffset: 0; animation: edge-draw 1s ease-out 0.25s both; }
-.sky-edge.is-path { stroke: var(--sky-line-hi); stroke-width: 1.6; animation: none; }
-.sky-edge.is-dim { opacity: 0.18; }
+.sky-edge { fill: none; stroke: var(--sky-line); stroke-width: 1.1; stroke-linecap: round; transition: opacity 0.2s, stroke 0.2s; }
+.sky-edge.is-lit { stroke: var(--sky-flare); stroke-width: 1.5; stroke-dasharray: 1; stroke-dashoffset: 0; animation: edge-draw 1s ease-out 0.25s both; }
+.sky-edge.is-path { stroke: var(--sky-line-hi); stroke-width: 1.8; animation: none; }
+.sky-edge.is-dim { opacity: 0.15; }
 @keyframes edge-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 
-.sky-band-label { position: absolute; left: 4px; display: flex; align-items: center; gap: 6px; pointer-events: none; font-size: 0.74rem; font-weight: 700; color: var(--sky-ink-dim); line-height: 1; }
+.sky-band-label { position: absolute; left: 4px; display: flex; align-items: center; gap: 6px; font-size: 0.74rem; font-weight: 700; color: var(--sky-ink-soft); line-height: 1; z-index: 1; }
+.sky-band-label > span:first-child { pointer-events: none; }
 .sky-band-label.is-own { color: var(--sky-ink); }
-.sky-own-tag { padding: 3px 8px; border-radius: 999px; background: var(--sky-ink); color: var(--sky-bg); font-size: 0.68rem; font-weight: 800; }
+.sky-own-tag { padding: 3px 8px; border-radius: 999px; background: var(--sky-ink); color: var(--sky-bg); font-size: 0.68rem; font-weight: 800; pointer-events: none; }
+.sky-fold {
+  min-height: 28px; padding: 0 10px; border: 1px solid var(--sky-lattice); border-radius: 999px; background: var(--sky-chip);
+  color: var(--sky-ink-soft); font-size: 0.7rem; font-weight: 700; cursor: pointer;
+}
+/* far sky: one compact row per band, the whole band opens it */
+.far-band {
+  position: absolute; left: 0; right: 0; padding: 0; border: 0; background: transparent; cursor: pointer; text-align: left;
+  -webkit-tap-highlight-color: transparent; border-radius: 8px;
+}
+.far-band span { position: absolute; left: 4px; top: 5px; font-size: 0.74rem; font-weight: 700; color: var(--sky-ink-dim); line-height: 1; }
+.far-band:hover, .far-band:focus-visible { background: var(--sky-chip); }
+.far-band:focus-visible { outline: 2px solid var(--sky-ink); outline-offset: -2px; }
+.far-star.is-dim { opacity: 0.25; }
+.far-star .g-empty { opacity: 0.55; }
 
 .star-node {
   position: absolute; padding: 0; border: 0; border-radius: 8px; background: transparent; cursor: pointer;
-  color: var(--sky-ink-soft); text-align: left; -webkit-tap-highlight-color: transparent; transition: opacity 0.2s;
+  color: var(--sky-ink-dim); text-align: left; -webkit-tap-highlight-color: transparent; transition: opacity 0.2s;
 }
-.star-node.is-own { color: var(--sky-ink); }
+.star-node.has-data { color: var(--sky-ink); }
 .star-node:focus-visible { outline: 2px solid var(--sky-ink); outline-offset: 0; }
 .star-node.is-sel { background: var(--sky-chip); }
 .star-node.is-dim { opacity: 0.28; }
 .star-node.is-path { color: var(--sky-ink); }
-.star-glyph { position: absolute; width: 26px; height: 26px; display: block; }
+.star-glyph { position: absolute; width: 40px; height: 40px; display: block; pointer-events: none; }
 .star-label {
-  position: absolute; left: 26px; right: 1px; top: 3px; font-size: 10.5px; line-height: 1.28; font-weight: 500;
+  position: absolute; left: 29px; right: 1px; top: 6px; font-size: 10px; line-height: 1.3; font-weight: 400;
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere;
 }
+.star-node.has-data .star-label { font-size: 10.5px; font-weight: 700; }
 
-/* glyphs (also used in the legend and the sheet) */
+/* star marks (chart, legend, sheet): grey recedes, data glows */
 .glyph { display: block; overflow: visible; flex: none; }
-.g-empty { fill: var(--sky-bg); stroke: var(--sky-grey); stroke-width: 1.4; }
+.g-empty { fill: var(--sky-grey); opacity: 0.8; }
 .g-ok { fill: var(--sky-green); }
 .g-review { fill: var(--sky-red); }
-.g-halo { fill: none; stroke: var(--sky-red-halo); stroke-width: 3; }
+.g-soft { opacity: 0.2; }
+.g-halo { fill: none; stroke: var(--sky-red-halo); stroke-width: 2.5; }
 .g-gold { fill: var(--sky-gold); }
-.g-glow { fill: var(--sky-gold-glow); opacity: 0.35; }
-.g-flare { stroke: var(--sky-gold); stroke-width: 0.8; stroke-opacity: 0.6; stroke-linecap: round; }
-.g-lit { fill: none; stroke: var(--sky-flare); stroke-width: 1.2; stroke-opacity: 0.8; }
+.g-glow { fill: var(--sky-gold-glow); opacity: 0.4; }
+.g-flare { stroke: var(--sky-gold); stroke-width: 1; stroke-opacity: 0.55; stroke-linecap: round; }
+.g-lit { fill: none; stroke: var(--sky-flare); stroke-width: 1.4; stroke-opacity: 0.85; }
 .star-node.is-lit .glyph { transform-origin: center; transform-box: fill-box; animation: star-flare 1.2s ease-out 1; }
 @keyframes star-flare {
   0% { transform: scale(1); filter: drop-shadow(0 0 0 var(--sky-flare)); }
-  35% { transform: scale(1.9); filter: drop-shadow(0 0 7px var(--sky-flare)); }
+  35% { transform: scale(1.6); filter: drop-shadow(0 0 8px var(--sky-flare)); }
   100% { transform: scale(1); filter: drop-shadow(0 0 2px var(--sky-flare)); }
 }
 @media (prefers-reduced-motion: reduce) {

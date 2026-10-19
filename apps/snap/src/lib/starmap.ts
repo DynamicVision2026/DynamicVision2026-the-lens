@@ -160,26 +160,34 @@ export function edgeKey(from: string, to: string): string {
 
 // ---------- layout ----------
 
+/**
+ * Near sky vs far sky. "Near" bands (the child's grade, the grade below, and one band the child
+ * opened) show every star with its label and a 44 px tap target. "Far" bands are one compact row:
+ * each lane's stars sit side by side as a small cluster, no labels; the whole band is one tap
+ * target that opens it.
+ */
 export const SKY = {
-  /** Grade label strip at the top of each band. */
+  /** Grade label strip at the top of a near band. */
   bandHead: 26,
   /** One star + its label (≥ 44 px tap target incl. 1 px inset each side). */
   nodeH: 46,
   bandPad: 8,
   /** Star centre from the lane's left edge / node top. */
-  starX: 13,
-  starY: 12,
-  /** The thin "river" where a lane's root lines run (left of the stars, so lines never cross a star). */
-  riverX: 3,
-  /** Rounded elbow of a root line. */
-  elbow: 6,
+  starX: 14,
+  starY: 14,
+  /** Far band: height, star row, gap between clustered stars. */
+  farH: 46,
+  farStarY: 31,
+  farGap: 12,
 };
 
 export interface SkyNode {
   id: string;
   lane: Lane;
   grade: Grade;
-  /** Tap box (the button). */
+  /** In a far band: no label, not a button of its own. */
+  far: boolean;
+  /** Tap box (near) / the star's own small box (far). */
   x: number;
   y: number;
   w: number;
@@ -190,6 +198,7 @@ export interface SkyNode {
 }
 export interface SkyBand {
   grade: Grade;
+  near: boolean;
   y: number;
   h: number;
 }
@@ -212,42 +221,71 @@ export interface SkyLayout {
 /** Bands from the top of the chart: 高校 first, 小1 last (knowledge grows upward). */
 export const BANDS_TOP_DOWN: Grade[] = [...GRADES].reverse();
 
-/** Path of a root line: from the star, left into the lane's river, down, and right into the root star. */
-function edgePath(a: SkyNode, b: SkyNode, laneX: number): string {
-  const xr = laneX + SKY.riverX;
-  const r = SKY.elbow;
-  return `M${a.cx} ${a.cy}H${xr + r}Q${xr} ${a.cy} ${xr} ${a.cy + r}V${b.cy - r}Q${xr} ${b.cy} ${xr + r} ${b.cy}H${b.cx}`;
+/** Default near bands: the child's grade and the grade below it, plus one opened band. */
+export function nearGrades(own: Grade, opened: Grade | null = null): Set<Grade> {
+  const i = GRADES.indexOf(own);
+  const s = new Set<Grade>([own]);
+  if (i > 0) s.add(GRADES[i - 1]);
+  if (opened) s.add(opened);
+  return s;
 }
 
-export function layoutStarmap(width: number): SkyLayout {
+/**
+ * A root line: one gentle quadratic curve from the star down to its root, bowing left.
+ * If another star sits on the straight way (same column, between the two), the bow is wider.
+ */
+function edgePath(a: SkyNode, b: SkyNode, all: SkyNode[]): string {
+  const top = Math.min(a.cy, b.cy) + 8;
+  const bottom = Math.max(a.cy, b.cy) - 8;
+  const minX = Math.min(a.cx, b.cx);
+  const maxX = Math.max(a.cx, b.cx);
+  const blocked = all.some((n) => n !== a && n !== b && n.cy > top && n.cy < bottom && n.cx > minX - 10 && n.cx < maxX + 10);
+  const bow = blocked ? 40 : 16;
+  const qx = (a.cx + b.cx) / 2 - bow;
+  const qy = (a.cy + b.cy) / 2;
+  return `M${a.cx} ${a.cy}Q${qx.toFixed(1)} ${qy.toFixed(1)} ${b.cx} ${b.cy}`;
+}
+
+export function layoutStarmap(width: number, near: Iterable<Grade> = GRADES): SkyLayout {
+  const nearSet = new Set(near);
   const laneW = width / LANES.length;
   const bands: SkyBand[] = [];
   const nodes: SkyNode[] = [];
   let y = 0;
   for (const grade of BANDS_TOP_DOWN) {
     const stacks = LANES.map((lane) => laneUnits(grade, lane));
-    const rows = Math.max(1, ...stacks.map((s) => s.length));
-    const h = SKY.bandHead + rows * SKY.nodeH + SKY.bandPad;
-    stacks.forEach((units, li) => {
-      const laneX = li * laneW;
-      units.forEach((u, k) => {
-        // The first unit sits lowest in its stack, later units rise above it. Stacks hang from the
-        // top of the band, so a root line to the band below stays short.
-        const top = y + SKY.bandHead + (units.length - 1 - k) * SKY.nodeH;
-        nodes.push({
-          id: u.id,
-          lane: LANES[li],
-          grade,
-          x: laneX + 1,
-          y: top + 1,
-          w: laneW - 2,
-          h: SKY.nodeH - 2,
-          cx: laneX + SKY.starX,
-          cy: top + SKY.starY,
+    const isNear = nearSet.has(grade);
+    let h: number;
+    if (isNear) {
+      const rows = Math.max(1, ...stacks.map((s) => s.length));
+      h = SKY.bandHead + rows * SKY.nodeH + SKY.bandPad;
+      stacks.forEach((units, li) => {
+        const laneX = li * laneW;
+        units.forEach((u, k) => {
+          // The first unit sits lowest in its stack, later units rise above it. Stacks hang from the
+          // top of the band, so a root line to the band below stays short.
+          const top = y + SKY.bandHead + (units.length - 1 - k) * SKY.nodeH;
+          nodes.push({
+            id: u.id, lane: LANES[li], grade, far: false,
+            x: laneX + 1, y: top + 1, w: laneW - 2, h: SKY.nodeH - 2,
+            cx: laneX + SKY.starX, cy: top + SKY.starY,
+          });
         });
       });
-    });
-    bands.push({ grade, y, h });
+    } else {
+      h = SKY.farH;
+      stacks.forEach((units, li) => {
+        const laneX = li * laneW;
+        const gap = units.length > 1 ? Math.min(SKY.farGap, (laneW - 16) / (units.length - 1)) : 0;
+        const x0 = laneX + laneW / 2 - (gap * (units.length - 1)) / 2;
+        units.forEach((u, k) => {
+          const cx = x0 + k * gap;
+          const cy = y + SKY.farStarY;
+          nodes.push({ id: u.id, lane: LANES[li], grade, far: true, x: cx - gap / 2, y: cy - 5, w: Math.max(gap, 1), h: 10, cx, cy });
+        });
+      });
+    }
+    bands.push({ grade, near: isNear, y, h });
     y += h;
   }
   const byId = new Map(nodes.map((n) => [n.id, n]));
@@ -255,7 +293,7 @@ export function layoutStarmap(width: number): SkyLayout {
   for (const n of nodes)
     for (const r of rootIds(n.id)) {
       const m = byId.get(r)!;
-      edges.push({ key: edgeKey(n.id, r), from: n.id, to: r, d: edgePath(n, m, LANES.indexOf(n.lane) * laneW) });
+      edges.push({ key: edgeKey(n.id, r), from: n.id, to: r, d: edgePath(n, m, nodes) });
     }
   return { width, height: y, laneW, bands, nodes, edges, byId };
 }
@@ -285,8 +323,8 @@ export function gradeCounts(tiles: Tile[], grade: Grade): Record<TileStatus, num
 }
 
 /** Faint background specks (decoration only), deterministic so renders and screenshots are stable. */
-export function specks(width: number, height: number, n = Math.round(height / 22)): { x: number; y: number; r: number; o: number }[] {
+export function specks(width: number, height: number, n = Math.round(height / 30)): { x: number; y: number; r: number; o: number }[] {
   let s = 20261019;
   const rnd = () => ((s = (s * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff);
-  return Array.from({ length: n }, () => ({ x: rnd() * width, y: rnd() * height, r: 0.5 + rnd() * 0.7, o: 0.25 + rnd() * 0.45 }));
+  return Array.from({ length: n }, () => ({ x: rnd() * width, y: rnd() * height, r: 0.5 + rnd() * 0.7, o: 0.12 + rnd() * 0.28 }));
 }

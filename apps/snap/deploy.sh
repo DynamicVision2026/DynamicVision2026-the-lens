@@ -68,7 +68,7 @@ else echo "   (no API key yet: the app runs with the practice reader; add it lat
 g run deploy "$SERVICE" --image "$IMAGE" --region "$REGION" --allow-unauthenticated \
   --execution-environment gen2 --max-instances 1 --memory 1Gi --cpu 1 \
   --set-secrets "$SECRETS" \
-  --set-env-vars "READER_MODEL=claude-sonnet-5,READ_PER_IP_HOUR=20,READ_DAILY_CAP=300,WAITLIST_DIR=/data/waitlist" \
+  --set-env-vars "READER_MODEL=${READER_MODEL:-claude-haiku-5-5},READ_PER_IP_HOUR=20,READ_DAILY_CAP=300,WAITLIST_DIR=/data/waitlist" \
   --add-volume "name=waitlist,type=cloud-storage,bucket=${BUCKET},mount-options=uid=1000;gid=1000" \
   --add-volume-mount "volume=waitlist,mount-path=/data"
 

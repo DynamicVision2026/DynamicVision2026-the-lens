@@ -9,7 +9,9 @@ import {
   gradeCounts,
   laneOf,
   laneUnits,
+  SKY,
   layoutStarmap,
+  nearGrades,
   rootIds,
   rootPath,
   rootsOf,
@@ -81,45 +83,75 @@ describe("roots (もとになる単元)", () => {
 });
 
 describe("layout at phone width", () => {
-  for (const width of [358, 390]) {
-    it(`110 nodes, no overlaps, inside the chart, ≥ 44 px tap targets (width ${width})`, () => {
-      const L = layoutStarmap(width);
-      expect(L.nodes).toHaveLength(110);
-      for (const n of L.nodes) {
-        expect(n.h).toBeGreaterThanOrEqual(44);
-        expect(n.w).toBeGreaterThanOrEqual(44);
-        expect(n.x).toBeGreaterThanOrEqual(0);
-        expect(n.x + n.w).toBeLessThanOrEqual(width);
-        expect(n.y + n.h).toBeLessThanOrEqual(L.height);
-      }
-      for (let i = 0; i < L.nodes.length; i++)
-        for (let j = i + 1; j < L.nodes.length; j++) {
-          const a = L.nodes[i];
-          const b = L.nodes[j];
-          const overlap = a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
-          expect(overlap, `${a.id} overlaps ${b.id}`).toBe(false);
+  const near5 = nearGrades("小5");
+
+  it("near sky = the child's grade and the grade below (+ one opened band)", () => {
+    expect([...nearGrades("小5")].sort()).toEqual(["小4", "小5"]);
+    expect([...nearGrades("小1")]).toEqual(["小1"]);
+    expect([...nearGrades("中1", "小3")].sort()).toEqual(["中1", "小3", "小6"].sort());
+  });
+
+  for (const [label, near] of [["near 小5/小4", near5], ["everything near", new Set(GRADES)]] as const) {
+    for (const width of [358, 390]) {
+      it(`${label}, width ${width}: 110 stars, no overlaps, inside the chart, ≥ 44 px near tap targets`, () => {
+        const L = layoutStarmap(width, near);
+        expect(L.nodes).toHaveLength(110);
+        for (const n of L.nodes) {
+          expect(n.far).toBe(!near.has(n.grade));
+          if (!n.far) {
+            expect(n.h).toBeGreaterThanOrEqual(44);
+            expect(n.w).toBeGreaterThanOrEqual(44);
+          }
+          expect(n.x).toBeGreaterThanOrEqual(0);
+          expect(n.x + n.w).toBeLessThanOrEqual(width + 0.001);
+          expect(n.y + n.h).toBeLessThanOrEqual(L.height);
         }
-    });
+        for (let i = 0; i < L.nodes.length; i++)
+          for (let j = i + 1; j < L.nodes.length; j++) {
+            const a = L.nodes[i];
+            const b = L.nodes[j];
+            const overlap = a.x < b.x + b.w - 0.001 && b.x < a.x + a.w - 0.001 && a.y < b.y + b.h && b.y < a.y + a.h;
+            expect(overlap, `${a.id} overlaps ${b.id}`).toBe(false);
+          }
+      });
+    }
   }
 
-  it("grades rise upward: 小1 at the bottom, 高校 at the top; nodes sit in their band and lane", () => {
-    const L = layoutStarmap(358);
+  it("far bands are one compact row (≥ 44 px tall: the band is the tap target)", () => {
+    const L = layoutStarmap(358, near5);
+    for (const b of L.bands) {
+      expect(b.near).toBe(near5.has(b.grade));
+      if (!b.near) {
+        expect(b.h).toBe(SKY.farH);
+        expect(b.h).toBeGreaterThanOrEqual(44);
+        const cys = new Set(L.nodes.filter((n) => n.grade === b.grade).map((n) => n.cy));
+        expect(cys.size).toBe(1);
+      }
+    }
+    expect(L.height).toBeLessThan(layoutStarmap(358).height / 2);
+  });
+
+  it("grades rise upward: 小1 at the bottom, 高校 at the top; stars sit in their band and lane", () => {
+    const L = layoutStarmap(358, near5);
     expect(L.bands[0].grade).toBe("高校");
     expect(L.bands.at(-1)!.grade).toBe("小1");
     for (const n of L.nodes) {
       const band = L.bands.find((b) => b.grade === n.grade)!;
-      expect(n.y).toBeGreaterThanOrEqual(band.y);
-      expect(n.y + n.h).toBeLessThanOrEqual(band.y + band.h);
+      expect(n.cy).toBeGreaterThan(band.y);
+      expect(n.cy).toBeLessThan(band.y + band.h);
       const li = LANES.indexOf(n.lane);
-      expect(n.x).toBeGreaterThanOrEqual(li * L.laneW);
-      expect(n.x + n.w).toBeLessThanOrEqual((li + 1) * L.laneW + 0.001);
+      expect(n.cx).toBeGreaterThanOrEqual(li * L.laneW);
+      expect(n.cx).toBeLessThanOrEqual((li + 1) * L.laneW);
     }
   });
 
-  it("every root line goes down to a lower star", () => {
-    const L = layoutStarmap(358);
+  it("every root line is one curve down to a lower star", () => {
+    const L = layoutStarmap(358, near5);
     expect(L.edges.length).toBeGreaterThan(100);
-    for (const e of L.edges) expect(L.byId.get(e.to)!.cy).toBeGreaterThan(L.byId.get(e.from)!.cy);
+    for (const e of L.edges) {
+      expect(L.byId.get(e.to)!.cy).toBeGreaterThan(L.byId.get(e.from)!.cy);
+      expect(e.d).toMatch(/^M[\d.]+ [\d.]+Q-?[\d.]+ [\d.]+ [\d.]+ [\d.]+$/);
+    }
   });
 });
 

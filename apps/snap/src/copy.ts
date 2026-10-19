@@ -244,6 +244,8 @@ export const app = {
     gradeSummary: (g: string) => `${g}の単元`,
     count: { review: (n: number) => `復習 ${n}`, ok: (n: number) => `復習ずみ ${n}`, gold: (n: number) => `マスター ${n}`, empty: (n: number) => `まだ ${n}` },
     chartLabel: "単元マップ（星図）。下が小1、上が高校です。",
+    openBand: (g: string) => `${g}の単元をひらく`,
+    fold: "たたむ",
     starLabel: (grade: string, code: string, topic: string, status: string) => `${grade} ${code} ${topic}、${status}`,
     sheet: {
       problems: "問題",

@@ -34,11 +34,11 @@
    * ink-dim 6.8 / 5.5; state colours as text ≥ 5.4:1 on every sky surface.
    */
   --sky-bg: #13203a;
-  --sky-band-own: #1d3054;          /* the child's own grade band, slightly lighter */
+  --sky-band-own: #19294a;          /* the child's own grade band, slightly lighter */
   --sky-surface: #1a2a47;           /* bottom sheet */
   --sky-head: rgba(19, 32, 58, 0.92); /* sticky lane header */
-  --sky-lattice: rgba(150, 172, 214, 0.13);
-  --sky-line: rgba(150, 175, 222, 0.32);  /* constellation (root) lines */
+  --sky-lattice: rgba(150, 172, 214, 0.08);
+  --sky-line: rgba(170, 192, 235, 0.34);  /* constellation (root) lines, units with data only */
   --sky-line-hi: #e8eef8;                 /* the open star's root path */
   --sky-ink: #e8eef8;
   --sky-ink-soft: #b4c1d9;
@@ -52,6 +52,8 @@
   --sky-grey: #8794ae;              /* まだ (hollow) */
   --sky-flare: rgba(255, 236, 190, 0.9);  /* light-up after 保存 */
   --sky-chip: rgba(232, 238, 248, 0.1);
+  --sky-lift: rgba(120, 160, 230, 0.16);  /* faint radial lift behind the child's band */
+  --sky-lift-out: rgba(120, 160, 230, 0);
 
   --radius: 14px;
   --radius-sm: 10px;

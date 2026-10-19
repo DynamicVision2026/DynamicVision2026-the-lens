@@ -21,7 +21,8 @@ GATED = sys.argv[2] if len(sys.argv) > 2 else "http://localhost:8094"
 # Earlier saved pages for 小5 (IndexedDB seed), so the map shows every state:
 #   5-A1 gold (newest test all ○), 5-B1 gold (old ✕ then a later all-○ test),
 #   5-A3 green (✕ reviewed), 5-C1 red (✕ not reviewed), 5-D1 green (drill, no marks),
-#   4-A2 red, 4-C2 green and 4-B4 gold in 小4 (4-C2 簡単な割合 is the root of 5-C3 割合).
+#   4-A2 red, 4-C2 green and 4-B4 gold in 小4 (4-C2 簡単な割合 is the root of 5-C3 割合);
+#   far sky: 3-A4 red in 小3, 6-C2 gold in 小6 (visible as coloured stars from afar).
 SEED_JS = """async () => {
   const P = (id, at, type, probs) => ({ id, createdAt: at, grade: "小5", pageType: type, score: null,
     problems: probs.map(([unit, mark, reviewed], i) => ({ n: i + 1, q: "（見本）問題 " + (i + 1), unit, answer: "1",
@@ -30,7 +31,7 @@ SEED_JS = """async () => {
     P("seed1", "2026-10-01T09:00:00.000Z", "test", [["5-A1","○"],["5-A1","○"],["5-A1","○"],["5-A3","✕",true],["5-A3","○"]]),
     P("seed2", "2026-10-03T09:00:00.000Z", "drill", [["5-B1","✕"],["5-B1","✕"],["5-D1",null],["5-D1",null],["5-C1","✕"],["5-C1","○"]]),
     P("seed3", "2026-10-10T09:00:00.000Z", "test", [["5-B1","○"],["5-B1","○"],["5-B1","○"],["4-A2","✕"]]),
-    P("seed4", "2026-10-12T09:00:00.000Z", "drill", [["4-C2","✕",true],["4-C2","○"],["4-B4","○"],["4-B4","○"]]),
+    P("seed4", "2026-10-12T09:00:00.000Z", "drill", [["4-C2","✕",true],["4-C2","○"],["4-B4","○"],["4-B4","○"],["3-A4","✕"],["6-C2","○"],["6-C2","○"]]),
   ];
   await new Promise((res, rej) => {
     const req = indexedDB.open("lens-snap", 1);
@@ -139,21 +140,25 @@ with sync_playwright() as p:
     page.wait_for_timeout(430)  # mid-flare (1.2 s), line half drawn
     shot(page, "07-saved-lit", full=False)
 
-    # 5b. Full star chart: 110 stars, own grade lit, red / green / gold / grey states, 小4 data
+    # 5b. Full star chart: near sky (小5 + 小4) with labels, far bands compact; coloured far stars
     page.wait_for_timeout(4600)  # toast gone
     page.goto(BASE + "/app/map")
     expect(page.locator(".sky-page")).to_have_count(1)
-    stars = page.locator("button.star-node")
-    expect(stars).to_have_count(110)
+    expect(page.locator("button.star-node")).to_have_count(31)  # 小5 (15) + 小4 (16)
+    expect(page.locator("button.far-band")).to_have_count(8)
+    expect(page.locator("g.far-star")).to_have_count(110 - 31)
     expect(page.locator(".sky-band-label.is-own")).to_contain_text("小5")
     for unit, st in [("5-C3", "review"), ("5-A1", "gold"), ("5-B1", "gold"), ("5-A3", "ok"), ("5-D1", "ok"),
-                     ("5-C1", "review"), ("5-A2", "empty"), ("4-A2", "review"), ("4-C2", "ok"), ("4-B4", "gold")]:
-        expect(page.locator(f'button.star-node[data-unit="{unit}"]')).to_have_attribute("data-status", st)
+                     ("5-C1", "review"), ("5-A2", "empty"), ("4-A2", "review"), ("4-C2", "ok"), ("4-B4", "gold"),
+                     ("3-A4", "review"), ("6-C2", "gold")]:
+        expect(page.locator(f'.sky-canvas [data-unit="{unit}"]')).to_have_attribute("data-status", st)
     expect(page.get_by_test_id("sky-summary")).to_contain_text("復習 2")
     # own band scrolled into view on load
     box = page.locator('button.star-node[data-unit="5-C3"]').bounding_box()
     assert 0 < box["y"] < 844, box
-    assert page.locator("path.sky-edge").count() > 100
+    # constellations only where there is data (plus none for empty units)
+    expect(page.locator('path.sky-edge[data-edge="5-C3>4-C2"]')).to_have_count(1)
+    expect(page.locator('path.sky-edge[data-edge="5-A2>4-A4"]')).to_have_count(0)
     shot(page, "08-starmap")
 
     # 5c. Sheet on a red unit: counts, roots (tappable), root path highlighted, everything else dimmed
@@ -174,6 +179,15 @@ with sync_playwright() as p:
     page.keyboard.press("Escape")
     expect(sheet).to_have_count(0)
 
+    # 5c2. Tap a far band → it opens (labels, tap targets); 「たたむ」 closes it again
+    page.locator('button.far-band[data-grade="小3"]').click()
+    expect(page.locator('button.star-node[data-unit="3-A4"]')).to_have_attribute("data-status", "review")
+    expect(page.locator("button.far-band")).to_have_count(7)
+    page.wait_for_timeout(300)
+    shot(page, "08e-starmap-expanded", full=False)
+    page.get_by_role("button", name="たたむ").click()
+    expect(page.locator('button.far-band[data-grade="小3"]')).to_have_count(1)
+
     # 5d. 一覧: the tile view (accessible fallback), choice remembered
     page.get_by_role("radio", name="一覧").click()
     secs = page.locator("details.grade-sec")
@@ -193,7 +207,7 @@ with sync_playwright() as p:
     page.evaluate("window.scrollTo({ top: 0, behavior: 'instant' })")
     shot(page, "08l-map-list")
     page.get_by_role("radio", name="星図").click()
-    expect(page.locator("button.star-node")).to_have_count(110)
+    expect(page.locator("button.star-node")).to_have_count(31)
 
     # 6. テスト前リスト with 5-C3 only → exactly the 2 ✕ problems
     page.goto(BASE + "/app/list")
@@ -253,7 +267,7 @@ with sync_playwright() as p:
     ctx.set_offline(True)
     page.goto(BASE + "/app/map")
     expect(page.get_by_role("heading", name="単元マップ")).to_be_visible()
-    expect(page.locator("button.star-node")).to_have_count(110)
+    expect(page.locator("button.star-node")).to_have_count(31)
     ctx.set_offline(False)
     assert page.evaluate("caches.keys()") == ["lens-snap-v1"]
     assert not page.evaluate("""caches.open('lens-snap-v1').then(c => c.keys()).then(ks => ks.some(r => new URL(r.url).pathname.startsWith('/api')))""")

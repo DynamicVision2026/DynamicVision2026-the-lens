@@ -4,7 +4,7 @@ import { StarGlyph, StarMap } from "../components/StarMap";
 import { app } from "../copy";
 import { type Grade, type Unit, unitById } from "../curriculum";
 import { type MapSection, type Tile, type TileStatus, mapSections, mapTiles, parseLit, unfiled } from "../lib/review";
-import { type SkyLayout, gradeCounts, sheetData } from "../lib/starmap";
+import { type SkyLayout, gradeCounts, nearGrades, sheetData } from "../lib/starmap";
 import { readPref, usePages, writePref } from "../state";
 
 const TOAST_MS = 4500;
@@ -77,7 +77,7 @@ function SkyHeader({ tiles, grade }: { tiles: Tile[]; grade: Grade }) {
       <div className="sky-legend">
         {STATES.map((s) => (
           <span key={s}>
-            <StarGlyph status={s} />
+            <StarGlyph status={s} size={26} />
             {app.map.skyLegend[s]}
           </span>
         ))}
@@ -94,8 +94,20 @@ function SkyHeader({ tiles, grade }: { tiles: Tile[]; grade: Grade }) {
 
 function SkyView({ tiles, grade, lit }: { tiles: Tile[]; grade: Grade; lit: string[] }) {
   const [selected, setSelected] = useState<string | null>(null);
+  // One far band may be opened. After 保存, a lit unit in a far grade opens that grade.
+  const [opened, setOpened] = useState<Grade | null>(() => {
+    const base = nearGrades(grade);
+    for (const id of lit) {
+      const g = unitById(id)?.appGrade;
+      if (g && !base.has(g)) return g;
+    }
+    return null;
+  });
+  const near = useMemo(() => nearGrades(grade, opened), [grade, opened]);
   const geo = useRef<{ L: SkyLayout; canvas: HTMLDivElement } | null>(null);
   const scrolled = useRef(false);
+  const pending = useRef<string | null>(null); // star to scroll to once its band is laid out
+  const pendingBand = useRef<Grade | null>(null); // band just opened: bring it into view
 
   /** Scroll so a star sits at `at` (0 = top, 1 = bottom) of the visible screen. */
   const scrollToStar = useCallback((id: string, at: number, smooth: boolean) => {
@@ -109,6 +121,21 @@ function SkyView({ tiles, grade, lit }: { tiles: Tile[]; grade: Grade; lit: stri
   const onLayout = useCallback(
     (L: SkyLayout, canvas: HTMLDivElement) => {
       geo.current = { L, canvas };
+      if (pendingBand.current) {
+        const band = L.bands.find((b) => b.grade === pendingBand.current);
+        pendingBand.current = null;
+        if (band) {
+          const top = canvas.getBoundingClientRect().top + window.scrollY + band.y;
+          window.scrollTo({ top: Math.max(0, top - 100), behavior: "instant" });
+        }
+        return;
+      }
+      if (pending.current && L.byId.get(pending.current)?.far === false) {
+        const id = pending.current;
+        pending.current = null;
+        scrollToStar(id, 0.16, true);
+        return;
+      }
       if (scrolled.current) return;
       scrolled.current = true;
       // On load: the first lit star (after 保存) in the middle, otherwise the child's grade band in view.
@@ -126,14 +153,21 @@ function SkyView({ tiles, grade, lit }: { tiles: Tile[]; grade: Grade; lit: stri
     (id: string | null, fromSheet = false) => {
       setSelected(id);
       if (!id) return;
-      const g = geo.current;
-      const n = g?.L.byId.get(id);
-      if (!g || !n) return;
-      const y = g.canvas.getBoundingClientRect().top + n.cy;
+      const g = unitById(id)?.appGrade;
+      if (g && !near.has(g)) {
+        // A root in the far sky: open its band, then scroll once it is laid out.
+        pending.current = id;
+        setOpened(g);
+        return;
+      }
+      const geoNow = geo.current;
+      const n = geoNow?.L.byId.get(id);
+      if (!geoNow || !n) return;
+      const y = geoNow.canvas.getBoundingClientRect().top + n.cy;
       // Keep the star (and the roots below it) above the sheet.
       if (fromSheet || y > window.innerHeight * 0.25 || y < 90) scrollToStar(id, 0.16, true);
     },
-    [scrollToStar],
+    [near, scrollToStar],
   );
 
   useEffect(() => {
@@ -146,7 +180,21 @@ function SkyView({ tiles, grade, lit }: { tiles: Tile[]; grade: Grade; lit: stri
   const data = selected ? sheetData(selected, tiles) : null;
   return (
     <>
-      <StarMap tiles={tiles} grade={grade} lit={lit} selected={selected} onSelect={(id) => select(id)} onLayout={onLayout} />
+      <StarMap
+        tiles={tiles}
+        grade={grade}
+        near={near}
+        opened={opened}
+        onOpen={(g) => {
+          setSelected(null);
+          pendingBand.current = g;
+          setOpened(g);
+        }}
+        lit={lit}
+        selected={selected}
+        onSelect={(id) => select(id)}
+        onLayout={onLayout}
+      />
       {data && <Sheet data={data} onClose={() => setSelected(null)} onPick={(id) => select(id, true)} />}
       {data && <div className="sheet-spacer" aria-hidden />}
     </>
@@ -168,7 +216,7 @@ function Sheet({ data, onClose, onPick }: { data: NonNullable<ReturnType<typeof 
         </button>
       </div>
       <h2 id="sheet-title" className="sheet-title">
-        <StarGlyph status={tile.status} />
+        <StarGlyph status={tile.status} size={34} />
         {unit.topic}
       </h2>
       <dl className="sheet-stats">
@@ -193,7 +241,7 @@ function Sheet({ data, onClose, onPick }: { data: NonNullable<ReturnType<typeof 
           {roots.map((r) => (
             <li key={r.unit.id}>
               <button type="button" className="root-btn" onClick={() => onPick(r.unit.id)} data-unit={r.unit.id}>
-                <StarGlyph status={r.status} />
+                <StarGlyph status={r.status} size={30} />
                 <span className="root-grade">{r.unit.appGrade}</span>
                 <span className="root-topic">{r.unit.topic}</span>
                 <span className="root-go" aria-hidden>›</span>

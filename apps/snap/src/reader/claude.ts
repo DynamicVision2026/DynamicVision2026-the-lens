@@ -5,7 +5,7 @@ import { readerPrompt } from "./prompt";
 import { type PageResult, toPageResult } from "./schema";
 import type { Reader } from "./types";
 
-export const DEFAULT_READER_MODEL = "claude-sonnet-5";
+export const DEFAULT_READER_MODEL = "claude-haiku-5-5"; // cheapest current vision model; set READER_MODEL=claude-sonnet-5-5 if accuracy needs it
 const MAX_EDGE = 1600;
 
 /** ClaudeReader: one Messages API call per photo. Never logs the image or its content. */
