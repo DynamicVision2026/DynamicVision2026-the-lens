@@ -550,21 +550,72 @@ export function frameBox(
 }
 
 /**
- * On load: the child's zone fills ~70% of the width, a little below the middle (the HUD sits at the
- * top), so the trail is seen running on into the next zone above it.
+ * On load: the child's zone fills ~70% of the shorter side, a little below the middle (the HUD sits at
+ * the top), so the trail is seen running on into the next zone above it. In portrait the shorter side is
+ * the width, so this is 70 % of the width (unchanged since v0.8). In landscape the zone keeps that size
+ * and the view leans further towards the next zone: the extra width shows more of the trail; `inset`
+ * (px, landscape only) keeps the zone right of the HUD's left column.
  */
-export function homeCam(T: Territory, grade: Grade, v: View): Cam {
+export function homeCam(T: Territory, grade: Grade, v: View, inset = 0): Cam {
   const reg = T.byGrade.get(grade)!;
-  const c = frameBox(reg.box, v, T, { fill: 0.7, region: { x0: 0, y0: v.h * 0.16, x1: v.w, y1: v.h * 0.94 } });
+  const short = Math.min(v.w, v.h);
+  const c = frameBox(reg.box, v, T, { fill: (HOME_FILL * short) / v.w, region: { x0: 0, y0: v.h * 0.16, x1: v.w, y1: v.h * 0.94 } });
   // lean towards the next zone up the trail (the zone keeps a 4 % margin on that side)
   const i = T.regions.indexOf(reg);
   const next = T.regions[i + 1];
   if (!next) return c;
   const side = Math.sign(next.x - reg.x);
-  return clampCam({ ...c, x: c.x + (side * HOME_LEAN * v.w) / c.k }, T, v);
+  const lean = HOME_LEAN * v.w + Math.max(0, v.w - short) * LANDSCAPE_LEAN;
+  let x = c.x + (side * lean) / c.k;
+  // `inset` (landscape): the HUD column on the left; the zone starts to its right when the width allows
+  if (inset > 0) {
+    const left = (reg.box.x0 - x) * c.k + v.w / 2;
+    const right = (reg.box.x1 - x) * c.k + v.w / 2;
+    const room = v.w - 8 - right;
+    if (left < inset) x -= Math.min(inset - left, Math.max(0, room)) / c.k;
+  }
+  return clampCam({ ...c, x }, T, v);
 }
+/** The child's zone on load: this share of the shorter side. */
+export const HOME_FILL = 0.7;
 /** How far (share of the width) the home view leans towards the next zone. */
 export const HOME_LEAN = 0.11;
+/** Landscape: share of the width beyond the shorter side added to the lean (more of the trail ahead). */
+export const LANDSCAPE_LEAN = 0.3;
+
+/**
+ * The window changed size (rotation, Split View, Slide Over): keep the same world point in the centre
+ * and scale the zoom with the shorter side, so the same part of the land stays on screen.
+ */
+export function refitCam(c: Cam, from: View, to: View, T: Territory): Cam {
+  const s = Math.min(to.w, to.h) / Math.max(1, Math.min(from.w, from.h));
+  return clampCam({ x: c.x, y: c.y, k: c.k * s }, T, to);
+}
+
+/** A sheet's rectangle in map coordinates (px from the map's top-left). */
+export interface SheetRect {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+/**
+ * The part of the map an open sheet leaves visible, for framing the open unit: left of a side panel
+ * (wide layouts: a sheet standing on the right, nearly full height), else the band above a bottom
+ * sheet (phone, tablet portrait). Below the brand pill either way; beside a panel also right of `inset`
+ * (the HUD's left column, px) when at least 160 px remain.
+ */
+export function openRegion(v: View, sheet: SheetRect | null, inset = 0): Box {
+  const top = 110;
+  if (sheet && sheet.x > v.w * 0.25 && sheet.h >= v.h * 0.8) {
+    // beside a side panel; right of the HUD's left column (`inset`) when that leaves room for the unit
+    const x1 = Math.max(16 + 120, sheet.x - 16);
+    return { x0: x1 - Math.max(16, inset) >= 160 ? Math.max(16, inset) : 16, y0: top, x1, y1: v.h - 16 };
+  }
+  const bottom = sheet ? sheet.y : v.h * 0.45;
+  return { x0: 16, y0: top, x1: v.w - 16, y1: Math.max(160, Math.min(v.h, bottom) - 12) };
+}
 
 /** Ease between two cameras (t in 0…1, smoothstep; zoom interpolated geometrically). */
 export function lerpCam(a: Cam, b: Cam, t: number): Cam {

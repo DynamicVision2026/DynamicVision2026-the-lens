@@ -31,7 +31,7 @@ export function Archive() {
     .filter((x) => x.problems.length > 0 || (!unit && !onlyWrong));
 
   return (
-    <div className="page">
+    <div className="page page-archive">
       <h1>{app.archive.title}</h1>
       <BackupCard pages={pages} onRestored={reload} />
       <div className="filters">

@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { InstallTip } from "../components/InstallTip";
 import { PilotCodeForm } from "../components/PilotCodeForm";
 import { UnitSelect } from "../components/UnitSelect";
+import { ZoomPhoto } from "../components/ZoomPhoto";
 import { app } from "../copy";
 import type { Grade } from "../curriculum";
 import { preparePhoto } from "../lib/image";
 import { judgeDisagrees, needsUnitCheck } from "../lib/marks";
 import { type DraftProblem, type SavedPage, draftFromResult, pageFromDraft, withParentMark } from "../lib/model";
+import { useLayout } from "../lib/layout";
 import { type ReadFailure, clearPilotCode, readFailure, readPilotCode } from "../lib/pilot";
 import { LOW_CONFIDENCE, litMapUrl } from "../lib/review";
 import { afterSave } from "../lib/pwa";
@@ -87,7 +89,7 @@ export function Snap({ grade }: { grade: Grade }) {
     );
 
   return (
-    <div className="page">
+    <div className="page snap-page">
       {inputs}
       <h1>{app.snap.title}</h1>
       <p className="muted">{app.snap.body}</p>
@@ -141,13 +143,15 @@ function Confirm(props: {
   onCancel: () => void;
   onSave: () => Promise<void>;
 }) {
-  const { result, draft } = props.state;
+  const { result, draft, thumb } = props.state;
   const [saving, setSaving] = useState(false);
+  // tablets (portrait and landscape): the photo on the left (pinch to zoom), the problem cards on the right
+  const twoCol = useLayout().layout !== "phone" && !!thumb;
   const set = (i: number, patch: Partial<DraftProblem>) =>
     props.onChange(draft.map((p, j) => (j === i ? { ...p, ...patch, edited: true } : p)));
 
-  return (
-    <div className="page">
+  const main = (
+    <>
       <h1>{app.confirm.title}</h1>
       <p className="muted">{app.confirm.body}</p>
       <div className="row gap wrap meta">
@@ -216,6 +220,15 @@ function Confirm(props: {
           {app.confirm.save}
         </button>
       </div>
+    </>
+  );
+  if (!twoCol) return <div className="page">{main}</div>;
+  return (
+    <div className="page confirm-2col" data-testid="confirm-2col">
+      <aside className="confirm-photo">
+        <ZoomPhoto photo={thumb} alt={app.confirm.photo} />
+      </aside>
+      <div className="confirm-main">{main}</div>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-"""Drive the built app headlessly and save phone screenshots to docs/screens/.
+"""Drive the built app headlessly and save phone (390×844) and iPad screenshots to docs/screens/.
 
 Usage: pnpm build
        PORT=8093 node dist-server/index.js &                       # open server
@@ -31,6 +31,10 @@ Journey (J*, for the founder): fresh 小5 profile on the journey server → J1 e
       units pulsing) → full → ② → 「答えを確かめる」 (22d) → photo → viewer → back → tick → 1 / 4 and the 小4 tile
       loses its flag (22e) → 共有用にまとめる (22f) → Web Share text → back, back (mode off) → reopen (ticks kept)
       → all ① ② ticked → 「今夜の作戦は完了です」.
+iPad (24*, v0.12): 820×1180 portrait (24a map, 24c bottom sheet, rotation with the sheet open → right panel → back,
+      24h report), 1180×820 landscape (24e confirm in two columns, 24b map, 24d unit sheet as a right panel, pan beside
+      it, 24g page viewer, 年度の記録 panel, 24f 今夜の作戦 panel), 24i iPad Pro 1366×1024, 24j phone sideways 844×390,
+      Split View widths (590 / 780 / 320). SCREENS_ONLY=ipad runs only these; SCREENS_REVIEW=<dir> adds extra shots.
 Unit sheet (21*): 5-C3 sheet half height → ticks → 「この単元の問題を見る」 (full height, 問題 at the top, 21) →
       thumbnail → page viewer (21v: photo, double-tap zoom, the page's problems with 割合 highlighted) → close
       keeps the sheet and its scroll → back closes the viewer, then the sheet; the map camera returns.
@@ -151,8 +155,319 @@ def shot(page, name, full=True):
     print("saved", name)
 
 
+# iPad (v0.12): first-class on iPad in portrait and landscape, plus a phone turned sideways. Device scale 2, touch.
+IPAD_P = {"width": 820, "height": 1180}    # iPad Air / 10th gen, portrait
+IPAD_L = {"width": 1180, "height": 820}    # the same, landscape
+IPAD_PRO = {"width": 1366, "height": 1024}  # iPad Pro 12.9", landscape
+PHONE_L = {"width": 844, "height": 390}    # iPhone 14, landscape
+ONLY_IPAD = os.environ.get("SCREENS_ONLY") == "ipad"
+REVIEW = Path(os.environ["SCREENS_REVIEW"]) if os.environ.get("SCREENS_REVIEW") else None  # extra shots for a look (not docs)
+
+
+def review(page, name, full=False):
+    if REVIEW:
+        REVIEW.mkdir(parents=True, exist_ok=True)
+        page.screenshot(path=str(REVIEW / f"{name}.png"), full_page=full)
+
+
+def box(page, sel):
+    b = page.locator(sel).first.bounding_box()
+    assert b, sel
+    return b
+
+
+def apart(a, b):
+    """Two boxes do not overlap."""
+    return a["x"] + a["width"] <= b["x"] or b["x"] + b["width"] <= a["x"] or a["y"] + a["height"] <= b["y"] or b["y"] + b["height"] <= a["y"]
+
+
+def ipad_page(browser, vp, errors, seed=SEED_JS, grade="小5", init=None):
+    c = browser.new_context(viewport=vp, device_scale_factor=2, locale="ja-JP", is_mobile=True, has_touch=True)
+    if init:
+        c.add_init_script(init)
+    pg = c.new_page()
+    pg.on("pageerror", lambda err: errors.append(str(err)))
+    pg.goto(BASE + "/app")
+    pg.evaluate(f"localStorage.setItem('lens-snap:grade', '{grade}')")
+    if seed:
+        pg.evaluate(seed)
+    pg.goto(BASE + "/app/map")
+    expect(pg.locator("button.terr-unit")).to_have_count(110)
+    return c, pg
+
+
+def check_map_home(pg, vp, layout):
+    """The map fills the screen, the child's zone is in view, the HUD sits in its corners without collisions."""
+    W, H = vp["width"], vp["height"]
+    assert pg.evaluate("document.documentElement.dataset.layout") == layout
+    tp = box(pg, ".terr-page")
+    if layout == "wide":
+        rail = box(pg, "nav.tabbar")
+        assert rail["x"] == 0 and rail["height"] >= H - 1 and rail["width"] <= 96, rail
+        expect(pg.locator(".topbar")).to_have_count(0)
+        assert abs(tp["height"] - H) < 1 and abs(tp["x"] - rail["width"]) < 1 and abs(tp["x"] + tp["width"] - W) < 1, tp
+        expect(pg.get_by_test_id("nav-rail").locator(".tab")).to_have_text(["マップ", "撮る", "テスト前", "ふりかえり"])
+    else:
+        bar = box(pg, "nav.tabbar")
+        assert bar["y"] > H - 90 and bar["width"] >= W - 1, bar
+        assert tp["width"] >= W - 1, tp  # full width, not a 720 px column
+    lab = box(pg, ".terr-reg.is-own")
+    assert tp["x"] < lab["x"] and lab["x"] + lab["width"] < tp["x"] + tp["width"] and 0 < lab["y"] < H * 0.8, lab
+    wp = box(pg, '.terr-wp[data-waypoint="小5"]')
+    assert tp["x"] < wp["x"] < W and 0 < wp["y"] < H, wp
+    hud = [box(pg, f'[data-testid="{t}"]') for t in ("hud-card", "legend-toggle", "compass", "snap-fab", "hud-menu", "hud-next", "hud-exam")]
+    for i in range(len(hud)):
+        for j in range(i + 1, len(hud)):
+            assert apart(hud[i], hud[j]), (i, j, hud[i], hud[j])
+    for t in ("hud-menu", "zoom-in", "zoom-out", "hud-next", "hud-exam", "legend-toggle", "snap-fab", "compass"):
+        b = box(pg, f'[data-testid="{t}"]')
+        assert b["height"] >= 44 - 0.5 or (vp["height"] < 500 and b["height"] >= 38), (t, b)  # touch targets (phone sideways: phone sizes)
+    # the zone label is not under the HUD card or the left column (テスト前モード / 次にやること)
+    for t in ("hud-card", "hud-menu", "hud-exam", "hud-next"):
+        assert apart(box(pg, f"[data-testid={t}]"), lab), f"{t} covers the zone label"
+
+
+def ipad_flows(browser, errors):
+    # 24a / 24c / 24h: iPad portrait — bottom tabs, the map full width, a centred bottom sheet at ~45 %
+    c, pg = ipad_page(browser, IPAD_P, errors)
+    pg.wait_for_timeout(400)
+    check_map_home(pg, IPAD_P, "tablet")
+    assert pg.evaluate("document.documentElement.dataset.hud") == "lg"
+    shot(pg, "24a-ipad-map-portrait", full=False)
+    pg.locator('button.terr-unit[data-unit="5-C1"]').click()  # 挑戦中: a unit with problems
+    sheet = pg.get_by_test_id("star-sheet")
+    expect(sheet).to_be_visible()
+    expect(sheet.get_by_test_id("unit-problem")).to_have_count(2)
+    pg.wait_for_timeout(900)
+    sb = sheet.bounding_box()
+    assert sb["width"] <= 720 + 0.5 and abs(sb["x"] + sb["width"] / 2 - 410) < 1, sb  # centred, max 720
+    assert 1180 * 0.38 < sb["height"] <= 1180 * 0.46, sb  # ~45 % high
+    pin = box(pg, "button.terr-unit.is-sel .terr-pin")
+    assert pin["y"] > 0 and pin["y"] + pin["height"] < sb["y"], (pin, sb)
+    shot(pg, "24c-ipad-sheet-portrait", full=False)
+    # rotate with the sheet open (no reload): it becomes the right-hand panel, the tile stays visible beside it
+    pg.set_viewport_size(IPAD_L)
+    pg.wait_for_timeout(700)
+    assert pg.evaluate("document.documentElement.dataset.layout") == "wide"
+    sb = sheet.bounding_box()
+    assert abs(sb["x"] + sb["width"] - 1180) < 1 and sb["height"] >= 819 and 340 <= sb["width"] <= 440, sb
+    pin = box(pg, "button.terr-unit.is-sel .terr-pin")
+    rail = box(pg, "nav.tabbar")
+    assert rail["width"] < pin["x"] and pin["x"] + pin["width"] < sb["x"] and 0 < pin["y"], (pin, sb)
+    expect(pg.get_by_test_id("hud-card")).to_be_hidden()
+    review(pg, "rotate-landscape-sheet")
+    pg.set_viewport_size(IPAD_P)  # and back: a bottom sheet again, the tile above it
+    pg.wait_for_timeout(700)
+    sb = sheet.bounding_box()
+    pin = box(pg, "button.terr-unit.is-sel .terr-pin")
+    assert sb["y"] > 500 and pin["y"] + pin["height"] < sb["y"], (pin, sb)
+    pg.go_back()
+    expect(sheet).to_have_count(0)
+    expect(pg).to_have_url(BASE + "/app/map")
+    # rotate on the bare map: the camera re-frames the child's zone for the new size
+    pg.set_viewport_size(IPAD_L)
+    pg.wait_for_timeout(500)
+    check_map_home(pg, IPAD_L, "wide")
+    pg.set_viewport_size(IPAD_P)
+    pg.wait_for_timeout(500)
+    check_map_home(pg, IPAD_P, "tablet")
+    # 24h: the 学習レポート in a readable column (not stretched across 820 px)
+    pg.goto(BASE + "/app/report")
+    expect(pg.get_by_test_id("report")).to_be_visible()
+    rb = box(pg, "[data-testid=report]")
+    assert rb["width"] <= 720 + 0.5 and abs(rb["x"] + rb["width"] / 2 - 410) < 1, rb
+    shot(pg, "24h-ipad-report-portrait")
+    for path, name in (("/app/list?units=5-C3,5-C1,4-A2", "list-portrait"), ("/app/archive", "archive-portrait"), ("/app/snap", "snap-portrait")):
+        pg.goto(BASE + path)
+        pg.wait_for_timeout(300)
+        review(pg, name, full=True)
+    c.close()
+
+    # 24e / 24b / 24d / 24g: iPad landscape — left rail; confirm in two columns; the unit sheet as a right panel;
+    # the page viewer with the photo left and the problems right
+    c, pg = ipad_page(browser, IPAD_L, errors)
+    pg.goto(BASE + "/app/snap")
+    expect(pg.get_by_role("heading", name="ページを撮りましょう")).to_be_visible()
+    sp = box(pg, ".snap-page")
+    assert sp["width"] <= 560 + 0.5, sp
+    review(pg, "snap-landscape")
+    pg.get_by_test_id("file-input").set_input_files(str(ROOT / "fixtures" / "photos" / "p01.jpg"))
+    expect(pg.get_by_role("heading", name="読み取り結果の確認")).to_be_visible(timeout=15000)
+    two = pg.get_by_test_id("confirm-2col")
+    expect(two).to_be_visible()
+    expect(pg.get_by_test_id("problem-card")).to_have_count(5)
+    photo = box(pg, "[data-testid=confirm-photo]")
+    card = box(pg, "[data-testid=problem-card]")
+    save = box(pg, ".sticky-actions")
+    assert photo["x"] + photo["width"] <= card["x"] and photo["height"] > 600, (photo, card)
+    assert save["y"] + save["height"] <= 820 + 0.5 and save["x"] >= card["x"] - 1, save  # sticky 保存 bar, right column
+    pst = pg.get_by_test_id("confirm-photo-stage")
+    pst.dblclick()  # double tap zooms the photo; 元の大きさ resets
+    expect(pst).to_have_attribute("data-zoomed", "1")
+    pg.get_by_test_id("confirm-photo-reset").click()
+    expect(pst).to_have_attribute("data-zoomed", "0")
+    pg.wait_for_timeout(300)
+    shot(pg, "24e-ipad-confirm-landscape", full=False)
+    pg.get_by_role("button", name="保存する").click()
+    expect(pg).to_have_url(re.compile(re.escape(BASE + "/app/map?saved=5")))
+    pg.wait_for_timeout(1600)
+    review(pg, "saved-landscape")
+    pg.goto(BASE + "/app/map")
+    pg.wait_for_timeout(400)
+    check_map_home(pg, IPAD_L, "wide")
+    shot(pg, "24b-ipad-map-landscape", full=False)
+    pg.locator('button.terr-unit[data-unit="5-C3"]').click()
+    sheet = pg.get_by_test_id("star-sheet")
+    expect(sheet).to_be_visible()
+    pg.wait_for_timeout(900)
+    sb = sheet.bounding_box()
+    assert abs(sb["x"] + sb["width"] - 1180) < 1 and sb["height"] >= 819 and 400 <= sb["width"] <= 440, sb
+    expect(sheet.get_by_test_id("sheet-grab")).to_be_hidden()
+    pin = box(pg, "button.terr-unit.is-sel .terr-pin")
+    tile = box(pg, 'button.terr-unit[data-unit="5-C3"]')
+    assert 88 < pin["x"] and pin["x"] + pin["width"] < sb["x"] and 0 < pin["y"], (pin, sb)
+    for t in ("hud-exam", "hud-next"):
+        assert apart(box(pg, f"[data-testid={t}]"), pin), (t, pin)
+    assert tile["x"] + tile["width"] < sb["x"], tile
+    for u in ("4-C2",):  # its root on the 小4 zone is beside the panel too
+        b = box(pg, f'button.terr-unit[data-unit="{u}"]')
+        assert 88 < b["x"] and b["x"] + b["width"] < sb["x"] and 0 < b["y"] < 820, (u, b)
+    expect(sheet.get_by_test_id("unit-problem").first).to_be_visible()  # problems visible in the panel without pulling it up
+    shot(pg, "24d-ipad-sheet-landscape", full=False)
+    # the map stays pannable on the left while the panel is open
+    p0 = box(pg, "button.terr-unit.is-sel .terr-pin")
+    pg.mouse.move(400, 600)
+    pg.mouse.down()
+    for i in range(1, 6):
+        pg.mouse.move(400 + i * 20, 600 - i * 10)
+    pg.mouse.up()
+    p1 = box(pg, "button.terr-unit.is-sel .terr-pin")
+    assert abs(p1["x"] - p0["x"] - 100) < 3 and abs(p1["y"] - p0["y"] + 50) < 3, (p0, p1)
+    expect(sheet).to_be_visible()
+    # 24g: a thumbnail → the page viewer: photo left, the page's problems in the right column
+    sheet.get_by_test_id("unit-problem").nth(0).get_by_test_id("photo-thumb").click()
+    viewer = pg.get_by_test_id("page-viewer")
+    expect(viewer).to_be_visible()
+    expect(viewer.locator(".pv-row.is-unit")).to_have_count(5)
+    st, lw = box(pg, "[data-testid=viewer-stage]"), box(pg, ".pv-list-wrap")
+    assert st["x"] + st["width"] <= lw["x"] + 0.5 and lw["height"] >= 819 and st["height"] > 650 and abs(lw["x"] + lw["width"] - 1180) < 1, (st, lw)
+    pg.wait_for_timeout(300)
+    shot(pg, "24g-ipad-viewer-landscape", full=False)
+    pg.go_back()  # back peels the viewer, then the panel (layers unchanged)
+    expect(viewer).to_have_count(0)
+    expect(sheet).to_be_visible()
+    pg.keyboard.press("Escape")
+    expect(sheet).to_have_count(0)
+    expect(pg).to_have_url(BASE + "/app/map")
+    # 年度の記録 as a panel too
+    pg.get_by_test_id("hud-menu").click()
+    pg.get_by_test_id("menu-year").click()
+    pg.wait_for_timeout(400)  # the panel slides in
+    yb = box(pg, "[data-testid=year-sheet]")
+    assert abs(yb["x"] + yb["width"] - 1180) < 1 and yb["height"] >= 819, yb
+    review(pg, "yearly-landscape")
+    pg.go_back()
+    for path, name in (("/app/list?units=5-C3,5-C1,4-A2", "list-landscape"), ("/app/archive", "archive-landscape"), ("/app/report", "report-landscape"), ("/app/grade", "grade-landscape")):
+        pg.goto(BASE + path)
+        pg.wait_for_timeout(300)
+        mb = box(pg, ".main")
+        assert mb["width"] <= 960 + 0.5, (path, mb)
+        review(pg, name, full=True)
+    pg.goto(BASE + "/app/map")
+    pg.get_by_test_id("hud-menu").click()
+    pg.get_by_test_id("map-to-list").click()
+    pg.wait_for_timeout(300)
+    fab = box(pg, "[data-testid=snap-fab]")
+    assert fab["x"] > 88 and fab["y"] + fab["height"] <= 820, fab
+    review(pg, "tiles-landscape")
+    pg.get_by_role("radio", name="マップ").click()
+    c.close()
+
+    # 24f: テスト前モード on iPad landscape — 今夜の作戦 as the right panel, the range beside it
+    c, pg = ipad_page(browser, IPAD_L, errors, seed=exam_seed_js())
+    pg.get_by_test_id("hud-exam").click()
+    pg.wait_for_timeout(400)  # the panel slides in
+    db = box(pg, "[data-testid=exam-date]")
+    assert abs(db["x"] + db["width"] - 1180) < 1, db
+    review(pg, "exam-date-landscape")
+    pg.get_by_test_id("exam-tomorrow").click()
+    expect(pg.get_by_test_id("exam-range-count")).to_have_text("範囲 3単元")
+    pg.wait_for_timeout(700)
+    rb = box(pg, "[data-testid=exam-rangebar]")
+    assert rb["width"] <= 640 + 0.5, rb
+    assert apart(box(pg, "[data-testid=exam-range-ask]"), box(pg, ".hud-tl")), "range banner under the brand pill"
+    review(pg, "exam-range-landscape")
+    pg.get_by_test_id("exam-decide").click()
+    plan = pg.get_by_test_id("exam-plan")
+    expect(pg.get_by_test_id("plan-line")).to_have_text("今夜やること：4問 ・ めやす 約20分")
+    pg.wait_for_timeout(1000)
+    pb = plan.bounding_box()
+    assert abs(pb["x"] + pb["width"] - 1180) < 1 and pb["height"] >= 819, pb
+    for unit in ["5-B3", "5-C3", "5-D2", "4-A6"]:  # the range and tonight's units beside the panel
+        b = box(pg, f'button.terr-unit[data-unit="{unit}"]')
+        assert 88 < b["x"] and b["x"] + b["width"] < pb["x"] and 0 < b["y"] < 820, (unit, b, pb)
+    expect(pg.get_by_test_id("exam-countdown")).to_be_visible()
+    shot(pg, "24f-ipad-exam-landscape", full=False)
+    pg.get_by_test_id("plan-share").click()
+    sc = box(pg, ".sum-card")
+    assert sc["width"] <= 640 + 0.5, sc
+    review(pg, "exam-share-landscape")
+    pg.go_back()
+    pg.go_back()
+    expect(plan).to_have_count(0)
+    c.close()
+
+    # 24i: iPad Pro 12.9" landscape map
+    c, pg = ipad_page(browser, IPAD_PRO, errors)
+    pg.wait_for_timeout(400)
+    check_map_home(pg, IPAD_PRO, "wide")
+    shot(pg, "24i-ipadpro-map-landscape", full=False)
+    pg.locator('button.terr-unit[data-unit="5-C3"]').click()
+    pg.wait_for_timeout(900)
+    sb = box(pg, "[data-testid=star-sheet]")
+    assert sb["width"] == 440, sb
+    review(pg, "ipadpro-sheet")
+    c.close()
+
+    # 24j: a phone turned sideways (844×390): the rail, the HUD in its corners, the zone in the middle
+    c, pg = ipad_page(browser, PHONE_L, errors)
+    pg.wait_for_timeout(400)
+    assert pg.evaluate("document.documentElement.dataset.short") == "1"
+    check_map_home(pg, PHONE_L, "wide")
+    shot(pg, "24j-phone-map-landscape", full=False)
+    pg.locator('button.terr-unit[data-unit="5-C3"]').click()
+    pg.wait_for_timeout(900)
+    sb = box(pg, "[data-testid=star-sheet]")
+    pin = box(pg, "button.terr-unit.is-sel .terr-pin")
+    assert pin["x"] + pin["width"] < sb["x"] and sb["height"] >= 389, (pin, sb)
+    for t in ("hud-exam", "hud-next"):  # the pin is not under the HUD's left column
+        assert apart(box(pg, f"[data-testid={t}]"), pin), (t, pin)
+    review(pg, "phone-landscape-sheet")
+    c.close()
+
+    # Split View / Slide Over widths on an iPad (landscape ½ = 590, ⅔ = 780, Slide Over 320): phone or tablet rules
+    c, pg = ipad_page(browser, {"width": 590, "height": 820}, errors)
+    assert pg.evaluate("document.documentElement.dataset.layout") == "phone"
+    pg.set_viewport_size({"width": 780, "height": 820})
+    pg.wait_for_timeout(400)
+    check_map_home(pg, {"width": 780, "height": 820}, "tablet")
+    review(pg, "split-780")
+    pg.set_viewport_size({"width": 320, "height": 820})
+    pg.wait_for_timeout(400)
+    assert pg.evaluate("document.documentElement.dataset.layout") == "phone"
+    review(pg, "slideover-320")
+    c.close()
+
+
 with sync_playwright() as p:
     browser = p.chromium.launch()
+    if ONLY_IPAD:
+        ipad_errors = []
+        ipad_flows(browser, ipad_errors)
+        assert not ipad_errors, ipad_errors
+        browser.close()
+        print("iPad flow OK")
+        sys.exit(0)
     ctx = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2, locale="ja-JP", is_mobile=True, has_touch=True, accept_downloads=True)
     page = ctx.new_page()
     errors = []
@@ -1163,6 +1478,9 @@ with sync_playwright() as p:
     ep.keyboard.press("Escape")
     expect(plan).to_have_count(0)
     ec.close()
+
+    # 24*: iPad portrait / landscape, iPad Pro, a phone sideways, Split View widths
+    ipad_flows(browser, errors)
 
     assert not errors, errors
     browser.close()

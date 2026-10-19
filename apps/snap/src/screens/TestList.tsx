@@ -58,7 +58,7 @@ export function TestList({ grade }: { grade: Grade }) {
   };
 
   return (
-    <div className="page">
+    <div className="page page-list">
       <h1>{app.list.title}</h1>
       <p className="muted">{app.list.body}</p>
       <div className="chips" role="group">

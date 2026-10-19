@@ -4,6 +4,7 @@ import { app } from "./copy";
 import type { Grade } from "./curriculum";
 import { CameraGlyph } from "./components/SnapFab";
 import { APP_TABS, type TabKey, activeTab, homePath } from "./lib/home";
+import { useLayout } from "./lib/layout";
 import { Archive } from "./screens/Archive";
 import { Landing } from "./screens/Landing";
 import { MapScreen } from "./screens/MapScreen";
@@ -32,15 +33,22 @@ function AppArea() {
     setGrade(g);
     nav("/app", { replace: true });
   };
+  // wide (landscape iPad / phone sideways): no top bar; brand, grade and tabs live in a slim left rail
+  const rail = useLayout().layout === "wide";
   if (!grade) return <Onboarding onChoose={choose} />;
+  const chip = (
+    <NavLink to="/app/grade" className={`grade-chip${gradeCheck ? " is-check" : ""}`} aria-label={app.grade.change} data-testid="grade-chip">
+      {grade}
+    </NavLink>
+  );
   return (
-    <div className="shell">
-      <header className="topbar">
-        <a href="/" className="brand">Lens Snap</a>
-        <NavLink to="/app/grade" className={`grade-chip${gradeCheck ? " is-check" : ""}`} aria-label={app.grade.change} data-testid="grade-chip">
-          {grade}
-        </NavLink>
-      </header>
+    <div className={`shell${rail ? " has-rail" : ""}`}>
+      {!rail && (
+        <header className="topbar">
+          <a href="/" className="brand">Lens Snap</a>
+          {chip}
+        </header>
+      )}
       {gradeCheck && (
         <div className="grade-check" role="status" data-testid="grade-check">
           <span>{app.grade.migrated(grade)}</span>
@@ -61,7 +69,7 @@ function AppArea() {
           <Route path="*" element={<Navigate to="/app" replace />} />
         </Routes>
       </main>
-      <TabBar />
+      <TabBar rail={rail ? chip : null} />
     </div>
   );
 }
@@ -86,11 +94,23 @@ const ICONS: Record<IconName, ReactElement> = {
   archive: <path d="M5 6h14M5 12h14M5 18h9" />,
 };
 
-/** Four tabs, マップ first; the 学習レポート (the map's 「詳しく」 page) keeps マップ lit. */
-function TabBar() {
+/**
+ * Four tabs, マップ first; the 学習レポート (the map's 「詳しく」 page) keeps マップ lit. Bottom bar on phone and
+ * tablet portrait; in wide layouts a slim left rail (icons + labels) headed by the brand and the grade chip,
+ * so the map gets the full height.
+ */
+function TabBar({ rail }: { rail: ReactElement | null }) {
   const on = activeTab(useLocation().pathname);
   return (
-    <nav className="tabbar">
+    <nav className={`tabbar${rail ? " tabbar-rail" : ""}`} data-testid={rail ? "nav-rail" : undefined}>
+      {rail && (
+        <div className="rail-head">
+          <a href="/" className="brand rail-brand">
+            Lens Snap
+          </a>
+          {rail}
+        </div>
+      )}
       {APP_TABS.map((t) => (
         <Link key={t.key} to={t.to} className={`tab ${on === t.key ? "tab-active" : ""}`} aria-current={on === t.key ? "page" : undefined}>
           <svg className="tab-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden focusable="false">
