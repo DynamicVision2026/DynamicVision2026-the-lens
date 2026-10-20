@@ -1035,7 +1035,7 @@ html[data-layout="wide"] body:has(.terr-page) .main { max-width: none; padding-b
   padding: 0 0 env(safe-area-inset-bottom) env(safe-area-inset-left); border-top: 0; border-right: 1px solid var(--c-line);
 }
 .rail-head { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 4px; padding: calc(14px + env(safe-area-inset-top)) 6px 14px; background: var(--c-navy); }
-.rail-brand { font-size: 0.74rem; line-height: 1.25; text-align: center; letter-spacing: 0.02em; }
+.rail-brand { display: grid; font-size: 0.8rem; line-height: 1.25; text-align: center; letter-spacing: 0.02em; }
 .rail-head .grade-chip { padding: 4px 12px; }
 .tabbar-rail .tab { min-height: 72px; font-size: 0.74rem; }
 .tabbar-rail .tab-active { box-shadow: inset 3px 0 0 var(--c-accent); }

@@ -1,0 +1,41 @@
+name: Guide video narration
+
+# つまずきマップ guide video: makes the narration (VOICEVOX 冥鳴ひまり) on GitHub's runner from
+# apps/snap/video/narration.json and pushes the WAVs to the branch guide/voice-out.
+# Runs when narration.json changes on a guide/* branch (no app change, nothing deployed).
+
+on:
+  push:
+    branches: ["guide/**"]
+    paths: ["apps/snap/video/narration.json", "apps/snap/video/make_narration.py", ".github/workflows/guide-voice.yml"]
+
+permissions:
+  contents: write
+
+jobs:
+  voice:
+    runs-on: ubuntu-latest
+    services:
+      voicevox:
+        image: voicevox/voicevox_engine:cpu-latest
+        ports:
+          - 50021:50021
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for the VOICEVOX engine
+        run: |
+          for _ in $(seq 1 90); do
+            curl -sf http://127.0.0.1:50021/version && exit 0
+            sleep 2
+          done
+          echo "VOICEVOX engine did not start" && exit 1
+      - name: Narration
+        run: python3 apps/snap/video/make_narration.py
+      - name: Push to guide/voice-out
+        run: |
+          git config user.name "lens-voice-bot"
+          git config user.email "lens-voice-bot@users.noreply.github.com"
+          git checkout -B guide/voice-out
+          git add -f apps/snap/video/audio
+          git commit -m "Guide video narration (VOICEVOX:冥鳴ひまり)"
+          git push -f origin guide/voice-out
