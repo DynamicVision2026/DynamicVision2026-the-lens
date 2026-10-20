@@ -1,4 +1,4 @@
-# Deploy Lens Snap to Cloud Run (snap.domo-ai.com)
+# Deploy つまずきマップ (lens-snap) to Cloud Run (tsumazuki.domo-ai.com)
 
 Lens Snap runs as its own Cloud Run service, **lens-snap**, in the 視点レンズ GCP project. It shares
 nothing with lens-web (lens.domo-ai.com) except the project and the domain name.
@@ -53,20 +53,20 @@ cd apps/snap && PORT=8096 PILOT_CODE=kumo42 MOCK_FALLBACK=zukei5 WAITLIST_DIR=/t
 python3 scripts/walkthrough.py http://localhost:8096 <sheet-photo.jpg> /tmp/walk
 ```
 
-## Domain: snap.domo-ai.com (once)
+## Domain: tsumazuki.domo-ai.com (once)
 
 ```sh
-gcloud beta run domain-mappings create --service lens-snap --domain snap.domo-ai.com \
+gcloud beta run domain-mappings create --service lens-snap --domain tsumazuki.domo-ai.com \
   --region asia-northeast1 --project <lens-project-id>
 ```
 
-At the DNS provider for domo-ai.com add one record: `CNAME snap → ghs.googlehosted.com.` On Cloudflare,
+At the DNS provider for domo-ai.com add one record: `CNAME tsumazuki → ghs.googlehosted.com.` On Cloudflare,
 set it to **DNS only** (grey cloud) so Google can issue the certificate (15–60 min).
 
 ## Check
 
 ```sh
-curl -s https://snap.domo-ai.com/api/health        # {"ok":true,"reader":"claude:claude-haiku-5-5","pilotGate":true}
+curl -s https://tsumazuki.domo-ai.com/api/health        # {"ok":true,"reader":"claude:claude-haiku-5-5","pilotGate":true}
 ```
 Open `/`, `/?h=c`, `/privacy`; sign up once with a test address; then confirm a file appeared in the
 bucket (`gcloud storage ls gs://<project>-lens-snap-waitlist/waitlist/`).
