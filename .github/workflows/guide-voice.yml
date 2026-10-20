@@ -37,5 +37,5 @@ jobs:
           git config user.email "lens-voice-bot@users.noreply.github.com"
           git checkout -B guide/voice-out
           git add -f apps/snap/video/audio
-          git commit -m "Guide video narration (VOICEVOX:冥鳴ひまり)"
+          git commit -m "Guide video narration (VOICEVOX)"
           git push -f origin guide/voice-out
