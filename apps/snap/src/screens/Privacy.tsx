@@ -4,7 +4,7 @@ import { Footer, useMeta } from "./Landing";
 
 /** /privacy — built only from existing copy (privacy FAQ, notThis privacy item, waitlist note). */
 export function Privacy() {
-  useMeta();
+  useMeta("プライバシーポリシー｜つまずきマップ", "つまずきマップでの写真と個人情報の扱いについて。");
   const faq = copy.faq.items[1];
   const photo = copy.notThis.items[2];
   return (

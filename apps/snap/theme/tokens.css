@@ -134,5 +134,12 @@
   --tap: 48px;
   --gutter: 16px;
   --topbar-h: 56px;
+  /* landing page (tsumazuki.domo-ai.com): deep navy bands around the map screenshots */
+  --lp-ink: #0b1730;
+  --lp-ink-2: #15294f;
+  --lp-on-dark-muted: #a9bad8;
+  --lp-line-dark: rgba(169, 186, 216, 0.22);
+  --lp-glow: rgba(95, 216, 255, 0.22);
+  --lp-shadow: rgba(8, 18, 40, 0.28);
   --font: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", system-ui, sans-serif;
 }
