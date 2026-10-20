@@ -267,7 +267,7 @@ export function LadderScene({ sc }: { sc: Scene }) {
         </div>
       </div>
       <Sequence from={s13 - 12} layout="none">
-        <Device kind="tablet" clip="c3_sheet_ipad" width={880} rate={fit("c3_sheet_ipad", sc.dur - s13 + 12)} style={{ left: 940, top: 260, opacity: tab, transform: `translateX(${(1 - tab) * 160}px)` }} />
+        <Device kind="tablet" clip="c3_sheet_ipad" width={880} startFrom={30} rate={fit("c3_sheet_ipad", sc.dur - s13 + 12, 1)} style={{ left: 940, top: 260, opacity: tab, transform: `translateX(${(1 - tab) * 160}px)` }} />
       </Sequence>
     </SceneFade>
   );
@@ -282,7 +282,7 @@ export function RootsScene({ sc }: { sc: Scene }) {
   return (
     <SceneFade dur={sc.dur}>
       <Backdrop hue={-25} />
-      <Device kind="tablet" clip="c4_roots_ipad" width={1000} rate={fit("c4_roots_ipad", sc.dur)} style={{ left: 820, top: 150, opacity: tab, transform: `translateY(${(1 - tab) * 80}px)` }} glow="rgba(165,140,255,0.22)" />
+      <Device kind="tablet" clip="c4_roots_ipad" width={1000} startFrom={30} rate={fit("c4_roots_ipad", sc.dur, 1)} style={{ left: 820, top: 150, opacity: tab, transform: `translateY(${(1 - tab) * 80}px)` }} glow="rgba(165,140,255,0.22)" />
       <div style={{ position: "absolute", left: 120, top: 140, width: 640 }}>
         <Kicker color={C.purple}>ROOTS</Kicker>
         <Headline parts={["つまずきの", "もとは、", "前の学年に。"]} start={6} size={70} style={{ marginTop: 16 }} />
@@ -320,7 +320,7 @@ export function ExamScene({ sc }: { sc: Scene }) {
   return (
     <SceneFade dur={sc.dur}>
       <Backdrop hue={-8} />
-      <Device kind="tablet" clip="c5_exam_ipad" width={1040} rate={fit("c5_exam_ipad", sc.dur)} style={{ left: 760, top: 140, opacity: tab, transform: `translateY(${(1 - tab) * 80}px)` }} glow="rgba(255,138,92,0.22)" />
+      <Device kind="tablet" clip="c5_exam_ipad" width={1040} startFrom={30} rate={fit("c5_exam_ipad", sc.dur, 1)} style={{ left: 760, top: 140, opacity: tab, transform: `translateY(${(1 - tab) * 80}px)` }} glow="rgba(255,138,92,0.22)" />
       <div style={{ position: "absolute", left: 110, top: 120, width: 600 }}>
         <Kicker color={C.accent}>テスト前</Kicker>
         <Headline parts={["日付と範囲で、", "今夜の作戦。"]} start={6} size={68} style={{ marginTop: 16 }} />
@@ -359,7 +359,7 @@ export function DevicesScene({ sc }: { sc: Scene }) {
     <SceneFade dur={sc.dur}>
       <Backdrop />
       <Device kind="tablet" clip="c1_map_ipad" width={800} startFrom={60} rate={0.8} style={{ left: 120, top: 300, opacity: a, transform: `translateY(${(1 - a) * 80}px)` }} />
-      <Device kind="tablet-portrait" clip="c6_map_portrait" width={420} style={{ left: 1000, top: 200, opacity: b, transform: `translateY(${(1 - b) * 80}px)` }} />
+      <Device kind="tablet-portrait" clip="c6_map_portrait" width={420} startFrom={24} style={{ left: 1000, top: 200, opacity: b, transform: `translateY(${(1 - b) * 80}px)` }} />
       <Device kind="phone" clip="c2_snap_phone" width={300} startFrom={Math.round(13 * FPS)} rate={0.6} style={{ left: 1500, top: 330, opacity: c, transform: `translateY(${(1 - c) * 80}px)` }} />
       <div style={{ position: "absolute", left: 120, top: 110, display: "flex", alignItems: "center", gap: 22, opacity: lock, fontFamily: FONT }}>
         <svg width="60" height="70" viewBox="0 0 60 70">
