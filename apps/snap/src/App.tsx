@@ -12,6 +12,7 @@ import { MapScreen } from "./screens/MapScreen";
 import { Onboarding } from "./screens/Onboarding";
 import { PlanScreen } from "./screens/PlanScreen";
 import { Privacy } from "./screens/Privacy";
+import { Terms } from "./screens/Terms";
 import { Report } from "./screens/Report";
 import { Snap } from "./screens/Snap";
 import { TestList } from "./screens/TestList";
@@ -22,6 +23,7 @@ export function App() {
     <Routes>
       <Route path="/" element={<Landing />} />
       <Route path="/privacy" element={<Privacy />} />
+      <Route path="/terms" element={<Terms />} />
       <Route path="/app/*" element={<AppArea />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

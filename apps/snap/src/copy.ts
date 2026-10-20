@@ -13,7 +13,7 @@ export const YOUTUBE_CHANNEL_URL = "https://www.youtube.com/@Domo-ai";
 
 export const copy = {
   meta: {
-    title: "つまずきマップ｜撮るだけで、今夜の復習がわかる",
+    title: "つまずきマップ｜撮るだけで、何を復習すればいいかわかる",
     description:
       "宿題・ドリル・返ってきたテストを撮っておくだけ。問題を単元ごとに整理し、テスト前には復習すべき問題だけの一覧をつくります。小学生・中学生の算数・数学向け。",
   },
