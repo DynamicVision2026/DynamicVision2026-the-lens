@@ -21,16 +21,41 @@ def http(method, path, body=None):
 
 v = cfg["voice"]
 speakers = json.loads(http("GET", "/speakers"))
-sid = next((s["id"] for sp in speakers if sp["name"] == v["character"] for s in sp["styles"] if s["name"] == v["style"]), None)
-if sid is None:
-    sys.exit(f"speaker not found: {v['character']} {v['style']}")
-durations = {}
-for line in cfg["lines"]:
-    text = line.get("say", line["text"])
-    q = json.loads(http("POST", f"/audio_query?speaker={sid}&text={urllib.parse.quote(text)}"))
+(out / "speakers.json").write_text(json.dumps([{"name": sp["name"], "styles": [s["name"] for s in sp["styles"]]} for sp in speakers], ensure_ascii=False, indent=1), encoding="utf-8")
+
+
+def find(name, style):
+    return next((s["id"] for sp in speakers if sp["name"] == name for s in sp["styles"] if s["name"] == style), None)
+
+
+cands = v.get("candidates") or [[v["character"], v["style"]]]
+picked = next(((n, st, find(n, st)) for n, st in cands if find(n, st) is not None), None)
+if not picked:
+    sys.exit(f"none of the voices found: {cands}")
+name, style, sid = picked
+print("voice:", name, style)
+(out / "voice.txt").write_text(f"{name} {style}", encoding="utf-8")
+
+
+def tune(q):
     for k in ("speedScale", "pitchScale", "intonationScale", "postPhonemeLength"):
         if k in v:
             q[k] = v[k]
+    return q
+
+
+# short samples of other voices (the same line), so another voice can be chosen by ear
+for n, st in cfg.get("samples", []):
+    i = find(n, st)
+    if i is None:
+        continue
+    t = cfg["lines"][3].get("say", cfg["lines"][3]["text"])
+    q = tune(json.loads(http("POST", f"/audio_query?speaker={i}&text={urllib.parse.quote(t)}")))
+    (out / f"sample_{n}_{st}.wav".replace("/", "_")).write_bytes(http("POST", f"/synthesis?speaker={i}", json.dumps(q).encode()))
+durations = {}
+for line in cfg["lines"]:
+    text = line.get("say", line["text"])
+    q = tune(json.loads(http("POST", f"/audio_query?speaker={sid}&text={urllib.parse.quote(text)}")))
     wav = http("POST", f"/synthesis?speaker={sid}", json.dumps(q).encode())
     p = out / f"{line['id']}.wav"
     p.write_bytes(wav)
