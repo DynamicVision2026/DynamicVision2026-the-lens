@@ -13,7 +13,7 @@ export const YOUTUBE_CHANNEL_URL = "https://www.youtube.com/@Domo-ai";
 
 export const copy = {
   meta: {
-    title: "Lens Snap｜撮るだけで、テスト前に「やること」がわかる",
+    title: "つまずきマップ｜撮るだけで、今夜の復習がわかる",
     description:
       "宿題・ドリル・返ってきたテストを撮っておくだけ。問題を単元ごとに整理し、テスト前には復習すべき問題だけの一覧をつくります。小学生・中学生の算数・数学向け。",
   },
@@ -74,12 +74,12 @@ export const copy = {
   },
 
   notThis: {
-    heading: "Lens Snap がしないこと",
+    heading: "つまずきマップ がしないこと",
     items: [
       {
         title: "点数アップをお約束するものではありません",
         body:
-          "点数はつけません。○✕は、先生の印があればそれを記録し、印のない宿題やドリルはAIが判定します（保護者の方がいつでも直せます）。Lens Snap がお手伝いするのは、テスト前に「何をやるか」を決めるところです。",
+          "点数はつけません。○✕は、先生の印があればそれを記録し、印のない宿題やドリルはAIが判定します（保護者の方がいつでも直せます）。つまずきマップ がお手伝いするのは、テスト前に「何をやるか」を決めるところです。",
       },
       {
         title: "答えを丸写しするためのアプリではありません",
@@ -148,7 +148,7 @@ export const copy = {
     submit: "先行登録する",
     submitting: "送信しています…",
     privacyNote:
-      "メールアドレスは、Lens Snap に関するお知らせにのみ使います。いつでも配信を止められます。",
+      "メールアドレスは、つまずきマップ に関するお知らせにのみ使います。いつでも配信を止められます。",
     errors: {
       emailRequired: "メールアドレスを入力してください。",
       emailInvalid: "メールアドレスの形式をご確認ください。",
@@ -163,7 +163,7 @@ export const copy = {
   },
 
   footer: {
-    brand: "Lens Snap ― 視点レンズ",
+    brand: "つまずきマップ ― ナゼホリ数学",
     brandUrl: "https://lens.domo-ai.com",
     company: "運営：Beyond Culture 獨歩文化株式会社",
     contactLabel: "お問い合わせ",
@@ -181,7 +181,7 @@ export const HERO_VARIANTS = ["default", "a", "b", "c"] as const satisfies reado
 /** Small UI strings for the landing / privacy pages that are not marketing copy. */
 export const landingUi = {
   backToTop: "トップへ戻る",
-  privacyIntro: "Lens Snap での写真と個人情報の扱いについて。",
+  privacyIntro: "つまずきマップ での写真と個人情報の扱いについて。",
 };
 
 export const app = {
@@ -207,7 +207,7 @@ export const app = {
   },
   pilot: {
     title: "招待コードを入力してください",
-    body: "Lens Snap はいま、招待した方だけにお使いいただいています。お知らせした招待コードを入力してください。",
+    body: "つまずきマップ はいま、招待した方だけにお使いいただいています。お知らせした招待コードを入力してください。",
     label: "招待コード",
     submit: "つづける",
     retry: "コードを送って読み取る",
@@ -465,7 +465,7 @@ export const app = {
     summaryClose: "作戦にもどる",
     summaryWhen: (title: string, md: string) => `${title}（${md}）`,
     summaryLine: (label: string, what: string) => `${label}：${what}`,
-    signature: "Lens Snap で作成",
+    signature: "つまずきマップ で作成",
   },
   install: {
     title: "ホーム画面に追加しませんか",
@@ -484,7 +484,7 @@ export const app = {
     remind: "そろそろバックアップを保存しておくと安心です。",
     restored: (n: number) => `${n}ページを戻しました。`,
     nothingNew: "新しいページはありませんでした（すべてこの端末にあります）。",
-    invalid: "このファイルは読み込めませんでした。Lens Snap で保存したバックアップのファイル（.json）を選んでください。",
+    invalid: "このファイルは読み込めませんでした。つまずきマップ で保存したバックアップのファイル（.json）を選んでください。",
     failed: "保存できませんでした。もう一度お試しください。",
     date: (m: number, d: number) => `${m}月${d}日`,
   },

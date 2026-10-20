@@ -1,6 +1,6 @@
 {
-  "name": "Lens Snap",
-  "short_name": "Lens Snap",
+  "name": "つまずきマップ",
+  "short_name": "つまずきマップ",
   "description": "撮るだけで、テスト前に「やること」がわかる。",
   "id": "/app",
   "start_url": "/app",

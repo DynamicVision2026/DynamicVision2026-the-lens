@@ -10,7 +10,7 @@ export function Privacy() {
   return (
     <div className="landing">
       <header className="hero hero-compact">
-        <Link to="/" className="brand-lg">Lens Snap</Link>
+        <Link to="/" className="brand-lg">つまずきマップ</Link>
         <h1>{copy.footer.privacyLabel}</h1>
         <p className="muted">{landingUi.privacyIntro}</p>
       </header>

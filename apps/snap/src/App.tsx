@@ -48,7 +48,7 @@ function AppArea() {
     <div className={`shell${rail ? " has-rail" : ""}`}>
       {!rail && (
         <header className="topbar">
-          <a href="/" className="brand">Lens Snap</a>
+          <a href="/" className="brand">つまずきマップ</a>
           {chip}
         </header>
       )}
@@ -118,8 +118,9 @@ function TabBar({ rail }: { rail: ReactElement | null }) {
     <nav className={`tabbar${rail ? " tabbar-rail" : ""}`} data-testid={rail ? "nav-rail" : undefined}>
       {rail && (
         <div className="rail-head">
-          <a href="/" className="brand rail-brand">
-            Lens Snap
+          <a href="/" className="brand rail-brand" aria-label="つまずきマップ">
+            <span aria-hidden>つまずき</span>
+            <span aria-hidden>マップ</span>
           </a>
           {rail}
         </div>

@@ -32,7 +32,7 @@ export function Landing() {
   return (
     <div className="landing">
       <header className="hero">
-        <div className="brand-lg">Lens Snap</div>
+        <div className="brand-lg">つまずきマップ</div>
         <h1 data-variant={variant}>{headline}</h1>
         <p className="hero-sub">{subline}</p>
         <a href={`#${FORM_ID}`} className="btn btn-accent">{copy.hero.cta}</a>
