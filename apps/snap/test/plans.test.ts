@@ -7,7 +7,7 @@ import {
   FileStore,
   MAX_DEVICES,
   MemStore,
-  PASS_DAILY,
+  PASS_MONTHLY,
   Plans,
   deviceId,
   monthKey,
@@ -83,13 +83,30 @@ describe("pass", () => {
     expect(await p.redeem("d4", "LS-F3BJ-D3FG-N7F7")).toEqual({ ok: false, error: "device_limit" });
     expect(MAX_DEVICES).toBe(3);
     expect(await p.redeem("d1", "LS-AAAA-AAAA-AAAA")).toEqual({ ok: false, error: "bad_code" });
-    // unlimited month, fair use per day
-    for (let i = 0; i < PASS_DAILY; i++) {
-      const g = await p.gate("d1", "LS-F3BJ-D3FG-N7F7");
+    // 200 a month per pass, shared by its 3 devices: every device sees the same count
+    expect(PASS_MONTHLY).toBe(200);
+    const devs = ["d1", "d2", "d3"];
+    for (let i = 0; i < PASS_MONTHLY; i++) {
+      const g = await p.gate(devs[i % 3], "LS-F3BJ-D3FG-N7F7");
       if (!g.ok) throw new Error(`blocked at ${i}`);
       await g.charge();
+      if (i === 159) {
+        for (const d of devs) expect(await p.view(d, "LS-F3BJ-D3FG-N7F7")).toMatchObject({ plan: "pass", used: 160, limit: 200, remaining: 40 });
+      }
     }
-    expect(await p.gate("d1", "LS-F3BJ-D3FG-N7F7")).toEqual({ ok: false, error: "pass_daily" });
+    expect(await p.gate("d2", "LS-F3BJ-D3FG-N7F7")).toEqual({ ok: false, error: "pass_monthly" });
+    expect(await p.view("d3", "LS-F3BJ-D3FG-N7F7")).toMatchObject({ used: 200, remaining: 0, resetsAt: "2026-10-31T15:00:00.000Z" });
+    // the 1st of the month, 00:00 JST: back to 0
+    now = Date.parse("2026-10-31T14:59:59Z");
+    expect((await p.gate("d1", "LS-F3BJ-D3FG-N7F7")).ok).toBe(false);
+    now = Date.parse("2026-10-31T15:00:00Z");
+    expect(await p.view("d1", "LS-F3BJ-D3FG-N7F7")).toMatchObject({ used: 0, remaining: 200, resetsAt: "2026-11-30T15:00:00.000Z" });
+    expect((await p.gate("d1", "LS-F3BJ-D3FG-N7F7")).ok).toBe(true);
+    // two charges at the same moment (two family devices) are both counted
+    const [g1, g2] = await Promise.all([p.gate("d1", "LS-F3BJ-D3FG-N7F7"), p.gate("d2", "LS-F3BJ-D3FG-N7F7")]);
+    if (!g1.ok || !g2.ok) throw new Error("gate");
+    await Promise.all([g1.charge(), g2.charge()]);
+    expect(await p.view("d3", "LS-F3BJ-D3FG-N7F7")).toMatchObject({ used: 2 });
     // after a year: back to the free plan, marked expired
     now = Date.parse("2027-10-20T00:00:00Z");
     expect(await p.view("d1", "LS-F3BJ-D3FG-N7F7")).toMatchObject({ plan: "free", expired: "LS-F3BJ-D3FG-N7F7" });

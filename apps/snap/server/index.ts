@@ -21,6 +21,9 @@ const plans = new Plans({
   store: new FileStore(planDir),
   secret: await signingKey(planDir, process.env.SIGNING_KEY),
   freeMonthly: envInt(process.env.FREE_MONTHLY, 30),
+  passMonthly: envInt(process.env.PASS_MONTHLY, 200),
+  // Local screenshot runs only (never on Cloud Run): pretend it is this time, to show the monthly reset.
+  now: !process.env.K_SERVICE && process.env.PLANS_TEST_NOW ? () => Date.parse(process.env.PLANS_TEST_NOW as string) : undefined,
 });
 const shopify = {
   store: process.env.SHOPIFY_STORE?.trim() || "soul-id-2.myshopify.com",
@@ -40,7 +43,7 @@ const api = createApi({
   waitlistDir,
   pilotCode,
   readPerIpHour: envInt(process.env.READ_PER_IP_HOUR, 20),
-  readDailyCap: envInt(process.env.READ_DAILY_CAP, 300),
+  readDailyCap: envInt(process.env.READ_DAILY_CAP, 3000),
 });
 app.route("/api", api);
 // Home-screen app files: the right type for the manifest, and the service worker always revalidated.

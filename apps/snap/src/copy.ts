@@ -529,8 +529,8 @@ export const app = {
       "宿題・ドリル・テストを撮っておくと、単元ごとのようすがこの1ページにまとまります。全問○の単元、挑戦中の単元、この1週間に撮った量が、ひと目でわかります。",
     emptyCta: "ページを撮る",
   },
-  // Plans: free (30 photos a month per device) and the 1-year pass (¥5,800, tax included; 総額表示).
-  // No 「使い放題」: the pass has a fair-use limit per day, so say exactly that.
+  // Plans: free (30 photos a month per device) and the 1-year pass (¥5,800, tax included; 総額表示):
+  // 200 photos a month per pass, shared by its devices. No 「使い放題」: say the monthly number.
   plan: {
     title: "プラン",
     free: "無料プラン",
@@ -545,12 +545,12 @@ export const app = {
     chipPass: "年間プラン",
     chipLabel: "プランを見る",
     quotaTitle: (limit: number) => `今月の無料分（${limit}枚）を使い切りました`,
-    quotaBody: (day: string) => `${day}から、また無料で撮れます。年間プランなら、毎月の枚数を気にせず撮れます。`,
+    quotaBody: (day: string) => `${day}から、また無料で撮れます。年間プランなら、毎月200枚まで撮れます。`,
     seePlan: "年間プランを見る",
     price: "¥5,800",
     priceUnit: "／年（税込）",
     perDay: "1日あたり約16円",
-    benefits: ["毎月の撮影枚数の制限なし（1日100枚まで）", "家族の端末3台まで", "テスト前モード・学習レポートも、これまで通り"],
+    benefits: ["月200枚まで（毎月1日にリセット）", "家族の端末3台まで", "テスト前モード・学習レポートも、これまで通り"],
     buy: "年間プランを購入する",
     buyNote: "Beyond Culture のストアが開きます。購入後、このページの「購入済みの方」から有効にしてください。",
     oneTime: "1年分のお支払いです。自動更新はありません。",
@@ -567,7 +567,14 @@ export const app = {
     yourCode: "このプランのコード",
     codeNote: "家族の端末（3台まで）でも、このコードを入力すると使えます。控えておいてください。",
     done: "年間プランが有効になりました",
-    passDaily: "今日はたくさん撮りました（年間プランは1日100枚まで）。明日またお試しください。",
+    monthTitle: "今月の撮影枚数",
+    monthCount: (used: number, limit: number, pct: number) => `${used}／${limit}枚（${pct}%）`,
+    monthLeft: (left: number, day: string) => `あと${left}枚・${day}にリセットされます`,
+    passValid: (day: string) => `年間プラン：${day}まで有効`,
+    monthLow: (left: number) => `今月の残りが少なくなっています（あと${left}枚）`,
+    monthOut: (limit: number, day: string) => `今月の撮影枚数（${limit}枚）を使い切りました。${day}にリセットされます。`,
+    monthOutKeep: "これまでの記録・テスト前の作戦・単元マップは、いつも通り使えます。",
+    chipMonth: (used: number, limit: number) => `今月 ${used}／${limit}枚`,
     deviceLimit: "このプランはすでに3台の端末で使われています。",
     errors: {
       not_found: "注文が見つかりません。注文番号とメールアドレスをご確認ください。",

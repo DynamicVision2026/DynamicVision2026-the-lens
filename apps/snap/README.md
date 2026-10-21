@@ -33,7 +33,7 @@ Students or parents photograph homework, workbook pages and graded tests. Lens S
 | `READER_MODEL` | `claude-haiku-5-5` | Model id for the Claude reader; `claude-sonnet-5-5` for higher accuracy |
 | `PILOT_CODE` | — | If set, photo reading needs this 招待コード (header `x-pilot-code`); 403 otherwise |
 | `READ_PER_IP_HOUR` | `20` | Reads per client per hour (429 `rate_limited`) |
-| `READ_DAILY_CAP` | `300` | Reads for everyone per UTC day (429 `daily_cap`) |
+| `READ_DAILY_CAP` | `3000` | Reads for everyone per UTC day (429 `daily_cap`) |
 | `WAITLIST_DIR` | — | One JSON file per signup in this folder (Cloud Storage FUSE safe); wins over `WAITLIST_PATH` |
 | `WAITLIST_PATH` | `./data-private/waitlist.jsonl` | JSONL append when `WAITLIST_DIR` is not set |
 

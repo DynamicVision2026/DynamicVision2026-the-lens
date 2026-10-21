@@ -22,13 +22,14 @@ export function fetchPilotGate(): Promise<boolean> {
   return health.then((h) => h.pilotGate === true);
 }
 
-export type ReadFailure = "pilot_code" | "rate_limited" | "daily_cap" | "quota" | "pass_daily" | "device_limit" | "error";
+export type ReadFailure = "pilot_code" | "rate_limited" | "daily_cap" | "quota" | "device_limit" | "error";
 
 /** Maps a failed /api/read response to what the snap screen should say. */
 export function readFailure(status: number, body: unknown): ReadFailure {
   const error = typeof body === "object" && body !== null ? (body as { error?: unknown }).error : undefined;
   if (status === 403 && error === "pilot_code") return "pilot_code";
   if (status === 429) return error === "daily_cap" ? "daily_cap" : "rate_limited";
-  if (status === 402) return error === "pass_daily" ? "pass_daily" : error === "device_limit" ? "device_limit" : "quota";
+  // quota: the free month or the pass's month is used up (the screen shows which from the plan)
+  if (status === 402) return error === "device_limit" ? "device_limit" : "quota";
   return "error";
 }

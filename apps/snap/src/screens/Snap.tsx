@@ -13,7 +13,7 @@ import { useLayout } from "../lib/layout";
 import { type ReadFailure, clearPilotCode, readFailure } from "../lib/pilot";
 import { planHeaders, usePlan } from "../lib/plan";
 import { writePref } from "../state";
-import { PlanChip, QuotaCard } from "./PlanScreen";
+import { PassOutCard, PlanChip, QuotaCard } from "./PlanScreen";
 import { LOW_CONFIDENCE, litMapUrl } from "../lib/review";
 import { afterSave } from "../lib/pwa";
 import { savePage } from "../lib/store";
@@ -101,6 +101,8 @@ export function Snap({ grade }: { grade: Grade }) {
       />
     );
 
+  // The month is used up (free or pass): say so instead of the camera button; saved pages stay as they are.
+  const outOfMonth = st.s === "quota" || (st.s === "idle" && plan !== null && plan.remaining === 0);
   return (
     <div className="page snap-page">
       {inputs}
@@ -109,7 +111,7 @@ export function Snap({ grade }: { grade: Grade }) {
         <PlanChip plan={plan} />
       </div>
       <p className="muted">{app.snap.body}</p>
-      {st.s === "quota" && <QuotaCard plan={plan} />}
+      {outOfMonth ? plan?.plan === "pass" ? <PassOutCard plan={plan} /> : <QuotaCard plan={plan} /> : null}
 
       {st.s === "retake" && (
         <div className="notice notice-warn" role="alert">
@@ -127,11 +129,9 @@ export function Snap({ grade }: { grade: Grade }) {
             ? app.snap.rateLimited
             : st.why === "daily_cap"
               ? app.snap.dailyCap
-              : st.why === "pass_daily"
-                ? app.plan.passDaily
-                : st.why === "device_limit"
-                  ? app.plan.deviceLimit
-                  : app.snap.error}
+              : st.why === "device_limit"
+                ? app.plan.deviceLimit
+                : app.snap.error}
         </p>
       )}
       {st.s === "pilot" && (
@@ -140,7 +140,7 @@ export function Snap({ grade }: { grade: Grade }) {
         </div>
       )}
 
-      {st.s === "pilot" || st.s === "quota" ? null : st.s === "reading" ? (
+      {st.s === "pilot" || outOfMonth ? null : st.s === "reading" ? (
         <div className="reading" aria-live="polite">
           <span className="spinner" aria-hidden />
           {app.snap.reading}
