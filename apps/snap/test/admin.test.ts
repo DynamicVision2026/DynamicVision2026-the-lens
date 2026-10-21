@@ -81,3 +81,43 @@ describe("/admin", () => {
     expect(await csv.text()).toContain('"mama@example.jp","小5"');
   });
 });
+
+describe("/admin users and languages", () => {
+  it("lists each trial device by a short random ID, and switches 日本語 / English / 中文", async () => {
+    const store = new MemStore();
+    const stats = new Stats(store, () => T0);
+    const plans = new Plans({ store, secret: "s".repeat(64), now: () => T0, freeTrial: 2 });
+    for (const dev of ["AAAAAAxxxxxxxxxx", "BBBBBByyyyyyyyyy"]) {
+      const g = await plans.gate(dev);
+      if (g.ok) await g.charge();
+    }
+    const g = await plans.gate("BBBBBByyyyyyyyyy");
+    if (g.ok) await g.charge(); // B used up its trial of 2
+    const admin = createAdmin({ key: "k".repeat(12), secret: "s".repeat(64), stats, store, waitlist: { path: "/nonexistent" }, freeTrial: 2, now: () => T0 });
+    const login = await admin.request("/login", { method: "POST", body: new URLSearchParams({ key: "k".repeat(12) }) });
+    const cookie = (login.headers.get("set-cookie") ?? "").split(";")[0];
+
+    const ja = await (await admin.request("/", { headers: { cookie } })).text();
+    expect(ja).toContain("利用者（端末ごと）");
+    expect(ja).toContain("<code>AAAAAA</code></td><td>1／2</td><td class=\"st-trying\">お試し中");
+    expect(ja).toContain("<code>BBBBBB</code></td><td>2／2</td><td class=\"st-out\">使い切り");
+    expect(ja).not.toContain("xxxxxxxxxx"); // never the full id
+
+    const enRes = await admin.request("/?lang=en", { headers: { cookie } });
+    const en = await enRes.text();
+    expect(en).toContain("Customer funnel");
+    expect(en).toContain("Trial used up");
+    const langCookie = (enRes.headers.get("set-cookie") ?? "").split(";")[0];
+    expect(langCookie).toBe("adm_lang=en");
+    // remembered: the next visit without ?lang= stays English
+    expect(await (await admin.request("/", { headers: { cookie: `${cookie}; ${langCookie}` } })).text()).toContain("Users (by device)");
+
+    const zh = await (await admin.request("/?lang=zh", { headers: { cookie } })).text();
+    expect(zh).toContain("客户转化漏斗");
+    expect(zh).toContain("试用中");
+
+    const csv = await (await admin.request("/users.csv?lang=en", { headers: { cookie } })).text();
+    expect(csv).toContain("ID,Photos,Status");
+    expect(csv).toContain('"BBBBBB","2","Trial used up","2026-10-21 12:00"');
+  });
+});

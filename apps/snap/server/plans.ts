@@ -187,8 +187,15 @@ export interface PlansOptions {
   passMonthly?: number;
 }
 
+/** A usage file: photos read, and when the first and the last one were read (ISO). */
+export interface Usage {
+  n: number;
+  first?: string;
+  last?: string;
+}
+
 /** The free trial's count for a device: one file, never reset. */
-const trialKey = (dev: string) => `usage/trial/${dev}`;
+export const trialKey = (dev: string) => `usage/trial/${dev}`;
 /** The month's count for a pass: one file per license per month (JST). */
 const passUsageKey = (now: number, license: string) => `usage/pass/${monthKey(now)}/${license.replace(/-/g, "")}`;
 
@@ -220,8 +227,11 @@ export class Plans {
   }
   private bump(key: string): Promise<number> {
     const run = (this.locks.get(key) ?? Promise.resolve()).then(async () => {
-      const n = (await this.usage(key)) + 1;
-      await this.store.put(key, { n });
+      const prev = await this.store.get<Usage>(key);
+      const n = (prev?.n ?? 0) + 1;
+      const at = new Date(this.now()).toISOString();
+      // first / last: when this device (or plan) first and last read a photo, for the dashboard
+      await this.store.put(key, { n, first: prev?.first ?? at, last: at } satisfies Usage);
       return n;
     });
     const tail = run.catch(() => {});
