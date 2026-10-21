@@ -9,7 +9,8 @@ nothing with lens-web (lens.domo-ai.com) except the project and the domain name.
 |---|---|---|
 | Image | Cloud Build, `apps/snap/Dockerfile`, repo root as context, workspace lockfile | Reproducible install of @lens/snap only |
 | `ANTHROPIC_API_KEY` | Secret Manager `anthropic-api-key` (optional; added with `--set-key`) | Without it the practice (mock) reader runs |
-| `PILOT_CODE` | Secret Manager `lens-snap-pilot-code` (generated once) | `/app` reads photos only for invited families; landing + waitlist stay public |
+| `PILOT_CODE` | Secret Manager `lens-snap-pilot-code` (generated once) | Used only when `INVITE_ONLY=1` (invite-only test). The app is open to everyone by default |
+| `ADMIN_KEY` | optional | Dashboard `/admin` key; unset → generated once into the bucket: `gcloud storage cat gs://shiten-lens-511712-lens-snap-waitlist/plans/admin-key` |
 | `READER_MODEL` | `claude-haiku-5-5` (≈¥0.2 per photo) | `READER_MODEL=claude-sonnet-5-5 bash apps/snap/deploy.sh …` switches to Sonnet (≈¥3 per photo) |
 | `READ_PER_IP_HOUR`, `READ_DAILY_CAP` | 20, 3000 | Caps the AI bill; at ≈¥0.2 per photo (Haiku), 3,000/day ≈ ¥600/day at most. The auto-deploy also sets 3000 |
 | `WAITLIST_DIR` | `/data/waitlist` on bucket `<project>-lens-snap-waitlist` (Cloud Storage FUSE volume, uid 1000) | One small file per signup; survives restarts |
@@ -49,7 +50,7 @@ screenshots, JS errors, sideways scrolling):
 
 ```sh
 pnpm --filter @lens/snap build
-cd apps/snap && PORT=8096 PILOT_CODE=kumo42 MOCK_FALLBACK=zukei5 WAITLIST_DIR=/tmp/wl4 node dist-server/index.js &
+cd apps/snap && PORT=8096 INVITE_ONLY=1 PILOT_CODE=kumo42 MOCK_FALLBACK=zukei5 WAITLIST_DIR=/tmp/wl4 node dist-server/index.js &
 python3 scripts/walkthrough.py http://localhost:8096 <sheet-photo.jpg> /tmp/walk
 ```
 

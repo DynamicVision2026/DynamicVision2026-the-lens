@@ -4,9 +4,11 @@ import { serve } from "@hono/node-server";
 import { serveStatic } from "@hono/node-server/serve-static";
 import { Hono } from "hono";
 import { createReader } from "../src/reader";
+import { adminKey, createAdmin } from "./admin";
 import { createApi } from "./app";
 import { envInt } from "./limits";
 import { FileStore, Plans, signingKey } from "./plans";
+import { Stats, isBot } from "./stats";
 
 const port = Number(process.env.PORT ?? 8080);
 const waitlistPath = process.env.WAITLIST_PATH ?? "./data-private/waitlist.jsonl";
@@ -14,16 +16,21 @@ const reader = createReader();
 
 const app = new Hono();
 const waitlistDir = process.env.WAITLIST_DIR || undefined;
-const pilotCode = process.env.PILOT_CODE?.trim() || undefined;
+// The invite gate (招待コード) is off unless INVITE_ONLY=1: the app is open to everyone.
+const pilotCode = process.env.INVITE_ONLY === "1" ? process.env.PILOT_CODE?.trim() || undefined : undefined;
 // Plans (free per month / 1-year pass) are files next to the waitlist (the bucket mount in production).
 const planDir = process.env.PLAN_DIR || (waitlistDir ? join(waitlistDir, "..", "plans") : "./data-private/plans");
+const store = new FileStore(planDir);
+const secret = await signingKey(planDir, process.env.SIGNING_KEY);
+const testNow = !process.env.K_SERVICE && process.env.PLANS_TEST_NOW ? () => Date.parse(process.env.PLANS_TEST_NOW as string) : undefined;
+const stats = new Stats(store, testNow);
 const plans = new Plans({
-  store: new FileStore(planDir),
-  secret: await signingKey(planDir, process.env.SIGNING_KEY),
+  store,
+  secret,
   freeTrial: envInt(process.env.FREE_TRIAL, 30),
   passMonthly: envInt(process.env.PASS_MONTHLY, 200),
   // Local screenshot runs only (never on Cloud Run): pretend it is this time, to show the monthly reset.
-  now: !process.env.K_SERVICE && process.env.PLANS_TEST_NOW ? () => Date.parse(process.env.PLANS_TEST_NOW as string) : undefined,
+  now: testNow,
 });
 const shopify = {
   store: process.env.SHOPIFY_STORE?.trim() || "soul-id-2.myshopify.com",
@@ -36,6 +43,7 @@ const buyUrl = process.env.BUY_URL?.trim() || "https://soul-id-2.myshopify.com/p
 // Limits are counted in memory: deploy with Cloud Run --max-instances 1.
 const api = createApi({
   plans,
+  stats,
   shopify,
   buyUrl,
   reader,
@@ -46,6 +54,13 @@ const api = createApi({
   readDailyCap: envInt(process.env.READ_DAILY_CAP, 3000),
 });
 app.route("/api", api);
+// The founder's dashboard (key: ADMIN_KEY, else plans/admin-key in the bucket).
+app.route("/admin", createAdmin({ key: await adminKey(planDir, process.env.ADMIN_KEY), secret, stats, store, waitlist: { dir: waitlistDir, path: waitlistPath } }));
+// Landing page views for the dashboard (people only: crawlers and link previews skipped).
+app.use("*", async (c, next) => {
+  if (c.req.method === "GET" && c.req.path === "/" && !isBot(c.req.header("user-agent"))) void stats.bump("lp_view");
+  await next();
+});
 // Home-screen app files: the right type for the manifest, and the service worker always revalidated.
 app.use("/manifest.webmanifest", async (c, next) => {
   await next();

@@ -1,5 +1,5 @@
 import { createHash, createHmac, randomBytes, timingSafeEqual } from "node:crypto";
-import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, rename, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import type { Now } from "./limits";
 
@@ -27,6 +27,8 @@ const JST = 9 * 60 * 60 * 1000;
 export interface Store {
   get<T>(key: string): Promise<T | null>;
   put(key: string, value: unknown): Promise<void>;
+  /** Names (without .json) of the keys directly under `prefix` (e.g. "lic"), for the dashboard. */
+  list(prefix: string): Promise<string[]>;
 }
 
 /** One JSON file per key under `dir` (keys are validated, never user paths). */
@@ -51,6 +53,15 @@ export class FileStore implements Store {
     await writeFile(tmp, JSON.stringify(value));
     await rename(tmp, p);
   }
+  async list(prefix: string) {
+    if (!/^[a-z]+(\/[A-Za-z0-9_-]+)*$/.test(prefix)) throw new Error("bad prefix");
+    try {
+      return (await readdir(join(this.dir, prefix))).filter((f) => f.endsWith(".json")).map((f) => f.slice(0, -5));
+    } catch (e) {
+      if ((e as NodeJS.ErrnoException).code === "ENOENT") return [];
+      throw e;
+    }
+  }
 }
 
 export class MemStore implements Store {
@@ -61,6 +72,11 @@ export class MemStore implements Store {
   }
   async put(key: string, value: unknown) {
     this.m.set(key, JSON.stringify(value));
+  }
+  async list(prefix: string) {
+    const out: string[] = [];
+    for (const k of this.m.keys()) if (k.startsWith(`${prefix}/`) && !k.slice(prefix.length + 1).includes("/")) out.push(k.slice(prefix.length + 1));
+    return out;
   }
 }
 
@@ -160,7 +176,8 @@ export type PlanView =
       resetsAt: string;
     };
 
-export type Gate = { ok: true; charge: () => Promise<void> } | { ok: false; error: "quota" | "pass_monthly" | "device_limit" };
+/** charge() counts the photo and returns the new count (for the dashboard: first photo, trial used up). */
+export type Gate = { ok: true; plan: "free" | "pass"; charge: () => Promise<number> } | { ok: false; error: "quota" | "pass_monthly" | "device_limit" };
 
 export interface PlansOptions {
   store: Store;
@@ -182,7 +199,7 @@ export class Plans {
   readonly freeTrial: number;
   readonly passMonthly: number;
   /** One write at a time per usage file (two family devices reading at the same moment). */
-  private locks = new Map<string, Promise<void>>();
+  private locks = new Map<string, Promise<unknown>>();
   constructor(o: PlansOptions) {
     this.store = o.store;
     this.secret = o.secret;
@@ -201,9 +218,11 @@ export class Plans {
   private async usage(key: string) {
     return (await this.store.get<{ n: number }>(key))?.n ?? 0;
   }
-  private bump(key: string): Promise<void> {
+  private bump(key: string): Promise<number> {
     const run = (this.locks.get(key) ?? Promise.resolve()).then(async () => {
-      await this.store.put(key, { n: (await this.usage(key)) + 1 });
+      const n = (await this.usage(key)) + 1;
+      await this.store.put(key, { n });
+      return n;
     });
     const tail = run.catch(() => {});
     this.locks.set(key, tail);
@@ -265,11 +284,11 @@ export class Plans {
     if (lic && typeof lic === "object") {
       const key = passUsageKey(now, lic.key);
       if ((await this.usage(key)) >= this.passMonthly) return { ok: false, error: "pass_monthly" };
-      return { ok: true, charge: () => this.bump(key) };
+      return { ok: true, plan: "pass", charge: () => this.bump(key) };
     }
     const key = trialKey(dev);
     if ((await this.usage(key)) >= this.freeTrial) return { ok: false, error: "quota" };
-    return { ok: true, charge: () => this.bump(key) };
+    return { ok: true, plan: "free", charge: () => this.bump(key) };
   }
 
   /** Activates a typed code (handed out for the course, gifts, pilot families). */

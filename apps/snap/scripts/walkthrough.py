@@ -7,7 +7,7 @@ no JS error, no sideways scrolling, the tab bar / rail never covered by accident
 
 Usage: pnpm build
        P=$(mktemp -d)   # a fresh plan store per run (free counts, passes)
-       PORT=8096 PILOT_CODE=kumo42 MOCK_FALLBACK=zukei5 WAITLIST_DIR=/tmp/wl4 PLAN_DIR=$P FREE_TRIAL=2 \
+       PORT=8096 INVITE_ONLY=1 PILOT_CODE=kumo42 MOCK_FALLBACK=zukei5 WAITLIST_DIR=/tmp/wl4 PLAN_DIR=$P FREE_TRIAL=2 \
          SHOPIFY_TOKEN=cid:csecret SHOPIFY_BASE=http://localhost:8099 node dist-server/index.js &
        WALK_PLAN_DIR=$P python3 scripts/walkthrough.py [base_url] [photo.jpg] [out_dir]
 Plans: FREE_TRIAL=2 so the free limit is reached inside the run; a stand-in Shopify on :8099 knows one
