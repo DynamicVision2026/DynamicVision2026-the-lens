@@ -46,7 +46,7 @@ put(f"lic/{LIC_FILE}", {"key": LIC, "kind": "order", "expiresAt": "2027-10-19T03
 
 class Server:
     def __init__(self, now: str, free: int = 30):
-        env = {**os.environ, "PORT": str(PORT), "PLAN_DIR": str(PLAN_DIR), "PLANS_TEST_NOW": now, "FREE_MONTHLY": str(free),
+        env = {**os.environ, "PORT": str(PORT), "PLAN_DIR": str(PLAN_DIR), "PLANS_TEST_NOW": now, "FREE_TRIAL": str(free),
                "MOCK_FALLBACK": "zukei5", "WAITLIST_DIR": mkdtemp(prefix="wl-"), "SIGNING_KEY": "k" * 40}
         for k in ("PILOT_CODE", "ANTHROPIC_API_KEY", "K_SERVICE"):
             env.pop(k, None)
@@ -157,21 +157,43 @@ with sync_playwright() as p:
         a.close()
         bb.close()
 
-    # 3) free plan used up (30/30 now; and 2/2 with FREE_MONTHLY=2)
-    for free in (30, 2):
-        with Server("2026-10-21T03:00:00Z", free=free):
-            ctx, pg = ctx_for(b, None)
-            pg.goto(BASE + "/app/plan")
-            expect(pg.get_by_test_id("plan-free")).to_be_visible()
-            dev = pg.evaluate("localStorage.getItem('lens-snap:device')").split(".")[1]
-            put(f"usage/{month}/{dev}", {"n": free})
-            pg.reload()
-            expect(pg.get_by_test_id("plan-left")).to_contain_text("今月あと 0枚")
-            shot(pg, f"free-{free}of{free}-plan")
-            pg.goto(BASE + "/app/snap")
-            expect(pg.get_by_test_id("quota-card")).to_be_visible()
-            shot(pg, f"free-{free}of{free}-snap")
-            ctx.close()
+    # 3) the free trial: 30 in total per device, no monthly reset
+    with Server("2026-10-21T03:00:00Z"):
+        ctx, pg = ctx_for(b, None)
+        pg.goto(BASE + "/app/plan")
+        expect(pg.get_by_test_id("plan-left")).to_have_text("お試し：あと30枚（30枚まで無料）")
+        shot(pg, "trial-00of30-plan")
+        trial_dev = pg.evaluate("localStorage.getItem('lens-snap:device')")
+        put(f"usage/trial/{trial_dev.split('.')[1]}", {"n": 30})
+        pg.reload()
+        expect(pg.get_by_test_id("plan-left")).to_have_text("お試し：あと0枚（30枚まで無料）")
+        expect(pg.get_by_test_id("plan-trial-out")).to_have_text("お試しの30枚を使い切りました。年間プランなら毎月200枚まで使えます")
+        expect(pg.get_by_test_id("plan-buy")).to_be_visible()
+        shot(pg, "trial-30of30-plan")
+        pg.goto(BASE + "/app/snap")
+        card = pg.get_by_test_id("quota-card")
+        expect(card).to_contain_text("お試しの30枚を使い切りました。年間プランなら毎月200枚まで使えます")
+        expect(card.get_by_test_id("plan-buy")).to_be_visible()
+        assert pg.get_by_role("button", name="カメラで撮る").count() == 0
+        shot(pg, "trial-30of30-snap")
+        ctx.close()
+        # used up: the map and テスト前 keep working for a trial user too
+        ctx, pg = ctx_for(b, None, seed=True)
+        pg.evaluate(f"localStorage.setItem('lens-snap:device', '{trial_dev}')")
+        pg.goto(BASE + "/app/map")
+        expect(pg.locator("button.terr-unit")).to_have_count(110)
+        pg.locator("nav.tabbar a.tab", has_text="テスト前").tap()
+        pg.wait_for_timeout(1000)
+        shot(pg, "trial-30of30-exam-still-works")
+        ctx.close()
+    # a new month does not bring the trial back
+    with Server("2026-11-01T03:00:00Z"):
+        ctx, pg = ctx_for(b, None)
+        pg.evaluate(f"localStorage.setItem('lens-snap:device', '{trial_dev}')")
+        pg.goto(BASE + "/app/plan")
+        expect(pg.get_by_test_id("plan-left")).to_have_text("お試し：あと0枚（30枚まで無料）")
+        shot(pg, "trial-nov01-still-used")
+        ctx.close()
 
     # 4) the reset: 200 used on 31 Oct 23:59 JST → 0 on 1 Nov 00:00 JST
     put(f"usage/pass/{month}/{LIC_FILE}", {"n": 200})

@@ -529,23 +529,23 @@ export const app = {
       "宿題・ドリル・テストを撮っておくと、単元ごとのようすがこの1ページにまとまります。全問○の単元、挑戦中の単元、この1週間に撮った量が、ひと目でわかります。",
     emptyCta: "ページを撮る",
   },
-  // Plans: free (30 photos a month per device) and the 1-year pass (¥5,800, tax included; 総額表示):
+  // Plans: a one-time free trial (30 photos per device, no monthly reset) and the 1-year pass (¥5,800, tax included; 総額表示):
   // 200 photos a month per pass, shared by its devices. No 「使い放題」: say the monthly number.
   plan: {
     title: "プラン",
-    free: "無料プラン",
-    freeLeft: (n: number, limit: number) => `今月あと ${n}枚（毎月${limit}枚まで無料）`,
-    resets: (day: string) => `${day}に、また使えるようになります`,
+    free: "無料のお試し",
+    freeLeft: (n: number, limit: number) => `お試し：あと${n}枚（${limit}枚まで無料）`,
+    trialNote: "お試しは1回かぎりです（毎月のリセットはありません）。",
     pass: "年間プラン",
     passUntil: (day: string) => `${day}まで有効`,
     passFromCode: "コードで有効になっています",
     passFromOrder: "ご購入ありがとうございます",
     expired: "年間プランの有効期限が切れました。続けて使うには、もう一度ご購入ください。",
-    chipFree: (n: number) => `無料 今月あと${n}枚`,
+    chipFree: (n: number) => `お試し あと${n}枚`,
     chipPass: "年間プラン",
     chipLabel: "プランを見る",
-    quotaTitle: (limit: number) => `今月の無料分（${limit}枚）を使い切りました`,
-    quotaBody: (day: string) => `${day}から、また無料で撮れます。年間プランなら、毎月200枚まで撮れます。`,
+    quotaTitle: (limit: number) => `お試しの${limit}枚を使い切りました。年間プランなら毎月200枚まで使えます`,
+    quotaBody: "これまでの記録・テスト前の作戦・単元マップは、いつも通り使えます。",
     seePlan: "年間プランを見る",
     price: "¥5,800",
     priceUnit: "／年（税込）",
@@ -589,9 +589,9 @@ export const app = {
       error: "うまくいきませんでした。通信状態をご確認のうえ、もう一度お試しください。",
     },
     offline: "プランの情報を読み込めませんでした。",
-    privacyTitle: "無料プラン・年間プランで保存する情報",
+    privacyTitle: "無料のお試し・年間プランで保存する情報",
     privacyBody:
-      "無料の枚数を数えるため、端末ごとにランダムな番号（お名前やメールアドレスとは結びつきません）と、月ごとの読み取り回数を保存します。年間プランを注文番号で有効にするときは、ストアにご注文を確認し、注文の番号・有効期限と、メールアドレスを復元できない形に変換した値だけを保存します。メールアドレスそのものは保存しません。",
+      "無料の枚数を数えるため、端末ごとにランダムな番号（お名前やメールアドレスとは結びつきません）と、読み取った枚数を保存します。年間プランを注文番号で有効にするときは、ストアにご注文を確認し、注文の番号・有効期限と、メールアドレスを復元できない形に変換した値だけを保存します。メールアドレスそのものは保存しません。",
   },
   archive: {
     title: "ふりかえり",

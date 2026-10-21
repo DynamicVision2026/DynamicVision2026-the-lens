@@ -7,10 +7,10 @@ no JS error, no sideways scrolling, the tab bar / rail never covered by accident
 
 Usage: pnpm build
        P=$(mktemp -d)   # a fresh plan store per run (free counts, passes)
-       PORT=8096 PILOT_CODE=kumo42 MOCK_FALLBACK=zukei5 WAITLIST_DIR=/tmp/wl4 PLAN_DIR=$P FREE_MONTHLY=2 \
+       PORT=8096 PILOT_CODE=kumo42 MOCK_FALLBACK=zukei5 WAITLIST_DIR=/tmp/wl4 PLAN_DIR=$P FREE_TRIAL=2 \
          SHOPIFY_TOKEN=cid:csecret SHOPIFY_BASE=http://localhost:8099 node dist-server/index.js &
        WALK_PLAN_DIR=$P python3 scripts/walkthrough.py [base_url] [photo.jpg] [out_dir]
-Plans: FREE_MONTHLY=2 so the free limit is reached inside the run; a stand-in Shopify on :8099 knows one
+Plans: FREE_TRIAL=2 so the free limit is reached inside the run; a stand-in Shopify on :8099 knows one
 paid order (#1001, mama@example.jp, SKU LENS-SNAP-1Y); iPad portrait unlocks with a handed-out code instead.
 """
 
@@ -322,16 +322,16 @@ def walkthrough(browser, device, vp):
     def _():
         tab(pg, "撮る")
         chip = pg.get_by_test_id("plan-chip")
-        expect(chip).to_contain_text("無料 今月あと1枚")
+        expect(chip).to_contain_text("お試し あと1枚")
         chip.tap()
         expect(pg).to_have_url(BASE + "/app/plan")
-        expect(pg.get_by_test_id("plan-left")).to_contain_text("今月あと 1枚")
+        expect(pg.get_by_test_id("plan-left")).to_contain_text("お試し：あと1枚（2枚まで無料）")
         expect(pg.get_by_test_id("plan-offer")).to_contain_text("¥5,800")
         expect(pg.get_by_test_id("plan-offer")).to_contain_text("自動更新はありません")
         expect(pg.get_by_test_id("plan-buy")).to_have_attribute("href", BUY)
         expect(pg.get_by_test_id("back-to-map")).to_be_visible()
 
-    @s("last free photo (やめる) → next snap: 今月の無料分を使い切りました + offer")
+    @s("last free photo (やめる) → next snap: お試しを使い切りました + offer")
     def _():
         tab(pg, "撮る")
         pg.get_by_test_id("file-input").set_input_files(PHOTO)
@@ -340,7 +340,7 @@ def walkthrough(browser, device, vp):
         expect(pg.get_by_test_id("plan-chip")).to_contain_text("あと0枚")
         pg.get_by_test_id("file-input").set_input_files(PHOTO)
         card = pg.get_by_test_id("quota-card")
-        expect(card).to_contain_text("今月の無料分（2枚）を使い切りました")
+        expect(card).to_contain_text("お試しの2枚を使い切りました。年間プランなら毎月200枚まで使えます")
         expect(card.get_by_test_id("plan-buy")).to_have_attribute("href", BUY)
         expect(pg.get_by_role("button", name="カメラで撮る")).to_have_count(0)
 

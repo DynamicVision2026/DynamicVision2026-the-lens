@@ -23,7 +23,7 @@ const SECRET = "s".repeat(64);
 const T0 = Date.parse("2026-10-19T03:00:00Z"); // 12:00 JST
 
 function plans(now = () => T0, store = new MemStore()) {
-  return { p: new Plans({ store, secret: SECRET, now, freeMonthly: 3 }), store };
+  return { p: new Plans({ store, secret: SECRET, now, freeTrial: 3 }), store };
 }
 
 describe("ids", () => {
@@ -53,7 +53,7 @@ describe("ids", () => {
 });
 
 describe("free plan", () => {
-  it("counts per device per month, only when charged, and resets on the 1st (JST)", async () => {
+  it("a one-time trial per device: counted only when charged, never reset by a new month", async () => {
     let now = T0;
     const { p } = plans(() => now);
     for (let i = 0; i < 3; i++) {
@@ -67,8 +67,12 @@ describe("free plan", () => {
     const other = await p.gate("devB");
     expect(other.ok).toBe(true);
     expect(await p.view("devB")).toMatchObject({ used: 0, remaining: 3 });
+    // next month (and next year): still used up
     now = Date.parse("2026-10-31T15:00:00Z");
-    expect((await p.gate("devA")).ok).toBe(true);
+    expect(await p.gate("devA")).toEqual({ ok: false, error: "quota" });
+    now = Date.parse("2027-11-15T00:00:00Z");
+    expect(await p.view("devA")).toMatchObject({ plan: "free", used: 3, remaining: 0 });
+    expect(await p.view("devA")).not.toHaveProperty("resetsAt");
   });
 });
 
@@ -188,7 +192,7 @@ describe("API", () => {
   };
   function api(shopNodes?: object[]) {
     const dir = mkdtempSync(join(tmpdir(), "plans-api-"));
-    const p = new Plans({ store: new FileStore(dir), secret: SECRET, freeMonthly: 2 });
+    const p = new Plans({ store: new FileStore(dir), secret: SECRET, freeTrial: 2 });
     const shopifyFetch = async () => ({ ok: true, status: 200, json: async () => ({ data: { orders: { nodes: shopNodes ?? [] } } }) });
     return createApi({
       reader: new MockReader(),

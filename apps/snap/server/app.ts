@@ -115,7 +115,7 @@ export function createApi(opts: AppOptions) {
     if (file.size > MAX_IMAGE_BYTES) return c.json({ error: "too_large" }, 413);
     const mime = file.type || "image/jpeg";
     if (!IMAGE_TYPES.includes(mime)) return c.json({ error: "unsupported_type" }, 415);
-    // The plan (free: FREE_MONTHLY a month per device; pass: PASS_MONTHLY a month per pass), counted only for successful reads.
+    // The plan (free: FREE_TRIAL in total per device; pass: PASS_MONTHLY a month per pass), counted only for successful reads.
     const gate = plans && dev ? await plans.gate(dev, c.req.header("x-license")) : null;
     if (gate && !gate.ok) return c.json({ error: gate.error }, 402);
     // The global cap counts only requests that will actually reach the model.
