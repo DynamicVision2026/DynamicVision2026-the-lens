@@ -78,6 +78,8 @@ type Dict = {
   copy: string;
   copied: string;
   checkTitle: string;
+  keyLabel2: string;
+  copyKey: string;
   checkBtn: string;
   checkOk: (order: string) => string;
   checkBad: string;
@@ -141,6 +143,8 @@ const T: Record<Lang, Dict> = {
     copy: "コードをコピー",
     copied: "コピーしました",
     checkTitle: "リンクの確認（メールのボタンのリンクを貼り付け）",
+    keyLabel2: "リンクのキー（コードの PASTE-KEY-HERE と置きかえます）",
+    copyKey: "キーをコピー",
     checkBtn: "確認する",
     checkOk: (o) => `正しく設定されています（注文番号 ${o} のリンクとして有効です）。`,
     checkBad: "リンクを確認できません。コードを貼り付け直してください（キーの部分が変わっていないか確認してください）。",
@@ -202,6 +206,8 @@ const T: Record<Lang, Dict> = {
     copy: "Copy code",
     copied: "Copied",
     checkTitle: "Check a link (paste the link of the email's button)",
+    keyLabel2: "Link key (replaces PASTE-KEY-HERE in the code)",
+    copyKey: "Copy key",
     checkBtn: "Check",
     checkOk: (o) => `Set up correctly (valid link for order ${o}).`,
     checkBad: "This link is not valid. Paste the code again (check the key was not changed).",
@@ -263,6 +269,8 @@ const T: Record<Lang, Dict> = {
     copy: "复制代码",
     copied: "已复制",
     checkTitle: "检查链接（粘贴邮件按钮的链接）",
+    keyLabel2: "链接密钥（替换代码中的 PASTE-KEY-HERE）",
+    copyKey: "复制密钥",
     checkBtn: "检查",
     checkOk: (o) => `设置正确（订单号 ${o} 的有效链接）。`,
     checkBad: "链接无效。请重新粘贴代码（确认密钥部分没有被改动）。",
@@ -374,10 +382,11 @@ export function orderEmailSnippet(linkKey: string, skus: string[] = PASS_SKUS_DE
   const list = skus.map((x) => x.trim()).filter(Boolean);
   // Liquid has no "in list": one check per SKU (line.sku, and line.variant.sku on older templates)
   const cond = list.map((x) => `line.sku == '${x}' or line.variant.sku == '${x}'`).join(" or ");
-  return `{% comment %} === つまずきマップ（${list.join(" / ")}）：この商品のご購入者だけに表示 === {% endcomment %}
+  return `{% comment %} ===== つまずきマップ（${list.join(" / ")}）：支払い済みで、この商品を含む注文だけに表示。変数は tz_ で始まる名前だけを使用 ===== {% endcomment %}
+{% if financial_status == 'paid' %}
 {% assign tz_pass = false %}
-{% for line in subtotal_line_items %}
-  {% if ${cond} %}{% assign tz_pass = true %}{% endif %}
+{% for tz_line in line_items %}
+  {% if ${cond.replace(/line\./g, "tz_line.")} %}{% assign tz_pass = true %}{% endif %}
 {% endfor %}
 {% if tz_pass %}
 {% assign tz_sig = order_number | append: '' | hmac_sha256: '${linkKey}' %}
@@ -387,7 +396,9 @@ export function orderEmailSnippet(linkKey: string, skus: string[] = PASS_SKUS_DE
 <a href="${site}/app/claim?o={{ order_number }}&s={{ tz_sig }}" style="display:inline-block;padding:12px 22px;border-radius:999px;background:#1e2d4a;color:#ffffff;font-weight:bold;text-decoration:none">つまずきマップを開いて有効にする</a>
 <p style="margin:14px 0 0;font-size:12px;line-height:1.6;color:#5d6779">ボタンが使えないときは、アプリの「プラン」→「購入済みの方」に、注文番号 {{ order_name }} とこのメールのアドレスを入力してください。</p>
 </td></tr></table>
-{% endif %}`;
+{% endif %}
+{% endif %}
+{% comment %} ===== つまずきマップ ここまで ===== {% endcomment %}`;
 }
 
 // ---------------------------------------------------------------- page
@@ -550,6 +561,7 @@ ${users.length > 100 ? `<p class="muted">${esc(d.usersShown(100, users.length))}
 ${
   o.linkKey
     ? `<h2>${esc(d.mailTitle)}</h2><ol class="muted" style="line-height:1.8;padding-left:20px">${d.mailSteps.map((x) => `<li>${esc(x)}</li>`).join("")}</ol>
+<p>${esc(d.keyLabel2)}: <code id="link-key" data-testid="link-key">${esc(o.linkKey)}</code> <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('link-key').textContent).then(()=>{this.textContent='${esc(d.copied)}'})">${esc(d.copyKey)}</button></p>
 <textarea id="mail-snippet" readonly rows="10" style="width:100%;font:12px/1.5 ui-monospace,Menlo,monospace;padding:10px;border:1px solid var(--line);border-radius:10px" data-testid="mail-snippet">${esc(orderEmailSnippet(o.linkKey, o.skus))}</textarea>
 <p><button type="button" onclick="navigator.clipboard.writeText(document.getElementById('mail-snippet').value).then(()=>{this.textContent='${esc(d.copied)}'})">${esc(d.copy)}</button></p>
 <h2 id="check">${esc(d.checkTitle)}</h2><form method="get" action="/admin#check" style="display:flex;gap:8px;flex-wrap:wrap"><input name="check" value="${esc(checked ?? "")}" placeholder="https://tsumazuki.domo-ai.com/app/claim?o=…&amp;s=…" style="flex:1;min-width:260px"><button type="submit">${esc(d.checkBtn)}</button></form>
