@@ -1030,15 +1030,14 @@ with sync_playwright() as p:
     assert page.evaluate("caches.keys()") == ["lens-snap-v1"]
     assert not page.evaluate("""caches.open('lens-snap-v1').then(c => c.keys()).then(ks => ks.some(r => new URL(r.url).pathname.startsWith('/api')))""")
 
-    # 7d. Android / Chrome: beforeinstallprompt → 「ホーム画面に追加」 button on 撮る; dismiss is remembered
-    page.get_by_role("link", name="撮る", exact=True).click()
-    expect(page.get_by_test_id("install-tip")).to_have_count(0)  # nothing to offer before the event
+    # 7d. Android / Chrome after a saved photo: the reminder window on the map → 「あとで」 (asked again only after the next photo)
     page.evaluate("""() => { const e = new Event('beforeinstallprompt', { cancelable: true });
       e.prompt = async () => {}; e.userChoice = Promise.resolve({ outcome: 'dismissed' }); window.dispatchEvent(e); }""")
-    tip = page.get_by_test_id("install-tip")
-    expect(tip.get_by_role("button", name="ホーム画面に追加")).to_be_visible()
-    tip.get_by_role("button", name="閉じる").click()
-    expect(tip).to_have_count(0)
+    page.get_by_role("link", name="マップ", exact=True).click()
+    ask = page.get_by_test_id("install-ask")
+    expect(ask).to_contain_text("ホーム画面に追加しませんか？", timeout=6000)
+    ask.get_by_role("button", name="あとで").click()
+    expect(ask).to_have_count(0)
 
     # 8. Retake path (h03, mock reader says retake)
     page.get_by_role("link", name="撮る", exact=True).click()
@@ -1046,22 +1045,24 @@ with sync_playwright() as p:
     expect(page.get_by_text("もう少し明るい所で撮り直してください。")).to_be_visible(timeout=15000)
     shot(page, "12-retake", full=False)
 
-    # 8b. iPhone Safari after the first 保存: install tip with the share-button steps (shown once)
+    # 8b. iPhone Safari after the first 保存: the reminder window → 追加する → the share-button steps; never again
     ios = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2, locale="ja-JP", is_mobile=True, has_touch=True,
                               user_agent="Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1")
     ip = ios.new_page()
     ip.on("pageerror", lambda e: errors.append(str(e)))
     ip.goto(BASE + "/app")
-    ip.evaluate("localStorage.setItem('lens-snap:grade', '小5'); localStorage.setItem('lens-snap:saved-once', new Date().toISOString())")
+    ip.evaluate("localStorage.setItem('lens-snap:grade', '小5'); localStorage.setItem('lens-snap:saved-count', '1')")
     ip.evaluate(SEED_JS)
-    ip.goto(BASE + "/app/snap")
-    itip = ip.get_by_test_id("install-tip")
-    expect(itip).to_contain_text("共有ボタン（□↑）→「ホーム画面に追加」")
-    shot(ip, "15-install-tip", full=False)
-    itip.get_by_role("button", name="閉じる").click()
+    ip.goto(BASE + "/app/map")
+    itip = ip.get_by_test_id("install-ask")
+    expect(itip).to_contain_text("ホーム画面に追加しませんか？", timeout=6000)
+    shot(ip, "15-install-ask", full=False)
+    itip.get_by_role("button", name="追加する").click()
+    expect(itip).to_contain_text("共有ボタン（□↑）")
+    itip.get_by_role("button", name="わかりました").click()
     ip.reload()
-    expect(ip.get_by_role("heading", name="ページを撮りましょう")).to_be_visible()
-    expect(ip.get_by_test_id("install-tip")).to_have_count(0)
+    ip.wait_for_timeout(3000)
+    expect(ip.get_by_test_id("install-ask")).to_have_count(0)
     ios.close()
 
     # 8b2. A young child (小2): the map opens on the 小2 island

@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { InstallTip } from "../components/InstallTip";
 import { PilotCodeForm } from "../components/PilotCodeForm";
 import { UnitSelect } from "../components/UnitSelect";
 import { ZoomPhoto } from "../components/ZoomPhoto";
@@ -156,7 +155,6 @@ export function Snap({ grade }: { grade: Grade }) {
         </div>
       )}
       <p className="muted small center">{app.snap.privacy}</p>
-      {st.s === "idle" && <InstallTip />}
     </div>
   );
 }

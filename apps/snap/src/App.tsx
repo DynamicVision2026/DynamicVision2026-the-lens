@@ -1,3 +1,4 @@
+import { InstallAsk } from "./components/InstallAsk";
 import type { ReactElement } from "react";
 import { Link, NavLink, Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { app } from "./copy";
@@ -85,6 +86,7 @@ function AppArea() {
         </Routes>
       </main>
       <TabBar rail={rail ? chip : null} />
+      <InstallAsk />
     </div>
   );
 }
