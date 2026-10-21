@@ -16,8 +16,8 @@ Files live in the bucket next to the waitlist (`gs://<project>-lens-snap-waitlis
 ### 1. The product on Shopify (soul-id-2.myshopify.com)
 - 商品管理 → 商品を追加. Title 「Lens Snap 年間プラン（1年間）」, price **5,800**, vendor **Lens Snap**.
 - Variant **SKU `LENS-SNAP-1Y`**. 在庫を追跡 off. 「配送が必要な商品です」 off.
-- 検索結果のプレビュー → URL handle **`lens-snap-annual`** (the app's buy button opens
-  `/products/lens-snap-annual`; change `BUY_URL` if you use another address).
+- URL handle: Shopify made **`つまずきマップ-年間プラン-1年間`** from the title; the app's buy button opens
+  that address (percent-encoded in `BUY_URL`). If the handle is changed later, keep Shopify's redirect ticked.
 - Settings → 税金: prices include tax (総額表示), so ¥5,800 is what parents pay.
 - The course, if sold on the same store: give its variant SKU **`LENS-COURSE`**; its buyers unlock the same way.
 
