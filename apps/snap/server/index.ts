@@ -55,7 +55,7 @@ const api = createApi({
 });
 app.route("/api", api);
 // The founder's dashboard (key: ADMIN_KEY, else plans/admin-key in the bucket).
-app.route("/admin", createAdmin({ key: await adminKey(planDir, process.env.ADMIN_KEY), secret, stats, store, waitlist: { dir: waitlistDir, path: waitlistPath } }));
+app.route("/admin", createAdmin({ key: await adminKey(planDir, process.env.ADMIN_KEY), secret, stats, store, waitlist: { dir: waitlistDir, path: waitlistPath }, freeTrial: plans.freeTrial }));
 // Landing page views for the dashboard (people only: crawlers and link previews skipped).
 app.use("*", async (c, next) => {
   if (c.req.method === "GET" && c.req.path === "/" && !isBot(c.req.header("user-agent"))) void stats.bump("lp_view");
