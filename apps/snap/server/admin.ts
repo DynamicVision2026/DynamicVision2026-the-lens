@@ -4,7 +4,7 @@ import { join } from "node:path";
 import { type Context, Hono } from "hono";
 import { getCookie, setCookie } from "hono/cookie";
 import { type Now, RateLimiter, clientKey, safeEqual } from "./limits";
-import { type License, PASS_SKUS_DEFAULT, type Store, type Usage, linkSignatureOk } from "./plans";
+import { type License, type OrderRecord, PASS_SKUS_DEFAULT, type Store, type Usage, linkSignatureOk } from "./plans";
 import { type Counts, STAT_EVENTS, type StatEvent, type Stats, statDay } from "./stats";
 import type { WaitlistTarget } from "./waitlist-store";
 
@@ -61,6 +61,10 @@ type Dict = {
   userCols: [string, string, string, string, string];
   status: { trying: string; out: string; pass: string };
   usersShown: (shown: number, all: number) => string;
+  paidTitle: (n: string) => string;
+  paidNote: string;
+  paidCols: [string, string, string, string, string, string];
+  products: Record<string, string>;
   passes: string;
   passCards: [string, string, string, string, string, string, string];
   daily: string;
@@ -121,6 +125,10 @@ const T: Record<Lang, Dict> = {
     userCols: ["ID", "撮影枚数", "状態", "はじめて撮った日時", "最後に撮った日時"],
     status: { trying: "お試し中", out: "使い切り", pass: "年間プラン" },
     usersShown: (s, a) => `最近撮った${s}人を表示しています（全${a}人）。すべてはCSVでご覧ください。`,
+    paidTitle: (n) => `有料のお客さま（${n}件）`,
+    paidNote: "ご注文で年間プランを有効にしたお客さまです。メールアドレスはストアのご注文から取得しています（プライバシーポリシーに記載）。端末IDは上の「利用者」の一覧と同じIDです。",
+    paidCols: ["メール", "注文", "商品", "購入日", "有効期限", "端末ID"],
+    products: { "LENS-SNAP-1Y": "年間プラン", "LENS-DJ-12M": "視点レンズ 大学受験パス", "LENS-KJ-12M": "視点レンズ 高校受験パス", "LENS-CJ-12M": "視点レンズ 30日間突破パス" },
     passes: "年間プラン",
     passCards: ["有効なプラン", "うち ストアで購入", "うち コード（講座など）", "使っている端末", "30日以内に期限切れ", "未使用のコード", "期限切れ"],
     daily: "日別（30日間・動きのあった日）",
@@ -184,6 +192,10 @@ const T: Record<Lang, Dict> = {
     userCols: ["ID", "Photos", "Status", "First photo", "Last photo"],
     status: { trying: "On trial", out: "Trial used up", pass: "Annual plan" },
     usersShown: (s, a) => `Showing the ${s} most recent users (of ${a}). See the CSV for everyone.`,
+    paidTitle: (n) => `Paid customers (${n})`,
+    paidNote: "Customers who unlocked the annual plan with an order. The email comes from the store order (stated in the privacy policy). Device IDs match the Users list above.",
+    paidCols: ["Email", "Order", "Product", "Paid on", "Valid until", "Device IDs"],
+    products: { "LENS-SNAP-1Y": "Annual plan", "LENS-DJ-12M": "視点レンズ University pass", "LENS-KJ-12M": "視点レンズ High-school pass", "LENS-CJ-12M": "視点レンズ 30-day pass" },
     passes: "Annual plans",
     passCards: ["Active plans", "Bought on the store", "From a code (course etc.)", "Devices in use", "Ending within 30 days", "Unused codes", "Expired"],
     daily: "Daily (last 30 days, days with activity)",
@@ -247,6 +259,10 @@ const T: Record<Lang, Dict> = {
     userCols: ["ID", "照片数", "状态", "首次拍照", "最近拍照"],
     status: { trying: "试用中", out: "已用完", pass: "年度方案" },
     usersShown: (s, a) => `显示最近拍照的 ${s} 位用户（共 ${a} 位）。全部请看CSV。`,
+    paidTitle: (n) => `付费客户（${n}位）`,
+    paidNote: "通过订单开通年度方案的客户。邮箱来自商店订单（已写入隐私政策）。设备ID与上方「用户」列表相同。",
+    paidCols: ["邮箱", "订单", "商品", "购买日期", "有效期至", "设备ID"],
+    products: { "LENS-SNAP-1Y": "年度方案", "LENS-DJ-12M": "视点レンズ 大学受験パス", "LENS-KJ-12M": "视点レンズ 高校受験パス", "LENS-CJ-12M": "视点レンズ 30日間突破パス" },
     passes: "年度方案",
     passCards: ["有效方案", "其中 商店购买", "其中 兑换码（课程等）", "使用中的设备", "30天内到期", "未使用的兑换码", "已过期"],
     daily: "每日（近30天，有数据的日期）",
@@ -360,6 +376,20 @@ async function passSummary(store: Store, now: number) {
     if (end - now < 30 * 24 * 3600 * 1000) s.endingSoon++;
   }
   return s;
+}
+
+type PaidRow = { buyer: string; order: string; sku: string; paidAt?: string; expiresAt?: string | null; devices: string[] };
+
+/** Orders that unlocked a plan (newest first), with their license's expiry and devices. */
+async function paidCustomers(store: Store): Promise<PaidRow[]> {
+  const rows: PaidRow[] = [];
+  for (const name of (await store.list("order")).slice(0, 20000)) {
+    const r = await store.get<OrderRecord>(`order/${name}`);
+    if (!r) continue;
+    const lic = await store.get<License>(`lic/${r.license.replace(/-/g, "")}`);
+    rows.push({ buyer: r.buyer ?? "", order: r.orderName ?? `#${name.replace(/^n/, "")}`, sku: r.sku ?? "", paidAt: r.paidAt, expiresAt: lic?.expiresAt, devices: (lic?.devices ?? []).map(shortId) });
+  }
+  return rows.sort((a, b) => (b.paidAt ?? "").localeCompare(a.paidAt ?? ""));
 }
 
 type UserRow = { id: string; n: number; status: "trying" | "out" | "pass"; first?: string; last?: string };
@@ -491,6 +521,16 @@ export function createAdmin(o: AdminOptions) {
     return c.body(bom(csv));
   });
 
+  admin.get("/paid.csv", async (c) => {
+    if (!authed(c)) return c.redirect("/admin");
+    const d = T[langOf(c)];
+    const rows = await paidCustomers(o.store);
+    const csv = [d.paidCols.join(","), ...rows.map((r) => [r.buyer, r.order, d.products[r.sku] ?? r.sku, jst(r.paidAt).slice(0, 10), jst(r.expiresAt ?? undefined).slice(0, 10), r.devices.join(" ")].map(csvCell).join(","))].join("\r\n");
+    c.header("Content-Type", "text/csv; charset=utf-8");
+    c.header("Content-Disposition", `attachment; filename="paid-customers-${statDay(now())}.csv"`);
+    return c.body(bom(csv));
+  });
+
   admin.get("/", async (c) => {
     const lang = langOf(c);
     const d = T[lang];
@@ -498,6 +538,14 @@ export function createAdmin(o: AdminOptions) {
     const t = now();
     const [week, month, total, passes, signups] = await Promise.all([o.stats.recent(7), o.stats.recent(30), o.stats.total(), passSummary(o.store, t), readSignups(o.waitlist)]);
     const users = await trialUsers(o.store, freeTrial, passes.onPass);
+    const paid = await paidCustomers(o.store);
+    const paidRows = paid
+      .slice(0, 200)
+      .map(
+        (r) =>
+          `<tr><td>${esc(r.buyer)}</td><td>${esc(r.order)}</td><td>${esc(d.products[r.sku] ?? r.sku)}</td><td>${esc(jst(r.paidAt).slice(0, 10))}</td><td>${esc(jst(r.expiresAt ?? undefined).slice(0, 10))}</td><td>${r.devices.map((x) => `<code>${esc(x)}</code>`).join(" ")}</td></tr>`,
+      )
+      .join("");
     const weekAgo = new Date(t - 7 * 24 * 3600 * 1000).toISOString();
     const today = week.days[0].c;
     const num = (v: number) => v.toLocaleString(d.locale);
@@ -553,6 +601,9 @@ ${funnelRow(d.ev.waitlist, "waitlist")}
 <p><a href="/admin/users.csv">${esc(d.csv)}</a>${esc(d.excel)}</p>
 <div class="wrap" data-testid="users"><table class="left"><thead><tr>${d.userCols.map((h) => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${userRows || none(5)}</tbody></table></div>
 ${users.length > 100 ? `<p class="muted">${esc(d.usersShown(100, users.length))}</p>` : ""}
+<h2>${esc(d.paidTitle(num(paid.length)))}</h2><p class="muted">${esc(d.paidNote)}</p>
+<p><a href="/admin/paid.csv">${esc(d.csv)}</a>${esc(d.excel)}</p>
+<div class="wrap" data-testid="paid"><table class="left"><thead><tr>${d.paidCols.map((h) => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${paidRows || none(6)}</tbody></table></div>
 <h2>${esc(d.passes)}</h2><div class="cards">${[passes.active, passes.order, passes.code, passes.devices, passes.endingSoon, passes.unusedCodes, passes.expired].map((v, i) => card(v, d.passCards[i])).join("")}</div>
 <h2>${esc(d.daily)}</h2><div class="wrap"><table><thead><tr><th>${esc(d.date)}</th>${STAT_EVENTS.map((ev) => `<th>${esc(d.ev[ev])}</th>`).join("")}</tr></thead><tbody>${daily || none(STAT_EVENTS.length + 1)}</tbody></table></div>
 <h2>${esc(d.waitlist(num(signups.length)))}</h2><p><a href="/admin/waitlist.csv">${esc(d.csv)}</a>${esc(d.excel)}</p>

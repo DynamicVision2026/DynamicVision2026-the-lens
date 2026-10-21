@@ -3,9 +3,9 @@ import { mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { orderEmailSnippet } from "../server/admin";
+import { createAdmin, orderEmailSnippet } from "../server/admin";
 import { createApi } from "../server/app";
-import { FileStore, Plans, linkSignature, linkSignatureOk, shopifyLinkKey } from "../server/plans";
+import { FileStore, MemStore, Plans, linkSignature, linkSignatureOk, shopifyLinkKey } from "../server/plans";
 import { MockReader } from "../src/reader/mock";
 
 const SECRET = "s".repeat(64);
@@ -98,5 +98,33 @@ describe("the signed link in the store's order email", () => {
       body: JSON.stringify({ order: "1001", email: "mama@example.jp" }),
     });
     expect(((await r.json()) as { license: string }).license).toBe(v1.license);
+  });
+});
+
+describe("paid customers on /admin", () => {
+  it("lists the buyer's email from the store order, the product and the plan's devices", async () => {
+    const store = new MemStore();
+    const plans = new Plans({ store, secret: SECRET, now: () => Date.parse("2026-10-21T03:00:00Z") });
+    const nodes = [order({ lineItems: { nodes: [{ sku: "LENS-KJ-12M", quantity: 1 }] } })];
+    const key = shopifyLinkKey(SECRET);
+    const app = createApi({
+      reader: new MockReader(),
+      waitlistPath: "/nonexistent/w.jsonl",
+      plans,
+      linkKey: key,
+      shopify: { store: "x.myshopify.com", token: "t", apiVersion: "2026-07", skus: ["LENS-SNAP-1Y", "LENS-KJ-12M"] },
+      shopifyFetch: async () => ({ ok: true, status: 200, json: async () => ({ data: { orders: { nodes } } }) }),
+    });
+    const dev = ((await (await app.request("/device", { method: "POST" })).json()) as { device: string }).device;
+    const r = await app.request("/claim-link", { method: "POST", headers: { "x-device": dev, "Content-Type": "application/json" }, body: JSON.stringify({ order: "1001", sig: linkSignature(key, "1001") }) });
+    expect(r.status).toBe(200);
+    const { Stats } = await import("../server/stats");
+    const admin = createAdmin({ key: "k".repeat(12), secret: SECRET, stats: new Stats(store), store, waitlist: { path: "/nonexistent" }, now: () => Date.parse("2026-10-21T03:00:00Z") });
+    const cookie = ((await admin.request("/login", { method: "POST", body: new URLSearchParams({ key: "k".repeat(12) }) })).headers.get("set-cookie") ?? "").split(";")[0];
+    const html = await (await admin.request("/", { headers: { cookie } })).text();
+    expect(html).toContain("有料のお客さま（1件）");
+    expect(html).toContain("<td>mama@example.jp</td><td>#1001</td><td>視点レンズ 高校受験パス</td>");
+    const csv = await (await admin.request("/paid.csv", { headers: { cookie } })).text();
+    expect(csv).toContain('"mama@example.jp","#1001","視点レンズ 高校受験パス"');
   });
 });

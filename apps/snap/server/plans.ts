@@ -150,9 +150,14 @@ export interface License {
   note?: string;
 }
 
-interface OrderRecord {
+export interface OrderRecord {
   license: string;
-  email: string; // keyed hash, never the address
+  email: string; // keyed hash (for the order number + email check)
+  /** For the owner's paid-customer list (/admin): the buyer's email from the store order, as the privacy policy says. */
+  buyer?: string;
+  orderName?: string; // "#1001"
+  sku?: string; // the item that granted the plan
+  paidAt?: string;
 }
 
 export function monthKey(now: number): string {
@@ -377,7 +382,14 @@ export class Plans {
       order: found.id,
     };
     await this.store.put(licKey(key), lic);
-    await this.store.put(idx, { license: key, email: eh } satisfies OrderRecord);
+    await this.store.put(idx, {
+      license: key,
+      email: eh,
+      buyer: found.email?.trim().toLowerCase() || undefined,
+      orderName: found.name,
+      sku: found.sku,
+      paidAt: found.paidAt,
+    } satisfies OrderRecord);
     return { ok: true, view: await this.view(dev, key) };
   }
 }
@@ -406,8 +418,10 @@ export function linkSignatureOk(key: string, orderNumber: string, sig: string): 
 export interface VerifiedOrder {
   id: string;
   paidAt: string;
-  /** The buyer's email on the order (only used to make its keyed hash; never stored or logged). */
+  /** The buyer's email on the order (kept for the owner's paid-customer list; never logged). */
   email?: string;
+  name?: string;
+  sku?: string;
 }
 export type OrderProblem = "not_found" | "not_paid" | "no_pass_item" | "not_configured" | "verify_failed";
 
@@ -440,8 +454,9 @@ export function pickOrder(nodes: ShopifyOrderNode[], number: string, email: stri
   if (!o) return "not_found";
   if (o.cancelledAt || !["PAID", "PARTIALLY_REFUNDED"].includes(o.displayFinancialStatus ?? "")) return "not_paid";
   const set = new Set(skus.map((s) => s.trim().toUpperCase()).filter(Boolean));
-  if (!o.lineItems.nodes.some((li) => li.quantity > 0 && set.has((li.sku ?? "").trim().toUpperCase()))) return "no_pass_item";
-  return { id: o.id, paidAt: o.processedAt, email: o.email ?? undefined };
+  const item = o.lineItems.nodes.find((li) => li.quantity > 0 && set.has((li.sku ?? "").trim().toUpperCase()));
+  if (!item) return "no_pass_item";
+  return { id: o.id, paidAt: o.processedAt, email: o.email ?? undefined, name: o.name, sku: (item.sku ?? "").trim().toUpperCase() };
 }
 
 export type Fetch = (url: string, init: { method: string; headers: Record<string, string>; body: string }) => Promise<{ ok: boolean; status: number; json(): Promise<unknown> }>;
