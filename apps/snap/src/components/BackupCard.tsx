@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
 import { app } from "../copy";
 import { toGrade } from "../curriculum";
-import { BackupError, backupFileName, makeBackup, needsBackupReminder, parseBackup } from "../lib/backup";
+import { BackupError, backupFileName, makeBackup, needsBackupReminder, parseBackupFile } from "../lib/backup";
+import { adoptBackupIds } from "../lib/plan";
 import type { SavedPage } from "../lib/model";
 import { importPages } from "../lib/store";
 import { readPref, writePref } from "../state";
@@ -24,7 +25,8 @@ export function BackupCard({ pages, onRestored }: { pages: SavedPage[]; onRestor
   function save() {
     try {
       const grade = toGrade(readPref("grade"));
-      const blob = new Blob([JSON.stringify(makeBackup(pages, grade))], { type: "application/json" });
+      const ids = { device: readPref("device"), license: readPref("license") };
+      const blob = new Blob([JSON.stringify(makeBackup(pages, grade, new Date(), ids))], { type: "application/json" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -46,8 +48,9 @@ export function BackupCard({ pages, onRestored }: { pages: SavedPage[]; onRestor
     if (!f) return;
     setBusy(true);
     try {
-      const incoming = parseBackup(await f.text());
+      const { pages: incoming, device, license } = parseBackupFile(await f.text());
       const n = await importPages(incoming);
+      adoptBackupIds(device, license); // continue as the device that made the backup (its photo count comes back)
       await onRestored();
       setMsg({ ok: true, text: n > 0 ? app.backup.restored(n) : app.backup.nothingNew });
     } catch (e) {

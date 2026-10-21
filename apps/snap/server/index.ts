@@ -7,7 +7,7 @@ import { createReader } from "../src/reader";
 import { adminKey, createAdmin } from "./admin";
 import { createApi } from "./app";
 import { envInt } from "./limits";
-import { FileStore, Plans, signingKey } from "./plans";
+import { FileStore, Plans, shopifyLinkKey, signingKey } from "./plans";
 import { Stats, isBot } from "./stats";
 
 const port = Number(process.env.PORT ?? 8080);
@@ -40,10 +40,12 @@ const shopify = {
   skus: (process.env.PASS_SKUS ?? "LENS-SNAP-1Y,LENS-COURSE").split(","),
 };
 const buyUrl = process.env.BUY_URL?.trim() || "https://soul-id-2.myshopify.com/products/lens-snap-annual";
+const linkKey = shopifyLinkKey(secret, process.env.SHOPIFY_LINK_KEY);
 // Limits are counted in memory: deploy with Cloud Run --max-instances 1.
 const api = createApi({
   plans,
   stats,
+  linkKey,
   shopify,
   buyUrl,
   reader,
@@ -55,7 +57,7 @@ const api = createApi({
 });
 app.route("/api", api);
 // The founder's dashboard (key: ADMIN_KEY, else plans/admin-key in the bucket).
-app.route("/admin", createAdmin({ key: await adminKey(planDir, process.env.ADMIN_KEY), secret, stats, store, waitlist: { dir: waitlistDir, path: waitlistPath }, freeTrial: plans.freeTrial }));
+app.route("/admin", createAdmin({ key: await adminKey(planDir, process.env.ADMIN_KEY), secret, stats, store, waitlist: { dir: waitlistDir, path: waitlistPath }, freeTrial: plans.freeTrial, linkKey }));
 // Landing page views for the dashboard (people only: crawlers and link previews skipped).
 app.use("*", async (c, next) => {
   if (c.req.method === "GET" && c.req.path === "/" && !isBot(c.req.header("user-agent"))) void stats.bump("lp_view");

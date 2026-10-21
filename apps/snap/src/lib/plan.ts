@@ -22,6 +22,7 @@ export type PlanView =
     };
 
 export type PlanError =
+  | "bad_link"
   | "not_found"
   | "not_paid"
   | "no_pass_item"
@@ -102,11 +103,22 @@ async function post(path: string, body: object): Promise<{ ok: true; view: PlanV
 export function planError(status: number, error: string | undefined): PlanError {
   if (status === 429) return "rate_limited";
   if (status === 503) return "unavailable";
-  const known: PlanError[] = ["not_found", "not_paid", "no_pass_item", "expired", "device_limit", "bad_code", "invalid"];
+  const known: PlanError[] = ["bad_link", "not_found", "not_paid", "no_pass_item", "expired", "device_limit", "bad_code", "invalid"];
   return known.includes(error as PlanError) ? (error as PlanError) : "error";
 }
 
 export const claimOrder = (order: string, email: string) => post("/api/claim", { order, email });
+/** The link in the store's order confirmation email: order number + the store's signature. */
+export const claimLink = (order: string, sig: string) => post("/api/claim-link", { order, sig });
+
+/**
+ * After restoring a backup: continue as the device that made it, so its photo count (the free trial)
+ * comes back with the map; and keep its plan code when this device has none.
+ */
+export function adoptBackupIds(device: string | undefined, license: string | undefined) {
+  if (device) writePref(DEVICE, device);
+  if (license && !readLicense()) writeLicense(license);
+}
 export const redeemCode = (code: string) => post("/api/redeem", { code });
 
 /** The plan, loaded on mount; `reload` after a read, a claim or a code. */

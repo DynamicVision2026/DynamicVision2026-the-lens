@@ -7,6 +7,8 @@ import { type SavedPage, migratePage } from "./model";
 /**
  * Backup / restore: one JSON file with every page (photos as base64).
  * Restore merges by page id: pages already on this device are kept as they are, new ones are added.
+ * The file also carries this device's random id and the plan code (if any): restoring continues the
+ * same device, so the free trial's count comes back with the map (a reset cannot keep both).
  */
 export const BACKUP_APP = "lens-snap";
 export const BACKUP_VERSION = 1;
@@ -46,6 +48,9 @@ export const BackupSchema = z.object({
   exportedAt: z.string(),
   grade: GradeField.nullable(),
   pages: z.array(PageSchema),
+  // Added 21 Oct 2026; older backups have neither.
+  device: z.string().regex(/^d1\.[A-Za-z0-9_-]{16}\.[A-Za-z0-9_-]{22}$/).optional(),
+  license: z.string().regex(/^LS-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/).optional(),
 });
 export type BackupFile = z.infer<typeof BackupSchema>;
 
@@ -63,13 +68,15 @@ export function fromBase64(b64: string): ArrayBuffer {
   return bytes.buffer;
 }
 
-export function makeBackup(pages: SavedPage[], grade: Grade | null, now = new Date()): BackupFile {
+export function makeBackup(pages: SavedPage[], grade: Grade | null, now = new Date(), ids: { device?: string | null; license?: string | null } = {}): BackupFile {
   return {
     app: BACKUP_APP,
     version: BACKUP_VERSION,
     exportedAt: now.toISOString(),
     grade,
     pages: pages.map(({ photo, ...p }) => ({ ...p, ...(photo ? { photo: { mime: photo.mime, base64: toBase64(photo.bytes) } } : {}) })),
+    ...(ids.device ? { device: ids.device } : {}),
+    ...(ids.license ? { license: ids.license } : {}),
   };
 }
 
@@ -83,6 +90,11 @@ export class BackupError extends Error {}
 
 /** Parse and validate a backup file's text → pages ready for IndexedDB. Throws BackupError. */
 export function parseBackup(text: string): SavedPage[] {
+  return parseBackupFile(text).pages;
+}
+
+/** The pages plus the device id and plan code the backup was made with (when it has them). */
+export function parseBackupFile(text: string): { pages: SavedPage[]; device?: string; license?: string } {
   let json: unknown;
   try {
     json = JSON.parse(text);
@@ -91,12 +103,13 @@ export function parseBackup(text: string): SavedPage[] {
   }
   const r = BackupSchema.safeParse(json);
   if (!r.success) throw new BackupError(r.error.issues[0]?.message ?? "invalid");
-  return r.data.pages.map(({ photo, ...p }) =>
+  const pages = r.data.pages.map(({ photo, ...p }) =>
     migratePage({
       ...p,
       ...(photo ? { photo: { mime: photo.mime, bytes: fromBase64(photo.base64) } } : {}),
     }),
   );
+  return { pages, device: r.data.device, license: r.data.license };
 }
 
 /** Pages from the backup that this device does not have yet (by id; duplicates in the file count once). */

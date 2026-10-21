@@ -1,5 +1,5 @@
 import { type FormEvent, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { app } from "../copy";
 import { type PlanError, type PlanView, claimOrder, jaDate, monthUse, redeemCode, resetDay, usePlan } from "../lib/plan";
 
@@ -8,7 +8,10 @@ const p = app.plan;
 /** プラン: where the free count stands, the ¥5,800 pass (buy / unlock by order / code). */
 export function PlanScreen() {
   const { plan, setPlan } = usePlan();
-  const [justDone, setJustDone] = useState(false);
+  // from the store email's link (/app/claim): ?done=1 after unlocking, or ?order=…&err=… to finish by hand
+  const [params] = useSearchParams();
+  const fromLink = params.get("done") === "1";
+  const [justDone, setJustDone] = useState(fromLink);
   const done = (v: PlanView) => {
     setPlan(v);
     setJustDone(true);
@@ -20,13 +23,13 @@ export function PlanScreen() {
       {!plan ? (
         <p className="muted">{p.offline}</p>
       ) : plan.plan === "pass" ? (
-        <PassCard plan={plan} fresh={justDone} />
+        <PassCard plan={plan} fresh={justDone} fromLink={fromLink} />
       ) : (
         <>
           <FreeCard plan={plan} />
           <Offer buyUrl={plan.buyUrl} />
           <div className="plan-forms">
-            <ClaimForm onDone={done} />
+            <ClaimForm onDone={done} initialOrder={params.get("order") ?? ""} initialError={(params.get("err") as PlanError | null) ?? null} />
             <CodeForm onDone={done} />
           </div>
         </>
@@ -57,7 +60,7 @@ function FreeCard({ plan }: { plan: Extract<PlanView, { plan: "free" }> }) {
   );
 }
 
-function PassCard({ plan, fresh }: { plan: Extract<PlanView, { plan: "pass" }>; fresh: boolean }) {
+function PassCard({ plan, fresh, fromLink = false }: { plan: Extract<PlanView, { plan: "pass" }>; fresh: boolean; fromLink?: boolean }) {
   return (
     <section className="card plan-status is-pass" data-testid="plan-pass">
       {fresh && (
@@ -70,7 +73,7 @@ function PassCard({ plan, fresh }: { plan: Extract<PlanView, { plan: "pass" }>; 
       <div className="plan-code">
         <span className="small muted">{p.yourCode}</span>
         <code data-testid="plan-code">{plan.license}</code>
-        <p className="small muted">{p.codeNote}</p>
+        <p className="small muted">{fromLink ? p.linkDoneNote : p.codeNote}</p>
       </div>
       <Link to="/app/snap" className="btn btn-primary btn-block">
         {app.nav.snap}
@@ -139,11 +142,11 @@ function errorText(e: PlanError) {
   return p.errors[e] ?? p.errors.error;
 }
 
-function ClaimForm({ onDone }: { onDone: (v: PlanView) => void }) {
-  const [order, setOrder] = useState("");
+function ClaimForm({ onDone, initialOrder = "", initialError = null }: { onDone: (v: PlanView) => void; initialOrder?: string; initialError?: PlanError | null }) {
+  const [order, setOrder] = useState(initialOrder.replace(/\D/g, ""));
   const [email, setEmail] = useState("");
   const [busy, setBusy] = useState(false);
-  const [err, setErr] = useState<PlanError | null>(null);
+  const [err, setErr] = useState<PlanError | null>(initialError && p.errors[initialError] ? initialError : null);
   const submit = async (e: FormEvent) => {
     e.preventDefault();
     if (!order.trim() || !email.includes("@")) return setErr("invalid");

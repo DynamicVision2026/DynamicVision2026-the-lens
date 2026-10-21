@@ -570,6 +570,8 @@ export const app = {
     yourCode: "このプランのコード",
     codeNote: "家族の端末（3台まで）でも、このコードを入力すると使えます。控えておいてください。",
     done: "年間プランが有効になりました",
+    linkWorking: "年間プランを有効にしています…",
+    linkDoneNote: "ホーム画面に追加したアプリでも使うときは、そのアプリの「プラン」→「コードをお持ちの方」に、下のコードを入力してください。",
     monthTitle: "今月の撮影枚数",
     monthCount: (used: number, limit: number, pct: number) => `${used}／${limit}枚（${pct}%）`,
     monthLeft: (left: number, day: string) => `あと${left}枚・${day}にリセットされます`,
@@ -581,6 +583,7 @@ export const app = {
     deviceLimit: "このプランはすでに3台の端末で使われています。",
     errors: {
       not_found: "注文が見つかりません。注文番号とメールアドレスをご確認ください。",
+      bad_link: "リンクを確認できませんでした。お手数ですが、注文番号とメールアドレスを入力してください。",
       not_paid: "お支払いが確認できない注文です。",
       no_pass_item: "この注文には年間プランが含まれていません。",
       expired: "有効期限が切れています。",

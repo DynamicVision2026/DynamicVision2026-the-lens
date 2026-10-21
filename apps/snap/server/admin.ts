@@ -4,7 +4,7 @@ import { join } from "node:path";
 import { type Context, Hono } from "hono";
 import { getCookie, setCookie } from "hono/cookie";
 import { type Now, RateLimiter, clientKey, safeEqual } from "./limits";
-import type { License, Store, Usage } from "./plans";
+import { type License, type Store, type Usage, linkSignatureOk } from "./plans";
 import { type Counts, STAT_EVENTS, type StatEvent, type Stats, statDay } from "./stats";
 import type { WaitlistTarget } from "./waitlist-store";
 
@@ -73,6 +73,14 @@ type Dict = {
   newest50: string;
   csvWaitHead: string;
   csvUserHead: string;
+  mailTitle: string;
+  mailSteps: string[];
+  copy: string;
+  copied: string;
+  checkTitle: string;
+  checkBtn: string;
+  checkOk: (order: string) => string;
+  checkBad: string;
 };
 
 const T: Record<Lang, Dict> = {
@@ -123,6 +131,19 @@ const T: Record<Lang, Dict> = {
     newest50: "新しい50件を表示しています。すべてはCSVでご覧ください。",
     csvWaitHead: "日時(JST),メール,学年,悩み,流入元,見出し",
     csvUserHead: "ID,撮影枚数,状態,はじめて撮った日時(JST),最後に撮った日時(JST)",
+    mailTitle: "ストアの注文確認メール（年間プランを1タップで有効に）",
+    mailSteps: [
+      "Shopify管理画面 →「設定」→「通知」→「注文の確認」→「コードを編集」を開きます。",
+      "本文の最初の方（「ご注文ありがとうございます」の下など）に、下のコードをそのまま貼り付けて保存します。",
+      "年間プラン（LENS-SNAP-1Y）か講座（LENS-COURSE）を含む注文のメールにだけ、ようこそメッセージと「つまずきマップを開いて有効にする」ボタンが入ります。ほかの商品のメールは変わりません。",
+      "「テストメールを送信」で届いたメールのボタンは押さずに、長押しして「リンクをコピー」し、下の「リンクの確認」に貼り付けてください（テストの注文番号が実在の注文と重なることがあるため）。",
+    ],
+    copy: "コードをコピー",
+    copied: "コピーしました",
+    checkTitle: "リンクの確認（メールのボタンのリンクを貼り付け）",
+    checkBtn: "確認する",
+    checkOk: (o) => `正しく設定されています（注文番号 ${o} のリンクとして有効です）。`,
+    checkBad: "リンクを確認できません。コードを貼り付け直してください（キーの部分が変わっていないか確認してください）。",
   },
   en: {
     htmlLang: "en",
@@ -171,6 +192,19 @@ const T: Record<Lang, Dict> = {
     newest50: "Showing the newest 50. See the CSV for all.",
     csvWaitHead: "Time (JST),Email,Grade,Worry,Source,Headline",
     csvUserHead: "ID,Photos,Status,First photo (JST),Last photo (JST)",
+    mailTitle: "Store order confirmation email (one-tap unlock of the annual plan)",
+    mailSteps: [
+      "In Shopify admin open Settings → Notifications → Order confirmation → Edit code.",
+      "Paste the code below near the top of the body (e.g. under the thank-you line) and save.",
+      "Only emails for orders with the annual plan (LENS-SNAP-1Y) or the course (LENS-COURSE) get the welcome message and the button; other products' emails are unchanged.",
+      "Send yourself the test email but don't tap its button: long-press it, copy the link and paste it into \"Check a link\" below (the test order number can match a real order).",
+    ],
+    copy: "Copy code",
+    copied: "Copied",
+    checkTitle: "Check a link (paste the link of the email's button)",
+    checkBtn: "Check",
+    checkOk: (o) => `Set up correctly (valid link for order ${o}).`,
+    checkBad: "This link is not valid. Paste the code again (check the key was not changed).",
   },
   zh: {
     htmlLang: "zh-Hans",
@@ -219,6 +253,19 @@ const T: Record<Lang, Dict> = {
     newest50: "显示最新的50条，全部请看CSV。",
     csvWaitHead: "时间(JST),邮箱,年级,困扰,来源,标题",
     csvUserHead: "ID,照片数,状态,首次拍照(JST),最近拍照(JST)",
+    mailTitle: "商店订单确认邮件（一键开通年度方案）",
+    mailSteps: [
+      "在 Shopify 后台打开「设置」→「通知」→「订单确认」→「编辑代码」。",
+      "把下面的代码原样粘贴到正文靠前的位置（如感谢语下方）并保存。",
+      "只有包含年度方案（LENS-SNAP-1Y）或课程（LENS-COURSE）的订单邮件才会出现欢迎语和按钮，其他商品的邮件不变。",
+      "发送测试邮件，但不要点击按钮：长按复制链接，粘贴到下方「检查链接」（测试订单号可能与真实订单重复）。",
+    ],
+    copy: "复制代码",
+    copied: "已复制",
+    checkTitle: "检查链接（粘贴邮件按钮的链接）",
+    checkBtn: "检查",
+    checkOk: (o) => `设置正确（订单号 ${o} 的有效链接）。`,
+    checkBad: "链接无效。请重新粘贴代码（确认密钥部分没有被改动）。",
   },
 };
 
@@ -241,6 +288,8 @@ export interface AdminOptions {
   waitlist: WaitlistTarget;
   /** The free trial's size (FREE_TRIAL). */
   freeTrial?: number;
+  /** Key of the signed link in the store's order confirmation email (shown inside the snippet). */
+  linkKey?: string;
   now?: Now;
 }
 
@@ -317,6 +366,24 @@ async function trialUsers(store: Store, freeTrial: number, onPass: Set<string>):
 }
 
 const n = (c: Counts, ev: StatEvent) => c[ev] ?? 0;
+
+/** The block for Shopify's order confirmation email (Liquid): a welcome and the one-tap unlock button. */
+export function orderEmailSnippet(linkKey: string, site = "https://tsumazuki.domo-ai.com"): string {
+  return `{% comment %} つまずきマップ：年間プラン・講座のご購入者だけに表示 {% endcomment %}
+{% assign tz_pass = false %}
+{% for line in subtotal_line_items %}
+  {% if line.sku == 'LENS-SNAP-1Y' or line.sku == 'LENS-COURSE' or line.variant.sku == 'LENS-SNAP-1Y' or line.variant.sku == 'LENS-COURSE' %}{% assign tz_pass = true %}{% endif %}
+{% endfor %}
+{% if tz_pass %}
+{% assign tz_sig = order_number | append: '' | hmac_sha256: '${linkKey}' %}
+<table role="presentation" width="100%" style="margin:16px 0;border-collapse:separate"><tr><td style="padding:20px;border:1px solid #e4ded3;border-radius:12px;background:#f7f4ee">
+<p style="margin:0 0 8px;font-size:18px;font-weight:bold;color:#1e2d4a">つまずきマップ 年間プランへようこそ</p>
+<p style="margin:0 0 14px;line-height:1.7;color:#1d2433">ご購入ありがとうございます。下のボタンを押すと、つまずきマップが開いて年間プランがすぐに有効になります（注文番号やメールアドレスの入力は不要です）。ご家族の端末（3台まで）でも、このボタンから有効にできます。</p>
+<a href="${site}/app/claim?o={{ order_number }}&s={{ tz_sig }}" style="display:inline-block;padding:12px 22px;border-radius:999px;background:#1e2d4a;color:#ffffff;font-weight:bold;text-decoration:none">つまずきマップを開いて有効にする</a>
+<p style="margin:14px 0 0;font-size:12px;line-height:1.6;color:#5d6779">ボタンが使えないときは、アプリの「プラン」→「購入済みの方」に、注文番号 {{ order_name }} とこのメールのアドレスを入力してください。</p>
+</td></tr></table>
+{% endif %}`;
+}
 
 // ---------------------------------------------------------------- page
 
@@ -438,6 +505,18 @@ export function createAdmin(o: AdminOptions) {
       .map((r) => `<tr><td>${esc(jst(r.at))}</td><td>${esc(r.email)}</td><td>${esc(r.grade)}</td><td>${esc(r.worry)}</td><td>${esc(r.src)}</td></tr>`)
       .join("");
     const none = (cols: number) => `<tr><td colspan="${cols}">${esc(d.none)}</td></tr>`;
+    // 「リンクの確認」: is a pasted email link signed with our key? (nothing is unlocked)
+    const checked = c.req.query("check")?.trim().slice(0, 500);
+    let checkedOrder: string | null = null;
+    if (checked && o.linkKey) {
+      try {
+        const u = new URL(checked);
+        const ord = (u.searchParams.get("o") ?? "").replace(/\D/g, "");
+        if (ord && linkSignatureOk(o.linkKey, ord, u.searchParams.get("s") ?? "")) checkedOrder = ord;
+      } catch {
+        /* not a URL */
+      }
+    }
     return c.html(
       page(
         d,
@@ -462,7 +541,16 @@ ${users.length > 100 ? `<p class="muted">${esc(d.usersShown(100, users.length))}
 <h2>${esc(d.daily)}</h2><div class="wrap"><table><thead><tr><th>${esc(d.date)}</th>${STAT_EVENTS.map((ev) => `<th>${esc(d.ev[ev])}</th>`).join("")}</tr></thead><tbody>${daily || none(STAT_EVENTS.length + 1)}</tbody></table></div>
 <h2>${esc(d.waitlist(num(signups.length)))}</h2><p><a href="/admin/waitlist.csv">${esc(d.csv)}</a>${esc(d.excel)}</p>
 <div class="wrap"><table class="left"><thead><tr>${d.waitCols.map((h) => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${recent || none(5)}</tbody></table></div>
-<p class="muted">${esc(d.newest50)}</p>`,
+<p class="muted">${esc(d.newest50)}</p>
+${
+  o.linkKey
+    ? `<h2>${esc(d.mailTitle)}</h2><ol class="muted" style="line-height:1.8;padding-left:20px">${d.mailSteps.map((x) => `<li>${esc(x)}</li>`).join("")}</ol>
+<textarea id="mail-snippet" readonly rows="10" style="width:100%;font:12px/1.5 ui-monospace,Menlo,monospace;padding:10px;border:1px solid var(--line);border-radius:10px" data-testid="mail-snippet">${esc(orderEmailSnippet(o.linkKey))}</textarea>
+<p><button type="button" onclick="navigator.clipboard.writeText(document.getElementById('mail-snippet').value).then(()=>{this.textContent='${esc(d.copied)}'})">${esc(d.copy)}</button></p>
+<h2 id="check">${esc(d.checkTitle)}</h2><form method="get" action="/admin#check" style="display:flex;gap:8px;flex-wrap:wrap"><input name="check" value="${esc(checked ?? "")}" placeholder="https://tsumazuki.domo-ai.com/app/claim?o=…&amp;s=…" style="flex:1;min-width:260px"><button type="submit">${esc(d.checkBtn)}</button></form>
+${checked ? `<p data-testid="check-result" style="color:${checkedOrder ? "var(--ok)" : "var(--accent)"};font-weight:700">${esc(checkedOrder ? d.checkOk(checkedOrder) : d.checkBad)}</p>` : ""}`
+    : ""
+}`,
       ),
     );
   });
