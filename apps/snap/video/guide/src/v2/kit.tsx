@@ -55,15 +55,18 @@ const hash = (n: number) => {
 };
 
 /** Deep navy, a drifting hex field with cells that light up, a slow light sweep and a vignette. */
-export function Backdrop({ tint = C.cyan, glints = true }: { tint?: string; glints?: boolean }) {
+/** w/h: the frame size (default 1920×1080; the vertical short passes 1080×1920). */
+export function Backdrop({ tint = C.cyan, glints = true, w: W = 1920, h: H = 1080 }: { tint?: string; glints?: boolean; w?: number; h?: number }) {
   const f = useCurrentFrame();
   const R = 46;
   const w = Math.sqrt(3) * R;
   const cells = [];
   const dx = (f * 0.35) % w;
   const dy = (f * 0.2) % (1.5 * R * 2);
-  for (let row = -1; row < 16; row++) {
-    for (let col = -1; col < 24; col++) {
+  const rows = H === 1080 ? 16 : Math.ceil(H / (1.5 * R)) + 2;
+  const cols = W === 1920 ? 24 : Math.ceil(W / w) + 2;
+  for (let row = -1; row < rows; row++) {
+    for (let col = -1; col < cols; col++) {
       const x = col * w + (row % 2 ? w / 2 : 0) - dx;
       const y = row * 1.5 * R - dy;
       const id = row * 31 + col;
@@ -84,10 +87,10 @@ export function Backdrop({ tint = C.cyan, glints = true }: { tint?: string; glin
   const sweep = ((f * 6) % 3200) - 800;
   return (
     <AbsoluteFill style={{ background: `radial-gradient(1300px 900px at 30% 20%, ${C.bg1}, ${C.bg0} 72%)` }}>
-      <svg width={1920} height={1080} style={{ position: "absolute" }}>
+      <svg width={W} height={H} style={{ position: "absolute" }}>
         {cells}
       </svg>
-      <div style={{ position: "absolute", left: sweep, top: -300, width: 260, height: 1700, transform: "rotate(18deg)", background: "linear-gradient(90deg, transparent, rgba(120,200,255,0.06), transparent)" }} />
+      <div style={{ position: "absolute", left: sweep, top: -300, width: 260, height: H + 620, transform: "rotate(18deg)", background: "linear-gradient(90deg, transparent, rgba(120,200,255,0.06), transparent)" }} />
       <div style={{ position: "absolute", width: 1000, height: 1000, left: 1100, top: -320, borderRadius: "50%", background: `radial-gradient(circle, ${tint}22, transparent 65%)` }} />
       <AbsoluteFill style={{ background: "radial-gradient(1400px 900px at 50% 50%, transparent 55%, rgba(0,0,0,0.55))" }} />
     </AbsoluteFill>

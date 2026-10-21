@@ -1203,6 +1203,9 @@ html[data-layout="wide"] .plan-forms, html[data-layout="tablet"] .plan-forms { d
 .lp-pain-card blockquote { margin: 0; color: var(--c-navy); font-weight: 800; font-size: 1.05rem; line-height: 1.7; }
 .lp-answer { text-align: center; margin: 34px 0 0; color: var(--c-navy); font-weight: 900; font-size: 1.25rem; }
 .lp-split { display: grid; grid-template-columns: 1fr 1.15fr; gap: 48px; align-items: center; }
+.lp-video-wrap { max-width: 960px; }
+.lp-video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; margin-top: 24px; border-radius: 16px; border: 6px solid var(--lp-ink-2); box-shadow: 0 24px 60px var(--lp-shadow); background: var(--lp-ink-2); }
+.lp-video-note { text-align: center; margin-top: 12px; font-size: 0.95rem; opacity: 0.8; }
 .lp-shot { display: block; width: 100%; height: auto; border-radius: 16px; border: 8px solid var(--lp-ink-2); box-shadow: 0 24px 60px var(--lp-shadow); }
 .lp-ladder { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
 .lp-ladder li { display: grid; grid-template-columns: 26px 92px 1fr; align-items: center; gap: 12px; font-size: 0.95rem; }
@@ -1231,6 +1234,16 @@ html[data-layout="wide"] .plan-forms, html[data-layout="tablet"] .plan-forms { d
 .lp-plan li::before { content: "✓"; color: var(--c-ok); font-weight: 900; margin-right: 8px; }
 .lp-plan .btn { margin-top: auto; }
 .lp-plan.is-best { border: 2px solid var(--terr-gold); box-shadow: 0 16px 40px var(--c-shadow), 0 0 0 4px var(--c-gold-tint); }
+/* 視点レンズ bundle card under the two plans */
+.lp-bundle { max-width: 900px; margin: 24px auto 0; display: grid; gap: 10px; border: 1.5px dashed var(--c-navy-soft); }
+.lp-bundle .lp-kicker { margin: 0; }
+.lp-bundle h3, .lp-bundle p { margin: 0; }
+.lp-bundle-courses { list-style: none; margin: 6px 0 4px; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.lp-bundle-courses li { display: grid; gap: 2px; padding: 12px 14px; border-radius: 12px; background: var(--c-navy-tint); }
+.lp-bundle-courses b { color: var(--c-navy); }
+.lp-bundle-courses span { font-size: 0.85rem; color: var(--c-muted); }
+.lp-bundle .btn { justify-self: start; }
+@media (max-width: 640px) { .lp-bundle-courses { grid-template-columns: 1fr; } .lp-bundle .btn { justify-self: stretch; } }
 .lp-plan-badge { position: absolute; top: -14px; right: 22px; padding: 4px 14px; border-radius: 999px; background: var(--terr-gold); color: var(--c-navy); font-weight: 900; font-size: 0.82rem; }
 .lp-price-notes { max-width: 900px; margin: 26px auto 0; color: var(--c-muted); font-size: 0.9rem; }
 .lp-price-notes p { margin: 0 0 6px; }
