@@ -287,15 +287,19 @@ input:not([type="checkbox"]):not([type="radio"]), .select {
 .mini-list li.is-wrong .mini-mark { color: var(--c-wrong); font-weight: 800; }
 .mini-q { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-/* ---------- install tip ---------- */
-.install-tip {
-  display: flex; gap: 12px; align-items: flex-start; margin: 12px 0; padding: 14px;
-  border-radius: var(--radius); background: var(--c-surface); color: var(--c-text); box-shadow: 0 1px 3px var(--c-shadow);
-  border: 1.5px solid var(--c-accent);
+/* ---------- home-screen reminder (window over the map) ---------- */
+.install-ask-backdrop { position: fixed; inset: 0; z-index: 60; display: grid; place-items: end center; padding: 16px; background: rgba(30, 45, 74, 0.45); }
+.install-ask {
+  width: min(440px, 100%); display: grid; gap: 10px; justify-items: center; text-align: center;
+  padding: 22px 18px 18px; border-radius: 20px; background: var(--c-surface); color: var(--c-text);
+  box-shadow: 0 10px 30px var(--c-shadow); margin-bottom: env(safe-area-inset-bottom);
 }
-.install-tip strong { color: var(--c-navy); display: block; }
-.install-tip p { margin: 4px 0 10px; font-size: 0.9rem; line-height: 1.6; }
-.install-tip .btn { min-height: 44px; padding: 0 16px; }
+.install-ask h2 { margin: 0; font-size: 1.15rem; color: var(--c-navy); }
+.install-ask p { margin: 0; font-size: 0.93rem; line-height: 1.7; }
+.install-ask-actions { display: grid; grid-template-columns: 1fr 1.4fr; gap: 10px; width: 100%; margin-top: 4px; }
+.install-ask .btn { min-height: 48px; }
+.install-steps { text-align: left; margin: 0; padding-left: 1.4em; display: grid; gap: 8px; font-size: 0.93rem; line-height: 1.6; width: 100%; }
+@media (min-width: 700px) { .install-ask-backdrop { place-items: center; } }
 .install-icon { flex: none; border-radius: 10px; }
 
 /* ---------- backup (ふりかえり) ---------- */
