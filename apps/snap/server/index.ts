@@ -39,7 +39,7 @@ const shopify = {
   apiVersion: process.env.SHOPIFY_API_VERSION?.trim() || "2026-07",
   skus: (process.env.PASS_SKUS ?? "LENS-SNAP-1Y,LENS-COURSE").split(","),
 };
-const buyUrl = process.env.BUY_URL?.trim() || "https://soul-id-2.myshopify.com/products/lens-snap-annual";
+const buyUrl = process.env.BUY_URL?.trim() || "https://soul-id-2.myshopify.com/products/%E3%81%A4%E3%81%BE%E3%81%9A%E3%81%8D%E3%83%9E%E3%83%83%E3%83%97-%E5%B9%B4%E9%96%93%E3%83%97%E3%83%A9%E3%83%B3-1%E5%B9%B4%E9%96%93";
 const linkKey = shopifyLinkKey(secret, process.env.SHOPIFY_LINK_KEY);
 // Limits are counted in memory: deploy with Cloud Run --max-instances 1.
 const api = createApi({

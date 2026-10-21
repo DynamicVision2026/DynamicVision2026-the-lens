@@ -5,8 +5,8 @@
 
 /** 特定商取引法に基づく表記: the store's legal page (purchases happen on the Shopify store). */
 export const LEGAL_URL = "https://soul-id-2.myshopify.com/policies/legal-notice";
-/** The ¥5,800 annual plan on the store (same as the app's buy button). */
-export const BUY_URL = "https://soul-id-2.myshopify.com/products/lens-snap-annual";
+/** The product's address on the store (handle つまずきマップ-年間プラン-1年間, percent-encoded). */
+export const BUY_URL = "https://soul-id-2.myshopify.com/products/%E3%81%A4%E3%81%BE%E3%81%9A%E3%81%8D%E3%83%9E%E3%83%83%E3%83%97-%E5%B9%B4%E9%96%93%E3%83%97%E3%83%A9%E3%83%B3-1%E5%B9%B4%E9%96%93";
 export const SITE_URL = "https://tsumazuki.domo-ai.com";
 
 export const lp = {
