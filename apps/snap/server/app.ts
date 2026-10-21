@@ -3,7 +3,7 @@ import { toGrade } from "../src/curriculum";
 import { WaitlistSchema } from "../src/lib/waitlist";
 import type { Reader } from "../src/reader";
 import { DailyCap, type Now, RateLimiter, clientKey, safeEqual } from "./limits";
-import { type Fetch, type Plans, type ShopifyConfig, lookupShopifyOrder } from "./plans";
+import { type Fetch, type Plans, type ShopifyConfig, linkSignatureOk, lookupShopifyOrder } from "./plans";
 import type { StatEvent, Stats } from "./stats";
 import { type WaitlistTarget, writeSignup } from "./waitlist-store";
 
@@ -31,6 +31,8 @@ export interface AppOptions {
   buyUrl?: string;
   /** Counters for the founder's dashboard (/admin). */
   stats?: Stats;
+  /** Key of the signed link in the store's order confirmation email (see shopifyLinkKey). */
+  linkKey?: string;
 }
 
 /** @hono/node-server puts the Node request in c.env.incoming. */
@@ -89,6 +91,22 @@ export function createApi(opts: AppOptions) {
     count("unlock_order");
     return c.json({ ...r.view, buyUrl: opts.buyUrl ?? null });
   });
+  // The link in the store's order confirmation email: /app/claim?o=<order number>&s=<signature>
+  api.post("/claim-link", async (c) => {
+    if (!plans || !opts.linkKey) return c.json({ error: "not_configured" }, 404);
+    const dev = devOf(c);
+    if (!dev) return c.json({ error: "device_required" }, 401);
+    if (!claimIp.hit(keyOf(c))) return c.json({ error: "rate_limited" }, 429);
+    const body = (await c.req.json().catch(() => null)) as { order?: unknown; sig?: unknown } | null;
+    const order = typeof body?.order === "string" ? body.order.replace(/\D/g, "").slice(0, 12) : "";
+    const sig = typeof body?.sig === "string" ? body.sig.slice(0, 80) : "";
+    if (!order || !linkSignatureOk(opts.linkKey, order, sig)) return c.json({ error: "bad_link" }, 400);
+    const r = await plans.claimByLink(dev, order, () => (opts.shopify ? lookupShopifyOrder(opts.shopify, order, null, opts.shopifyFetch) : Promise.resolve("not_configured" as const)));
+    if (!r.ok) return c.json({ error: r.error }, r.error === "verify_failed" || r.error === "not_configured" ? 503 : 400);
+    count("unlock_order");
+    return c.json({ ...r.view, buyUrl: opts.buyUrl ?? null });
+  });
+
   api.post("/redeem", async (c) => {
     if (!plans) return c.json({ error: "not_configured" }, 404);
     const dev = devOf(c);

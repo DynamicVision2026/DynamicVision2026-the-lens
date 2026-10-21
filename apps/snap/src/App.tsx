@@ -1,4 +1,5 @@
 import { InstallAsk } from "./components/InstallAsk";
+import { ClaimLink } from "./screens/ClaimLink";
 import type { ReactElement } from "react";
 import { Link, NavLink, Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { app } from "./copy";
@@ -25,6 +26,7 @@ export function App() {
       <Route path="/" element={<Landing />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/terms" element={<Terms />} />
+      <Route path="/app/claim" element={<ClaimLink />} />
       <Route path="/app/*" element={<AppArea />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

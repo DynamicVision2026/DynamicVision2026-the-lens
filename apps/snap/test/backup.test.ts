@@ -1,7 +1,7 @@
 import "fake-indexeddb/auto";
 import { readFileSync } from "node:fs";
 import { beforeEach, describe, expect, it } from "vitest";
-import { BackupError, backupFileName, makeBackup, needsBackupReminder, newPages, parseBackup } from "../src/lib/backup";
+import { BackupError, backupFileName, makeBackup, needsBackupReminder, newPages, parseBackup, parseBackupFile } from "../src/lib/backup";
 import type { SavedPage } from "../src/lib/model";
 import { _resetDbHandle, allPages, importPages, savePage } from "../src/lib/store";
 
@@ -97,5 +97,22 @@ describe("backup / restore", () => {
     expect(needsBackupReminder(1, null, now)).toBe(true);
     expect(needsBackupReminder(3, "2026-10-10T12:00:00Z", now)).toBe(false);
     expect(needsBackupReminder(3, "2026-10-04T11:00:00Z", now)).toBe(true); // > 14 days
+  });
+});
+
+describe("backup carries the device id and plan code", () => {
+  const DEV = "d1.AAAAAAAAAAAAAAAA.BBBBBBBBBBBBBBBBBBBBBB";
+  it("writes them, reads them back; old backups without them still restore", () => {
+    const withIds = JSON.stringify(makeBackup([page("a", "2026-10-01T09:00:00.000Z")], "小5", new Date(), { device: DEV, license: "LS-F3BJ-D3FG-N7F7" }));
+    expect(parseBackupFile(withIds)).toMatchObject({ device: DEV, license: "LS-F3BJ-D3FG-N7F7" });
+    const old = JSON.stringify(makeBackup([page("a", "2026-10-01T09:00:00.000Z")], "小5"));
+    expect(old).not.toContain('"device"');
+    const r = parseBackupFile(old);
+    expect(r.pages).toHaveLength(1);
+    expect(r.device).toBeUndefined();
+  });
+  it("refuses a malformed device id", () => {
+    const bad = { ...makeBackup([], null), device: "not-a-device" };
+    expect(() => parseBackupFile(JSON.stringify(bad))).toThrow(BackupError);
   });
 });

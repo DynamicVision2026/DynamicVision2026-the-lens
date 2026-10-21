@@ -332,6 +332,37 @@ export class Plans {
     }
     const found = await lookup();
     if (typeof found === "string") return { ok: false, error: found };
+    return this.passFromOrder(dev, found, eh, idx);
+  }
+
+  /**
+   * The signed link in the store's order confirmation email (/app/claim?o=<number>&s=<signature>):
+   * the signature (checked by the caller) proves the store sent it, so no email needs typing. The pass
+   * is the same one as when claiming by order number + email (one license per order, 3 devices).
+   */
+  async claimByLink(
+    dev: string,
+    orderNumber: string,
+    lookup: () => Promise<VerifiedOrder | OrderProblem>,
+  ): Promise<{ ok: true; view: PlanView } | { ok: false; error: OrderProblem | "device_limit" | "expired" }> {
+    const idx = `order/n${orderNumber.replace(/\D/g, "")}`;
+    const known = await this.store.get<OrderRecord>(idx);
+    if (known) {
+      const r = await this.activeLicense(dev, known.license);
+      if (r === "expired" || r === "device_limit") return { ok: false, error: r };
+      return { ok: true, view: await this.view(dev, known.license) };
+    }
+    const found = await lookup();
+    if (typeof found === "string") return { ok: false, error: found };
+    return this.passFromOrder(dev, found, emailHash(this.secret, found.email ?? ""), idx);
+  }
+
+  private async passFromOrder(
+    dev: string,
+    found: VerifiedOrder,
+    eh: string,
+    idx: string,
+  ): Promise<{ ok: true; view: PlanView } | { ok: false; error: "expired" }> {
     const expires = Date.parse(found.paidAt) + PASS_DAYS * DAY;
     if (expires <= this.now()) return { ok: false, error: "expired" };
     const key = newLicenseKey();
@@ -349,11 +380,32 @@ export class Plans {
   }
 }
 
+// ---------------------------------------------------------------- the link in the store's email
+
+/**
+ * The key the store's order confirmation email signs its link with (Shopify Liquid:
+ * `{{ order_number | hmac_sha256: '<key>' }}`). Derived from the server's secret, so nothing new to
+ * store; SHOPIFY_LINK_KEY overrides it. Shown to the owner on /admin with the ready-made snippet.
+ */
+export function shopifyLinkKey(secret: string, fromEnv?: string): string {
+  return fromEnv?.trim() || createHmac("sha256", secret).update("shopify-link").digest("hex").slice(0, 32);
+}
+/** The signature for an order number: hex HMAC-SHA256, exactly what Liquid's hmac_sha256 prints. */
+export function linkSignature(key: string, orderNumber: string): string {
+  return createHmac("sha256", key).update(orderNumber.replace(/\D/g, "")).digest("hex");
+}
+export function linkSignatureOk(key: string, orderNumber: string, sig: string): boolean {
+  const s = sig.trim().toLowerCase();
+  return /^[0-9a-f]{64}$/.test(s) && eq(s, linkSignature(key, orderNumber));
+}
+
 // ---------------------------------------------------------------- Shopify
 
 export interface VerifiedOrder {
   id: string;
   paidAt: string;
+  /** The buyer's email on the order (only used to make its keyed hash; never stored or logged). */
+  email?: string;
 }
 export type OrderProblem = "not_found" | "not_paid" | "no_pass_item" | "not_configured" | "verify_failed";
 
@@ -378,15 +430,16 @@ interface ShopifyOrderNode {
 }
 
 /** The pure part of the check (unit-tested): which order, if any, grants a pass. */
-export function pickOrder(nodes: ShopifyOrderNode[], number: string, email: string, skus: string[]): VerifiedOrder | OrderProblem {
+export function pickOrder(nodes: ShopifyOrderNode[], number: string, email: string | null, skus: string[]): VerifiedOrder | OrderProblem {
   const want = `#${number.replace(/\D/g, "")}`;
-  const mail = email.trim().toLowerCase();
-  const o = nodes.find((n) => n.name.replace(/\s/g, "") === want && (n.email ?? "").trim().toLowerCase() === mail);
+  const mail = email?.trim().toLowerCase();
+  // email null: the order came from the signed link in the store's own email, so the number is enough
+  const o = nodes.find((n) => n.name.replace(/\s/g, "") === want && (mail === undefined || (n.email ?? "").trim().toLowerCase() === mail));
   if (!o) return "not_found";
   if (o.cancelledAt || !["PAID", "PARTIALLY_REFUNDED"].includes(o.displayFinancialStatus ?? "")) return "not_paid";
   const set = new Set(skus.map((s) => s.trim().toUpperCase()).filter(Boolean));
   if (!o.lineItems.nodes.some((li) => li.quantity > 0 && set.has((li.sku ?? "").trim().toUpperCase()))) return "no_pass_item";
-  return { id: o.id, paidAt: o.processedAt };
+  return { id: o.id, paidAt: o.processedAt, email: o.email ?? undefined };
 }
 
 export type Fetch = (url: string, init: { method: string; headers: Record<string, string>; body: string }) => Promise<{ ok: boolean; status: number; json(): Promise<unknown> }>;
@@ -419,7 +472,7 @@ export async function shopifyToken(cfg: ShopifyConfig, f: Fetch, now = Date.now(
   return j.access_token;
 }
 
-export async function lookupShopifyOrder(cfg: ShopifyConfig, number: string, email: string, f: Fetch = fetch as unknown as Fetch): Promise<VerifiedOrder | OrderProblem> {
+export async function lookupShopifyOrder(cfg: ShopifyConfig, number: string, email: string | null, f: Fetch = fetch as unknown as Fetch): Promise<VerifiedOrder | OrderProblem> {
   if (!cfg.token) return "not_configured";
   const digits = number.replace(/\D/g, "");
   if (!digits) return "not_found";
