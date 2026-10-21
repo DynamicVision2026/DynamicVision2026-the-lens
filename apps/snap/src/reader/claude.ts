@@ -29,6 +29,7 @@ export class ClaudeReader implements Reader {
 
   async read(image: Uint8Array, _mime: string, grade: Grade): Promise<PageResult> {
     const jpeg = await downscale(image);
+    const meta = await sharp(jpeg).metadata();
     return this.ask(
       [
         { type: "image", source: { type: "base64", media_type: "image/jpeg", data: jpeg.toString("base64") } },
@@ -36,6 +37,7 @@ export class ClaudeReader implements Reader {
       ],
       grade,
       4096,
+      { w: meta.width ?? 0, h: meta.height ?? 0 },
     );
   }
 
@@ -54,15 +56,54 @@ export class ClaudeReader implements Reader {
     );
   }
 
-  private async ask(content: Anthropic.MessageParam["content"], grade: Grade, maxTokens: number): Promise<PageResult> {
+  private async ask(
+    content: Anthropic.MessageParam["content"],
+    grade: Grade,
+    maxTokens: number,
+    img?: { w: number; h: number },
+  ): Promise<PageResult> {
+    const t0 = Date.now();
     const msg = await this.client.messages.create({
       model: this.model,
       max_tokens: maxTokens,
       messages: [{ role: "user", content }],
     });
     const text = msg.content.map((c) => (c.type === "text" ? c.text : "")).join("");
-    return toPageResult(extractJson(text), grade);
+    const result = toPageResult(extractJson(text), grade);
+    logUsage(msg, grade, img, Date.now() - t0, result);
+    return result;
   }
+}
+
+/**
+ * One JSON line per read for cost tracking (Cloud Run turns it into jsonPayload).
+ * Token counts and sizes only: never the image, the prompt or the model's answer.
+ */
+export function logUsage(
+  msg: Pick<Anthropic.Message, "model" | "usage" | "stop_reason">,
+  grade: Grade,
+  img: { w: number; h: number } | undefined,
+  ms: number,
+  result?: PageResult,
+): void {
+  if (process.env.NODE_ENV === "test" || process.env.VITEST) return;
+  const u = msg.usage as Anthropic.Usage & { cache_creation_input_tokens?: number | null; cache_read_input_tokens?: number | null };
+  console.log(
+    JSON.stringify({
+      event: "read_usage",
+      model: msg.model,
+      grade,
+      input_tokens: u.input_tokens,
+      output_tokens: u.output_tokens,
+      cache_creation_input_tokens: u.cache_creation_input_tokens ?? 0,
+      cache_read_input_tokens: u.cache_read_input_tokens ?? 0,
+      img_w: img?.w ?? 0,
+      img_h: img?.h ?? 0,
+      problems: result?.problems.length ?? 0,
+      stop_reason: msg.stop_reason,
+      ms,
+    }),
+  );
 }
 
 /** Rotate by EXIF, fit within 1600 px on the long edge, re-encode as JPEG. */
