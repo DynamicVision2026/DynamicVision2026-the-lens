@@ -4,6 +4,7 @@ import { WaitlistSchema } from "../src/lib/waitlist";
 import type { Reader } from "../src/reader";
 import { DailyCap, type Now, RateLimiter, clientKey, safeEqual } from "./limits";
 import { type Fetch, type Plans, type ShopifyConfig, lookupShopifyOrder } from "./plans";
+import type { StatEvent, Stats } from "./stats";
 import { type WaitlistTarget, writeSignup } from "./waitlist-store";
 
 export const MAX_IMAGE_BYTES = 12 * 1024 * 1024;
@@ -28,6 +29,8 @@ export interface AppOptions {
   shopifyFetch?: Fetch;
   /** Where the ¥5,800 pass is bought (Shopify product page). */
   buyUrl?: string;
+  /** Counters for the founder's dashboard (/admin). */
+  stats?: Stats;
 }
 
 /** @hono/node-server puts the Node request in c.env.incoming. */
@@ -48,6 +51,7 @@ export function createApi(opts: AppOptions) {
   const claimIp = new RateLimiter(10, HOUR, now);
   const { plans } = opts;
   const target: WaitlistTarget = { dir: opts.waitlistDir || undefined, path: opts.waitlistPath };
+  const count = (ev: StatEvent) => void opts.stats?.bump(ev);
 
   const api = new Hono<Env>();
   const keyOf = (c: { req: { header: (n: string) => string | undefined }; env: Env["Bindings"] | undefined }) =>
@@ -60,6 +64,7 @@ export function createApi(opts: AppOptions) {
   api.post("/device", (c) => {
     if (!plans) return c.json({ error: "not_configured" }, 404);
     if (!deviceIp.hit(keyOf(c))) return c.json({ error: "rate_limited" }, 429);
+    count("device_new");
     return c.json({ device: plans.newDevice() });
   });
   const devOf = (c: { req: { header: (n: string) => string | undefined } }) => plans?.device(c.req.header("x-device")) ?? null;
@@ -81,6 +86,7 @@ export function createApi(opts: AppOptions) {
     if (!order || !email.includes("@")) return c.json({ error: "invalid" }, 400);
     const r = await plans.claimOrder(dev, email, () => (opts.shopify ? lookupShopifyOrder(opts.shopify, order, email, opts.shopifyFetch) : Promise.resolve("not_configured" as const)), order);
     if (!r.ok) return c.json({ error: r.error }, r.error === "verify_failed" || r.error === "not_configured" ? 503 : 400);
+    count("unlock_order");
     return c.json({ ...r.view, buyUrl: opts.buyUrl ?? null });
   });
   api.post("/redeem", async (c) => {
@@ -91,6 +97,7 @@ export function createApi(opts: AppOptions) {
     const body = (await c.req.json().catch(() => null)) as { code?: unknown } | null;
     const r = await plans.redeem(dev, typeof body?.code === "string" ? body.code.slice(0, 40) : "");
     if (!r.ok) return c.json({ error: r.error }, 400);
+    count("unlock_code");
     return c.json({ ...r.view, buyUrl: opts.buyUrl ?? null });
   });
 
@@ -123,7 +130,18 @@ export function createApi(opts: AppOptions) {
     try {
       const bytes = new Uint8Array(await file.arrayBuffer());
       const page = await reader.read(bytes, mime, grade);
-      if (gate?.ok) await gate.charge().catch((e) => console.error("usage write failed:", (e as NodeJS.ErrnoException)?.code ?? "unknown"));
+      if (gate?.ok) {
+        const used = await gate.charge().catch((e) => {
+          console.error("usage write failed:", (e as NodeJS.ErrnoException)?.code ?? "unknown");
+          return 0;
+        });
+        if (gate.plan === "pass") count("photo_pass");
+        else {
+          count("photo_free");
+          if (used === 1) count("first_photo");
+          if (plans && used === plans.freeTrial) count("trial_out");
+        }
+      }
       return c.json(page);
     } catch (e) {
       // Log only the error class/message, never the image or the reader's text.
@@ -152,6 +170,7 @@ export function createApi(opts: AppOptions) {
       console.error("waitlist write failed:", (e as NodeJS.ErrnoException)?.code ?? "unknown");
       return c.json({ error: "store_failed" }, 500);
     }
+    count("waitlist");
     return c.json({ ok: true });
   });
 

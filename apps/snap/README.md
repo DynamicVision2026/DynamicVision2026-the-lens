@@ -31,7 +31,8 @@ Students or parents photograph homework, workbook pages and graded tests. Lens S
 | --- | --- | --- |
 | `ANTHROPIC_API_KEY` | — | Claude reader when set; MockReader (fixture outputs) when absent |
 | `READER_MODEL` | `claude-haiku-5-5` | Model id for the Claude reader; `claude-sonnet-5-5` for higher accuracy |
-| `PILOT_CODE` | — | If set, photo reading needs this 招待コード (header `x-pilot-code`); 403 otherwise |
+| `INVITE_ONLY` + `PILOT_CODE` | off | Only with `INVITE_ONLY=1`: photo reading needs the 招待コード `PILOT_CODE` (header `x-pilot-code`); 403 otherwise. Off = open to everyone |
+| `ADMIN_KEY` | generated | Key for the dashboard `/admin`; when unset, generated once into `plans/admin-key` in the bucket |
 | `READ_PER_IP_HOUR` | `20` | Reads per client per hour (429 `rate_limited`) |
 | `READ_DAILY_CAP` | `3000` | Reads for everyone per UTC day (429 `daily_cap`) |
 | `WAITLIST_DIR` | — | One JSON file per signup in this folder (Cloud Storage FUSE safe); wins over `WAITLIST_PATH` |
