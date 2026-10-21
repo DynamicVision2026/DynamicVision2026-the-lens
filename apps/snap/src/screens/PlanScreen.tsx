@@ -1,7 +1,7 @@
 import { type FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import { app } from "../copy";
-import { type PlanError, type PlanView, claimOrder, jaDate, redeemCode, resetDay, usePlan } from "../lib/plan";
+import { type PlanError, type PlanView, claimOrder, jaDate, monthUse, redeemCode, resetDay, usePlan } from "../lib/plan";
 
 const p = app.plan;
 
@@ -60,10 +60,7 @@ function PassCard({ plan, fresh }: { plan: Extract<PlanView, { plan: "pass" }>; 
           {p.done}
         </p>
       )}
-      <span className="plan-kicker">{p.pass}</span>
-      <p className="plan-big" data-testid="plan-until">
-        {p.passUntil(jaDate(plan.expiresAt))}
-      </p>
+      <MonthUsage plan={plan} />
       <p className="muted small">{plan.kind === "code" ? p.passFromCode : p.passFromOrder}</p>
       <div className="plan-code">
         <span className="small muted">{p.yourCode}</span>
@@ -74,6 +71,37 @@ function PassCard({ plan, fresh }: { plan: Extract<PlanView, { plan: "pass" }>; 
         {app.nav.snap}
       </Link>
     </section>
+  );
+}
+
+/** 「今月の撮影枚数」: the pass's month (shared by its devices), like the free card. */
+export function MonthUsage({ plan }: { plan: Extract<PlanView, { plan: "pass" }> }) {
+  const { pct, level } = monthUse(plan);
+  const day = resetDay(plan.resetsAt);
+  return (
+    <div className={`plan-month is-${level}`} data-testid="plan-month" data-level={level}>
+      {level === "low" && (
+        <p className="notice notice-warn" role="status" data-testid="plan-month-low">
+          {p.monthLow(plan.remaining)}
+        </p>
+      )}
+      {level === "out" && (
+        <p className="notice notice-warn" role="alert" data-testid="plan-month-out">
+          {p.monthOut(plan.limit, day)}
+        </p>
+      )}
+      <span className="plan-kicker">{p.monthTitle}</span>
+      <p className="plan-big" data-testid="plan-month-count">
+        {p.monthCount(plan.used, plan.limit, pct)}
+      </p>
+      <div className="plan-meter" role="progressbar" aria-valuemin={0} aria-valuemax={plan.limit} aria-valuenow={plan.used} aria-label={p.monthTitle}>
+        <span style={{ width: `${pct}%` }} />
+      </div>
+      <p className="muted small">{p.monthLeft(plan.remaining, day)}</p>
+      <p className="small plan-valid" data-testid="plan-until">
+        {p.passValid(jaDate(plan.expiresAt))}
+      </p>
+    </div>
   );
 }
 
@@ -187,15 +215,40 @@ function CodeForm({ onDone }: { onDone: (v: PlanView) => void }) {
   );
 }
 
-/** Small status pill (撮る, ふりかえり): 「無料 今月あと27枚」 / 「年間プラン」 → プラン. */
+/** Small status pill (撮る, ふりかえり): 「無料 今月あと27枚」 / 「年間プラン｜今月 37／200枚」 → プラン. */
 export function PlanChip({ plan }: { plan: PlanView | null }) {
   if (!plan) return null;
-  const low = plan.plan === "free" && plan.remaining <= 5;
+  if (plan.plan === "pass") {
+    const { level } = monthUse(plan);
+    return (
+      <Link to="/app/plan" className={`plan-chip is-pass${level !== "ok" ? " is-low" : ""}`} aria-label={p.chipLabel} data-testid="plan-chip" data-level={level}>
+        <span className="plan-chip-badge">{p.chipPass}</span>
+        <span data-testid="plan-chip-count">{p.chipMonth(plan.used, plan.limit)}</span>
+        <span aria-hidden> ›</span>
+      </Link>
+    );
+  }
+  const low = plan.remaining <= 5;
   return (
-    <Link to="/app/plan" className={`plan-chip${plan.plan === "pass" ? " is-pass" : ""}${low ? " is-low" : ""}`} aria-label={p.chipLabel} data-testid="plan-chip">
-      {plan.plan === "pass" ? p.chipPass : p.chipFree(plan.remaining)}
+    <Link to="/app/plan" className={`plan-chip${low ? " is-low" : ""}`} aria-label={p.chipLabel} data-testid="plan-chip">
+      {p.chipFree(plan.remaining)}
       <span aria-hidden> ›</span>
     </Link>
+  );
+}
+
+/** 撮る when the pass's month is used up: only new photos stop; everything already saved keeps working. */
+export function PassOutCard({ plan }: { plan: Extract<PlanView, { plan: "pass" }> }) {
+  return (
+    <div className="quota" data-testid="pass-out-card">
+      <div className="notice notice-warn" role="alert">
+        <strong>{p.monthOut(plan.limit, resetDay(plan.resetsAt))}</strong>
+        <span>{p.monthOutKeep}</span>
+      </div>
+      <Link to="/app/plan" className="btn btn-ghost btn-block">
+        {p.monthTitle}
+      </Link>
+    </div>
   );
 }
 

@@ -9,7 +9,17 @@ import { readPilotCode } from "./pilot";
 
 export type PlanView =
   | { plan: "free"; used: number; limit: number; remaining: number; resetsAt: string; expired?: string; buyUrl: string | null }
-  | { plan: "pass"; kind: "order" | "code"; expiresAt: string; license: string; buyUrl: string | null };
+  | {
+      plan: "pass";
+      kind: "order" | "code";
+      expiresAt: string;
+      license: string;
+      used: number;
+      limit: number;
+      remaining: number;
+      resetsAt: string;
+      buyUrl: string | null;
+    };
 
 export type PlanError =
   | "not_found"
@@ -114,5 +124,12 @@ export function jaDate(iso: string): string {
   const d = new Date(new Date(iso).getTime() + 9 * 3600 * 1000);
   return `${d.getUTCFullYear()}年${d.getUTCMonth() + 1}月${d.getUTCDate()}日`;
 }
-/** The day the free count comes back: resetsAt is 00:00 JST on the 1st, so show that date. */
-export const resetDay = (iso: string) => jaDate(iso);
+/** The day the count comes back: resetsAt is 00:00 JST on the 1st, so show that date (11月1日). */
+export const resetDay = (iso: string) => jaDate(iso).replace(/^\d+年/, "");
+
+/** Share of the month used, and the warning level: "low" from 80%, "out" at the limit. */
+export function monthUse(plan: { used: number; limit: number }): { pct: number; level: "ok" | "low" | "out" } {
+  const pct = Math.min(100, Math.round((plan.used / Math.max(1, plan.limit)) * 100));
+  const level = plan.used >= plan.limit ? "out" : plan.used >= plan.limit * 0.8 ? "low" : "ok";
+  return { pct, level };
+}

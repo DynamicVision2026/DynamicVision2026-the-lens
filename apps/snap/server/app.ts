@@ -42,7 +42,7 @@ export function createApi(opts: AppOptions) {
   const { reader, pilotCode } = opts;
   const now = opts.now ?? Date.now;
   const readIp = new RateLimiter(opts.readPerIpHour ?? 20, HOUR, now);
-  const readDay = new DailyCap(opts.readDailyCap ?? 300, now);
+  const readDay = new DailyCap(opts.readDailyCap ?? 3000, now);
   const waitIp = new RateLimiter(opts.waitlistPerIpHour ?? 10, HOUR, now);
   const deviceIp = new RateLimiter(10, HOUR, now);
   const claimIp = new RateLimiter(10, HOUR, now);
@@ -115,7 +115,7 @@ export function createApi(opts: AppOptions) {
     if (file.size > MAX_IMAGE_BYTES) return c.json({ error: "too_large" }, 413);
     const mime = file.type || "image/jpeg";
     if (!IMAGE_TYPES.includes(mime)) return c.json({ error: "unsupported_type" }, 415);
-    // The plan (free: FREE_MONTHLY a month; pass: fair use a day), counted only for successful reads.
+    // The plan (free: FREE_MONTHLY a month per device; pass: PASS_MONTHLY a month per pass), counted only for successful reads.
     const gate = plans && dev ? await plans.gate(dev, c.req.header("x-license")) : null;
     if (gate && !gate.ok) return c.json({ error: gate.error }, 402);
     // The global cap counts only requests that will actually reach the model.

@@ -1125,6 +1125,16 @@ html[data-layout="wide"] .report > :is(.report-back, .report-title, .report-meta
 .page-plan h1 { margin: 0; }
 .plan-status, .plan-offer, .plan-form { display: grid; gap: 10px; padding: 18px 16px; }
 .plan-status.is-pass { border: 1.5px solid var(--c-gold); }
+/* 年間プラン「今月の撮影枚数」: calm until 80%, then orange (low) and used up (out) */
+.plan-month { display: grid; gap: 8px; }
+.plan-month .plan-meter > span { background: var(--c-navy-soft); }
+.plan-month.is-low .plan-meter > span { background: var(--c-accent); }
+.plan-month.is-out .plan-meter > span { background: var(--c-accent-strong); }
+.plan-month.is-low .plan-big, .plan-month.is-out .plan-big { color: var(--c-accent-strong); }
+.plan-valid { color: var(--c-gold-strong); font-weight: 700; }
+.plan-chip.is-pass { gap: 8px; padding-left: 4px; }
+.plan-chip-badge { padding: 3px 9px; border-radius: 999px; background: var(--c-gold); color: var(--c-on-dark); font-size: 0.75rem; }
+.plan-chip.is-pass.is-low { border-color: var(--c-accent); color: var(--c-accent-strong); background: var(--c-accent-tint); }
 .plan-kicker { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; color: var(--c-muted); }
 .plan-big { margin: 0; font-size: 1.15rem; font-weight: 800; color: var(--c-navy); }
 .plan-meter { height: 8px; border-radius: 999px; background: var(--c-navy-tint); overflow: hidden; }

@@ -5,7 +5,8 @@ import type { Now } from "./limits";
 
 /**
  * Plans: the free plan (FREE_MONTHLY photos a month per device, no signup) and the 1-year pass
- * (¥5,800 on the Shopify store, or bundled with the course). No accounts and no personal data:
+ * (¥5,800 on the Shopify store, or bundled with the course: PASS_MONTHLY photos a month per pass,
+ * shared by its devices). Both counts reset on the 1st of the month, 00:00 Japan time. No accounts and no personal data:
  * - a device is a random id signed by the server (header x-device), issued once by POST /api/device;
  * - a pass is a license key (header x-license) shared by up to MAX_DEVICES family devices;
  * - a Shopify order is stored only as its id, expiry and a keyed hash of the buyer's email.
@@ -15,8 +16,8 @@ import type { Now } from "./limits";
 export const FREE_MONTHLY = 30;
 export const PASS_DAYS = 365;
 export const MAX_DEVICES = 3;
-/** Fair use for a pass: photos per device per day (a whole class's worth of sheets is still fine). */
-export const PASS_DAILY = 100;
+/** A pass: photos per month, counted per license (all its devices share one count). */
+export const PASS_MONTHLY = 200;
 const DAY = 24 * 60 * 60 * 1000;
 const JST = 9 * 60 * 60 * 1000;
 
@@ -138,9 +139,6 @@ interface OrderRecord {
 export function monthKey(now: number): string {
   return new Date(now + JST).toISOString().slice(0, 7);
 }
-export function dayKey(now: number): string {
-  return new Date(now + JST).toISOString().slice(0, 10);
-}
 /** The next 1st of the month, 00:00 in Japan. */
 export function monthResetsAt(now: number): string {
   const d = new Date(now + JST);
@@ -150,27 +148,44 @@ export function monthResetsAt(now: number): string {
 
 export type PlanView =
   | { plan: "free"; used: number; limit: number; remaining: number; resetsAt: string; expired?: string }
-  | { plan: "pass"; kind: License["kind"]; expiresAt: string; license: string };
+  | {
+      plan: "pass";
+      kind: License["kind"];
+      expiresAt: string;
+      license: string;
+      used: number;
+      limit: number;
+      remaining: number;
+      resetsAt: string;
+    };
 
-export type Gate = { ok: true; charge: () => Promise<void> } | { ok: false; error: "quota" | "pass_daily" | "device_limit" };
+export type Gate = { ok: true; charge: () => Promise<void> } | { ok: false; error: "quota" | "pass_monthly" | "device_limit" };
 
 export interface PlansOptions {
   store: Store;
   secret: string;
   now?: Now;
   freeMonthly?: number;
+  passMonthly?: number;
 }
+
+/** The month's count for a pass: one file per license per month (JST). */
+const passUsageKey = (now: number, license: string) => `usage/pass/${monthKey(now)}/${license.replace(/-/g, "")}`;
 
 export class Plans {
   private store: Store;
   private secret: string;
   private now: Now;
   readonly freeMonthly: number;
+  readonly passMonthly: number;
+  /** One write at a time per usage file (two family devices reading at the same moment). */
+  private locks = new Map<string, Promise<void>>();
   constructor(o: PlansOptions) {
     this.store = o.store;
     this.secret = o.secret;
     this.now = o.now ?? Date.now;
     this.freeMonthly = o.freeMonthly ?? FREE_MONTHLY;
+    this.passMonthly = o.passMonthly ?? PASS_MONTHLY;
   }
 
   newDevice() {
@@ -183,8 +198,16 @@ export class Plans {
   private async usage(key: string) {
     return (await this.store.get<{ n: number }>(key))?.n ?? 0;
   }
-  private async bump(key: string) {
-    await this.store.put(key, { n: (await this.usage(key)) + 1 });
+  private bump(key: string): Promise<void> {
+    const run = (this.locks.get(key) ?? Promise.resolve()).then(async () => {
+      await this.store.put(key, { n: (await this.usage(key)) + 1 });
+    });
+    const tail = run.catch(() => {});
+    this.locks.set(key, tail);
+    void tail.then(() => {
+      if (this.locks.get(key) === tail) this.locks.delete(key);
+    });
+    return run;
   }
 
   /** The license for this header, if it exists, is active and this device may use it (joins when there is room). */
@@ -206,8 +229,20 @@ export class Plans {
 
   async view(dev: string, licenseHeader?: string | null): Promise<PlanView> {
     const lic = await this.activeLicense(dev, licenseHeader);
-    if (lic && typeof lic === "object") return { plan: "pass", kind: lic.kind, expiresAt: lic.expiresAt as string, license: lic.key };
     const now = this.now();
+    if (lic && typeof lic === "object") {
+      const used = await this.usage(passUsageKey(now, lic.key));
+      return {
+        plan: "pass",
+        kind: lic.kind,
+        expiresAt: lic.expiresAt as string,
+        license: lic.key,
+        used,
+        limit: this.passMonthly,
+        remaining: Math.max(0, this.passMonthly - used),
+        resetsAt: monthResetsAt(now),
+      };
+    }
     const used = await this.usage(`usage/${monthKey(now)}/${dev}`);
     const v: PlanView = {
       plan: "free",
@@ -226,8 +261,8 @@ export class Plans {
     const lic = await this.activeLicense(dev, licenseHeader);
     if (lic === "device_limit") return { ok: false, error: "device_limit" };
     if (lic && typeof lic === "object") {
-      const key = `usage/pass/${dayKey(now)}-${dev}`;
-      if ((await this.usage(key)) >= PASS_DAILY) return { ok: false, error: "pass_daily" };
+      const key = passUsageKey(now, lic.key);
+      if ((await this.usage(key)) >= this.passMonthly) return { ok: false, error: "pass_monthly" };
       return { ok: true, charge: () => this.bump(key) };
     }
     const key = `usage/${monthKey(now)}/${dev}`;

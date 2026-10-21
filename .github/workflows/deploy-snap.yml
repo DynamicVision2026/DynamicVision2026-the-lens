@@ -93,7 +93,7 @@ jobs:
           gcloud run deploy "$SERVICE" --project "$PROJECT" --region "$REGION" \
             --image "${{ steps.build.outputs.image }}" \
             --update-labels "commit=${{ steps.what.outputs.sha }}" \
-            --update-env-vars "APP_COMMIT=${{ steps.what.outputs.sha }}" --quiet
+            --update-env-vars "APP_COMMIT=${{ steps.what.outputs.sha }},READ_DAILY_CAP=3000" --quiet
           # after a rollback the traffic is pinned to the old revision: send it to the new one
           gcloud run services update-traffic "$SERVICE" --project "$PROJECT" --region "$REGION" --to-latest --quiet
 

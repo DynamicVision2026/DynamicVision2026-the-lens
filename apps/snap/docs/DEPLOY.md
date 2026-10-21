@@ -11,7 +11,7 @@ nothing with lens-web (lens.domo-ai.com) except the project and the domain name.
 | `ANTHROPIC_API_KEY` | Secret Manager `anthropic-api-key` (optional; added with `--set-key`) | Without it the practice (mock) reader runs |
 | `PILOT_CODE` | Secret Manager `lens-snap-pilot-code` (generated once) | `/app` reads photos only for invited families; landing + waitlist stay public |
 | `READER_MODEL` | `claude-haiku-5-5` (≈¥0.2 per photo) | `READER_MODEL=claude-sonnet-5-5 bash apps/snap/deploy.sh …` switches to Sonnet (≈¥3 per photo) |
-| `READ_PER_IP_HOUR`, `READ_DAILY_CAP` | 20, 300 | Caps the AI bill; at ≈¥0.2 per photo (Haiku), 300/day ≈ ¥60/day at most (≈¥900 with Sonnet) |
+| `READ_PER_IP_HOUR`, `READ_DAILY_CAP` | 20, 3000 | Caps the AI bill; at ≈¥0.2 per photo (Haiku), 3,000/day ≈ ¥600/day at most. The auto-deploy also sets 3000 |
 | `WAITLIST_DIR` | `/data/waitlist` on bucket `<project>-lens-snap-waitlist` (Cloud Storage FUSE volume, uid 1000) | One small file per signup; survives restarts |
 | `--max-instances 1` | set | Rate limits are counted in memory |
 
