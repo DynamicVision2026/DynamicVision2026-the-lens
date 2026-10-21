@@ -7,7 +7,7 @@ import { createReader } from "../src/reader";
 import { adminKey, createAdmin } from "./admin";
 import { createApi } from "./app";
 import { envInt } from "./limits";
-import { FileStore, Plans, shopifyLinkKey, signingKey } from "./plans";
+import { FileStore, PASS_SKUS_DEFAULT, Plans, shopifyLinkKey, signingKey } from "./plans";
 import { Stats, isBot } from "./stats";
 
 const port = Number(process.env.PORT ?? 8080);
@@ -37,7 +37,8 @@ const shopify = {
   token: process.env.SHOPIFY_TOKEN?.trim() || undefined,
   base: process.env.SHOPIFY_BASE?.trim() || undefined, // local tests only
   apiVersion: process.env.SHOPIFY_API_VERSION?.trim() || "2026-07",
-  skus: (process.env.PASS_SKUS ?? "LENS-SNAP-1Y,LENS-COURSE").split(","),
+  // the ¥5,800 annual plan + the three 視点レンズ courses (each includes a year of つまずきマップ)
+  skus: (process.env.PASS_SKUS ?? PASS_SKUS_DEFAULT).split(","),
 };
 const buyUrl = process.env.BUY_URL?.trim() || "https://soul-id-2.myshopify.com/products/%E3%81%A4%E3%81%BE%E3%81%9A%E3%81%8D%E3%83%9E%E3%83%83%E3%83%97-%E5%B9%B4%E9%96%93%E3%83%97%E3%83%A9%E3%83%B3-1%E5%B9%B4%E9%96%93";
 const linkKey = shopifyLinkKey(secret, process.env.SHOPIFY_LINK_KEY);
@@ -57,7 +58,7 @@ const api = createApi({
 });
 app.route("/api", api);
 // The founder's dashboard (key: ADMIN_KEY, else plans/admin-key in the bucket).
-app.route("/admin", createAdmin({ key: await adminKey(planDir, process.env.ADMIN_KEY), secret, stats, store, waitlist: { dir: waitlistDir, path: waitlistPath }, freeTrial: plans.freeTrial, linkKey }));
+app.route("/admin", createAdmin({ key: await adminKey(planDir, process.env.ADMIN_KEY), secret, stats, store, waitlist: { dir: waitlistDir, path: waitlistPath }, freeTrial: plans.freeTrial, linkKey, skus: shopify.skus }));
 // Landing page views for the dashboard (people only: crawlers and link previews skipped).
 app.use("*", async (c, next) => {
   if (c.req.method === "GET" && c.req.path === "/" && !isBot(c.req.header("user-agent"))) void stats.bump("lp_view");

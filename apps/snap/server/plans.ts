@@ -19,6 +19,8 @@ export const PASS_DAYS = 365;
 export const MAX_DEVICES = 3;
 /** A pass: photos per month, counted per license (all its devices share one count). */
 export const PASS_MONTHLY = 200;
+/** Store SKUs that grant the annual plan: つまずきマップ 年間プラン, 視点レンズ 大学受験 / 高校受験 / 30日間突破パス. */
+export const PASS_SKUS_DEFAULT = "LENS-SNAP-1Y,LENS-DJ-12M,LENS-KJ-12M,LENS-CJ-12M";
 const DAY = 24 * 60 * 60 * 1000;
 const JST = 9 * 60 * 60 * 1000;
 

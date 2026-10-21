@@ -36,6 +36,8 @@ describe("the signed link in the store's order email", () => {
     expect(s).toContain("hmac_sha256: 'abc123'");
     expect(s).toContain("https://tsumazuki.domo-ai.com/app/claim?o={{ order_number }}&s={{ tz_sig }}");
     expect(s).toContain("line.sku == 'LENS-SNAP-1Y'");
+    for (const sku of ["LENS-DJ-12M", "LENS-KJ-12M", "LENS-CJ-12M"]) expect(s).toContain(`line.sku == '${sku}'`);
+    expect(s).not.toContain("LENS-COURSE");
     expect(s).toContain("{% if tz_pass %}");
   });
 
@@ -53,7 +55,7 @@ describe("the signed link in the store's order email", () => {
       waitlistPath: join(dir, "w.jsonl"),
       plans,
       linkKey: key,
-      shopify: { store: "x.myshopify.com", token: "t", apiVersion: "2026-07", skus: ["LENS-SNAP-1Y", "LENS-COURSE"] },
+      shopify: { store: "x.myshopify.com", token: "t", apiVersion: "2026-07", skus: ["LENS-SNAP-1Y", "LENS-KJ-12M"] },
       shopifyFetch,
     });
     const device = async () => ((await (await app.request("/device", { method: "POST" })).json()) as { device: string }).device;

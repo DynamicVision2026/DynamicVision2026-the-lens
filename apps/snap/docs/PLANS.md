@@ -19,7 +19,7 @@ Files live in the bucket next to the waitlist (`gs://<project>-lens-snap-waitlis
 - URL handle: Shopify made **`つまずきマップ-年間プラン-1年間`** from the title; the app's buy button opens
   that address (percent-encoded in `BUY_URL`). If the handle is changed later, keep Shopify's redirect ticked.
 - Settings → 税金: prices include tax (総額表示), so ¥5,800 is what parents pay.
-- The course, if sold on the same store: give its variant SKU **`LENS-COURSE`**; its buyers unlock the same way.
+- The three 視点レンズ courses on the same store (SKUs **`LENS-DJ-12M`**, **`LENS-KJ-12M`**, **`LENS-CJ-12M`**) each include a year; their buyers unlock the same way.
 
 ### 2. Read-only access for the order check (Dev Dashboard app, 2026+)
 - 設定 → アプリと販売チャネル → アプリを開発 → Dev Dashboard (or dev.shopify.com/dashboard) → アプリを作成, name 「Lens Snap order check」.
@@ -36,7 +36,7 @@ Until step 2 is done, 「購入済みの方」 says 「いま確認できませ�
 `~/lens-snap-codes.csv`. A code's year starts when it is first entered.
 
 ## Settings (env, all optional)
-`FREE_TRIAL` (30) · `PASS_MONTHLY` (200) · `BUY_URL` · `PASS_SKUS` (`LENS-SNAP-1Y,LENS-COURSE`) · `SHOPIFY_STORE`
+`FREE_TRIAL` (30) · `PASS_MONTHLY` (200) · `BUY_URL` · `PASS_SKUS` (`LENS-SNAP-1Y,LENS-DJ-12M,LENS-KJ-12M,LENS-CJ-12M`) · `SHOPIFY_STORE`
 (`soul-id-2.myshopify.com`) · `SHOPIFY_API_VERSION` (`2026-07`) · `PLAN_DIR` · `SIGNING_KEY` (else made once in the plan folder).
 
 ## Tested
