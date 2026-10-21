@@ -3,7 +3,7 @@
 | | Free | 1-year pass (年間プラン) |
 |---|---|---|
 | Price | ¥0 | ¥5,800 (tax included), one payment, no auto-renewal |
-| Photos | 30 a month per device (resets on the 1st, 00:00 JST) | 200 a month per pass, shared by its 3 devices (resets on the 1st, 00:00 JST) |
+| Photos | 30 per device in total, once (a trial: no monthly reset) | 200 a month per pass, shared by its 3 devices (resets on the 1st, 00:00 JST) |
 | Devices | each device counts on its own | up to 3 devices of one family share one code |
 | How | nothing to do | Shopify order number + email, or a handed-out code |
 
@@ -36,7 +36,7 @@ Until step 2 is done, 「購入済みの方」 says 「いま確認できませ�
 `~/lens-snap-codes.csv`. A code's year starts when it is first entered.
 
 ## Settings (env, all optional)
-`FREE_MONTHLY` (30) · `PASS_MONTHLY` (200) · `BUY_URL` · `PASS_SKUS` (`LENS-SNAP-1Y,LENS-COURSE`) · `SHOPIFY_STORE`
+`FREE_TRIAL` (30) · `PASS_MONTHLY` (200) · `BUY_URL` · `PASS_SKUS` (`LENS-SNAP-1Y,LENS-COURSE`) · `SHOPIFY_STORE`
 (`soul-id-2.myshopify.com`) · `SHOPIFY_API_VERSION` (`2026-07`) · `PLAN_DIR` · `SIGNING_KEY` (else made once in the plan folder).
 
 ## Tested

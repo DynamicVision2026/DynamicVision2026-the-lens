@@ -4,16 +4,17 @@ import { dirname, join } from "node:path";
 import type { Now } from "./limits";
 
 /**
- * Plans: the free plan (FREE_MONTHLY photos a month per device, no signup) and the 1-year pass
+ * Plans: the free trial (FREE_TRIAL photos per device, once: no monthly reset, no signup) and the 1-year pass
  * (¥5,800 on the Shopify store, or bundled with the course: PASS_MONTHLY photos a month per pass,
- * shared by its devices). Both counts reset on the 1st of the month, 00:00 Japan time. No accounts and no personal data:
+ * shared by its devices; reset on the 1st of the month, 00:00 Japan time). No accounts and no personal data:
  * - a device is a random id signed by the server (header x-device), issued once by POST /api/device;
  * - a pass is a license key (header x-license) shared by up to MAX_DEVICES family devices;
  * - a Shopify order is stored only as its id, expiry and a keyed hash of the buyer's email.
  * Everything lives as small JSON files in one folder (the Cloud Storage FUSE mount in production).
  */
 
-export const FREE_MONTHLY = 30;
+/** The free trial: photos per device, in total (not per month). */
+export const FREE_TRIAL = 30;
 export const PASS_DAYS = 365;
 export const MAX_DEVICES = 3;
 /** A pass: photos per month, counted per license (all its devices share one count). */
@@ -147,7 +148,7 @@ export function monthResetsAt(now: number): string {
 }
 
 export type PlanView =
-  | { plan: "free"; used: number; limit: number; remaining: number; resetsAt: string; expired?: string }
+  | { plan: "free"; used: number; limit: number; remaining: number; expired?: string }
   | {
       plan: "pass";
       kind: License["kind"];
@@ -165,10 +166,12 @@ export interface PlansOptions {
   store: Store;
   secret: string;
   now?: Now;
-  freeMonthly?: number;
+  freeTrial?: number;
   passMonthly?: number;
 }
 
+/** The free trial's count for a device: one file, never reset. */
+const trialKey = (dev: string) => `usage/trial/${dev}`;
 /** The month's count for a pass: one file per license per month (JST). */
 const passUsageKey = (now: number, license: string) => `usage/pass/${monthKey(now)}/${license.replace(/-/g, "")}`;
 
@@ -176,7 +179,7 @@ export class Plans {
   private store: Store;
   private secret: string;
   private now: Now;
-  readonly freeMonthly: number;
+  readonly freeTrial: number;
   readonly passMonthly: number;
   /** One write at a time per usage file (two family devices reading at the same moment). */
   private locks = new Map<string, Promise<void>>();
@@ -184,7 +187,7 @@ export class Plans {
     this.store = o.store;
     this.secret = o.secret;
     this.now = o.now ?? Date.now;
-    this.freeMonthly = o.freeMonthly ?? FREE_MONTHLY;
+    this.freeTrial = o.freeTrial ?? FREE_TRIAL;
     this.passMonthly = o.passMonthly ?? PASS_MONTHLY;
   }
 
@@ -243,13 +246,12 @@ export class Plans {
         resetsAt: monthResetsAt(now),
       };
     }
-    const used = await this.usage(`usage/${monthKey(now)}/${dev}`);
+    const used = await this.usage(trialKey(dev));
     const v: PlanView = {
       plan: "free",
       used,
-      limit: this.freeMonthly,
-      remaining: Math.max(0, this.freeMonthly - used),
-      resetsAt: monthResetsAt(now),
+      limit: this.freeTrial,
+      remaining: Math.max(0, this.freeTrial - used),
     };
     if (lic === "expired") v.expired = normLicense(licenseHeader) ?? undefined;
     return v;
@@ -265,8 +267,8 @@ export class Plans {
       if ((await this.usage(key)) >= this.passMonthly) return { ok: false, error: "pass_monthly" };
       return { ok: true, charge: () => this.bump(key) };
     }
-    const key = `usage/${monthKey(now)}/${dev}`;
-    if ((await this.usage(key)) >= this.freeMonthly) return { ok: false, error: "quota" };
+    const key = trialKey(dev);
+    if ((await this.usage(key)) >= this.freeTrial) return { ok: false, error: "quota" };
     return { ok: true, charge: () => this.bump(key) };
   }
 

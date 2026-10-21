@@ -40,6 +40,11 @@ function FreeCard({ plan }: { plan: Extract<PlanView, { plan: "free" }> }) {
   return (
     <section className="card plan-status" data-testid="plan-free">
       {plan.expired && <p className="notice notice-warn">{p.expired}</p>}
+      {plan.remaining === 0 && (
+        <p className="notice notice-warn" role="alert" data-testid="plan-trial-out">
+          {p.quotaTitle(plan.limit)}
+        </p>
+      )}
       <span className="plan-kicker">{p.free}</span>
       <p className="plan-big" data-testid="plan-left">
         {p.freeLeft(plan.remaining, plan.limit)}
@@ -47,7 +52,7 @@ function FreeCard({ plan }: { plan: Extract<PlanView, { plan: "free" }> }) {
       <div className="plan-meter" aria-hidden>
         <span style={{ width: `${pct}%` }} />
       </div>
-      <p className="muted small">{p.resets(resetDay(plan.resetsAt))}</p>
+      <p className="muted small">{p.trialNote}</p>
     </section>
   );
 }
@@ -215,7 +220,7 @@ function CodeForm({ onDone }: { onDone: (v: PlanView) => void }) {
   );
 }
 
-/** Small status pill (撮る, ふりかえり): 「無料 今月あと27枚」 / 「年間プラン｜今月 37／200枚」 → プラン. */
+/** Small status pill (撮る, ふりかえり): 「お試し あと27枚」 / 「年間プラン｜今月 37／200枚」 → プラン. */
 export function PlanChip({ plan }: { plan: PlanView | null }) {
   if (!plan) return null;
   if (plan.plan === "pass") {
@@ -252,14 +257,14 @@ export function PassOutCard({ plan }: { plan: Extract<PlanView, { plan: "pass" }
   );
 }
 
-/** Shown on 撮る when the month's free photos are used up. */
+/** Shown on 撮る when the free trial is used up: the offer with the buy button; saved pages keep working. */
 export function QuotaCard({ plan }: { plan: PlanView | null }) {
   const free = plan?.plan === "free" ? plan : null;
   return (
     <div className="quota" data-testid="quota-card">
       <div className="notice notice-warn" role="alert">
         <strong>{p.quotaTitle(free?.limit ?? 30)}</strong>
-        {free && <span>{p.quotaBody(resetDay(free.resetsAt))}</span>}
+        <span>{p.quotaBody}</span>
       </div>
       <Offer buyUrl={plan?.buyUrl ?? null} compact />
       <Link to="/app/plan" className="btn btn-ghost btn-block" data-testid="quota-to-plan">

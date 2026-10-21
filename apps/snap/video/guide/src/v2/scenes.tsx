@@ -598,8 +598,8 @@ export function PlansScene({ sc }: { sc: Scene }) {
         </div>
         <div style={{ position: "absolute", left: 0, right: 0, top: 220, display: "flex", justifyContent: "center", gap: 60, fontFamily: FONT }}>
           {[
-            { k: "無料プラン", p: "¥0", u: " ／月", d: "毎月30枚まで", c: C.cyan, t: pa },
-            { k: "年間プラン", p: `¥${price.toLocaleString()}`, u: " ／年（税込）", d: "毎月の枚数を気にせず", c: C.gold, t: pb },
+            { k: "無料のお試し", p: "¥0", u: "", d: "30枚まで（1回かぎり）", c: C.cyan, t: pa },
+            { k: "年間プラン", p: `¥${price.toLocaleString()}`, u: " ／年（税込）", d: "毎月200枚まで", c: C.gold, t: pb },
           ].map((x) => (
             <div key={x.k} style={{ width: 640, padding: "52px 50px", borderRadius: 34, background: "rgba(12,24,48,0.92)", border: `3px solid ${x.c}`, boxShadow: `0 0 70px ${x.c}33`, opacity: x.t, transform: `translateY(${(1 - x.t) * 70}px)` }}>
               <div style={{ fontSize: 36, fontWeight: 900, color: x.c, letterSpacing: "0.1em" }}>{x.k}</div>

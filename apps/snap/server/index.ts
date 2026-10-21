@@ -20,7 +20,7 @@ const planDir = process.env.PLAN_DIR || (waitlistDir ? join(waitlistDir, "..", "
 const plans = new Plans({
   store: new FileStore(planDir),
   secret: await signingKey(planDir, process.env.SIGNING_KEY),
-  freeMonthly: envInt(process.env.FREE_MONTHLY, 30),
+  freeTrial: envInt(process.env.FREE_TRIAL, 30),
   passMonthly: envInt(process.env.PASS_MONTHLY, 200),
   // Local screenshot runs only (never on Cloud Run): pretend it is this time, to show the monthly reset.
   now: !process.env.K_SERVICE && process.env.PLANS_TEST_NOW ? () => Date.parse(process.env.PLANS_TEST_NOW as string) : undefined,

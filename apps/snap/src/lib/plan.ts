@@ -8,7 +8,7 @@ import { readPilotCode } from "./pilot";
  */
 
 export type PlanView =
-  | { plan: "free"; used: number; limit: number; remaining: number; resetsAt: string; expired?: string; buyUrl: string | null }
+  | { plan: "free"; used: number; limit: number; remaining: number; expired?: string; buyUrl: string | null }
   | {
       plan: "pass";
       kind: "order" | "code";
@@ -124,7 +124,7 @@ export function jaDate(iso: string): string {
   const d = new Date(new Date(iso).getTime() + 9 * 3600 * 1000);
   return `${d.getUTCFullYear()}年${d.getUTCMonth() + 1}月${d.getUTCDate()}日`;
 }
-/** The day the count comes back: resetsAt is 00:00 JST on the 1st, so show that date (11月1日). */
+/** The day a pass's month comes back: resetsAt is 00:00 JST on the 1st, so show that date (11月1日). */
 export const resetDay = (iso: string) => jaDate(iso).replace(/^\d+年/, "");
 
 /** Share of the month used, and the warning level: "low" from 80%, "out" at the limit. */

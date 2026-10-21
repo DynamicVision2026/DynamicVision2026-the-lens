@@ -394,8 +394,8 @@ export function PlansScene({ sc }: { sc: Scene }) {
         </div>
         <div style={{ position: "absolute", left: 0, right: 0, top: 230, display: "flex", justifyContent: "center", gap: 60, fontFamily: FONT }}>
           {[
-            { k: "無料プラン", p: "¥0", d: "毎月30枚まで", c: C.cyan, at: 6 },
-            { k: "年間プラン", p: "¥5,800", d: "毎月の枚数を気にせず", c: C.gold, at: 40 },
+            { k: "無料のお試し", p: "¥0", d: "30枚まで（1回かぎり）", c: C.cyan, at: 6 },
+            { k: "年間プラン", p: "¥5,800", d: "毎月200枚まで", c: C.gold, at: 40 },
           ].map((x) => {
             const t = card(x.at);
             return (
