@@ -3,7 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { type HeroVariant, PRIVACY_PATH, copy } from "../copy";
 import { normalizeSrc, resolveVariant, type Source } from "../lib/attribution";
 import { fetchPilotGate } from "../lib/pilot";
-import { BUY_URL, LEGAL_URL, lp } from "../lp-copy";
+import { BUY_URL, LEGAL_URL, LENS_COURSES_URL, lp } from "../lp-copy";
 import { readPref, writePref } from "../state";
 import { WAITLIST_GRADES, WaitlistSchema } from "../lib/waitlist";
 
@@ -111,6 +111,26 @@ export function Landing() {
         </div>
       </section>
 
+      <section className="lp-sec lp-tint" id="video">
+        <div className="lp-wrap lp-video-wrap">
+          <p className="lp-kicker center">{lp.video.kicker}</p>
+          <h2 className="lp-h2 center">{lp.video.heading}</h2>
+          <video
+            className="lp-video"
+            data-testid="lp-video"
+            src="/lp/guide.mp4"
+            poster="/lp/guide-poster.jpg"
+            controls
+            preload="none"
+            playsInline
+            width={1280}
+            height={720}
+            aria-label={lp.video.alt}
+          />
+          <p className="lp-video-note">{lp.video.note}</p>
+        </div>
+      </section>
+
       <section className="lp-sec lp-dark" id="map">
         <div className="lp-wrap lp-split">
           <div>
@@ -215,9 +235,24 @@ export function Landing() {
               </a>
             </div>
           </div>
+          <div className="lp-card lp-bundle" data-testid="lp-bundle">
+            <p className="lp-kicker">{lp.price.bundle.kicker}</p>
+            <h3 className="lp-h3">{lp.price.bundle.title}</h3>
+            <p>{lp.price.bundle.body}</p>
+            <ul className="lp-bundle-courses">
+              {lp.price.bundle.courses.map((c) => (
+                <li key={c.name}>
+                  <b>{c.name}</b>
+                  <span>{c.who}</span>
+                </li>
+              ))}
+            </ul>
+            <a href={LENS_COURSES_URL} className="btn btn-ghost" target="_blank" rel="noopener noreferrer" data-testid="lp-bundle-link">
+              {lp.price.bundle.cta}
+            </a>
+          </div>
           <div className="lp-price-notes">
             <p>{lp.price.after}</p>
-            <p>{lp.price.course}</p>
             <p>{lp.price.pay}</p>
           </div>
         </div>

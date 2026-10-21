@@ -222,10 +222,10 @@ export function SnapScene({ sc }: { sc: Scene }) {
   const pipe = interpolate(f, [s7 - 8, s7 + 6, s8 - 10, s8 + 2], [0, 1, 1, 0], clamp);
   const phoneOn = 1 - pipe;
   const segs: Seg[] = [
-    { from: 0, to: s7, a: 0.4, b: 4.4 },
-    { from: s7, to: s8, a: 4.4, b: 4.6 },
-    { from: s8, to: s9, a: 4.8, b: 12.8 },
-    { from: s9, to: sc.dur + 12, a: 12.8, b: 19.2 },
+    { from: 0, to: s7, a: 0.44, b: 4.8 },
+    { from: s7, to: s8, a: 4.8, b: 5.03 },
+    { from: s8, to: s9, a: 5.25, b: 13.42 },
+    { from: s9, to: sc.dur + 12, a: 13.42, b: 19.8 },
   ];
   const flash = interpolate(f, [s7 - 14, s7 - 10, s7 - 2], [0, 0.85, 0], clamp);
   const steps = [
@@ -611,25 +611,31 @@ export function PlansScene({ sc }: { sc: Scene }) {
             </div>
           ))}
         </div>
-        <div style={{ position: "absolute", left: 0, right: 0, top: 760, textAlign: "center", fontFamily: FONT, fontSize: 30, color: C.muted, opacity: useIn(s(2.6), 16) }}>
+        <div style={{ position: "absolute", left: 0, right: 0, top: 740, textAlign: "center", fontFamily: FONT, fontSize: 30, color: C.muted, opacity: useIn(s(2.6), 16) }}>
           年間プランは1年分の一括払い・自動更新なし ・ 家族の端末3台まで
+        </div>
+        <div style={{ position: "absolute", left: 0, right: 0, top: 810, display: "flex", justifyContent: "center", opacity: useIn(s(6.2), 18) }}>
+          <div style={{ padding: "14px 34px", borderRadius: 999, border: `2px solid ${C.cyan}`, background: "rgba(12,24,48,0.85)", fontFamily: FONT, fontSize: 34, fontWeight: 800, color: C.text }}>
+            視点レンズの講座には、<span style={{ color: C.cyan }}>年間プラン1年分</span>つき
+          </div>
         </div>
       </AbsoluteFill>
       <AbsoluteFill style={{ opacity: logo }}>
-        <div style={{ position: "absolute", left: 0, right: 0, top: 230, display: "flex", justifyContent: "center", gap: 18 }}>
+        <div style={{ position: "absolute", left: 0, right: 0, top: 130, display: "flex", justifyContent: "center", gap: 18 }}>
           {[C.grey, C.red, C.green, C.gold, C.purple].map((c, i) => (
             <div key={i} style={{ transform: `translateY(${Math.sin((f + i * 10) / 16) * 9}px)` }}>
               <Hex color={c} size={72} />
             </div>
           ))}
         </div>
-        <div style={{ position: "absolute", left: 0, right: 0, top: 380, textAlign: "center", fontFamily: FONT }}>
+        <div style={{ position: "absolute", left: 0, right: 0, top: 270, textAlign: "center", fontFamily: FONT }}>
           <div style={{ fontSize: 50, fontWeight: 800, color: C.muted }}>毎日の復習も、テスト前も。</div>
           <div style={{ marginTop: 18, fontSize: 160, fontWeight: 900, color: C.text, letterSpacing: "0.06em", textShadow: `0 0 70px ${C.cyan}55`, transform: `scale(${0.94 + 0.06 * logo})` }}>つまずきマップ</div>
           <div style={{ marginTop: 18, fontSize: 52, fontWeight: 800, color: C.text }}>
             撮るだけで、<span style={{ color: C.gold }}>何を復習すればいいか</span>がわかる。
           </div>
-          <div style={{ marginTop: 60, fontSize: 28, fontWeight: 700, color: C.muted, letterSpacing: "0.14em" }}>ナゼホリ数学 ・ Beyond Culture</div>
+          <div style={{ marginTop: 56, display: "inline-block", padding: "16px 44px", borderRadius: 999, background: C.gold, color: "#0b1830", fontSize: 50, fontWeight: 900, letterSpacing: "0.04em" }}>tsumazuki.domo-ai.com</div>
+          <div style={{ marginTop: 18, fontSize: 32, fontWeight: 800, color: C.muted }}>登録不要 ・ 30枚まで無料でお試し</div>
         </div>
         <div style={{ position: "absolute", right: 40, bottom: 26, fontFamily: FONT, fontSize: 20, color: "rgba(200,210,230,0.6)" }}>VOICEVOX:No.7</div>
       </AbsoluteFill>
