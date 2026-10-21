@@ -146,10 +146,10 @@ describe("Shopify order check", () => {
     lineItems: { nodes: [{ sku: "LENS-SNAP-1Y", quantity: 1 }] },
     ...over,
   });
-  const skus = ["LENS-SNAP-1Y", "LENS-COURSE"];
+  const skus = ["LENS-SNAP-1Y", "LENS-KJ-12M"];
   it("paid, right email, a pass or course item → the pass", () => {
     expect(pickOrder([node()], "1001", "MAMA@example.jp", skus)).toEqual({ id: "gid://shopify/Order/9", paidAt: "2026-10-18T10:00:00Z", email: "mama@example.jp" });
-    expect(pickOrder([node({ lineItems: { nodes: [{ sku: "lens-course", quantity: 1 }] } })], "#1001", "mama@example.jp", skus)).toMatchObject({ id: expect.any(String) });
+    expect(pickOrder([node({ lineItems: { nodes: [{ sku: "lens-kj-12m", quantity: 1 }] } })], "#1001", "mama@example.jp", skus)).toMatchObject({ id: expect.any(String) });
   });
   it("wrong email / number, unpaid, refunded, cancelled, other products → refused", () => {
     expect(pickOrder([node()], "1001", "papa@example.jp", skus)).toBe("not_found");
