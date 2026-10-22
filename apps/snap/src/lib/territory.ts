@@ -1,4 +1,4 @@
-import { GRADES, type Grade, UNITS, type Unit, unitById } from "../curriculum";
+import { GRADES, type Grade, UNITS, type Unit, unitById, gradeLabel } from "../curriculum";
 import { app } from "../copy";
 import type { SavedPage } from "./model";
 import { buildReport } from "./report";
@@ -713,7 +713,7 @@ export function unitHistory(pages: SavedPage[], unitId: string): HistoryRow[] {
 
 /** Accessible name of a tile: 「小5 平均：挑戦中（✕2）」. */
 export function tileLabel(t: Tile): string {
-  return `${t.unit.appGrade} ${t.unit.topic}：${levelName(t.level)}${t.level === 1 ? `（✕${t.wrong}）` : ""}`;
+  return `${gradeLabel(t.unit.appGrade)} ${t.unit.topic}：${levelName(t.level)}${t.level === 1 ? `（✕${t.wrong}）` : ""}`;
 }
 
 /** Grade of a unit id (for flying to its zone). */

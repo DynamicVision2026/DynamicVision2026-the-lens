@@ -469,7 +469,7 @@ body:has(.terr-page) .main { padding-bottom: 0; max-width: none; } /* the map is
 .hud-n b { font-size: 1.3rem; font-weight: 800; letter-spacing: 0.01em; }
 .hud-n span { font-size: 0.8rem; font-weight: 700; color: var(--terr-glass-dim); }
 .hud-bar { display: flex; align-items: center; gap: 6px; margin-top: 2px; font-size: 0.62rem; font-weight: 700; line-height: 1.25; color: var(--terr-glass-dim); }
-.hud-bar-l { width: 11px; }
+.hud-bar-l { min-width: 11px; white-space: nowrap; }
 .hud-bar i { flex: 1; height: 3px; border-radius: 2px; background: var(--terr-glass-line); position: relative; overflow: hidden; }
 .hud-bar i b { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 2px; }
 .hb-e { background: var(--terr-bar-e); } .hb-j { background: var(--terr-bar-j); } .hb-h { background: var(--terr-bar-h); }
@@ -1262,6 +1262,10 @@ html[data-layout="wide"] .plan-forms, html[data-layout="tablet"] .plan-forms { d
 
 @media (max-width: 900px) {
   .lp-nav { display: none; }
+  .lp-bar .lang-switch { position: relative; padding: 6px 10px; }
+  .lp-bar .lang-switch select { position: absolute; inset: 0; width: 100%; opacity: 0; }
+  .lp-bar .lp-lang { margin-left: auto; }
+  .lp-bar .lp-lang + .btn { margin-left: 0; }
   .lp-bar .btn { margin-left: auto; }
   .lp-hero { padding: 40px 0 56px; }
   .lp-hero-in, .lp-split, .lp-feature { grid-template-columns: 1fr; gap: 32px; }
@@ -1277,3 +1281,13 @@ html[data-layout="wide"] .plan-forms, html[data-layout="tablet"] .plan-forms { d
   .lp-ctas .btn { flex: 1 1 100%; }
   .lp-phone { width: 32%; right: -4px; }
 }
+
+/* language switch (日本語 / English / 简体中文 / 繁體中文) */
+.lang-switch { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border: 1px solid currentColor; border-radius: 999px; font-size: 0.85rem; white-space: nowrap; }
+.lang-switch select { appearance: none; border: 0; background: transparent; color: inherit; font: inherit; padding: 4px 2px; cursor: pointer; }
+.lang-switch select option { color: var(--c-text); }
+.lang-switch select:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.lp-lang { color: var(--lp-on-dark-muted); }
+.lp-footer-links .lp-lang { color: inherit; }
+.lang-row { display: flex; justify-content: flex-end; margin-bottom: 8px; color: var(--c-muted, inherit); }
+.lang-row-end { justify-content: center; margin: 28px 0 8px; }

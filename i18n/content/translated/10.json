@@ -1,0 +1,1502 @@
+{
+ "折り返しても長さは変わらないので、A と B' を結ぶまっすぐな線が最短。Pが決まれば、三角形は囲んで面積を出せる。": {
+  "en": "Reflecting doesn't change length, so the straight line joining A and B' is the shortest. Once P is fixed, you can enclose the triangle to find its area.",
+  "zh-Hans": "翻折后长度不变，所以连接 A 和 B' 的直线最短。确定P之后，就能把三角形围起来求面积。",
+  "zh-Hant": "翻折後長度不變，所以連接 A 和 B' 的直線最短。確定P之後，就能把三角形圍起來求面積。"
+ },
+ "座標平面上に2点A(−2, 3)、B(6, 5)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、△ABPの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane there are 2 points A(−2, 3) and B(6, 5). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the area of △ABP. 1 unit on the grid is 1cm.",
+  "zh-Hans": "在坐标平面上有2点A(−2, 3)、B(6, 5)。在x轴上取点P，使AP＋PB最短。求此时△ABP的面积。其中，坐标的1格为1cm。",
+  "zh-Hant": "在坐標平面上有2點A(−2, 3)、B(6, 5)。在x軸上取點P，使AP＋PB最短。求此時△ABP的面積。其中，坐標的1格為1cm。"
+ },
+ "Pを(p, 0)とおいて、AP＋PBをpの式で表そうとする": {
+  "en": "Set P as (p, 0) and try to write AP＋PB as an expression in p",
+  "zh-Hans": "设P为(p, 0)，试着用含p的式子表示AP＋PB",
+  "zh-Hant": "設P為(p, 0)，試著用含p的式子表示AP＋PB"
+ },
+ "ルートが2つ出てきて、最小になるpが求められない": {
+  "en": "2 square roots show up, and you can't find the p that makes it smallest",
+  "zh-Hans": "出现2个根号，求不出使它最小的p",
+  "zh-Hant": "出現2個根號，求不出使它最小的p"
+ },
+ "ここで約4分。面積まで届かない": {
+  "en": "About 4 minutes gone here, and you never get to the area",
+  "zh-Hans": "到这里已花了约4分钟，还没算到面积",
+  "zh-Hant": "到這裡已花了約4分鐘，還沒算到面積"
+ },
+ "Bをx軸で折り返した点B'(6, −5)をとる（PB＝PB'）": {
+  "en": "Take B'(6, −5), the reflection of B across the x-axis (PB＝PB')",
+  "zh-Hans": "取B沿x轴翻折后的点B'(6, −5)（PB＝PB'）",
+  "zh-Hant": "取B沿x軸翻折後的點B'(6, −5)（PB＝PB'）"
+ },
+ "AとB'をまっすぐ結ぶ。x軸との交点がP。yが 3+5 = 8 下がる間にxは 6−(−2) = 8 進むので、Pのx座標は −2+8×3/8 = 1": {
+  "en": "Join A and B' with a straight line. Where it crosses the x-axis is P. While y goes down 3+5 = 8, x moves 6−(−2) = 8, so the x-coordinate of P is −2+8×3/8 = 1",
+  "zh-Hans": "用直线连接A和B'。与x轴的交点就是P。y下降 3+5 = 8 的同时，x前进 6−(−2) = 8，所以P的x坐标是 −2+8×3/8 = 1",
+  "zh-Hant": "用直線連接A和B'。與x軸的交點就是P。y下降 3+5 = 8 的同時，x前進 6−(−2) = 8，所以P的x坐標是 −2+8×3/8 = 1"
+ },
+ "8×5の長方形で囲む": {
+  "en": "Enclose it in a 8×5 rectangle",
+  "zh-Hans": "用8×5的长方形围起来",
+  "zh-Hant": "用8×5的長方形圍起來"
+ },
+ "すみの三角形 8×2÷2": {
+  "en": "Corner triangle: 8×2÷2",
+  "zh-Hans": "角上的三角形 8×2÷2",
+  "zh-Hant": "角落的三角形 8×2÷2"
+ },
+ "軸の上の点までの2つのきょりの和が最短なら、まず折り返す。決まった三角形の面積は囲む。": {
+  "en": "When the sum of 2 distances to a point on an axis must be shortest, reflect first. Then find the area of the fixed triangle by enclosing it.",
+  "zh-Hans": "要让到轴上一点的2段距离之和最短，先翻折。确定好的三角形，用围起来的方法求面积。",
+  "zh-Hant": "要讓到軸上一點的2段距離之和最短，先翻折。確定好的三角形，用圍起來的方法求面積。"
+ },
+ "そのとおり。まずBを折り返してPを決める。そのあと△ABPを囲んで面積を出す。": {
+  "en": "That's right. First reflect B to fix P. Then enclose △ABP to find its area.",
+  "zh-Hans": "没错。先翻折B，确定P。然后把△ABP围起来求面积。",
+  "zh-Hant": "沒錯。先翻折B，確定P。然後把△ABP圍起來求面積。"
+ },
+ "面積は囲めば出せる。でも、その前にPの位置を決めるレンズが必要。": {
+  "en": "You can get the area by enclosing. But before that, you need a lens that fixes where P is.",
+  "zh-Hans": "面积围起来就能求。但在那之前，需要一个确定P位置的透镜。",
+  "zh-Hant": "面積圍起來就能求。但在那之前，需要一個確定P位置的透鏡。"
+ },
+ "Pを(p, 0)とおいてAP＋PBを式にすると、ルートの和になって最小が出せない。": {
+  "en": "If you set P as (p, 0) and write AP＋PB as an expression, you get a sum of square roots and can't find the minimum.",
+  "zh-Hans": "设P为(p, 0)把AP＋PB写成式子，会变成根号的和，求不出最小值。",
+  "zh-Hant": "設P為(p, 0)把AP＋PB寫成式子，會變成根號的和，求不出最小值。"
+ },
+ "座標平面上に2点A(0, 4)、B(12, 2)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、△ABPの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane there are 2 points A(0, 4) and B(12, 2). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the area of △ABP. 1 unit on the grid is 1cm.",
+  "zh-Hans": "在坐标平面上有2点A(0, 4)、B(12, 2)。在x轴上取点P，使AP＋PB最短。求此时△ABP的面积。其中，坐标的1格为1cm。",
+  "zh-Hant": "在坐標平面上有2點A(0, 4)、B(12, 2)。在x軸上取點P，使AP＋PB最短。求此時△ABP的面積。其中，坐標的1格為1cm。"
+ },
+ "Bをx軸で折り返した点B'(12, −2)をとる（PB＝PB'）": {
+  "en": "Take B'(12, −2), the reflection of B across the x-axis (PB＝PB')",
+  "zh-Hans": "取B沿x轴翻折后的点B'(12, −2)（PB＝PB'）",
+  "zh-Hant": "取B沿x軸翻折後的點B'(12, −2)（PB＝PB'）"
+ },
+ "AとB'をまっすぐ結ぶ。x軸との交点がP。yが 4+2 = 6 下がる間にxは 12−0 = 12 進むので、Pのx座標は 0+12×4/6 = 8": {
+  "en": "Join A and B' with a straight line. Where it crosses the x-axis is P. While y goes down 4+2 = 6, x moves 12−0 = 12, so the x-coordinate of P is 0+12×4/6 = 8",
+  "zh-Hans": "用直线连接A和B'。与x轴的交点就是P。y下降 4+2 = 6 的同时，x前进 12−0 = 12，所以P的x坐标是 0+12×4/6 = 8",
+  "zh-Hant": "用直線連接A和B'。與x軸的交點就是P。y下降 4+2 = 6 的同時，x前進 12−0 = 12，所以P的x坐標是 0+12×4/6 = 8"
+ },
+ "12×4の長方形で囲む": {
+  "en": "Enclose it in a 12×4 rectangle",
+  "zh-Hans": "用12×4的长方形围起来",
+  "zh-Hant": "用12×4的長方形圍起來"
+ },
+ "すみの三角形 12×2÷2": {
+  "en": "Corner triangle: 12×2÷2",
+  "zh-Hans": "角上的三角形 12×2÷2",
+  "zh-Hant": "角落的三角形 12×2÷2"
+ },
+ "座標平面上に2点A(0, 3)、B(8, 1)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、△ABPの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane there are 2 points A(0, 3) and B(8, 1). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the area of △ABP. 1 unit on the grid is 1cm.",
+  "zh-Hans": "在坐标平面上有2点A(0, 3)、B(8, 1)。在x轴上取点P，使AP＋PB最短。求此时△ABP的面积。其中，坐标的1格为1cm。",
+  "zh-Hant": "在坐標平面上有2點A(0, 3)、B(8, 1)。在x軸上取點P，使AP＋PB最短。求此時△ABP的面積。其中，坐標的1格為1cm。"
+ },
+ "Bをx軸で折り返した点B'(8, −1)をとる（PB＝PB'）": {
+  "en": "Take B'(8, −1), the reflection of B across the x-axis (PB＝PB')",
+  "zh-Hans": "取B沿x轴翻折后的点B'(8, −1)（PB＝PB'）",
+  "zh-Hant": "取B沿x軸翻折後的點B'(8, −1)（PB＝PB'）"
+ },
+ "AとB'をまっすぐ結ぶ。x軸との交点がP。yが 3+1 = 4 下がる間にxは 8−0 = 8 進むので、Pのx座標は 0+8×3/4 = 6": {
+  "en": "Join A and B' with a straight line. Where it crosses the x-axis is P. While y goes down 3+1 = 4, x moves 8−0 = 8, so the x-coordinate of P is 0+8×3/4 = 6",
+  "zh-Hans": "用直线连接A和B'。与x轴的交点就是P。y下降 3+1 = 4 的同时，x前进 8−0 = 8，所以P的x坐标是 0+8×3/4 = 6",
+  "zh-Hant": "用直線連接A和B'。與x軸的交點就是P。y下降 3+1 = 4 的同時，x前進 8−0 = 8，所以P的x坐標是 0+8×3/4 = 6"
+ },
+ "8×3の長方形で囲む": {
+  "en": "Enclose it in a 8×3 rectangle",
+  "zh-Hans": "用8×3的长方形围起来",
+  "zh-Hant": "用8×3的長方形圍起來"
+ },
+ "すみの三角形 6×3÷2": {
+  "en": "Corner triangle: 6×3÷2",
+  "zh-Hans": "角上的三角形 6×3÷2",
+  "zh-Hant": "角落的三角形 6×3÷2"
+ },
+ "座標平面上に2点A(−6, 4)、B(4, 6)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、△ABPの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane there are 2 points A(−6, 4) and B(4, 6). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the area of △ABP. 1 unit on the grid is 1cm.",
+  "zh-Hans": "在坐标平面上有2点A(−6, 4)、B(4, 6)。在x轴上取点P，使AP＋PB最短。求此时△ABP的面积。其中，坐标的1格为1cm。",
+  "zh-Hant": "在坐標平面上有2點A(−6, 4)、B(4, 6)。在x軸上取點P，使AP＋PB最短。求此時△ABP的面積。其中，坐標的1格為1cm。"
+ },
+ "Bをx軸で折り返した点B'(4, −6)をとる（PB＝PB'）": {
+  "en": "Take B'(4, −6), the reflection of B across the x-axis (PB＝PB')",
+  "zh-Hans": "取B沿x轴翻折后的点B'(4, −6)（PB＝PB'）",
+  "zh-Hant": "取B沿x軸翻折後的點B'(4, −6)（PB＝PB'）"
+ },
+ "AとB'をまっすぐ結ぶ。x軸との交点がP。yが 4+6 = 10 下がる間にxは 4−(−6) = 10 進むので、Pのx座標は −6+10×4/10 = −2": {
+  "en": "Join A and B' with a straight line. Where it crosses the x-axis is P. While y goes down 4+6 = 10, x moves 4−(−6) = 10, so the x-coordinate of P is −6+10×4/10 = −2",
+  "zh-Hans": "用直线连接A和B'。与x轴的交点就是P。y下降 4+6 = 10 的同时，x前进 4−(−6) = 10，所以P的x坐标是 −6+10×4/10 = −2",
+  "zh-Hant": "用直線連接A和B'。與x軸的交點就是P。y下降 4+6 = 10 的同時，x前進 4−(−6) = 10，所以P的x坐標是 −6+10×4/10 = −2"
+ },
+ "10×6の長方形で囲む": {
+  "en": "Enclose it in a 10×6 rectangle",
+  "zh-Hans": "用10×6的长方形围起来",
+  "zh-Hant": "用10×6的長方形圍起來"
+ },
+ "すみの三角形 6×6÷2": {
+  "en": "Corner triangle: 6×6÷2",
+  "zh-Hans": "角上的三角形 6×6÷2",
+  "zh-Hant": "角落的三角形 6×6÷2"
+ },
+ "すみの三角形 10×2÷2": {
+  "en": "Corner triangle: 10×2÷2",
+  "zh-Hans": "角上的三角形 10×2÷2",
+  "zh-Hant": "角落的三角形 10×2÷2"
+ },
+ "座標平面上に2点A(−5, 6)、B(6, 5)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、△ABPの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane there are 2 points A(−5, 6) and B(6, 5). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the area of △ABP. 1 unit on the grid is 1cm.",
+  "zh-Hans": "在坐标平面上有2点A(−5, 6)、B(6, 5)。在x轴上取点P，使AP＋PB最短。求此时△ABP的面积。其中，坐标的1格为1cm。",
+  "zh-Hant": "在坐標平面上有2點A(−5, 6)、B(6, 5)。在x軸上取點P，使AP＋PB最短。求此時△ABP的面積。其中，坐標的1格為1cm。"
+ },
+ "AとB'をまっすぐ結ぶ。x軸との交点がP。yが 6+5 = 11 下がる間にxは 6−(−5) = 11 進むので、Pのx座標は −5+11×6/11 = 1": {
+  "en": "Join A and B' with a straight line. Where it crosses the x-axis is P. While y goes down 6+5 = 11, x moves 6−(−5) = 11, so the x-coordinate of P is −5+11×6/11 = 1",
+  "zh-Hans": "用直线连接A和B'。与x轴的交点就是P。y下降 6+5 = 11 的同时，x前进 6−(−5) = 11，所以P的x坐标是 −5+11×6/11 = 1",
+  "zh-Hant": "用直線連接A和B'。與x軸的交點就是P。y下降 6+5 = 11 的同時，x前進 6−(−5) = 11，所以P的x坐標是 −5+11×6/11 = 1"
+ },
+ "11×6の長方形で囲む": {
+  "en": "Enclose it in a 11×6 rectangle",
+  "zh-Hans": "用11×6的长方形围起来",
+  "zh-Hant": "用11×6的長方形圍起來"
+ },
+ "すみの三角形 11×1÷2": {
+  "en": "Corner triangle: 11×1÷2",
+  "zh-Hans": "角上的三角形 11×1÷2",
+  "zh-Hant": "角落的三角形 11×1÷2"
+ },
+ "Bを折り返すと、Pが1つに決まる": {
+  "en": "Reflect B, and P is fixed at exactly 1 point",
+  "zh-Hans": "翻折B，P就确定为1个点",
+  "zh-Hant": "翻折B，P就確定為1個點"
+ },
+ "△ABPを外わくで囲んで、すみを引く": {
+  "en": "Enclose △ABP in an outer box and subtract the corners",
+  "zh-Hans": "用外框把△ABP围起来，减去角上的部分",
+  "zh-Hant": "用外框把△ABP圍起來，減去角落的部分"
+ },
+ "座標平面上に2点A(−4, 2)、B(5, 4)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、△ABPの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane there are 2 points A(−4, 2) and B(5, 4). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the area of △ABP. 1 unit on the grid is 1cm.",
+  "zh-Hans": "在坐标平面上有2点A(−4, 2)、B(5, 4)。在x轴上取点P，使AP＋PB最短。求此时△ABP的面积。其中，坐标的1格为1cm。",
+  "zh-Hant": "在坐標平面上有2點A(−4, 2)、B(5, 4)。在x軸上取點P，使AP＋PB最短。求此時△ABP的面積。其中，坐標的1格為1cm。"
+ },
+ "Bをx軸で折り返した点B'(5, −4)をとる（PB＝PB'）": {
+  "en": "Take B'(5, −4), the reflection of B across the x-axis (PB＝PB')",
+  "zh-Hans": "取B沿x轴翻折后的点B'(5, −4)（PB＝PB'）",
+  "zh-Hant": "取B沿x軸翻折後的點B'(5, −4)（PB＝PB'）"
+ },
+ "AとB'をまっすぐ結ぶ。x軸との交点がP。yが 2+4 = 6 下がる間にxは 5−(−4) = 9 進むので、Pのx座標は −4+9×2/6 = −1": {
+  "en": "Join A and B' with a straight line. Where it crosses the x-axis is P. While y goes down 2+4 = 6, x moves 5−(−4) = 9, so the x-coordinate of P is −4+9×2/6 = −1",
+  "zh-Hans": "用直线连接A和B'。与x轴的交点就是P。y下降 2+4 = 6 的同时，x前进 5−(−4) = 9，所以P的x坐标是 −4+9×2/6 = −1",
+  "zh-Hant": "用直線連接A和B'。與x軸的交點就是P。y下降 2+4 = 6 的同時，x前進 5−(−4) = 9，所以P的x坐標是 −4+9×2/6 = −1"
+ },
+ "9×4の長方形で囲む": {
+  "en": "Enclose it in a 9×4 rectangle",
+  "zh-Hans": "用9×4的长方形围起来",
+  "zh-Hant": "用9×4的長方形圍起來"
+ },
+ "すみの三角形 9×2÷2": {
+  "en": "Corner triangle: 9×2÷2",
+  "zh-Hans": "角上的三角形 9×2÷2",
+  "zh-Hant": "角落的三角形 9×2÷2"
+ },
+ "座標平面上に2点A(−5, 1)、B(7, 2)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、△ABPの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane there are 2 points A(−5, 1) and B(7, 2). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the area of △ABP. 1 unit on the grid is 1cm.",
+  "zh-Hans": "在坐标平面上有2点A(−5, 1)、B(7, 2)。在x轴上取点P，使AP＋PB最短。求此时△ABP的面积。其中，坐标的1格为1cm。",
+  "zh-Hant": "在坐標平面上有2點A(−5, 1)、B(7, 2)。在x軸上取點P，使AP＋PB最短。求此時△ABP的面積。其中，坐標的1格為1cm。"
+ },
+ "Bをx軸で折り返した点B'(7, −2)をとる（PB＝PB'）": {
+  "en": "Take B'(7, −2), the reflection of B across the x-axis (PB＝PB')",
+  "zh-Hans": "取B沿x轴翻折后的点B'(7, −2)（PB＝PB'）",
+  "zh-Hant": "取B沿x軸翻折後的點B'(7, −2)（PB＝PB'）"
+ },
+ "AとB'をまっすぐ結ぶ。x軸との交点がP。yが 1+2 = 3 下がる間にxは 7−(−5) = 12 進むので、Pのx座標は −5+12×1/3 = −1": {
+  "en": "Join A and B' with a straight line. Where it crosses the x-axis is P. While y goes down 1+2 = 3, x moves 7−(−5) = 12, so the x-coordinate of P is −5+12×1/3 = −1",
+  "zh-Hans": "用直线连接A和B'。与x轴的交点就是P。y下降 1+2 = 3 的同时，x前进 7−(−5) = 12，所以P的x坐标是 −5+12×1/3 = −1",
+  "zh-Hant": "用直線連接A和B'。與x軸的交點就是P。y下降 1+2 = 3 的同時，x前進 7−(−5) = 12，所以P的x坐標是 −5+12×1/3 = −1"
+ },
+ "12×2の長方形で囲む": {
+  "en": "Enclose it in a 12×2 rectangle",
+  "zh-Hans": "用12×2的长方形围起来",
+  "zh-Hant": "用12×2的長方形圍起來"
+ },
+ "すみの三角形 12×1÷2": {
+  "en": "Corner triangle: 12×1÷2",
+  "zh-Hans": "角上的三角形 12×1÷2",
+  "zh-Hant": "角落的三角形 12×1÷2"
+ },
+ "座標平面上に2点A(−6, 6)、B(1, 1)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、△ABPの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane there are 2 points A(−6, 6) and B(1, 1). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the area of △ABP. 1 unit on the grid is 1cm.",
+  "zh-Hans": "在坐标平面上有2点A(−6, 6)、B(1, 1)。在x轴上取点P，使AP＋PB最短。求此时△ABP的面积。其中，坐标的1格为1cm。",
+  "zh-Hant": "在坐標平面上有2點A(−6, 6)、B(1, 1)。在x軸上取點P，使AP＋PB最短。求此時△ABP的面積。其中，坐標的1格為1cm。"
+ },
+ "Bをx軸で折り返した点B'(1, −1)をとる（PB＝PB'）": {
+  "en": "Take B'(1, −1), the reflection of B across the x-axis (PB＝PB')",
+  "zh-Hans": "取B沿x轴翻折后的点B'(1, −1)（PB＝PB'）",
+  "zh-Hant": "取B沿x軸翻折後的點B'(1, −1)（PB＝PB'）"
+ },
+ "AとB'をまっすぐ結ぶ。x軸との交点がP。yが 6+1 = 7 下がる間にxは 1−(−6) = 7 進むので、Pのx座標は −6+7×6/7 = 0": {
+  "en": "Join A and B' with a straight line. Where it crosses the x-axis is P. While y goes down 6+1 = 7, x moves 1−(−6) = 7, so the x-coordinate of P is −6+7×6/7 = 0",
+  "zh-Hans": "用直线连接A和B'。与x轴的交点就是P。y下降 6+1 = 7 的同时，x前进 1−(−6) = 7，所以P的x坐标是 −6+7×6/7 = 0",
+  "zh-Hant": "用直線連接A和B'。與x軸的交點就是P。y下降 6+1 = 7 的同時，x前進 1−(−6) = 7，所以P的x坐標是 −6+7×6/7 = 0"
+ },
+ "座標平面上に2点A(1, 1)、B(6, 4)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、△ABPの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane there are 2 points A(1, 1) and B(6, 4). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the area of △ABP. 1 unit on the grid is 1cm.",
+  "zh-Hans": "在坐标平面上有2点A(1, 1)、B(6, 4)。在x轴上取点P，使AP＋PB最短。求此时△ABP的面积。其中，坐标的1格为1cm。",
+  "zh-Hant": "在坐標平面上有2點A(1, 1)、B(6, 4)。在x軸上取點P，使AP＋PB最短。求此時△ABP的面積。其中，坐標的1格為1cm。"
+ },
+ "Bをx軸で折り返した点B'(6, −4)をとる（PB＝PB'）": {
+  "en": "Take B'(6, −4), the reflection of B across the x-axis (PB＝PB')",
+  "zh-Hans": "取B沿x轴翻折后的点B'(6, −4)（PB＝PB'）",
+  "zh-Hant": "取B沿x軸翻折後的點B'(6, −4)（PB＝PB'）"
+ },
+ "AとB'をまっすぐ結ぶ。x軸との交点がP。yが 1+4 = 5 下がる間にxは 6−1 = 5 進むので、Pのx座標は 1+5×1/5 = 2": {
+  "en": "Join A and B' with a straight line. Where it crosses the x-axis is P. While y goes down 1+4 = 5, x moves 6−1 = 5, so the x-coordinate of P is 1+5×1/5 = 2",
+  "zh-Hans": "用直线连接A和B'。与x轴的交点就是P。y下降 1+4 = 5 的同时，x前进 6−1 = 5，所以P的x坐标是 1+5×1/5 = 2",
+  "zh-Hant": "用直線連接A和B'。與x軸的交點就是P。y下降 1+4 = 5 的同時，x前進 6−1 = 5，所以P的x坐標是 1+5×1/5 = 2"
+ },
+ "座標平面上に2点A(1, 6)、B(10, 3)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、△ABPの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane there are 2 points A(1, 6) and B(10, 3). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the area of △ABP. 1 unit on the grid is 1cm.",
+  "zh-Hans": "在坐标平面上有2点A(1, 6)、B(10, 3)。在x轴上取点P，使AP＋PB最短。求此时△ABP的面积。其中，坐标的1格为1cm。",
+  "zh-Hant": "在坐標平面上有2點A(1, 6)、B(10, 3)。在x軸上取點P，使AP＋PB最短。求此時△ABP的面積。其中，坐標的1格為1cm。"
+ },
+ "Bをx軸で折り返した点B'(10, −3)をとる（PB＝PB'）": {
+  "en": "Take B'(10, −3), the reflection of B across the x-axis (PB＝PB')",
+  "zh-Hans": "取B沿x轴翻折后的点B'(10, −3)（PB＝PB'）",
+  "zh-Hant": "取B沿x軸翻折後的點B'(10, −3)（PB＝PB'）"
+ },
+ "AとB'をまっすぐ結ぶ。x軸との交点がP。yが 6+3 = 9 下がる間にxは 10−1 = 9 進むので、Pのx座標は 1+9×6/9 = 7": {
+  "en": "Join A and B' with a straight line. Where it crosses the x-axis is P. While y goes down 6+3 = 9, x moves 10−1 = 9, so the x-coordinate of P is 1+9×6/9 = 7",
+  "zh-Hans": "用直线连接A和B'。与x轴的交点就是P。y下降 6+3 = 9 的同时，x前进 10−1 = 9，所以P的x坐标是 1+9×6/9 = 7",
+  "zh-Hant": "用直線連接A和B'。與x軸的交點就是P。y下降 6+3 = 9 的同時，x前進 10−1 = 9，所以P的x坐標是 1+9×6/9 = 7"
+ },
+ "9×6の長方形で囲む": {
+  "en": "Enclose it in a 9×6 rectangle",
+  "zh-Hans": "用9×6的长方形围起来",
+  "zh-Hant": "用9×6的長方形圍起來"
+ },
+ "すみの三角形 9×3÷2": {
+  "en": "Corner triangle: 9×3÷2",
+  "zh-Hans": "角上的三角形 9×3÷2",
+  "zh-Hant": "角落的三角形 9×3÷2"
+ },
+ "座標平面上に2点A(−3, 2)、B(5, 6)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are 2 points A(−3, 2) and B(5, 6). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the x-coordinate of point P.",
+  "zh-Hans": "在坐标平面上有2点A(−3, 2)、B(5, 6)。在x轴上取点P，使AP＋PB最短。求此时点P的x坐标。",
+  "zh-Hant": "在坐標平面上有2點A(−3, 2)、B(5, 6)。在x軸上取點P，使AP＋PB最短。求此時點P的x坐標。"
+ },
+ "ルートが2つ出てきて、最小が出せない": {
+  "en": "2 square roots show up, and you can't find the minimum",
+  "zh-Hans": "出现2个根号，求不出最小值",
+  "zh-Hant": "出現2個根號，求不出最小值"
+ },
+ "Bをx軸で折り返した点B'(5, −6)をとる（PB＝PB'）": {
+  "en": "Take B'(5, −6), the reflection of B across the x-axis (PB＝PB')",
+  "zh-Hans": "取B沿x轴翻折后的点B'(5, −6)（PB＝PB'）",
+  "zh-Hant": "取B沿x軸翻折後的點B'(5, −6)（PB＝PB'）"
+ },
+ "AとB'をまっすぐ結ぶ。x軸との交点がP": {
+  "en": "Join A and B' with a straight line. Where it crosses the x-axis is P",
+  "zh-Hans": "用直线连接A和B'。与x轴的交点就是P",
+  "zh-Hant": "用直線連接A和B'。與x軸的交點就是P"
+ },
+ "yが 2+6 = 8 下がる間にxは 5−(−3) = 8 進むので、Pのx座標は −3+8×2/8 = −1": {
+  "en": "While y goes down 2+6 = 8, x moves 5−(−3) = 8, so the x-coordinate of P is −3+8×2/8 = −1",
+  "zh-Hans": "y下降 2+6 = 8 的同时，x前进 5−(−3) = 8，所以P的x坐标是 −3+8×2/8 = −1",
+  "zh-Hant": "y下降 2+6 = 8 的同時，x前進 5−(−3) = 8，所以P的x坐標是 −3+8×2/8 = −1"
+ },
+ "軸の上の点までの2つのきょりの和が最短なら、片方を軸で折り返す。": {
+  "en": "When the sum of 2 distances to a point on an axis must be shortest, reflect one of the points across the axis.",
+  "zh-Hans": "要让到轴上一点的2段距离之和最短，就把其中一点沿轴翻折。",
+  "zh-Hant": "要讓到軸上一點的2段距離之和最短，就把其中一點沿軸翻折。"
+ },
+ "そのとおり。Bをx軸で折り返して、Aとまっすぐ結ぶ。": {
+  "en": "That's right. Reflect B across the x-axis and join it to A with a straight line.",
+  "zh-Hans": "没错。把B沿x轴翻折，再和A用直线连接。",
+  "zh-Hant": "沒錯。把B沿x軸翻折，再和A用直線連接。"
+ },
+ "面積の問題ではない。": {
+  "en": "This isn't an area problem.",
+  "zh-Hans": "这不是求面积的问题。",
+  "zh-Hant": "這不是求面積的問題。"
+ },
+ "座標平面上に2点A(1, 3)、B(9, 1)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are 2 points A(1, 3) and B(9, 1). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the x-coordinate of point P.",
+  "zh-Hans": "在坐标平面上有2点A(1, 3)、B(9, 1)。在x轴上取点P，使AP＋PB最短。求此时点P的x坐标。",
+  "zh-Hant": "在坐標平面上有2點A(1, 3)、B(9, 1)。在x軸上取點P，使AP＋PB最短。求此時點P的x坐標。"
+ },
+ "Bをx軸で折り返した点B'(9, −1)をとる（PB＝PB'）": {
+  "en": "Take B'(9, −1), the reflection of B across the x-axis (PB＝PB')",
+  "zh-Hans": "取B沿x轴翻折后的点B'(9, −1)（PB＝PB'）",
+  "zh-Hant": "取B沿x軸翻折後的點B'(9, −1)（PB＝PB'）"
+ },
+ "yが 3+1 = 4 下がる間にxは 9−1 = 8 進むので、Pのx座標は 1+8×3/4 = 7": {
+  "en": "While y goes down 3+1 = 4, x moves 9−1 = 8, so the x-coordinate of P is 1+8×3/4 = 7",
+  "zh-Hans": "y下降 3+1 = 4 的同时，x前进 9−1 = 8，所以P的x坐标是 1+8×3/4 = 7",
+  "zh-Hant": "y下降 3+1 = 4 的同時，x前進 9−1 = 8，所以P的x坐標是 1+8×3/4 = 7"
+ },
+ "座標平面上に2点A(1, 5)、B(9, 3)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are 2 points A(1, 5) and B(9, 3). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the x-coordinate of point P.",
+  "zh-Hans": "在坐标平面上有2点A(1, 5)、B(9, 3)。在x轴上取点P，使AP＋PB最短。求此时点P的x坐标。",
+  "zh-Hant": "在坐標平面上有2點A(1, 5)、B(9, 3)。在x軸上取點P，使AP＋PB最短。求此時點P的x坐標。"
+ },
+ "Bをx軸で折り返した点B'(9, −3)をとる（PB＝PB'）": {
+  "en": "Take B'(9, −3), the reflection of B across the x-axis (PB＝PB')",
+  "zh-Hans": "取B沿x轴翻折后的点B'(9, −3)（PB＝PB'）",
+  "zh-Hant": "取B沿x軸翻折後的點B'(9, −3)（PB＝PB'）"
+ },
+ "yが 5+3 = 8 下がる間にxは 9−1 = 8 進むので、Pのx座標は 1+8×5/8 = 6": {
+  "en": "While y goes down 5+3 = 8, x moves 9−1 = 8, so the x-coordinate of P is 1+8×5/8 = 6",
+  "zh-Hans": "y下降 5+3 = 8 的同时，x前进 9−1 = 8，所以P的x坐标是 1+8×5/8 = 6",
+  "zh-Hant": "y下降 5+3 = 8 的同時，x前進 9−1 = 8，所以P的x坐標是 1+8×5/8 = 6"
+ },
+ "座標平面上に2点A(2, 1)、B(10, 3)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are 2 points A(2, 1) and B(10, 3). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the x-coordinate of point P.",
+  "zh-Hans": "在坐标平面上有2点A(2, 1)、B(10, 3)。在x轴上取点P，使AP＋PB最短。求此时点P的x坐标。",
+  "zh-Hant": "在坐標平面上有2點A(2, 1)、B(10, 3)。在x軸上取點P，使AP＋PB最短。求此時點P的x坐標。"
+ },
+ "yが 1+3 = 4 下がる間にxは 10−2 = 8 進むので、Pのx座標は 2+8×1/4 = 4": {
+  "en": "While y goes down 1+3 = 4, x moves 10−2 = 8, so the x-coordinate of P is 2+8×1/4 = 4",
+  "zh-Hans": "y下降 1+3 = 4 的同时，x前进 10−2 = 8，所以P的x坐标是 2+8×1/4 = 4",
+  "zh-Hant": "y下降 1+3 = 4 的同時，x前進 10−2 = 8，所以P的x坐標是 2+8×1/4 = 4"
+ },
+ "座標平面上に2点A(−1, 2)、B(2, 1)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are 2 points A(−1, 2) and B(2, 1). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the x-coordinate of point P.",
+  "zh-Hans": "在坐标平面上有2点A(−1, 2)、B(2, 1)。在x轴上取点P，使AP＋PB最短。求此时点P的x坐标。",
+  "zh-Hant": "在坐標平面上有2點A(−1, 2)、B(2, 1)。在x軸上取點P，使AP＋PB最短。求此時點P的x坐標。"
+ },
+ "Bをx軸で折り返した点B'(2, −1)をとる（PB＝PB'）": {
+  "en": "Take B'(2, −1), the reflection of B across the x-axis (PB＝PB')",
+  "zh-Hans": "取B沿x轴翻折后的点B'(2, −1)（PB＝PB'）",
+  "zh-Hant": "取B沿x軸翻折後的點B'(2, −1)（PB＝PB'）"
+ },
+ "yが 2+1 = 3 下がる間にxは 2−(−1) = 3 進むので、Pのx座標は −1+3×2/3 = 1": {
+  "en": "While y goes down 2+1 = 3, x moves 2−(−1) = 3, so the x-coordinate of P is −1+3×2/3 = 1",
+  "zh-Hans": "y下降 2+1 = 3 的同时，x前进 2−(−1) = 3，所以P的x坐标是 −1+3×2/3 = 1",
+  "zh-Hant": "y下降 2+1 = 3 的同時，x前進 2−(−1) = 3，所以P的x坐標是 −1+3×2/3 = 1"
+ },
+ "座標平面上に2点A(−4, 4)、B(8, 2)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are 2 points A(−4, 4) and B(8, 2). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the x-coordinate of point P.",
+  "zh-Hans": "在坐标平面上有2点A(−4, 4)、B(8, 2)。在x轴上取点P，使AP＋PB最短。求此时点P的x坐标。",
+  "zh-Hant": "在坐標平面上有2點A(−4, 4)、B(8, 2)。在x軸上取點P，使AP＋PB最短。求此時點P的x坐標。"
+ },
+ "Bをx軸で折り返した点B'(8, −2)をとる（PB＝PB'）": {
+  "en": "Take B'(8, −2), the reflection of B across the x-axis (PB＝PB')",
+  "zh-Hans": "取B沿x轴翻折后的点B'(8, −2)（PB＝PB'）",
+  "zh-Hant": "取B沿x軸翻折後的點B'(8, −2)（PB＝PB'）"
+ },
+ "yが 4+2 = 6 下がる間にxは 8−(−4) = 12 進むので、Pのx座標は −4+12×4/6 = 4": {
+  "en": "While y goes down 4+2 = 6, x moves 8−(−4) = 12, so the x-coordinate of P is −4+12×4/6 = 4",
+  "zh-Hans": "y下降 4+2 = 6 的同时，x前进 8−(−4) = 12，所以P的x坐标是 −4+12×4/6 = 4",
+  "zh-Hant": "y下降 4+2 = 6 的同時，x前進 8−(−4) = 12，所以P的x坐標是 −4+12×4/6 = 4"
+ },
+ "座標平面上に2点A(−5, 2)、B(0, 3)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are 2 points A(−5, 2) and B(0, 3). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the x-coordinate of point P.",
+  "zh-Hans": "在坐标平面上有2点A(−5, 2)、B(0, 3)。在x轴上取点P，使AP＋PB最短。求此时点P的x坐标。",
+  "zh-Hant": "在坐標平面上有2點A(−5, 2)、B(0, 3)。在x軸上取點P，使AP＋PB最短。求此時點P的x坐標。"
+ },
+ "Bをx軸で折り返した点B'(0, −3)をとる（PB＝PB'）": {
+  "en": "Take B'(0, −3), the reflection of B across the x-axis (PB＝PB')",
+  "zh-Hans": "取B沿x轴翻折后的点B'(0, −3)（PB＝PB'）",
+  "zh-Hant": "取B沿x軸翻折後的點B'(0, −3)（PB＝PB'）"
+ },
+ "yが 2+3 = 5 下がる間にxは 0−(−5) = 5 進むので、Pのx座標は −5+5×2/5 = −3": {
+  "en": "While y goes down 2+3 = 5, x moves 0−(−5) = 5, so the x-coordinate of P is −5+5×2/5 = −3",
+  "zh-Hans": "y下降 2+3 = 5 的同时，x前进 0−(−5) = 5，所以P的x坐标是 −5+5×2/5 = −3",
+  "zh-Hant": "y下降 2+3 = 5 的同時，x前進 0−(−5) = 5，所以P的x坐標是 −5+5×2/5 = −3"
+ },
+ "座標平面上に2点A(2, 4)、B(14, 8)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are 2 points A(2, 4) and B(14, 8). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the x-coordinate of point P.",
+  "zh-Hans": "在坐标平面上有2点A(2, 4)、B(14, 8)。在x轴上取点P，使AP＋PB最短。求此时点P的x坐标。",
+  "zh-Hant": "在坐標平面上有2點A(2, 4)、B(14, 8)。在x軸上取點P，使AP＋PB最短。求此時點P的x坐標。"
+ },
+ "Bをx軸で折り返した点B'(14, −8)をとる（PB＝PB'）": {
+  "en": "Take B'(14, −8), the reflection of B across the x-axis (PB＝PB')",
+  "zh-Hans": "取B沿x轴翻折后的点B'(14, −8)（PB＝PB'）",
+  "zh-Hant": "取B沿x軸翻折後的點B'(14, −8)（PB＝PB'）"
+ },
+ "yが 4+8 = 12 下がる間にxは 14−2 = 12 進むので、Pのx座標は 2+12×4/12 = 6": {
+  "en": "While y goes down 4+8 = 12, x moves 14−2 = 12, so the x-coordinate of P is 2+12×4/12 = 6",
+  "zh-Hans": "y下降 4+8 = 12 的同时，x前进 14−2 = 12，所以P的x坐标是 2+12×4/12 = 6",
+  "zh-Hant": "y下降 4+8 = 12 的同時，x前進 14−2 = 12，所以P的x坐標是 2+12×4/12 = 6"
+ },
+ "座標平面上に2点A(1, 2)、B(5, 6)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are 2 points A(1, 2) and B(5, 6). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the x-coordinate of point P.",
+  "zh-Hans": "在坐标平面上有2点A(1, 2)、B(5, 6)。在x轴上取点P，使AP＋PB最短。求此时点P的x坐标。",
+  "zh-Hant": "在坐標平面上有2點A(1, 2)、B(5, 6)。在x軸上取點P，使AP＋PB最短。求此時點P的x坐標。"
+ },
+ "yが 2+6 = 8 下がる間にxは 5−1 = 4 進むので、Pのx座標は 1+4×2/8 = 2": {
+  "en": "While y goes down 2+6 = 8, x moves 5−1 = 4, so the x-coordinate of P is 1+4×2/8 = 2",
+  "zh-Hans": "y下降 2+6 = 8 的同时，x前进 5−1 = 4，所以P的x坐标是 1+4×2/8 = 2",
+  "zh-Hant": "y下降 2+6 = 8 的同時，x前進 5−1 = 4，所以P的x坐標是 1+4×2/8 = 2"
+ },
+ "座標平面上に2点A(−6, 1)、B(2, 3)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are 2 points A(−6, 1) and B(2, 3). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the x-coordinate of point P.",
+  "zh-Hans": "在坐标平面上有2点A(−6, 1)、B(2, 3)。在x轴上取点P，使AP＋PB最短。求此时点P的x坐标。",
+  "zh-Hant": "在坐標平面上有2點A(−6, 1)、B(2, 3)。在x軸上取點P，使AP＋PB最短。求此時點P的x坐標。"
+ },
+ "Bをx軸で折り返した点B'(2, −3)をとる（PB＝PB'）": {
+  "en": "Take B'(2, −3), the reflection of B across the x-axis (PB＝PB')",
+  "zh-Hans": "取B沿x轴翻折后的点B'(2, −3)（PB＝PB'）",
+  "zh-Hant": "取B沿x軸翻折後的點B'(2, −3)（PB＝PB'）"
+ },
+ "yが 1+3 = 4 下がる間にxは 2−(−6) = 8 進むので、Pのx座標は −6+8×1/4 = −4": {
+  "en": "While y goes down 1+3 = 4, x moves 2−(−6) = 8, so the x-coordinate of P is −6+8×1/4 = −4",
+  "zh-Hans": "y下降 1+3 = 4 的同时，x前进 2−(−6) = 8，所以P的x坐标是 −6+8×1/4 = −4",
+  "zh-Hant": "y下降 1+3 = 4 的同時，x前進 2−(−6) = 8，所以P的x坐標是 −6+8×1/4 = −4"
+ },
+ "折り返しは「和」を最小にする道具。「差」を最大にするときは、三角形の2辺の差は残りの1辺より小さいことを使い、3点を一直線にする。": {
+  "en": "Reflecting is a tool for making a \"sum\" as small as possible. To make a \"difference\" as large as possible, use the fact that the difference of 2 sides of a triangle is less than the remaining 1 side, and put the 3 points on one straight line.",
+  "zh-Hans": "翻折是让“和”最小的工具。要让“差”最大，就利用三角形2边之差小于剩下的1边，让3点在一条直线上。",
+  "zh-Hant": "翻折是讓「和」最小的工具。要讓「差」最大，就利用三角形2邊之差小於剩下的1邊，讓3點在一條直線上。"
+ },
+ "座標平面上に2点A(1, 6)、B(4, 3)があります。x軸上に点Pをとり、PAとPBの長さの差がもっとも大きくなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are 2 points A(1, 6) and B(4, 3). Take a point P on the x-axis so that the difference between the lengths PA and PB is as large as possible. Find the x-coordinate of point P.",
+  "zh-Hans": "在坐标平面上有2点A(1, 6)、B(4, 3)。在x轴上取点P，使PA与PB的长度之差最大。求此时点P的x坐标。",
+  "zh-Hant": "在坐標平面上有2點A(1, 6)、B(4, 3)。在x軸上取點P，使PA與PB的長度之差最大。求此時點P的x坐標。"
+ },
+ "x軸上の点Pと2点の問題なので、くせでBをx軸で折り返す": {
+  "en": "It's a problem about a point P on the x-axis and 2 points, so out of habit you reflect B across the x-axis",
+  "zh-Hans": "因为是x轴上的点P和2个点的问题，习惯性地把B沿x轴翻折",
+  "zh-Hant": "因為是x軸上的點P和2個點的問題，習慣性地把B沿x軸翻折"
+ },
+ "折り返しで出るのは PA＋PB が最小の点。差が最大の点ではない": {
+  "en": "Reflecting gives the point where PA＋PB is smallest, not the point where the difference is largest",
+  "zh-Hans": "翻折得到的是 PA＋PB 最小的点，不是差最大的点",
+  "zh-Hant": "翻折得到的是 PA＋PB 最小的點，不是差最大的點"
+ },
+ "答えが合わず、考え直して約2分半": {
+  "en": "The answer doesn't match, and rethinking takes about 2 and a half minutes",
+  "zh-Hans": "答案对不上，重新思考花了约2分半钟",
+  "zh-Hant": "答案對不上，重新思考花了約2分半鐘"
+ },
+ "和ではなく差の最大。折り返さない。三角形PABでは |PA−PB| ＜ AB なので、P・A・Bが一直線にならぶときにいちばん大きい": {
+  "en": "It's the largest difference, not the sum. Don't reflect. In triangle PAB, |PA−PB| ＜ AB, so it's largest when P, A and B line up on one straight line",
+  "zh-Hans": "不是和，而是差的最大值。不要翻折。在三角形PAB中 |PA−PB| ＜ AB，所以P、A、B排成一直线时最大",
+  "zh-Hant": "不是和，而是差的最大值。不要翻折。在三角形PAB中 |PA−PB| ＜ AB，所以P、A、B排成一直線時最大"
+ },
+ "だから、直線ABをのばして、x軸と交わる点がP": {
+  "en": "So extend line AB; the point where it meets the x-axis is P",
+  "zh-Hans": "所以延长直线AB，与x轴相交的点就是P",
+  "zh-Hant": "所以延長直線AB，與x軸相交的點就是P"
+ },
+ "yが 6−3 = 3 変わる間にxは 4−1 = 3 変わる。y＝0 まで 6 下がるので、Pのx座標は 1＋3×6/3 = 7": {
+  "en": "While y changes by 6−3 = 3, x changes by 4−1 = 3. y goes down 6 to reach y＝0, so the x-coordinate of P is 1＋3×6/3 = 7",
+  "zh-Hans": "y变化 6−3 = 3 的同时，x变化 4−1 = 3。到 y＝0 要下降 6，所以P的x坐标是 1＋3×6/3 = 7",
+  "zh-Hant": "y變化 6−3 = 3 的同時，x變化 4−1 = 3。到 y＝0 要下降 6，所以P的x坐標是 1＋3×6/3 = 7"
+ },
+ "おしい。折り返すのは「和」を最小にするとき。ここは「差」を最大にする。": {
+  "en": "Close! You reflect when you want the smallest \"sum.\" Here you want the largest \"difference.\"",
+  "zh-Hans": "差一点。翻折是在让“和”最小的时候用。这里是要让“差”最大。",
+  "zh-Hant": "差一點。翻折是在讓「和」最小的時候用。這裡是要讓「差」最大。"
+ },
+ "そのとおり。|PA−PB| は AB より大きくならない。P、A、Bが一直線のとき、ちょうどABになる。": {
+  "en": "That's right. |PA−PB| is never bigger than AB. When P, A and B are on one straight line, it equals AB exactly.",
+  "zh-Hans": "没错。|PA−PB| 不会比 AB 大。P、A、B在一直线上时，正好等于AB。",
+  "zh-Hant": "沒錯。|PA−PB| 不會比 AB 大。P、A、B在一直線上時，正好等於AB。"
+ },
+ "座標平面上に2点A(−1, 5)、B(0, 4)があります。x軸上に点Pをとり、PAとPBの長さの差がもっとも大きくなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are 2 points A(−1, 5) and B(0, 4). Take a point P on the x-axis so that the difference between the lengths PA and PB is as large as possible. Find the x-coordinate of point P.",
+  "zh-Hans": "在坐标平面上有2点A(−1, 5)、B(0, 4)。在x轴上取点P，使PA与PB的长度之差最大。求此时点P的x坐标。",
+  "zh-Hant": "在坐標平面上有2點A(−1, 5)、B(0, 4)。在x軸上取點P，使PA與PB的長度之差最大。求此時點P的x坐標。"
+ },
+ "yが 5−4 = 1 変わる間にxは 0−(−1) = 1 変わる。y＝0 まで 5 下がるので、Pのx座標は −1＋1×5/1 = 4": {
+  "en": "While y changes by 5−4 = 1, x changes by 0−(−1) = 1. y goes down 5 to reach y＝0, so the x-coordinate of P is −1＋1×5/1 = 4",
+  "zh-Hans": "y变化 5−4 = 1 的同时，x变化 0−(−1) = 1。到 y＝0 要下降 5，所以P的x坐标是 −1＋1×5/1 = 4",
+  "zh-Hant": "y變化 5−4 = 1 的同時，x變化 0−(−1) = 1。到 y＝0 要下降 5，所以P的x坐標是 −1＋1×5/1 = 4"
+ },
+ "座標平面上に2点A(−4, 5)、B(−3, 6)があります。x軸上に点Pをとり、PAとPBの長さの差がもっとも大きくなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are 2 points A(−4, 5) and B(−3, 6). Take a point P on the x-axis so that the difference between the lengths PA and PB is as large as possible. Find the x-coordinate of point P.",
+  "zh-Hans": "在坐标平面上有2点A(−4, 5)、B(−3, 6)。在x轴上取点P，使PA与PB的长度之差最大。求此时点P的x坐标。",
+  "zh-Hant": "在坐標平面上有2點A(−4, 5)、B(−3, 6)。在x軸上取點P，使PA與PB的長度之差最大。求此時點P的x坐標。"
+ },
+ "yが 6−5 = 1 変わる間にxは (−3)−(−4) = 1 変わる。Aからy＝0 まで 5 下がるので、Pのx座標は −4−1×5/1 = −9": {
+  "en": "While y changes by 6−5 = 1, x changes by (−3)−(−4) = 1. From A, y goes down 5 to reach y＝0, so the x-coordinate of P is −4−1×5/1 = −9",
+  "zh-Hans": "y变化 6−5 = 1 的同时，x变化 (−3)−(−4) = 1。从A到 y＝0 要下降 5，所以P的x坐标是 −4−1×5/1 = −9",
+  "zh-Hant": "y變化 6−5 = 1 的同時，x變化 (−3)−(−4) = 1。從A到 y＝0 要下降 5，所以P的x坐標是 −4−1×5/1 = −9"
+ },
+ "座標平面上に2点A(−3, 2)、B(−2, 3)があります。x軸上に点Pをとり、PAとPBの長さの差がもっとも大きくなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are 2 points A(−3, 2) and B(−2, 3). Take a point P on the x-axis so that the difference between the lengths PA and PB is as large as possible. Find the x-coordinate of point P.",
+  "zh-Hans": "在坐标平面上有2点A(−3, 2)、B(−2, 3)。在x轴上取点P，使PA与PB的长度之差最大。求此时点P的x坐标。",
+  "zh-Hant": "在坐標平面上有2點A(−3, 2)、B(−2, 3)。在x軸上取點P，使PA與PB的長度之差最大。求此時點P的x坐標。"
+ },
+ "yが 3−2 = 1 変わる間にxは (−2)−(−3) = 1 変わる。Aからy＝0 まで 2 下がるので、Pのx座標は −3−1×2/1 = −5": {
+  "en": "While y changes by 3−2 = 1, x changes by (−2)−(−3) = 1. From A, y goes down 2 to reach y＝0, so the x-coordinate of P is −3−1×2/1 = −5",
+  "zh-Hans": "y变化 3−2 = 1 的同时，x变化 (−2)−(−3) = 1。从A到 y＝0 要下降 2，所以P的x坐标是 −3−1×2/1 = −5",
+  "zh-Hant": "y變化 3−2 = 1 的同時，x變化 (−2)−(−3) = 1。從A到 y＝0 要下降 2，所以P的x坐標是 −3−1×2/1 = −5"
+ },
+ "座標平面上に2点A(−2, 6)、B(1, 8)があります。x軸上に点Pをとり、PAとPBの長さの差がもっとも大きくなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are 2 points A(−2, 6) and B(1, 8). Take a point P on the x-axis so that the difference between the lengths PA and PB is as large as possible. Find the x-coordinate of point P.",
+  "zh-Hans": "在坐标平面上有2点A(−2, 6)、B(1, 8)。在x轴上取点P，使PA与PB的长度之差最大。求此时点P的x坐标。",
+  "zh-Hant": "在坐標平面上有2點A(−2, 6)、B(1, 8)。在x軸上取點P，使PA與PB的長度之差最大。求此時點P的x坐標。"
+ },
+ "yが 8−6 = 2 変わる間にxは 1−(−2) = 3 変わる。Aからy＝0 まで 6 下がるので、Pのx座標は −2−3×6/2 = −11": {
+  "en": "While y changes by 8−6 = 2, x changes by 1−(−2) = 3. From A, y goes down 6 to reach y＝0, so the x-coordinate of P is −2−3×6/2 = −11",
+  "zh-Hans": "y变化 8−6 = 2 的同时，x变化 1−(−2) = 3。从A到 y＝0 要下降 6，所以P的x坐标是 −2−3×6/2 = −11",
+  "zh-Hant": "y變化 8−6 = 2 的同時，x變化 1−(−2) = 3。從A到 y＝0 要下降 6，所以P的x坐標是 −2−3×6/2 = −11"
+ },
+ "座標平面上に2点A(−4, 3)、B(4, −5)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are 2 points A(−4, 3) and B(4, −5). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the x-coordinate of point P.",
+  "zh-Hans": "在坐标平面上有2点A(−4, 3)、B(4, −5)。在x轴上取点P，使AP＋PB最短。求此时点P的x坐标。",
+  "zh-Hant": "在坐標平面上有2點A(−4, 3)、B(4, −5)。在x軸上取點P，使AP＋PB最短。求此時點P的x坐標。"
+ },
+ "最短と聞いて、くせでBをx軸で折り返す": {
+  "en": "Hearing \"shortest,\" out of habit you reflect B across the x-axis",
+  "zh-Hans": "一听到“最短”，就习惯性地把B沿x轴翻折",
+  "zh-Hant": "一聽到「最短」，就習慣性地把B沿x軸翻折"
+ },
+ "折り返したB'はAと同じ側。結んでもx軸と交わらず、やり直す": {
+  "en": "The reflected B' is on the same side as A. Joining them doesn't cross the x-axis, so you start over",
+  "zh-Hans": "翻折后的B'和A在同一侧。连起来也不和x轴相交，只好重来",
+  "zh-Hant": "翻折後的B'和A在同一側。連起來也不和x軸相交，只好重來"
+ },
+ "AとBはx軸をはさんで反対側にある。折り返さずに、AとBをまっすぐ結ぶ": {
+  "en": "A and B are on opposite sides of the x-axis. Don't reflect; just join A and B with a straight line",
+  "zh-Hans": "A和B在x轴的两侧。不用翻折，直接用直线连接A和B",
+  "zh-Hant": "A和B在x軸的兩側。不用翻折，直接用直線連接A和B"
+ },
+ "yが 3+5 = 8 下がる間にxは 4−(−4) = 8 進むので、Pのx座標は −4+8×3/8 = −1": {
+  "en": "While y goes down 3+5 = 8, x moves 4−(−4) = 8, so the x-coordinate of P is −4+8×3/8 = −1",
+  "zh-Hans": "y下降 3+5 = 8 的同时，x前进 4−(−4) = 8，所以P的x坐标是 −4+8×3/8 = −1",
+  "zh-Hant": "y下降 3+5 = 8 的同時，x前進 4−(−4) = 8，所以P的x坐標是 −4+8×3/8 = −1"
+ },
+ "2点がx軸をはさんで反対側なら、折り返さない。そのまま結んだ線とx軸の交点がP。": {
+  "en": "If the 2 points are on opposite sides of the x-axis, don't reflect. P is where the line joining them crosses the x-axis.",
+  "zh-Hans": "2点在x轴两侧时，不用翻折。直接连线与x轴的交点就是P。",
+  "zh-Hant": "2點在x軸兩側時，不用翻折。直接連線與x軸的交點就是P。"
+ },
+ "折り返しはいらない。AとBはもうx軸の反対側にある。": {
+  "en": "No reflecting needed. A and B are already on opposite sides of the x-axis.",
+  "zh-Hans": "不需要翻折。A和B已经在x轴的两侧了。",
+  "zh-Hant": "不需要翻折。A和B已經在x軸的兩側了。"
+ },
+ "そのとおり。反対側の2点は、まっすぐ結ぶのがいちばん短い。": {
+  "en": "That's right. For 2 points on opposite sides, a straight line between them is shortest.",
+  "zh-Hans": "没错。在两侧的2点，用直线连接最短。",
+  "zh-Hant": "沒錯。在兩側的2點，用直線連接最短。"
+ },
+ "座標平面上に2点A(−3, 6)、B(1, −2)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are 2 points A(−3, 6) and B(1, −2). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the x-coordinate of point P.",
+  "zh-Hans": "在坐标平面上有2点A(−3, 6)、B(1, −2)。在x轴上取点P，使AP＋PB最短。求此时点P的x坐标。",
+  "zh-Hant": "在坐標平面上有2點A(−3, 6)、B(1, −2)。在x軸上取點P，使AP＋PB最短。求此時點P的x坐標。"
+ },
+ "yが 6+2 = 8 下がる間にxは 1−(−3) = 4 進むので、Pのx座標は −3+4×6/8 = 0": {
+  "en": "While y goes down 6+2 = 8, x moves 1−(−3) = 4, so the x-coordinate of P is −3+4×6/8 = 0",
+  "zh-Hans": "y下降 6+2 = 8 的同时，x前进 1−(−3) = 4，所以P的x坐标是 −3+4×6/8 = 0",
+  "zh-Hant": "y下降 6+2 = 8 的同時，x前進 1−(−3) = 4，所以P的x坐標是 −3+4×6/8 = 0"
+ },
+ "座標平面上に2点A(−5, 6)、B(3, −2)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are 2 points A(−5, 6) and B(3, −2). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the x-coordinate of point P.",
+  "zh-Hans": "在坐标平面上有2点A(−5, 6)、B(3, −2)。在x轴上取点P，使AP＋PB最短。求此时点P的x坐标。",
+  "zh-Hant": "在坐標平面上有2點A(−5, 6)、B(3, −2)。在x軸上取點P，使AP＋PB最短。求此時點P的x坐標。"
+ },
+ "yが 6+2 = 8 下がる間にxは 3−(−5) = 8 進むので、Pのx座標は −5+8×6/8 = 1": {
+  "en": "While y goes down 6+2 = 8, x moves 3−(−5) = 8, so the x-coordinate of P is −5+8×6/8 = 1",
+  "zh-Hans": "y下降 6+2 = 8 的同时，x前进 3−(−5) = 8，所以P的x坐标是 −5+8×6/8 = 1",
+  "zh-Hant": "y下降 6+2 = 8 的同時，x前進 3−(−5) = 8，所以P的x坐標是 −5+8×6/8 = 1"
+ },
+ "座標平面上に2点A(−5, 6)、B(7, −2)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are 2 points A(−5, 6) and B(7, −2). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the x-coordinate of point P.",
+  "zh-Hans": "在坐标平面上有2点A(−5, 6)、B(7, −2)。在x轴上取点P，使AP＋PB最短。求此时点P的x坐标。",
+  "zh-Hant": "在坐標平面上有2點A(−5, 6)、B(7, −2)。在x軸上取點P，使AP＋PB最短。求此時點P的x坐標。"
+ },
+ "yが 6+2 = 8 下がる間にxは 7−(−5) = 12 進むので、Pのx座標は −5+12×6/8 = 4": {
+  "en": "While y goes down 6+2 = 8, x moves 7−(−5) = 12, so the x-coordinate of P is −5+12×6/8 = 4",
+  "zh-Hans": "y下降 6+2 = 8 的同时，x前进 7−(−5) = 12，所以P的x坐标是 −5+12×6/8 = 4",
+  "zh-Hant": "y下降 6+2 = 8 的同時，x前進 7−(−5) = 12，所以P的x坐標是 −5+12×6/8 = 4"
+ },
+ "座標平面上に2点A(0, 3)、B(8, −1)があります。x軸上に点Pをとり、AP＋PBがもっとも短くなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are 2 points A(0, 3) and B(8, −1). Take a point P on the x-axis so that AP＋PB is as short as possible. Find the x-coordinate of point P.",
+  "zh-Hans": "在坐标平面上有2点A(0, 3)、B(8, −1)。在x轴上取点P，使AP＋PB最短。求此时点P的x坐标。",
+  "zh-Hant": "在坐標平面上有2點A(0, 3)、B(8, −1)。在x軸上取點P，使AP＋PB最短。求此時點P的x坐標。"
+ },
+ "yが 3+1 = 4 下がる間にxは 8−0 = 8 進むので、Pのx座標は 0+8×3/4 = 6": {
+  "en": "While y goes down 3+1 = 4, x moves 8−0 = 8, so the x-coordinate of P is 0+8×3/4 = 6",
+  "zh-Hans": "y下降 3+1 = 4 的同时，x前进 8−0 = 8，所以P的x坐标是 0+8×3/4 = 6",
+  "zh-Hant": "y下降 3+1 = 4 的同時，x前進 8−0 = 8，所以P的x坐標是 0+8×3/4 = 6"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）の同じ側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝4m、QB＝8m、AB＝12mです。PからQまで、とちゅうで川の点Xに1回よって水をくんでいきます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on the same side of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝4m, QB＝8m, AB＝12m. You go from P to Q, making 1 stop at a point X on the river to get water. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的同一侧。从P和Q向河作垂线，垂足分别为A、B，PA＝4m，QB＝8m，AB＝12m。从P走到Q，途中在河边的点X停1次取水。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的同一側。從P和Q向河作垂線，垂足分別為A、B，PA＝4m，QB＝8m，AB＝12m。從P走到Q，途中在河邊的點X停1次取水。當路程最短時，AX是多少m？"
+ },
+ "AとBのまん中によればいい、と考える": {
+  "en": "Think you should just stop halfway between A and B",
+  "zh-Hans": "以为在A和B的正中间停下来就行",
+  "zh-Hant": "以為在A和B的正中間停下來就行"
+ },
+ "PA と QB の長さがちがうので、まん中では最短にならない": {
+  "en": "PA and QB are different lengths, so the midpoint isn't the shortest",
+  "zh-Hans": "PA 和 QB 长度不同，所以正中间不是最短",
+  "zh-Hant": "PA 和 QB 長度不同，所以正中間不是最短"
+ },
+ "Xを少しずつずらして道のりを比べようとするが、長さが計算できない": {
+  "en": "Try shifting X little by little to compare routes, but you can't calculate the lengths",
+  "zh-Hans": "试着一点点移动X来比较路程，但长度算不出来",
+  "zh-Hant": "試著一點點移動X來比較路程，但長度算不出來"
+ },
+ "ここで約2分半。決め手がない": {
+  "en": "About 2 and a half minutes gone here, with nothing that settles it",
+  "zh-Hans": "到这里已花了约2分半钟，还是找不到关键",
+  "zh-Hant": "到這裡已花了約2分半鐘，還是找不到關鍵"
+ },
+ "Qを川で折り返した点Q'をとる（XQ＝XQ'）": {
+  "en": "Take Q', the reflection of Q across the river (XQ＝XQ')",
+  "zh-Hans": "取Q沿河翻折后的点Q'（XQ＝XQ'）",
+  "zh-Hant": "取Q沿河翻折後的點Q'（XQ＝XQ'）"
+ },
+ "PからQ'へまっすぐ線を引く。川と交わる点がX": {
+  "en": "Draw a straight line from P to Q'. Where it crosses the river is X",
+  "zh-Hans": "从P到Q'画一条直线。与河的交点就是X",
+  "zh-Hant": "從P到Q'畫一條直線。與河的交點就是X"
+ },
+ "三角形PAXとQ'BXは同じ形なので AX:XB = 4:8 = 1:2": {
+  "en": "Triangles PAX and Q'BX have the same shape, so AX:XB = 4:8 = 1:2",
+  "zh-Hans": "三角形PAX和Q'BX形状相同，所以 AX:XB = 4:8 = 1:2",
+  "zh-Hant": "三角形PAX和Q'BX形狀相同，所以 AX:XB = 4:8 = 1:2"
+ },
+ "とちゅうで直線に1回ふれる最短の道は、片方の点を折り返して、まっすぐ結ぶ。": {
+  "en": "For the shortest path that touches a line 1 time along the way, reflect one of the points and join with a straight line.",
+  "zh-Hans": "途中碰到直线1次的最短路线，把其中一点翻折，再用直线连接。",
+  "zh-Hant": "途中碰到直線1次的最短路線，把其中一點翻折，再用直線連接。"
+ },
+ "そのとおり。折り返しても長さは変わらないので、まっすぐ結んだ線が最短になる。": {
+  "en": "That's right. Reflecting doesn't change the length, so the straight line joining them is the shortest.",
+  "zh-Hans": "没错。翻折后长度不变，所以用直线连接就是最短的。",
+  "zh-Hant": "沒錯。翻折後長度不變，所以用直線連接就是最短的。"
+ },
+ "面積の問題ではない。道のりの長さを考える問題。": {
+  "en": "This isn't an area problem. It's about the length of a route.",
+  "zh-Hans": "这不是求面积的问题，而是考虑路程长短的问题。",
+  "zh-Hant": "這不是求面積的問題，而是考慮路程長短的問題。"
+ },
+ "まん中によるのが最短とは限らない。PAとQBの長さがちがう。": {
+  "en": "Stopping in the middle isn't always shortest. PA and QB are different lengths.",
+  "zh-Hans": "在正中间停下不一定最短。PA和QB的长度不同。",
+  "zh-Hant": "在正中間停下不一定最短。PA和QB的長度不同。"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）の同じ側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝10m、QB＝5m、AB＝18mです。PからQまで、とちゅうで川の点Xに1回よって水をくんでいきます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on the same side of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝10m, QB＝5m, AB＝18m. You go from P to Q, making 1 stop at a point X on the river to get water. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的同一侧。从P和Q向河作垂线，垂足分别为A、B，PA＝10m，QB＝5m，AB＝18m。从P走到Q，途中在河边的点X停1次取水。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的同一側。從P和Q向河作垂線，垂足分別為A、B，PA＝10m，QB＝5m，AB＝18m。從P走到Q，途中在河邊的點X停1次取水。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQ'BXは同じ形なので AX:XB = 10:5 = 2:1": {
+  "en": "Triangles PAX and Q'BX have the same shape, so AX:XB = 10:5 = 2:1",
+  "zh-Hans": "三角形PAX和Q'BX形状相同，所以 AX:XB = 10:5 = 2:1",
+  "zh-Hant": "三角形PAX和Q'BX形狀相同，所以 AX:XB = 10:5 = 2:1"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）の同じ側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝2m、QB＝8m、AB＝15mです。PからQまで、とちゅうで川の点Xに1回よって水をくんでいきます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on the same side of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝2m, QB＝8m, AB＝15m. You go from P to Q, making 1 stop at a point X on the river to get water. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的同一侧。从P和Q向河作垂线，垂足分别为A、B，PA＝2m，QB＝8m，AB＝15m。从P走到Q，途中在河边的点X停1次取水。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的同一側。從P和Q向河作垂線，垂足分別為A、B，PA＝2m，QB＝8m，AB＝15m。從P走到Q，途中在河邊的點X停1次取水。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQ'BXは同じ形なので AX:XB = 2:8 = 1:4": {
+  "en": "Triangles PAX and Q'BX have the same shape, so AX:XB = 2:8 = 1:4",
+  "zh-Hans": "三角形PAX和Q'BX形状相同，所以 AX:XB = 2:8 = 1:4",
+  "zh-Hant": "三角形PAX和Q'BX形狀相同，所以 AX:XB = 2:8 = 1:4"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）の同じ側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝3m、QB＝5m、AB＝16mです。PからQまで、とちゅうで川の点Xに1回よって水をくんでいきます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on the same side of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝3m, QB＝5m, AB＝16m. You go from P to Q, making 1 stop at a point X on the river to get water. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的同一侧。从P和Q向河作垂线，垂足分别为A、B，PA＝3m，QB＝5m，AB＝16m。从P走到Q，途中在河边的点X停1次取水。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的同一側。從P和Q向河作垂線，垂足分別為A、B，PA＝3m，QB＝5m，AB＝16m。從P走到Q，途中在河邊的點X停1次取水。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQ'BXは同じ形なので AX:XB = 3:5": {
+  "en": "Triangles PAX and Q'BX have the same shape, so AX:XB = 3:5",
+  "zh-Hans": "三角形PAX和Q'BX形状相同，所以 AX:XB = 3:5",
+  "zh-Hant": "三角形PAX和Q'BX形狀相同，所以 AX:XB = 3:5"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）の同じ側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝8m、QB＝6m、AB＝14mです。PからQまで、とちゅうで川の点Xに1回よって水をくんでいきます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on the same side of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝8m, QB＝6m, AB＝14m. You go from P to Q, making 1 stop at a point X on the river to get water. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的同一侧。从P和Q向河作垂线，垂足分别为A、B，PA＝8m，QB＝6m，AB＝14m。从P走到Q，途中在河边的点X停1次取水。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的同一側。從P和Q向河作垂線，垂足分別為A、B，PA＝8m，QB＝6m，AB＝14m。從P走到Q，途中在河邊的點X停1次取水。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQ'BXは同じ形なので AX:XB = 8:6 = 4:3": {
+  "en": "Triangles PAX and Q'BX have the same shape, so AX:XB = 8:6 = 4:3",
+  "zh-Hans": "三角形PAX和Q'BX形状相同，所以 AX:XB = 8:6 = 4:3",
+  "zh-Hant": "三角形PAX和Q'BX形狀相同，所以 AX:XB = 8:6 = 4:3"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）の同じ側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝3m、QB＝6m、AB＝9mです。PからQまで、とちゅうで川の点Xに1回よって水をくんでいきます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on the same side of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝3m, QB＝6m, AB＝9m. You go from P to Q, making 1 stop at a point X on the river to get water. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的同一侧。从P和Q向河作垂线，垂足分别为A、B，PA＝3m，QB＝6m，AB＝9m。从P走到Q，途中在河边的点X停1次取水。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的同一側。從P和Q向河作垂線，垂足分別為A、B，PA＝3m，QB＝6m，AB＝9m。從P走到Q，途中在河邊的點X停1次取水。當路程最短時，AX是多少m？"
+ },
+ "ここで約2分。決め手がない": {
+  "en": "About 2 minutes gone here, with nothing that settles it",
+  "zh-Hans": "到这里已花了约2分钟，还是找不到关键",
+  "zh-Hant": "到這裡已花了約2分鐘，還是找不到關鍵"
+ },
+ "三角形PAXとQ'BXは同じ形なので AX:XB = 3:6 = 1:2": {
+  "en": "Triangles PAX and Q'BX have the same shape, so AX:XB = 3:6 = 1:2",
+  "zh-Hans": "三角形PAX和Q'BX形状相同，所以 AX:XB = 3:6 = 1:2",
+  "zh-Hant": "三角形PAX和Q'BX形狀相同，所以 AX:XB = 3:6 = 1:2"
+ },
+ "方眼の上の図形の面積ではない。": {
+  "en": "This isn't about the area of a shape on a grid.",
+  "zh-Hans": "这不是求方格上图形的面积。",
+  "zh-Hant": "這不是求方格上圖形的面積。"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）の同じ側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝6m、QB＝3m、AB＝6mです。PからQまで、とちゅうで川の点Xに1回よって水をくんでいきます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on the same side of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝6m, QB＝3m, AB＝6m. You go from P to Q, making 1 stop at a point X on the river to get water. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的同一侧。从P和Q向河作垂线，垂足分别为A、B，PA＝6m，QB＝3m，AB＝6m。从P走到Q，途中在河边的点X停1次取水。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的同一側。從P和Q向河作垂線，垂足分別為A、B，PA＝6m，QB＝3m，AB＝6m。從P走到Q，途中在河邊的點X停1次取水。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQ'BXは同じ形なので AX:XB = 6:3 = 2:1": {
+  "en": "Triangles PAX and Q'BX have the same shape, so AX:XB = 6:3 = 2:1",
+  "zh-Hans": "三角形PAX和Q'BX形状相同，所以 AX:XB = 6:3 = 2:1",
+  "zh-Hant": "三角形PAX和Q'BX形狀相同，所以 AX:XB = 6:3 = 2:1"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）の同じ側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝6m、QB＝2m、AB＝8mです。PからQまで、とちゅうで川の点Xに1回よって水をくんでいきます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on the same side of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝6m, QB＝2m, AB＝8m. You go from P to Q, making 1 stop at a point X on the river to get water. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的同一侧。从P和Q向河作垂线，垂足分别为A、B，PA＝6m，QB＝2m，AB＝8m。从P走到Q，途中在河边的点X停1次取水。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的同一側。從P和Q向河作垂線，垂足分別為A、B，PA＝6m，QB＝2m，AB＝8m。從P走到Q，途中在河邊的點X停1次取水。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQ'BXは同じ形なので AX:XB = 6:2 = 3:1": {
+  "en": "Triangles PAX and Q'BX have the same shape, so AX:XB = 6:2 = 3:1",
+  "zh-Hans": "三角形PAX和Q'BX形状相同，所以 AX:XB = 6:2 = 3:1",
+  "zh-Hant": "三角形PAX和Q'BX形狀相同，所以 AX:XB = 6:2 = 3:1"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）の同じ側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝2m、QB＝5m、AB＝7mです。PからQまで、とちゅうで川の点Xに1回よって水をくんでいきます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on the same side of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝2m, QB＝5m, AB＝7m. You go from P to Q, making 1 stop at a point X on the river to get water. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的同一侧。从P和Q向河作垂线，垂足分别为A、B，PA＝2m，QB＝5m，AB＝7m。从P走到Q，途中在河边的点X停1次取水。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的同一側。從P和Q向河作垂線，垂足分別為A、B，PA＝2m，QB＝5m，AB＝7m。從P走到Q，途中在河邊的點X停1次取水。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQ'BXは同じ形なので AX:XB = 2:5": {
+  "en": "Triangles PAX and Q'BX have the same shape, so AX:XB = 2:5",
+  "zh-Hans": "三角形PAX和Q'BX形状相同，所以 AX:XB = 2:5",
+  "zh-Hant": "三角形PAX和Q'BX形狀相同，所以 AX:XB = 2:5"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）の同じ側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝5m、QB＝6m、AB＝11mです。PからQまで、とちゅうで川の点Xに1回よって水をくんでいきます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on the same side of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝5m, QB＝6m, AB＝11m. You go from P to Q, making 1 stop at a point X on the river to get water. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的同一侧。从P和Q向河作垂线，垂足分别为A、B，PA＝5m，QB＝6m，AB＝11m。从P走到Q，途中在河边的点X停1次取水。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的同一側。從P和Q向河作垂線，垂足分別為A、B，PA＝5m，QB＝6m，AB＝11m。從P走到Q，途中在河邊的點X停1次取水。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQ'BXは同じ形なので AX:XB = 5:6": {
+  "en": "Triangles PAX and Q'BX have the same shape, so AX:XB = 5:6",
+  "zh-Hans": "三角形PAX和Q'BX形状相同，所以 AX:XB = 5:6",
+  "zh-Hant": "三角形PAX和Q'BX形狀相同，所以 AX:XB = 5:6"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）の同じ側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝6m、QB＝9m、AB＝25mです。PからQまで、とちゅうで川の点Xに1回よって水をくんでいきます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on the same side of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝6m, QB＝9m, AB＝25m. You go from P to Q, making 1 stop at a point X on the river to get water. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的同一侧。从P和Q向河作垂线，垂足分别为A、B，PA＝6m，QB＝9m，AB＝25m。从P走到Q，途中在河边的点X停1次取水。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的同一側。從P和Q向河作垂線，垂足分別為A、B，PA＝6m，QB＝9m，AB＝25m。從P走到Q，途中在河邊的點X停1次取水。當路程最短時，AX是多少m？"
+ },
+ "ここで約4分。決め手がない": {
+  "en": "About 4 minutes gone here, with nothing that settles it",
+  "zh-Hans": "到这里已花了约4分钟，还是找不到关键",
+  "zh-Hant": "到這裡已花了約4分鐘，還是找不到關鍵"
+ },
+ "三角形PAXとQ'BXは同じ形なので AX:XB = 6:9 = 2:3": {
+  "en": "Triangles PAX and Q'BX have the same shape, so AX:XB = 6:9 = 2:3",
+  "zh-Hans": "三角形PAX和Q'BX形状相同，所以 AX:XB = 6:9 = 2:3",
+  "zh-Hant": "三角形PAX和Q'BX形狀相同，所以 AX:XB = 6:9 = 2:3"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）の同じ側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝4m、QB＝14m、AB＝18mです。PからQまで、とちゅうで川の点Xに1回よって水をくんでいきます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on the same side of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝4m, QB＝14m, AB＝18m. You go from P to Q, making 1 stop at a point X on the river to get water. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的同一侧。从P和Q向河作垂线，垂足分别为A、B，PA＝4m，QB＝14m，AB＝18m。从P走到Q，途中在河边的点X停1次取水。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的同一側。從P和Q向河作垂線，垂足分別為A、B，PA＝4m，QB＝14m，AB＝18m。從P走到Q，途中在河邊的點X停1次取水。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQ'BXは同じ形なので AX:XB = 4:14 = 2:7": {
+  "en": "Triangles PAX and Q'BX have the same shape, so AX:XB = 4:14 = 2:7",
+  "zh-Hans": "三角形PAX和Q'BX形状相同，所以 AX:XB = 4:14 = 2:7",
+  "zh-Hant": "三角形PAX和Q'BX形狀相同，所以 AX:XB = 4:14 = 2:7"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）の同じ側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝9m、QB＝6m、AB＝15mです。PからQまで、とちゅうで川の点Xに1回よって水をくんでいきます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on the same side of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝9m, QB＝6m, AB＝15m. You go from P to Q, making 1 stop at a point X on the river to get water. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的同一侧。从P和Q向河作垂线，垂足分别为A、B，PA＝9m，QB＝6m，AB＝15m。从P走到Q，途中在河边的点X停1次取水。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的同一側。從P和Q向河作垂線，垂足分別為A、B，PA＝9m，QB＝6m，AB＝15m。從P走到Q，途中在河邊的點X停1次取水。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQ'BXは同じ形なので AX:XB = 9:6 = 3:2": {
+  "en": "Triangles PAX and Q'BX have the same shape, so AX:XB = 9:6 = 3:2",
+  "zh-Hans": "三角形PAX和Q'BX形状相同，所以 AX:XB = 9:6 = 3:2",
+  "zh-Hant": "三角形PAX和Q'BX形狀相同，所以 AX:XB = 9:6 = 3:2"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）の同じ側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝6m、QB＝14m、AB＝30mです。PからQまで、とちゅうで川の点Xに1回よって水をくんでいきます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on the same side of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝6m, QB＝14m, AB＝30m. You go from P to Q, making 1 stop at a point X on the river to get water. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的同一侧。从P和Q向河作垂线，垂足分别为A、B，PA＝6m，QB＝14m，AB＝30m。从P走到Q，途中在河边的点X停1次取水。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的同一側。從P和Q向河作垂線，垂足分別為A、B，PA＝6m，QB＝14m，AB＝30m。從P走到Q，途中在河邊的點X停1次取水。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQ'BXは同じ形なので AX:XB = 6:14 = 3:7": {
+  "en": "Triangles PAX and Q'BX have the same shape, so AX:XB = 6:14 = 3:7",
+  "zh-Hans": "三角形PAX和Q'BX形状相同，所以 AX:XB = 6:14 = 3:7",
+  "zh-Hant": "三角形PAX和Q'BX形狀相同，所以 AX:XB = 6:14 = 3:7"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）の同じ側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝15m、QB＝5m、AB＝24mです。PからQまで、とちゅうで川の点Xに1回よって水をくんでいきます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on the same side of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝15m, QB＝5m, AB＝24m. You go from P to Q, making 1 stop at a point X on the river to get water. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的同一侧。从P和Q向河作垂线，垂足分别为A、B，PA＝15m，QB＝5m，AB＝24m。从P走到Q，途中在河边的点X停1次取水。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的同一側。從P和Q向河作垂線，垂足分別為A、B，PA＝15m，QB＝5m，AB＝24m。從P走到Q，途中在河邊的點X停1次取水。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQ'BXは同じ形なので AX:XB = 15:5 = 3:1": {
+  "en": "Triangles PAX and Q'BX have the same shape, so AX:XB = 15:5 = 3:1",
+  "zh-Hans": "三角形PAX和Q'BX形状相同，所以 AX:XB = 15:5 = 3:1",
+  "zh-Hant": "三角形PAX和Q'BX形狀相同，所以 AX:XB = 15:5 = 3:1"
+ },
+ "2本の線にふれるなら、2回折り返す。折り返しても道のりは変わらないので、まっすぐ結んだ線が最短。": {
+  "en": "If you touch 2 lines, reflect 2 times. Reflecting doesn't change the route length, so the straight line joining them is shortest.",
+  "zh-Hans": "要碰到2条线，就翻折2次。翻折后路程不变，所以用直线连接最短。",
+  "zh-Hant": "要碰到2條線，就翻折2次。翻折後路程不變，所以用直線連接最短。"
+ },
+ "点Oで直角に交わる2本の直線ℓ、mがあります。点Pは直線mから2m、直線ℓから3mのところに、点Qは直線mから6m、直線ℓから5mのところにあります（PもQも、ℓとmにはさまれた同じ側にあります）。PからQまで、とちゅうで直線m、直線ℓの順に1回ずつふれて行きます。道のりがいちばん短くなるとき、直線ℓにふれる点からOまでのきょりは何mですか。": {
+  "en": "There are 2 straight lines ℓ and m that cross at right angles at point O. Point P is 2m from line m and 3m from line ℓ, and point Q is 6m from line m and 5m from line ℓ (P and Q are both on the same side, between ℓ and m). You go from P to Q, touching line m and then line ℓ, 1 time each along the way. When the route is as short as possible, how many meters is it from the point where you touch line ℓ to O?",
+  "zh-Hans": "有2条直线ℓ、m在点O处垂直相交。点P到直线m的距离为2m、到直线ℓ的距离为3m，点Q到直线m的距离为6m、到直线ℓ的距离为5m（P和Q都在ℓ与m所夹的同一侧）。从P走到Q，途中按直线m、直线ℓ的顺序各碰1次。当路程最短时，碰到直线ℓ的点到O的距离是多少m？",
+  "zh-Hant": "有2條直線ℓ、m在點O處垂直相交。點P到直線m的距離為2m、到直線ℓ的距離為3m，點Q到直線m的距離為6m、到直線ℓ的距離為5m（P和Q都在ℓ與m所夾的同一側）。從P走到Q，途中依直線m、直線ℓ的順序各碰1次。當路程最短時，碰到直線ℓ的點到O的距離是多少m？"
+ },
+ "1回だけ折り返して考えようとする": {
+  "en": "Try to solve it with just 1 reflection",
+  "zh-Hans": "想只翻折1次来解",
+  "zh-Hant": "想只翻折1次來解"
+ },
+ "もう1本の線にもふれなければならず、道がまっすぐにならない": {
+  "en": "You also have to touch 1 more line, so the path doesn't become straight",
+  "zh-Hans": "还得碰到另1条线，路线变不成直线",
+  "zh-Hant": "還得碰到另1條線，路線變不成直線"
+ },
+ "ふれる点を少しずつずらして比べるが、決め手がない。約5分": {
+  "en": "Shift the touch points little by little to compare, but nothing settles it. About 5 minutes",
+  "zh-Hans": "一点点移动接触点来比较，却找不到关键。约5分钟",
+  "zh-Hant": "一點點移動接觸點來比較，卻找不到關鍵。約5分鐘"
+ },
+ "Pを直線mで折り返した点P'をとる（mまでの道のりはそのまま）": {
+  "en": "Take P', the reflection of P across line m (the route to m stays the same)",
+  "zh-Hans": "取P沿直线m翻折后的点P'（到m的路程不变）",
+  "zh-Hant": "取P沿直線m翻折後的點P'（到m的路程不變）"
+ },
+ "Qを直線ℓで折り返した点Q'をとる（ℓからの道のりもそのまま）": {
+  "en": "Take Q', the reflection of Q across line ℓ (the route from ℓ stays the same too)",
+  "zh-Hans": "取Q沿直线ℓ翻折后的点Q'（从ℓ出发的路程也不变）",
+  "zh-Hant": "取Q沿直線ℓ翻折後的點Q'（從ℓ出發的路程也不變）"
+ },
+ "P'とQ'をまっすぐ結ぶ。直線m、直線ℓと交わる点が、ふれる点": {
+  "en": "Join P' and Q' with a straight line. Where it crosses line m and line ℓ are the touch points",
+  "zh-Hans": "用直线连接P'和Q'。与直线m、直线ℓ的交点就是接触点",
+  "zh-Hant": "用直線連接P'和Q'。與直線m、直線ℓ的交點就是接觸點"
+ },
+ "P'からQ'へ、横に 2+6 = 8 進む間に、たてに 3+5 = 8 下がる。ℓまで（たて3下がる間）に横へ 8×3/8 = 3 進む": {
+  "en": "From P' to Q', while going 2+6 = 8 across, it goes 3+5 = 8 down. Up to ℓ (while going down 3), it goes 8×3/8 = 3 across",
+  "zh-Hans": "从P'到Q'，横向前进 2+6 = 8 的同时，纵向下降 3+5 = 8。到ℓ为止（纵向下降3的期间）横向前进 8×3/8 = 3",
+  "zh-Hant": "從P'到Q'，橫向前進 2+6 = 8 的同時，縱向下降 3+5 = 8。到ℓ為止（縱向下降3的期間）橫向前進 8×3/8 = 3"
+ },
+ "Oからのきょり = 3−2 = 1": {
+  "en": "Distance from O = 3−2 = 1",
+  "zh-Hans": "到O的距离 = 3−2 = 1",
+  "zh-Hant": "到O的距離 = 3−2 = 1"
+ },
+ "2本の線に1回ずつふれる最短の道は、それぞれの線で折り返して、まっすぐ結ぶ。": {
+  "en": "For the shortest path that touches 2 lines 1 time each, reflect across each line and join with a straight line.",
+  "zh-Hans": "各碰2条线1次的最短路线，分别沿各条线翻折，再用直线连接。",
+  "zh-Hant": "各碰2條線1次的最短路線，分別沿各條線翻折，再用直線連接。"
+ },
+ "そのとおり。Pをmで、Qをℓで折り返して、まっすぐ結ぶ。": {
+  "en": "That's right. Reflect P across m and Q across ℓ, then join them with a straight line.",
+  "zh-Hans": "没错。把P沿m、Q沿ℓ翻折，再用直线连接。",
+  "zh-Hant": "沒錯。把P沿m、Q沿ℓ翻折，再用直線連接。"
+ },
+ "立体の表面の問題ではない。": {
+  "en": "This isn't a problem about the surface of a solid.",
+  "zh-Hans": "这不是立体表面的问题。",
+  "zh-Hant": "這不是立體表面的問題。"
+ },
+ "ふれる点を1つずつためすと、組み合わせが多すぎる。": {
+  "en": "Trying the touch points 1 at a time gives too many combinations.",
+  "zh-Hans": "每次试1个接触点，组合太多了。",
+  "zh-Hant": "每次試1個接觸點，組合太多了。"
+ },
+ "点Oで直角に交わる2本の直線ℓ、mがあります。点Pは直線mから3m、直線ℓから2mのところに、点Qは直線mから7m、直線ℓから2mのところにあります（PもQも、ℓとmにはさまれた同じ側にあります）。PからQまで、とちゅうで直線m、直線ℓの順に1回ずつふれて行きます。道のりがいちばん短くなるとき、直線ℓにふれる点からOまでのきょりは何mですか。": {
+  "en": "There are 2 straight lines ℓ and m that cross at right angles at point O. Point P is 3m from line m and 2m from line ℓ, and point Q is 7m from line m and 2m from line ℓ (P and Q are both on the same side, between ℓ and m). You go from P to Q, touching line m and then line ℓ, 1 time each along the way. When the route is as short as possible, how many meters is it from the point where you touch line ℓ to O?",
+  "zh-Hans": "有2条直线ℓ、m在点O处垂直相交。点P到直线m的距离为3m、到直线ℓ的距离为2m，点Q到直线m的距离为7m、到直线ℓ的距离为2m（P和Q都在ℓ与m所夹的同一侧）。从P走到Q，途中按直线m、直线ℓ的顺序各碰1次。当路程最短时，碰到直线ℓ的点到O的距离是多少m？",
+  "zh-Hant": "有2條直線ℓ、m在點O處垂直相交。點P到直線m的距離為3m、到直線ℓ的距離為2m，點Q到直線m的距離為7m、到直線ℓ的距離為2m（P和Q都在ℓ與m所夾的同一側）。從P走到Q，途中依直線m、直線ℓ的順序各碰1次。當路程最短時，碰到直線ℓ的點到O的距離是多少m？"
+ },
+ "P'からQ'へ、横に 3+7 = 10 進む間に、たてに 2+2 = 4 下がる。ℓまで（たて2下がる間）に横へ 10×2/4 = 5 進む": {
+  "en": "From P' to Q', while going 3+7 = 10 across, it goes 2+2 = 4 down. Up to ℓ (while going down 2), it goes 10×2/4 = 5 across",
+  "zh-Hans": "从P'到Q'，横向前进 3+7 = 10 的同时，纵向下降 2+2 = 4。到ℓ为止（纵向下降2的期间）横向前进 10×2/4 = 5",
+  "zh-Hant": "從P'到Q'，橫向前進 3+7 = 10 的同時，縱向下降 2+2 = 4。到ℓ為止（縱向下降2的期間）橫向前進 10×2/4 = 5"
+ },
+ "Oからのきょり = 5−3 = 2": {
+  "en": "Distance from O = 5−3 = 2",
+  "zh-Hans": "到O的距离 = 5−3 = 2",
+  "zh-Hant": "到O的距離 = 5−3 = 2"
+ },
+ "点Oで直角に交わる2本の直線ℓ、mがあります。点Pは直線mから8m、直線ℓから8mのところに、点Qは直線mから7m、直線ℓから2mのところにあります（PもQも、ℓとmにはさまれた同じ側にあります）。PからQまで、とちゅうで直線m、直線ℓの順に1回ずつふれて行きます。道のりがいちばん短くなるとき、直線ℓにふれる点からOまでのきょりは何mですか。": {
+  "en": "There are 2 straight lines ℓ and m that cross at right angles at point O. Point P is 8m from line m and 8m from line ℓ, and point Q is 7m from line m and 2m from line ℓ (P and Q are both on the same side, between ℓ and m). You go from P to Q, touching line m and then line ℓ, 1 time each along the way. When the route is as short as possible, how many meters is it from the point where you touch line ℓ to O?",
+  "zh-Hans": "有2条直线ℓ、m在点O处垂直相交。点P到直线m的距离为8m、到直线ℓ的距离为8m，点Q到直线m的距离为7m、到直线ℓ的距离为2m（P和Q都在ℓ与m所夹的同一侧）。从P走到Q，途中按直线m、直线ℓ的顺序各碰1次。当路程最短时，碰到直线ℓ的点到O的距离是多少m？",
+  "zh-Hant": "有2條直線ℓ、m在點O處垂直相交。點P到直線m的距離為8m、到直線ℓ的距離為8m，點Q到直線m的距離為7m、到直線ℓ的距離為2m（P和Q都在ℓ與m所夾的同一側）。從P走到Q，途中依直線m、直線ℓ的順序各碰1次。當路程最短時，碰到直線ℓ的點到O的距離是多少m？"
+ },
+ "P'からQ'へ、横に 8+7 = 15 進む間に、たてに 8+2 = 10 下がる。ℓまで（たて8下がる間）に横へ 15×8/10 = 12 進む": {
+  "en": "From P' to Q', while going 8+7 = 15 across, it goes 8+2 = 10 down. Up to ℓ (while going down 8), it goes 15×8/10 = 12 across",
+  "zh-Hans": "从P'到Q'，横向前进 8+7 = 15 的同时，纵向下降 8+2 = 10。到ℓ为止（纵向下降8的期间）横向前进 15×8/10 = 12",
+  "zh-Hant": "從P'到Q'，橫向前進 8+7 = 15 的同時，縱向下降 8+2 = 10。到ℓ為止（縱向下降8的期間）橫向前進 15×8/10 = 12"
+ },
+ "Oからのきょり = 12−8 = 4": {
+  "en": "Distance from O = 12−8 = 4",
+  "zh-Hans": "到O的距离 = 12−8 = 4",
+  "zh-Hant": "到O的距離 = 12−8 = 4"
+ },
+ "点Oで直角に交わる2本の直線ℓ、mがあります。点Pは直線mから2m、直線ℓから4mのところに、点Qは直線mから10m、直線ℓから2mのところにあります（PもQも、ℓとmにはさまれた同じ側にあります）。PからQまで、とちゅうで直線m、直線ℓの順に1回ずつふれて行きます。道のりがいちばん短くなるとき、直線ℓにふれる点からOまでのきょりは何mですか。": {
+  "en": "There are 2 straight lines ℓ and m that cross at right angles at point O. Point P is 2m from line m and 4m from line ℓ, and point Q is 10m from line m and 2m from line ℓ (P and Q are both on the same side, between ℓ and m). You go from P to Q, touching line m and then line ℓ, 1 time each along the way. When the route is as short as possible, how many meters is it from the point where you touch line ℓ to O?",
+  "zh-Hans": "有2条直线ℓ、m在点O处垂直相交。点P到直线m的距离为2m、到直线ℓ的距离为4m，点Q到直线m的距离为10m、到直线ℓ的距离为2m（P和Q都在ℓ与m所夹的同一侧）。从P走到Q，途中按直线m、直线ℓ的顺序各碰1次。当路程最短时，碰到直线ℓ的点到O的距离是多少m？",
+  "zh-Hant": "有2條直線ℓ、m在點O處垂直相交。點P到直線m的距離為2m、到直線ℓ的距離為4m，點Q到直線m的距離為10m、到直線ℓ的距離為2m（P和Q都在ℓ與m所夾的同一側）。從P走到Q，途中依直線m、直線ℓ的順序各碰1次。當路程最短時，碰到直線ℓ的點到O的距離是多少m？"
+ },
+ "P'からQ'へ、横に 2+10 = 12 進む間に、たてに 4+2 = 6 下がる。ℓまで（たて4下がる間）に横へ 12×4/6 = 8 進む": {
+  "en": "From P' to Q', while going 2+10 = 12 across, it goes 4+2 = 6 down. Up to ℓ (while going down 4), it goes 12×4/6 = 8 across",
+  "zh-Hans": "从P'到Q'，横向前进 2+10 = 12 的同时，纵向下降 4+2 = 6。到ℓ为止（纵向下降4的期间）横向前进 12×4/6 = 8",
+  "zh-Hant": "從P'到Q'，橫向前進 2+10 = 12 的同時，縱向下降 4+2 = 6。到ℓ為止（縱向下降4的期間）橫向前進 12×4/6 = 8"
+ },
+ "Oからのきょり = 8−2 = 6": {
+  "en": "Distance from O = 8−2 = 6",
+  "zh-Hans": "到O的距离 = 8−2 = 6",
+  "zh-Hant": "到O的距離 = 8−2 = 6"
+ },
+ "点Oで直角に交わる2本の直線ℓ、mがあります。点Pは直線mから6m、直線ℓから3mのところに、点Qは直線mから9m、直線ℓから2mのところにあります（PもQも、ℓとmにはさまれた同じ側にあります）。PからQまで、とちゅうで直線m、直線ℓの順に1回ずつふれて行きます。道のりがいちばん短くなるとき、直線ℓにふれる点からOまでのきょりは何mですか。": {
+  "en": "There are 2 straight lines ℓ and m that cross at right angles at point O. Point P is 6m from line m and 3m from line ℓ, and point Q is 9m from line m and 2m from line ℓ (P and Q are both on the same side, between ℓ and m). You go from P to Q, touching line m and then line ℓ, 1 time each along the way. When the route is as short as possible, how many meters is it from the point where you touch line ℓ to O?",
+  "zh-Hans": "有2条直线ℓ、m在点O处垂直相交。点P到直线m的距离为6m、到直线ℓ的距离为3m，点Q到直线m的距离为9m、到直线ℓ的距离为2m（P和Q都在ℓ与m所夹的同一侧）。从P走到Q，途中按直线m、直线ℓ的顺序各碰1次。当路程最短时，碰到直线ℓ的点到O的距离是多少m？",
+  "zh-Hant": "有2條直線ℓ、m在點O處垂直相交。點P到直線m的距離為6m、到直線ℓ的距離為3m，點Q到直線m的距離為9m、到直線ℓ的距離為2m（P和Q都在ℓ與m所夾的同一側）。從P走到Q，途中依直線m、直線ℓ的順序各碰1次。當路程最短時，碰到直線ℓ的點到O的距離是多少m？"
+ },
+ "P'からQ'へ、横に 6+9 = 15 進む間に、たてに 3+2 = 5 下がる。ℓまで（たて3下がる間）に横へ 15×3/5 = 9 進む": {
+  "en": "From P' to Q', while going 6+9 = 15 across, it goes 3+2 = 5 down. Up to ℓ (while going down 3), it goes 15×3/5 = 9 across",
+  "zh-Hans": "从P'到Q'，横向前进 6+9 = 15 的同时，纵向下降 3+2 = 5。到ℓ为止（纵向下降3的期间）横向前进 15×3/5 = 9",
+  "zh-Hant": "從P'到Q'，橫向前進 6+9 = 15 的同時，縱向下降 3+2 = 5。到ℓ為止（縱向下降3的期間）橫向前進 15×3/5 = 9"
+ },
+ "Oからのきょり = 9−6 = 3": {
+  "en": "Distance from O = 9−6 = 3",
+  "zh-Hans": "到O的距离 = 9−6 = 3",
+  "zh-Hant": "到O的距離 = 9−6 = 3"
+ },
+ "点Oで直角に交わる2本の直線ℓ、mがあります。点Pは直線mから1m、直線ℓから4mのところに、点Qは直線mから9m、直線ℓから6mのところにあります（PもQも、ℓとmにはさまれた同じ側にあります）。PからQまで、とちゅうで直線m、直線ℓの順に1回ずつふれて行きます。道のりがいちばん短くなるとき、直線ℓにふれる点からOまでのきょりは何mですか。": {
+  "en": "There are 2 straight lines ℓ and m that cross at right angles at point O. Point P is 1m from line m and 4m from line ℓ, and point Q is 9m from line m and 6m from line ℓ (P and Q are both on the same side, between ℓ and m). You go from P to Q, touching line m and then line ℓ, 1 time each along the way. When the route is as short as possible, how many meters is it from the point where you touch line ℓ to O?",
+  "zh-Hans": "有2条直线ℓ、m在点O处垂直相交。点P到直线m的距离为1m、到直线ℓ的距离为4m，点Q到直线m的距离为9m、到直线ℓ的距离为6m（P和Q都在ℓ与m所夹的同一侧）。从P走到Q，途中按直线m、直线ℓ的顺序各碰1次。当路程最短时，碰到直线ℓ的点到O的距离是多少m？",
+  "zh-Hant": "有2條直線ℓ、m在點O處垂直相交。點P到直線m的距離為1m、到直線ℓ的距離為4m，點Q到直線m的距離為9m、到直線ℓ的距離為6m（P和Q都在ℓ與m所夾的同一側）。從P走到Q，途中依直線m、直線ℓ的順序各碰1次。當路程最短時，碰到直線ℓ的點到O的距離是多少m？"
+ },
+ "P'からQ'へ、横に 1+9 = 10 進む間に、たてに 4+6 = 10 下がる。ℓまで（たて4下がる間）に横へ 10×4/10 = 4 進む": {
+  "en": "From P' to Q', while going 1+9 = 10 across, it goes 4+6 = 10 down. Up to ℓ (while going down 4), it goes 10×4/10 = 4 across",
+  "zh-Hans": "从P'到Q'，横向前进 1+9 = 10 的同时，纵向下降 4+6 = 10。到ℓ为止（纵向下降4的期间）横向前进 10×4/10 = 4",
+  "zh-Hant": "從P'到Q'，橫向前進 1+9 = 10 的同時，縱向下降 4+6 = 10。到ℓ為止（縱向下降4的期間）橫向前進 10×4/10 = 4"
+ },
+ "Oからのきょり = 4−1 = 3": {
+  "en": "Distance from O = 4−1 = 3",
+  "zh-Hans": "到O的距离 = 4−1 = 3",
+  "zh-Hant": "到O的距離 = 4−1 = 3"
+ },
+ "点Oで直角に交わる2本の直線ℓ、mがあります。点Pは直線mから3m、直線ℓから6mのところに、点Qは直線mから7m、直線ℓから6mのところにあります（PもQも、ℓとmにはさまれた同じ側にあります）。PからQまで、とちゅうで直線m、直線ℓの順に1回ずつふれて行きます。道のりがいちばん短くなるとき、直線ℓにふれる点からOまでのきょりは何mですか。": {
+  "en": "There are 2 straight lines ℓ and m that cross at right angles at point O. Point P is 3m from line m and 6m from line ℓ, and point Q is 7m from line m and 6m from line ℓ (P and Q are both on the same side, between ℓ and m). You go from P to Q, touching line m and then line ℓ, 1 time each along the way. When the route is as short as possible, how many meters is it from the point where you touch line ℓ to O?",
+  "zh-Hans": "有2条直线ℓ、m在点O处垂直相交。点P到直线m的距离为3m、到直线ℓ的距离为6m，点Q到直线m的距离为7m、到直线ℓ的距离为6m（P和Q都在ℓ与m所夹的同一侧）。从P走到Q，途中按直线m、直线ℓ的顺序各碰1次。当路程最短时，碰到直线ℓ的点到O的距离是多少m？",
+  "zh-Hant": "有2條直線ℓ、m在點O處垂直相交。點P到直線m的距離為3m、到直線ℓ的距離為6m，點Q到直線m的距離為7m、到直線ℓ的距離為6m（P和Q都在ℓ與m所夾的同一側）。從P走到Q，途中依直線m、直線ℓ的順序各碰1次。當路程最短時，碰到直線ℓ的點到O的距離是多少m？"
+ },
+ "P'からQ'へ、横に 3+7 = 10 進む間に、たてに 6+6 = 12 下がる。ℓまで（たて6下がる間）に横へ 10×6/12 = 5 進む": {
+  "en": "From P' to Q', while going 3+7 = 10 across, it goes 6+6 = 12 down. Up to ℓ (while going down 6), it goes 10×6/12 = 5 across",
+  "zh-Hans": "从P'到Q'，横向前进 3+7 = 10 的同时，纵向下降 6+6 = 12。到ℓ为止（纵向下降6的期间）横向前进 10×6/12 = 5",
+  "zh-Hant": "從P'到Q'，橫向前進 3+7 = 10 的同時，縱向下降 6+6 = 12。到ℓ為止（縱向下降6的期間）橫向前進 10×6/12 = 5"
+ },
+ "点Oで直角に交わる2本の直線ℓ、mがあります。点Pは直線mから6m、直線ℓから7mのところに、点Qは直線mから4m、直線ℓから3mのところにあります（PもQも、ℓとmにはさまれた同じ側にあります）。PからQまで、とちゅうで直線m、直線ℓの順に1回ずつふれて行きます。道のりがいちばん短くなるとき、直線ℓにふれる点からOまでのきょりは何mですか。": {
+  "en": "There are 2 straight lines ℓ and m that cross at right angles at point O. Point P is 6m from line m and 7m from line ℓ, and point Q is 4m from line m and 3m from line ℓ (P and Q are both on the same side, between ℓ and m). You go from P to Q, touching line m and then line ℓ, 1 time each along the way. When the route is as short as possible, how many meters is it from the point where you touch line ℓ to O?",
+  "zh-Hans": "有2条直线ℓ、m在点O处垂直相交。点P到直线m的距离为6m、到直线ℓ的距离为7m，点Q到直线m的距离为4m、到直线ℓ的距离为3m（P和Q都在ℓ与m所夹的同一侧）。从P走到Q，途中按直线m、直线ℓ的顺序各碰1次。当路程最短时，碰到直线ℓ的点到O的距离是多少m？",
+  "zh-Hant": "有2條直線ℓ、m在點O處垂直相交。點P到直線m的距離為6m、到直線ℓ的距離為7m，點Q到直線m的距離為4m、到直線ℓ的距離為3m（P和Q都在ℓ與m所夾的同一側）。從P走到Q，途中依直線m、直線ℓ的順序各碰1次。當路程最短時，碰到直線ℓ的點到O的距離是多少m？"
+ },
+ "P'からQ'へ、横に 6+4 = 10 進む間に、たてに 7+3 = 10 下がる。ℓまで（たて7下がる間）に横へ 10×7/10 = 7 進む": {
+  "en": "From P' to Q', while going 6+4 = 10 across, it goes 7+3 = 10 down. Up to ℓ (while going down 7), it goes 10×7/10 = 7 across",
+  "zh-Hans": "从P'到Q'，横向前进 6+4 = 10 的同时，纵向下降 7+3 = 10。到ℓ为止（纵向下降7的期间）横向前进 10×7/10 = 7",
+  "zh-Hant": "從P'到Q'，橫向前進 6+4 = 10 的同時，縱向下降 7+3 = 10。到ℓ為止（縱向下降7的期間）橫向前進 10×7/10 = 7"
+ },
+ "Oからのきょり = 7−6 = 1": {
+  "en": "Distance from O = 7−6 = 1",
+  "zh-Hans": "到O的距离 = 7−6 = 1",
+  "zh-Hant": "到O的距離 = 7−6 = 1"
+ },
+ "点Oで直角に交わる2本の直線ℓ、mがあります。点Pは直線mから2m、直線ℓから7mのところに、点Qは直線mから10m、直線ℓから7mのところにあります（PもQも、ℓとmにはさまれた同じ側にあります）。PからQまで、とちゅうで直線m、直線ℓの順に1回ずつふれて行きます。道のりがいちばん短くなるとき、直線ℓにふれる点からOまでのきょりは何mですか。": {
+  "en": "There are 2 straight lines ℓ and m that cross at right angles at point O. Point P is 2m from line m and 7m from line ℓ, and point Q is 10m from line m and 7m from line ℓ (P and Q are both on the same side, between ℓ and m). You go from P to Q, touching line m and then line ℓ, 1 time each along the way. When the route is as short as possible, how many meters is it from the point where you touch line ℓ to O?",
+  "zh-Hans": "有2条直线ℓ、m在点O处垂直相交。点P到直线m的距离为2m、到直线ℓ的距离为7m，点Q到直线m的距离为10m、到直线ℓ的距离为7m（P和Q都在ℓ与m所夹的同一侧）。从P走到Q，途中按直线m、直线ℓ的顺序各碰1次。当路程最短时，碰到直线ℓ的点到O的距离是多少m？",
+  "zh-Hant": "有2條直線ℓ、m在點O處垂直相交。點P到直線m的距離為2m、到直線ℓ的距離為7m，點Q到直線m的距離為10m、到直線ℓ的距離為7m（P和Q都在ℓ與m所夾的同一側）。從P走到Q，途中依直線m、直線ℓ的順序各碰1次。當路程最短時，碰到直線ℓ的點到O的距離是多少m？"
+ },
+ "P'からQ'へ、横に 2+10 = 12 進む間に、たてに 7+7 = 14 下がる。ℓまで（たて7下がる間）に横へ 12×7/14 = 6 進む": {
+  "en": "From P' to Q', while going 2+10 = 12 across, it goes 7+7 = 14 down. Up to ℓ (while going down 7), it goes 12×7/14 = 6 across",
+  "zh-Hans": "从P'到Q'，横向前进 2+10 = 12 的同时，纵向下降 7+7 = 14。到ℓ为止（纵向下降7的期间）横向前进 12×7/14 = 6",
+  "zh-Hant": "從P'到Q'，橫向前進 2+10 = 12 的同時，縱向下降 7+7 = 14。到ℓ為止（縱向下降7的期間）橫向前進 12×7/14 = 6"
+ },
+ "Oからのきょり = 6−2 = 4": {
+  "en": "Distance from O = 6−2 = 4",
+  "zh-Hans": "到O的距离 = 6−2 = 4",
+  "zh-Hant": "到O的距離 = 6−2 = 4"
+ },
+ "点Oで直角に交わる2本の直線ℓ、mがあります。点Pは直線mから3m、直線ℓから4mのところに、点Qは直線mから9m、直線ℓから2mのところにあります（PもQも、ℓとmにはさまれた同じ側にあります）。PからQまで、とちゅうで直線m、直線ℓの順に1回ずつふれて行きます。道のりがいちばん短くなるとき、直線ℓにふれる点からOまでのきょりは何mですか。": {
+  "en": "There are 2 straight lines ℓ and m that cross at right angles at point O. Point P is 3m from line m and 4m from line ℓ, and point Q is 9m from line m and 2m from line ℓ (P and Q are both on the same side, between ℓ and m). You go from P to Q, touching line m and then line ℓ, 1 time each along the way. When the route is as short as possible, how many meters is it from the point where you touch line ℓ to O?",
+  "zh-Hans": "有2条直线ℓ、m在点O处垂直相交。点P到直线m的距离为3m、到直线ℓ的距离为4m，点Q到直线m的距离为9m、到直线ℓ的距离为2m（P和Q都在ℓ与m所夹的同一侧）。从P走到Q，途中按直线m、直线ℓ的顺序各碰1次。当路程最短时，碰到直线ℓ的点到O的距离是多少m？",
+  "zh-Hant": "有2條直線ℓ、m在點O處垂直相交。點P到直線m的距離為3m、到直線ℓ的距離為4m，點Q到直線m的距離為9m、到直線ℓ的距離為2m（P和Q都在ℓ與m所夾的同一側）。從P走到Q，途中依直線m、直線ℓ的順序各碰1次。當路程最短時，碰到直線ℓ的點到O的距離是多少m？"
+ },
+ "P'からQ'へ、横に 3+9 = 12 進む間に、たてに 4+2 = 6 下がる。ℓまで（たて4下がる間）に横へ 12×4/6 = 8 進む": {
+  "en": "From P' to Q', while going 3+9 = 12 across, it goes 4+2 = 6 down. Up to ℓ (while going down 4), it goes 12×4/6 = 8 across",
+  "zh-Hans": "从P'到Q'，横向前进 3+9 = 12 的同时，纵向下降 4+2 = 6。到ℓ为止（纵向下降4的期间）横向前进 12×4/6 = 8",
+  "zh-Hant": "從P'到Q'，橫向前進 3+9 = 12 的同時，縱向下降 4+2 = 6。到ℓ為止（縱向下降4的期間）橫向前進 12×4/6 = 8"
+ },
+ "Oからのきょり = 8−3 = 5": {
+  "en": "Distance from O = 8−3 = 5",
+  "zh-Hans": "到O的距离 = 8−3 = 5",
+  "zh-Hant": "到O的距離 = 8−3 = 5"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）の同じ側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝4m、QB＝5m、AB＝18mです。PからQまで、とちゅうで川の点Xに1回よって水をくんでいきます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on the same side of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝4m, QB＝5m, AB＝18m. You go from P to Q, making 1 stop at a point X on the river to get water. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的同一侧。从P和Q向河作垂线，垂足分别为A、B，PA＝4m，QB＝5m，AB＝18m。从P走到Q，途中在河边的点X停1次取水。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的同一側。從P和Q向河作垂線，垂足分別為A、B，PA＝4m，QB＝5m，AB＝18m。從P走到Q，途中在河邊的點X停1次取水。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQ'BXは同じ形なので AX:XB = 4:5": {
+  "en": "Triangles PAX and Q'BX have the same shape, so AX:XB = 4:5",
+  "zh-Hans": "三角形PAX和Q'BX形状相同，所以 AX:XB = 4:5",
+  "zh-Hant": "三角形PAX和Q'BX形狀相同，所以 AX:XB = 4:5"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）の同じ側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝10m、QB＝13m、AB＝23mです。PからQまで、とちゅうで川の点Xに1回よって水をくんでいきます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on the same side of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝10m, QB＝13m, AB＝23m. You go from P to Q, making 1 stop at a point X on the river to get water. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的同一侧。从P和Q向河作垂线，垂足分别为A、B，PA＝10m，QB＝13m，AB＝23m。从P走到Q，途中在河边的点X停1次取水。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的同一側。從P和Q向河作垂線，垂足分別為A、B，PA＝10m，QB＝13m，AB＝23m。從P走到Q，途中在河邊的點X停1次取水。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQ'BXは同じ形なので AX:XB = 10:13": {
+  "en": "Triangles PAX and Q'BX have the same shape, so AX:XB = 10:13",
+  "zh-Hans": "三角形PAX和Q'BX形状相同，所以 AX:XB = 10:13",
+  "zh-Hant": "三角形PAX和Q'BX形狀相同，所以 AX:XB = 10:13"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）の同じ側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝11m、QB＝8m、AB＝19mです。PからQまで、とちゅうで川の点Xに1回よって水をくんでいきます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on the same side of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝11m, QB＝8m, AB＝19m. You go from P to Q, making 1 stop at a point X on the river to get water. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的同一侧。从P和Q向河作垂线，垂足分别为A、B，PA＝11m，QB＝8m，AB＝19m。从P走到Q，途中在河边的点X停1次取水。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的同一側。從P和Q向河作垂線，垂足分別為A、B，PA＝11m，QB＝8m，AB＝19m。從P走到Q，途中在河邊的點X停1次取水。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQ'BXは同じ形なので AX:XB = 11:8": {
+  "en": "Triangles PAX and Q'BX have the same shape, so AX:XB = 11:8",
+  "zh-Hans": "三角形PAX和Q'BX形状相同，所以 AX:XB = 11:8",
+  "zh-Hant": "三角形PAX和Q'BX形狀相同，所以 AX:XB = 11:8"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）の同じ側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝8m、QB＝13m、AB＝21mです。PからQまで、とちゅうで川の点Xに1回よって水をくんでいきます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on the same side of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝8m, QB＝13m, AB＝21m. You go from P to Q, making 1 stop at a point X on the river to get water. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的同一侧。从P和Q向河作垂线，垂足分别为A、B，PA＝8m，QB＝13m，AB＝21m。从P走到Q，途中在河边的点X停1次取水。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的同一側。從P和Q向河作垂線，垂足分別為A、B，PA＝8m，QB＝13m，AB＝21m。從P走到Q，途中在河邊的點X停1次取水。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQ'BXは同じ形なので AX:XB = 8:13": {
+  "en": "Triangles PAX and Q'BX have the same shape, so AX:XB = 8:13",
+  "zh-Hans": "三角形PAX和Q'BX形状相同，所以 AX:XB = 8:13",
+  "zh-Hant": "三角形PAX和Q'BX形狀相同，所以 AX:XB = 8:13"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）の同じ側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝12m、QB＝6m、AB＝24mです。PからQまで、とちゅうで川の点Xに1回よって水をくんでいきます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on the same side of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝12m, QB＝6m, AB＝24m. You go from P to Q, making 1 stop at a point X on the river to get water. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的同一侧。从P和Q向河作垂线，垂足分别为A、B，PA＝12m，QB＝6m，AB＝24m。从P走到Q，途中在河边的点X停1次取水。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的同一側。從P和Q向河作垂線，垂足分別為A、B，PA＝12m，QB＝6m，AB＝24m。從P走到Q，途中在河邊的點X停1次取水。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQ'BXは同じ形なので AX:XB = 12:6 = 2:1": {
+  "en": "Triangles PAX and Q'BX have the same shape, so AX:XB = 12:6 = 2:1",
+  "zh-Hans": "三角形PAX和Q'BX形状相同，所以 AX:XB = 12:6 = 2:1",
+  "zh-Hant": "三角形PAX和Q'BX形狀相同，所以 AX:XB = 12:6 = 2:1"
+ },
+ "2点が直線の反対側にあれば、まっすぐ結んだ線がそのまま直線を通る。折り返しはいらない。": {
+  "en": "If 2 points are on opposite sides of a line, the straight line joining them passes through that line on its own. No reflecting needed.",
+  "zh-Hans": "如果2点在直线的两侧，用直线连接自然就会经过这条直线。不需要翻折。",
+  "zh-Hant": "如果2點在直線的兩側，用直線連接自然就會經過這條直線。不需要翻折。"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）をはさんで反対側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝2m、QB＝5m、AB＝14mです。PからQまで、とちゅうで川の上の点Xを通って行きます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on opposite sides of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝2m, QB＝5m, AB＝14m. You go from P to Q, passing through a point X on the river along the way. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的两侧。从P和Q向河作垂线，垂足分别为A、B，PA＝2m，QB＝5m，AB＝14m。从P走到Q，途中经过河上的点X。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的兩側。從P和Q向河作垂線，垂足分別為A、B，PA＝2m，QB＝5m，AB＝14m。從P走到Q，途中經過河上的點X。當路程最短時，AX是多少m？"
+ },
+ "くせでQを川で折り返す": {
+  "en": "Out of habit, reflect Q across the river",
+  "zh-Hans": "习惯性地把Q沿河翻折",
+  "zh-Hant": "習慣性地把Q沿河翻折"
+ },
+ "折り返すとQ'がPと同じ側にきて、かえって遠回りになる": {
+  "en": "Reflecting puts Q' on the same side as P, which only makes the route longer",
+  "zh-Hans": "一翻折，Q'就跑到和P同一侧，反而绕远了",
+  "zh-Hant": "一翻折，Q'就跑到和P同一側，反而繞遠了"
+ },
+ "ここで約1分半まよう": {
+  "en": "Stuck here for about 1 and a half minutes",
+  "zh-Hans": "在这里犹豫了约1分半钟",
+  "zh-Hant": "在這裡猶豫了約1分半鐘"
+ },
+ "PとQは川の反対側にある。まっすぐ結ぶだけで川を通る（折り返しはいらない）": {
+  "en": "P and Q are on opposite sides of the river. Just joining them with a straight line crosses the river (no reflecting needed)",
+  "zh-Hans": "P和Q在河的两侧。只要用直线连接就会经过河（不需要翻折）",
+  "zh-Hant": "P和Q在河的兩側。只要用直線連接就會經過河（不需要翻折）"
+ },
+ "PとQをまっすぐ結ぶ。川と交わる点がX": {
+  "en": "Join P and Q with a straight line. Where it crosses the river is X",
+  "zh-Hans": "用直线连接P和Q。与河的交点就是X",
+  "zh-Hant": "用直線連接P和Q。與河的交點就是X"
+ },
+ "三角形PAXとQBXは同じ形なので AX:XB = 2:5": {
+  "en": "Triangles PAX and QBX have the same shape, so AX:XB = 2:5",
+  "zh-Hans": "三角形PAX和QBX形状相同，所以 AX:XB = 2:5",
+  "zh-Hant": "三角形PAX和QBX形狀相同，所以 AX:XB = 2:5"
+ },
+ "2つの点が直線の反対側にあれば、折り返さずにまっすぐ結ぶ。": {
+  "en": "If 2 points are on opposite sides of a line, don't reflect; just join them with a straight line.",
+  "zh-Hans": "2个点在直线两侧时，不用翻折，直接用直线连接。",
+  "zh-Hant": "2個點在直線兩側時，不用翻折，直接用直線連接。"
+ },
+ "折り返すのは、2点が同じ側にあるとき。ここは反対側なので、まっすぐ結ぶだけ。": {
+  "en": "Reflect when the 2 points are on the same side. Here they're on opposite sides, so just join them with a straight line.",
+  "zh-Hans": "翻折是在2点同侧的时候用。这里在两侧，直接用直线连接就行。",
+  "zh-Hant": "翻折是在2點同側的時候用。這裡在兩側，直接用直線連接就行。"
+ },
+ "そのとおり。反対側にあるので、PとQを結んだ線が最短。": {
+  "en": "That's right. They're on opposite sides, so the line joining P and Q is shortest.",
+  "zh-Hans": "没错。因为在两侧，所以连接P和Q的直线最短。",
+  "zh-Hant": "沒錯。因為在兩側，所以連接P和Q的直線最短。"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）をはさんで反対側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝10m、QB＝5m、AB＝15mです。PからQまで、とちゅうで川の上の点Xを通って行きます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on opposite sides of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝10m, QB＝5m, AB＝15m. You go from P to Q, passing through a point X on the river along the way. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的两侧。从P和Q向河作垂线，垂足分别为A、B，PA＝10m，QB＝5m，AB＝15m。从P走到Q，途中经过河上的点X。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的兩側。從P和Q向河作垂線，垂足分別為A、B，PA＝10m，QB＝5m，AB＝15m。從P走到Q，途中經過河上的點X。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQBXは同じ形なので AX:XB = 10:5 = 2:1": {
+  "en": "Triangles PAX and QBX have the same shape, so AX:XB = 10:5 = 2:1",
+  "zh-Hans": "三角形PAX和QBX形状相同，所以 AX:XB = 10:5 = 2:1",
+  "zh-Hant": "三角形PAX和QBX形狀相同，所以 AX:XB = 10:5 = 2:1"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）をはさんで反対側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝6m、QB＝5m、AB＝11mです。PからQまで、とちゅうで川の上の点Xを通って行きます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on opposite sides of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝6m, QB＝5m, AB＝11m. You go from P to Q, passing through a point X on the river along the way. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的两侧。从P和Q向河作垂线，垂足分别为A、B，PA＝6m，QB＝5m，AB＝11m。从P走到Q，途中经过河上的点X。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的兩側。從P和Q向河作垂線，垂足分別為A、B，PA＝6m，QB＝5m，AB＝11m。從P走到Q，途中經過河上的點X。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQBXは同じ形なので AX:XB = 6:5": {
+  "en": "Triangles PAX and QBX have the same shape, so AX:XB = 6:5",
+  "zh-Hans": "三角形PAX和QBX形状相同，所以 AX:XB = 6:5",
+  "zh-Hant": "三角形PAX和QBX形狀相同，所以 AX:XB = 6:5"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）をはさんで反対側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝9m、QB＝7m、AB＝16mです。PからQまで、とちゅうで川の上の点Xを通って行きます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on opposite sides of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝9m, QB＝7m, AB＝16m. You go from P to Q, passing through a point X on the river along the way. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的两侧。从P和Q向河作垂线，垂足分别为A、B，PA＝9m，QB＝7m，AB＝16m。从P走到Q，途中经过河上的点X。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的兩側。從P和Q向河作垂線，垂足分別為A、B，PA＝9m，QB＝7m，AB＝16m。從P走到Q，途中經過河上的點X。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQBXは同じ形なので AX:XB = 9:7": {
+  "en": "Triangles PAX and QBX have the same shape, so AX:XB = 9:7",
+  "zh-Hans": "三角形PAX和QBX形状相同，所以 AX:XB = 9:7",
+  "zh-Hant": "三角形PAX和QBX形狀相同，所以 AX:XB = 9:7"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）をはさんで反対側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝6m、QB＝10m、AB＝8mです。PからQまで、とちゅうで川の上の点Xを通って行きます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on opposite sides of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝6m, QB＝10m, AB＝8m. You go from P to Q, passing through a point X on the river along the way. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的两侧。从P和Q向河作垂线，垂足分别为A、B，PA＝6m，QB＝10m，AB＝8m。从P走到Q，途中经过河上的点X。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的兩側。從P和Q向河作垂線，垂足分別為A、B，PA＝6m，QB＝10m，AB＝8m。從P走到Q，途中經過河上的點X。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQBXは同じ形なので AX:XB = 6:10 = 3:5": {
+  "en": "Triangles PAX and QBX have the same shape, so AX:XB = 6:10 = 3:5",
+  "zh-Hans": "三角形PAX和QBX形状相同，所以 AX:XB = 6:10 = 3:5",
+  "zh-Hant": "三角形PAX和QBX形狀相同，所以 AX:XB = 6:10 = 3:5"
+ },
+ "長さが決まっている部分（橋）は、どこにあっても同じ。その分だけ点をずらすと、残りがまっすぐな1本の道になる。": {
+  "en": "A part with a fixed length (the bridge) is the same wherever it is. Shift a point by that length, and the rest becomes 1 straight path.",
+  "zh-Hans": "长度固定的部分（桥）放在哪里都一样。把点平移这段长度，剩下的就变成1条直的路。",
+  "zh-Hant": "長度固定的部分（橋）放在哪裡都一樣。把點平移這段長度，剩下的就變成1條直的路。"
+ },
+ "川はば5mのまっすぐな川があります。点Pは北の岸から4m、点Qは南の岸から8mはなれたところにあります。PとQから岸に垂直にひいた線が北の岸、南の岸と交わる点をA、Bとすると、岸にそってはかったAとBの間は18mです。川に垂直な橋を1本かけて、PからQまで行く道のりをいちばん短くします。橋は、北の岸のAから何mのところにかければよいですか。": {
+  "en": "There is a straight river 5m wide. Point P is 4m from the north bank, and point Q is 8m from the south bank. Lines drawn from P and Q perpendicular to the banks meet the north bank at A and the south bank at B, and the distance between A and B measured along the bank is 18m. You build 1 bridge perpendicular to the river so that the route from P to Q is as short as possible. How many meters from A on the north bank should the bridge be built?",
+  "zh-Hans": "有一条宽5m的笔直的河。点P距北岸4m，点Q距南岸8m。从P和Q向河岸作垂线，分别与北岸、南岸交于点A、B，沿河岸量得A与B之间的距离为18m。架1座与河垂直的桥，使从P到Q的路程最短。桥应该架在距北岸的A多少m的地方？",
+  "zh-Hant": "有一條寬5m的筆直的河。點P距北岸4m，點Q距南岸8m。從P和Q向河岸作垂線，分別與北岸、南岸交於點A、B，沿河岸量得A與B之間的距離為18m。架1座與河垂直的橋，使從P到Q的路程最短。橋應該架在距北岸的A多少m的地方？"
+ },
+ "最短の道なので、くせでQを岸で折り返そうとする": {
+  "en": "It's a shortest path, so out of habit you try to reflect Q across the bank",
+  "zh-Hans": "因为是最短路线，习惯性地想把Q沿河岸翻折",
+  "zh-Hant": "因為是最短路線，習慣性地想把Q沿河岸翻折"
+ },
+ "PとQは川をはさんで反対側。折り返すと川はばを2回たしてしまい、図が合わない": {
+  "en": "P and Q are on opposite sides of the river. Reflecting adds the river width 2 times, and the diagram doesn't fit",
+  "zh-Hans": "P和Q在河的两侧。翻折会把河宽加了2次，图对不上",
+  "zh-Hant": "P和Q在河的兩側。翻折會把河寬加了2次，圖對不上"
+ },
+ "橋の位置を少しずつずらして比べ、約4分かかる": {
+  "en": "Shift the bridge little by little to compare; it takes about 4 minutes",
+  "zh-Hans": "一点点移动桥的位置来比较，花了约4分钟",
+  "zh-Hant": "一點點移動橋的位置來比較，花了約4分鐘"
+ },
+ "橋の長さ5mは、どこにかけても同じ。橋をわたる分を先にすませたと考えて、Qを北へ5mずらした点Q'をとる（ずらしても道のりは同じ）": {
+  "en": "The bridge is 5m long wherever you build it. Think of the bridge crossing as already done, and take Q', which is Q shifted 5m north (shifting doesn't change the route length)",
+  "zh-Hans": "桥长5m，架在哪里都一样。把过桥的部分看作先走完，取Q向北平移5m后的点Q'（平移后路程不变）",
+  "zh-Hant": "橋長5m，架在哪裡都一樣。把過橋的部分看作先走完，取Q向北平移5m後的點Q'（平移後路程不變）"
+ },
+ "PとQ'をまっすぐ結ぶ。北の岸と交わる点に橋をかければよい（折り返しはいらない）": {
+  "en": "Join P and Q' with a straight line. Build the bridge where it meets the north bank (no reflecting needed)",
+  "zh-Hans": "用直线连接P和Q'。在它与北岸的交点处架桥即可（不需要翻折）",
+  "zh-Hant": "用直線連接P和Q'。在它與北岸的交點處架橋即可（不需要翻折）"
+ },
+ "同じ形の三角形で、AX:XB = 4:8 = 1:2": {
+  "en": "From triangles with the same shape, AX:XB = 4:8 = 1:2",
+  "zh-Hans": "由形状相同的三角形，AX:XB = 4:8 = 1:2",
+  "zh-Hant": "由形狀相同的三角形，AX:XB = 4:8 = 1:2"
+ },
+ "長さが決まっている部分をはさむ最短の道は、折り返さずに、その長さの分だけ点をずらす。": {
+  "en": "For a shortest path that includes a part of fixed length, don't reflect; shift a point by that length.",
+  "zh-Hans": "包含固定长度部分的最短路线，不用翻折，而是把点平移这段长度。",
+  "zh-Hant": "包含固定長度部分的最短路線，不用翻折，而是把點平移這段長度。"
+ },
+ "おしい。最短の道だが、PとQは川の反対側。折り返すのではなく、橋の長さの分だけQをずらす。": {
+  "en": "Close! It is a shortest path, but P and Q are on opposite sides of the river. Instead of reflecting, shift Q by the length of the bridge.",
+  "zh-Hans": "差一点。虽然是最短路线，但P和Q在河的两侧。不是翻折，而是把Q平移桥的长度。",
+  "zh-Hant": "差一點。雖然是最短路線，但P和Q在河的兩側。不是翻折，而是把Q平移橋的長度。"
+ },
+ "そのとおり。Qを川はばの分だけ北へずらすと、橋の分が消えて、PとQ'をまっすぐ結ぶだけになる。": {
+  "en": "That's right. Shift Q north by the river width, and the bridge part disappears. Then you just join P and Q' with a straight line.",
+  "zh-Hans": "没错。把Q向北平移河宽的距离，桥的部分就消失了，只要用直线连接P和Q'。",
+  "zh-Hant": "沒錯。把Q向北平移河寬的距離，橋的部分就消失了，只要用直線連接P和Q'。"
+ },
+ "橋の位置を1mずつためすと、何回も計算することになる。": {
+  "en": "Trying the bridge 1m at a time means calculating over and over.",
+  "zh-Hans": "每隔1m试一次桥的位置，就得算很多次。",
+  "zh-Hant": "每隔1m試一次橋的位置，就得算很多次。"
+ },
+ "川はば10mのまっすぐな川があります。点Pは北の岸から4m、点Qは南の岸から5mはなれたところにあります。PとQから岸に垂直にひいた線が北の岸、南の岸と交わる点をA、Bとすると、岸にそってはかったAとBの間は27mです。川に垂直な橋を1本かけて、PからQまで行く道のりをいちばん短くします。橋は、北の岸のAから何mのところにかければよいですか。": {
+  "en": "There is a straight river 10m wide. Point P is 4m from the north bank, and point Q is 5m from the south bank. Lines drawn from P and Q perpendicular to the banks meet the north bank at A and the south bank at B, and the distance between A and B measured along the bank is 27m. You build 1 bridge perpendicular to the river so that the route from P to Q is as short as possible. How many meters from A on the north bank should the bridge be built?",
+  "zh-Hans": "有一条宽10m的笔直的河。点P距北岸4m，点Q距南岸5m。从P和Q向河岸作垂线，分别与北岸、南岸交于点A、B，沿河岸量得A与B之间的距离为27m。架1座与河垂直的桥，使从P到Q的路程最短。桥应该架在距北岸的A多少m的地方？",
+  "zh-Hant": "有一條寬10m的筆直的河。點P距北岸4m，點Q距南岸5m。從P和Q向河岸作垂線，分別與北岸、南岸交於點A、B，沿河岸量得A與B之間的距離為27m。架1座與河垂直的橋，使從P到Q的路程最短。橋應該架在距北岸的A多少m的地方？"
+ },
+ "橋の長さ10mは、どこにかけても同じ。橋をわたる分を先にすませたと考えて、Qを北へ10mずらした点Q'をとる（ずらしても道のりは同じ）": {
+  "en": "The bridge is 10m long wherever you build it. Think of the bridge crossing as already done, and take Q', which is Q shifted 10m north (shifting doesn't change the route length)",
+  "zh-Hans": "桥长10m，架在哪里都一样。把过桥的部分看作先走完，取Q向北平移10m后的点Q'（平移后路程不变）",
+  "zh-Hant": "橋長10m，架在哪裡都一樣。把過橋的部分看作先走完，取Q向北平移10m後的點Q'（平移後路程不變）"
+ },
+ "同じ形の三角形で、AX:XB = 4:5": {
+  "en": "From triangles with the same shape, AX:XB = 4:5",
+  "zh-Hans": "由形状相同的三角形，AX:XB = 4:5",
+  "zh-Hant": "由形狀相同的三角形，AX:XB = 4:5"
+ },
+ "川はば6mのまっすぐな川があります。点Pは北の岸から10m、点Qは南の岸から5mはなれたところにあります。PとQから岸に垂直にひいた線が北の岸、南の岸と交わる点をA、Bとすると、岸にそってはかったAとBの間は15mです。川に垂直な橋を1本かけて、PからQまで行く道のりをいちばん短くします。橋は、北の岸のAから何mのところにかければよいですか。": {
+  "en": "There is a straight river 6m wide. Point P is 10m from the north bank, and point Q is 5m from the south bank. Lines drawn from P and Q perpendicular to the banks meet the north bank at A and the south bank at B, and the distance between A and B measured along the bank is 15m. You build 1 bridge perpendicular to the river so that the route from P to Q is as short as possible. How many meters from A on the north bank should the bridge be built?",
+  "zh-Hans": "有一条宽6m的笔直的河。点P距北岸10m，点Q距南岸5m。从P和Q向河岸作垂线，分别与北岸、南岸交于点A、B，沿河岸量得A与B之间的距离为15m。架1座与河垂直的桥，使从P到Q的路程最短。桥应该架在距北岸的A多少m的地方？",
+  "zh-Hant": "有一條寬6m的筆直的河。點P距北岸10m，點Q距南岸5m。從P和Q向河岸作垂線，分別與北岸、南岸交於點A、B，沿河岸量得A與B之間的距離為15m。架1座與河垂直的橋，使從P到Q的路程最短。橋應該架在距北岸的A多少m的地方？"
+ },
+ "橋の長さ6mは、どこにかけても同じ。橋をわたる分を先にすませたと考えて、Qを北へ6mずらした点Q'をとる（ずらしても道のりは同じ）": {
+  "en": "The bridge is 6m long wherever you build it. Think of the bridge crossing as already done, and take Q', which is Q shifted 6m north (shifting doesn't change the route length)",
+  "zh-Hans": "桥长6m，架在哪里都一样。把过桥的部分看作先走完，取Q向北平移6m后的点Q'（平移后路程不变）",
+  "zh-Hant": "橋長6m，架在哪裡都一樣。把過橋的部分看作先走完，取Q向北平移6m後的點Q'（平移後路程不變）"
+ },
+ "同じ形の三角形で、AX:XB = 10:5 = 2:1": {
+  "en": "From triangles with the same shape, AX:XB = 10:5 = 2:1",
+  "zh-Hans": "由形状相同的三角形，AX:XB = 10:5 = 2:1",
+  "zh-Hant": "由形狀相同的三角形，AX:XB = 10:5 = 2:1"
+ },
+ "川はば3mのまっすぐな川があります。点Pは北の岸から8m、点Qは南の岸から7mはなれたところにあります。PとQから岸に垂直にひいた線が北の岸、南の岸と交わる点をA、Bとすると、岸にそってはかったAとBの間は30mです。川に垂直な橋を1本かけて、PからQまで行く道のりをいちばん短くします。橋は、北の岸のAから何mのところにかければよいですか。": {
+  "en": "There is a straight river 3m wide. Point P is 8m from the north bank, and point Q is 7m from the south bank. Lines drawn from P and Q perpendicular to the banks meet the north bank at A and the south bank at B, and the distance between A and B measured along the bank is 30m. You build 1 bridge perpendicular to the river so that the route from P to Q is as short as possible. How many meters from A on the north bank should the bridge be built?",
+  "zh-Hans": "有一条宽3m的笔直的河。点P距北岸8m，点Q距南岸7m。从P和Q向河岸作垂线，分别与北岸、南岸交于点A、B，沿河岸量得A与B之间的距离为30m。架1座与河垂直的桥，使从P到Q的路程最短。桥应该架在距北岸的A多少m的地方？",
+  "zh-Hant": "有一條寬3m的筆直的河。點P距北岸8m，點Q距南岸7m。從P和Q向河岸作垂線，分別與北岸、南岸交於點A、B，沿河岸量得A與B之間的距離為30m。架1座與河垂直的橋，使從P到Q的路程最短。橋應該架在距北岸的A多少m的地方？"
+ },
+ "橋の長さ3mは、どこにかけても同じ。橋をわたる分を先にすませたと考えて、Qを北へ3mずらした点Q'をとる（ずらしても道のりは同じ）": {
+  "en": "The bridge is 3m long wherever you build it. Think of the bridge crossing as already done, and take Q', which is Q shifted 3m north (shifting doesn't change the route length)",
+  "zh-Hans": "桥长3m，架在哪里都一样。把过桥的部分看作先走完，取Q向北平移3m后的点Q'（平移后路程不变）",
+  "zh-Hant": "橋長3m，架在哪裡都一樣。把過橋的部分看作先走完，取Q向北平移3m後的點Q'（平移後路程不變）"
+ },
+ "同じ形の三角形で、AX:XB = 8:7": {
+  "en": "From triangles with the same shape, AX:XB = 8:7",
+  "zh-Hans": "由形状相同的三角形，AX:XB = 8:7",
+  "zh-Hant": "由形狀相同的三角形，AX:XB = 8:7"
+ },
+ "川はば4mのまっすぐな川があります。点Pは北の岸から10m、点Qは南の岸から4mはなれたところにあります。PとQから岸に垂直にひいた線が北の岸、南の岸と交わる点をA、Bとすると、岸にそってはかったAとBの間は7mです。川に垂直な橋を1本かけて、PからQまで行く道のりをいちばん短くします。橋は、北の岸のAから何mのところにかければよいですか。": {
+  "en": "There is a straight river 4m wide. Point P is 10m from the north bank, and point Q is 4m from the south bank. Lines drawn from P and Q perpendicular to the banks meet the north bank at A and the south bank at B, and the distance between A and B measured along the bank is 7m. You build 1 bridge perpendicular to the river so that the route from P to Q is as short as possible. How many meters from A on the north bank should the bridge be built?",
+  "zh-Hans": "有一条宽4m的笔直的河。点P距北岸10m，点Q距南岸4m。从P和Q向河岸作垂线，分别与北岸、南岸交于点A、B，沿河岸量得A与B之间的距离为7m。架1座与河垂直的桥，使从P到Q的路程最短。桥应该架在距北岸的A多少m的地方？",
+  "zh-Hant": "有一條寬4m的筆直的河。點P距北岸10m，點Q距南岸4m。從P和Q向河岸作垂線，分別與北岸、南岸交於點A、B，沿河岸量得A與B之間的距離為7m。架1座與河垂直的橋，使從P到Q的路程最短。橋應該架在距北岸的A多少m的地方？"
+ },
+ "橋の長さ4mは、どこにかけても同じ。橋をわたる分を先にすませたと考えて、Qを北へ4mずらした点Q'をとる（ずらしても道のりは同じ）": {
+  "en": "The bridge is 4m long wherever you build it. Think of the bridge crossing as already done, and take Q', which is Q shifted 4m north (shifting doesn't change the route length)",
+  "zh-Hans": "桥长4m，架在哪里都一样。把过桥的部分看作先走完，取Q向北平移4m后的点Q'（平移后路程不变）",
+  "zh-Hant": "橋長4m，架在哪裡都一樣。把過橋的部分看作先走完，取Q向北平移4m後的點Q'（平移後路程不變）"
+ },
+ "同じ形の三角形で、AX:XB = 10:4 = 5:2": {
+  "en": "From triangles with the same shape, AX:XB = 10:4 = 5:2",
+  "zh-Hans": "由形状相同的三角形，AX:XB = 10:4 = 5:2",
+  "zh-Hant": "由形狀相同的三角形，AX:XB = 10:4 = 5:2"
+ },
+ "川はば11mのまっすぐな川があります。点Pは北の岸から5m、点Qは南の岸から2mはなれたところにあります。PとQから岸に垂直にひいた線が北の岸、南の岸と交わる点をA、Bとすると、岸にそってはかったAとBの間は14mです。川に垂直な橋を1本かけて、PからQまで行く道のりをいちばん短くします。橋は、北の岸のAから何mのところにかければよいですか。": {
+  "en": "There is a straight river 11m wide. Point P is 5m from the north bank, and point Q is 2m from the south bank. Lines drawn from P and Q perpendicular to the banks meet the north bank at A and the south bank at B, and the distance between A and B measured along the bank is 14m. You build 1 bridge perpendicular to the river so that the route from P to Q is as short as possible. How many meters from A on the north bank should the bridge be built?",
+  "zh-Hans": "有一条宽11m的笔直的河。点P距北岸5m，点Q距南岸2m。从P和Q向河岸作垂线，分别与北岸、南岸交于点A、B，沿河岸量得A与B之间的距离为14m。架1座与河垂直的桥，使从P到Q的路程最短。桥应该架在距北岸的A多少m的地方？",
+  "zh-Hant": "有一條寬11m的筆直的河。點P距北岸5m，點Q距南岸2m。從P和Q向河岸作垂線，分別與北岸、南岸交於點A、B，沿河岸量得A與B之間的距離為14m。架1座與河垂直的橋，使從P到Q的路程最短。橋應該架在距北岸的A多少m的地方？"
+ },
+ "橋の長さ11mは、どこにかけても同じ。橋をわたる分を先にすませたと考えて、Qを北へ11mずらした点Q'をとる（ずらしても道のりは同じ）": {
+  "en": "The bridge is 11m long wherever you build it. Think of the bridge crossing as already done, and take Q', which is Q shifted 11m north (shifting doesn't change the route length)",
+  "zh-Hans": "桥长11m，架在哪里都一样。把过桥的部分看作先走完，取Q向北平移11m后的点Q'（平移后路程不变）",
+  "zh-Hant": "橋長11m，架在哪裡都一樣。把過橋的部分看作先走完，取Q向北平移11m後的點Q'（平移後路程不變）"
+ },
+ "同じ形の三角形で、AX:XB = 5:2": {
+  "en": "From triangles with the same shape, AX:XB = 5:2",
+  "zh-Hans": "由形状相同的三角形，AX:XB = 5:2",
+  "zh-Hant": "由形狀相同的三角形，AX:XB = 5:2"
+ },
+ "川はば5mのまっすぐな川があります。点Pは北の岸から5m、点Qは南の岸から10mはなれたところにあります。PとQから岸に垂直にひいた線が北の岸、南の岸と交わる点をA、Bとすると、岸にそってはかったAとBの間は18mです。川に垂直な橋を1本かけて、PからQまで行く道のりをいちばん短くします。橋は、北の岸のAから何mのところにかければよいですか。": {
+  "en": "There is a straight river 5m wide. Point P is 5m from the north bank, and point Q is 10m from the south bank. Lines drawn from P and Q perpendicular to the banks meet the north bank at A and the south bank at B, and the distance between A and B measured along the bank is 18m. You build 1 bridge perpendicular to the river so that the route from P to Q is as short as possible. How many meters from A on the north bank should the bridge be built?",
+  "zh-Hans": "有一条宽5m的笔直的河。点P距北岸5m，点Q距南岸10m。从P和Q向河岸作垂线，分别与北岸、南岸交于点A、B，沿河岸量得A与B之间的距离为18m。架1座与河垂直的桥，使从P到Q的路程最短。桥应该架在距北岸的A多少m的地方？",
+  "zh-Hant": "有一條寬5m的筆直的河。點P距北岸5m，點Q距南岸10m。從P和Q向河岸作垂線，分別與北岸、南岸交於點A、B，沿河岸量得A與B之間的距離為18m。架1座與河垂直的橋，使從P到Q的路程最短。橋應該架在距北岸的A多少m的地方？"
+ },
+ "同じ形の三角形で、AX:XB = 5:10 = 1:2": {
+  "en": "From triangles with the same shape, AX:XB = 5:10 = 1:2",
+  "zh-Hans": "由形状相同的三角形，AX:XB = 5:10 = 1:2",
+  "zh-Hant": "由形狀相同的三角形，AX:XB = 5:10 = 1:2"
+ },
+ "川はば12mのまっすぐな川があります。点Pは北の岸から8m、点Qは南の岸から7mはなれたところにあります。PとQから岸に垂直にひいた線が北の岸、南の岸と交わる点をA、Bとすると、岸にそってはかったAとBの間は30mです。川に垂直な橋を1本かけて、PからQまで行く道のりをいちばん短くします。橋は、北の岸のAから何mのところにかければよいですか。": {
+  "en": "There is a straight river 12m wide. Point P is 8m from the north bank, and point Q is 7m from the south bank. Lines drawn from P and Q perpendicular to the banks meet the north bank at A and the south bank at B, and the distance between A and B measured along the bank is 30m. You build 1 bridge perpendicular to the river so that the route from P to Q is as short as possible. How many meters from A on the north bank should the bridge be built?",
+  "zh-Hans": "有一条宽12m的笔直的河。点P距北岸8m，点Q距南岸7m。从P和Q向河岸作垂线，分别与北岸、南岸交于点A、B，沿河岸量得A与B之间的距离为30m。架1座与河垂直的桥，使从P到Q的路程最短。桥应该架在距北岸的A多少m的地方？",
+  "zh-Hant": "有一條寬12m的筆直的河。點P距北岸8m，點Q距南岸7m。從P和Q向河岸作垂線，分別與北岸、南岸交於點A、B，沿河岸量得A與B之間的距離為30m。架1座與河垂直的橋，使從P到Q的路程最短。橋應該架在距北岸的A多少m的地方？"
+ },
+ "橋の長さ12mは、どこにかけても同じ。橋をわたる分を先にすませたと考えて、Qを北へ12mずらした点Q'をとる（ずらしても道のりは同じ）": {
+  "en": "The bridge is 12m long wherever you build it. Think of the bridge crossing as already done, and take Q', which is Q shifted 12m north (shifting doesn't change the route length)",
+  "zh-Hans": "桥长12m，架在哪里都一样。把过桥的部分看作先走完，取Q向北平移12m后的点Q'（平移后路程不变）",
+  "zh-Hant": "橋長12m，架在哪裡都一樣。把過橋的部分看作先走完，取Q向北平移12m後的點Q'（平移後路程不變）"
+ },
+ "川はば11mのまっすぐな川があります。点Pは北の岸から5m、点Qは南の岸から3mはなれたところにあります。PとQから岸に垂直にひいた線が北の岸、南の岸と交わる点をA、Bとすると、岸にそってはかったAとBの間は24mです。川に垂直な橋を1本かけて、PからQまで行く道のりをいちばん短くします。橋は、北の岸のAから何mのところにかければよいですか。": {
+  "en": "There is a straight river 11m wide. Point P is 5m from the north bank, and point Q is 3m from the south bank. Lines drawn from P and Q perpendicular to the banks meet the north bank at A and the south bank at B, and the distance between A and B measured along the bank is 24m. You build 1 bridge perpendicular to the river so that the route from P to Q is as short as possible. How many meters from A on the north bank should the bridge be built?",
+  "zh-Hans": "有一条宽11m的笔直的河。点P距北岸5m，点Q距南岸3m。从P和Q向河岸作垂线，分别与北岸、南岸交于点A、B，沿河岸量得A与B之间的距离为24m。架1座与河垂直的桥，使从P到Q的路程最短。桥应该架在距北岸的A多少m的地方？",
+  "zh-Hant": "有一條寬11m的筆直的河。點P距北岸5m，點Q距南岸3m。從P和Q向河岸作垂線，分別與北岸、南岸交於點A、B，沿河岸量得A與B之間的距離為24m。架1座與河垂直的橋，使從P到Q的路程最短。橋應該架在距北岸的A多少m的地方？"
+ },
+ "同じ形の三角形で、AX:XB = 5:3": {
+  "en": "From triangles with the same shape, AX:XB = 5:3",
+  "zh-Hans": "由形状相同的三角形，AX:XB = 5:3",
+  "zh-Hant": "由形狀相同的三角形，AX:XB = 5:3"
+ },
+ "川はば10mのまっすぐな川があります。点Pは北の岸から6m、点Qは南の岸から3mはなれたところにあります。PとQから岸に垂直にひいた線が北の岸、南の岸と交わる点をA、Bとすると、岸にそってはかったAとBの間は21mです。川に垂直な橋を1本かけて、PからQまで行く道のりをいちばん短くします。橋は、北の岸のAから何mのところにかければよいですか。": {
+  "en": "There is a straight river 10m wide. Point P is 6m from the north bank, and point Q is 3m from the south bank. Lines drawn from P and Q perpendicular to the banks meet the north bank at A and the south bank at B, and the distance between A and B measured along the bank is 21m. You build 1 bridge perpendicular to the river so that the route from P to Q is as short as possible. How many meters from A on the north bank should the bridge be built?",
+  "zh-Hans": "有一条宽10m的笔直的河。点P距北岸6m，点Q距南岸3m。从P和Q向河岸作垂线，分别与北岸、南岸交于点A、B，沿河岸量得A与B之间的距离为21m。架1座与河垂直的桥，使从P到Q的路程最短。桥应该架在距北岸的A多少m的地方？",
+  "zh-Hant": "有一條寬10m的筆直的河。點P距北岸6m，點Q距南岸3m。從P和Q向河岸作垂線，分別與北岸、南岸交於點A、B，沿河岸量得A與B之間的距離為21m。架1座與河垂直的橋，使從P到Q的路程最短。橋應該架在距北岸的A多少m的地方？"
+ },
+ "同じ形の三角形で、AX:XB = 6:3 = 2:1": {
+  "en": "From triangles with the same shape, AX:XB = 6:3 = 2:1",
+  "zh-Hans": "由形状相同的三角形，AX:XB = 6:3 = 2:1",
+  "zh-Hant": "由形狀相同的三角形，AX:XB = 6:3 = 2:1"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）をはさんで反対側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝4m、QB＝8m、AB＝12mです。PからQまで、とちゅうで川の上の点Xを通って行きます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on opposite sides of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝4m, QB＝8m, AB＝12m. You go from P to Q, passing through a point X on the river along the way. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的两侧。从P和Q向河作垂线，垂足分别为A、B，PA＝4m，QB＝8m，AB＝12m。从P走到Q，途中经过河上的点X。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的兩側。從P和Q向河作垂線，垂足分別為A、B，PA＝4m，QB＝8m，AB＝12m。從P走到Q，途中經過河上的點X。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQBXは同じ形なので AX:XB = 4:8 = 1:2": {
+  "en": "Triangles PAX and QBX have the same shape, so AX:XB = 4:8 = 1:2",
+  "zh-Hans": "三角形PAX和QBX形状相同，所以 AX:XB = 4:8 = 1:2",
+  "zh-Hant": "三角形PAX和QBX形狀相同，所以 AX:XB = 4:8 = 1:2"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）をはさんで反対側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝2m、QB＝6m、AB＝16mです。PからQまで、とちゅうで川の上の点Xを通って行きます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on opposite sides of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝2m, QB＝6m, AB＝16m. You go from P to Q, passing through a point X on the river along the way. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的两侧。从P和Q向河作垂线，垂足分别为A、B，PA＝2m，QB＝6m，AB＝16m。从P走到Q，途中经过河上的点X。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的兩側。從P和Q向河作垂線，垂足分別為A、B，PA＝2m，QB＝6m，AB＝16m。從P走到Q，途中經過河上的點X。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQBXは同じ形なので AX:XB = 2:6 = 1:3": {
+  "en": "Triangles PAX and QBX have the same shape, so AX:XB = 2:6 = 1:3",
+  "zh-Hans": "三角形PAX和QBX形状相同，所以 AX:XB = 2:6 = 1:3",
+  "zh-Hant": "三角形PAX和QBX形狀相同，所以 AX:XB = 2:6 = 1:3"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）をはさんで反対側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝4m、QB＝9m、AB＝13mです。PからQまで、とちゅうで川の上の点Xを通って行きます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on opposite sides of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝4m, QB＝9m, AB＝13m. You go from P to Q, passing through a point X on the river along the way. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的两侧。从P和Q向河作垂线，垂足分别为A、B，PA＝4m，QB＝9m，AB＝13m。从P走到Q，途中经过河上的点X。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的兩側。從P和Q向河作垂線，垂足分別為A、B，PA＝4m，QB＝9m，AB＝13m。從P走到Q，途中經過河上的點X。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQBXは同じ形なので AX:XB = 4:9": {
+  "en": "Triangles PAX and QBX have the same shape, so AX:XB = 4:9",
+  "zh-Hans": "三角形PAX和QBX形状相同，所以 AX:XB = 4:9",
+  "zh-Hant": "三角形PAX和QBX形狀相同，所以 AX:XB = 4:9"
+ },
+ "点Pと点Qは、まっすぐな川（直線ℓ）をはさんで反対側にあります。PとQから川に垂直に下ろした点をA、Bとすると、PA＝10m、QB＝8m、AB＝18mです。PからQまで、とちゅうで川の上の点Xを通って行きます。道のりがいちばん短くなるとき、AXは何mですか。": {
+  "en": "Points P and Q are on opposite sides of a straight river (line ℓ). Let A and B be the points where perpendiculars from P and Q meet the river: PA＝10m, QB＝8m, AB＝18m. You go from P to Q, passing through a point X on the river along the way. When the route is as short as possible, how many meters is AX?",
+  "zh-Hans": "点P和点Q在一条笔直的河（直线ℓ）的两侧。从P和Q向河作垂线，垂足分别为A、B，PA＝10m，QB＝8m，AB＝18m。从P走到Q，途中经过河上的点X。当路程最短时，AX是多少m？",
+  "zh-Hant": "點P和點Q在一條筆直的河（直線ℓ）的兩側。從P和Q向河作垂線，垂足分別為A、B，PA＝10m，QB＝8m，AB＝18m。從P走到Q，途中經過河上的點X。當路程最短時，AX是多少m？"
+ },
+ "三角形PAXとQBXは同じ形なので AX:XB = 10:8 = 5:4": {
+  "en": "Triangles PAX and QBX have the same shape, so AX:XB = 10:8 = 5:4",
+  "zh-Hans": "三角形PAX和QBX形状相同，所以 AX:XB = 10:8 = 5:4",
+  "zh-Hant": "三角形PAX和QBX形狀相同，所以 AX:XB = 10:8 = 5:4"
+ },
+ "放物線 y = x² 上に2点A(−1, 1)、B(3, 9)があります。点Pがこの放物線上をAからBまで動くとき、△ABPの面積が最大になる点Pのx座標を求めなさい。": {
+  "en": "There are 2 points A(−1, 1) and B(3, 9) on the parabola y = x². As point P moves along the parabola from A to B, find the x-coordinate of P that makes the area of △ABP largest.",
+  "zh-Hans": "抛物线 y = x² 上有2点A(−1, 1)、B(3, 9)。点P在这条抛物线上从A移动到B时，求使△ABP面积最大的点P的x坐标。",
+  "zh-Hant": "拋物線 y = x² 上有2點A(−1, 1)、B(3, 9)。點P在這條拋物線上從A移動到B時，求使△ABP面積最大的點P的x坐標。"
+ },
+ "Pを(t, at²)とおき、点と直線の距離の公式で高さを出す": {
+  "en": "Set P as (t, at²) and find the height with the point-to-line distance formula",
+  "zh-Hans": "设P为(t, at²)，用点到直线的距离公式求高",
+  "zh-Hant": "設P為(t, at²)，用點到直線的距離公式求高"
+ },
+ "tの2次関数にして、平方完成で最大を求める": {
+  "en": "Make it a quadratic (2nd-degree) function of t and complete the square to find the maximum",
+  "zh-Hans": "化成关于t的2次函数，用配方求最大值",
+  "zh-Hant": "化成t的2次函數，用配方法求最大值"
+ },
+ "ここで約4分。根号と絶対値の処理が重い": {
+  "en": "About 4 minutes gone here. Handling the square roots and absolute values is heavy work",
+  "zh-Hans": "到这里已花了约4分钟。根号和绝对值的处理很繁琐",
+  "zh-Hant": "到這裡已花了約4分鐘。根號和絕對值的處理很繁瑣"
+ },
+ "ABを底辺と見る。ABに平行な直線を動かして、放物線にふれる点で高さが最大（等積変形の線）": {
+  "en": "Treat AB as the base. Move a line parallel to AB; the height is greatest at the point where it touches the parabola (the Equal-Area Slide line)",
+  "zh-Hans": "把AB看作底边。平移与AB平行的直线，在与抛物线相切的点处高最大（等积变形的线）",
+  "zh-Hant": "把AB看作底邊。平移與AB平行的直線，在與拋物線相切的點處高最大（等積變形的線）"
+ },
+ "ABの傾きは 1×(−1+3) = 2。y = x² の接線の傾き 2x がこれと等しいのは x = 1（AとBのまん中）": {
+  "en": "The slope of AB is 1×(−1+3) = 2. The tangent slope of y = x² is 2x, which equals this at x = 1 (halfway between A and B)",
+  "zh-Hans": "AB的斜率是 1×(−1+3) = 2。y = x² 的切线斜率 2x 与它相等时，x = 1（A和B的正中间）",
+  "zh-Hant": "AB的斜率是 1×(−1+3) = 2。y = x² 的切線斜率 2x 與它相等時，x = 1（A和B的正中間）"
+ },
+ "囲まれた部分の面積を求める問題ではない。": {
+  "en": "This isn't a problem about the area of an enclosed region.",
+  "zh-Hans": "这不是求围成部分面积的问题。",
+  "zh-Hant": "這不是求圍成部分面積的問題。"
+ },
+ "そのとおり。ABに平行な直線を動かして、放物線にふれる点（平行線の上の点）を見る。": {
+  "en": "That's right. Move a line parallel to AB and look at the point where it touches the parabola (the point on the parallel line).",
+  "zh-Hans": "没错。平移与AB平行的直线，看它与抛物线相切的点（平行线上的点）。",
+  "zh-Hant": "沒錯。平移與AB平行的直線，看它與拋物線相切的點（平行線上的點）。"
+ },
+ "Pを(t, at²)とおき、点と直線の距離で高さを出すと、計算が重い。": {
+  "en": "If you set P as (t, at²) and find the height using point-to-line distance, the calculation is heavy.",
+  "zh-Hans": "设P为(t, at²)，用点到直线的距离求高，计算很繁琐。",
+  "zh-Hant": "設P為(t, at²)，用點到直線的距離求高，計算很繁瑣。"
+ },
+ "放物線 y = 2x² 上に2点A(−4, 32)、B(2, 8)があります。点Pがこの放物線上をAからBまで動くとき、△ABPの面積が最大になる点Pのx座標を求めなさい。": {
+  "en": "There are 2 points A(−4, 32) and B(2, 8) on the parabola y = 2x². As point P moves along the parabola from A to B, find the x-coordinate of P that makes the area of △ABP largest.",
+  "zh-Hans": "抛物线 y = 2x² 上有2点A(−4, 32)、B(2, 8)。点P在这条抛物线上从A移动到B时，求使△ABP面积最大的点P的x坐标。",
+  "zh-Hant": "拋物線 y = 2x² 上有2點A(−4, 32)、B(2, 8)。點P在這條拋物線上從A移動到B時，求使△ABP面積最大的點P的x坐標。"
+ },
+ "ABの傾きは 2×(−4+2) = −4。y = 2x² の接線の傾き 4x がこれと等しいのは x = −1（AとBのまん中）": {
+  "en": "The slope of AB is 2×(−4+2) = −4. The tangent slope of y = 2x² is 4x, which equals this at x = −1 (halfway between A and B)",
+  "zh-Hans": "AB的斜率是 2×(−4+2) = −4。y = 2x² 的切线斜率 4x 与它相等时，x = −1（A和B的正中间）",
+  "zh-Hant": "AB的斜率是 2×(−4+2) = −4。y = 2x² 的切線斜率 4x 與它相等時，x = −1（A和B的正中間）"
+ },
+ "放物線 y = (1/2)x² 上に2点A(−4, 8)、B(3, 9/2)があります。点Pがこの放物線上をAからBまで動くとき、△ABPの面積が最大になる点Pのx座標を求めなさい。": {
+  "en": "There are 2 points A(−4, 8) and B(3, 9/2) on the parabola y = (1/2)x². As point P moves along the parabola from A to B, find the x-coordinate of P that makes the area of △ABP largest.",
+  "zh-Hans": "抛物线 y = (1/2)x² 上有2点A(−4, 8)、B(3, 9/2)。点P在这条抛物线上从A移动到B时，求使△ABP面积最大的点P的x坐标。",
+  "zh-Hant": "拋物線 y = (1/2)x² 上有2點A(−4, 8)、B(3, 9/2)。點P在這條拋物線上從A移動到B時，求使△ABP面積最大的點P的x坐標。"
+ },
+ "ABの傾きは 1/2×(−4+3) = −1/2。y = (1/2)x² の接線の傾き x がこれと等しいのは x = −1/2（AとBのまん中）": {
+  "en": "The slope of AB is 1/2×(−4+3) = −1/2. The tangent slope of y = (1/2)x² is x, which equals this at x = −1/2 (halfway between A and B)",
+  "zh-Hans": "AB的斜率是 1/2×(−4+3) = −1/2。y = (1/2)x² 的切线斜率 x 与它相等时，x = −1/2（A和B的正中间）",
+  "zh-Hant": "AB的斜率是 1/2×(−4+3) = −1/2。y = (1/2)x² 的切線斜率 x 與它相等時，x = −1/2（A和B的正中間）"
+ },
+ "放物線 y = (1/2)x² 上に2点A(−2, 2)、B(3, 9/2)があります。点Pがこの放物線上をAからBまで動くとき、△ABPの面積が最大になる点Pのx座標を求めなさい。": {
+  "en": "There are 2 points A(−2, 2) and B(3, 9/2) on the parabola y = (1/2)x². As point P moves along the parabola from A to B, find the x-coordinate of P that makes the area of △ABP largest.",
+  "zh-Hans": "抛物线 y = (1/2)x² 上有2点A(−2, 2)、B(3, 9/2)。点P在这条抛物线上从A移动到B时，求使△ABP面积最大的点P的x坐标。",
+  "zh-Hant": "拋物線 y = (1/2)x² 上有2點A(−2, 2)、B(3, 9/2)。點P在這條拋物線上從A移動到B時，求使△ABP面積最大的點P的x坐標。"
+ },
+ "ABの傾きは 1/2×(−2+3) = 1/2。y = (1/2)x² の接線の傾き x がこれと等しいのは x = 1/2（AとBのまん中）": {
+  "en": "The slope of AB is 1/2×(−2+3) = 1/2. The tangent slope of y = (1/2)x² is x, which equals this at x = 1/2 (halfway between A and B)",
+  "zh-Hans": "AB的斜率是 1/2×(−2+3) = 1/2。y = (1/2)x² 的切线斜率 x 与它相等时，x = 1/2（A和B的正中间）",
+  "zh-Hant": "AB的斜率是 1/2×(−2+3) = 1/2。y = (1/2)x² 的切線斜率 x 與它相等時，x = 1/2（A和B的正中間）"
+ },
+ "放物線 y = x² 上に2点A(−2, 4)、B(5, 25)があります。点Pがこの放物線上をAからBまで動くとき、△ABPの面積が最大になる点Pのx座標を求めなさい。": {
+  "en": "There are 2 points A(−2, 4) and B(5, 25) on the parabola y = x². As point P moves along the parabola from A to B, find the x-coordinate of P that makes the area of △ABP largest.",
+  "zh-Hans": "抛物线 y = x² 上有2点A(−2, 4)、B(5, 25)。点P在这条抛物线上从A移动到B时，求使△ABP面积最大的点P的x坐标。",
+  "zh-Hant": "拋物線 y = x² 上有2點A(−2, 4)、B(5, 25)。點P在這條拋物線上從A移動到B時，求使△ABP面積最大的點P的x坐標。"
+ },
+ "ABの傾きは 1×(−2+5) = 3。y = x² の接線の傾き 2x がこれと等しいのは x = 3/2（AとBのまん中）": {
+  "en": "The slope of AB is 1×(−2+5) = 3. The tangent slope of y = x² is 2x, which equals this at x = 3/2 (halfway between A and B)",
+  "zh-Hans": "AB的斜率是 1×(−2+5) = 3。y = x² 的切线斜率 2x 与它相等时，x = 3/2（A和B的正中间）",
+  "zh-Hant": "AB的斜率是 1×(−2+5) = 3。y = x² 的切線斜率 2x 與它相等時，x = 3/2（A和B的正中間）"
+ },
+ "放物線 y = x² 上に2点A(−2, 4)、B(4, 16)があります。点Pがこの放物線上をAからBまで動くとき、△ABPの面積の最大値を求めなさい。": {
+  "en": "There are 2 points A(−2, 4) and B(4, 16) on the parabola y = x². As point P moves along the parabola from A to B, find the largest area of △ABP.",
+  "zh-Hans": "抛物线 y = x² 上有2点A(−2, 4)、B(4, 16)。点P在这条抛物线上从A移动到B时，求△ABP面积的最大值。",
+  "zh-Hant": "拋物線 y = x² 上有2點A(−2, 4)、B(4, 16)。點P在這條拋物線上從A移動到B時，求△ABP面積的最大值。"
+ },
+ "ABの傾きは 1×(−2+4) = 2。y = x² の接線の傾き 2x がこれと等しいのは x = 1（AとBのまん中）": {
+  "en": "The slope of AB is 1×(−2+4) = 2. The tangent slope of y = x² is 2x, which equals this at x = 1 (halfway between A and B)",
+  "zh-Hans": "AB的斜率是 1×(−2+4) = 2。y = x² 的切线斜率 2x 与它相等时，x = 1（A和B的正中间）",
+  "zh-Hant": "AB的斜率是 1×(−2+4) = 2。y = x² 的切線斜率 2x 與它相等時，x = 1（A和B的正中間）"
+ },
+ "P(1, 1)。弦ABと、ABに平行な接線の接点Pでできる△ABPの面積は |a|(β−α)³/8（a は x² の係数、α・β は A・B の x 座標）": {
+  "en": "P(1, 1). The area of △ABP formed by chord AB and the point of tangency P of the tangent line parallel to AB is |a|(β−α)³/8 (a is the coefficient of x², and α, β are the x-coordinates of A, B)",
+  "zh-Hans": "P(1, 1)。由弦AB与平行于AB的切线的切点P构成的△ABP，面积为 |a|(β−α)³/8（a 是 x² 的系数，α、β 是 A、B 的 x 坐标）",
+  "zh-Hant": "P(1, 1)。由弦AB與平行於AB的切線之切點P構成的△ABP，面積為 |a|(β−α)³/8（a 是 x² 的係數，α、β 是 A、B 的 x 坐標）"
+ },
+ "放物線 y = −x² 上に2点A(−1, −1)、B(3, −9)があります。点Pがこの放物線上をAからBまで動くとき、△ABPの面積の最大値を求めなさい。": {
+  "en": "There are 2 points A(−1, −1) and B(3, −9) on the parabola y = −x². As point P moves along the parabola from A to B, find the largest area of △ABP.",
+  "zh-Hans": "抛物线 y = −x² 上有2点A(−1, −1)、B(3, −9)。点P在这条抛物线上从A移动到B时，求△ABP面积的最大值。",
+  "zh-Hant": "拋物線 y = −x² 上有2點A(−1, −1)、B(3, −9)。點P在這條拋物線上從A移動到B時，求△ABP面積的最大值。"
+ },
+ "ABの傾きは −1×(−1+3) = −2。y = −x² の接線の傾き −2x がこれと等しいのは x = 1（AとBのまん中）": {
+  "en": "The slope of AB is −1×(−1+3) = −2. The tangent slope of y = −x² is −2x, which equals this at x = 1 (halfway between A and B)",
+  "zh-Hans": "AB的斜率是 −1×(−1+3) = −2。y = −x² 的切线斜率 −2x 与它相等时，x = 1（A和B的正中间）",
+  "zh-Hant": "AB的斜率是 −1×(−1+3) = −2。y = −x² 的切線斜率 −2x 與它相等時，x = 1（A和B的正中間）"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "area-001|枚": {"en": " coins", "zh-Hans": "枚", "zh-Hant": "枚"},
+ "constant-008|枚": {"en": " stickers", "zh-Hans": "张", "zh-Hant": "張"},
+ "area-002|台": {"en": " cars", "zh-Hans": "辆", "zh-Hant": "輛"},
+ "area-002|本": {"en": " tires", "zh-Hans": "个", "zh-Hant": "個"},
+ "kj-area-001|本": {"en": " legs", "zh-Hans": "条", "zh-Hant": "條"},
+ "kj-area-001|匹": {"en": " spiders", "zh-Hans": "只", "zh-Hant": "隻"},
+ "area-005|個": {"en": " sweets", "zh-Hans": "个", "zh-Hant": "個"},
+ "area-f01|個": {"en": " mandarins", "zh-Hans": "个", "zh-Hant": "個"},
+ "kj-area-f01|個": {"en": " cookies", "zh-Hans": "块", "zh-Hant": "塊"},
+ "constant-007|個": {"en": " marbles", "zh-Hans": "颗", "zh-Hant": "顆"},
+ "area-003|人": {"en": " students", "zh-Hans": "人", "zh-Hant": "人"},
+ "kj-area-003|人": {"en": " students", "zh-Hans": "人", "zh-Hant": "人"},
+ "area-004|人": {"en": " children", "zh-Hans": "人", "zh-Hant": "人"},
+ "area-006|人": {"en": " children", "zh-Hans": "人", "zh-Hant": "人"}
+}

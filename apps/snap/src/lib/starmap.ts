@@ -91,11 +91,11 @@ function overlap(a: Set<string>, b: Set<string>): number {
 
 /** How strongly unit `b` looks like a root of unit `a` (shared words; the topic counts double). */
 function kinship(a: Unit, b: Unit): number {
-  const at = bigrams(a.topic);
-  const bt = bigrams(b.topic);
-  const ac = bigrams(a.covers.join("、"));
-  const bc = bigrams(b.covers.join("、"));
-  const same = a.topic === b.topic ? 4 : 0; // e.g. そろばん → そろばん (all hiragana, no bigrams)
+  const at = bigrams(a.topicJa);
+  const bt = bigrams(b.topicJa);
+  const ac = bigrams(a.coversJa.join("、"));
+  const bc = bigrams(b.coversJa.join("、"));
+  const same = a.topicJa === b.topicJa ? 4 : 0; // e.g. そろばん → そろばん (all hiragana, no bigrams)
   return same + 2 * overlap(at, bt) + overlap(at, bc) + overlap(ac, bt) + overlap(ac, bc) * 0.5;
 }
 

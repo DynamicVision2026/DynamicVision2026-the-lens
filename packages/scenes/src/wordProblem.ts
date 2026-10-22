@@ -5,9 +5,10 @@ import type { LensCard, Step, WordDiagramSpec, WordFamily, WordProblemFigure } f
 /** The number right after the last 「=」 in a step's text, e.g. "640−200 = 440 が…" → "440". */
 export function afterEquals(step: Step | undefined): string | null {
   if (!step) return null;
-  const i = step.ja.lastIndexOf('=');
+  const src = step.ja_orig ?? step.ja;
+  const i = src.lastIndexOf('=');
   if (i < 0) return null;
-  return /[\d.]+(?:\/\d+)?/.exec(step.ja.slice(i + 1))?.[0] ?? null;
+  return /[\d.]+(?:\/\d+)?/.exec(src.slice(i + 1))?.[0] ?? null;
 }
 
 /** Lens step (index into lens_route.steps) captioned at each diagram keyframe, by diagram family (WO-015). */
@@ -60,7 +61,7 @@ export function ratioIn(step: Step | undefined): [string, string] | null {
 
 /** The first "a+b = c"-style expression in a step's text, e.g. "…1分に 80+70 = 150m…" → "80+70 = 150". */
 export function expressionIn(step: Step | undefined): string | null {
-  return step ? (/[\d.]+(?:\s*[+−×÷]\s*[\d.]+)+\s*=\s*[\d.]+/.exec(step.ja)?.[0] ?? null) : null;
+  return step ? (/[\d.]+(?:\s*[+−×÷]\s*[\d.]+)+\s*=\s*[\d.]+/.exec(step.ja_orig ?? step.ja)?.[0] ?? null) : null;
 }
 
 /** Keyframes that are diagram steps (everything between the story and the answer). */

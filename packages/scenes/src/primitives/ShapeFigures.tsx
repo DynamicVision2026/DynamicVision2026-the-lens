@@ -1,3 +1,4 @@
+import { tc } from '../bundle';
 // WO-023: the Stage 3 figures that are not graphs: the cone opened into a sector (展開), two dice as a 6×6
 // table (面積図) and a fixed sum as a bar split in two (差一定). Positions come from the figure fields; printed
 // numbers from the fields, the steps or the answer. The table's 1–6 headers are its scale (data-tick).
@@ -190,8 +191,8 @@ export function DiceFigure(p: DiceProps) {
   const at = (b: number, s: number): XY => [x0 + (b - 1) * cell, y0 + (s - 1) * cell];
   return (
     <g opacity={p.show}>
-      {text(p, [x0 + cell * 3, y0 - size * 1.9], COPY.big, p.ink, { size: 0.85 })}
-      {text(p, [x0 - size * 2.1, y0 + cell * 3], COPY.small, p.ink, { size: 0.85 })}
+      {text(p, [x0 + cell * 3, y0 - size * 1.9], tc(COPY.big), p.ink, { size: 0.85 })}
+      {text(p, [x0 - size * 2.1, y0 + cell * 3], tc(COPY.small), p.ink, { size: 0.85 })}
       {Array.from({ length: 6 }, (_, i) => (
         <g key={i}>
           {text(p, [x0 + (i + 0.5) * cell, y0 - size * 0.75], String(i + 1), p.ink, { size: 0.8, tick: true })}

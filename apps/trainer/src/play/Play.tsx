@@ -15,10 +15,11 @@ import { initialPickerState, isCleanSolve, pickerReducer, showsHint, shuffle } f
 import { loadRecord, saveRecord } from './storage';
 import { useBeatClock } from './useBeatClock';
 import { navigate } from '../launch/navigate';
+import { pick } from '../i18n/lang';
 import { Signup } from '../launch/Signup';
 
-/** Fixed app copy (the card text itself always comes from the bundle). */
-const COPY = {
+/** Fixed app copy (the card text itself always comes from the bundle), per display language. */
+const COPY_JA = {
   pickLens: 'どのレンズで見る？',
   hint: 'ヒント',
   tryAgain: 'もう一度えらぶ',
@@ -32,7 +33,55 @@ const COPY = {
   preorder: 'コースを選ぶ',
   previous: '前回の記録',
   notFound: 'この問題は見つかりません',
-} as const;
+};
+const COPY = pick<typeof COPY_JA>({
+  ja: COPY_JA,
+  en: {
+    pickLens: 'Which lens will you use?',
+    hint: 'Hint',
+    tryAgain: 'Choose again',
+    cluePrompt: 'What did you look at to pick this lens?',
+    confirm: 'Confirm',
+    next: 'Next problem',
+    variantTitle: 'A problem of the same type',
+    reportTitle: 'Time comparison',
+    first: 'First problem',
+    seconds: ' s',
+    preorder: 'Choose a course',
+    previous: 'Last time',
+    notFound: 'This problem was not found',
+  },
+  'zh-Hans': {
+    pickLens: '用哪个透镜来看？',
+    hint: '提示',
+    tryAgain: '重新选择',
+    cluePrompt: '你看了哪里，才选这个透镜？',
+    confirm: '确定',
+    next: '下一题',
+    variantTitle: '同类型的题目',
+    reportTitle: '时间对比',
+    first: '第一题',
+    seconds: '秒',
+    preorder: '选择课程',
+    previous: '上次的记录',
+    notFound: '找不到这道题',
+  },
+  'zh-Hant': {
+    pickLens: '用哪個透鏡來看？',
+    hint: '提示',
+    tryAgain: '重新選擇',
+    cluePrompt: '你看了哪裡，才選這個透鏡？',
+    confirm: '確定',
+    next: '下一題',
+    variantTitle: '同類型的題目',
+    reportTitle: '時間比較',
+    first: '第一題',
+    seconds: '秒',
+    preorder: '選擇課程',
+    previous: '上次的紀錄',
+    notFound: '找不到這道題',
+  },
+});
 /** WO-024: the landing page's courses (three Passes, each with its own Shopify product). */
 const PREORDER_PATH = '/#courses';
 

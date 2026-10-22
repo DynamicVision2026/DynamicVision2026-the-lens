@@ -7,7 +7,7 @@ export type ReaderInput = "photo" | "text";
 /** The unit list block: one line per unit with grade, code, topic and its covers. */
 export function unitListBlock(grade: Grade): string {
   return readerUnitsForGrade(grade)
-    .map((u) => `${u.id}\t${u.grade} ${u.unit} ${u.topic}（${u.covers.join("、")}）`)
+    .map((u) => `${u.id}\t${u.grade} ${u.unit} ${u.topicJa}（${u.coversJa.join("、")}）`)
     .join("\n");
 }
 

@@ -1,4 +1,4 @@
-import { type Grade, previousGrade, unitById, unitsForGrade } from "../curriculum";
+import { type Grade, previousGrade, unitById, unitsForGrade, gradeLabel } from "../curriculum";
 import { app } from "../copy";
 
 /**
@@ -25,11 +25,11 @@ export function UnitSelect(props: {
       {alt && (
         <optgroup label={app.confirm.unitSuggest}>
           <option value={alt.id}>
-            {alt.appGrade} {alt.label}
+            {gradeLabel(alt.appGrade)} {alt.label}
           </option>
         </optgroup>
       )}
-      <optgroup label={props.grade}>
+      <optgroup label={gradeLabel(props.grade)}>
         {unitsForGrade(props.grade).map((u) => (
           <option key={u.id} value={u.id}>
             {u.label}
@@ -37,10 +37,10 @@ export function UnitSelect(props: {
         ))}
       </optgroup>
       {prev && (
-        <optgroup label={prev}>
+        <optgroup label={gradeLabel(prev)}>
           {unitsForGrade(prev).map((u) => (
             <option key={u.id} value={u.id}>
-              {prev} {u.label}
+              {gradeLabel(prev)} {u.label}
             </option>
           ))}
         </optgroup>

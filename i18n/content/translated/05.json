@@ -1,0 +1,1502 @@
+{
+ "てんびんでも出せるが、ここでは遠回り。濃度ではなく食塩の量を聞いている。": {
+  "en": "Balance can get it too, but it's a detour here. The question asks for the amount of salt, not the concentration.",
+  "zh-Hans": "用天平也能算出来，但这里是绕远路。题目问的是盐的量，不是浓度。",
+  "zh-Hant": "用天平也能算出來，但這裡是繞遠路。題目問的是鹽的量，不是濃度。"
+ },
+ "そのとおり。それぞれ 重さ×濃度÷100 で食塩の重さを出して、たすだけ。": {
+  "en": "That's right. Find each amount of salt with weight×concentration÷100, then just add.",
+  "zh-Hans": "没错。分别用 重量×浓度÷100 算出盐的重量，再相加就行。",
+  "zh-Hant": "沒錯。分別用 重量×濃度÷100 算出鹽的重量，再相加就好。"
+ },
+ "9%の食塩水400gと、5%の食塩水200gにふくまれる食塩は、合わせて何gですか。": {
+  "en": "How many grams of salt in total are in 400 g of 9% salt water and 200 g of 5% salt water?",
+  "zh-Hans": "9%的盐水400g和5%的盐水200g中，一共含有多少克盐？",
+  "zh-Hant": "9%的食鹽水400g和5%的食鹽水200g中，一共含有多少公克的鹽？"
+ },
+ "9%の方の食塩は 400×9÷100 = 36（g）": {
+  "en": "Salt in the 9% solution: 400×9÷100 = 36 (g)",
+  "zh-Hans": "9%盐水中的盐是 400×9÷100 = 36（g）",
+  "zh-Hant": "9%食鹽水中的鹽是 400×9÷100 = 36（g）"
+ },
+ "8%の食塩水200gと、12%の食塩水100gにふくまれる食塩は、合わせて何gですか。": {
+  "en": "How many grams of salt in total are in 200 g of 8% salt water and 100 g of 12% salt water?",
+  "zh-Hans": "8%的盐水200g和12%的盐水100g中，一共含有多少克盐？",
+  "zh-Hant": "8%的食鹽水200g和12%的食鹽水100g中，一共含有多少公克的鹽？"
+ },
+ "8%の方の食塩は 200×8÷100 = 16（g）": {
+  "en": "Salt in the 8% solution: 200×8÷100 = 16 (g)",
+  "zh-Hans": "8%盐水中的盐是 200×8÷100 = 16（g）",
+  "zh-Hant": "8%食鹽水中的鹽是 200×8÷100 = 16（g）"
+ },
+ "12%の方の食塩は 100×12÷100 = 12（g）": {
+  "en": "Salt in the 12% solution: 100×12÷100 = 12 (g)",
+  "zh-Hans": "12%盐水中的盐是 100×12÷100 = 12（g）",
+  "zh-Hant": "12%食鹽水中的鹽是 100×12÷100 = 12（g）"
+ },
+ "12%の食塩水350gと、10%の食塩水150gにふくまれる食塩は、合わせて何gですか。": {
+  "en": "How many grams of salt in total are in 350 g of 12% salt water and 150 g of 10% salt water?",
+  "zh-Hans": "12%的盐水350g和10%的盐水150g中，一共含有多少克盐？",
+  "zh-Hant": "12%的食鹽水350g和10%的食鹽水150g中，一共含有多少公克的鹽？"
+ },
+ "12%の方の食塩は 350×12÷100 = 42（g）": {
+  "en": "Salt in the 12% solution: 350×12÷100 = 42 (g)",
+  "zh-Hans": "12%盐水中的盐是 350×12÷100 = 42（g）",
+  "zh-Hant": "12%食鹽水中的鹽是 350×12÷100 = 42（g）"
+ },
+ "10%の方の食塩は 150×10÷100 = 15（g）": {
+  "en": "Salt in the 10% solution: 150×10÷100 = 15 (g)",
+  "zh-Hans": "10%盐水中的盐是 150×10÷100 = 15（g）",
+  "zh-Hant": "10%食鹽水中的鹽是 150×10÷100 = 15（g）"
+ },
+ "8%の食塩水350gと、10%の食塩水350gにふくまれる食塩は、合わせて何gですか。": {
+  "en": "How many grams of salt in total are in 350 g of 8% salt water and 350 g of 10% salt water?",
+  "zh-Hans": "8%的盐水350g和10%的盐水350g中，一共含有多少克盐？",
+  "zh-Hant": "8%的食鹽水350g和10%的食鹽水350g中，一共含有多少公克的鹽？"
+ },
+ "10%の方の食塩は 350×10÷100 = 35（g）": {
+  "en": "Salt in the 10% solution: 350×10÷100 = 35 (g)",
+  "zh-Hans": "10%盐水中的盐是 350×10÷100 = 35（g）",
+  "zh-Hant": "10%食鹽水中的鹽是 350×10÷100 = 35（g）"
+ },
+ "いま、お父さんは38才、子どもは8才です。お父さんの年れいが子どもの年れいの3倍になるのは何年後ですか。": {
+  "en": "Right now, Dad is 38 years old and his child is 8. In how many years will Dad be 3 times as old as the child?",
+  "zh-Hans": "现在爸爸38岁，孩子8岁。几年后爸爸的年龄是孩子年龄的3倍？",
+  "zh-Hant": "現在爸爸38歲，孩子8歲。幾年後爸爸的年齡是孩子年齡的3倍？"
+ },
+ "年後": {
+  "en": " years later",
+  "zh-Hans": "年后",
+  "zh-Hant": "年後"
+ },
+ "お父さん": {
+  "en": "Dad",
+  "zh-Hans": "爸爸",
+  "zh-Hant": "爸爸"
+ },
+ "7年後": {
+  "en": "7 years later",
+  "zh-Hans": "7年后",
+  "zh-Hant": "7年後"
+ },
+ "1年後、2年後…と、2人の年れいを表に書いていく": {
+  "en": "Make a table of both ages: 1 year later, 2 years later, and so on",
+  "zh-Hans": "1年后、2年后……把两人的年龄一一写进表里",
+  "zh-Hant": "1年後、2年後……把兩人的年齡一一寫進表裡"
+ },
+ "毎回「3倍になったか」をわり算で確かめる": {
+  "en": "Each time, check with division: \"Is it 3 times yet?\"",
+  "zh-Hans": "每次都用除法检查“是不是3倍了”",
+  "zh-Hant": "每次都用除法檢查「是不是3倍了」"
+ },
+ "年れいの差は 38−8 = 30 で、何年たっても変わらない": {
+  "en": "The age difference is 38−8 = 30, and it never changes no matter how many years pass",
+  "zh-Hans": "年龄差是 38−8 = 30，不管过多少年都不变",
+  "zh-Hant": "年齡差是 38−8 = 30，不管過多少年都不變"
+ },
+ "お父さんが子どもの3倍のとき、差の30は子どもの 3−1 = 2 つ分": {
+  "en": "When Dad is 3 times the child's age, the difference of 30 equals 3−1 = 2 times the child's age",
+  "zh-Hans": "爸爸的年龄是孩子的3倍时，差30相当于孩子年龄的 3−1 = 2 倍",
+  "zh-Hant": "爸爸的年齡是孩子的3倍時，差30相當於孩子年齡的 3−1 = 2 倍"
+ },
+ "そのときの子どもは 30÷2 = 15 才": {
+  "en": "At that time, the child is 30÷2 = 15 years old",
+  "zh-Hans": "那时孩子是 30÷2 = 15 岁",
+  "zh-Hant": "那時孩子是 30÷2 = 15 歲"
+ },
+ "15−8 = 7（年後）": {
+  "en": "15−8 = 7 (years later)",
+  "zh-Hans": "15−8 = 7（年后）",
+  "zh-Hant": "15−8 = 7（年後）"
+ },
+ "2人の年れいが同じだけふえるときは、変わらない「差」に目をつける。": {
+  "en": "When two people's ages grow by the same amount, focus on the \"difference\" that never changes.",
+  "zh-Hans": "两人的年龄增加得一样多时，就盯住不变的“差”。",
+  "zh-Hant": "兩人的年齡增加得一樣多時，就盯住不變的「差」。"
+ },
+ "そのとおり。年れいの差30はずっと同じなので、その差を「いくつ分」で考えられる。": {
+  "en": "That's right. The age difference of 30 always stays the same, so you can think of that difference as \"how many units\" of the child's age.",
+  "zh-Hans": "没错。年龄差30一直不变，所以可以把这个差看成“几份”来思考。",
+  "zh-Hant": "沒錯。年齡差30一直不變，所以可以把這個差看成「幾份」來思考。"
+ },
+ "動く点の速さの問題ではない。": {
+  "en": "This isn't a problem about the speed of a moving point.",
+  "zh-Hans": "这不是动点速度的问题。",
+  "zh-Hant": "這不是動點速度的問題。"
+ },
+ "1年ずつ表にすると、答えまでに何行も書くことになる。": {
+  "en": "If you make a table 1 year at a time, you'll write many rows before you reach the answer.",
+  "zh-Hans": "如果每次加1年来列表，要写很多行才能得出答案。",
+  "zh-Hant": "如果每次加1年來列表，要寫很多行才能得到答案。"
+ },
+ "いま、お父さんは27才、子どもは3才です。お父さんの年れいが子どもの年れいの4倍になるのは何年後ですか。": {
+  "en": "Right now, Dad is 27 years old and his child is 3. In how many years will Dad be 4 times as old as the child?",
+  "zh-Hans": "现在爸爸27岁，孩子3岁。几年后爸爸的年龄是孩子年龄的4倍？",
+  "zh-Hant": "現在爸爸27歲，孩子3歲。幾年後爸爸的年齡是孩子年齡的4倍？"
+ },
+ "年れいの差は 27−3 = 24 で、何年たっても変わらない": {
+  "en": "The age difference is 27−3 = 24, and it never changes no matter how many years pass",
+  "zh-Hans": "年龄差是 27−3 = 24，不管过多少年都不变",
+  "zh-Hant": "年齡差是 27−3 = 24，不管過多少年都不變"
+ },
+ "お父さんが子どもの4倍のとき、差の24は子どもの 4−1 = 3 つ分": {
+  "en": "When Dad is 4 times the child's age, the difference of 24 equals 4−1 = 3 times the child's age",
+  "zh-Hans": "爸爸的年龄是孩子的4倍时，差24相当于孩子年龄的 4−1 = 3 倍",
+  "zh-Hant": "爸爸的年齡是孩子的4倍時，差24相當於孩子年齡的 4−1 = 3 倍"
+ },
+ "そのときの子どもは 24÷3 = 8 才": {
+  "en": "At that time, the child is 24÷3 = 8 years old",
+  "zh-Hans": "那时孩子是 24÷3 = 8 岁",
+  "zh-Hant": "那時孩子是 24÷3 = 8 歲"
+ },
+ "8−3 = 5（年後）": {
+  "en": "8−3 = 5 (years later)",
+  "zh-Hans": "8−3 = 5（年后）",
+  "zh-Hant": "8−3 = 5（年後）"
+ },
+ "いま、お父さんは44才、子どもは6才です。お父さんの年れいが子どもの年れいの3倍になるのは何年後ですか。": {
+  "en": "Right now, Dad is 44 years old and his child is 6. In how many years will Dad be 3 times as old as the child?",
+  "zh-Hans": "现在爸爸44岁，孩子6岁。几年后爸爸的年龄是孩子年龄的3倍？",
+  "zh-Hant": "現在爸爸44歲，孩子6歲。幾年後爸爸的年齡是孩子年齡的3倍？"
+ },
+ "年れいの差は 44−6 = 38 で、何年たっても変わらない": {
+  "en": "The age difference is 44−6 = 38, and it never changes no matter how many years pass",
+  "zh-Hans": "年龄差是 44−6 = 38，不管过多少年都不变",
+  "zh-Hant": "年齡差是 44−6 = 38，不管過多少年都不變"
+ },
+ "お父さんが子どもの3倍のとき、差の38は子どもの 3−1 = 2 つ分": {
+  "en": "When Dad is 3 times the child's age, the difference of 38 equals 3−1 = 2 times the child's age",
+  "zh-Hans": "爸爸的年龄是孩子的3倍时，差38相当于孩子年龄的 3−1 = 2 倍",
+  "zh-Hant": "爸爸的年齡是孩子的3倍時，差38相當於孩子年齡的 3−1 = 2 倍"
+ },
+ "そのときの子どもは 38÷2 = 19 才": {
+  "en": "At that time, the child is 38÷2 = 19 years old",
+  "zh-Hans": "那时孩子是 38÷2 = 19 岁",
+  "zh-Hant": "那時孩子是 38÷2 = 19 歲"
+ },
+ "19−6 = 13（年後）": {
+  "en": "19−6 = 13 (years later)",
+  "zh-Hans": "19−6 = 13（年后）",
+  "zh-Hant": "19−6 = 13（年後）"
+ },
+ "いま、お父さんは29才、子どもは7才です。お父さんの年れいが子どもの年れいの3倍になるのは何年後ですか。": {
+  "en": "Right now, Dad is 29 years old and his child is 7. In how many years will Dad be 3 times as old as the child?",
+  "zh-Hans": "现在爸爸29岁，孩子7岁。几年后爸爸的年龄是孩子年龄的3倍？",
+  "zh-Hant": "現在爸爸29歲，孩子7歲。幾年後爸爸的年齡是孩子年齡的3倍？"
+ },
+ "年れいの差は 29−7 = 22 で、何年たっても変わらない": {
+  "en": "The age difference is 29−7 = 22, and it never changes no matter how many years pass",
+  "zh-Hans": "年龄差是 29−7 = 22，不管过多少年都不变",
+  "zh-Hant": "年齡差是 29−7 = 22，不管過多少年都不變"
+ },
+ "お父さんが子どもの3倍のとき、差の22は子どもの 3−1 = 2 つ分": {
+  "en": "When Dad is 3 times the child's age, the difference of 22 equals 3−1 = 2 times the child's age",
+  "zh-Hans": "爸爸的年龄是孩子的3倍时，差22相当于孩子年龄的 3−1 = 2 倍",
+  "zh-Hant": "爸爸的年齡是孩子的3倍時，差22相當於孩子年齡的 3−1 = 2 倍"
+ },
+ "そのときの子どもは 22÷2 = 11 才": {
+  "en": "At that time, the child is 22÷2 = 11 years old",
+  "zh-Hans": "那时孩子是 22÷2 = 11 岁",
+  "zh-Hant": "那時孩子是 22÷2 = 11 歲"
+ },
+ "11−7 = 4（年後）": {
+  "en": "11−7 = 4 (years later)",
+  "zh-Hans": "11−7 = 4（年后）",
+  "zh-Hant": "11−7 = 4（年後）"
+ },
+ "いま、お父さんは33才、子どもは9才です。お父さんの年れいが子どもの年れいの2倍になるのは何年後ですか。": {
+  "en": "Right now, Dad is 33 years old and his child is 9. In how many years will Dad be 2 times as old as the child?",
+  "zh-Hans": "现在爸爸33岁，孩子9岁。几年后爸爸的年龄是孩子年龄的2倍？",
+  "zh-Hant": "現在爸爸33歲，孩子9歲。幾年後爸爸的年齡是孩子年齡的2倍？"
+ },
+ "年れいの差は 33−9 = 24 で、何年たっても変わらない": {
+  "en": "The age difference is 33−9 = 24, and it never changes no matter how many years pass",
+  "zh-Hans": "年龄差是 33−9 = 24，不管过多少年都不变",
+  "zh-Hant": "年齡差是 33−9 = 24，不管過多少年都不變"
+ },
+ "お父さんが子どもの2倍のとき、差の24は子どもの 2−1 = 1 つ分": {
+  "en": "When Dad is 2 times the child's age, the difference of 24 equals 2−1 = 1 times the child's age",
+  "zh-Hans": "爸爸的年龄是孩子的2倍时，差24相当于孩子年龄的 2−1 = 1 倍",
+  "zh-Hant": "爸爸的年齡是孩子的2倍時，差24相當於孩子年齡的 2−1 = 1 倍"
+ },
+ "そのときの子どもは 24÷1 = 24 才": {
+  "en": "At that time, the child is 24÷1 = 24 years old",
+  "zh-Hans": "那时孩子是 24÷1 = 24 岁",
+  "zh-Hant": "那時孩子是 24÷1 = 24 歲"
+ },
+ "24−9 = 15（年後）": {
+  "en": "24−9 = 15 (years later)",
+  "zh-Hans": "24−9 = 15（年后）",
+  "zh-Hant": "24−9 = 15（年後）"
+ },
+ "何年前にさかのぼっても、2人の年れいの差は同じ。差を「いくつ分」で考えると、1回のわり算でそのときの年れいが出る。": {
+  "en": "No matter how many years back you go, the age difference between the two stays the same. Think of the difference as \"how many units,\" and just 1 division gives you the age at that time.",
+  "zh-Hans": "不管往前推多少年，两人的年龄差都一样。把差看成“几份”，只要做1次除法就能求出那时的年龄。",
+  "zh-Hant": "不管往前推多少年，兩人的年齡差都一樣。把差看成「幾份」，只要做1次除法就能求出那時的年齡。"
+ },
+ "いま、お母さんは40才、けんたは12才です。お母さんの年れいがけんたの年れいの5倍だったのは何年前ですか。": {
+  "en": "Right now, Mom is 40 years old and Kenta is 12. How many years ago was Mom 5 times as old as Kenta?",
+  "zh-Hans": "现在妈妈40岁，健太12岁。几年前妈妈的年龄是健太年龄的5倍？",
+  "zh-Hant": "現在媽媽40歲，健太12歲。幾年前媽媽的年齡是健太年齡的5倍？"
+ },
+ "年前": {
+  "en": " years ago",
+  "zh-Hans": "年前",
+  "zh-Hant": "年前"
+ },
+ "お母さん": {
+  "en": "Mom",
+  "zh-Hans": "妈妈",
+  "zh-Hant": "媽媽"
+ },
+ "けんた": {
+  "en": "Kenta",
+  "zh-Hans": "健太",
+  "zh-Hant": "健太"
+ },
+ "5年前": {
+  "en": "5 years ago",
+  "zh-Hans": "5年前",
+  "zh-Hant": "5年前"
+ },
+ "1年前、2年前、3年前…と、2人の年れいを表に書いてさかのぼる": {
+  "en": "Go back in a table of both ages: 1 year ago, 2 years ago, 3 years ago, and so on",
+  "zh-Hans": "1年前、2年前、3年前……把两人的年龄写进表里往回推",
+  "zh-Hant": "1年前、2年前、3年前……把兩人的年齡寫進表裡往回推"
+ },
+ "毎回「5倍になったか」をわり算で確かめる": {
+  "en": "Each time, check with division: \"Is it 5 times yet?\"",
+  "zh-Hans": "每次都用除法检查“是不是5倍了”",
+  "zh-Hant": "每次都用除法檢查「是不是5倍了」"
+ },
+ "年れいの差は 40−12 = 28 で、何年前でも変わらない": {
+  "en": "The age difference is 40−12 = 28, and it's the same any number of years ago",
+  "zh-Hans": "年龄差是 40−12 = 28，往前推几年都不变",
+  "zh-Hant": "年齡差是 40−12 = 28，往前推幾年都不變"
+ },
+ "お母さんがけんたの5倍のとき、差の28はけんたの 5−1 = 4 つ分": {
+  "en": "When Mom is 5 times Kenta's age, the difference of 28 equals 5−1 = 4 times Kenta's age",
+  "zh-Hans": "妈妈的年龄是健太的5倍时，差28相当于健太年龄的 5−1 = 4 倍",
+  "zh-Hant": "媽媽的年齡是健太的5倍時，差28相當於健太年齡的 5−1 = 4 倍"
+ },
+ "そのときのけんたは 28÷4 = 7 才": {
+  "en": "At that time, Kenta is 28÷4 = 7 years old",
+  "zh-Hans": "那时健太是 28÷4 = 7 岁",
+  "zh-Hant": "那時健太是 28÷4 = 7 歲"
+ },
+ "12−7 = 5（年前）": {
+  "en": "12−7 = 5 (years ago)",
+  "zh-Hans": "12−7 = 5（年前）",
+  "zh-Hant": "12−7 = 5（年前）"
+ },
+ "2人の年れいが同じだけ変わるときは、変わらない「差」に目をつける。前にさかのぼっても同じ。": {
+  "en": "When two people's ages change by the same amount, focus on the \"difference\" that never changes. It works going back in time, too.",
+  "zh-Hans": "两人的年龄变化得一样多时，就盯住不变的“差”。往回推也一样。",
+  "zh-Hant": "兩人的年齡變化得一樣多時，就盯住不變的「差」。往回推也一樣。"
+ },
+ "そのとおり。年れいの差28は、何年前でも同じ。": {
+  "en": "That's right. The age difference of 28 is the same any number of years ago.",
+  "zh-Hans": "没错。年龄差28不管往前推几年都一样。",
+  "zh-Hant": "沒錯。年齡差28不管往前推幾年都一樣。"
+ },
+ "1年ずつさかのぼると、表が長くなる。": {
+  "en": "Going back 1 year at a time makes the table long.",
+  "zh-Hans": "每次往回推1年，表格会变得很长。",
+  "zh-Hant": "每次往回推1年，表格會變得很長。"
+ },
+ "いま、お母さんは45才、けんたは18才です。お母さんの年れいがけんたの年れいの4倍だったのは何年前ですか。": {
+  "en": "Right now, Mom is 45 years old and Kenta is 18. How many years ago was Mom 4 times as old as Kenta?",
+  "zh-Hans": "现在妈妈45岁，健太18岁。几年前妈妈的年龄是健太年龄的4倍？",
+  "zh-Hant": "現在媽媽45歲，健太18歲。幾年前媽媽的年齡是健太年齡的4倍？"
+ },
+ "年れいの差は 45−18 = 27 で、何年前でも変わらない": {
+  "en": "The age difference is 45−18 = 27, and it's the same any number of years ago",
+  "zh-Hans": "年龄差是 45−18 = 27，往前推几年都不变",
+  "zh-Hant": "年齡差是 45−18 = 27，往前推幾年都不變"
+ },
+ "お母さんがけんたの4倍のとき、差の27はけんたの 4−1 = 3 つ分": {
+  "en": "When Mom is 4 times Kenta's age, the difference of 27 equals 4−1 = 3 times Kenta's age",
+  "zh-Hans": "妈妈的年龄是健太的4倍时，差27相当于健太年龄的 4−1 = 3 倍",
+  "zh-Hant": "媽媽的年齡是健太的4倍時，差27相當於健太年齡的 4−1 = 3 倍"
+ },
+ "そのときのけんたは 27÷3 = 9 才": {
+  "en": "At that time, Kenta is 27÷3 = 9 years old",
+  "zh-Hans": "那时健太是 27÷3 = 9 岁",
+  "zh-Hant": "那時健太是 27÷3 = 9 歲"
+ },
+ "18−9 = 9（年前）": {
+  "en": "18−9 = 9 (years ago)",
+  "zh-Hans": "18−9 = 9（年前）",
+  "zh-Hant": "18−9 = 9（年前）"
+ },
+ "いま、お母さんは33才、けんたは13才です。お母さんの年れいがけんたの年れいの5倍だったのは何年前ですか。": {
+  "en": "Right now, Mom is 33 years old and Kenta is 13. How many years ago was Mom 5 times as old as Kenta?",
+  "zh-Hans": "现在妈妈33岁，健太13岁。几年前妈妈的年龄是健太年龄的5倍？",
+  "zh-Hant": "現在媽媽33歲，健太13歲。幾年前媽媽的年齡是健太年齡的5倍？"
+ },
+ "年れいの差は 33−13 = 20 で、何年前でも変わらない": {
+  "en": "The age difference is 33−13 = 20, and it's the same any number of years ago",
+  "zh-Hans": "年龄差是 33−13 = 20，往前推几年都不变",
+  "zh-Hant": "年齡差是 33−13 = 20，往前推幾年都不變"
+ },
+ "お母さんがけんたの5倍のとき、差の20はけんたの 5−1 = 4 つ分": {
+  "en": "When Mom is 5 times Kenta's age, the difference of 20 equals 5−1 = 4 times Kenta's age",
+  "zh-Hans": "妈妈的年龄是健太的5倍时，差20相当于健太年龄的 5−1 = 4 倍",
+  "zh-Hant": "媽媽的年齡是健太的5倍時，差20相當於健太年齡的 5−1 = 4 倍"
+ },
+ "そのときのけんたは 20÷4 = 5 才": {
+  "en": "At that time, Kenta is 20÷4 = 5 years old",
+  "zh-Hans": "那时健太是 20÷4 = 5 岁",
+  "zh-Hant": "那時健太是 20÷4 = 5 歲"
+ },
+ "13−5 = 8（年前）": {
+  "en": "13−5 = 8 (years ago)",
+  "zh-Hans": "13−5 = 8（年前）",
+  "zh-Hant": "13−5 = 8（年前）"
+ },
+ "いま、お母さんは37才、けんたは13才です。お母さんの年れいがけんたの年れいの5倍だったのは何年前ですか。": {
+  "en": "Right now, Mom is 37 years old and Kenta is 13. How many years ago was Mom 5 times as old as Kenta?",
+  "zh-Hans": "现在妈妈37岁，健太13岁。几年前妈妈的年龄是健太年龄的5倍？",
+  "zh-Hant": "現在媽媽37歲，健太13歲。幾年前媽媽的年齡是健太年齡的5倍？"
+ },
+ "年れいの差は 37−13 = 24 で、何年前でも変わらない": {
+  "en": "The age difference is 37−13 = 24, and it's the same any number of years ago",
+  "zh-Hans": "年龄差是 37−13 = 24，往前推几年都不变",
+  "zh-Hant": "年齡差是 37−13 = 24，往前推幾年都不變"
+ },
+ "お母さんがけんたの5倍のとき、差の24はけんたの 5−1 = 4 つ分": {
+  "en": "When Mom is 5 times Kenta's age, the difference of 24 equals 5−1 = 4 times Kenta's age",
+  "zh-Hans": "妈妈的年龄是健太的5倍时，差24相当于健太年龄的 5−1 = 4 倍",
+  "zh-Hant": "媽媽的年齡是健太的5倍時，差24相當於健太年齡的 5−1 = 4 倍"
+ },
+ "そのときのけんたは 24÷4 = 6 才": {
+  "en": "At that time, Kenta is 24÷4 = 6 years old",
+  "zh-Hans": "那时健太是 24÷4 = 6 岁",
+  "zh-Hant": "那時健太是 24÷4 = 6 歲"
+ },
+ "13−6 = 7（年前）": {
+  "en": "13−6 = 7 (years ago)",
+  "zh-Hans": "13−6 = 7（年前）",
+  "zh-Hant": "13−6 = 7（年前）"
+ },
+ "いま、お母さんは31才、けんたは11才です。お母さんの年れいがけんたの年れいの5倍だったのは何年前ですか。": {
+  "en": "Right now, Mom is 31 years old and Kenta is 11. How many years ago was Mom 5 times as old as Kenta?",
+  "zh-Hans": "现在妈妈31岁，健太11岁。几年前妈妈的年龄是健太年龄的5倍？",
+  "zh-Hant": "現在媽媽31歲，健太11歲。幾年前媽媽的年齡是健太年齡的5倍？"
+ },
+ "年れいの差は 31−11 = 20 で、何年前でも変わらない": {
+  "en": "The age difference is 31−11 = 20, and it's the same any number of years ago",
+  "zh-Hans": "年龄差是 31−11 = 20，往前推几年都不变",
+  "zh-Hant": "年齡差是 31−11 = 20，往前推幾年都不變"
+ },
+ "11−5 = 6（年前）": {
+  "en": "11−5 = 6 (years ago)",
+  "zh-Hans": "11−5 = 6（年前）",
+  "zh-Hant": "11−5 = 6（年前）"
+ },
+ "2人が同じ金額ずつ使うと、2人のお金の差は変わらない。年れいの問題と同じ形になる。": {
+  "en": "When both spend the same amount, the difference between their money doesn't change. It has the same shape as the age problems.",
+  "zh-Hans": "两人花同样多的钱，两人钱数的差就不变。和年龄问题是同一种类型。",
+  "zh-Hant": "兩人花同樣多的錢，兩人錢數的差就不變。和年齡問題是同一種類型。"
+ },
+ "姉は1600円、弟は1000円持っています。2人が同じ金額ずつ使ったところ、姉の残りは弟の残りの3倍になりました。1人何円使いましたか。": {
+  "en": "The older sister has 1600 yen and her younger brother has 1000 yen. They each spent the same amount, and then the sister had 3 times as much left as her brother. How many yen did each of them spend?",
+  "zh-Hans": "姐姐有1600日元，弟弟有1000日元。两人各花了同样多的钱后，姐姐剩下的钱是弟弟剩下的3倍。每人花了多少日元？",
+  "zh-Hant": "姊姊有1600日圓，弟弟有1000日圓。兩人各花了同樣多的錢後，姊姊剩下的錢是弟弟剩下的3倍。每人花了多少日圓？"
+ },
+ "姉": {
+  "en": "Older sister",
+  "zh-Hans": "姐姐",
+  "zh-Hant": "姊姊"
+ },
+ "弟": {
+  "en": "Younger brother",
+  "zh-Hans": "弟弟",
+  "zh-Hant": "弟弟"
+ },
+ "700円": {
+  "en": "700 yen",
+  "zh-Hans": "700日元",
+  "zh-Hant": "700日圓"
+ },
+ "100円使ったら、200円使ったら…と、2人の残りを表にして調べる": {
+  "en": "Make a table of what's left: if they spend 100 yen, if they spend 200 yen, and so on",
+  "zh-Hans": "花100日元的话、花200日元的话……把两人剩下的钱列成表来查",
+  "zh-Hant": "花100日圓的話、花200日圓的話……把兩人剩下的錢列成表來查"
+ },
+ "2人が同じ金額を使っても、お金の差 1600−1000 = 600 は変わらない": {
+  "en": "Even if both spend the same amount, the difference in money, 1600−1000 = 600, doesn't change",
+  "zh-Hans": "即使两人花同样多的钱，钱数的差 1600−1000 = 600 也不变",
+  "zh-Hant": "即使兩人花同樣多的錢，錢數的差 1600−1000 = 600 也不變"
+ },
+ "姉が弟の3倍のとき、差の600は弟の 3−1 = 2 つ分": {
+  "en": "When the older sister has 3 times as much as the younger brother, the difference of 600 equals 3−1 = 2 times his amount",
+  "zh-Hans": "姐姐的钱是弟弟的3倍时，差600相当于弟弟的钱的 3−1 = 2 倍",
+  "zh-Hant": "姊姊的錢是弟弟的3倍時，差600相當於弟弟的錢的 3−1 = 2 倍"
+ },
+ "弟の残りは 600÷2 = 300 円": {
+  "en": "The younger brother has 600÷2 = 300 yen left",
+  "zh-Hans": "弟弟剩下 600÷2 = 300 日元",
+  "zh-Hant": "弟弟剩下 600÷2 = 300 日圓"
+ },
+ "1000−300 = 700（円）": {
+  "en": "1000−300 = 700 (yen)",
+  "zh-Hans": "1000−300 = 700（日元）",
+  "zh-Hant": "1000−300 = 700（日圓）"
+ },
+ "2人が同じだけふえたりへったりするときは、変わらない「差」に目をつける。": {
+  "en": "When two amounts go up or down by the same amount, focus on the \"difference\" that never changes.",
+  "zh-Hans": "两人增加或减少得一样多时，就盯住不变的“差”。",
+  "zh-Hant": "兩人增加或減少得一樣多時，就盯住不變的「差」。"
+ },
+ "そのとおり。同じ金額を使うので、差の600円はずっと同じ。": {
+  "en": "That's right. They spend the same amount, so the 600-yen difference always stays the same.",
+  "zh-Hans": "没错。花的钱一样多，所以600日元的差一直不变。",
+  "zh-Hant": "沒錯。花的錢一樣多，所以600日圓的差一直不變。"
+ },
+ "100円ずつためすと、何回も計算することになる。": {
+  "en": "Trying 100 yen at a time means doing the calculation over and over.",
+  "zh-Hans": "每次试100日元，就得算很多次。",
+  "zh-Hant": "每次試100日圓，就得算很多次。"
+ },
+ "姉は1000円、弟は700円持っています。2人が同じ金額ずつ使ったところ、姉の残りは弟の残りの2倍になりました。1人何円使いましたか。": {
+  "en": "The older sister has 1000 yen and her younger brother has 700 yen. They each spent the same amount, and then the sister had 2 times as much left as her brother. How many yen did each of them spend?",
+  "zh-Hans": "姐姐有1000日元，弟弟有700日元。两人各花了同样多的钱后，姐姐剩下的钱是弟弟剩下的2倍。每人花了多少日元？",
+  "zh-Hant": "姊姊有1000日圓，弟弟有700日圓。兩人各花了同樣多的錢後，姊姊剩下的錢是弟弟剩下的2倍。每人花了多少日圓？"
+ },
+ "2人が同じ金額を使っても、お金の差 1000−700 = 300 は変わらない": {
+  "en": "Even if both spend the same amount, the difference in money, 1000−700 = 300, doesn't change",
+  "zh-Hans": "即使两人花同样多的钱，钱数的差 1000−700 = 300 也不变",
+  "zh-Hant": "即使兩人花同樣多的錢，錢數的差 1000−700 = 300 也不變"
+ },
+ "姉が弟の2倍のとき、差の300は弟の 2−1 = 1 つ分": {
+  "en": "When the older sister has 2 times as much as the younger brother, the difference of 300 equals 2−1 = 1 times his amount",
+  "zh-Hans": "姐姐的钱是弟弟的2倍时，差300相当于弟弟的钱的 2−1 = 1 倍",
+  "zh-Hant": "姊姊的錢是弟弟的2倍時，差300相當於弟弟的錢的 2−1 = 1 倍"
+ },
+ "弟の残りは 300÷1 = 300 円": {
+  "en": "The younger brother has 300÷1 = 300 yen left",
+  "zh-Hans": "弟弟剩下 300÷1 = 300 日元",
+  "zh-Hant": "弟弟剩下 300÷1 = 300 日圓"
+ },
+ "700−300 = 400（円）": {
+  "en": "700−300 = 400 (yen)",
+  "zh-Hans": "700−300 = 400（日元）",
+  "zh-Hant": "700−300 = 400（日圓）"
+ },
+ "姉は600円、弟は400円持っています。2人が同じ金額ずつ使ったところ、姉の残りは弟の残りの2倍になりました。1人何円使いましたか。": {
+  "en": "The older sister has 600 yen and her younger brother has 400 yen. They each spent the same amount, and then the sister had 2 times as much left as her brother. How many yen did each of them spend?",
+  "zh-Hans": "姐姐有600日元，弟弟有400日元。两人各花了同样多的钱后，姐姐剩下的钱是弟弟剩下的2倍。每人花了多少日元？",
+  "zh-Hant": "姊姊有600日圓，弟弟有400日圓。兩人各花了同樣多的錢後，姊姊剩下的錢是弟弟剩下的2倍。每人花了多少日圓？"
+ },
+ "2人が同じ金額を使っても、お金の差 600−400 = 200 は変わらない": {
+  "en": "Even if both spend the same amount, the difference in money, 600−400 = 200, doesn't change",
+  "zh-Hans": "即使两人花同样多的钱，钱数的差 600−400 = 200 也不变",
+  "zh-Hant": "即使兩人花同樣多的錢，錢數的差 600−400 = 200 也不變"
+ },
+ "姉が弟の2倍のとき、差の200は弟の 2−1 = 1 つ分": {
+  "en": "When the older sister has 2 times as much as the younger brother, the difference of 200 equals 2−1 = 1 times his amount",
+  "zh-Hans": "姐姐的钱是弟弟的2倍时，差200相当于弟弟的钱的 2−1 = 1 倍",
+  "zh-Hant": "姊姊的錢是弟弟的2倍時，差200相當於弟弟的錢的 2−1 = 1 倍"
+ },
+ "弟の残りは 200÷1 = 200 円": {
+  "en": "The younger brother has 200÷1 = 200 yen left",
+  "zh-Hans": "弟弟剩下 200÷1 = 200 日元",
+  "zh-Hant": "弟弟剩下 200÷1 = 200 日圓"
+ },
+ "400−200 = 200（円）": {
+  "en": "400−200 = 200 (yen)",
+  "zh-Hans": "400−200 = 200（日元）",
+  "zh-Hant": "400−200 = 200（日圓）"
+ },
+ "姉は2400円、弟は1800円持っています。2人が同じ金額ずつ使ったところ、姉の残りは弟の残りの2倍になりました。1人何円使いましたか。": {
+  "en": "The older sister has 2400 yen and her younger brother has 1800 yen. They each spent the same amount, and then the sister had 2 times as much left as her brother. How many yen did each of them spend?",
+  "zh-Hans": "姐姐有2400日元，弟弟有1800日元。两人各花了同样多的钱后，姐姐剩下的钱是弟弟剩下的2倍。每人花了多少日元？",
+  "zh-Hant": "姊姊有2400日圓，弟弟有1800日圓。兩人各花了同樣多的錢後，姊姊剩下的錢是弟弟剩下的2倍。每人花了多少日圓？"
+ },
+ "2人が同じ金額を使っても、お金の差 2400−1800 = 600 は変わらない": {
+  "en": "Even if both spend the same amount, the difference in money, 2400−1800 = 600, doesn't change",
+  "zh-Hans": "即使两人花同样多的钱，钱数的差 2400−1800 = 600 也不变",
+  "zh-Hant": "即使兩人花同樣多的錢，錢數的差 2400−1800 = 600 也不變"
+ },
+ "姉が弟の2倍のとき、差の600は弟の 2−1 = 1 つ分": {
+  "en": "When the older sister has 2 times as much as the younger brother, the difference of 600 equals 2−1 = 1 times his amount",
+  "zh-Hans": "姐姐的钱是弟弟的2倍时，差600相当于弟弟的钱的 2−1 = 1 倍",
+  "zh-Hant": "姊姊的錢是弟弟的2倍時，差600相當於弟弟的錢的 2−1 = 1 倍"
+ },
+ "弟の残りは 600÷1 = 600 円": {
+  "en": "The younger brother has 600÷1 = 600 yen left",
+  "zh-Hans": "弟弟剩下 600÷1 = 600 日元",
+  "zh-Hant": "弟弟剩下 600÷1 = 600 日圓"
+ },
+ "1800−600 = 1200（円）": {
+  "en": "1800−600 = 1200 (yen)",
+  "zh-Hans": "1800−600 = 1200（日元）",
+  "zh-Hant": "1800−600 = 1200（日圓）"
+ },
+ "姉は2800円、弟は1600円持っています。2人が同じ金額ずつ使ったところ、姉の残りは弟の残りの3倍になりました。1人何円使いましたか。": {
+  "en": "The older sister has 2800 yen and her younger brother has 1600 yen. They each spent the same amount, and then the sister had 3 times as much left as her brother. How many yen did each of them spend?",
+  "zh-Hans": "姐姐有2800日元，弟弟有1600日元。两人各花了同样多的钱后，姐姐剩下的钱是弟弟剩下的3倍。每人花了多少日元？",
+  "zh-Hant": "姊姊有2800日圓，弟弟有1600日圓。兩人各花了同樣多的錢後，姊姊剩下的錢是弟弟剩下的3倍。每人花了多少日圓？"
+ },
+ "2人が同じ金額を使っても、お金の差 2800−1600 = 1200 は変わらない": {
+  "en": "Even if both spend the same amount, the difference in money, 2800−1600 = 1200, doesn't change",
+  "zh-Hans": "即使两人花同样多的钱，钱数的差 2800−1600 = 1200 也不变",
+  "zh-Hant": "即使兩人花同樣多的錢，錢數的差 2800−1600 = 1200 也不變"
+ },
+ "姉が弟の3倍のとき、差の1200は弟の 3−1 = 2 つ分": {
+  "en": "When the older sister has 3 times as much as the younger brother, the difference of 1200 equals 3−1 = 2 times his amount",
+  "zh-Hans": "姐姐的钱是弟弟的3倍时，差1200相当于弟弟的钱的 3−1 = 2 倍",
+  "zh-Hant": "姊姊的錢是弟弟的3倍時，差1200相當於弟弟的錢的 3−1 = 2 倍"
+ },
+ "弟の残りは 1200÷2 = 600 円": {
+  "en": "The younger brother has 1200÷2 = 600 yen left",
+  "zh-Hans": "弟弟剩下 1200÷2 = 600 日元",
+  "zh-Hant": "弟弟剩下 1200÷2 = 600 日圓"
+ },
+ "1600−600 = 1000（円）": {
+  "en": "1600−600 = 1000 (yen)",
+  "zh-Hans": "1600−600 = 1000（日元）",
+  "zh-Hant": "1600−600 = 1000（日圓）"
+ },
+ "何年前でも、2人の年れいの差は同じ。2倍のときは、差がちょうど小さいほうの年れいになる。": {
+  "en": "However many years ago, the age difference between the two stays the same. At 2 times, the difference is exactly the younger one's age.",
+  "zh-Hans": "不管往前推几年，两人的年龄差都一样。是2倍的时候，差正好等于年纪小的人的年龄。",
+  "zh-Hant": "不管往前推幾年，兩人的年齡差都一樣。是2倍的時候，差正好等於年紀小的人的年齡。"
+ },
+ "いま、兄は14才、弟は8才です。兄の年れいが弟の年れいの2倍だったのは何年前ですか。": {
+  "en": "Right now, the older brother is 14 and the younger brother is 8. How many years ago was the older brother 2 times as old as the younger brother?",
+  "zh-Hans": "现在哥哥14岁，弟弟8岁。几年前哥哥的年龄是弟弟年龄的2倍？",
+  "zh-Hant": "現在哥哥14歲，弟弟8歲。幾年前哥哥的年齡是弟弟年齡的2倍？"
+ },
+ "兄": {
+  "en": "Older brother",
+  "zh-Hans": "哥哥",
+  "zh-Hant": "哥哥"
+ },
+ "2年前": {
+  "en": "2 years ago",
+  "zh-Hans": "2年前",
+  "zh-Hant": "2年前"
+ },
+ "1年前、2年前…と、2人の年れいを表に書いてさかのぼる": {
+  "en": "Go back in a table of both ages: 1 year ago, 2 years ago, and so on",
+  "zh-Hans": "1年前、2年前……把两人的年龄写进表里往回推",
+  "zh-Hant": "1年前、2年前……把兩人的年齡寫進表裡往回推"
+ },
+ "毎回「2倍になったか」を確かめる": {
+  "en": "Each time, check: \"Is it 2 times yet?\"",
+  "zh-Hans": "每次都检查“是不是2倍了”",
+  "zh-Hant": "每次都檢查「是不是2倍了」"
+ },
+ "ここで約1分": {
+  "en": "About 1 minute gone here",
+  "zh-Hans": "这里大约花1分钟",
+  "zh-Hant": "這裡大約花1分鐘"
+ },
+ "年れいの差は 14−8 = 6 で、何年前でも変わらない": {
+  "en": "The age difference is 14−8 = 6, and it's the same any number of years ago",
+  "zh-Hans": "年龄差是 14−8 = 6，往前推几年都不变",
+  "zh-Hant": "年齡差是 14−8 = 6，往前推幾年都不變"
+ },
+ "兄が弟の2倍のとき、差の6は弟の 2−1 = 1 つ分": {
+  "en": "When the older brother is 2 times the younger brother's age, the difference of 6 equals 2−1 = 1 times the younger brother's age",
+  "zh-Hans": "哥哥的年龄是弟弟的2倍时，差6相当于弟弟年龄的 2−1 = 1 倍",
+  "zh-Hant": "哥哥的年齡是弟弟的2倍時，差6相當於弟弟年齡的 2−1 = 1 倍"
+ },
+ "そのときの弟は 6÷1 = 6 才": {
+  "en": "At that time, the younger brother is 6÷1 = 6 years old",
+  "zh-Hans": "那时弟弟是 6÷1 = 6 岁",
+  "zh-Hant": "那時弟弟是 6÷1 = 6 歲"
+ },
+ "8−6 = 2（年前）": {
+  "en": "8−6 = 2 (years ago)",
+  "zh-Hans": "8−6 = 2（年前）",
+  "zh-Hant": "8−6 = 2（年前）"
+ },
+ "2人の年れいが同じだけ変わるときは、変わらない「差」に目をつける。": {
+  "en": "When two people's ages change by the same amount, focus on the \"difference\" that never changes.",
+  "zh-Hans": "两人的年龄变化得一样多时，就盯住不变的“差”。",
+  "zh-Hant": "兩人的年齡變化得一樣多時，就盯住不變的「差」。"
+ },
+ "そのとおり。差の6はずっと同じ。2倍のとき、弟はちょうど6才。": {
+  "en": "That's right. The difference of 6 never changes. At 2 times, the younger brother is exactly 6.",
+  "zh-Hans": "没错。差6一直不变。是2倍的时候，弟弟正好6岁。",
+  "zh-Hant": "沒錯。差6一直不變。是2倍的時候，弟弟正好6歲。"
+ },
+ "表にしても出るが、差を見ればすぐ分かる。": {
+  "en": "A table works too, but looking at the difference tells you right away.",
+  "zh-Hans": "列表也能算出来，但看差马上就知道。",
+  "zh-Hant": "列表也能算出來，但看差馬上就知道。"
+ },
+ "いま、兄は21才、弟は14才です。兄の年れいが弟の年れいの2倍だったのは何年前ですか。": {
+  "en": "Right now, the older brother is 21 and the younger brother is 14. How many years ago was the older brother 2 times as old as the younger brother?",
+  "zh-Hans": "现在哥哥21岁，弟弟14岁。几年前哥哥的年龄是弟弟年龄的2倍？",
+  "zh-Hant": "現在哥哥21歲，弟弟14歲。幾年前哥哥的年齡是弟弟年齡的2倍？"
+ },
+ "年れいの差は 21−14 = 7 で、何年前でも変わらない": {
+  "en": "The age difference is 21−14 = 7, and it's the same any number of years ago",
+  "zh-Hans": "年龄差是 21−14 = 7，往前推几年都不变",
+  "zh-Hant": "年齡差是 21−14 = 7，往前推幾年都不變"
+ },
+ "兄が弟の2倍のとき、差の7は弟の 2−1 = 1 つ分": {
+  "en": "When the older brother is 2 times the younger brother's age, the difference of 7 equals 2−1 = 1 times the younger brother's age",
+  "zh-Hans": "哥哥的年龄是弟弟的2倍时，差7相当于弟弟年龄的 2−1 = 1 倍",
+  "zh-Hant": "哥哥的年齡是弟弟的2倍時，差7相當於弟弟年齡的 2−1 = 1 倍"
+ },
+ "そのときの弟は 7÷1 = 7 才": {
+  "en": "At that time, the younger brother is 7÷1 = 7 years old",
+  "zh-Hans": "那时弟弟是 7÷1 = 7 岁",
+  "zh-Hant": "那時弟弟是 7÷1 = 7 歲"
+ },
+ "14−7 = 7（年前）": {
+  "en": "14−7 = 7 (years ago)",
+  "zh-Hans": "14−7 = 7（年前）",
+  "zh-Hant": "14−7 = 7（年前）"
+ },
+ "いま、兄は22才、弟は15才です。兄の年れいが弟の年れいの2倍だったのは何年前ですか。": {
+  "en": "Right now, the older brother is 22 and the younger brother is 15. How many years ago was the older brother 2 times as old as the younger brother?",
+  "zh-Hans": "现在哥哥22岁，弟弟15岁。几年前哥哥的年龄是弟弟年龄的2倍？",
+  "zh-Hant": "現在哥哥22歲，弟弟15歲。幾年前哥哥的年齡是弟弟年齡的2倍？"
+ },
+ "年れいの差は 22−15 = 7 で、何年前でも変わらない": {
+  "en": "The age difference is 22−15 = 7, and it's the same any number of years ago",
+  "zh-Hans": "年龄差是 22−15 = 7，往前推几年都不变",
+  "zh-Hant": "年齡差是 22−15 = 7，往前推幾年都不變"
+ },
+ "15−7 = 8（年前）": {
+  "en": "15−7 = 8 (years ago)",
+  "zh-Hans": "15−7 = 8（年前）",
+  "zh-Hant": "15−7 = 8（年前）"
+ },
+ "いま、兄は13才、弟は9才です。兄の年れいが弟の年れいの2倍だったのは何年前ですか。": {
+  "en": "Right now, the older brother is 13 and the younger brother is 9. How many years ago was the older brother 2 times as old as the younger brother?",
+  "zh-Hans": "现在哥哥13岁，弟弟9岁。几年前哥哥的年龄是弟弟年龄的2倍？",
+  "zh-Hant": "現在哥哥13歲，弟弟9歲。幾年前哥哥的年齡是弟弟年齡的2倍？"
+ },
+ "年れいの差は 13−9 = 4 で、何年前でも変わらない": {
+  "en": "The age difference is 13−9 = 4, and it's the same any number of years ago",
+  "zh-Hans": "年龄差是 13−9 = 4，往前推几年都不变",
+  "zh-Hant": "年齡差是 13−9 = 4，往前推幾年都不變"
+ },
+ "兄が弟の2倍のとき、差の4は弟の 2−1 = 1 つ分": {
+  "en": "When the older brother is 2 times the younger brother's age, the difference of 4 equals 2−1 = 1 times the younger brother's age",
+  "zh-Hans": "哥哥的年龄是弟弟的2倍时，差4相当于弟弟年龄的 2−1 = 1 倍",
+  "zh-Hant": "哥哥的年齡是弟弟的2倍時，差4相當於弟弟年齡的 2−1 = 1 倍"
+ },
+ "そのときの弟は 4÷1 = 4 才": {
+  "en": "At that time, the younger brother is 4÷1 = 4 years old",
+  "zh-Hans": "那时弟弟是 4÷1 = 4 岁",
+  "zh-Hant": "那時弟弟是 4÷1 = 4 歲"
+ },
+ "9−4 = 5（年前）": {
+  "en": "9−4 = 5 (years ago)",
+  "zh-Hans": "9−4 = 5（年前）",
+  "zh-Hant": "9−4 = 5（年前）"
+ },
+ "いま、兄は15才、弟は9才です。兄の年れいが弟の年れいの2倍だったのは何年前ですか。": {
+  "en": "Right now, the older brother is 15 and the younger brother is 9. How many years ago was the older brother 2 times as old as the younger brother?",
+  "zh-Hans": "现在哥哥15岁，弟弟9岁。几年前哥哥的年龄是弟弟年龄的2倍？",
+  "zh-Hant": "現在哥哥15歲，弟弟9歲。幾年前哥哥的年齡是弟弟年齡的2倍？"
+ },
+ "年れいの差は 15−9 = 6 で、何年前でも変わらない": {
+  "en": "The age difference is 15−9 = 6, and it's the same any number of years ago",
+  "zh-Hans": "年龄差是 15−9 = 6，往前推几年都不变",
+  "zh-Hant": "年齡差是 15−9 = 6，往前推幾年都不變"
+ },
+ "9−6 = 3（年前）": {
+  "en": "9−6 = 3 (years ago)",
+  "zh-Hans": "9−6 = 3（年前）",
+  "zh-Hant": "9−6 = 3（年前）"
+ },
+ "年れいの差は何年たっても同じ。2つの比を、差が同じ数になるようにそろえると、1つ分の大きさが分かる。": {
+  "en": "The age difference stays the same however many years pass. Adjust the 2 ratios so the difference is the same number, and you find the size of 1 unit.",
+  "zh-Hans": "年龄差不管过多少年都一样。把2个比调整成差是同一个数，就能知道1份的大小。",
+  "zh-Hant": "年齡差不管過多少年都一樣。把2個比調整成差是同一個數，就能知道1份的大小。"
+ },
+ "いま、兄と弟の年れいの比は5:3です。6年後には、兄と弟の年れいの比は3:2になります。いま、兄は何才ですか。": {
+  "en": "Right now, the ratio of the older brother's age to the younger brother's age is 5:3. In 6 years, the ratio of their ages will be 3:2. How old is the older brother now?",
+  "zh-Hans": "现在哥哥和弟弟的年龄比是5:3。6年后，哥哥和弟弟的年龄比是3:2。哥哥现在几岁？",
+  "zh-Hant": "現在哥哥和弟弟的年齡比是5:3。6年後，哥哥和弟弟的年齡比是3:2。哥哥現在幾歲？"
+ },
+ "才": {
+  "en": " years old",
+  "zh-Hans": "岁",
+  "zh-Hant": "歲"
+ },
+ "30才": {
+  "en": "30 years old",
+  "zh-Hans": "30岁",
+  "zh-Hant": "30歲"
+ },
+ "兄の年れいを1つずつ決めて、弟の年れいと何年後かの比を確かめる": {
+  "en": "Try the older brother's age 1 value at a time, then check the younger brother's age and the ratio years later",
+  "zh-Hans": "把哥哥的年龄1个1个地试，再检查弟弟的年龄和几年后的比",
+  "zh-Hant": "把哥哥的年齡1個1個地試，再檢查弟弟的年齡和幾年後的比"
+ },
+ "比の計算が毎回あり、まちがえやすい": {
+  "en": "There's a ratio calculation every time, so it's easy to make mistakes",
+  "zh-Hans": "每次都要算比，容易出错",
+  "zh-Hant": "每次都要算比，容易出錯"
+ },
+ "年れいの差は変わらない。差は、いまの比で 5−3 = 2、6年後の比で 3−2 = 1": {
+  "en": "The age difference doesn't change. The difference is 5−3 = 2 in the ratio now, and 3−2 = 1 in the ratio 6 years later",
+  "zh-Hans": "年龄差不变。差在现在的比中是 5−3 = 2，在6年后的比中是 3−2 = 1",
+  "zh-Hant": "年齡差不變。差在現在的比中是 5−3 = 2，在6年後的比中是 3−2 = 1"
+ },
+ "差が同じ数になるように比をそろえる。いま 5:3、6年後 3:2 → 6:4": {
+  "en": "Adjust the ratios so the difference is the same number. Now 5:3, 6 years later 3:2 → 6:4",
+  "zh-Hans": "把比调整成差是同一个数。现在 5:3，6年后 3:2 → 6:4",
+  "zh-Hant": "把比調整成差是同一個數。現在 5:3，6年後 3:2 → 6:4"
+ },
+ "兄は 5 から 6 へ、6−5 = 1 つ分ふえた。それが6年なので、1つ分は 6÷1 = 6": {
+  "en": "The older brother went from 5 to 6, an increase of 6−5 = 1 unit. That is 6 years, so 1 unit is 6÷1 = 6",
+  "zh-Hans": "哥哥从 5 变成 6，增加了 6−5 = 1 份。这相当于6年，所以1份是 6÷1 = 6",
+  "zh-Hant": "哥哥從 5 變成 6，增加了 6−5 = 1 份。這相當於6年，所以1份是 6÷1 = 6"
+ },
+ "いまの兄 = 6×5 = 30（才）": {
+  "en": "Older brother now = 6×5 = 30 (years old)",
+  "zh-Hans": "哥哥现在 = 6×5 = 30（岁）",
+  "zh-Hant": "哥哥現在 = 6×5 = 30（歲）"
+ },
+ "2つの時点の比が分かるときは、変わらない「差」の部分の数をそろえる。": {
+  "en": "When you know the ratios at 2 points in time, match up the numbers for the \"difference\" part that never changes.",
+  "zh-Hans": "知道2个时间点的比时，就把不变的“差”那部分的数调成一样。",
+  "zh-Hant": "知道2個時間點的比時，就把不變的「差」那部分的數調成一樣。"
+ },
+ "そのとおり。差はどちらの比でも同じなので、差の数をそろえて比べる。": {
+  "en": "That's right. The difference is the same in both ratios, so match the difference numbers and compare.",
+  "zh-Hans": "没错。差在两个比中都一样，所以把差的数调成一样再比较。",
+  "zh-Hant": "沒錯。差在兩個比中都一樣，所以把差的數調成一樣再比較。"
+ },
+ "比は出てくるが、こさや平均を混ぜる問題ではない。": {
+  "en": "Ratios show up, but this isn't a problem about mixing concentrations or averages.",
+  "zh-Hans": "虽然出现了比，但这不是混合浓度或平均数的问题。",
+  "zh-Hant": "雖然出現了比，但這不是混合濃度或平均數的問題。"
+ },
+ "1つずつためすと、比の計算が何回も必要になる。": {
+  "en": "Trying values 1 by 1 means many ratio calculations.",
+  "zh-Hans": "1个1个地试，就得算很多次比。",
+  "zh-Hant": "1個1個地試，就得算很多次比。"
+ },
+ "いま、兄と弟の年れいの比は5:3です。12年後には、兄と弟の年れいの比は4:3になります。いま、兄は何才ですか。": {
+  "en": "Right now, the ratio of the older brother's age to the younger brother's age is 5:3. In 12 years, the ratio of their ages will be 4:3. How old is the older brother now?",
+  "zh-Hans": "现在哥哥和弟弟的年龄比是5:3。12年后，哥哥和弟弟的年龄比是4:3。哥哥现在几岁？",
+  "zh-Hant": "現在哥哥和弟弟的年齡比是5:3。12年後，哥哥和弟弟的年齡比是4:3。哥哥現在幾歲？"
+ },
+ "年れいの差は変わらない。差は、いまの比で 5−3 = 2、12年後の比で 4−3 = 1": {
+  "en": "The age difference doesn't change. The difference is 5−3 = 2 in the ratio now, and 4−3 = 1 in the ratio 12 years later",
+  "zh-Hans": "年龄差不变。差在现在的比中是 5−3 = 2，在12年后的比中是 4−3 = 1",
+  "zh-Hant": "年齡差不變。差在現在的比中是 5−3 = 2，在12年後的比中是 4−3 = 1"
+ },
+ "差が同じ数になるように比をそろえる。いま 5:3、12年後 4:3 → 8:6": {
+  "en": "Adjust the ratios so the difference is the same number. Now 5:3, 12 years later 4:3 → 8:6",
+  "zh-Hans": "把比调整成差是同一个数。现在 5:3，12年后 4:3 → 8:6",
+  "zh-Hant": "把比調整成差是同一個數。現在 5:3，12年後 4:3 → 8:6"
+ },
+ "兄は 5 から 8 へ、8−5 = 3 つ分ふえた。それが12年なので、1つ分は 12÷3 = 4": {
+  "en": "The older brother went from 5 to 8, an increase of 8−5 = 3 units. That is 12 years, so 1 unit is 12÷3 = 4",
+  "zh-Hans": "哥哥从 5 变成 8，增加了 8−5 = 3 份。这相当于12年，所以1份是 12÷3 = 4",
+  "zh-Hant": "哥哥從 5 變成 8，增加了 8−5 = 3 份。這相當於12年，所以1份是 12÷3 = 4"
+ },
+ "いまの兄 = 4×5 = 20（才）": {
+  "en": "Older brother now = 4×5 = 20 (years old)",
+  "zh-Hans": "哥哥现在 = 4×5 = 20（岁）",
+  "zh-Hant": "哥哥現在 = 4×5 = 20（歲）"
+ },
+ "いま、兄と弟の年れいの比は7:3です。3年後には、兄と弟の年れいの比は2:1になります。いま、兄は何才ですか。": {
+  "en": "Right now, the ratio of the older brother's age to the younger brother's age is 7:3. In 3 years, the ratio of their ages will be 2:1. How old is the older brother now?",
+  "zh-Hans": "现在哥哥和弟弟的年龄比是7:3。3年后，哥哥和弟弟的年龄比是2:1。哥哥现在几岁？",
+  "zh-Hant": "現在哥哥和弟弟的年齡比是7:3。3年後，哥哥和弟弟的年齡比是2:1。哥哥現在幾歲？"
+ },
+ "年れいの差は変わらない。差は、いまの比で 7−3 = 4、3年後の比で 2−1 = 1": {
+  "en": "The age difference doesn't change. The difference is 7−3 = 4 in the ratio now, and 2−1 = 1 in the ratio 3 years later",
+  "zh-Hans": "年龄差不变。差在现在的比中是 7−3 = 4，在3年后的比中是 2−1 = 1",
+  "zh-Hant": "年齡差不變。差在現在的比中是 7−3 = 4，在3年後的比中是 2−1 = 1"
+ },
+ "差が同じ数になるように比をそろえる。いま 7:3、3年後 2:1 → 8:4": {
+  "en": "Adjust the ratios so the difference is the same number. Now 7:3, 3 years later 2:1 → 8:4",
+  "zh-Hans": "把比调整成差是同一个数。现在 7:3，3年后 2:1 → 8:4",
+  "zh-Hant": "把比調整成差是同一個數。現在 7:3，3年後 2:1 → 8:4"
+ },
+ "兄は 7 から 8 へ、8−7 = 1 つ分ふえた。それが3年なので、1つ分は 3÷1 = 3": {
+  "en": "The older brother went from 7 to 8, an increase of 8−7 = 1 unit. That is 3 years, so 1 unit is 3÷1 = 3",
+  "zh-Hans": "哥哥从 7 变成 8，增加了 8−7 = 1 份。这相当于3年，所以1份是 3÷1 = 3",
+  "zh-Hant": "哥哥從 7 變成 8，增加了 8−7 = 1 份。這相當於3年，所以1份是 3÷1 = 3"
+ },
+ "いまの兄 = 3×7 = 21（才）": {
+  "en": "Older brother now = 3×7 = 21 (years old)",
+  "zh-Hans": "哥哥现在 = 3×7 = 21（岁）",
+  "zh-Hant": "哥哥現在 = 3×7 = 21（歲）"
+ },
+ "いま、兄と弟の年れいの比は5:3です。15年後には、兄と弟の年れいの比は4:3になります。いま、兄は何才ですか。": {
+  "en": "Right now, the ratio of the older brother's age to the younger brother's age is 5:3. In 15 years, the ratio of their ages will be 4:3. How old is the older brother now?",
+  "zh-Hans": "现在哥哥和弟弟的年龄比是5:3。15年后，哥哥和弟弟的年龄比是4:3。哥哥现在几岁？",
+  "zh-Hant": "現在哥哥和弟弟的年齡比是5:3。15年後，哥哥和弟弟的年齡比是4:3。哥哥現在幾歲？"
+ },
+ "年れいの差は変わらない。差は、いまの比で 5−3 = 2、15年後の比で 4−3 = 1": {
+  "en": "The age difference doesn't change. The difference is 5−3 = 2 in the ratio now, and 4−3 = 1 in the ratio 15 years later",
+  "zh-Hans": "年龄差不变。差在现在的比中是 5−3 = 2，在15年后的比中是 4−3 = 1",
+  "zh-Hant": "年齡差不變。差在現在的比中是 5−3 = 2，在15年後的比中是 4−3 = 1"
+ },
+ "差が同じ数になるように比をそろえる。いま 5:3、15年後 4:3 → 8:6": {
+  "en": "Adjust the ratios so the difference is the same number. Now 5:3, 15 years later 4:3 → 8:6",
+  "zh-Hans": "把比调整成差是同一个数。现在 5:3，15年后 4:3 → 8:6",
+  "zh-Hant": "把比調整成差是同一個數。現在 5:3，15年後 4:3 → 8:6"
+ },
+ "兄は 5 から 8 へ、8−5 = 3 つ分ふえた。それが15年なので、1つ分は 15÷3 = 5": {
+  "en": "The older brother went from 5 to 8, an increase of 8−5 = 3 units. That is 15 years, so 1 unit is 15÷3 = 5",
+  "zh-Hans": "哥哥从 5 变成 8，增加了 8−5 = 3 份。这相当于15年，所以1份是 15÷3 = 5",
+  "zh-Hant": "哥哥從 5 變成 8，增加了 8−5 = 3 份。這相當於15年，所以1份是 15÷3 = 5"
+ },
+ "いまの兄 = 5×5 = 25（才）": {
+  "en": "Older brother now = 5×5 = 25 (years old)",
+  "zh-Hans": "哥哥现在 = 5×5 = 25（岁）",
+  "zh-Hant": "哥哥現在 = 5×5 = 25（歲）"
+ },
+ "いま、兄と弟の年れいの比は7:3です。15年後には、兄と弟の年れいの比は5:3になります。いま、兄は何才ですか。": {
+  "en": "Right now, the ratio of the older brother's age to the younger brother's age is 7:3. In 15 years, the ratio of their ages will be 5:3. How old is the older brother now?",
+  "zh-Hans": "现在哥哥和弟弟的年龄比是7:3。15年后，哥哥和弟弟的年龄比是5:3。哥哥现在几岁？",
+  "zh-Hant": "現在哥哥和弟弟的年齡比是7:3。15年後，哥哥和弟弟的年齡比是5:3。哥哥現在幾歲？"
+ },
+ "年れいの差は変わらない。差は、いまの比で 7−3 = 4、15年後の比で 5−3 = 2": {
+  "en": "The age difference doesn't change. The difference is 7−3 = 4 in the ratio now, and 5−3 = 2 in the ratio 15 years later",
+  "zh-Hans": "年龄差不变。差在现在的比中是 7−3 = 4，在15年后的比中是 5−3 = 2",
+  "zh-Hant": "年齡差不變。差在現在的比中是 7−3 = 4，在15年後的比中是 5−3 = 2"
+ },
+ "差が同じ数になるように比をそろえる。いま 7:3、15年後 5:3 → 10:6": {
+  "en": "Adjust the ratios so the difference is the same number. Now 7:3, 15 years later 5:3 → 10:6",
+  "zh-Hans": "把比调整成差是同一个数。现在 7:3，15年后 5:3 → 10:6",
+  "zh-Hant": "把比調整成差是同一個數。現在 7:3，15年後 5:3 → 10:6"
+ },
+ "兄は 7 から 10 へ、10−7 = 3 つ分ふえた。それが15年なので、1つ分は 15÷3 = 5": {
+  "en": "The older brother went from 7 to 10, an increase of 10−7 = 3 units. That is 15 years, so 1 unit is 15÷3 = 5",
+  "zh-Hans": "哥哥从 7 变成 10，增加了 10−7 = 3 份。这相当于15年，所以1份是 15÷3 = 5",
+  "zh-Hant": "哥哥從 7 變成 10，增加了 10−7 = 3 份。這相當於15年，所以1份是 15÷3 = 5"
+ },
+ "いまの兄 = 5×7 = 35（才）": {
+  "en": "Older brother now = 5×7 = 35 (years old)",
+  "zh-Hans": "哥哥现在 = 5×7 = 35（岁）",
+  "zh-Hant": "哥哥現在 = 5×7 = 35（歲）"
+ },
+ "2人が同じ金額をもらうと、2人のお金の差は変わらない。年れいの問題と同じ形。": {
+  "en": "When both get the same amount, the difference between their money doesn't change. Same shape as the age problems.",
+  "zh-Hans": "两人得到同样多的钱，两人钱数的差就不变。和年龄问题是同一种类型。",
+  "zh-Hant": "兩人得到同樣多的錢，兩人錢數的差就不變。和年齡問題是同一種類型。"
+ },
+ "姉は1500円、弟は300円持っています。2人が同じ金額ずつおこづかいをもらったところ、姉の金額は弟の金額の3倍になりました。1人何円もらいましたか。": {
+  "en": "The older sister has 1500 yen and her younger brother has 300 yen. They each got the same amount of pocket money, and then the sister had 3 times as much as her brother. How many yen did each of them get?",
+  "zh-Hans": "姐姐有1500日元，弟弟有300日元。两人各得到同样多的零花钱后，姐姐的钱是弟弟的3倍。每人得到多少日元？",
+  "zh-Hant": "姊姊有1500日圓，弟弟有300日圓。兩人各得到同樣多的零用錢後，姊姊的錢是弟弟的3倍。每人得到多少日圓？"
+ },
+ "300円": {
+  "en": "300 yen",
+  "zh-Hans": "300日元",
+  "zh-Hant": "300日圓"
+ },
+ "100円もらったら、200円もらったら…と、2人の金額を表にする": {
+  "en": "Make a table of both amounts: if they get 100 yen, if they get 200 yen, and so on",
+  "zh-Hans": "得到100日元的话、得到200日元的话……把两人的钱数列成表",
+  "zh-Hant": "得到100日圓的話、得到200日圓的話……把兩人的錢數列成表"
+ },
+ "毎回「3倍か」をわり算で確かめる": {
+  "en": "Each time, check with division: \"Is it 3 times?\"",
+  "zh-Hans": "每次都用除法检查“是不是3倍”",
+  "zh-Hant": "每次都用除法檢查「是不是3倍」"
+ },
+ "2人が同じ金額をもらっても、お金の差 1500−300 = 1200 は変わらない": {
+  "en": "Even if both get the same amount, the difference in money, 1500−300 = 1200, doesn't change",
+  "zh-Hans": "即使两人得到同样多的钱，钱数的差 1500−300 = 1200 也不变",
+  "zh-Hant": "即使兩人得到同樣多的錢，錢數的差 1500−300 = 1200 也不變"
+ },
+ "そのときの弟は 1200÷2 = 600 円": {
+  "en": "At that time, the younger brother has 1200÷2 = 600 yen",
+  "zh-Hans": "那时弟弟有 1200÷2 = 600 日元",
+  "zh-Hant": "那時弟弟有 1200÷2 = 600 日圓"
+ },
+ "600−300 = 300（円）": {
+  "en": "600−300 = 300 (yen)",
+  "zh-Hans": "600−300 = 300（日元）",
+  "zh-Hant": "600−300 = 300（日圓）"
+ },
+ "2人が同じだけふえるときは、変わらない「差」に目をつける。": {
+  "en": "When two amounts grow by the same amount, focus on the \"difference\" that never changes.",
+  "zh-Hans": "两人增加得一样多时，就盯住不变的“差”。",
+  "zh-Hant": "兩人增加得一樣多時，就盯住不變的「差」。"
+ },
+ "そのとおり。同じ金額をもらうので、差の1200円はずっと同じ。": {
+  "en": "That's right. They get the same amount, so the 1200-yen difference always stays the same.",
+  "zh-Hans": "没错。得到的钱一样多，所以1200日元的差一直不变。",
+  "zh-Hant": "沒錯。得到的錢一樣多，所以1200日圓的差一直不變。"
+ },
+ "姉は700円、弟は100円持っています。2人が同じ金額ずつおこづかいをもらったところ、姉の金額は弟の金額の2倍になりました。1人何円もらいましたか。": {
+  "en": "The older sister has 700 yen and her younger brother has 100 yen. They each got the same amount of pocket money, and then the sister had 2 times as much as her brother. How many yen did each of them get?",
+  "zh-Hans": "姐姐有700日元，弟弟有100日元。两人各得到同样多的零花钱后，姐姐的钱是弟弟的2倍。每人得到多少日元？",
+  "zh-Hant": "姊姊有700日圓，弟弟有100日圓。兩人各得到同樣多的零用錢後，姊姊的錢是弟弟的2倍。每人得到多少日圓？"
+ },
+ "2人が同じ金額をもらっても、お金の差 700−100 = 600 は変わらない": {
+  "en": "Even if both get the same amount, the difference in money, 700−100 = 600, doesn't change",
+  "zh-Hans": "即使两人得到同样多的钱，钱数的差 700−100 = 600 也不变",
+  "zh-Hant": "即使兩人得到同樣多的錢，錢數的差 700−100 = 600 也不變"
+ },
+ "そのときの弟は 600÷1 = 600 円": {
+  "en": "At that time, the younger brother has 600÷1 = 600 yen",
+  "zh-Hans": "那时弟弟有 600÷1 = 600 日元",
+  "zh-Hant": "那時弟弟有 600÷1 = 600 日圓"
+ },
+ "600−100 = 500（円）": {
+  "en": "600−100 = 500 (yen)",
+  "zh-Hans": "600−100 = 500（日元）",
+  "zh-Hant": "600−100 = 500（日圓）"
+ },
+ "姉は1600円、弟は400円持っています。2人が同じ金額ずつおこづかいをもらったところ、姉の金額は弟の金額の3倍になりました。1人何円もらいましたか。": {
+  "en": "The older sister has 1600 yen and her younger brother has 400 yen. They each got the same amount of pocket money, and then the sister had 3 times as much as her brother. How many yen did each of them get?",
+  "zh-Hans": "姐姐有1600日元，弟弟有400日元。两人各得到同样多的零花钱后，姐姐的钱是弟弟的3倍。每人得到多少日元？",
+  "zh-Hant": "姊姊有1600日圓，弟弟有400日圓。兩人各得到同樣多的零用錢後，姊姊的錢是弟弟的3倍。每人得到多少日圓？"
+ },
+ "2人が同じ金額をもらっても、お金の差 1600−400 = 1200 は変わらない": {
+  "en": "Even if both get the same amount, the difference in money, 1600−400 = 1200, doesn't change",
+  "zh-Hans": "即使两人得到同样多的钱，钱数的差 1600−400 = 1200 也不变",
+  "zh-Hant": "即使兩人得到同樣多的錢，錢數的差 1600−400 = 1200 也不變"
+ },
+ "600−400 = 200（円）": {
+  "en": "600−400 = 200 (yen)",
+  "zh-Hans": "600−400 = 200（日元）",
+  "zh-Hant": "600−400 = 200（日圓）"
+ },
+ "姉は3300円、弟は300円持っています。2人が同じ金額ずつおこづかいをもらったところ、姉の金額は弟の金額の4倍になりました。1人何円もらいましたか。": {
+  "en": "The older sister has 3300 yen and her younger brother has 300 yen. They each got the same amount of pocket money, and then the sister had 4 times as much as her brother. How many yen did each of them get?",
+  "zh-Hans": "姐姐有3300日元，弟弟有300日元。两人各得到同样多的零花钱后，姐姐的钱是弟弟的4倍。每人得到多少日元？",
+  "zh-Hant": "姊姊有3300日圓，弟弟有300日圓。兩人各得到同樣多的零用錢後，姊姊的錢是弟弟的4倍。每人得到多少日圓？"
+ },
+ "2人が同じ金額をもらっても、お金の差 3300−300 = 3000 は変わらない": {
+  "en": "Even if both get the same amount, the difference in money, 3300−300 = 3000, doesn't change",
+  "zh-Hans": "即使两人得到同样多的钱，钱数的差 3300−300 = 3000 也不变",
+  "zh-Hant": "即使兩人得到同樣多的錢，錢數的差 3300−300 = 3000 也不變"
+ },
+ "姉が弟の4倍のとき、差の3000は弟の 4−1 = 3 つ分": {
+  "en": "When the older sister has 4 times as much as the younger brother, the difference of 3000 equals 4−1 = 3 times his amount",
+  "zh-Hans": "姐姐的钱是弟弟的4倍时，差3000相当于弟弟的钱的 4−1 = 3 倍",
+  "zh-Hant": "姊姊的錢是弟弟的4倍時，差3000相當於弟弟的錢的 4−1 = 3 倍"
+ },
+ "そのときの弟は 3000÷3 = 1000 円": {
+  "en": "At that time, the younger brother has 3000÷3 = 1000 yen",
+  "zh-Hans": "那时弟弟有 3000÷3 = 1000 日元",
+  "zh-Hant": "那時弟弟有 3000÷3 = 1000 日圓"
+ },
+ "姉は500円、弟は200円持っています。2人が同じ金額ずつおこづかいをもらったところ、姉の金額は弟の金額の2倍になりました。1人何円もらいましたか。": {
+  "en": "The older sister has 500 yen and her younger brother has 200 yen. They each got the same amount of pocket money, and then the sister had 2 times as much as her brother. How many yen did each of them get?",
+  "zh-Hans": "姐姐有500日元，弟弟有200日元。两人各得到同样多的零花钱后，姐姐的钱是弟弟的2倍。每人得到多少日元？",
+  "zh-Hant": "姊姊有500日圓，弟弟有200日圓。兩人各得到同樣多的零用錢後，姊姊的錢是弟弟的2倍。每人得到多少日圓？"
+ },
+ "2人が同じ金額をもらっても、お金の差 500−200 = 300 は変わらない": {
+  "en": "Even if both get the same amount, the difference in money, 500−200 = 300, doesn't change",
+  "zh-Hans": "即使两人得到同样多的钱，钱数的差 500−200 = 300 也不变",
+  "zh-Hant": "即使兩人得到同樣多的錢，錢數的差 500−200 = 300 也不變"
+ },
+ "そのときの弟は 300÷1 = 300 円": {
+  "en": "At that time, the younger brother has 300÷1 = 300 yen",
+  "zh-Hans": "那时弟弟有 300÷1 = 300 日元",
+  "zh-Hant": "那時弟弟有 300÷1 = 300 日圓"
+ },
+ "300−200 = 100（円）": {
+  "en": "300−200 = 100 (yen)",
+  "zh-Hans": "300−200 = 100（日元）",
+  "zh-Hant": "300−200 = 100（日圓）"
+ },
+ "あげたりもらったりしても、2人の合計は変わらない。変わらない合計を、新しい比に分ければよい。": {
+  "en": "Giving and receiving doesn't change the total of the two. Just split that unchanging total by the new ratio.",
+  "zh-Hans": "不管怎么给来给去，两人的总数都不变。把不变的总数按新的比来分就行。",
+  "zh-Hant": "不管怎麼給來給去，兩人的總數都不變。把不變的總數按新的比來分就好。"
+ },
+ "兄はおはじきを50個、弟は22個持っています。兄が弟に何個かあげると、兄と弟の個数の比が5:3になりました。兄は弟に何個あげましたか。": {
+  "en": "The older brother has 50 marbles and the younger brother has 22. After the older brother gives the younger brother some marbles, the ratio of their marbles becomes 5:3. How many marbles did the older brother give?",
+  "zh-Hans": "哥哥有50颗弹珠，弟弟有22颗。哥哥给了弟弟几颗后，哥哥和弟弟的颗数之比变成了5:3。哥哥给了弟弟几颗？",
+  "zh-Hant": "哥哥有50顆彈珠，弟弟有22顆。哥哥給了弟弟幾顆後，哥哥和弟弟的顆數之比變成了5:3。哥哥給了弟弟幾顆？"
+ },
+ "5個": {
+  "en": "5 marbles",
+  "zh-Hans": "5颗",
+  "zh-Hant": "5顆"
+ },
+ "1個あげたら、2個あげたら…と、2人の個数を表にする": {
+  "en": "Make a table of both counts: if he gives 1, if he gives 2, and so on",
+  "zh-Hans": "给1颗的话、给2颗的话……把两人的颗数列成表",
+  "zh-Hant": "給1顆的話、給2顆的話……把兩人的顆數列成表"
+ },
+ "毎回、あとの比になったか確かめる": {
+  "en": "Each time, check whether it matches the final ratio",
+  "zh-Hans": "每次都检查是不是变成了后来的比",
+  "zh-Hant": "每次都檢查是不是變成了後來的比"
+ },
+ "あげたりもらったりしても、2人の合計 50+22 = 72 は変わらない": {
+  "en": "Giving and receiving doesn't change the total of the two, 50+22 = 72",
+  "zh-Hans": "不管怎么给来给去，两人的总数 50+22 = 72 都不变",
+  "zh-Hant": "不管怎麼給來給去，兩人的總數 50+22 = 72 都不變"
+ },
+ "合計を 5:3 に分けると、兄は 72×5/8 = 45 個": {
+  "en": "Split the total in the ratio 5:3: the older brother has 72×5/8 = 45 marbles",
+  "zh-Hans": "把总数按 5:3 分，哥哥有 72×5/8 = 45 颗",
+  "zh-Hant": "把總數按 5:3 分，哥哥有 72×5/8 = 45 顆"
+ },
+ "50−45 = 5（個）": {
+  "en": "50−45 = 5 (marbles)",
+  "zh-Hans": "50−45 = 5（颗）",
+  "zh-Hant": "50−45 = 5（顆）"
+ },
+ "やりとりしても合計が変わらないときは、変わらない「合計」を比で分ける。": {
+  "en": "When the total stays the same through giving and taking, split the unchanging \"total\" by the ratio.",
+  "zh-Hans": "给来给去总数都不变时，就把不变的“总数”按比来分。",
+  "zh-Hant": "給來給去總數都不變時，就把不變的「總數」按比來分。"
+ },
+ "そのとおり。やりとりしても合計は変わらない。合計を、あとの比に分ける。": {
+  "en": "That's right. Giving and taking doesn't change the total. Split the total by the final ratio.",
+  "zh-Hans": "没错。给来给去总数都不变。把总数按后来的比来分。",
+  "zh-Hant": "沒錯。給來給去總數都不變。把總數按後來的比來分。"
+ },
+ "1個ずつためすと、比の計算が何回も必要になる。": {
+  "en": "Trying 1 marble at a time means many ratio calculations.",
+  "zh-Hans": "1颗1颗地试，就得算很多次比。",
+  "zh-Hant": "1顆1顆地試，就得算很多次比。"
+ },
+ "兄はおはじきを32個、弟は3個持っています。兄が弟に何個かあげると、兄と弟の個数の比が3:2になりました。兄は弟に何個あげましたか。": {
+  "en": "The older brother has 32 marbles and the younger brother has 3. After the older brother gives the younger brother some marbles, the ratio of their marbles becomes 3:2. How many marbles did the older brother give?",
+  "zh-Hans": "哥哥有32颗弹珠，弟弟有3颗。哥哥给了弟弟几颗后，哥哥和弟弟的颗数之比变成了3:2。哥哥给了弟弟几颗？",
+  "zh-Hant": "哥哥有32顆彈珠，弟弟有3顆。哥哥給了弟弟幾顆後，哥哥和弟弟的顆數之比變成了3:2。哥哥給了弟弟幾顆？"
+ },
+ "あげたりもらったりしても、2人の合計 32+3 = 35 は変わらない": {
+  "en": "Giving and receiving doesn't change the total of the two, 32+3 = 35",
+  "zh-Hans": "不管怎么给来给去，两人的总数 32+3 = 35 都不变",
+  "zh-Hant": "不管怎麼給來給去，兩人的總數 32+3 = 35 都不變"
+ },
+ "合計を 3:2 に分けると、兄は 35×3/5 = 21 個": {
+  "en": "Split the total in the ratio 3:2: the older brother has 35×3/5 = 21 marbles",
+  "zh-Hans": "把总数按 3:2 分，哥哥有 35×3/5 = 21 颗",
+  "zh-Hant": "把總數按 3:2 分，哥哥有 35×3/5 = 21 顆"
+ },
+ "32−21 = 11（個）": {
+  "en": "32−21 = 11 (marbles)",
+  "zh-Hans": "32−21 = 11（颗）",
+  "zh-Hant": "32−21 = 11（顆）"
+ },
+ "兄はおはじきを30個、弟は18個持っています。兄が弟に何個かあげると、兄と弟の個数の比が7:5になりました。兄は弟に何個あげましたか。": {
+  "en": "The older brother has 30 marbles and the younger brother has 18. After the older brother gives the younger brother some marbles, the ratio of their marbles becomes 7:5. How many marbles did the older brother give?",
+  "zh-Hans": "哥哥有30颗弹珠，弟弟有18颗。哥哥给了弟弟几颗后，哥哥和弟弟的颗数之比变成了7:5。哥哥给了弟弟几颗？",
+  "zh-Hant": "哥哥有30顆彈珠，弟弟有18顆。哥哥給了弟弟幾顆後，哥哥和弟弟的顆數之比變成了7:5。哥哥給了弟弟幾顆？"
+ },
+ "あげたりもらったりしても、2人の合計 30+18 = 48 は変わらない": {
+  "en": "Giving and receiving doesn't change the total of the two, 30+18 = 48",
+  "zh-Hans": "不管怎么给来给去，两人的总数 30+18 = 48 都不变",
+  "zh-Hant": "不管怎麼給來給去，兩人的總數 30+18 = 48 都不變"
+ },
+ "合計を 7:5 に分けると、兄は 48×7/12 = 28 個": {
+  "en": "Split the total in the ratio 7:5: the older brother has 48×7/12 = 28 marbles",
+  "zh-Hans": "把总数按 7:5 分，哥哥有 48×7/12 = 28 颗",
+  "zh-Hant": "把總數按 7:5 分，哥哥有 48×7/12 = 28 顆"
+ },
+ "30−28 = 2（個）": {
+  "en": "30−28 = 2 (marbles)",
+  "zh-Hans": "30−28 = 2（颗）",
+  "zh-Hant": "30−28 = 2（顆）"
+ },
+ "兄はおはじきを36個、弟は20個持っています。兄が弟に何個かあげると、兄と弟の個数の比が4:3になりました。兄は弟に何個あげましたか。": {
+  "en": "The older brother has 36 marbles and the younger brother has 20. After the older brother gives the younger brother some marbles, the ratio of their marbles becomes 4:3. How many marbles did the older brother give?",
+  "zh-Hans": "哥哥有36颗弹珠，弟弟有20颗。哥哥给了弟弟几颗后，哥哥和弟弟的颗数之比变成了4:3。哥哥给了弟弟几颗？",
+  "zh-Hant": "哥哥有36顆彈珠，弟弟有20顆。哥哥給了弟弟幾顆後，哥哥和弟弟的顆數之比變成了4:3。哥哥給了弟弟幾顆？"
+ },
+ "あげたりもらったりしても、2人の合計 36+20 = 56 は変わらない": {
+  "en": "Giving and receiving doesn't change the total of the two, 36+20 = 56",
+  "zh-Hans": "不管怎么给来给去，两人的总数 36+20 = 56 都不变",
+  "zh-Hant": "不管怎麼給來給去，兩人的總數 36+20 = 56 都不變"
+ },
+ "合計を 4:3 に分けると、兄は 56×4/7 = 32 個": {
+  "en": "Split the total in the ratio 4:3: the older brother has 56×4/7 = 32 marbles",
+  "zh-Hans": "把总数按 4:3 分，哥哥有 56×4/7 = 32 颗",
+  "zh-Hant": "把總數按 4:3 分，哥哥有 56×4/7 = 32 顆"
+ },
+ "36−32 = 4（個）": {
+  "en": "36−32 = 4 (marbles)",
+  "zh-Hans": "36−32 = 4（颗）",
+  "zh-Hant": "36−32 = 4（顆）"
+ },
+ "兄はおはじきを24個、弟は4個持っています。兄が弟に何個かあげると、兄と弟の個数の比が4:3になりました。兄は弟に何個あげましたか。": {
+  "en": "The older brother has 24 marbles and the younger brother has 4. After the older brother gives the younger brother some marbles, the ratio of their marbles becomes 4:3. How many marbles did the older brother give?",
+  "zh-Hans": "哥哥有24颗弹珠，弟弟有4颗。哥哥给了弟弟几颗后，哥哥和弟弟的颗数之比变成了4:3。哥哥给了弟弟几颗？",
+  "zh-Hant": "哥哥有24顆彈珠，弟弟有4顆。哥哥給了弟弟幾顆後，哥哥和弟弟的顆數之比變成了4:3。哥哥給了弟弟幾顆？"
+ },
+ "あげたりもらったりしても、2人の合計 24+4 = 28 は変わらない": {
+  "en": "Giving and receiving doesn't change the total of the two, 24+4 = 28",
+  "zh-Hans": "不管怎么给来给去，两人的总数 24+4 = 28 都不变",
+  "zh-Hant": "不管怎麼給來給去，兩人的總數 24+4 = 28 都不變"
+ },
+ "合計を 4:3 に分けると、兄は 28×4/7 = 16 個": {
+  "en": "Split the total in the ratio 4:3: the older brother has 28×4/7 = 16 marbles",
+  "zh-Hans": "把总数按 4:3 分，哥哥有 28×4/7 = 16 颗",
+  "zh-Hant": "把總數按 4:3 分，哥哥有 28×4/7 = 16 顆"
+ },
+ "24−16 = 8（個）": {
+  "en": "24−16 = 8 (marbles)",
+  "zh-Hans": "24−16 = 8（颗）",
+  "zh-Hant": "24−16 = 8（顆）"
+ },
+ "あげても合計は変わらない。同じになるとき、1人分は合計の半分。": {
+  "en": "Giving doesn't change the total. When they're equal, each person has half the total.",
+  "zh-Hans": "给了总数也不变。一样多时，每人是总数的一半。",
+  "zh-Hant": "給了總數也不變。一樣多時，每人是總數的一半。"
+ },
+ "姉はシールを46枚、妹は30枚持っています。姉が妹に何枚かあげると、2人の枚数が同じになりました。姉は妹に何枚あげましたか。": {
+  "en": "The older sister has 46 stickers and her younger sister has 30. After the older sister gives her some stickers, they have the same number. How many stickers did the older sister give?",
+  "zh-Hans": "姐姐有46张贴纸，妹妹有30张。姐姐给了妹妹几张后，两人的张数一样了。姐姐给了妹妹几张？",
+  "zh-Hant": "姊姊有46張貼紙，妹妹有30張。姊姊給了妹妹幾張後，兩人的張數一樣了。姊姊給了妹妹幾張？"
+ },
+ "妹": {
+  "en": "Younger sister",
+  "zh-Hans": "妹妹",
+  "zh-Hant": "妹妹"
+ },
+ "8枚": {
+  "en": "8 stickers",
+  "zh-Hans": "8张",
+  "zh-Hant": "8張"
+ },
+ "差の16枚をあげればいい、と考えてしまう": {
+  "en": "You think, \"Just give away the 16-sticker difference\"",
+  "zh-Hans": "以为把差的16张给出去就行",
+  "zh-Hant": "以為把差的16張給出去就好"
+ },
+ "16枚あげると、こんどは妹のほうが多くなる": {
+  "en": "Give 16, and now the younger sister has more",
+  "zh-Hans": "给了16张，这次变成妹妹比较多",
+  "zh-Hant": "給了16張，這次變成妹妹比較多"
+ },
+ "ためし直して約1分半": {
+  "en": "Trying again takes about 1 and a half minutes",
+  "zh-Hans": "重新试一次，大约花1分半钟",
+  "zh-Hant": "重新試一次，大約花1分半鐘"
+ },
+ "あげても2人の合計 46+30 = 76 は変わらない": {
+  "en": "Giving doesn't change the total of the two, 46+30 = 76",
+  "zh-Hans": "即使给了，两人的总数 46+30 = 76 也不变",
+  "zh-Hant": "即使給了，兩人的總數 46+30 = 76 也不變"
+ },
+ "同じになるとき、1人分は 76÷2 = 38 枚": {
+  "en": "When they're equal, each has 76÷2 = 38 stickers",
+  "zh-Hans": "一样多时，每人 76÷2 = 38 张",
+  "zh-Hant": "一樣多時，每人 76÷2 = 38 張"
+ },
+ "46−38 = 8（枚）": {
+  "en": "46−38 = 8 (stickers)",
+  "zh-Hans": "46−38 = 8（张）",
+  "zh-Hant": "46−38 = 8（張）"
+ },
+ "やりとりしても合計が変わらないときは、合計を等分して考える。": {
+  "en": "When the total stays the same through giving and taking, think by splitting the total equally.",
+  "zh-Hans": "给来给去总数都不变时，就把总数平分来思考。",
+  "zh-Hant": "給來給去總數都不變時，就把總數平分來思考。"
+ },
+ "そのとおり。合計76枚は変わらない。同じになるのは1人38枚。": {
+  "en": "That's right. The total of 76 stickers doesn't change. Equal means 38 stickers each.",
+  "zh-Hans": "没错。总数76张不变。一样多时每人38张。",
+  "zh-Hant": "沒錯。總數76張不變。一樣多時每人38張。"
+ },
+ "差の16枚をそのままあげると、こんどは妹が多くなってしまう。": {
+  "en": "If you give away the whole 16-sticker difference, the younger sister ends up with more.",
+  "zh-Hans": "如果直接把差的16张给出去，这次就变成妹妹比较多了。",
+  "zh-Hant": "如果直接把差的16張給出去，這次就變成妹妹比較多了。"
+ },
+ "姉はシールを49枚、妹は19枚持っています。姉が妹に何枚かあげると、2人の枚数が同じになりました。姉は妹に何枚あげましたか。": {
+  "en": "The older sister has 49 stickers and her younger sister has 19. After the older sister gives her some stickers, they have the same number. How many stickers did the older sister give?",
+  "zh-Hans": "姐姐有49张贴纸，妹妹有19张。姐姐给了妹妹几张后，两人的张数一样了。姐姐给了妹妹几张？",
+  "zh-Hant": "姊姊有49張貼紙，妹妹有19張。姊姊給了妹妹幾張後，兩人的張數一樣了。姊姊給了妹妹幾張？"
+ },
+ "あげても2人の合計 49+19 = 68 は変わらない": {
+  "en": "Giving doesn't change the total of the two, 49+19 = 68",
+  "zh-Hans": "即使给了，两人的总数 49+19 = 68 也不变",
+  "zh-Hant": "即使給了，兩人的總數 49+19 = 68 也不變"
+ },
+ "同じになるとき、1人分は 68÷2 = 34 枚": {
+  "en": "When they're equal, each has 68÷2 = 34 stickers",
+  "zh-Hans": "一样多时，每人 68÷2 = 34 张",
+  "zh-Hant": "一樣多時，每人 68÷2 = 34 張"
+ },
+ "49−34 = 15（枚）": {
+  "en": "49−34 = 15 (stickers)",
+  "zh-Hans": "49−34 = 15（张）",
+  "zh-Hant": "49−34 = 15（張）"
+ },
+ "姉はシールを35枚、妹は17枚持っています。姉が妹に何枚かあげると、2人の枚数が同じになりました。姉は妹に何枚あげましたか。": {
+  "en": "The older sister has 35 stickers and her younger sister has 17. After the older sister gives her some stickers, they have the same number. How many stickers did the older sister give?",
+  "zh-Hans": "姐姐有35张贴纸，妹妹有17张。姐姐给了妹妹几张后，两人的张数一样了。姐姐给了妹妹几张？",
+  "zh-Hant": "姊姊有35張貼紙，妹妹有17張。姊姊給了妹妹幾張後，兩人的張數一樣了。姊姊給了妹妹幾張？"
+ },
+ "あげても2人の合計 35+17 = 52 は変わらない": {
+  "en": "Giving doesn't change the total of the two, 35+17 = 52",
+  "zh-Hans": "即使给了，两人的总数 35+17 = 52 也不变",
+  "zh-Hant": "即使給了，兩人的總數 35+17 = 52 也不變"
+ },
+ "同じになるとき、1人分は 52÷2 = 26 枚": {
+  "en": "When they're equal, each has 52÷2 = 26 stickers",
+  "zh-Hans": "一样多时，每人 52÷2 = 26 张",
+  "zh-Hant": "一樣多時，每人 52÷2 = 26 張"
+ },
+ "35−26 = 9（枚）": {
+  "en": "35−26 = 9 (stickers)",
+  "zh-Hans": "35−26 = 9（张）",
+  "zh-Hant": "35−26 = 9（張）"
+ },
+ "姉はシールを45枚、妹は39枚持っています。姉が妹に何枚かあげると、2人の枚数が同じになりました。姉は妹に何枚あげましたか。": {
+  "en": "The older sister has 45 stickers and her younger sister has 39. After the older sister gives her some stickers, they have the same number. How many stickers did the older sister give?",
+  "zh-Hans": "姐姐有45张贴纸，妹妹有39张。姐姐给了妹妹几张后，两人的张数一样了。姐姐给了妹妹几张？",
+  "zh-Hant": "姊姊有45張貼紙，妹妹有39張。姊姊給了妹妹幾張後，兩人的張數一樣了。姊姊給了妹妹幾張？"
+ },
+ "あげても2人の合計 45+39 = 84 は変わらない": {
+  "en": "Giving doesn't change the total of the two, 45+39 = 84",
+  "zh-Hans": "即使给了，两人的总数 45+39 = 84 也不变",
+  "zh-Hant": "即使給了，兩人的總數 45+39 = 84 也不變"
+ },
+ "同じになるとき、1人分は 84÷2 = 42 枚": {
+  "en": "When they're equal, each has 84÷2 = 42 stickers",
+  "zh-Hans": "一样多时，每人 84÷2 = 42 张",
+  "zh-Hant": "一樣多時，每人 84÷2 = 42 張"
+ },
+ "45−42 = 3（枚）": {
+  "en": "45−42 = 3 (stickers)",
+  "zh-Hans": "45−42 = 3（张）",
+  "zh-Hant": "45−42 = 3（張）"
+ },
+ "姉はシールを55枚、妹は33枚持っています。姉が妹に何枚かあげると、2人の枚数が同じになりました。姉は妹に何枚あげましたか。": {
+  "en": "The older sister has 55 stickers and her younger sister has 33. After the older sister gives her some stickers, they have the same number. How many stickers did the older sister give?",
+  "zh-Hans": "姐姐有55张贴纸，妹妹有33张。姐姐给了妹妹几张后，两人的张数一样了。姐姐给了妹妹几张？",
+  "zh-Hant": "姊姊有55張貼紙，妹妹有33張。姊姊給了妹妹幾張後，兩人的張數一樣了。姊姊給了妹妹幾張？"
+ },
+ "あげても2人の合計 55+33 = 88 は変わらない": {
+  "en": "Giving doesn't change the total of the two, 55+33 = 88",
+  "zh-Hans": "即使给了，两人的总数 55+33 = 88 也不变",
+  "zh-Hant": "即使給了，兩人的總數 55+33 = 88 也不變"
+ },
+ "同じになるとき、1人分は 88÷2 = 44 枚": {
+  "en": "When they're equal, each has 88÷2 = 44 stickers",
+  "zh-Hans": "一样多时，每人 88÷2 = 44 张",
+  "zh-Hant": "一樣多時，每人 88÷2 = 44 張"
+ },
+ "55−44 = 11（枚）": {
+  "en": "55−44 = 11 (stickers)",
+  "zh-Hans": "55−44 = 11（张）",
+  "zh-Hant": "55−44 = 11（張）"
+ },
+ "3人の和は1年に3才、1人は1才ふえるので、差は変わらないのではなく、1年に2ずつちぢむ。ちぢむ速さで割ればよい。": {
+  "en": "The sum for 3 kids goes up by 3 in 1 year, but 1 person goes up by just 1, so the difference doesn't stay the same: it shrinks by 2 in 1 year. Just divide by that shrinking speed.",
+  "zh-Hans": "3人的和1年增加3岁，1个人只增加1岁，所以差并不是不变，而是1年缩小2。用缩小的速度去除就行。",
+  "zh-Hant": "3人的和1年增加3歲，1個人只增加1歲，所以差並不是不變，而是1年縮小2。用縮小的速度去除就好。"
+ },
+ "いま、お父さんは45才で、3人の子どもは9才、7才、5才です。お父さんの年れいが、子ども3人の年れいの和と等しくなるのは何年後ですか。": {
+  "en": "Right now, Dad is 45 years old, and his 3 children are 9, 7, and 5. In how many years will Dad's age equal the sum of the 3 children's ages?",
+  "zh-Hans": "现在爸爸45岁，3个孩子分别是9岁、7岁、5岁。几年后爸爸的年龄会等于3个孩子的年龄和？",
+  "zh-Hant": "現在爸爸45歲，3個孩子分別是9歲、7歲、5歲。幾年後爸爸的年齡會等於3個孩子的年齡和？"
+ },
+ "12年後": {
+  "en": "12 years later",
+  "zh-Hans": "12年后",
+  "zh-Hant": "12年後"
+ },
+ "年れいの問題なので、くせで「差は変わらない」と考える": {
+  "en": "It's an age problem, so out of habit you think \"the difference doesn't change\"",
+  "zh-Hans": "因为是年龄问题，习惯性地以为“差不变”",
+  "zh-Hant": "因為是年齡問題，習慣性地以為「差不變」"
+ },
+ "差24がずっと同じなら、和と等しくなる日は来ない…と手が止まる": {
+  "en": "If the difference of 24 stays the same, they'll never be equal... and you get stuck",
+  "zh-Hans": "如果差24一直不变，就永远不会相等……于是卡住了",
+  "zh-Hant": "如果差24一直不變，就永遠不會相等……於是卡住了"
+ },
+ "子ども3人の年れいの和は 9+7+5 = 21": {
+  "en": "The sum of the 3 children's ages is 9+7+5 = 21",
+  "zh-Hans": "3个孩子的年龄和是 9+7+5 = 21",
+  "zh-Hant": "3個孩子的年齡和是 9+7+5 = 21"
+ },
+ "お父さんとの差は 45−21 = 24": {
+  "en": "The difference from Dad's age is 45−21 = 24",
+  "zh-Hans": "和爸爸的差是 45−21 = 24",
+  "zh-Hant": "和爸爸的差是 45−21 = 24"
+ },
+ "1年で、子ども3人の和は3才、お父さんは1才ふえる。差は1年に 3−1 = 2 ずつちぢむ": {
+  "en": "In 1 year, the 3 children's sum grows by 3 and Dad grows by 1. The difference shrinks by 3−1 = 2 in 1 year",
+  "zh-Hans": "1年里，3个孩子的和增加3岁，爸爸增加1岁。差1年缩小 3−1 = 2",
+  "zh-Hant": "1年裡，3個孩子的和增加3歲，爸爸增加1歲。差1年縮小 3−1 = 2"
+ },
+ "24÷2 = 12（年後）": {
+  "en": "24÷2 = 12 (years later)",
+  "zh-Hans": "24÷2 = 12（年后）",
+  "zh-Hant": "24÷2 = 12（年後）"
+ },
+ "おしい。2人どうしなら差は変わらないが、ここは1人と3人の合計。差は1年に2ずつちぢむ。": {
+  "en": "Close. Between 2 people the difference stays the same, but here it's 1 person versus the total of 3. The difference shrinks by 2 in 1 year.",
+  "zh-Hans": "可惜。如果是2个人之间，差不变；但这里是1个人对3个人的总和。差1年缩小2。",
+  "zh-Hant": "可惜。如果是2個人之間，差不變；但這裡是1個人對3個人的總和。差1年縮小2。"
+ },
+ "そのとおり。お父さんを止めて考えると、子ども3人の和は1年に2ずつ近づいてくる。": {
+  "en": "That's right. Freeze Dad and think: the 3 children's sum closes in by 2 in 1 year.",
+  "zh-Hans": "没错。把爸爸定住来想，3个孩子的和1年靠近2。",
+  "zh-Hant": "沒錯。把爸爸定住來想，3個孩子的和1年靠近2。"
+ },
+ "1年ずつ表にすると、12行も書くことになる。": {
+  "en": "Making a table 1 year at a time means writing 12 rows.",
+  "zh-Hans": "每次加1年来列表，要写12行。",
+  "zh-Hant": "每次加1年來列表，要寫12行。"
+ },
+ "いま、お父さんは36才で、3人の子どもは9才、8才、5才です。お父さんの年れいが、子ども3人の年れいの和と等しくなるのは何年後ですか。": {
+  "en": "Right now, Dad is 36 years old, and his 3 children are 9, 8, and 5. In how many years will Dad's age equal the sum of the 3 children's ages?",
+  "zh-Hans": "现在爸爸36岁，3个孩子分别是9岁、8岁、5岁。几年后爸爸的年龄会等于3个孩子的年龄和？",
+  "zh-Hant": "現在爸爸36歲，3個孩子分別是9歲、8歲、5歲。幾年後爸爸的年齡會等於3個孩子的年齡和？"
+ },
+ "子ども3人の年れいの和は 9+8+5 = 22": {
+  "en": "The sum of the 3 children's ages is 9+8+5 = 22",
+  "zh-Hans": "3个孩子的年龄和是 9+8+5 = 22",
+  "zh-Hant": "3個孩子的年齡和是 9+8+5 = 22"
+ },
+ "お父さんとの差は 36−22 = 14": {
+  "en": "The difference from Dad's age is 36−22 = 14",
+  "zh-Hans": "和爸爸的差是 36−22 = 14",
+  "zh-Hant": "和爸爸的差是 36−22 = 14"
+ },
+ "14÷2 = 7（年後）": {
+  "en": "14÷2 = 7 (years later)",
+  "zh-Hans": "14÷2 = 7（年后）",
+  "zh-Hant": "14÷2 = 7（年後）"
+ },
+ "いま、お父さんは43才で、3人の子どもは6才、5才、4才です。お父さんの年れいが、子ども3人の年れいの和と等しくなるのは何年後ですか。": {
+  "en": "Right now, Dad is 43 years old, and his 3 children are 6, 5, and 4. In how many years will Dad's age equal the sum of the 3 children's ages?",
+  "zh-Hans": "现在爸爸43岁，3个孩子分别是6岁、5岁、4岁。几年后爸爸的年龄会等于3个孩子的年龄和？",
+  "zh-Hant": "現在爸爸43歲，3個孩子分別是6歲、5歲、4歲。幾年後爸爸的年齡會等於3個孩子的年齡和？"
+ },
+ "子ども3人の年れいの和は 6+5+4 = 15": {
+  "en": "The sum of the 3 children's ages is 6+5+4 = 15",
+  "zh-Hans": "3个孩子的年龄和是 6+5+4 = 15",
+  "zh-Hant": "3個孩子的年齡和是 6+5+4 = 15"
+ },
+ "お父さんとの差は 43−15 = 28": {
+  "en": "The difference from Dad's age is 43−15 = 28",
+  "zh-Hans": "和爸爸的差是 43−15 = 28",
+  "zh-Hant": "和爸爸的差是 43−15 = 28"
+ },
+ "28÷2 = 14（年後）": {
+  "en": "28÷2 = 14 (years later)",
+  "zh-Hans": "28÷2 = 14（年后）",
+  "zh-Hant": "28÷2 = 14（年後）"
+ },
+ "いま、お父さんは46才で、3人の子どもは11才、8才、5才です。お父さんの年れいが、子ども3人の年れいの和と等しくなるのは何年後ですか。": {
+  "en": "Right now, Dad is 46 years old, and his 3 children are 11, 8, and 5. In how many years will Dad's age equal the sum of the 3 children's ages?",
+  "zh-Hans": "现在爸爸46岁，3个孩子分别是11岁、8岁、5岁。几年后爸爸的年龄会等于3个孩子的年龄和？",
+  "zh-Hant": "現在爸爸46歲，3個孩子分別是11歲、8歲、5歲。幾年後爸爸的年齡會等於3個孩子的年齡和？"
+ },
+ "子ども3人の年れいの和は 11+8+5 = 24": {
+  "en": "The sum of the 3 children's ages is 11+8+5 = 24",
+  "zh-Hans": "3个孩子的年龄和是 11+8+5 = 24",
+  "zh-Hant": "3個孩子的年齡和是 11+8+5 = 24"
+ },
+ "お父さんとの差は 46−24 = 22": {
+  "en": "The difference from Dad's age is 46−24 = 22",
+  "zh-Hans": "和爸爸的差是 46−24 = 22",
+  "zh-Hant": "和爸爸的差是 46−24 = 22"
+ },
+ "22÷2 = 11（年後）": {
+  "en": "22÷2 = 11 (years later)",
+  "zh-Hans": "22÷2 = 11（年后）",
+  "zh-Hant": "22÷2 = 11（年後）"
+ },
+ "いま、お父さんは49才で、3人の子どもは10才、7才、6才です。お父さんの年れいが、子ども3人の年れいの和と等しくなるのは何年後ですか。": {
+  "en": "Right now, Dad is 49 years old, and his 3 children are 10, 7, and 6. In how many years will Dad's age equal the sum of the 3 children's ages?",
+  "zh-Hans": "现在爸爸49岁，3个孩子分别是10岁、7岁、6岁。几年后爸爸的年龄会等于3个孩子的年龄和？",
+  "zh-Hant": "現在爸爸49歲，3個孩子分別是10歲、7歲、6歲。幾年後爸爸的年齡會等於3個孩子的年齡和？"
+ },
+ "子ども3人の年れいの和は 10+7+6 = 23": {
+  "en": "The sum of the 3 children's ages is 10+7+6 = 23",
+  "zh-Hans": "3个孩子的年龄和是 10+7+6 = 23",
+  "zh-Hant": "3個孩子的年齡和是 10+7+6 = 23"
+ },
+ "お父さんとの差は 49−23 = 26": {
+  "en": "The difference from Dad's age is 49−23 = 26",
+  "zh-Hans": "和爸爸的差是 49−23 = 26",
+  "zh-Hant": "和爸爸的差是 49−23 = 26"
+ },
+ "26÷2 = 13（年後）": {
+  "en": "26÷2 = 13 (years later)",
+  "zh-Hans": "26÷2 = 13（年后）",
+  "zh-Hant": "26÷2 = 13（年後）"
+ },
+ "「何倍」を聞いていなければ、差を使う必要はない。それぞれの年れいに年数をたすだけ。": {
+  "en": "If the question isn't asking \"how many times,\" you don't need the difference. Just add the years to each age.",
+  "zh-Hans": "如果没问“几倍”，就不需要用差。只要把年数加到各自的年龄上。",
+  "zh-Hant": "如果沒問「幾倍」，就不需要用差。只要把年數加到各自的年齡上。"
+ },
+ "いま、姉は13才、妹は9才です。5年後、2人の年れいの和は何才ですか。": {
+  "en": "Right now, the older sister is 13 and the younger sister is 9. In 5 years, what will the sum of their ages be?",
+  "zh-Hans": "现在姐姐13岁，妹妹9岁。5年后，两人的年龄和是多少岁？",
+  "zh-Hant": "現在姊姊13歲，妹妹9歲。5年後，兩人的年齡和是多少歲？"
+ },
+ "32才": {
+  "en": "32 years old",
+  "zh-Hans": "32岁",
+  "zh-Hant": "32歲"
+ },
+ "年れいの問題なので、くせで2人の年れいの差を出す": {
+  "en": "It's an age problem, so out of habit you find the age difference",
+  "zh-Hans": "因为是年龄问题，习惯性地先算两人的年龄差",
+  "zh-Hant": "因為是年齡問題，習慣性地先算兩人的年齡差"
+ },
+ "差は答えに使わないのに、図をかき始める": {
+  "en": "You start drawing a diagram, even though the difference isn't used in the answer",
+  "zh-Hans": "明明答案用不到差，却开始画图",
+  "zh-Hant": "明明答案用不到差，卻開始畫圖"
+ },
+ "遠回りで約1分": {
+  "en": "About 1 minute lost on the detour",
+  "zh-Hans": "绕远路，大约花1分钟",
+  "zh-Hant": "繞遠路，大約花1分鐘"
+ },
+ "5年後の姉は 13+5 = 18": {
+  "en": "The older sister in 5 years: 13+5 = 18",
+  "zh-Hans": "5年后姐姐是 13+5 = 18",
+  "zh-Hant": "5年後姊姊是 13+5 = 18"
+ },
+ "5年後の妹は 9+5 = 14": {
+  "en": "The younger sister in 5 years: 9+5 = 14",
+  "zh-Hans": "5年后妹妹是 9+5 = 14",
+  "zh-Hant": "5年後妹妹是 9+5 = 14"
+ },
+ "18+14 = 32（才）": {
+  "en": "18+14 = 32 (years old)",
+  "zh-Hans": "18+14 = 32（岁）",
+  "zh-Hant": "18+14 = 32（歲）"
+ },
+ "「何倍」ではなく「和」を聞いているときは、差はいらない。それぞれにたす。": {
+  "en": "When the question asks for the \"sum,\" not \"how many times,\" you don't need the difference. Add to each.",
+  "zh-Hans": "问的是“和”而不是“几倍”时，不需要差。分别加上去就行。",
+  "zh-Hant": "問的是「和」而不是「幾倍」時，不需要差。分別加上去就好。"
+ },
+ "差は変わらないが、ここでは差を使わなくても答えが出る。": {
+  "en": "The difference doesn't change, but here you can get the answer without using it.",
+  "zh-Hans": "差虽然不变，但这里不用差也能得出答案。",
+  "zh-Hant": "差雖然不變，但這裡不用差也能得出答案。"
+ },
+ "そのとおり。何年後の2人の年れいをそれぞれ出して、たすだけ。": {
+  "en": "That's right. Find each person's age that many years later, then just add.",
+  "zh-Hans": "没错。分别算出几年后两人的年龄，再相加就行。",
+  "zh-Hant": "沒錯。分別算出幾年後兩人的年齡，再相加就好。"
+ },
+ "いま、姉は34才、妹は5才です。4年後、2人の年れいの和は何才ですか。": {
+  "en": "Right now, the older sister is 34 and the younger sister is 5. In 4 years, what will the sum of their ages be?",
+  "zh-Hans": "现在姐姐34岁，妹妹5岁。4年后，两人的年龄和是多少岁？",
+  "zh-Hant": "現在姊姊34歲，妹妹5歲。4年後，兩人的年齡和是多少歲？"
+ },
+ "4年後の姉は 34+4 = 38": {
+  "en": "The older sister in 4 years: 34+4 = 38",
+  "zh-Hans": "4年后姐姐是 34+4 = 38",
+  "zh-Hant": "4年後姊姊是 34+4 = 38"
+ },
+ "4年後の妹は 5+4 = 9": {
+  "en": "The younger sister in 4 years: 5+4 = 9",
+  "zh-Hans": "4年后妹妹是 5+4 = 9",
+  "zh-Hant": "4年後妹妹是 5+4 = 9"
+ }
+}

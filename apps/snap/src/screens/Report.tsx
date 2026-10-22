@@ -1,3 +1,4 @@
+import { gradeLabel } from "../curriculum";
 import { Link } from "react-router-dom";
 import { app } from "../copy";
 import type { Grade, Unit } from "../curriculum";
@@ -109,7 +110,7 @@ function Earlier({ data }: { data: ReportData }) {
           <li key={e.unit.id}>
             <Link to={mapUnitUrl(e.unit.id)} className="report-row report-link" data-unit={e.unit.id}>
               <span className="report-unit">
-                <span className="report-grade">{e.unit.appGrade}</span>
+                <span className="report-grade">{gradeLabel(e.unit.appGrade)}</span>
                 {e.unit.topic}
                 {e.supports && <span className="report-supports">→ {r.supports(e.supports.appGrade, e.supports.topic)}</span>}
               </span>

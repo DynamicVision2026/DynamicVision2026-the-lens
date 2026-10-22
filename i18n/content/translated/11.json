@@ -1,0 +1,1502 @@
+{
+ "P(1, −1)。弦ABと、ABに平行な接線の接点Pでできる△ABPの面積は |a|(β−α)³/8（a は x² の係数、α・β は A・B の x 座標）": {
+  "en": "P(1, −1). The area of △ABP formed by chord AB and the point of tangency P of the tangent parallel to AB is |a|(β−α)³/8 (a is the coefficient of x², and α, β are the x-coordinates of A, B)",
+  "zh-Hans": "P(1, −1)。由弦AB和与AB平行的切线的切点P构成的△ABP，面积为 |a|(β−α)³/8（a 是 x² 的系数，α、β 是 A、B 的 x 坐标）",
+  "zh-Hant": "P(1, −1)。由弦AB和與AB平行的切線的切點P構成的△ABP，面積為 |a|(β−α)³/8（a 是 x² 的係數，α、β 是 A、B 的 x 坐標）"
+ },
+ "放物線 y = x² 上に2点A(−4, 16)、B(5, 25)があります。点Pがこの放物線上をAからBまで動くとき、△ABPの面積の最大値を求めなさい。": {
+  "en": "Points A(−4, 16) and B(5, 25) lie on the parabola y = x². As point P moves along the parabola from A to B, find the maximum area of △ABP.",
+  "zh-Hans": "抛物线 y = x² 上有两点A(−4, 16)、B(5, 25)。点P在这条抛物线上从A移动到B时，求△ABP面积的最大值。",
+  "zh-Hant": "拋物線 y = x² 上有兩點A(−4, 16)、B(5, 25)。點P在這條拋物線上從A移動到B時，求△ABP面積的最大值。"
+ },
+ "ABの傾きは 1×(−4+5) = 1。y = x² の接線の傾き 2x がこれと等しいのは x = 1/2（AとBのまん中）": {
+  "en": "The slope of AB is 1×(−4+5) = 1. The tangent to y = x² has slope 2x, which equals this at x = 1/2 (midway between A and B)",
+  "zh-Hans": "AB的斜率为 1×(−4+5) = 1。y = x² 的切线斜率 2x 与它相等时，x = 1/2（A和B的正中间）",
+  "zh-Hant": "AB的斜率為 1×(−4+5) = 1。y = x² 的切線斜率 2x 與它相等時，x = 1/2（A和B的正中間）"
+ },
+ "P(1/2, 1/4)。弦ABと、ABに平行な接線の接点Pでできる△ABPの面積は |a|(β−α)³/8（a は x² の係数、α・β は A・B の x 座標）": {
+  "en": "P(1/2, 1/4). The area of △ABP formed by chord AB and the point of tangency P of the tangent parallel to AB is |a|(β−α)³/8 (a is the coefficient of x², and α, β are the x-coordinates of A, B)",
+  "zh-Hans": "P(1/2, 1/4)。由弦AB和与AB平行的切线的切点P构成的△ABP，面积为 |a|(β−α)³/8（a 是 x² 的系数，α、β 是 A、B 的 x 坐标）",
+  "zh-Hant": "P(1/2, 1/4)。由弦AB和與AB平行的切線的切點P構成的△ABP，面積為 |a|(β−α)³/8（a 是 x² 的係數，α、β 是 A、B 的 x 坐標）"
+ },
+ "放物線 y = x² 上に2点A(−2, 4)、B(5, 25)があります。点Pがこの放物線上をAからBまで動くとき、△ABPの面積の最大値を求めなさい。": {
+  "en": "Points A(−2, 4) and B(5, 25) lie on the parabola y = x². As point P moves along the parabola from A to B, find the maximum area of △ABP.",
+  "zh-Hans": "抛物线 y = x² 上有两点A(−2, 4)、B(5, 25)。点P在这条抛物线上从A移动到B时，求△ABP面积的最大值。",
+  "zh-Hant": "拋物線 y = x² 上有兩點A(−2, 4)、B(5, 25)。點P在這條拋物線上從A移動到B時，求△ABP面積的最大值。"
+ },
+ "P(3/2, 9/4)。弦ABと、ABに平行な接線の接点Pでできる△ABPの面積は |a|(β−α)³/8（a は x² の係数、α・β は A・B の x 座標）": {
+  "en": "P(3/2, 9/4). The area of △ABP formed by chord AB and the point of tangency P of the tangent parallel to AB is |a|(β−α)³/8 (a is the coefficient of x², and α, β are the x-coordinates of A, B)",
+  "zh-Hans": "P(3/2, 9/4)。由弦AB和与AB平行的切线的切点P构成的△ABP，面积为 |a|(β−α)³/8（a 是 x² 的系数，α、β 是 A、B 的 x 坐标）",
+  "zh-Hant": "P(3/2, 9/4)。由弦AB和與AB平行的切線的切點P構成的△ABP，面積為 |a|(β−α)³/8（a 是 x² 的係數，α、β 是 A、B 的 x 坐標）"
+ },
+ "放物線 y = −x² 上に2点A(−3, −9)、B(5, −25)があります。点Pがこの放物線上をAからBまで動くとき、△ABPの面積の最大値を求めなさい。": {
+  "en": "Points A(−3, −9) and B(5, −25) lie on the parabola y = −x². As point P moves along the parabola from A to B, find the maximum area of △ABP.",
+  "zh-Hans": "抛物线 y = −x² 上有两点A(−3, −9)、B(5, −25)。点P在这条抛物线上从A移动到B时，求△ABP面积的最大值。",
+  "zh-Hant": "拋物線 y = −x² 上有兩點A(−3, −9)、B(5, −25)。點P在這條拋物線上從A移動到B時，求△ABP面積的最大值。"
+ },
+ "ABの傾きは −1×(−3+5) = −2。y = −x² の接線の傾き −2x がこれと等しいのは x = 1（AとBのまん中）": {
+  "en": "The slope of AB is −1×(−3+5) = −2. The tangent to y = −x² has slope −2x, which equals this at x = 1 (midway between A and B)",
+  "zh-Hans": "AB的斜率为 −1×(−3+5) = −2。y = −x² 的切线斜率 −2x 与它相等时，x = 1（A和B的正中间）",
+  "zh-Hant": "AB的斜率為 −1×(−3+5) = −2。y = −x² 的切線斜率 −2x 與它相等時，x = 1（A和B的正中間）"
+ },
+ "放物線 y = (1/2)x² 上に2点A(−2, 2)、B(6, 18)があります。原点をOとします。放物線上に、Oと異なる点Pを直線ABについてOと同じ側にとり、△ABPの面積が△ABOの面積と等しくなるようにします。点Pのx座標を求めなさい。": {
+  "en": "Points A(−2, 2) and B(6, 18) lie on the parabola y = (1/2)x². Let O be the origin. Take a point P on the parabola, other than O, on the same side of line AB as O, so that the area of △ABP equals the area of △ABO. Find the x-coordinate of P.",
+  "zh-Hans": "抛物线 y = (1/2)x² 上有两点A(−2, 2)、B(6, 18)。设原点为O。在抛物线上取一个不同于O的点P，使它与O位于直线AB的同侧，并且△ABP的面积等于△ABO的面积。求点P的x坐标。",
+  "zh-Hant": "拋物線 y = (1/2)x² 上有兩點A(−2, 2)、B(6, 18)。設原點為O。在拋物線上取一個不同於O的點P，使它與O位於直線AB的同側，並且△ABP的面積等於△ABO的面積。求點P的x坐標。"
+ },
+ "ABを底辺と見る。Oを通りABに平行な直線の上なら、△ABPと△ABOの高さは同じ（等積変形）": {
+  "en": "Take AB as the base. On the line through O parallel to AB, △ABP and △ABO have the same height (Equal-Area Slide)",
+  "zh-Hans": "把AB看作底边。只要在过O且与AB平行的直线上，△ABP和△ABO的高就相同（等积变形）",
+  "zh-Hant": "把AB看作底邊。只要在過O且與AB平行的直線上，△ABP和△ABO的高就相同（等積變形）"
+ },
+ "ABの傾きは 1/2×(−2+6) = 2。Oを通る平行線は y = 2x": {
+  "en": "The slope of AB is 1/2×(−2+6) = 2. The parallel line through O is y = 2x",
+  "zh-Hans": "AB的斜率为 1/2×(−2+6) = 2。过O的平行线是 y = 2x",
+  "zh-Hant": "AB的斜率為 1/2×(−2+6) = 2。過O的平行線是 y = 2x"
+ },
+ "放物線との交点：(1/2)x² = 2x → x = 0, 4。O以外の交点がP": {
+  "en": "Intersection with the parabola: (1/2)x² = 2x → x = 0, 4. The intersection other than O is P",
+  "zh-Hans": "与抛物线的交点：(1/2)x² = 2x → x = 0, 4。O以外的交点就是P",
+  "zh-Hant": "與拋物線的交點：(1/2)x² = 2x → x = 0, 4。O以外的交點就是P"
+ },
+ "放物線 y = x² 上に2点A(−2, 4)、B(3, 9)があります。原点をOとします。放物線上に、Oと異なる点Pを直線ABについてOと同じ側にとり、△ABPの面積が△ABOの面積と等しくなるようにします。点Pのx座標を求めなさい。": {
+  "en": "Points A(−2, 4) and B(3, 9) lie on the parabola y = x². Let O be the origin. Take a point P on the parabola, other than O, on the same side of line AB as O, so that the area of △ABP equals the area of △ABO. Find the x-coordinate of P.",
+  "zh-Hans": "抛物线 y = x² 上有两点A(−2, 4)、B(3, 9)。设原点为O。在抛物线上取一个不同于O的点P，使它与O位于直线AB的同侧，并且△ABP的面积等于△ABO的面积。求点P的x坐标。",
+  "zh-Hant": "拋物線 y = x² 上有兩點A(−2, 4)、B(3, 9)。設原點為O。在拋物線上取一個不同於O的點P，使它與O位於直線AB的同側，並且△ABP的面積等於△ABO的面積。求點P的x坐標。"
+ },
+ "ABの傾きは 1×(−2+3) = 1。Oを通る平行線は y = x": {
+  "en": "The slope of AB is 1×(−2+3) = 1. The parallel line through O is y = x",
+  "zh-Hans": "AB的斜率为 1×(−2+3) = 1。过O的平行线是 y = x",
+  "zh-Hant": "AB的斜率為 1×(−2+3) = 1。過O的平行線是 y = x"
+ },
+ "放物線との交点：x² = x → x = 0, 1。O以外の交点がP": {
+  "en": "Intersection with the parabola: x² = x → x = 0, 1. The intersection other than O is P",
+  "zh-Hans": "与抛物线的交点：x² = x → x = 0, 1。O以外的交点就是P",
+  "zh-Hant": "與拋物線的交點：x² = x → x = 0, 1。O以外的交點就是P"
+ },
+ "放物線 y = −x² 上に2点A(−3, −9)、B(1, −1)があります。原点をOとします。放物線上に、Oと異なる点Pを直線ABについてOと同じ側にとり、△ABPの面積が△ABOの面積と等しくなるようにします。点Pのx座標を求めなさい。": {
+  "en": "Points A(−3, −9) and B(1, −1) lie on the parabola y = −x². Let O be the origin. Take a point P on the parabola, other than O, on the same side of line AB as O, so that the area of △ABP equals the area of △ABO. Find the x-coordinate of P.",
+  "zh-Hans": "抛物线 y = −x² 上有两点A(−3, −9)、B(1, −1)。设原点为O。在抛物线上取一个不同于O的点P，使它与O位于直线AB的同侧，并且△ABP的面积等于△ABO的面积。求点P的x坐标。",
+  "zh-Hant": "拋物線 y = −x² 上有兩點A(−3, −9)、B(1, −1)。設原點為O。在拋物線上取一個不同於O的點P，使它與O位於直線AB的同側，並且△ABP的面積等於△ABO的面積。求點P的x坐標。"
+ },
+ "ABの傾きは −1×(−3+1) = 2。Oを通る平行線は y = 2x": {
+  "en": "The slope of AB is −1×(−3+1) = 2. The parallel line through O is y = 2x",
+  "zh-Hans": "AB的斜率为 −1×(−3+1) = 2。过O的平行线是 y = 2x",
+  "zh-Hant": "AB的斜率為 −1×(−3+1) = 2。過O的平行線是 y = 2x"
+ },
+ "放物線との交点：−x² = 2x → x = 0, −2。O以外の交点がP": {
+  "en": "Intersection with the parabola: −x² = 2x → x = 0, −2. The intersection other than O is P",
+  "zh-Hans": "与抛物线的交点：−x² = 2x → x = 0, −2。O以外的交点就是P",
+  "zh-Hant": "與拋物線的交點：−x² = 2x → x = 0, −2。O以外的交點就是P"
+ },
+ "放物線 y = −x² 上に2点A(−3, −9)、B(5, −25)があります。原点をOとします。放物線上に、Oと異なる点Pを直線ABについてOと同じ側にとり、△ABPの面積が△ABOの面積と等しくなるようにします。点Pのx座標を求めなさい。": {
+  "en": "Points A(−3, −9) and B(5, −25) lie on the parabola y = −x². Let O be the origin. Take a point P on the parabola, other than O, on the same side of line AB as O, so that the area of △ABP equals the area of △ABO. Find the x-coordinate of P.",
+  "zh-Hans": "抛物线 y = −x² 上有两点A(−3, −9)、B(5, −25)。设原点为O。在抛物线上取一个不同于O的点P，使它与O位于直线AB的同侧，并且△ABP的面积等于△ABO的面积。求点P的x坐标。",
+  "zh-Hant": "拋物線 y = −x² 上有兩點A(−3, −9)、B(5, −25)。設原點為O。在拋物線上取一個不同於O的點P，使它與O位於直線AB的同側，並且△ABP的面積等於△ABO的面積。求點P的x坐標。"
+ },
+ "ABの傾きは −1×(−3+5) = −2。Oを通る平行線は y = −2x": {
+  "en": "The slope of AB is −1×(−3+5) = −2. The parallel line through O is y = −2x",
+  "zh-Hans": "AB的斜率为 −1×(−3+5) = −2。过O的平行线是 y = −2x",
+  "zh-Hant": "AB的斜率為 −1×(−3+5) = −2。過O的平行線是 y = −2x"
+ },
+ "放物線との交点：−x² = −2x → x = 0, 2。O以外の交点がP": {
+  "en": "Intersection with the parabola: −x² = −2x → x = 0, 2. The intersection other than O is P",
+  "zh-Hans": "与抛物线的交点：−x² = −2x → x = 0, 2。O以外的交点就是P",
+  "zh-Hant": "與拋物線的交點：−x² = −2x → x = 0, 2。O以外的交點就是P"
+ },
+ "放物線 y = (1/2)x² 上に2点A(−1, 1/2)、B(4, 8)があります。原点をOとします。放物線上に、Oと異なる点Pを直線ABについてOと同じ側にとり、△ABPの面積が△ABOの面積と等しくなるようにします。点Pのx座標を求めなさい。": {
+  "en": "Points A(−1, 1/2) and B(4, 8) lie on the parabola y = (1/2)x². Let O be the origin. Take a point P on the parabola, other than O, on the same side of line AB as O, so that the area of △ABP equals the area of △ABO. Find the x-coordinate of P.",
+  "zh-Hans": "抛物线 y = (1/2)x² 上有两点A(−1, 1/2)、B(4, 8)。设原点为O。在抛物线上取一个不同于O的点P，使它与O位于直线AB的同侧，并且△ABP的面积等于△ABO的面积。求点P的x坐标。",
+  "zh-Hant": "拋物線 y = (1/2)x² 上有兩點A(−1, 1/2)、B(4, 8)。設原點為O。在拋物線上取一個不同於O的點P，使它與O位於直線AB的同側，並且△ABP的面積等於△ABO的面積。求點P的x坐標。"
+ },
+ "ABの傾きは 1/2×(−1+4) = 3/2。Oを通る平行線は y = (3/2)x": {
+  "en": "The slope of AB is 1/2×(−1+4) = 3/2. The parallel line through O is y = (3/2)x",
+  "zh-Hans": "AB的斜率为 1/2×(−1+4) = 3/2。过O的平行线是 y = (3/2)x",
+  "zh-Hant": "AB的斜率為 1/2×(−1+4) = 3/2。過O的平行線是 y = (3/2)x"
+ },
+ "放物線との交点：(1/2)x² = (3/2)x → x = 0, 3。O以外の交点がP": {
+  "en": "Intersection with the parabola: (1/2)x² = (3/2)x → x = 0, 3. The intersection other than O is P",
+  "zh-Hans": "与抛物线的交点：(1/2)x² = (3/2)x → x = 0, 3。O以外的交点就是P",
+  "zh-Hant": "與拋物線的交點：(1/2)x² = (3/2)x → x = 0, 3。O以外的交點就是P"
+ },
+ "放物線 y = (1/2)x² 上に2点A(−3, 9/2)、B(5, 25/2)があります。点Pがこの放物線上をAからBまで動くとき、△ABPの面積の最大値を求めなさい。": {
+  "en": "Points A(−3, 9/2) and B(5, 25/2) lie on the parabola y = (1/2)x². As point P moves along the parabola from A to B, find the maximum area of △ABP.",
+  "zh-Hans": "抛物线 y = (1/2)x² 上有两点A(−3, 9/2)、B(5, 25/2)。点P在这条抛物线上从A移动到B时，求△ABP面积的最大值。",
+  "zh-Hant": "拋物線 y = (1/2)x² 上有兩點A(−3, 9/2)、B(5, 25/2)。點P在這條拋物線上從A移動到B時，求△ABP面積的最大值。"
+ },
+ "ABの傾きは 1/2×(−3+5) = 1。y = (1/2)x² の接線の傾き x がこれと等しいのは x = 1（AとBのまん中）": {
+  "en": "The slope of AB is 1/2×(−3+5) = 1. The tangent to y = (1/2)x² has slope x, which equals this at x = 1 (midway between A and B)",
+  "zh-Hans": "AB的斜率为 1/2×(−3+5) = 1。y = (1/2)x² 的切线斜率 x 与它相等时，x = 1（A和B的正中间）",
+  "zh-Hant": "AB的斜率為 1/2×(−3+5) = 1。y = (1/2)x² 的切線斜率 x 與它相等時，x = 1（A和B的正中間）"
+ },
+ "P(1, 1/2)。弦ABと、ABに平行な接線の接点Pでできる△ABPの面積は |a|(β−α)³/8（a は x² の係数、α・β は A・B の x 座標）": {
+  "en": "P(1, 1/2). The area of △ABP formed by chord AB and the point of tangency P of the tangent parallel to AB is |a|(β−α)³/8 (a is the coefficient of x², and α, β are the x-coordinates of A, B)",
+  "zh-Hans": "P(1, 1/2)。由弦AB和与AB平行的切线的切点P构成的△ABP，面积为 |a|(β−α)³/8（a 是 x² 的系数，α、β 是 A、B 的 x 坐标）",
+  "zh-Hant": "P(1, 1/2)。由弦AB和與AB平行的切線的切點P構成的△ABP，面積為 |a|(β−α)³/8（a 是 x² 的係數，α、β 是 A、B 的 x 坐標）"
+ },
+ "放物線 y = −x² 上に2点A(−4, −16)、B(1, −1)があります。点Pがこの放物線上をAからBまで動くとき、△ABPの面積の最大値を求めなさい。": {
+  "en": "Points A(−4, −16) and B(1, −1) lie on the parabola y = −x². As point P moves along the parabola from A to B, find the maximum area of △ABP.",
+  "zh-Hans": "抛物线 y = −x² 上有两点A(−4, −16)、B(1, −1)。点P在这条抛物线上从A移动到B时，求△ABP面积的最大值。",
+  "zh-Hant": "拋物線 y = −x² 上有兩點A(−4, −16)、B(1, −1)。點P在這條拋物線上從A移動到B時，求△ABP面積的最大值。"
+ },
+ "ABの傾きは −1×(−4+1) = 3。y = −x² の接線の傾き −2x がこれと等しいのは x = −3/2（AとBのまん中）": {
+  "en": "The slope of AB is −1×(−4+1) = 3. The tangent to y = −x² has slope −2x, which equals this at x = −3/2 (midway between A and B)",
+  "zh-Hans": "AB的斜率为 −1×(−4+1) = 3。y = −x² 的切线斜率 −2x 与它相等时，x = −3/2（A和B的正中间）",
+  "zh-Hant": "AB的斜率為 −1×(−4+1) = 3。y = −x² 的切線斜率 −2x 與它相等時，x = −3/2（A和B的正中間）"
+ },
+ "P(−3/2, −9/4)。弦ABと、ABに平行な接線の接点Pでできる△ABPの面積は |a|(β−α)³/8（a は x² の係数、α・β は A・B の x 座標）": {
+  "en": "P(−3/2, −9/4). The area of △ABP formed by chord AB and the point of tangency P of the tangent parallel to AB is |a|(β−α)³/8 (a is the coefficient of x², and α, β are the x-coordinates of A, B)",
+  "zh-Hans": "P(−3/2, −9/4)。由弦AB和与AB平行的切线的切点P构成的△ABP，面积为 |a|(β−α)³/8（a 是 x² 的系数，α、β 是 A、B 的 x 坐标）",
+  "zh-Hant": "P(−3/2, −9/4)。由弦AB和與AB平行的切線的切點P構成的△ABP，面積為 |a|(β−α)³/8（a 是 x² 的係數，α、β 是 A、B 的 x 坐標）"
+ },
+ "放物線 y = x² 上に2点A(−3, 9)、B(1, 1)があります。点Pがこの放物線上をAからBまで動くとき、△ABPの面積の最大値を求めなさい。": {
+  "en": "Points A(−3, 9) and B(1, 1) lie on the parabola y = x². As point P moves along the parabola from A to B, find the maximum area of △ABP.",
+  "zh-Hans": "抛物线 y = x² 上有两点A(−3, 9)、B(1, 1)。点P在这条抛物线上从A移动到B时，求△ABP面积的最大值。",
+  "zh-Hant": "拋物線 y = x² 上有兩點A(−3, 9)、B(1, 1)。點P在這條拋物線上從A移動到B時，求△ABP面積的最大值。"
+ },
+ "ABの傾きは 1×(−3+1) = −2。y = x² の接線の傾き 2x がこれと等しいのは x = −1（AとBのまん中）": {
+  "en": "The slope of AB is 1×(−3+1) = −2. The tangent to y = x² has slope 2x, which equals this at x = −1 (midway between A and B)",
+  "zh-Hans": "AB的斜率为 1×(−3+1) = −2。y = x² 的切线斜率 2x 与它相等时，x = −1（A和B的正中间）",
+  "zh-Hant": "AB的斜率為 1×(−3+1) = −2。y = x² 的切線斜率 2x 與它相等時，x = −1（A和B的正中間）"
+ },
+ "P(−1, 1)。弦ABと、ABに平行な接線の接点Pでできる△ABPの面積は |a|(β−α)³/8（a は x² の係数、α・β は A・B の x 座標）": {
+  "en": "P(−1, 1). The area of △ABP formed by chord AB and the point of tangency P of the tangent parallel to AB is |a|(β−α)³/8 (a is the coefficient of x², and α, β are the x-coordinates of A, B)",
+  "zh-Hans": "P(−1, 1)。由弦AB和与AB平行的切线的切点P构成的△ABP，面积为 |a|(β−α)³/8（a 是 x² 的系数，α、β 是 A、B 的 x 坐标）",
+  "zh-Hant": "P(−1, 1)。由弦AB和與AB平行的切線的切點P構成的△ABP，面積為 |a|(β−α)³/8（a 是 x² 的係數，α、β 是 A、B 的 x 坐標）"
+ },
+ "放物線 y = (1/2)x² 上に2点A(−2, 2)、B(1, 1/2)があります。点Pがこの放物線上をAからBまで動くとき、△ABPの面積の最大値を求めなさい。": {
+  "en": "Points A(−2, 2) and B(1, 1/2) lie on the parabola y = (1/2)x². As point P moves along the parabola from A to B, find the maximum area of △ABP.",
+  "zh-Hans": "抛物线 y = (1/2)x² 上有两点A(−2, 2)、B(1, 1/2)。点P在这条抛物线上从A移动到B时，求△ABP面积的最大值。",
+  "zh-Hant": "拋物線 y = (1/2)x² 上有兩點A(−2, 2)、B(1, 1/2)。點P在這條拋物線上從A移動到B時，求△ABP面積的最大值。"
+ },
+ "ABの傾きは 1/2×(−2+1) = −1/2。y = (1/2)x² の接線の傾き x がこれと等しいのは x = −1/2（AとBのまん中）": {
+  "en": "The slope of AB is 1/2×(−2+1) = −1/2. The tangent to y = (1/2)x² has slope x, which equals this at x = −1/2 (midway between A and B)",
+  "zh-Hans": "AB的斜率为 1/2×(−2+1) = −1/2。y = (1/2)x² 的切线斜率 x 与它相等时，x = −1/2（A和B的正中间）",
+  "zh-Hant": "AB的斜率為 1/2×(−2+1) = −1/2。y = (1/2)x² 的切線斜率 x 與它相等時，x = −1/2（A和B的正中間）"
+ },
+ "P(−1/2, 1/8)。弦ABと、ABに平行な接線の接点Pでできる△ABPの面積は |a|(β−α)³/8（a は x² の係数、α・β は A・B の x 座標）": {
+  "en": "P(−1/2, 1/8). The area of △ABP formed by chord AB and the point of tangency P of the tangent parallel to AB is |a|(β−α)³/8 (a is the coefficient of x², and α, β are the x-coordinates of A, B)",
+  "zh-Hans": "P(−1/2, 1/8)。由弦AB和与AB平行的切线的切点P构成的△ABP，面积为 |a|(β−α)³/8（a 是 x² 的系数，α、β 是 A、B 的 x 坐标）",
+  "zh-Hant": "P(−1/2, 1/8)。由弦AB和與AB平行的切線的切點P構成的△ABP，面積為 |a|(β−α)³/8（a 是 x² 的係數，α、β 是 A、B 的 x 坐標）"
+ },
+ "放物線 y = x² 上に2点A(−1, 1)、B(5, 25)があります。点Pがこの放物線上を、x座標が 3 以上 5 以下の範囲で動くとき、△ABPの面積の最大値を求めなさい。": {
+  "en": "Points A(−1, 1) and B(5, 25) lie on the parabola y = x². As point P moves along the parabola with its x-coordinate at least 3 and at most 5, find the maximum area of △ABP.",
+  "zh-Hans": "抛物线 y = x² 上有两点A(−1, 1)、B(5, 25)。点P在这条抛物线上、x坐标不小于 3 且不大于 5 的范围内移动时，求△ABP面积的最大值。",
+  "zh-Hant": "拋物線 y = x² 上有兩點A(−1, 1)、B(5, 25)。點P在這條拋物線上、x坐標大於等於 3 且小於等於 5 的範圍內移動時，求△ABP面積的最大值。"
+ },
+ "ABに平行な接線を引いて、接点のx座標をPとする": {
+  "en": "Draw the tangent parallel to AB and take the x-coordinate of the point of tangency as P",
+  "zh-Hans": "画出与AB平行的切线，把切点的x坐标当作P",
+  "zh-Hant": "畫出與AB平行的切線，把切點的x坐標當作P"
+ },
+ "そのPが、決められた範囲に入っていない": {
+  "en": "But that P is not inside the given range",
+  "zh-Hans": "这个P不在规定的范围内",
+  "zh-Hant": "這個P不在規定的範圍內"
+ },
+ "ここで約2分。答えが範囲の外": {
+  "en": "About 2 minutes in. The answer is outside the range",
+  "zh-Hans": "到这里约2分钟。答案在范围之外",
+  "zh-Hant": "到這裡約2分鐘。答案在範圍之外"
+ },
+ "ABに平行な接線がふれる点は x = 2。でも、Pが動ける範囲（3〜5）にない": {
+  "en": "The tangent parallel to AB touches the parabola at x = 2. But that is outside the range where P can move (3 to 5)",
+  "zh-Hans": "与AB平行的切线的切点在 x = 2。但它不在P能移动的范围（3～5）内",
+  "zh-Hant": "與AB平行的切線的切點在 x = 2。但它不在P能移動的範圍（3～5）內"
+ },
+ "高さは、Pが x = 2 に近いほど大きい。範囲の中で一番近いのは x = 3": {
+  "en": "The closer P is to x = 2, the greater the height. Within the range, the closest is x = 3",
+  "zh-Hans": "P越接近 x = 2，高就越大。范围内最接近的是 x = 3",
+  "zh-Hant": "P越接近 x = 2，高就越大。範圍內最接近的是 x = 3"
+ },
+ "おしい。接点のx座標は、Pが動ける範囲の外にある。": {
+  "en": "Close. The x-coordinate of the point of tangency is outside the range where P can move.",
+  "zh-Hans": "差一点。切点的x坐标在P能移动的范围之外。",
+  "zh-Hant": "差一點。切點的x坐標在P能移動的範圍之外。"
+ },
+ "そのとおり。接点がPの動ける範囲にないので、範囲の中で接点に一番近いはしを調べる。": {
+  "en": "That's right. The point of tangency is not in the range where P can move, so check the end of the range closest to it.",
+  "zh-Hans": "没错。切点不在P能移动的范围内，所以要检查范围内最接近切点的端点。",
+  "zh-Hant": "沒錯。切點不在P能移動的範圍內，所以要檢查範圍內最接近切點的端點。"
+ },
+ "放物線 y = −x² 上に2点A(−4, −16)、B(1, −1)があります。点Pがこの放物線上を、x座標が −4 以上 −2 以下の範囲で動くとき、△ABPの面積の最大値を求めなさい。": {
+  "en": "Points A(−4, −16) and B(1, −1) lie on the parabola y = −x². As point P moves along the parabola with its x-coordinate at least −4 and at most −2, find the maximum area of △ABP.",
+  "zh-Hans": "抛物线 y = −x² 上有两点A(−4, −16)、B(1, −1)。点P在这条抛物线上、x坐标不小于 −4 且不大于 −2 的范围内移动时，求△ABP面积的最大值。",
+  "zh-Hant": "拋物線 y = −x² 上有兩點A(−4, −16)、B(1, −1)。點P在這條拋物線上、x坐標大於等於 −4 且小於等於 −2 的範圍內移動時，求△ABP面積的最大值。"
+ },
+ "ABに平行な接線がふれる点は x = −3/2。でも、Pが動ける範囲（−4〜−2）にない": {
+  "en": "The tangent parallel to AB touches the parabola at x = −3/2. But that is outside the range where P can move (−4 to −2)",
+  "zh-Hans": "与AB平行的切线的切点在 x = −3/2。但它不在P能移动的范围（−4～−2）内",
+  "zh-Hant": "與AB平行的切線的切點在 x = −3/2。但它不在P能移動的範圍（−4～−2）內"
+ },
+ "高さは、Pが x = −3/2 に近いほど大きい。範囲の中で一番近いのは x = −2": {
+  "en": "The closer P is to x = −3/2, the greater the height. Within the range, the closest is x = −2",
+  "zh-Hans": "P越接近 x = −3/2，高就越大。范围内最接近的是 x = −2",
+  "zh-Hant": "P越接近 x = −3/2，高就越大。範圍內最接近的是 x = −2"
+ },
+ "放物線 y = −x² 上に2点A(−3, −9)、B(4, −16)があります。点Pがこの放物線上を、x座標が 1 以上 4 以下の範囲で動くとき、△ABPの面積の最大値を求めなさい。": {
+  "en": "Points A(−3, −9) and B(4, −16) lie on the parabola y = −x². As point P moves along the parabola with its x-coordinate at least 1 and at most 4, find the maximum area of △ABP.",
+  "zh-Hans": "抛物线 y = −x² 上有两点A(−3, −9)、B(4, −16)。点P在这条抛物线上、x坐标不小于 1 且不大于 4 的范围内移动时，求△ABP面积的最大值。",
+  "zh-Hant": "拋物線 y = −x² 上有兩點A(−3, −9)、B(4, −16)。點P在這條拋物線上、x坐標大於等於 1 且小於等於 4 的範圍內移動時，求△ABP面積的最大值。"
+ },
+ "ABに平行な接線がふれる点は x = 1/2。でも、Pが動ける範囲（1〜4）にない": {
+  "en": "The tangent parallel to AB touches the parabola at x = 1/2. But that is outside the range where P can move (1 to 4)",
+  "zh-Hans": "与AB平行的切线的切点在 x = 1/2。但它不在P能移动的范围（1～4）内",
+  "zh-Hant": "與AB平行的切線的切點在 x = 1/2。但它不在P能移動的範圍（1～4）內"
+ },
+ "高さは、Pが x = 1/2 に近いほど大きい。範囲の中で一番近いのは x = 1": {
+  "en": "The closer P is to x = 1/2, the greater the height. Within the range, the closest is x = 1",
+  "zh-Hans": "P越接近 x = 1/2，高就越大。范围内最接近的是 x = 1",
+  "zh-Hant": "P越接近 x = 1/2，高就越大。範圍內最接近的是 x = 1"
+ },
+ "放物線 y = 2x² 上に2点A(−3, 18)、B(1, 2)があります。点Pがこの放物線上を、x座標が 0 以上 1 以下の範囲で動くとき、△ABPの面積の最大値を求めなさい。": {
+  "en": "Points A(−3, 18) and B(1, 2) lie on the parabola y = 2x². As point P moves along the parabola with its x-coordinate at least 0 and at most 1, find the maximum area of △ABP.",
+  "zh-Hans": "抛物线 y = 2x² 上有两点A(−3, 18)、B(1, 2)。点P在这条抛物线上、x坐标不小于 0 且不大于 1 的范围内移动时，求△ABP面积的最大值。",
+  "zh-Hant": "拋物線 y = 2x² 上有兩點A(−3, 18)、B(1, 2)。點P在這條拋物線上、x坐標大於等於 0 且小於等於 1 的範圍內移動時，求△ABP面積的最大值。"
+ },
+ "ABに平行な接線がふれる点は x = −1。でも、Pが動ける範囲（0〜1）にない": {
+  "en": "The tangent parallel to AB touches the parabola at x = −1. But that is outside the range where P can move (0 to 1)",
+  "zh-Hans": "与AB平行的切线的切点在 x = −1。但它不在P能移动的范围（0～1）内",
+  "zh-Hant": "與AB平行的切線的切點在 x = −1。但它不在P能移動的範圍（0～1）內"
+ },
+ "高さは、Pが x = −1 に近いほど大きい。範囲の中で一番近いのは x = 0": {
+  "en": "The closer P is to x = −1, the greater the height. Within the range, the closest is x = 0",
+  "zh-Hans": "P越接近 x = −1，高就越大。范围内最接近的是 x = 0",
+  "zh-Hant": "P越接近 x = −1，高就越大。範圍內最接近的是 x = 0"
+ },
+ "放物線 y = x² 上に2点A(−1, 1)、B(2, 4)があります。点Pがこの放物線上を、x座標が 1 以上 2 以下の範囲で動くとき、△ABPの面積の最大値を求めなさい。": {
+  "en": "Points A(−1, 1) and B(2, 4) lie on the parabola y = x². As point P moves along the parabola with its x-coordinate at least 1 and at most 2, find the maximum area of △ABP.",
+  "zh-Hans": "抛物线 y = x² 上有两点A(−1, 1)、B(2, 4)。点P在这条抛物线上、x坐标不小于 1 且不大于 2 的范围内移动时，求△ABP面积的最大值。",
+  "zh-Hant": "拋物線 y = x² 上有兩點A(−1, 1)、B(2, 4)。點P在這條拋物線上、x坐標大於等於 1 且小於等於 2 的範圍內移動時，求△ABP面積的最大值。"
+ },
+ "ABに平行な接線がふれる点は x = 1/2。でも、Pが動ける範囲（1〜2）にない": {
+  "en": "The tangent parallel to AB touches the parabola at x = 1/2. But that is outside the range where P can move (1 to 2)",
+  "zh-Hans": "与AB平行的切线的切点在 x = 1/2。但它不在P能移动的范围（1～2）内",
+  "zh-Hant": "與AB平行的切線的切點在 x = 1/2。但它不在P能移動的範圍（1～2）內"
+ },
+ "放物線 y = x² 上に2点A(−2, 4)、B(3, 9)があります。原点をOとするとき、△OABの面積を求めなさい。": {
+  "en": "Points A(−2, 4) and B(3, 9) lie on the parabola y = x². With O as the origin, find the area of △OAB.",
+  "zh-Hans": "抛物线 y = x² 上有两点A(−2, 4)、B(3, 9)。设原点为O，求△OAB的面积。",
+  "zh-Hant": "拋物線 y = x² 上有兩點A(−2, 4)、B(3, 9)。設原點為O，求△OAB的面積。"
+ },
+ "Oが頂点なので、△OAB = 1/2|x₁y₂ − x₂y₁| をそのまま使う": {
+  "en": "O is a vertex, so use △OAB = 1/2|x₁y₂ − x₂y₁| directly",
+  "zh-Hans": "O是顶点，所以直接用 △OAB = 1/2|x₁y₂ − x₂y₁|",
+  "zh-Hant": "O是頂點，所以直接用 △OAB = 1/2|x₁y₂ − x₂y₁|"
+ },
+ "原点Oが頂点の三角形は、1/2|x₁y₂ − x₂y₁| でそのまま面積が出る。": {
+  "en": "For a triangle with the origin O as a vertex, 1/2|x₁y₂ − x₂y₁| gives the area directly.",
+  "zh-Hans": "以原点O为顶点的三角形，用 1/2|x₁y₂ − x₂y₁| 就能直接求出面积。",
+  "zh-Hant": "以原點O為頂點的三角形，用 1/2|x₁y₂ − x₂y₁| 就能直接求出面積。"
+ },
+ "動く点がないので、平行線をひく必要はない。": {
+  "en": "There is no moving point, so you don't need to draw a parallel line.",
+  "zh-Hans": "没有移动的点，所以不需要画平行线。",
+  "zh-Hant": "沒有移動的點，所以不需要畫平行線。"
+ },
+ "そのとおり。Oが頂点なので、1/2|x₁y₂ − x₂y₁| をそのまま使う。": {
+  "en": "That's right. O is a vertex, so use 1/2|x₁y₂ − x₂y₁| directly.",
+  "zh-Hans": "没错。O是顶点，所以直接用 1/2|x₁y₂ − x₂y₁|。",
+  "zh-Hant": "沒錯。O是頂點，所以直接用 1/2|x₁y₂ − x₂y₁|。"
+ },
+ "放物線 y = x² 上に2点A(−2, 4)、B(5, 25)があります。原点をOとするとき、△OABの面積を求めなさい。": {
+  "en": "Points A(−2, 4) and B(5, 25) lie on the parabola y = x². With O as the origin, find the area of △OAB.",
+  "zh-Hans": "抛物线 y = x² 上有两点A(−2, 4)、B(5, 25)。设原点为O，求△OAB的面积。",
+  "zh-Hant": "拋物線 y = x² 上有兩點A(−2, 4)、B(5, 25)。設原點為O，求△OAB的面積。"
+ },
+ "放物線 y = x² 上に2点A(−2, 4)、B(4, 16)があります。原点をOとするとき、△OABの面積を求めなさい。": {
+  "en": "Points A(−2, 4) and B(4, 16) lie on the parabola y = x². With O as the origin, find the area of △OAB.",
+  "zh-Hans": "抛物线 y = x² 上有两点A(−2, 4)、B(4, 16)。设原点为O，求△OAB的面积。",
+  "zh-Hant": "拋物線 y = x² 上有兩點A(−2, 4)、B(4, 16)。設原點為O，求△OAB的面積。"
+ },
+ "放物線 y = 2x² 上に2点A(−1, 2)、B(4, 32)があります。原点をOとするとき、△OABの面積を求めなさい。": {
+  "en": "Points A(−1, 2) and B(4, 32) lie on the parabola y = 2x². With O as the origin, find the area of △OAB.",
+  "zh-Hans": "抛物线 y = 2x² 上有两点A(−1, 2)、B(4, 32)。设原点为O，求△OAB的面积。",
+  "zh-Hant": "拋物線 y = 2x² 上有兩點A(−1, 2)、B(4, 32)。設原點為O，求△OAB的面積。"
+ },
+ "放物線 y = x² 上に2点A(−3, 9)、B(5, 25)があります。原点をOとするとき、△OABの面積を求めなさい。": {
+  "en": "Points A(−3, 9) and B(5, 25) lie on the parabola y = x². With O as the origin, find the area of △OAB.",
+  "zh-Hans": "抛物线 y = x² 上有两点A(−3, 9)、B(5, 25)。设原点为O，求△OAB的面积。",
+  "zh-Hant": "拋物線 y = x² 上有兩點A(−3, 9)、B(5, 25)。設原點為O，求△OAB的面積。"
+ },
+ "座標平面上に3点A(−4, −1)、B(2, 2)、C(4, −3)があります。y軸上に点Pを、直線ABについて点Cと同じ側にとり、△ABPの面積が△ABCの面積と等しくなるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are three points A(−4, −1), B(2, 2) and C(4, −3). Take a point P on the y-axis, on the same side of line AB as point C, so that the area of △ABP equals the area of △ABC. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有三点A(−4, −1)、B(2, 2)、C(4, −3)。在y轴上取点P，使它与点C位于直线AB的同侧，并且△ABP的面积等于△ABC的面积。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有三點A(−4, −1)、B(2, 2)、C(4, −3)。在y軸上取點P，使它與點C位於直線AB的同側，並且△ABP的面積等於△ABC的面積。求點P的y坐標。"
+ },
+ "Pを(0, p)とおき、△ABPの面積をpの式で表そうとする": {
+  "en": "Let P be (0, p) and try to write the area of △ABP in terms of p",
+  "zh-Hans": "设P为(0, p)，试着用含p的式子表示△ABP的面积",
+  "zh-Hant": "設P為(0, p)，試著用含p的式子表示△ABP的面積"
+ },
+ "△ABCの面積も計算し、方程式を立てる": {
+  "en": "Also calculate the area of △ABC and set up an equation",
+  "zh-Hans": "再算出△ABC的面积，列方程",
+  "zh-Hant": "再算出△ABC的面積，列方程式"
+ },
+ "面積の式に場合分けが出てきて、約4分かかる": {
+  "en": "The area expression needs splitting into cases, and it takes about 4 minutes",
+  "zh-Hans": "面积的式子需要分类讨论，大约要花4分钟",
+  "zh-Hant": "面積的式子需要分情況討論，大約要花4分鐘"
+ },
+ "ABを底辺と見る。Cを通りABに平行な直線の上なら、どこに頂点があっても高さは同じ（等積変形）": {
+  "en": "Take AB as the base. Anywhere on the line through C parallel to AB, the vertex gives the same height (Equal-Area Slide)",
+  "zh-Hans": "把AB看作底边。只要顶点在过C且与AB平行的直线上，无论在哪里，高都相同（等积变形）",
+  "zh-Hant": "把AB看作底邊。只要頂點在過C且與AB平行的直線上，無論在哪裡，高都相同（等積變形）"
+ },
+ "ABの傾きは (2−(−1))÷(2−(−4)) = 1/2": {
+  "en": "The slope of AB is (2−(−1))÷(2−(−4)) = 1/2",
+  "zh-Hans": "AB的斜率为 (2−(−1))÷(2−(−4)) = 1/2",
+  "zh-Hant": "AB的斜率為 (2−(−1))÷(2−(−4)) = 1/2"
+ },
+ "Cを通り傾き1/2の直線 y = 1/2 x + b に C を代入：b = (−3)−1/2×4 = −5": {
+  "en": "Line through C with slope 1/2: substitute C into y = 1/2 x + b: b = (−3)−1/2×4 = −5",
+  "zh-Hans": "过C、斜率为1/2的直线 y = 1/2 x + b，代入C：b = (−3)−1/2×4 = −5",
+  "zh-Hant": "過C、斜率為1/2的直線 y = 1/2 x + b，代入C：b = (−3)−1/2×4 = −5"
+ },
+ "この直線とy軸の交点がP。Pのy座標 = −5": {
+  "en": "P is where this line meets the y-axis. y-coordinate of P = −5",
+  "zh-Hans": "这条直线与y轴的交点就是P。P的y坐标 = −5",
+  "zh-Hant": "這條直線與y軸的交點就是P。P的y坐標 = −5"
+ },
+ "面積が等しい点を軸の上にとるときは、頂点を通り底辺に平行な直線をひく。": {
+  "en": "When you need a point on an axis that gives an equal area, draw a line through the vertex parallel to the base.",
+  "zh-Hans": "要在坐标轴上取使面积相等的点时，过顶点画一条与底边平行的直线。",
+  "zh-Hant": "要在坐標軸上取使面積相等的點時，過頂點畫一條與底邊平行的直線。"
+ },
+ "そのとおり。Cを通りABに平行な直線の上なら、高さが同じなので面積も同じ。": {
+  "en": "That's right. On the line through C parallel to AB, the height is the same, so the area is the same too.",
+  "zh-Hans": "没错。在过C且与AB平行的直线上，高相同，所以面积也相同。",
+  "zh-Hant": "沒錯。在過C且與AB平行的直線上，高相同，所以面積也相同。"
+ },
+ "△ABCの面積は囲めば出るが、Pの位置を決めるには遠回り。": {
+  "en": "You can get the area of △ABC by enclosing it, but it's the long way round to find where P is.",
+  "zh-Hans": "△ABC的面积围起来就能求出，但要确定P的位置就绕远路了。",
+  "zh-Hant": "△ABC的面積圍起來就能求出，但要確定P的位置就繞遠路了。"
+ },
+ "Pを(0, p)とおいて面積の方程式を立てると、場合分けが出てきて計算が重い。": {
+  "en": "If you let P be (0, p) and write an area equation, you have to split into cases and the calculation gets heavy.",
+  "zh-Hans": "设P为(0, p)列面积方程的话，需要分类讨论，计算很繁琐。",
+  "zh-Hant": "設P為(0, p)列面積方程式的話，需要分情況討論，計算很繁瑣。"
+ },
+ "座標平面上に3点A(−6, 5)、B(−4, 7)、C(6, 2)があります。y軸上に点Pを、直線ABについて点Cと同じ側にとり、△ABPの面積が△ABCの面積と等しくなるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are three points A(−6, 5), B(−4, 7) and C(6, 2). Take a point P on the y-axis, on the same side of line AB as point C, so that the area of △ABP equals the area of △ABC. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有三点A(−6, 5)、B(−4, 7)、C(6, 2)。在y轴上取点P，使它与点C位于直线AB的同侧，并且△ABP的面积等于△ABC的面积。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有三點A(−6, 5)、B(−4, 7)、C(6, 2)。在y軸上取點P，使它與點C位於直線AB的同側，並且△ABP的面積等於△ABC的面積。求點P的y坐標。"
+ },
+ "ABの傾きは (7−5)÷((−4)−(−6)) = 1": {
+  "en": "The slope of AB is (7−5)÷((−4)−(−6)) = 1",
+  "zh-Hans": "AB的斜率为 (7−5)÷((−4)−(−6)) = 1",
+  "zh-Hant": "AB的斜率為 (7−5)÷((−4)−(−6)) = 1"
+ },
+ "Cを通り傾き1の直線 y = 1 x + b に C を代入：b = 2−1×6 = −4": {
+  "en": "Line through C with slope 1: substitute C into y = 1 x + b: b = 2−1×6 = −4",
+  "zh-Hans": "过C、斜率为1的直线 y = 1 x + b，代入C：b = 2−1×6 = −4",
+  "zh-Hant": "過C、斜率為1的直線 y = 1 x + b，代入C：b = 2−1×6 = −4"
+ },
+ "この直線とy軸の交点がP。Pのy座標 = −4": {
+  "en": "P is where this line meets the y-axis. y-coordinate of P = −4",
+  "zh-Hans": "这条直线与y轴的交点就是P。P的y坐标 = −4",
+  "zh-Hant": "這條直線與y軸的交點就是P。P的y坐標 = −4"
+ },
+ "座標平面上に3点A(−6, −2)、B(−3, −5)、C(4, −7)があります。y軸上に点Pを、直線ABについて点Cと同じ側にとり、△ABPの面積が△ABCの面積と等しくなるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are three points A(−6, −2), B(−3, −5) and C(4, −7). Take a point P on the y-axis, on the same side of line AB as point C, so that the area of △ABP equals the area of △ABC. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有三点A(−6, −2)、B(−3, −5)、C(4, −7)。在y轴上取点P，使它与点C位于直线AB的同侧，并且△ABP的面积等于△ABC的面积。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有三點A(−6, −2)、B(−3, −5)、C(4, −7)。在y軸上取點P，使它與點C位於直線AB的同側，並且△ABP的面積等於△ABC的面積。求點P的y坐標。"
+ },
+ "ABの傾きは ((−5)−(−2))÷((−3)−(−6)) = −1": {
+  "en": "The slope of AB is ((−5)−(−2))÷((−3)−(−6)) = −1",
+  "zh-Hans": "AB的斜率为 ((−5)−(−2))÷((−3)−(−6)) = −1",
+  "zh-Hant": "AB的斜率為 ((−5)−(−2))÷((−3)−(−6)) = −1"
+ },
+ "Cを通り傾き−1の直線 y = −1 x + b に C を代入：b = (−7)−(−1)×4 = −3": {
+  "en": "Line through C with slope −1: substitute C into y = −1 x + b: b = (−7)−(−1)×4 = −3",
+  "zh-Hans": "过C、斜率为−1的直线 y = −1 x + b，代入C：b = (−7)−(−1)×4 = −3",
+  "zh-Hant": "過C、斜率為−1的直線 y = −1 x + b，代入C：b = (−7)−(−1)×4 = −3"
+ },
+ "この直線とy軸の交点がP。Pのy座標 = −3": {
+  "en": "P is where this line meets the y-axis. y-coordinate of P = −3",
+  "zh-Hans": "这条直线与y轴的交点就是P。P的y坐标 = −3",
+  "zh-Hant": "這條直線與y軸的交點就是P。P的y坐標 = −3"
+ },
+ "座標平面上に3点A(−5, 3)、B(−4, 2)、C(5, −11)があります。y軸上に点Pを、直線ABについて点Cと同じ側にとり、△ABPの面積が△ABCの面積と等しくなるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are three points A(−5, 3), B(−4, 2) and C(5, −11). Take a point P on the y-axis, on the same side of line AB as point C, so that the area of △ABP equals the area of △ABC. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有三点A(−5, 3)、B(−4, 2)、C(5, −11)。在y轴上取点P，使它与点C位于直线AB的同侧，并且△ABP的面积等于△ABC的面积。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有三點A(−5, 3)、B(−4, 2)、C(5, −11)。在y軸上取點P，使它與點C位於直線AB的同側，並且△ABP的面積等於△ABC的面積。求點P的y坐標。"
+ },
+ "ABの傾きは (2−3)÷((−4)−(−5)) = −1": {
+  "en": "The slope of AB is (2−3)÷((−4)−(−5)) = −1",
+  "zh-Hans": "AB的斜率为 (2−3)÷((−4)−(−5)) = −1",
+  "zh-Hant": "AB的斜率為 (2−3)÷((−4)−(−5)) = −1"
+ },
+ "Cを通り傾き−1の直線 y = −1 x + b に C を代入：b = (−11)−(−1)×5 = −6": {
+  "en": "Line through C with slope −1: substitute C into y = −1 x + b: b = (−11)−(−1)×5 = −6",
+  "zh-Hans": "过C、斜率为−1的直线 y = −1 x + b，代入C：b = (−11)−(−1)×5 = −6",
+  "zh-Hant": "過C、斜率為−1的直線 y = −1 x + b，代入C：b = (−11)−(−1)×5 = −6"
+ },
+ "この直線とy軸の交点がP。Pのy座標 = −6": {
+  "en": "P is where this line meets the y-axis. y-coordinate of P = −6",
+  "zh-Hans": "这条直线与y轴的交点就是P。P的y坐标 = −6",
+  "zh-Hant": "這條直線與y軸的交點就是P。P的y坐標 = −6"
+ },
+ "座標平面上に3点A(−3, −1)、B(−1, −5)、C(6, −7)があります。y軸上に点Pを、直線ABについて点Cと同じ側にとり、△ABPの面積が△ABCの面積と等しくなるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are three points A(−3, −1), B(−1, −5) and C(6, −7). Take a point P on the y-axis, on the same side of line AB as point C, so that the area of △ABP equals the area of △ABC. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有三点A(−3, −1)、B(−1, −5)、C(6, −7)。在y轴上取点P，使它与点C位于直线AB的同侧，并且△ABP的面积等于△ABC的面积。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有三點A(−3, −1)、B(−1, −5)、C(6, −7)。在y軸上取點P，使它與點C位於直線AB的同側，並且△ABP的面積等於△ABC的面積。求點P的y坐標。"
+ },
+ "ABの傾きは ((−5)−(−1))÷((−1)−(−3)) = −2": {
+  "en": "The slope of AB is ((−5)−(−1))÷((−1)−(−3)) = −2",
+  "zh-Hans": "AB的斜率为 ((−5)−(−1))÷((−1)−(−3)) = −2",
+  "zh-Hant": "AB的斜率為 ((−5)−(−1))÷((−1)−(−3)) = −2"
+ },
+ "Cを通り傾き−2の直線 y = −2 x + b に C を代入：b = (−7)−(−2)×6 = 5": {
+  "en": "Line through C with slope −2: substitute C into y = −2 x + b: b = (−7)−(−2)×6 = 5",
+  "zh-Hans": "过C、斜率为−2的直线 y = −2 x + b，代入C：b = (−7)−(−2)×6 = 5",
+  "zh-Hant": "過C、斜率為−2的直線 y = −2 x + b，代入C：b = (−7)−(−2)×6 = 5"
+ },
+ "この直線とy軸の交点がP。Pのy座標 = 5": {
+  "en": "P is where this line meets the y-axis. y-coordinate of P = 5",
+  "zh-Hans": "这条直线与y轴的交点就是P。P的y坐标 = 5",
+  "zh-Hant": "這條直線與y軸的交點就是P。P的y坐標 = 5"
+ },
+ "座標平面上に3点A(−3, 4)、B(3, 1)、C(4, 5)があります。y軸上に点Pを、直線ABについて点Cと同じ側にとり、△ABPの面積が△ABCの面積と等しくなるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are three points A(−3, 4), B(3, 1) and C(4, 5). Take a point P on the y-axis, on the same side of line AB as point C, so that the area of △ABP equals the area of △ABC. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有三点A(−3, 4)、B(3, 1)、C(4, 5)。在y轴上取点P，使它与点C位于直线AB的同侧，并且△ABP的面积等于△ABC的面积。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有三點A(−3, 4)、B(3, 1)、C(4, 5)。在y軸上取點P，使它與點C位於直線AB的同側，並且△ABP的面積等於△ABC的面積。求點P的y坐標。"
+ },
+ "ABの傾きは (1−4)÷(3−(−3)) = −1/2": {
+  "en": "The slope of AB is (1−4)÷(3−(−3)) = −1/2",
+  "zh-Hans": "AB的斜率为 (1−4)÷(3−(−3)) = −1/2",
+  "zh-Hant": "AB的斜率為 (1−4)÷(3−(−3)) = −1/2"
+ },
+ "Cを通り傾き−1/2の直線 y = −1/2 x + b に C を代入：b = 5−(−1/2)×4 = 7": {
+  "en": "Line through C with slope −1/2: substitute C into y = −1/2 x + b: b = 5−(−1/2)×4 = 7",
+  "zh-Hans": "过C、斜率为−1/2的直线 y = −1/2 x + b，代入C：b = 5−(−1/2)×4 = 7",
+  "zh-Hant": "過C、斜率為−1/2的直線 y = −1/2 x + b，代入C：b = 5−(−1/2)×4 = 7"
+ },
+ "この直線とy軸の交点がP。Pのy座標 = 7": {
+  "en": "P is where this line meets the y-axis. y-coordinate of P = 7",
+  "zh-Hans": "这条直线与y轴的交点就是P。P的y坐标 = 7",
+  "zh-Hant": "這條直線與y軸的交點就是P。P的y坐標 = 7"
+ },
+ "座標平面上に3点A(−4, −1)、B(2, 2)、C(4, −4)があります。y軸上に点Pを、直線ABについて点Cと同じ側にとり、△ABPの面積が△ABCの面積と等しくなるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are three points A(−4, −1), B(2, 2) and C(4, −4). Take a point P on the y-axis, on the same side of line AB as point C, so that the area of △ABP equals the area of △ABC. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有三点A(−4, −1)、B(2, 2)、C(4, −4)。在y轴上取点P，使它与点C位于直线AB的同侧，并且△ABP的面积等于△ABC的面积。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有三點A(−4, −1)、B(2, 2)、C(4, −4)。在y軸上取點P，使它與點C位於直線AB的同側，並且△ABP的面積等於△ABC的面積。求點P的y坐標。"
+ },
+ "Cを通り傾き1/2の直線 y = 1/2 x + b に C を代入：b = (−4)−1/2×4 = −6": {
+  "en": "Line through C with slope 1/2: substitute C into y = 1/2 x + b: b = (−4)−1/2×4 = −6",
+  "zh-Hans": "过C、斜率为1/2的直线 y = 1/2 x + b，代入C：b = (−4)−1/2×4 = −6",
+  "zh-Hant": "過C、斜率為1/2的直線 y = 1/2 x + b，代入C：b = (−4)−1/2×4 = −6"
+ },
+ "座標平面上に3点A(−1, 5)、B(2, 6)、C(6, 8)があります。y軸上に点Pを、直線ABについて点Cと同じ側にとり、△ABPの面積が△ABCの面積と等しくなるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are three points A(−1, 5), B(2, 6) and C(6, 8). Take a point P on the y-axis, on the same side of line AB as point C, so that the area of △ABP equals the area of △ABC. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有三点A(−1, 5)、B(2, 6)、C(6, 8)。在y轴上取点P，使它与点C位于直线AB的同侧，并且△ABP的面积等于△ABC的面积。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有三點A(−1, 5)、B(2, 6)、C(6, 8)。在y軸上取點P，使它與點C位於直線AB的同側，並且△ABP的面積等於△ABC的面積。求點P的y坐標。"
+ },
+ "ABの傾きは (6−5)÷(2−(−1)) = 1/3": {
+  "en": "The slope of AB is (6−5)÷(2−(−1)) = 1/3",
+  "zh-Hans": "AB的斜率为 (6−5)÷(2−(−1)) = 1/3",
+  "zh-Hant": "AB的斜率為 (6−5)÷(2−(−1)) = 1/3"
+ },
+ "Cを通り傾き1/3の直線 y = 1/3 x + b に C を代入：b = 8−1/3×6 = 6": {
+  "en": "Line through C with slope 1/3: substitute C into y = 1/3 x + b: b = 8−1/3×6 = 6",
+  "zh-Hans": "过C、斜率为1/3的直线 y = 1/3 x + b，代入C：b = 8−1/3×6 = 6",
+  "zh-Hant": "過C、斜率為1/3的直線 y = 1/3 x + b，代入C：b = 8−1/3×6 = 6"
+ },
+ "この直線とy軸の交点がP。Pのy座標 = 6": {
+  "en": "P is where this line meets the y-axis. y-coordinate of P = 6",
+  "zh-Hans": "这条直线与y轴的交点就是P。P的y坐标 = 6",
+  "zh-Hant": "這條直線與y軸的交點就是P。P的y坐標 = 6"
+ },
+ "座標平面上に3点A(−1, 3)、B(3, 9)、C(6, 4)があります。y軸上に点Pを、直線ABについて点Cと同じ側にとり、△ABPの面積が△ABCの面積と等しくなるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are three points A(−1, 3), B(3, 9) and C(6, 4). Take a point P on the y-axis, on the same side of line AB as point C, so that the area of △ABP equals the area of △ABC. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有三点A(−1, 3)、B(3, 9)、C(6, 4)。在y轴上取点P，使它与点C位于直线AB的同侧，并且△ABP的面积等于△ABC的面积。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有三點A(−1, 3)、B(3, 9)、C(6, 4)。在y軸上取點P，使它與點C位於直線AB的同側，並且△ABP的面積等於△ABC的面積。求點P的y坐標。"
+ },
+ "ABの傾きは (9−3)÷(3−(−1)) = 3/2": {
+  "en": "The slope of AB is (9−3)÷(3−(−1)) = 3/2",
+  "zh-Hans": "AB的斜率为 (9−3)÷(3−(−1)) = 3/2",
+  "zh-Hant": "AB的斜率為 (9−3)÷(3−(−1)) = 3/2"
+ },
+ "Cを通り傾き3/2の直線 y = 3/2 x + b に C を代入：b = 4−3/2×6 = −5": {
+  "en": "Line through C with slope 3/2: substitute C into y = 3/2 x + b: b = 4−3/2×6 = −5",
+  "zh-Hans": "过C、斜率为3/2的直线 y = 3/2 x + b，代入C：b = 4−3/2×6 = −5",
+  "zh-Hant": "過C、斜率為3/2的直線 y = 3/2 x + b，代入C：b = 4−3/2×6 = −5"
+ },
+ "座標平面上に3点A(−5, 5)、B(−3, 7)、C(6, 3)があります。y軸上に点Pを、直線ABについて点Cと同じ側にとり、△ABPの面積が△ABCの面積と等しくなるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are three points A(−5, 5), B(−3, 7) and C(6, 3). Take a point P on the y-axis, on the same side of line AB as point C, so that the area of △ABP equals the area of △ABC. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有三点A(−5, 5)、B(−3, 7)、C(6, 3)。在y轴上取点P，使它与点C位于直线AB的同侧，并且△ABP的面积等于△ABC的面积。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有三點A(−5, 5)、B(−3, 7)、C(6, 3)。在y軸上取點P，使它與點C位於直線AB的同側，並且△ABP的面積等於△ABC的面積。求點P的y坐標。"
+ },
+ "ABの傾きは (7−5)÷((−3)−(−5)) = 1": {
+  "en": "The slope of AB is (7−5)÷((−3)−(−5)) = 1",
+  "zh-Hans": "AB的斜率为 (7−5)÷((−3)−(−5)) = 1",
+  "zh-Hant": "AB的斜率為 (7−5)÷((−3)−(−5)) = 1"
+ },
+ "Cを通り傾き1の直線 y = 1 x + b に C を代入：b = 3−1×6 = −3": {
+  "en": "Line through C with slope 1: substitute C into y = 1 x + b: b = 3−1×6 = −3",
+  "zh-Hans": "过C、斜率为1的直线 y = 1 x + b，代入C：b = 3−1×6 = −3",
+  "zh-Hant": "過C、斜率為1的直線 y = 1 x + b，代入C：b = 3−1×6 = −3"
+ },
+ "底辺ABがx軸の上なら、高さはy座標そのもの。Cと同じ高さの点は、x軸に平行な直線の上にならぶ。": {
+  "en": "If base AB lies on the x-axis, the height is simply the y-coordinate. Points at the same height as C line up on a line parallel to the x-axis.",
+  "zh-Hans": "如果底边AB在x轴上，高就是y坐标本身。和C一样高的点，都排在一条与x轴平行的直线上。",
+  "zh-Hant": "如果底邊AB在x軸上，高就是y坐標本身。和C一樣高的點，都排在一條與x軸平行的直線上。"
+ },
+ "座標平面上に3点A(−5, 0)、B(3, 0)、C(4, 6)があります。y軸上に点Pを、直線ABについて点Cと同じ側にとり、△ABPの面積が△ABCの面積と等しくなるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are three points A(−5, 0), B(3, 0) and C(4, 6). Take a point P on the y-axis, on the same side of line AB as point C, so that the area of △ABP equals the area of △ABC. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有三点A(−5, 0)、B(3, 0)、C(4, 6)。在y轴上取点P，使它与点C位于直线AB的同侧，并且△ABP的面积等于△ABC的面积。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有三點A(−5, 0)、B(3, 0)、C(4, 6)。在y軸上取點P，使它與點C位於直線AB的同側，並且△ABP的面積等於△ABC的面積。求點P的y坐標。"
+ },
+ "△ABCの面積を出してから、Pのy座標を□とおいて方程式を立てる": {
+  "en": "Find the area of △ABC first, then let the y-coordinate of P be □ and set up an equation",
+  "zh-Hans": "先求出△ABC的面积，再设P的y坐标为□，列方程",
+  "zh-Hant": "先求出△ABC的面積，再設P的y坐標為□，列方程式"
+ },
+ "高さの意味を考えずに式を書くので、まちがえやすい": {
+  "en": "You write the equation without thinking about what the height means, so it's easy to make mistakes",
+  "zh-Hans": "没有想清楚高的意义就列式，容易出错",
+  "zh-Hant": "沒有想清楚高的意義就列式，容易出錯"
+ },
+ "ABの傾きは (0−0)÷(3−(−5)) = 0": {
+  "en": "The slope of AB is (0−0)÷(3−(−5)) = 0",
+  "zh-Hans": "AB的斜率为 (0−0)÷(3−(−5)) = 0",
+  "zh-Hant": "AB的斜率為 (0−0)÷(3−(−5)) = 0"
+ },
+ "Cを通り傾き0の直線 y = 0 x + b に C を代入：b = 6−0×4 = 6": {
+  "en": "Line through C with slope 0: substitute C into y = 0 x + b: b = 6−0×4 = 6",
+  "zh-Hans": "过C、斜率为0的直线 y = 0 x + b，代入C：b = 6−0×4 = 6",
+  "zh-Hant": "過C、斜率為0的直線 y = 0 x + b，代入C：b = 6−0×4 = 6"
+ },
+ "そのとおり。ABはx軸の上なので、Cを通りx軸に平行な直線の上なら高さが同じ。": {
+  "en": "That's right. AB is on the x-axis, so anywhere on the line through C parallel to the x-axis has the same height.",
+  "zh-Hans": "没错。AB在x轴上，所以在过C且与x轴平行的直线上，高都相同。",
+  "zh-Hant": "沒錯。AB在x軸上，所以在過C且與x軸平行的直線上，高都相同。"
+ },
+ "△ABCの面積は出せるが、Pの位置を決めるには遠回り。": {
+  "en": "You can find the area of △ABC, but it's the long way round to find where P is.",
+  "zh-Hans": "△ABC的面积能求出来，但要确定P的位置就绕远路了。",
+  "zh-Hant": "△ABC的面積能求出來，但要確定P的位置就繞遠路了。"
+ },
+ "Pを(0, p)とおいて面積の式を立てることもできるが、遠回り。": {
+  "en": "You could let P be (0, p) and write an area equation, but it's the long way round.",
+  "zh-Hans": "也可以设P为(0, p)列面积的式子，但绕远路了。",
+  "zh-Hant": "也可以設P為(0, p)列面積的式子，但繞遠路了。"
+ },
+ "座標平面上に3点A(−2, 0)、B(1, 0)、C(5, −5)があります。y軸上に点Pを、直線ABについて点Cと同じ側にとり、△ABPの面積が△ABCの面積と等しくなるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are three points A(−2, 0), B(1, 0) and C(5, −5). Take a point P on the y-axis, on the same side of line AB as point C, so that the area of △ABP equals the area of △ABC. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有三点A(−2, 0)、B(1, 0)、C(5, −5)。在y轴上取点P，使它与点C位于直线AB的同侧，并且△ABP的面积等于△ABC的面积。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有三點A(−2, 0)、B(1, 0)、C(5, −5)。在y軸上取點P，使它與點C位於直線AB的同側，並且△ABP的面積等於△ABC的面積。求點P的y坐標。"
+ },
+ "ABの傾きは (0−0)÷(1−(−2)) = 0": {
+  "en": "The slope of AB is (0−0)÷(1−(−2)) = 0",
+  "zh-Hans": "AB的斜率为 (0−0)÷(1−(−2)) = 0",
+  "zh-Hant": "AB的斜率為 (0−0)÷(1−(−2)) = 0"
+ },
+ "Cを通り傾き0の直線 y = 0 x + b に C を代入：b = (−5)−0×5 = −5": {
+  "en": "Line through C with slope 0: substitute C into y = 0 x + b: b = (−5)−0×5 = −5",
+  "zh-Hans": "过C、斜率为0的直线 y = 0 x + b，代入C：b = (−5)−0×5 = −5",
+  "zh-Hant": "過C、斜率為0的直線 y = 0 x + b，代入C：b = (−5)−0×5 = −5"
+ },
+ "座標平面上に3点A(−3, 0)、B(6, 0)、C(5, 4)があります。y軸上に点Pを、直線ABについて点Cと同じ側にとり、△ABPの面積が△ABCの面積と等しくなるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are three points A(−3, 0), B(6, 0) and C(5, 4). Take a point P on the y-axis, on the same side of line AB as point C, so that the area of △ABP equals the area of △ABC. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有三点A(−3, 0)、B(6, 0)、C(5, 4)。在y轴上取点P，使它与点C位于直线AB的同侧，并且△ABP的面积等于△ABC的面积。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有三點A(−3, 0)、B(6, 0)、C(5, 4)。在y軸上取點P，使它與點C位於直線AB的同側，並且△ABP的面積等於△ABC的面積。求點P的y坐標。"
+ },
+ "ABの傾きは (0−0)÷(6−(−3)) = 0": {
+  "en": "The slope of AB is (0−0)÷(6−(−3)) = 0",
+  "zh-Hans": "AB的斜率为 (0−0)÷(6−(−3)) = 0",
+  "zh-Hant": "AB的斜率為 (0−0)÷(6−(−3)) = 0"
+ },
+ "Cを通り傾き0の直線 y = 0 x + b に C を代入：b = 4−0×5 = 4": {
+  "en": "Line through C with slope 0: substitute C into y = 0 x + b: b = 4−0×5 = 4",
+  "zh-Hans": "过C、斜率为0的直线 y = 0 x + b，代入C：b = 4−0×5 = 4",
+  "zh-Hant": "過C、斜率為0的直線 y = 0 x + b，代入C：b = 4−0×5 = 4"
+ },
+ "この直線とy軸の交点がP。Pのy座標 = 4": {
+  "en": "P is where this line meets the y-axis. y-coordinate of P = 4",
+  "zh-Hans": "这条直线与y轴的交点就是P。P的y坐标 = 4",
+  "zh-Hant": "這條直線與y軸的交點就是P。P的y坐標 = 4"
+ },
+ "座標平面上に3点A(−1, 0)、B(5, 0)、C(2, −6)があります。y軸上に点Pを、直線ABについて点Cと同じ側にとり、△ABPの面積が△ABCの面積と等しくなるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are three points A(−1, 0), B(5, 0) and C(2, −6). Take a point P on the y-axis, on the same side of line AB as point C, so that the area of △ABP equals the area of △ABC. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有三点A(−1, 0)、B(5, 0)、C(2, −6)。在y轴上取点P，使它与点C位于直线AB的同侧，并且△ABP的面积等于△ABC的面积。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有三點A(−1, 0)、B(5, 0)、C(2, −6)。在y軸上取點P，使它與點C位於直線AB的同側，並且△ABP的面積等於△ABC的面積。求點P的y坐標。"
+ },
+ "ABの傾きは (0−0)÷(5−(−1)) = 0": {
+  "en": "The slope of AB is (0−0)÷(5−(−1)) = 0",
+  "zh-Hans": "AB的斜率为 (0−0)÷(5−(−1)) = 0",
+  "zh-Hant": "AB的斜率為 (0−0)÷(5−(−1)) = 0"
+ },
+ "Cを通り傾き0の直線 y = 0 x + b に C を代入：b = (−6)−0×2 = −6": {
+  "en": "Line through C with slope 0: substitute C into y = 0 x + b: b = (−6)−0×2 = −6",
+  "zh-Hans": "过C、斜率为0的直线 y = 0 x + b，代入C：b = (−6)−0×2 = −6",
+  "zh-Hant": "過C、斜率為0的直線 y = 0 x + b，代入C：b = (−6)−0×2 = −6"
+ },
+ "座標平面上に3点A(−3, 0)、B(3, 0)、C(2, −3)があります。y軸上に点Pを、直線ABについて点Cと同じ側にとり、△ABPの面積が△ABCの面積と等しくなるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are three points A(−3, 0), B(3, 0) and C(2, −3). Take a point P on the y-axis, on the same side of line AB as point C, so that the area of △ABP equals the area of △ABC. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有三点A(−3, 0)、B(3, 0)、C(2, −3)。在y轴上取点P，使它与点C位于直线AB的同侧，并且△ABP的面积等于△ABC的面积。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有三點A(−3, 0)、B(3, 0)、C(2, −3)。在y軸上取點P，使它與點C位於直線AB的同側，並且△ABP的面積等於△ABC的面積。求點P的y坐標。"
+ },
+ "ABの傾きは (0−0)÷(3−(−3)) = 0": {
+  "en": "The slope of AB is (0−0)÷(3−(−3)) = 0",
+  "zh-Hans": "AB的斜率为 (0−0)÷(3−(−3)) = 0",
+  "zh-Hant": "AB的斜率為 (0−0)÷(3−(−3)) = 0"
+ },
+ "Cを通り傾き0の直線 y = 0 x + b に C を代入：b = (−3)−0×2 = −3": {
+  "en": "Line through C with slope 0: substitute C into y = 0 x + b: b = (−3)−0×2 = −3",
+  "zh-Hans": "过C、斜率为0的直线 y = 0 x + b，代入C：b = (−3)−0×2 = −3",
+  "zh-Hant": "過C、斜率為0的直線 y = 0 x + b，代入C：b = (−3)−0×2 = −3"
+ },
+ "座標平面上に4点A(−3, 0)、B(3, 0)、C(5, 3)、D(−1, 6)があります。x軸上で点Bより右側に点Eをとり、△AEDの面積が四角形ABCDの面積と等しくなるようにします。点Eのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are four points A(−3, 0), B(3, 0), C(5, 3) and D(−1, 6). Take a point E on the x-axis to the right of point B so that the area of △AED equals the area of quadrilateral ABCD. Find the x-coordinate of E.",
+  "zh-Hans": "坐标平面上有四点A(−3, 0)、B(3, 0)、C(5, 3)、D(−1, 6)。在x轴上点B的右侧取点E，使△AED的面积等于四边形ABCD的面积。求点E的x坐标。",
+  "zh-Hant": "坐標平面上有四點A(−3, 0)、B(3, 0)、C(5, 3)、D(−1, 6)。在x軸上點B的右側取點E，使△AED的面積等於四邊形ABCD的面積。求點E的x坐標。"
+ },
+ "四角形ABCDの面積を、囲んで先に求める": {
+  "en": "First find the area of quadrilateral ABCD by enclosing it",
+  "zh-Hans": "先用围起来的方法求出四边形ABCD的面积",
+  "zh-Hant": "先用圍起來的方法求出四邊形ABCD的面積"
+ },
+ "Eを(e, 0)とおいて△AEDの面積をeの式で表し、方程式を立てる": {
+  "en": "Let E be (e, 0), write the area of △AED in terms of e, and set up an equation",
+  "zh-Hans": "设E为(e, 0)，用含e的式子表示△AED的面积，列方程",
+  "zh-Hant": "設E為(e, 0)，用含e的式子表示△AED的面積，列方程式"
+ },
+ "ここで約4分。計算が2段になる": {
+  "en": "About 4 minutes in. The calculation takes two stages",
+  "zh-Hans": "到这里约4分钟。计算要分两步",
+  "zh-Hant": "到這裡約4分鐘。計算要分兩步"
+ },
+ "対角線DBをひく。△DBCの頂点Cを、DBに平行に動かしても面積は変わらない（等積変形）": {
+  "en": "Draw diagonal DB. Moving vertex C of △DBC parallel to DB does not change its area (Equal-Area Slide)",
+  "zh-Hans": "画对角线DB。把△DBC的顶点C沿与DB平行的方向移动，面积不变（等积变形）",
+  "zh-Hant": "畫對角線DB。把△DBC的頂點C沿與DB平行的方向移動，面積不變（等積變形）"
+ },
+ "Cを、DBに平行な直線にそってx軸まで動かした点がE。このとき △DBE＝△DBC なので、△AED＝四角形ABCD": {
+  "en": "Move C along the line parallel to DB down to the x-axis: that point is E. Then △DBE＝△DBC, so △AED＝quadrilateral ABCD",
+  "zh-Hans": "把C沿与DB平行的直线移动到x轴上，得到的点就是E。这时 △DBE＝△DBC，所以 △AED＝四边形ABCD",
+  "zh-Hant": "把C沿與DB平行的直線移動到x軸上，得到的點就是E。這時 △DBE＝△DBC，所以 △AED＝四邊形ABCD"
+ },
+ "DBの傾きは (0−6)÷(3−(−1)) = −3/2": {
+  "en": "The slope of DB is (0−6)÷(3−(−1)) = −3/2",
+  "zh-Hans": "DB的斜率为 (0−6)÷(3−(−1)) = −3/2",
+  "zh-Hant": "DB的斜率為 (0−6)÷(3−(−1)) = −3/2"
+ },
+ "Cからyが 3 下がる間に、xは 3×4/6 = 2 進む": {
+  "en": "Starting from C, while y goes down by 3, x moves forward by 3×4/6 = 2",
+  "zh-Hans": "从C出发，y下降 3 的同时，x前进 3×4/6 = 2",
+  "zh-Hant": "從C出發，y下降 3 的同時，x前進 3×4/6 = 2"
+ },
+ "Eのx座標 = 5＋2 = 7": {
+  "en": "x-coordinate of E = 5＋2 = 7",
+  "zh-Hans": "E的x坐标 = 5＋2 = 7",
+  "zh-Hant": "E的x坐標 = 5＋2 = 7"
+ },
+ "四角形を同じ面積の三角形にするときは、対角線をひき、残りの頂点を対角線に平行に動かす。": {
+  "en": "To turn a quadrilateral into a triangle with the same area, draw a diagonal and move the remaining vertex parallel to it.",
+  "zh-Hans": "要把四边形变成面积相同的三角形时，先画对角线，再把剩下的顶点沿与对角线平行的方向移动。",
+  "zh-Hant": "要把四邊形變成面積相同的三角形時，先畫對角線，再把剩下的頂點沿與對角線平行的方向移動。"
+ },
+ "そのとおり。対角線DBをひき、Cを、DBに平行にx軸まで動かす。△DBCの面積は変わらない。": {
+  "en": "That's right. Draw diagonal DB and move C parallel to DB down to the x-axis. The area of △DBC does not change.",
+  "zh-Hans": "没错。画对角线DB，把C沿与DB平行的方向移动到x轴上。△DBC的面积不变。",
+  "zh-Hant": "沒錯。畫對角線DB，把C沿與DB平行的方向移動到x軸上。△DBC的面積不變。"
+ },
+ "四角形の面積は囲めば出るが、Eの位置を決めるには方程式がもう1本いる。": {
+  "en": "You can get the quadrilateral's area by enclosing it, but you need one more equation to find where E is.",
+  "zh-Hans": "四边形的面积围起来就能求出，但要确定E的位置还需要再列一个方程。",
+  "zh-Hant": "四邊形的面積圍起來就能求出，但要確定E的位置還需要再列一個方程式。"
+ },
+ "Eを(e, 0)とおいて面積の方程式を立てると、計算が2段になる。": {
+  "en": "If you let E be (e, 0) and write an area equation, the calculation takes two stages.",
+  "zh-Hans": "设E为(e, 0)列面积方程的话，计算要分两步。",
+  "zh-Hant": "設E為(e, 0)列面積方程式的話，計算要分兩步。"
+ },
+ "座標平面上に4点A(−1, 0)、B(2, 0)、C(5, 6)、D(−1, 3)があります。x軸上で点Bより右側に点Eをとり、△AEDの面積が四角形ABCDの面積と等しくなるようにします。点Eのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are four points A(−1, 0), B(2, 0), C(5, 6) and D(−1, 3). Take a point E on the x-axis to the right of point B so that the area of △AED equals the area of quadrilateral ABCD. Find the x-coordinate of E.",
+  "zh-Hans": "坐标平面上有四点A(−1, 0)、B(2, 0)、C(5, 6)、D(−1, 3)。在x轴上点B的右侧取点E，使△AED的面积等于四边形ABCD的面积。求点E的x坐标。",
+  "zh-Hant": "坐標平面上有四點A(−1, 0)、B(2, 0)、C(5, 6)、D(−1, 3)。在x軸上點B的右側取點E，使△AED的面積等於四邊形ABCD的面積。求點E的x坐標。"
+ },
+ "DBの傾きは (0−3)÷(2−(−1)) = −1": {
+  "en": "The slope of DB is (0−3)÷(2−(−1)) = −1",
+  "zh-Hans": "DB的斜率为 (0−3)÷(2−(−1)) = −1",
+  "zh-Hant": "DB的斜率為 (0−3)÷(2−(−1)) = −1"
+ },
+ "Cからyが 6 下がる間に、xは 6×3/3 = 6 進む": {
+  "en": "Starting from C, while y goes down by 6, x moves forward by 6×3/3 = 6",
+  "zh-Hans": "从C出发，y下降 6 的同时，x前进 6×3/3 = 6",
+  "zh-Hant": "從C出發，y下降 6 的同時，x前進 6×3/3 = 6"
+ },
+ "Eのx座標 = 5＋6 = 11": {
+  "en": "x-coordinate of E = 5＋6 = 11",
+  "zh-Hans": "E的x坐标 = 5＋6 = 11",
+  "zh-Hant": "E的x坐標 = 5＋6 = 11"
+ },
+ "座標平面上に4点A(−4, 0)、B(2, 0)、C(6, 4)、D(−1, 6)があります。x軸上で点Bより右側に点Eをとり、△AEDの面積が四角形ABCDの面積と等しくなるようにします。点Eのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are four points A(−4, 0), B(2, 0), C(6, 4) and D(−1, 6). Take a point E on the x-axis to the right of point B so that the area of △AED equals the area of quadrilateral ABCD. Find the x-coordinate of E.",
+  "zh-Hans": "坐标平面上有四点A(−4, 0)、B(2, 0)、C(6, 4)、D(−1, 6)。在x轴上点B的右侧取点E，使△AED的面积等于四边形ABCD的面积。求点E的x坐标。",
+  "zh-Hant": "坐標平面上有四點A(−4, 0)、B(2, 0)、C(6, 4)、D(−1, 6)。在x軸上點B的右側取點E，使△AED的面積等於四邊形ABCD的面積。求點E的x坐標。"
+ },
+ "DBの傾きは (0−6)÷(2−(−1)) = −2": {
+  "en": "The slope of DB is (0−6)÷(2−(−1)) = −2",
+  "zh-Hans": "DB的斜率为 (0−6)÷(2−(−1)) = −2",
+  "zh-Hant": "DB的斜率為 (0−6)÷(2−(−1)) = −2"
+ },
+ "Cからyが 4 下がる間に、xは 4×3/6 = 2 進む": {
+  "en": "Starting from C, while y goes down by 4, x moves forward by 4×3/6 = 2",
+  "zh-Hans": "从C出发，y下降 4 的同时，x前进 4×3/6 = 2",
+  "zh-Hant": "從C出發，y下降 4 的同時，x前進 4×3/6 = 2"
+ },
+ "Eのx座標 = 6＋2 = 8": {
+  "en": "x-coordinate of E = 6＋2 = 8",
+  "zh-Hans": "E的x坐标 = 6＋2 = 8",
+  "zh-Hant": "E的x坐標 = 6＋2 = 8"
+ },
+ "座標平面上に4点A(−2, 0)、B(3, 0)、C(7, 7)、D(−1, 4)があります。x軸上で点Bより右側に点Eをとり、△AEDの面積が四角形ABCDの面積と等しくなるようにします。点Eのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are four points A(−2, 0), B(3, 0), C(7, 7) and D(−1, 4). Take a point E on the x-axis to the right of point B so that the area of △AED equals the area of quadrilateral ABCD. Find the x-coordinate of E.",
+  "zh-Hans": "坐标平面上有四点A(−2, 0)、B(3, 0)、C(7, 7)、D(−1, 4)。在x轴上点B的右侧取点E，使△AED的面积等于四边形ABCD的面积。求点E的x坐标。",
+  "zh-Hant": "坐標平面上有四點A(−2, 0)、B(3, 0)、C(7, 7)、D(−1, 4)。在x軸上點B的右側取點E，使△AED的面積等於四邊形ABCD的面積。求點E的x坐標。"
+ },
+ "DBの傾きは (0−4)÷(3−(−1)) = −1": {
+  "en": "The slope of DB is (0−4)÷(3−(−1)) = −1",
+  "zh-Hans": "DB的斜率为 (0−4)÷(3−(−1)) = −1",
+  "zh-Hant": "DB的斜率為 (0−4)÷(3−(−1)) = −1"
+ },
+ "Cからyが 7 下がる間に、xは 7×4/4 = 7 進む": {
+  "en": "Starting from C, while y goes down by 7, x moves forward by 7×4/4 = 7",
+  "zh-Hans": "从C出发，y下降 7 的同时，x前进 7×4/4 = 7",
+  "zh-Hant": "從C出發，y下降 7 的同時，x前進 7×4/4 = 7"
+ },
+ "Eのx座標 = 7＋7 = 14": {
+  "en": "x-coordinate of E = 7＋7 = 14",
+  "zh-Hans": "E的x坐标 = 7＋7 = 14",
+  "zh-Hant": "E的x坐標 = 7＋7 = 14"
+ },
+ "座標平面上に4点A(−5, 0)、B(5, 0)、C(10, 4)、D(1, 8)があります。x軸上で点Bより右側に点Eをとり、△AEDの面積が四角形ABCDの面積と等しくなるようにします。点Eのx座標を求めなさい。": {
+  "en": "On the coordinate plane there are four points A(−5, 0), B(5, 0), C(10, 4) and D(1, 8). Take a point E on the x-axis to the right of point B so that the area of △AED equals the area of quadrilateral ABCD. Find the x-coordinate of E.",
+  "zh-Hans": "坐标平面上有四点A(−5, 0)、B(5, 0)、C(10, 4)、D(1, 8)。在x轴上点B的右侧取点E，使△AED的面积等于四边形ABCD的面积。求点E的x坐标。",
+  "zh-Hant": "坐標平面上有四點A(−5, 0)、B(5, 0)、C(10, 4)、D(1, 8)。在x軸上點B的右側取點E，使△AED的面積等於四邊形ABCD的面積。求點E的x坐標。"
+ },
+ "DBの傾きは (0−8)÷(5−1) = −2": {
+  "en": "The slope of DB is (0−8)÷(5−1) = −2",
+  "zh-Hans": "DB的斜率为 (0−8)÷(5−1) = −2",
+  "zh-Hant": "DB的斜率為 (0−8)÷(5−1) = −2"
+ },
+ "Cからyが 4 下がる間に、xは 4×4/8 = 2 進む": {
+  "en": "Starting from C, while y goes down by 4, x moves forward by 4×4/8 = 2",
+  "zh-Hans": "从C出发，y下降 4 的同时，x前进 4×4/8 = 2",
+  "zh-Hant": "從C出發，y下降 4 的同時，x前進 4×4/8 = 2"
+ },
+ "Eのx座標 = 10＋2 = 12": {
+  "en": "x-coordinate of E = 10＋2 = 12",
+  "zh-Hans": "E的x坐标 = 10＋2 = 12",
+  "zh-Hant": "E的x坐標 = 10＋2 = 12"
+ },
+ "座標平面上に2点A(−4, 1)、B(2, 4)があります。y軸上に点Pを直線ABより上側にとり、△ABPの面積が15になるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are two points A(−4, 1) and B(2, 4). Take a point P on the y-axis above line AB so that the area of △ABP is 15. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有两点A(−4, 1)、B(2, 4)。在y轴上、直线AB的上方取点P，使△ABP的面积为15。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有兩點A(−4, 1)、B(2, 4)。在y軸上、直線AB的上方取點P，使△ABP的面積為15。求點P的y坐標。"
+ },
+ "「面積が等しい」問題と同じように、平行な直線をひこうとする": {
+  "en": "Try to draw a parallel line, just like in the \"equal area\" problems",
+  "zh-Hans": "像“面积相等”的题目那样，想画平行线",
+  "zh-Hant": "像「面積相等」的題目那樣，想畫平行線"
+ },
+ "動かす頂点も、面積をそろえる相手の三角形もないと気づく": {
+  "en": "Realize there is no vertex to move and no other triangle to match the area with",
+  "zh-Hans": "发现既没有可以移动的顶点，也没有要让面积相等的另一个三角形",
+  "zh-Hant": "發現既沒有可以移動的頂點，也沒有要讓面積相等的另一個三角形"
+ },
+ "Pを(0, p)とおいて面積を囲んで出そうとし、約3分かかる": {
+  "en": "Let P be (0, p) and try to get the area by enclosing it; it takes about 3 minutes",
+  "zh-Hans": "设P为(0, p)，想用围起来的方法求面积，大约要花3分钟",
+  "zh-Hant": "設P為(0, p)，想用圍起來的方法求面積，大約要花3分鐘"
+ },
+ "△ABPをy軸で2つに分ける。直線ABとy軸の交点をQとすると、PQが2つの三角形の共通の底辺": {
+  "en": "Split △ABP in two along the y-axis. If Q is where line AB meets the y-axis, PQ is the common base of the two triangles",
+  "zh-Hans": "用y轴把△ABP分成两个三角形。设直线AB与y轴的交点为Q，PQ就是两个三角形的公共底边",
+  "zh-Hant": "用y軸把△ABP分成兩個三角形。設直線AB與y軸的交點為Q，PQ就是兩個三角形的共同底邊"
+ },
+ "ABの傾きは (4−1)÷(2−(−4)) = 1/2。Qのy座標は 1−1/2×(−4) = 3": {
+  "en": "The slope of AB is (4−1)÷(2−(−4)) = 1/2. The y-coordinate of Q is 1−1/2×(−4) = 3",
+  "zh-Hans": "AB的斜率为 (4−1)÷(2−(−4)) = 1/2。Q的y坐标是 1−1/2×(−4) = 3",
+  "zh-Hant": "AB的斜率為 (4−1)÷(2−(−4)) = 1/2。Q的y坐標是 1−1/2×(−4) = 3"
+ },
+ "高さはAからy軸まで 4、Bからy軸まで 2。高さの和は 2−(−4) = 6": {
+  "en": "The heights are 4 from A to the y-axis and 2 from B to the y-axis. The sum of the heights is 2−(−4) = 6",
+  "zh-Hans": "高分别是A到y轴的 4、B到y轴的 2。高的和是 2−(−4) = 6",
+  "zh-Hant": "高分別是A到y軸的 4、B到y軸的 2。高的和是 2−(−4) = 6"
+ },
+ "PQ×6÷2 = 15 より、PQ = 15×2÷6 = 5": {
+  "en": "From PQ×6÷2 = 15, PQ = 15×2÷6 = 5",
+  "zh-Hans": "由 PQ×6÷2 = 15，得 PQ = 15×2÷6 = 5",
+  "zh-Hant": "由 PQ×6÷2 = 15，得 PQ = 15×2÷6 = 5"
+ },
+ "Pのy座標 = 3＋5 = 8": {
+  "en": "y-coordinate of P = 3＋5 = 8",
+  "zh-Hans": "P的y坐标 = 3＋5 = 8",
+  "zh-Hant": "P的y坐標 = 3＋5 = 8"
+ },
+ "おしい。面積をそろえる相手の三角形がないので、平行に動かす頂点がない。": {
+  "en": "Close. There is no other triangle to match the area with, so there is no vertex to slide parallel.",
+  "zh-Hans": "差一点。没有要让面积相等的另一个三角形，所以没有可以平行移动的顶点。",
+  "zh-Hant": "差一點。沒有要讓面積相等的另一個三角形，所以沒有可以平行移動的頂點。"
+ },
+ "Pの位置が分からないので、まだ囲めない。": {
+  "en": "You don't know where P is yet, so you can't enclose it.",
+  "zh-Hans": "还不知道P的位置，所以还不能围起来。",
+  "zh-Hant": "還不知道P的位置，所以還不能圍起來。"
+ },
+ "そのとおり。y軸で2つに切ると、y軸の上の辺が共通の底辺になり、高さの和は左右のx座標の差。": {
+  "en": "That's right. Cut it in two along the y-axis: the side on the y-axis becomes the common base, and the sum of the heights is the difference between the left and right x-coordinates.",
+  "zh-Hans": "没错。用y轴切成两个三角形后，y轴上的边就是公共底边，高的和就是左右两点x坐标的差。",
+  "zh-Hant": "沒錯。用y軸切成兩個三角形後，y軸上的邊就是共同底邊，高的和就是左右兩點x坐標的差。"
+ },
+ "座標平面上に2点A(−3, −2)、B(3, 4)があります。y軸上に点Pを直線ABより上側にとり、△ABPの面積が24になるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are two points A(−3, −2) and B(3, 4). Take a point P on the y-axis above line AB so that the area of △ABP is 24. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有两点A(−3, −2)、B(3, 4)。在y轴上、直线AB的上方取点P，使△ABP的面积为24。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有兩點A(−3, −2)、B(3, 4)。在y軸上、直線AB的上方取點P，使△ABP的面積為24。求點P的y坐標。"
+ },
+ "ABの傾きは (4−(−2))÷(3−(−3)) = 1。Qのy座標は (−2)−1×(−3) = 1": {
+  "en": "The slope of AB is (4−(−2))÷(3−(−3)) = 1. The y-coordinate of Q is (−2)−1×(−3) = 1",
+  "zh-Hans": "AB的斜率为 (4−(−2))÷(3−(−3)) = 1。Q的y坐标是 (−2)−1×(−3) = 1",
+  "zh-Hant": "AB的斜率為 (4−(−2))÷(3−(−3)) = 1。Q的y坐標是 (−2)−1×(−3) = 1"
+ },
+ "高さはAからy軸まで 3、Bからy軸まで 3。高さの和は 3−(−3) = 6": {
+  "en": "The heights are 3 from A to the y-axis and 3 from B to the y-axis. The sum of the heights is 3−(−3) = 6",
+  "zh-Hans": "高分别是A到y轴的 3、B到y轴的 3。高的和是 3−(−3) = 6",
+  "zh-Hant": "高分別是A到y軸的 3、B到y軸的 3。高的和是 3−(−3) = 6"
+ },
+ "PQ×6÷2 = 24 より、PQ = 24×2÷6 = 8": {
+  "en": "From PQ×6÷2 = 24, PQ = 24×2÷6 = 8",
+  "zh-Hans": "由 PQ×6÷2 = 24，得 PQ = 24×2÷6 = 8",
+  "zh-Hant": "由 PQ×6÷2 = 24，得 PQ = 24×2÷6 = 8"
+ },
+ "Pのy座標 = 1＋8 = 9": {
+  "en": "y-coordinate of P = 1＋8 = 9",
+  "zh-Hans": "P的y坐标 = 1＋8 = 9",
+  "zh-Hant": "P的y坐標 = 1＋8 = 9"
+ },
+ "座標平面上に2点A(−4, 2)、B(6, −8)があります。y軸上に点Pを直線ABより上側にとり、△ABPの面積が35になるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are two points A(−4, 2) and B(6, −8). Take a point P on the y-axis above line AB so that the area of △ABP is 35. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有两点A(−4, 2)、B(6, −8)。在y轴上、直线AB的上方取点P，使△ABP的面积为35。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有兩點A(−4, 2)、B(6, −8)。在y軸上、直線AB的上方取點P，使△ABP的面積為35。求點P的y坐標。"
+ },
+ "ABの傾きは ((−8)−2)÷(6−(−4)) = −1。Qのy座標は 2−(−1)×(−4) = −2": {
+  "en": "The slope of AB is ((−8)−2)÷(6−(−4)) = −1. The y-coordinate of Q is 2−(−1)×(−4) = −2",
+  "zh-Hans": "AB的斜率为 ((−8)−2)÷(6−(−4)) = −1。Q的y坐标是 2−(−1)×(−4) = −2",
+  "zh-Hant": "AB的斜率為 ((−8)−2)÷(6−(−4)) = −1。Q的y坐標是 2−(−1)×(−4) = −2"
+ },
+ "高さはAからy軸まで 4、Bからy軸まで 6。高さの和は 6−(−4) = 10": {
+  "en": "The heights are 4 from A to the y-axis and 6 from B to the y-axis. The sum of the heights is 6−(−4) = 10",
+  "zh-Hans": "高分别是A到y轴的 4、B到y轴的 6。高的和是 6−(−4) = 10",
+  "zh-Hant": "高分別是A到y軸的 4、B到y軸的 6。高的和是 6−(−4) = 10"
+ },
+ "PQ×10÷2 = 35 より、PQ = 35×2÷10 = 7": {
+  "en": "From PQ×10÷2 = 35, PQ = 35×2÷10 = 7",
+  "zh-Hans": "由 PQ×10÷2 = 35，得 PQ = 35×2÷10 = 7",
+  "zh-Hant": "由 PQ×10÷2 = 35，得 PQ = 35×2÷10 = 7"
+ },
+ "Pのy座標 = −2＋7 = 5": {
+  "en": "y-coordinate of P = −2＋7 = 5",
+  "zh-Hans": "P的y坐标 = −2＋7 = 5",
+  "zh-Hant": "P的y坐標 = −2＋7 = 5"
+ },
+ "座標平面上に2点A(−1, 0)、B(1, 2)があります。y軸上に点Pを直線ABより上側にとり、△ABPの面積が3になるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are two points A(−1, 0) and B(1, 2). Take a point P on the y-axis above line AB so that the area of △ABP is 3. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有两点A(−1, 0)、B(1, 2)。在y轴上、直线AB的上方取点P，使△ABP的面积为3。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有兩點A(−1, 0)、B(1, 2)。在y軸上、直線AB的上方取點P，使△ABP的面積為3。求點P的y坐標。"
+ },
+ "ABの傾きは (2−0)÷(1−(−1)) = 1。Qのy座標は 0−1×(−1) = 1": {
+  "en": "The slope of AB is (2−0)÷(1−(−1)) = 1. The y-coordinate of Q is 0−1×(−1) = 1",
+  "zh-Hans": "AB的斜率为 (2−0)÷(1−(−1)) = 1。Q的y坐标是 0−1×(−1) = 1",
+  "zh-Hant": "AB的斜率為 (2−0)÷(1−(−1)) = 1。Q的y坐標是 0−1×(−1) = 1"
+ },
+ "高さはAからy軸まで 1、Bからy軸まで 1。高さの和は 1−(−1) = 2": {
+  "en": "The heights are 1 from A to the y-axis and 1 from B to the y-axis. The sum of the heights is 1−(−1) = 2",
+  "zh-Hans": "高分别是A到y轴的 1、B到y轴的 1。高的和是 1−(−1) = 2",
+  "zh-Hant": "高分別是A到y軸的 1、B到y軸的 1。高的和是 1−(−1) = 2"
+ },
+ "PQ×2÷2 = 3 より、PQ = 3×2÷2 = 3": {
+  "en": "From PQ×2÷2 = 3, PQ = 3×2÷2 = 3",
+  "zh-Hans": "由 PQ×2÷2 = 3，得 PQ = 3×2÷2 = 3",
+  "zh-Hant": "由 PQ×2÷2 = 3，得 PQ = 3×2÷2 = 3"
+ },
+ "Pのy座標 = 1＋3 = 4": {
+  "en": "y-coordinate of P = 1＋3 = 4",
+  "zh-Hans": "P的y坐标 = 1＋3 = 4",
+  "zh-Hant": "P的y坐標 = 1＋3 = 4"
+ },
+ "座標平面上に2点A(−6, 1)、B(3, −8)があります。y軸上に点Pを直線ABより上側にとり、△ABPの面積が36になるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are two points A(−6, 1) and B(3, −8). Take a point P on the y-axis above line AB so that the area of △ABP is 36. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有两点A(−6, 1)、B(3, −8)。在y轴上、直线AB的上方取点P，使△ABP的面积为36。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有兩點A(−6, 1)、B(3, −8)。在y軸上、直線AB的上方取點P，使△ABP的面積為36。求點P的y坐標。"
+ },
+ "ABの傾きは ((−8)−1)÷(3−(−6)) = −1。Qのy座標は 1−(−1)×(−6) = −5": {
+  "en": "The slope of AB is ((−8)−1)÷(3−(−6)) = −1. The y-coordinate of Q is 1−(−1)×(−6) = −5",
+  "zh-Hans": "AB的斜率为 ((−8)−1)÷(3−(−6)) = −1。Q的y坐标是 1−(−1)×(−6) = −5",
+  "zh-Hant": "AB的斜率為 ((−8)−1)÷(3−(−6)) = −1。Q的y坐標是 1−(−1)×(−6) = −5"
+ },
+ "高さはAからy軸まで 6、Bからy軸まで 3。高さの和は 3−(−6) = 9": {
+  "en": "The heights are 6 from A to the y-axis and 3 from B to the y-axis. The sum of the heights is 3−(−6) = 9",
+  "zh-Hans": "高分别是A到y轴的 6、B到y轴的 3。高的和是 3−(−6) = 9",
+  "zh-Hant": "高分別是A到y軸的 6、B到y軸的 3。高的和是 3−(−6) = 9"
+ },
+ "PQ×9÷2 = 36 より、PQ = 36×2÷9 = 8": {
+  "en": "From PQ×9÷2 = 36, PQ = 36×2÷9 = 8",
+  "zh-Hans": "由 PQ×9÷2 = 36，得 PQ = 36×2÷9 = 8",
+  "zh-Hant": "由 PQ×9÷2 = 36，得 PQ = 36×2÷9 = 8"
+ },
+ "Pのy座標 = −5＋8 = 3": {
+  "en": "y-coordinate of P = −5＋8 = 3",
+  "zh-Hans": "P的y坐标 = −5＋8 = 3",
+  "zh-Hant": "P的y坐標 = −5＋8 = 3"
+ },
+ "座標平面上に原点Oと点A(5, 3)があります。y軸の正の部分に点Pをとり、△OPAの面積が15になるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are the origin O and point A(5, 3). Take a point P on the positive part of the y-axis so that the area of △OPA is 15. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有原点O和点A(5, 3)。在y轴的正半轴上取点P，使△OPA的面积为15。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有原點O和點A(5, 3)。在y軸的正半軸上取點P，使△OPA的面積為15。求點P的y坐標。"
+ },
+ "Pを(0, p)とおいて、△OPAの面積を囲んで求めようとする": {
+  "en": "Let P be (0, p) and try to find the area of △OPA by enclosing it",
+  "zh-Hans": "设P为(0, p)，想用围起来的方法求△OPA的面积",
+  "zh-Hant": "設P為(0, p)，想用圍起來的方法求△OPA的面積"
+ },
+ "pの式で面積を表し、方程式を立てる": {
+  "en": "Write the area in terms of p and set up an equation",
+  "zh-Hans": "用含p的式子表示面积，列方程",
+  "zh-Hant": "用含p的式子表示面積，列方程式"
+ },
+ "OPはy軸の上にあるので、OPを底辺と見る": {
+  "en": "OP lies on the y-axis, so take OP as the base",
+  "zh-Hans": "OP在y轴上，所以把OP看作底边",
+  "zh-Hant": "OP在y軸上，所以把OP看作底邊"
+ },
+ "高さは、Aからy軸までの 5": {
+  "en": "The height is the distance from A to the y-axis, 5",
+  "zh-Hans": "高是A到y轴的距离 5",
+  "zh-Hant": "高是A到y軸的距離 5"
+ },
+ "OP×5÷2 = 15 より、OP = 15×2÷5 = 6": {
+  "en": "From OP×5÷2 = 15, OP = 15×2÷5 = 6",
+  "zh-Hans": "由 OP×5÷2 = 15，得 OP = 15×2÷5 = 6",
+  "zh-Hant": "由 OP×5÷2 = 15，得 OP = 15×2÷5 = 6"
+ },
+ "1辺がy軸の上にある三角形は、その辺を底辺にすれば高さはx座標。面積からすぐに底辺の長さが出る。": {
+  "en": "If one side of a triangle lies on the y-axis, use that side as the base and the height is the x-coordinate. The area quickly gives you the length of the base.",
+  "zh-Hans": "三角形有一条边在y轴上时，把这条边当作底边，高就是x坐标。由面积马上就能求出底边的长。",
+  "zh-Hant": "三角形有一條邊在y軸上時，把這條邊當作底邊，高就是x坐標。由面積馬上就能求出底邊的長度。"
+ },
+ "平行な線で動かす頂点がない。OPがy軸の上にあるので、そのまま底辺にできる。": {
+  "en": "There is no vertex to slide along a parallel line. OP is on the y-axis, so you can use it as the base as it is.",
+  "zh-Hans": "没有要沿平行线移动的顶点。OP在y轴上，可以直接当作底边。",
+  "zh-Hant": "沒有要沿平行線移動的頂點。OP在y軸上，可以直接當作底邊。"
+ },
+ "囲む必要はない。OPを底辺にすれば、高さはAのx座標。": {
+  "en": "No need to enclose. With OP as the base, the height is the x-coordinate of A.",
+  "zh-Hans": "不需要围起来。把OP当作底边，高就是A的x坐标。",
+  "zh-Hant": "不需要圍起來。把OP當作底邊，高就是A的x坐標。"
+ },
+ "そのとおり。OPを底辺、Aからy軸までを高さにして、面積の式からOPを出す。": {
+  "en": "That's right. Take OP as the base and the distance from A to the y-axis as the height, then find OP from the area equation.",
+  "zh-Hans": "没错。把OP当作底边，A到y轴的距离当作高，再由面积的式子求出OP。",
+  "zh-Hant": "沒錯。把OP當作底邊，A到y軸的距離當作高，再由面積的式子求出OP。"
+ },
+ "座標平面上に原点Oと点A(−3, 4)があります。y軸の正の部分に点Pをとり、△OPAの面積が3になるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are the origin O and point A(−3, 4). Take a point P on the positive part of the y-axis so that the area of △OPA is 3. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有原点O和点A(−3, 4)。在y轴的正半轴上取点P，使△OPA的面积为3。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有原點O和點A(−3, 4)。在y軸的正半軸上取點P，使△OPA的面積為3。求點P的y坐標。"
+ },
+ "高さは、Aからy軸までの 3": {
+  "en": "The height is the distance from A to the y-axis, 3",
+  "zh-Hans": "高是A到y轴的距离 3",
+  "zh-Hant": "高是A到y軸的距離 3"
+ },
+ "OP×3÷2 = 3 より、OP = 3×2÷3 = 2": {
+  "en": "From OP×3÷2 = 3, OP = 3×2÷3 = 2",
+  "zh-Hans": "由 OP×3÷2 = 3，得 OP = 3×2÷3 = 2",
+  "zh-Hant": "由 OP×3÷2 = 3，得 OP = 3×2÷3 = 2"
+ },
+ "座標平面上に原点Oと点A(3, 3)があります。y軸の正の部分に点Pをとり、△OPAの面積が18になるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are the origin O and point A(3, 3). Take a point P on the positive part of the y-axis so that the area of △OPA is 18. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有原点O和点A(3, 3)。在y轴的正半轴上取点P，使△OPA的面积为18。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有原點O和點A(3, 3)。在y軸的正半軸上取點P，使△OPA的面積為18。求點P的y坐標。"
+ },
+ "OP×3÷2 = 18 より、OP = 18×2÷3 = 12": {
+  "en": "From OP×3÷2 = 18, OP = 18×2÷3 = 12",
+  "zh-Hans": "由 OP×3÷2 = 18，得 OP = 18×2÷3 = 12",
+  "zh-Hant": "由 OP×3÷2 = 18，得 OP = 18×2÷3 = 12"
+ },
+ "座標平面上に原点Oと点A(2, −2)があります。y軸の正の部分に点Pをとり、△OPAの面積が8になるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are the origin O and point A(2, −2). Take a point P on the positive part of the y-axis so that the area of △OPA is 8. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有原点O和点A(2, −2)。在y轴的正半轴上取点P，使△OPA的面积为8。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有原點O和點A(2, −2)。在y軸的正半軸上取點P，使△OPA的面積為8。求點P的y坐標。"
+ },
+ "高さは、Aからy軸までの 2": {
+  "en": "The height is the distance from A to the y-axis, 2",
+  "zh-Hans": "高是A到y轴的距离 2",
+  "zh-Hant": "高是A到y軸的距離 2"
+ },
+ "OP×2÷2 = 8 より、OP = 8×2÷2 = 8": {
+  "en": "From OP×2÷2 = 8, OP = 8×2÷2 = 8",
+  "zh-Hans": "由 OP×2÷2 = 8，得 OP = 8×2÷2 = 8",
+  "zh-Hant": "由 OP×2÷2 = 8，得 OP = 8×2÷2 = 8"
+ },
+ "座標平面上に原点Oと点A(8, 3)があります。y軸の正の部分に点Pをとり、△OPAの面積が40になるようにします。点Pのy座標を求めなさい。": {
+  "en": "On the coordinate plane there are the origin O and point A(8, 3). Take a point P on the positive part of the y-axis so that the area of △OPA is 40. Find the y-coordinate of P.",
+  "zh-Hans": "坐标平面上有原点O和点A(8, 3)。在y轴的正半轴上取点P，使△OPA的面积为40。求点P的y坐标。",
+  "zh-Hant": "坐標平面上有原點O和點A(8, 3)。在y軸的正半軸上取點P，使△OPA的面積為40。求點P的y坐標。"
+ },
+ "高さは、Aからy軸までの 8": {
+  "en": "The height is the distance from A to the y-axis, 8",
+  "zh-Hans": "高是A到y轴的距离 8",
+  "zh-Hant": "高是A到y軸的距離 8"
+ },
+ "OP×8÷2 = 40 より、OP = 40×2÷8 = 10": {
+  "en": "From OP×8÷2 = 40, OP = 40×2÷8 = 10",
+  "zh-Hans": "由 OP×8÷2 = 40，得 OP = 40×2÷8 = 10",
+  "zh-Hant": "由 OP×8÷2 = 40，得 OP = 40×2÷8 = 10"
+ },
+ "直線ℓと直線mは平行で、その間は6cmです。直線m上のADの長さは10cmで、B、CはAとDの間の点です。P、Q、Rは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDRの面積の合計は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, 6 cm apart. On line m, AD is 10 cm long, and B and C are points between A and D. P, Q and R are points on line ℓ. What is the total area, in cm², of the shaded triangles ABP, BCQ and CDR?",
+  "zh-Hans": "直线ℓ和直线m平行，两条直线之间的距离是6cm。直线m上AD的长是10cm，B、C是A和D之间的点。P、Q、R是直线ℓ上的点。阴影三角形ABP、BCQ、CDR的面积之和是多少cm²？",
+  "zh-Hant": "直線ℓ和直線m平行，兩條直線之間的距離是6cm。直線m上AD的長度是10cm，B、C是A和D之間的點。P、Q、R是直線ℓ上的點。著色三角形ABP、BCQ、CDR的面積總和是多少cm²？"
+ },
+ "三角形を1つずつ「底辺×高さ÷2」で求めようとする": {
+  "en": "Try to find each triangle one by one with \"base×height÷2\"",
+  "zh-Hans": "想用“底×高÷2”一个一个地求三角形的面积",
+  "zh-Hant": "想用「底×高÷2」一個一個地求三角形的面積"
+ },
+ "AB、BC、CDの長さが問題に書かれていない": {
+  "en": "The lengths of AB, BC and CD are not given in the problem",
+  "zh-Hans": "题目里没有写AB、BC、CD的长",
+  "zh-Hant": "題目裡沒有寫AB、BC、CD的長度"
+ },
+ "定規で測るしかなく、答えが決まらない": {
+  "en": "The only way left is to measure with a ruler, so the answer can't be pinned down",
+  "zh-Hans": "只能用尺子量，答案定不下来",
+  "zh-Hant": "只能用尺量，答案定不下來"
+ },
+ "ここで約3分。手が止まる": {
+  "en": "About 3 minutes in. You get stuck",
+  "zh-Hans": "到这里约3分钟。卡住了",
+  "zh-Hant": "到這裡約3分鐘。卡住了"
+ },
+ "P、Q、Rを直線ℓにそって1点に集める（高さ6cmは変わらない）": {
+  "en": "Slide P, Q and R along line ℓ to one point (the height of 6 cm stays the same)",
+  "zh-Hans": "把P、Q、R沿直线ℓ集中到一点（高6cm不变）",
+  "zh-Hant": "把P、Q、R沿直線ℓ集中到一點（高6cm不變）"
+ },
+ "3つの三角形が、底辺AD＝10cmの1つの三角形になる": {
+  "en": "The three triangles become one triangle with base AD＝10 cm",
+  "zh-Hans": "三个三角形变成底边AD＝10cm的一个三角形",
+  "zh-Hant": "三個三角形變成底邊AD＝10cm的一個三角形"
+ },
+ "平行線の間に三角形がならび、長さが合計しか分からないときは、頂点をすべらせて1つにまとめる。": {
+  "en": "When triangles sit side by side between parallel lines and you only know the total length, slide the vertices together into one triangle.",
+  "zh-Hans": "三角形排在平行线之间、只知道长度总和时，就把顶点滑到一起，合成一个三角形。",
+  "zh-Hant": "三角形排在平行線之間、只知道長度總和時，就把頂點滑到一起，合成一個三角形。"
+ },
+ "そのとおり。頂点は平行線の上を動かしても、高さが変わらないので面積も変わらない。": {
+  "en": "That's right. Moving a vertex along the parallel line doesn't change the height, so the area doesn't change either.",
+  "zh-Hans": "没错。顶点在平行线上移动，高不变，所以面积也不变。",
+  "zh-Hant": "沒錯。頂點在平行線上移動，高不變，所以面積也不變。"
+ },
+ "方眼の上の図形ではないので、囲んで引くための長さが分からない。": {
+  "en": "It's not a figure on a grid, so you don't know the lengths needed to enclose and subtract.",
+  "zh-Hans": "这不是方格纸上的图形，所以不知道围起来再减去所需要的长度。",
+  "zh-Hant": "這不是方格紙上的圖形，所以不知道圍起來再減去所需要的長度。"
+ },
+ "1つずつ計算したいが、AB、BC、CDの長さが分からない。": {
+  "en": "You'd like to calculate them one by one, but you don't know the lengths of AB, BC and CD.",
+  "zh-Hans": "想一个一个地计算，但不知道AB、BC、CD的长。",
+  "zh-Hant": "想一個一個地計算，但不知道AB、BC、CD的長度。"
+ },
+ "直線ℓと直線mは平行で、その間は8cmです。直線m上のADの長さは13cmで、B、CはAとDの間の点です。P、Q、Rは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDRの面積の合計は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, 8 cm apart. On line m, AD is 13 cm long, and B and C are points between A and D. P, Q and R are points on line ℓ. What is the total area, in cm², of the shaded triangles ABP, BCQ and CDR?",
+  "zh-Hans": "直线ℓ和直线m平行，两条直线之间的距离是8cm。直线m上AD的长是13cm，B、C是A和D之间的点。P、Q、R是直线ℓ上的点。阴影三角形ABP、BCQ、CDR的面积之和是多少cm²？",
+  "zh-Hant": "直線ℓ和直線m平行，兩條直線之間的距離是8cm。直線m上AD的長度是13cm，B、C是A和D之間的點。P、Q、R是直線ℓ上的點。著色三角形ABP、BCQ、CDR的面積總和是多少cm²？"
+ },
+ "頂点を直線ℓにそって1点に集める（面積は変わらない）": {
+  "en": "Slide the vertices along line ℓ to one point (the area does not change)",
+  "zh-Hans": "把顶点沿直线ℓ集中到一点（面积不变）",
+  "zh-Hant": "把頂點沿直線ℓ集中到一點（面積不變）"
+ },
+ "底辺13、高さ8の1つの三角形になる": {
+  "en": "It becomes one triangle with base 13 and height 8",
+  "zh-Hans": "变成底边为13、高为8的一个三角形",
+  "zh-Hant": "變成底邊為13、高為8的一個三角形"
+ },
+ "直線ℓと直線mは平行で、その間は4cmです。直線m上のADの長さは12cmで、B、CはAとDの間の点です。P、Q、Rは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDRの面積の合計は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, 4 cm apart. On line m, AD is 12 cm long, and B and C are points between A and D. P, Q and R are points on line ℓ. What is the total area, in cm², of the shaded triangles ABP, BCQ and CDR?",
+  "zh-Hans": "直线ℓ和直线m平行，两条直线之间的距离是4cm。直线m上AD的长是12cm，B、C是A和D之间的点。P、Q、R是直线ℓ上的点。阴影三角形ABP、BCQ、CDR的面积之和是多少cm²？",
+  "zh-Hant": "直線ℓ和直線m平行，兩條直線之間的距離是4cm。直線m上AD的長度是12cm，B、C是A和D之間的點。P、Q、R是直線ℓ上的點。著色三角形ABP、BCQ、CDR的面積總和是多少cm²？"
+ },
+ "底辺12、高さ4の1つの三角形になる": {
+  "en": "It becomes one triangle with base 12 and height 4",
+  "zh-Hans": "变成底边为12、高为4的一个三角形",
+  "zh-Hant": "變成底邊為12、高為4的一個三角形"
+ },
+ "直線ℓと直線mは平行で、その間は3cmです。直線m上のADの長さは9cmで、B、CはAとDの間の点です。P、Q、Rは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDRの面積の合計は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, 3 cm apart. On line m, AD is 9 cm long, and B and C are points between A and D. P, Q and R are points on line ℓ. What is the total area, in cm², of the shaded triangles ABP, BCQ and CDR?",
+  "zh-Hans": "直线ℓ和直线m平行，两条直线之间的距离是3cm。直线m上AD的长是9cm，B、C是A和D之间的点。P、Q、R是直线ℓ上的点。阴影三角形ABP、BCQ、CDR的面积之和是多少cm²？",
+  "zh-Hant": "直線ℓ和直線m平行，兩條直線之間的距離是3cm。直線m上AD的長度是9cm，B、C是A和D之間的點。P、Q、R是直線ℓ上的點。著色三角形ABP、BCQ、CDR的面積總和是多少cm²？"
+ },
+ "底辺9、高さ3の1つの三角形になる": {
+  "en": "It becomes one triangle with base 9 and height 3",
+  "zh-Hans": "变成底边为9、高为3的一个三角形",
+  "zh-Hant": "變成底邊為9、高為3的一個三角形"
+ },
+ "直線ℓと直線mは平行で、その間は7cmです。直線m上のADの長さは11cmで、B、CはAとDの間の点です。P、Q、Rは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDRの面積の合計は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, 7 cm apart. On line m, AD is 11 cm long, and B and C are points between A and D. P, Q and R are points on line ℓ. What is the total area, in cm², of the shaded triangles ABP, BCQ and CDR?",
+  "zh-Hans": "直线ℓ和直线m平行，两条直线之间的距离是7cm。直线m上AD的长是11cm，B、C是A和D之间的点。P、Q、R是直线ℓ上的点。阴影三角形ABP、BCQ、CDR的面积之和是多少cm²？",
+  "zh-Hant": "直線ℓ和直線m平行，兩條直線之間的距離是7cm。直線m上AD的長度是11cm，B、C是A和D之間的點。P、Q、R是直線ℓ上的點。著色三角形ABP、BCQ、CDR的面積總和是多少cm²？"
+ },
+ "底辺11、高さ7の1つの三角形になる": {
+  "en": "It becomes one triangle with base 11 and height 7",
+  "zh-Hans": "变成底边为11、高为7的一个三角形",
+  "zh-Hant": "變成底邊為11、高為7的一個三角形"
+ },
+ "直線ℓと直線mは平行で、その間は4cmです。直線m上のACの長さは8cmで、BはAとCの間の点です。P、Qは直線ℓ上の点です。かげをつけた三角形ABP、BCQの面積の合計は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, 4 cm apart. On line m, AC is 8 cm long, and B is a point between A and C. P and Q are points on line ℓ. What is the total area, in cm², of the shaded triangles ABP and BCQ?",
+  "zh-Hans": "直线ℓ和直线m平行，两条直线之间的距离是4cm。直线m上AC的长是8cm，B是A和C之间的点。P、Q是直线ℓ上的点。阴影三角形ABP、BCQ的面积之和是多少cm²？",
+  "zh-Hant": "直線ℓ和直線m平行，兩條直線之間的距離是4cm。直線m上AC的長度是8cm，B是A和C之間的點。P、Q是直線ℓ上的點。著色三角形ABP、BCQ的面積總和是多少cm²？"
+ },
+ "2つの三角形の底辺を1つずつ知ろうとする": {
+  "en": "Try to find the base of each of the two triangles one by one",
+  "zh-Hans": "想一个一个地求出两个三角形的底边",
+  "zh-Hant": "想一個一個地求出兩個三角形的底邊"
+ },
+ "1つ1つの底辺の長さは書かれていない": {
+  "en": "The length of each base is not given",
+  "zh-Hans": "每条底边的长都没有写出来",
+  "zh-Hant": "每條底邊的長度都沒有寫出來"
+ },
+ "P、Qを直線ℓにそって1点に集める（高さ4cmは変わらない）": {
+  "en": "Slide P and Q along line ℓ to one point (the height of 4 cm stays the same)",
+  "zh-Hans": "把P、Q沿直线ℓ集中到一点（高4cm不变）",
+  "zh-Hant": "把P、Q沿直線ℓ集中到一點（高4cm不變）"
+ },
+ "2つの三角形が、底辺AC＝8cmの1つの三角形になる": {
+  "en": "The two triangles become one triangle with base AC＝8 cm",
+  "zh-Hans": "两个三角形变成底边AC＝8cm的一个三角形",
+  "zh-Hant": "兩個三角形變成底邊AC＝8cm的一個三角形"
+ },
+ "直線ℓと直線mは平行で、その間は3cmです。直線m上のACの長さは10cmで、BはAとCの間の点です。P、Qは直線ℓ上の点です。かげをつけた三角形ABP、BCQの面積の合計は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, 3 cm apart. On line m, AC is 10 cm long, and B is a point between A and C. P and Q are points on line ℓ. What is the total area, in cm², of the shaded triangles ABP and BCQ?",
+  "zh-Hans": "直线ℓ和直线m平行，两条直线之间的距离是3cm。直线m上AC的长是10cm，B是A和C之间的点。P、Q是直线ℓ上的点。阴影三角形ABP、BCQ的面积之和是多少cm²？",
+  "zh-Hant": "直線ℓ和直線m平行，兩條直線之間的距離是3cm。直線m上AC的長度是10cm，B是A和C之間的點。P、Q是直線ℓ上的點。著色三角形ABP、BCQ的面積總和是多少cm²？"
+ },
+ "底辺10、高さ3の1つの三角形になる": {
+  "en": "It becomes one triangle with base 10 and height 3",
+  "zh-Hans": "变成底边为10、高为3的一个三角形",
+  "zh-Hant": "變成底邊為10、高為3的一個三角形"
+ },
+ "直線ℓと直線mは平行で、その間は5cmです。直線m上のACの長さは6cmで、BはAとCの間の点です。P、Qは直線ℓ上の点です。かげをつけた三角形ABP、BCQの面積の合計は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, 5 cm apart. On line m, AC is 6 cm long, and B is a point between A and C. P and Q are points on line ℓ. What is the total area, in cm², of the shaded triangles ABP and BCQ?",
+  "zh-Hans": "直线ℓ和直线m平行，两条直线之间的距离是5cm。直线m上AC的长是6cm，B是A和C之间的点。P、Q是直线ℓ上的点。阴影三角形ABP、BCQ的面积之和是多少cm²？",
+  "zh-Hant": "直線ℓ和直線m平行，兩條直線之間的距離是5cm。直線m上AC的長度是6cm，B是A和C之間的點。P、Q是直線ℓ上的點。著色三角形ABP、BCQ的面積總和是多少cm²？"
+ },
+ "底辺6、高さ5の1つの三角形になる": {
+  "en": "It becomes one triangle with base 6 and height 5",
+  "zh-Hans": "变成底边为6、高为5的一个三角形",
+  "zh-Hant": "變成底邊為6、高為5的一個三角形"
+ },
+ "直線ℓと直線mは平行で、その間は6cmです。直線m上のACの長さは7cmで、BはAとCの間の点です。P、Qは直線ℓ上の点です。かげをつけた三角形ABP、BCQの面積の合計は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, 6 cm apart. On line m, AC is 7 cm long, and B is a point between A and C. P and Q are points on line ℓ. What is the total area, in cm², of the shaded triangles ABP and BCQ?",
+  "zh-Hans": "直线ℓ和直线m平行，两条直线之间的距离是6cm。直线m上AC的长是7cm，B是A和C之间的点。P、Q是直线ℓ上的点。阴影三角形ABP、BCQ的面积之和是多少cm²？",
+  "zh-Hant": "直線ℓ和直線m平行，兩條直線之間的距離是6cm。直線m上AC的長度是7cm，B是A和C之間的點。P、Q是直線ℓ上的點。著色三角形ABP、BCQ的面積總和是多少cm²？"
+ },
+ "底辺7、高さ6の1つの三角形になる": {
+  "en": "It becomes one triangle with base 7 and height 6",
+  "zh-Hans": "变成底边为7、高为6的一个三角形",
+  "zh-Hant": "變成底邊為7、高為6的一個三角形"
+ },
+ "直線ℓと直線mは平行で、その間は8cmです。直線m上のACの長さは9cmで、BはAとCの間の点です。P、Qは直線ℓ上の点です。かげをつけた三角形ABP、BCQの面積の合計は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, 8 cm apart. On line m, AC is 9 cm long, and B is a point between A and C. P and Q are points on line ℓ. What is the total area, in cm², of the shaded triangles ABP and BCQ?",
+  "zh-Hans": "直线ℓ和直线m平行，两条直线之间的距离是8cm。直线m上AC的长是9cm，B是A和C之间的点。P、Q是直线ℓ上的点。阴影三角形ABP、BCQ的面积之和是多少cm²？",
+  "zh-Hant": "直線ℓ和直線m平行，兩條直線之間的距離是8cm。直線m上AC的長度是9cm，B是A和C之間的點。P、Q是直線ℓ上的點。著色三角形ABP、BCQ的面積總和是多少cm²？"
+ },
+ "底辺9、高さ8の1つの三角形になる": {
+  "en": "It becomes one triangle with base 9 and height 8",
+  "zh-Hans": "变成底边为9、高为8的一个三角形",
+  "zh-Hant": "變成底邊為9、高為8的一個三角形"
+ },
+ "直線ℓと直線mは平行で、その間は7cmです。直線m上のAFの長さは12cmで、B、C、D、EはAとFの間の点です。P、Q、R、S、Tは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDR、DES、EFTの面積の合計は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, 7 cm apart. On line m, AF is 12 cm long, and B, C, D and E are points between A and F. P, Q, R, S and T are points on line ℓ. What is the total area, in cm², of the shaded triangles ABP, BCQ, CDR, DES and EFT?",
+  "zh-Hans": "直线ℓ和直线m平行，两条直线之间的距离是7cm。直线m上AF的长是12cm，B、C、D、E是A和F之间的点。P、Q、R、S、T是直线ℓ上的点。阴影三角形ABP、BCQ、CDR、DES、EFT的面积之和是多少cm²？",
+  "zh-Hant": "直線ℓ和直線m平行，兩條直線之間的距離是7cm。直線m上AF的長度是12cm，B、C、D、E是A和F之間的點。P、Q、R、S、T是直線ℓ上的點。著色三角形ABP、BCQ、CDR、DES、EFT的面積總和是多少cm²？"
+ },
+ "5つの三角形の底辺を1つずつ知ろうとする": {
+  "en": "Try to find the base of each of the five triangles one by one",
+  "zh-Hans": "想一个一个地求出五个三角形的底边",
+  "zh-Hant": "想一個一個地求出五個三角形的底邊"
+ },
+ "ここで約5分。決め手がない": {
+  "en": "About 5 minutes in. Nothing to go on",
+  "zh-Hans": "到这里约5分钟。找不到突破口",
+  "zh-Hant": "到這裡約5分鐘。找不到突破口"
+ },
+ "P、Q、R、S、Tを直線ℓにそって1点に集める（高さ7cmは変わらない）": {
+  "en": "Slide P, Q, R, S and T along line ℓ to one point (the height of 7 cm stays the same)",
+  "zh-Hans": "把P、Q、R、S、T沿直线ℓ集中到一点（高7cm不变）",
+  "zh-Hant": "把P、Q、R、S、T沿直線ℓ集中到一點（高7cm不變）"
+ },
+ "5つの三角形が、底辺AF＝12cmの1つの三角形になる": {
+  "en": "The five triangles become one triangle with base AF＝12 cm",
+  "zh-Hans": "五个三角形变成底边AF＝12cm的一个三角形",
+  "zh-Hant": "五個三角形變成底邊AF＝12cm的一個三角形"
+ },
+ "直線ℓと直線mは平行で、その間は4cmです。直線m上のAFの長さは13cmで、B、C、D、EはAとFの間の点です。P、Q、R、S、Tは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDR、DES、EFTの面積の合計は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, 4 cm apart. On line m, AF is 13 cm long, and B, C, D and E are points between A and F. P, Q, R, S and T are points on line ℓ. What is the total area, in cm², of the shaded triangles ABP, BCQ, CDR, DES and EFT?",
+  "zh-Hans": "直线ℓ和直线m平行，两条直线之间的距离是4cm。直线m上AF的长是13cm，B、C、D、E是A和F之间的点。P、Q、R、S、T是直线ℓ上的点。阴影三角形ABP、BCQ、CDR、DES、EFT的面积之和是多少cm²？",
+  "zh-Hant": "直線ℓ和直線m平行，兩條直線之間的距離是4cm。直線m上AF的長度是13cm，B、C、D、E是A和F之間的點。P、Q、R、S、T是直線ℓ上的點。著色三角形ABP、BCQ、CDR、DES、EFT的面積總和是多少cm²？"
+ },
+ "底辺13、高さ4の1つの三角形になる": {
+  "en": "It becomes one triangle with base 13 and height 4",
+  "zh-Hans": "变成底边为13、高为4的一个三角形",
+  "zh-Hant": "變成底邊為13、高為4的一個三角形"
+ },
+ "直線ℓと直線mは平行で、その間は9cmです。直線m上のAFの長さは15cmで、B、C、D、EはAとFの間の点です。P、Q、R、S、Tは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDR、DES、EFTの面積の合計は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, 9 cm apart. On line m, AF is 15 cm long, and B, C, D and E are points between A and F. P, Q, R, S and T are points on line ℓ. What is the total area, in cm², of the shaded triangles ABP, BCQ, CDR, DES and EFT?",
+  "zh-Hans": "直线ℓ和直线m平行，两条直线之间的距离是9cm。直线m上AF的长是15cm，B、C、D、E是A和F之间的点。P、Q、R、S、T是直线ℓ上的点。阴影三角形ABP、BCQ、CDR、DES、EFT的面积之和是多少cm²？",
+  "zh-Hant": "直線ℓ和直線m平行，兩條直線之間的距離是9cm。直線m上AF的長度是15cm，B、C、D、E是A和F之間的點。P、Q、R、S、T是直線ℓ上的點。著色三角形ABP、BCQ、CDR、DES、EFT的面積總和是多少cm²？"
+ },
+ "底辺15、高さ9の1つの三角形になる": {
+  "en": "It becomes one triangle with base 15 and height 9",
+  "zh-Hans": "变成底边为15、高为9的一个三角形",
+  "zh-Hant": "變成底邊為15、高為9的一個三角形"
+ },
+ "直線ℓと直線mは平行で、その間は8cmです。直線m上のAFの長さは18cmで、B、C、D、EはAとFの間の点です。P、Q、R、S、Tは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDR、DES、EFTの面積の合計は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, 8 cm apart. On line m, AF is 18 cm long, and B, C, D and E are points between A and F. P, Q, R, S and T are points on line ℓ. What is the total area, in cm², of the shaded triangles ABP, BCQ, CDR, DES and EFT?",
+  "zh-Hans": "直线ℓ和直线m平行，两条直线之间的距离是8cm。直线m上AF的长是18cm，B、C、D、E是A和F之间的点。P、Q、R、S、T是直线ℓ上的点。阴影三角形ABP、BCQ、CDR、DES、EFT的面积之和是多少cm²？",
+  "zh-Hant": "直線ℓ和直線m平行，兩條直線之間的距離是8cm。直線m上AF的長度是18cm，B、C、D、E是A和F之間的點。P、Q、R、S、T是直線ℓ上的點。著色三角形ABP、BCQ、CDR、DES、EFT的面積總和是多少cm²？"
+ },
+ "底辺18、高さ8の1つの三角形になる": {
+  "en": "It becomes one triangle with base 18 and height 8",
+  "zh-Hans": "变成底边为18、高为8的一个三角形",
+  "zh-Hant": "變成底邊為18、高為8的一個三角形"
+ },
+ "直線ℓと直線mは平行で、その間は5cmです。直線m上のAFの長さは16cmで、B、C、D、EはAとFの間の点です。P、Q、R、S、Tは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDR、DES、EFTの面積の合計は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, 5 cm apart. On line m, AF is 16 cm long, and B, C, D and E are points between A and F. P, Q, R, S and T are points on line ℓ. What is the total area, in cm², of the shaded triangles ABP, BCQ, CDR, DES and EFT?",
+  "zh-Hans": "直线ℓ和直线m平行，两条直线之间的距离是5cm。直线m上AF的长是16cm，B、C、D、E是A和F之间的点。P、Q、R、S、T是直线ℓ上的点。阴影三角形ABP、BCQ、CDR、DES、EFT的面积之和是多少cm²？",
+  "zh-Hant": "直線ℓ和直線m平行，兩條直線之間的距離是5cm。直線m上AF的長度是16cm，B、C、D、E是A和F之間的點。P、Q、R、S、T是直線ℓ上的點。著色三角形ABP、BCQ、CDR、DES、EFT的面積總和是多少cm²？"
+ },
+ "底辺16、高さ5の1つの三角形になる": {
+  "en": "It becomes one triangle with base 16 and height 5",
+  "zh-Hans": "变成底边为16、高为5的一个三角形",
+  "zh-Hant": "變成底邊為16、高為5的一個三角形"
+ },
+ "頂点を集めても面積は変わらない。1つの三角形の 底辺×高さ÷2 が合計の面積なので、高さを逆算できる。": {
+  "en": "Gathering the vertices doesn't change the area. The single triangle's base×height÷2 is the total area, so you can work backward to the height.",
+  "zh-Hans": "把顶点集中起来，面积也不变。一个三角形的 底×高÷2 就是面积的总和，所以可以反推出高。",
+  "zh-Hant": "把頂點集中起來，面積也不變。一個三角形的 底×高÷2 就是面積的總和，所以可以反推出高。"
+ },
+ "直線ℓと直線mは平行です。直線m上のAEの長さは12cmで、B、C、DはAとEの間の点です。P、Q、R、Sは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDR、DESの面積の合計は42cm²です。直線ℓと直線mの間は何cmですか。": {
+  "en": "Lines ℓ and m are parallel. On line m, AE is 12 cm long, and B, C and D are points between A and E. P, Q, R and S are points on line ℓ. The total area of the shaded triangles ABP, BCQ, CDR and DES is 42 cm². How far apart are lines ℓ and m, in cm?",
+  "zh-Hans": "直线ℓ和直线m平行。直线m上AE的长是12cm，B、C、D是A和E之间的点。P、Q、R、S是直线ℓ上的点。阴影三角形ABP、BCQ、CDR、DES的面积之和是42cm²。直线ℓ和直线m之间的距离是多少cm？",
+  "zh-Hant": "直線ℓ和直線m平行。直線m上AE的長度是12cm，B、C、D是A和E之間的點。P、Q、R、S是直線ℓ上的點。著色三角形ABP、BCQ、CDR、DES的面積總和是42cm²。直線ℓ和直線m之間的距離是多少cm？"
+ },
+ "4つの三角形の底辺を1つずつ知ろうとする": {
+  "en": "Try to find the base of each of the four triangles one by one",
+  "zh-Hans": "想一个一个地求出四个三角形的底边",
+  "zh-Hant": "想一個一個地求出四個三角形的底邊"
+ },
+ "底辺も高さも分からず、式が立てられない": {
+  "en": "You know neither the bases nor the height, so you can't write an equation",
+  "zh-Hans": "底边和高都不知道，列不出式子",
+  "zh-Hant": "底邊和高都不知道，列不出式子"
+ },
+ "頂点を直線ℓにそって1点に集めると、底辺AE＝12cmの1つの三角形になる（面積は変わらない）": {
+  "en": "Slide the vertices along line ℓ to one point, and you get one triangle with base AE＝12 cm (the area does not change)",
+  "zh-Hans": "把顶点沿直线ℓ集中到一点，就变成底边AE＝12cm的一个三角形（面积不变）",
+  "zh-Hant": "把頂點沿直線ℓ集中到一點，就變成底邊AE＝12cm的一個三角形（面積不變）"
+ },
+ "12×高さ÷2 = 42 なので、高さ = 42×2÷12 = 7": {
+  "en": "12×height÷2 = 42, so height = 42×2÷12 = 7",
+  "zh-Hans": "12×高÷2 = 42，所以高 = 42×2÷12 = 7",
+  "zh-Hant": "12×高÷2 = 42，所以高 = 42×2÷12 = 7"
+ },
+ "面積の合計から長さを聞かれても、頂点を集めて1つの三角形にすれば逆算できる。": {
+  "en": "Even when you're asked for a length from a total area, gather the vertices into one triangle and you can work backward.",
+  "zh-Hans": "即使是由面积总和求长度，只要把顶点集中成一个三角形，就能反推出来。",
+  "zh-Hant": "即使是由面積總和求長度，只要把頂點集中成一個三角形，就能反推出來。"
+ },
+ "そのとおり。頂点を集めると1つの三角形。底辺×高さ÷2＝面積の合計から、高さを逆算する。": {
+  "en": "That's right. Gather the vertices and you get one triangle. Work backward to the height from base×height÷2＝total area.",
+  "zh-Hans": "没错。把顶点集中起来就是一个三角形。由 底×高÷2＝面积总和，反推出高。",
+  "zh-Hant": "沒錯。把頂點集中起來就是一個三角形。由 底×高÷2＝面積總和，反推出高。"
+ },
+ "方眼の上の図形ではない。": {
+  "en": "It's not a figure on a grid.",
+  "zh-Hans": "这不是方格纸上的图形。",
+  "zh-Hant": "這不是方格紙上的圖形。"
+ },
+ "1つずつの底辺が分からないので、そのままでは式が立たない。": {
+  "en": "You don't know each base, so you can't write an equation as it is.",
+  "zh-Hans": "不知道每条底边的长，所以这样列不出式子。",
+  "zh-Hant": "不知道每條底邊的長度，所以這樣列不出式子。"
+ },
+ "直線ℓと直線mは平行です。直線m上のAEの長さは14cmで、B、C、DはAとEの間の点です。P、Q、R、Sは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDR、DESの面積の合計は35cm²です。直線ℓと直線mの間は何cmですか。": {
+  "en": "Lines ℓ and m are parallel. On line m, AE is 14 cm long, and B, C and D are points between A and E. P, Q, R and S are points on line ℓ. The total area of the shaded triangles ABP, BCQ, CDR and DES is 35 cm². How far apart are lines ℓ and m, in cm?",
+  "zh-Hans": "直线ℓ和直线m平行。直线m上AE的长是14cm，B、C、D是A和E之间的点。P、Q、R、S是直线ℓ上的点。阴影三角形ABP、BCQ、CDR、DES的面积之和是35cm²。直线ℓ和直线m之间的距离是多少cm？",
+  "zh-Hant": "直線ℓ和直線m平行。直線m上AE的長度是14cm，B、C、D是A和E之間的點。P、Q、R、S是直線ℓ上的點。著色三角形ABP、BCQ、CDR、DES的面積總和是35cm²。直線ℓ和直線m之間的距離是多少cm？"
+ },
+ "頂点を直線ℓにそって1点に集めると、底辺AE＝14cmの1つの三角形になる（面積は変わらない）": {
+  "en": "Slide the vertices along line ℓ to one point, and you get one triangle with base AE＝14 cm (the area does not change)",
+  "zh-Hans": "把顶点沿直线ℓ集中到一点，就变成底边AE＝14cm的一个三角形（面积不变）",
+  "zh-Hant": "把頂點沿直線ℓ集中到一點，就變成底邊AE＝14cm的一個三角形（面積不變）"
+ },
+ "14×高さ÷2 = 35 なので、高さ = 35×2÷14 = 5": {
+  "en": "14×height÷2 = 35, so height = 35×2÷14 = 5",
+  "zh-Hans": "14×高÷2 = 35，所以高 = 35×2÷14 = 5",
+  "zh-Hant": "14×高÷2 = 35，所以高 = 35×2÷14 = 5"
+ },
+ "直線ℓと直線mは平行です。直線m上のAEの長さは16cmで、B、C、DはAとEの間の点です。P、Q、R、Sは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDR、DESの面積の合計は64cm²です。直線ℓと直線mの間は何cmですか。": {
+  "en": "Lines ℓ and m are parallel. On line m, AE is 16 cm long, and B, C and D are points between A and E. P, Q, R and S are points on line ℓ. The total area of the shaded triangles ABP, BCQ, CDR and DES is 64 cm². How far apart are lines ℓ and m, in cm?",
+  "zh-Hans": "直线ℓ和直线m平行。直线m上AE的长是16cm，B、C、D是A和E之间的点。P、Q、R、S是直线ℓ上的点。阴影三角形ABP、BCQ、CDR、DES的面积之和是64cm²。直线ℓ和直线m之间的距离是多少cm？",
+  "zh-Hant": "直線ℓ和直線m平行。直線m上AE的長度是16cm，B、C、D是A和E之間的點。P、Q、R、S是直線ℓ上的點。著色三角形ABP、BCQ、CDR、DES的面積總和是64cm²。直線ℓ和直線m之間的距離是多少cm？"
+ },
+ "頂点を直線ℓにそって1点に集めると、底辺AE＝16cmの1つの三角形になる（面積は変わらない）": {
+  "en": "Slide the vertices along line ℓ to one point, and you get one triangle with base AE＝16 cm (the area does not change)",
+  "zh-Hans": "把顶点沿直线ℓ集中到一点，就变成底边AE＝16cm的一个三角形（面积不变）",
+  "zh-Hant": "把頂點沿直線ℓ集中到一點，就變成底邊AE＝16cm的一個三角形（面積不變）"
+ },
+ "16×高さ÷2 = 64 なので、高さ = 64×2÷16 = 8": {
+  "en": "16×height÷2 = 64, so height = 64×2÷16 = 8",
+  "zh-Hans": "16×高÷2 = 64，所以高 = 64×2÷16 = 8",
+  "zh-Hant": "16×高÷2 = 64，所以高 = 64×2÷16 = 8"
+ },
+ "直線ℓと直線mは平行です。直線m上のAEの長さは15cmで、B、C、DはAとEの間の点です。P、Q、R、Sは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDR、DESの面積の合計は30cm²です。直線ℓと直線mの間は何cmですか。": {
+  "en": "Lines ℓ and m are parallel. On line m, AE is 15 cm long, and B, C and D are points between A and E. P, Q, R and S are points on line ℓ. The total area of the shaded triangles ABP, BCQ, CDR and DES is 30 cm². How far apart are lines ℓ and m, in cm?",
+  "zh-Hans": "直线ℓ和直线m平行。直线m上AE的长是15cm，B、C、D是A和E之间的点。P、Q、R、S是直线ℓ上的点。阴影三角形ABP、BCQ、CDR、DES的面积之和是30cm²。直线ℓ和直线m之间的距离是多少cm？",
+  "zh-Hant": "直線ℓ和直線m平行。直線m上AE的長度是15cm，B、C、D是A和E之間的點。P、Q、R、S是直線ℓ上的點。著色三角形ABP、BCQ、CDR、DES的面積總和是30cm²。直線ℓ和直線m之間的距離是多少cm？"
+ },
+ "頂点を直線ℓにそって1点に集めると、底辺AE＝15cmの1つの三角形になる（面積は変わらない）": {
+  "en": "Slide the vertices along line ℓ to one point, and you get one triangle with base AE＝15 cm (the area does not change)",
+  "zh-Hans": "把顶点沿直线ℓ集中到一点，就变成底边AE＝15cm的一个三角形（面积不变）",
+  "zh-Hant": "把頂點沿直線ℓ集中到一點，就變成底邊AE＝15cm的一個三角形（面積不變）"
+ },
+ "15×高さ÷2 = 30 なので、高さ = 30×2÷15 = 4": {
+  "en": "15×height÷2 = 30, so height = 30×2÷15 = 4",
+  "zh-Hans": "15×高÷2 = 30，所以高 = 30×2÷15 = 4",
+  "zh-Hant": "15×高÷2 = 30，所以高 = 30×2÷15 = 4"
+ },
+ "直線ℓと直線mは平行です。直線m上のAEの長さは10cmで、B、C、DはAとEの間の点です。P、Q、R、Sは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDR、DESの面積の合計は30cm²です。直線ℓと直線mの間は何cmですか。": {
+  "en": "Lines ℓ and m are parallel. On line m, AE is 10 cm long, and B, C and D are points between A and E. P, Q, R and S are points on line ℓ. The total area of the shaded triangles ABP, BCQ, CDR and DES is 30 cm². How far apart are lines ℓ and m, in cm?",
+  "zh-Hans": "直线ℓ和直线m平行。直线m上AE的长是10cm，B、C、D是A和E之间的点。P、Q、R、S是直线ℓ上的点。阴影三角形ABP、BCQ、CDR、DES的面积之和是30cm²。直线ℓ和直线m之间的距离是多少cm？",
+  "zh-Hant": "直線ℓ和直線m平行。直線m上AE的長度是10cm，B、C、D是A和E之間的點。P、Q、R、S是直線ℓ上的點。著色三角形ABP、BCQ、CDR、DES的面積總和是30cm²。直線ℓ和直線m之間的距離是多少cm？"
+ },
+ "頂点を直線ℓにそって1点に集めると、底辺AE＝10cmの1つの三角形になる（面積は変わらない）": {
+  "en": "Slide the vertices along line ℓ to one point, and you get one triangle with base AE＝10 cm (the area does not change)",
+  "zh-Hans": "把顶点沿直线ℓ集中到一点，就变成底边AE＝10cm的一个三角形（面积不变）",
+  "zh-Hant": "把頂點沿直線ℓ集中到一點，就變成底邊AE＝10cm的一個三角形（面積不變）"
+ },
+ "10×高さ÷2 = 30 なので、高さ = 30×2÷10 = 6": {
+  "en": "10×height÷2 = 30, so height = 30×2÷10 = 6",
+  "zh-Hans": "10×高÷2 = 30，所以高 = 30×2÷10 = 6",
+  "zh-Hant": "10×高÷2 = 30，所以高 = 30×2÷10 = 6"
+ },
+ "直線ℓと直線mは平行です。直線m上のAEの長さは10cmで、B、C、DはAとEの間の点です。P、Q、R、Sは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDR、DESの面積の合計は25cm²です。直線ℓと直線mの間は何cmですか。": {
+  "en": "Lines ℓ and m are parallel. On line m, AE is 10 cm long, and B, C and D are points between A and E. P, Q, R and S are points on line ℓ. The total area of the shaded triangles ABP, BCQ, CDR and DES is 25 cm². How far apart are lines ℓ and m, in cm?",
+  "zh-Hans": "直线ℓ和直线m平行。直线m上AE的长是10cm，B、C、D是A和E之间的点。P、Q、R、S是直线ℓ上的点。阴影三角形ABP、BCQ、CDR、DES的面积之和是25cm²。直线ℓ和直线m之间的距离是多少cm？",
+  "zh-Hant": "直線ℓ和直線m平行。直線m上AE的長度是10cm，B、C、D是A和E之間的點。P、Q、R、S是直線ℓ上的點。著色三角形ABP、BCQ、CDR、DES的面積總和是25cm²。直線ℓ和直線m之間的距離是多少cm？"
+ },
+ "10×高さ÷2 = 25 なので、高さ = 25×2÷10 = 5": {
+  "en": "10×height÷2 = 25, so height = 25×2÷10 = 5",
+  "zh-Hans": "10×高÷2 = 25，所以高 = 25×2÷10 = 5",
+  "zh-Hant": "10×高÷2 = 25，所以高 = 25×2÷10 = 5"
+ },
+ "直線ℓと直線mは平行です。直線m上のAEの長さは7cmで、B、C、DはAとEの間の点です。P、Q、R、Sは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDR、DESの面積の合計は28cm²です。直線ℓと直線mの間は何cmですか。": {
+  "en": "Lines ℓ and m are parallel. On line m, AE is 7 cm long, and B, C and D are points between A and E. P, Q, R and S are points on line ℓ. The total area of the shaded triangles ABP, BCQ, CDR and DES is 28 cm². How far apart are lines ℓ and m, in cm?",
+  "zh-Hans": "直线ℓ和直线m平行。直线m上AE的长是7cm，B、C、D是A和E之间的点。P、Q、R、S是直线ℓ上的点。阴影三角形ABP、BCQ、CDR、DES的面积之和是28cm²。直线ℓ和直线m之间的距离是多少cm？",
+  "zh-Hant": "直線ℓ和直線m平行。直線m上AE的長度是7cm，B、C、D是A和E之間的點。P、Q、R、S是直線ℓ上的點。著色三角形ABP、BCQ、CDR、DES的面積總和是28cm²。直線ℓ和直線m之間的距離是多少cm？"
+ },
+ "頂点を直線ℓにそって1点に集めると、底辺AE＝7cmの1つの三角形になる（面積は変わらない）": {
+  "en": "Slide the vertices along line ℓ to one point, and you get one triangle with base AE＝7 cm (the area does not change)",
+  "zh-Hans": "把顶点沿直线ℓ集中到一点，就变成底边AE＝7cm的一个三角形（面积不变）",
+  "zh-Hant": "把頂點沿直線ℓ集中到一點，就變成底邊AE＝7cm的一個三角形（面積不變）"
+ },
+ "7×高さ÷2 = 28 なので、高さ = 28×2÷7 = 8": {
+  "en": "7×height÷2 = 28, so height = 28×2÷7 = 8",
+  "zh-Hans": "7×高÷2 = 28，所以高 = 28×2÷7 = 8",
+  "zh-Hant": "7×高÷2 = 28，所以高 = 28×2÷7 = 8"
+ },
+ "直線ℓと直線mは平行です。直線m上のAEの長さは9cmで、B、C、DはAとEの間の点です。P、Q、R、Sは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDR、DESの面積の合計は18cm²です。直線ℓと直線mの間は何cmですか。": {
+  "en": "Lines ℓ and m are parallel. On line m, AE is 9 cm long, and B, C and D are points between A and E. P, Q, R and S are points on line ℓ. The total area of the shaded triangles ABP, BCQ, CDR and DES is 18 cm². How far apart are lines ℓ and m, in cm?",
+  "zh-Hans": "直线ℓ和直线m平行。直线m上AE的长是9cm，B、C、D是A和E之间的点。P、Q、R、S是直线ℓ上的点。阴影三角形ABP、BCQ、CDR、DES的面积之和是18cm²。直线ℓ和直线m之间的距离是多少cm？",
+  "zh-Hant": "直線ℓ和直線m平行。直線m上AE的長度是9cm，B、C、D是A和E之間的點。P、Q、R、S是直線ℓ上的點。著色三角形ABP、BCQ、CDR、DES的面積總和是18cm²。直線ℓ和直線m之間的距離是多少cm？"
+ },
+ "頂点を直線ℓにそって1点に集めると、底辺AE＝9cmの1つの三角形になる（面積は変わらない）": {
+  "en": "Slide the vertices along line ℓ to one point, and you get one triangle with base AE＝9 cm (the area does not change)",
+  "zh-Hans": "把顶点沿直线ℓ集中到一点，就变成底边AE＝9cm的一个三角形（面积不变）",
+  "zh-Hant": "把頂點沿直線ℓ集中到一點，就變成底邊AE＝9cm的一個三角形（面積不變）"
+ },
+ "9×高さ÷2 = 18 なので、高さ = 18×2÷9 = 4": {
+  "en": "9×height÷2 = 18, so height = 18×2÷9 = 4",
+  "zh-Hans": "9×高÷2 = 18，所以高 = 18×2÷9 = 4",
+  "zh-Hant": "9×高÷2 = 18，所以高 = 18×2÷9 = 4"
+ },
+ "直線ℓと直線mは平行です。直線m上のAEの長さは6cmで、B、C、DはAとEの間の点です。P、Q、R、Sは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDR、DESの面積の合計は21cm²です。直線ℓと直線mの間は何cmですか。": {
+  "en": "Lines ℓ and m are parallel. On line m, AE is 6 cm long, and B, C and D are points between A and E. P, Q, R and S are points on line ℓ. The total area of the shaded triangles ABP, BCQ, CDR and DES is 21 cm². How far apart are lines ℓ and m, in cm?",
+  "zh-Hans": "直线ℓ和直线m平行。直线m上AE的长是6cm，B、C、D是A和E之间的点。P、Q、R、S是直线ℓ上的点。阴影三角形ABP、BCQ、CDR、DES的面积之和是21cm²。直线ℓ和直线m之间的距离是多少cm？",
+  "zh-Hant": "直線ℓ和直線m平行。直線m上AE的長度是6cm，B、C、D是A和E之間的點。P、Q、R、S是直線ℓ上的點。著色三角形ABP、BCQ、CDR、DES的面積總和是21cm²。直線ℓ和直線m之間的距離是多少cm？"
+ },
+ "頂点を直線ℓにそって1点に集めると、底辺AE＝6cmの1つの三角形になる（面積は変わらない）": {
+  "en": "Slide the vertices along line ℓ to one point, and you get one triangle with base AE＝6 cm (the area does not change)",
+  "zh-Hans": "把顶点沿直线ℓ集中到一点，就变成底边AE＝6cm的一个三角形（面积不变）",
+  "zh-Hant": "把頂點沿直線ℓ集中到一點，就變成底邊AE＝6cm的一個三角形（面積不變）"
+ },
+ "6×高さ÷2 = 21 なので、高さ = 21×2÷6 = 7": {
+  "en": "6×height÷2 = 21, so height = 21×2÷6 = 7",
+  "zh-Hans": "6×高÷2 = 21，所以高 = 21×2÷6 = 7",
+  "zh-Hant": "6×高÷2 = 21，所以高 = 21×2÷6 = 7"
+ },
+ "直線ℓと直線mは平行です。直線m上のAEの長さは8cmで、B、C、DはAとEの間の点です。P、Q、R、Sは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDR、DESの面積の合計は12cm²です。直線ℓと直線mの間は何cmですか。": {
+  "en": "Lines ℓ and m are parallel. On line m, AE is 8 cm long, and B, C and D are points between A and E. P, Q, R and S are points on line ℓ. The total area of the shaded triangles ABP, BCQ, CDR and DES is 12 cm². How far apart are lines ℓ and m, in cm?",
+  "zh-Hans": "直线ℓ和直线m平行。直线m上AE的长是8cm，B、C、D是A和E之间的点。P、Q、R、S是直线ℓ上的点。阴影三角形ABP、BCQ、CDR、DES的面积之和是12cm²。直线ℓ和直线m之间的距离是多少cm？",
+  "zh-Hant": "直線ℓ和直線m平行。直線m上AE的長度是8cm，B、C、D是A和E之間的點。P、Q、R、S是直線ℓ上的點。著色三角形ABP、BCQ、CDR、DES的面積總和是12cm²。直線ℓ和直線m之間的距離是多少cm？"
+ },
+ "頂点を直線ℓにそって1点に集めると、底辺AE＝8cmの1つの三角形になる（面積は変わらない）": {
+  "en": "Slide the vertices along line ℓ to one point, and you get one triangle with base AE＝8 cm (the area does not change)",
+  "zh-Hans": "把顶点沿直线ℓ集中到一点，就变成底边AE＝8cm的一个三角形（面积不变）",
+  "zh-Hant": "把頂點沿直線ℓ集中到一點，就變成底邊AE＝8cm的一個三角形（面積不變）"
+ },
+ "8×高さ÷2 = 12 なので、高さ = 12×2÷8 = 3": {
+  "en": "8×height÷2 = 12, so height = 12×2÷8 = 3",
+  "zh-Hans": "8×高÷2 = 12，所以高 = 12×2÷8 = 3",
+  "zh-Hant": "8×高÷2 = 12，所以高 = 12×2÷8 = 3"
+ },
+ "直線ℓと直線mは平行で、その間は5cmです。直線m上のAFの長さは18cmで、B、C、D、EはAとFの間の点です。P、Q、R、S、Tは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDR、DES、EFTの面積の合計は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, 5 cm apart. On line m, AF is 18 cm long, and B, C, D and E are points between A and F. P, Q, R, S and T are points on line ℓ. What is the total area, in cm², of the shaded triangles ABP, BCQ, CDR, DES and EFT?",
+  "zh-Hans": "直线ℓ和直线m平行，两条直线之间的距离是5cm。直线m上AF的长是18cm，B、C、D、E是A和F之间的点。P、Q、R、S、T是直线ℓ上的点。阴影三角形ABP、BCQ、CDR、DES、EFT的面积之和是多少cm²？",
+  "zh-Hant": "直線ℓ和直線m平行，兩條直線之間的距離是5cm。直線m上AF的長度是18cm，B、C、D、E是A和F之間的點。P、Q、R、S、T是直線ℓ上的點。著色三角形ABP、BCQ、CDR、DES、EFT的面積總和是多少cm²？"
+ },
+ "底辺18、高さ5の1つの三角形になる": {
+  "en": "It becomes one triangle with base 18 and height 5",
+  "zh-Hans": "变成底边为18、高为5的一个三角形",
+  "zh-Hant": "變成底邊為18、高為5的一個三角形"
+ },
+ "直線ℓと直線mは平行で、その間は6cmです。直線m上のAFの長さは14cmで、B、C、D、EはAとFの間の点です。P、Q、R、S、Tは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDR、DES、EFTの面積の合計は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, 6 cm apart. On line m, AF is 14 cm long, and B, C, D and E are points between A and F. P, Q, R, S and T are points on line ℓ. What is the total area, in cm², of the shaded triangles ABP, BCQ, CDR, DES and EFT?",
+  "zh-Hans": "直线ℓ和直线m平行，两条直线之间的距离是6cm。直线m上AF的长是14cm，B、C、D、E是A和F之间的点。P、Q、R、S、T是直线ℓ上的点。阴影三角形ABP、BCQ、CDR、DES、EFT的面积之和是多少cm²？",
+  "zh-Hant": "直線ℓ和直線m平行，兩條直線之間的距離是6cm。直線m上AF的長度是14cm，B、C、D、E是A和F之間的點。P、Q、R、S、T是直線ℓ上的點。著色三角形ABP、BCQ、CDR、DES、EFT的面積總和是多少cm²？"
+ },
+ "底辺14、高さ6の1つの三角形になる": {
+  "en": "It becomes one triangle with base 14 and height 6",
+  "zh-Hans": "变成底边为14、高为6的一个三角形",
+  "zh-Hant": "變成底邊為14、高為6的一個三角形"
+ },
+ "直線ℓと直線mは平行で、その間は9cmです。直線m上のAFの長さは12cmで、B、C、D、EはAとFの間の点です。P、Q、R、S、Tは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDR、DES、EFTの面積の合計は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, 9 cm apart. On line m, AF is 12 cm long, and B, C, D and E are points between A and F. P, Q, R, S and T are points on line ℓ. What is the total area, in cm², of the shaded triangles ABP, BCQ, CDR, DES and EFT?",
+  "zh-Hans": "直线ℓ和直线m平行，两条直线之间的距离是9cm。直线m上AF的长是12cm，B、C、D、E是A和F之间的点。P、Q、R、S、T是直线ℓ上的点。阴影三角形ABP、BCQ、CDR、DES、EFT的面积之和是多少cm²？",
+  "zh-Hant": "直線ℓ和直線m平行，兩條直線之間的距離是9cm。直線m上AF的長度是12cm，B、C、D、E是A和F之間的點。P、Q、R、S、T是直線ℓ上的點。著色三角形ABP、BCQ、CDR、DES、EFT的面積總和是多少cm²？"
+ },
+ "底辺12、高さ9の1つの三角形になる": {
+  "en": "It becomes one triangle with base 12 and height 9",
+  "zh-Hans": "变成底边为12、高为9的一个三角形",
+  "zh-Hant": "變成底邊為12、高為9的一個三角形"
+ }
+}

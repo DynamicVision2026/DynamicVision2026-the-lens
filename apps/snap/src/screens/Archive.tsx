@@ -1,8 +1,9 @@
+import { LangSwitch } from "../components/LangSwitch";
 import { useState } from "react";
 import { BackupCard } from "../components/BackupCard";
 import { PhotoThumb } from "../components/PhotoThumb";
-import { app } from "../copy";
-import { unitById } from "../curriculum";
+import { app, MISC } from "../copy";
+import { unitById, gradeLabel } from "../curriculum";
 import { deletePage } from "../lib/store";
 import { usePlan } from "../lib/plan";
 import { usePages } from "../state";
@@ -44,7 +45,7 @@ export function Archive() {
         <select className="select" value={unit} onChange={(e) => setUnit(e.target.value)} aria-label={app.archive.allUnits}>
           <option value="">{app.archive.allUnits}</option>
           {units.map((id) => (
-            <option key={id} value={id}>{unitById(id)?.grade} {unitById(id)?.label}</option>
+            <option key={id} value={id}>{gradeLabel(unitById(id)?.grade ?? "")} {unitById(id)?.label}</option>
           ))}
         </select>
         <select className="select" value={period} onChange={(e) => setPeriod(e.target.value as Period)}>
@@ -64,7 +65,7 @@ export function Archive() {
             <div className="archive-head">
               <PhotoThumb photo={pg.photo} alt={app.pageType[pg.pageType]} />
               <div className="grow">
-                <strong>{app.pageType[pg.pageType]}{pg.score ? `・${pg.score}点` : ""}</strong>
+                <strong>{app.pageType[pg.pageType]}{pg.score ? MISC.points(pg.score) : ""}</strong>
                 <div className="muted small">{app.archive.page(new Date(pg.createdAt).toLocaleDateString("ja-JP"), pg.problems.length)}</div>
               </div>
             </div>
@@ -91,6 +92,9 @@ export function Archive() {
           </li>
         ))}
       </ul>
+      <div className="lang-row lang-row-end">
+        <LangSwitch />
+      </div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 export * from './types';
-export { loadBundle, getCard, getVariants } from './bundle';
-export { tokens, cssVars, color, lensColor, fontFamily, fontSize, themed, type RenderMode, type LensOrDirect, type ThemeName } from './tokens';
+export { loadBundle, getCard, getVariants, applyContentTranslation, tc } from './bundle';
+export { tokens, cssVars, color, lensColor, fontFamily, fontSize, themed, setScriptFonts, type RenderMode, type LensOrDirect, type ThemeName } from './tokens';
 export { springAt } from './spring';
 export { motionPreviewTimeline, shortTimeline, timelineDuration, beatAt, beatLabel, studyStepMs, type Beat, type BeatName } from './motion/timeline';
 export { formatExact, countUp, answerText, timeLabel } from './format';

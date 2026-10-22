@@ -1,7 +1,8 @@
+import { LangSwitch } from "../components/LangSwitch";
 import { useEffect, useState } from "react";
 import { PilotCodeForm } from "../components/PilotCodeForm";
 import { app } from "../copy";
-import { GRADES, type Grade } from "../curriculum";
+import { GRADES, gradeLabel, type Grade } from "../curriculum";
 import { fetchPilotGate, readPilotCode } from "../lib/pilot";
 
 export function Onboarding({ current, onChoose }: { current?: Grade; onChoose: (g: Grade) => void }) {
@@ -29,6 +30,9 @@ export function Onboarding({ current, onChoose }: { current?: Grade; onChoose: (
 
   return (
     <div className="page onboarding">
+      <div className="lang-row">
+        <LangSwitch />
+      </div>
       <h1>{app.onboarding.title}</h1>
       <p className="muted">{app.onboarding.body}</p>
       <div className="grade-grid" role="radiogroup">
@@ -41,7 +45,7 @@ export function Onboarding({ current, onChoose }: { current?: Grade; onChoose: (
             className={`grade-btn ${g === x ? "is-on" : ""}`}
             onClick={() => setG(x)}
           >
-            {x}
+            {gradeLabel(x)}
           </button>
         ))}
       </div>

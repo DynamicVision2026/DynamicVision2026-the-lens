@@ -19,6 +19,7 @@ import {
   type ConstSumFigure,
   type DiceGridFigure,
   type TriangleCeviansFigure,
+  tc,
 } from '@lens/scenes';
 import { useEffect, useRef, useState } from 'react';
 import { t } from '../../i18n/ja';
@@ -255,10 +256,10 @@ export function DiceScene({ card, lens, onSolved }: SceneProps) {
   return (
     <svg ref={svg} viewBox="0 0 600 440" className="fig" data-testid="scene-dice">
       <Txt x={GX + CELL * 3} y={GY - 36} size={16} fill={C.ink}>
-        大
+        {tc('大')}
       </Txt>
       <Txt x={GX - 46} y={GY + CELL * 3 + 6} size={16} fill={C.ink}>
-        小
+        {tc('小')}
       </Txt>
       {Array.from({ length: 6 }, (_, i) => (
         <g key={i}>
@@ -436,7 +437,7 @@ export function CeviansScene({ card, lens, onSolved }: SceneProps) {
   const color = C.lens(lens);
   const steps = card.lens_route.steps;
   const w = weightsIn(steps.find((s) => weightsIn(s)));
-  const gathered = afterEquals(steps.find((s, i) => i > 0 && /集まる/.test(s.ja)));
+  const gathered = afterEquals(steps.find((s, i) => i > 0 && /集まる/.test(s.ja_orig ?? s.ja)));
   // The two weights on the beam (printed from the steps), and their sizes for the tilt (drawing only).
   const w0 = (L.onBE ? w?.B : w?.A) ?? '';
   const w1 = gathered ?? '';

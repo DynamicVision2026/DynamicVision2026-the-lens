@@ -9,7 +9,7 @@ const lerp = (a: XY, b: XY, t: number): XY => [a[0] + (b[0] - a[0]) * t, a[1] + 
 
 /** 「A:B:C＝1:3:2」 in a step → { A: '1', B: '3', C: '2' } (printed as written; nothing is scaled here). */
 export function weightsIn(step: Step | undefined): Record<'A' | 'B' | 'C', string> | null {
-  const m = step && /A\s*[:：]\s*B\s*[:：]\s*C\s*＝\s*([\d.]+)\s*[:：]\s*([\d.]+)\s*[:：]\s*([\d.]+)/.exec(step.ja);
+  const m = step && /A\s*[:：]\s*B\s*[:：]\s*C\s*＝\s*([\d.]+)\s*[:：]\s*([\d.]+)\s*[:：]\s*([\d.]+)/.exec(step.ja_orig ?? step.ja);
   return m ? { A: m[1]!, B: m[2]!, C: m[3]! } : null;
 }
 
@@ -73,7 +73,7 @@ export function CeviansFigure(p: CeviansFigureProps) {
   const size = p.labelSize;
   const r = p.figureStroke * 2.2;
   const scaled = weightsIn(steps.find((s) => weightsIn(s)));
-  const gathered = afterEquals(steps.find((s, i) => i > 0 && /集まる/.test(s.ja)));
+  const gathered = afterEquals(steps.find((s, i) => i > 0 && /集まる/.test(s.ja_orig ?? s.ja)));
   const label = (q: XY, text: string, dx: number, dy: number, c = p.ink, o = 1) => (
     <text x={q[0] + dx * size} y={q[1] + dy * size} fill={c} opacity={o} fontFamily={p.font} fontSize={size} fontWeight={p.weight} textAnchor="middle" dominantBaseline="central">
       {text}

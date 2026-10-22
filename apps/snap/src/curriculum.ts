@@ -1,4 +1,6 @@
 import raw from "../data/units.json";
+import i18nRaw from "../data/units.i18n.json";
+import { LANG } from "./lib/lang";
 
 /**
  * Unit id scheme (stable; never renumber):
@@ -66,6 +68,9 @@ export interface RawUnit {
 
 export interface Unit extends RawUnit {
   id: string;
+  /** The Japanese topic / covers (unit logic — roots, the reader — always uses these; topic/covers are for display). */
+  topicJa: string;
+  coversJa: string[];
   /** App grade this unit belongs to (高校 subjects: their school year, see HIGH_SCHOOL_YEAR). */
   appGrade: Grade;
   /** Short label for chips, e.g. "C(3) 割合" or "数学I 二次関数". */
@@ -89,12 +94,47 @@ function appGradeOf(u: RawUnit): Grade {
   return u.grade as Grade;
 }
 
-export const UNITS: Unit[] = (raw as RawUnit[]).map((u) => ({
-  ...u,
-  id: unitId(u),
-  appGrade: appGradeOf(u),
-  label: u.level === "高" ? `${u.grade} ${u.topic}` : `${u.unit} ${u.topic}`,
-}));
+type UnitText = { topic: string; covers: string[] };
+const I18N = i18nRaw as ({ topic_ja: string } & Record<"en" | "zh-Hans" | "zh-Hant", UnitText>)[];
+
+/** Display names for grades and 高校 subjects in other languages (saved values stay 小5 …, 数学I …). */
+const GRADE_NAMES: Record<"en" | "zh-Hans" | "zh-Hant", Record<string, string>> = {
+  en: {
+    小1: "Grade 1", 小2: "Grade 2", 小3: "Grade 3", 小4: "Grade 4", 小5: "Grade 5", 小6: "Grade 6",
+    中1: "Grade 7", 中2: "Grade 8", 中3: "Grade 9", 高1: "Grade 10", 高2: "Grade 11", 高3: "Grade 12",
+    数学I: "Math I", 数学II: "Math II", 数学III: "Math III", 数学A: "Math A", 数学B: "Math B", 数学C: "Math C",
+  },
+  "zh-Hans": {
+    小1: "一年级", 小2: "二年级", 小3: "三年级", 小4: "四年级", 小5: "五年级", 小6: "六年级",
+    中1: "初一", 中2: "初二", 中3: "初三", 高1: "高一", 高2: "高二", 高3: "高三",
+    数学I: "数学I", 数学II: "数学II", 数学III: "数学III", 数学A: "数学A", 数学B: "数学B", 数学C: "数学C",
+  },
+  "zh-Hant": {
+    小1: "一年級", 小2: "二年級", 小3: "三年級", 小4: "四年級", 小5: "五年級", 小6: "六年級",
+    中1: "國一", 中2: "國二", 中3: "國三", 高1: "高一", 高2: "高二", 高3: "高三",
+    数学I: "數學I", 数学II: "數學II", 数学III: "數學III", 数学A: "數學A", 数学B: "數學B", 数学C: "數學C",
+  },
+};
+
+/** A grade (小5) or 高校 subject (数学I) as shown in the display language; anything else unchanged. */
+export function gradeLabel(g: string): string {
+  return LANG === "ja" ? g : (GRADE_NAMES[LANG][g] ?? g);
+}
+
+export const UNITS: Unit[] = (raw as RawUnit[]).map((u, i) => {
+  const tr = LANG === "ja" ? null : I18N[i]?.topic_ja === u.topic ? I18N[i][LANG] : null;
+  const topic = tr?.topic ?? u.topic;
+  return {
+    ...u,
+    topic,
+    covers: tr?.covers ?? u.covers,
+    topicJa: u.topic,
+    coversJa: u.covers,
+    id: unitId(u),
+    appGrade: appGradeOf(u),
+    label: u.level === "高" ? `${gradeLabel(u.grade)} ${topic}` : `${u.unit} ${topic}`,
+  };
+});
 
 const BY_ID = new Map(UNITS.map((u) => [u.id, u]));
 

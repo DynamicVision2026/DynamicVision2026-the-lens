@@ -1,0 +1,482 @@
+{
+ "三角形ABPとACGは同じ形なので BP:CG = AB:AC = 8:10 = 4:5": {
+  "en": "Triangles ABP and ACG have the same shape, so BP:CG = AB:AC = 8:10 = 4:5",
+  "zh-Hans": "三角形ABP和三角形ACG形状相同，所以 BP:CG = AB:AC = 8:10 = 4:5",
+  "zh-Hant": "三角形ABP和三角形ACG形狀相同，所以 BP:CG = AB:AC = 8:10 = 4:5"
+ },
+ "直方体ABCD-EFGHがあり、AB＝8cm、BC＝4cm、AE＝9cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 8 cm, BC = 4 cm and AE = 9 cm. A string is pulled tight along the surface of the box from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝8cm，BC＝4cm，AE＝9cm。沿着长方体的表面拉紧一根线，从顶点A经过棱BF上的点P到达顶点G。当线的长度最短时，BP是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝8cm，BC＝4cm，AE＝9cm。沿著長方體的表面拉緊一條線，從頂點A經過邊BF上的點P到達頂點G。當線的長度最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 8+4 = 12、たて 9）": {
+  "en": "Open up faces ABFE and BCGF, which are joined along edge BF, into 1 rectangle (width 8+4 = 12, height 9)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成1个长方形（长 8+4 = 12，宽 9）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成1個長方形（長 8+4 = 12，寬 9）"
+ },
+ "三角形ABPとACGは同じ形なので BP:CG = AB:AC = 8:12 = 2:3": {
+  "en": "Triangles ABP and ACG have the same shape, so BP:CG = AB:AC = 8:12 = 2:3",
+  "zh-Hans": "三角形ABP和三角形ACG形状相同，所以 BP:CG = AB:AC = 8:12 = 2:3",
+  "zh-Hant": "三角形ABP和三角形ACG形狀相同，所以 BP:CG = AB:AC = 8:12 = 2:3"
+ },
+ "直方体ABCD-EFGHがあり、AB＝9cm、BC＝6cm、AE＝10cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 9 cm, BC = 6 cm and AE = 10 cm. A string is pulled tight along the surface of the box from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝9cm，BC＝6cm，AE＝10cm。沿着长方体的表面拉紧一根线，从顶点A经过棱BF上的点P到达顶点G。当线的长度最短时，BP是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝9cm，BC＝6cm，AE＝10cm。沿著長方體的表面拉緊一條線，從頂點A經過邊BF上的點P到達頂點G。當線的長度最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 9+6 = 15、たて 10）": {
+  "en": "Open up faces ABFE and BCGF, which are joined along edge BF, into 1 rectangle (width 9+6 = 15, height 10)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成1个长方形（长 9+6 = 15，宽 10）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成1個長方形（長 9+6 = 15，寬 10）"
+ },
+ "三角形ABPとACGは同じ形なので BP:CG = AB:AC = 9:15 = 3:5": {
+  "en": "Triangles ABP and ACG have the same shape, so BP:CG = AB:AC = 9:15 = 3:5",
+  "zh-Hans": "三角形ABP和三角形ACG形状相同，所以 BP:CG = AB:AC = 9:15 = 3:5",
+  "zh-Hant": "三角形ABP和三角形ACG形狀相同，所以 BP:CG = AB:AC = 9:15 = 3:5"
+ },
+ "直方体ABCD-EFGHがあり、AB＝7cm、BC＝14cm、AE＝6cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 7 cm, BC = 14 cm and AE = 6 cm. A string is pulled tight along the surface of the box from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝7cm，BC＝14cm，AE＝6cm。沿着长方体的表面拉紧一根线，从顶点A经过棱BF上的点P到达顶点G。当线的长度最短时，BP是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝7cm，BC＝14cm，AE＝6cm。沿著長方體的表面拉緊一條線，從頂點A經過邊BF上的點P到達頂點G。當線的長度最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 7+14 = 21、たて 6）": {
+  "en": "Open up faces ABFE and BCGF, which are joined along edge BF, into 1 rectangle (width 7+14 = 21, height 6)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成1个长方形（长 7+14 = 21，宽 6）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成1個長方形（長 7+14 = 21，寬 6）"
+ },
+ "三角形ABPとACGは同じ形なので BP:CG = AB:AC = 7:21 = 1:3": {
+  "en": "Triangles ABP and ACG have the same shape, so BP:CG = AB:AC = 7:21 = 1:3",
+  "zh-Hans": "三角形ABP和三角形ACG形状相同，所以 BP:CG = AB:AC = 7:21 = 1:3",
+  "zh-Hant": "三角形ABP和三角形ACG形狀相同，所以 BP:CG = AB:AC = 7:21 = 1:3"
+ },
+ "直方体ABCD-EFGHがあり、AB＝8cm、BC＝4cm、AE＝15cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 8 cm, BC = 4 cm and AE = 15 cm. A string is pulled tight along the surface of the box from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝8cm，BC＝4cm，AE＝15cm。沿着长方体的表面拉紧一根线，从顶点A经过棱BF上的点P到达顶点G。当线的长度最短时，BP是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝8cm，BC＝4cm，AE＝15cm。沿著長方體的表面拉緊一條線，從頂點A經過邊BF上的點P到達頂點G。當線的長度最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 8+4 = 12、たて 15）": {
+  "en": "Open up faces ABFE and BCGF, which are joined along edge BF, into 1 rectangle (width 8+4 = 12, height 15)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成1个长方形（长 8+4 = 12，宽 15）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成1個長方形（長 8+4 = 12，寬 15）"
+ },
+ "直方体ABCD-EFGHがあり、AB＝12cm、BC＝4cm、AE＝16cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 12 cm, BC = 4 cm and AE = 16 cm. A string is pulled tight along the surface of the box from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝12cm，BC＝4cm，AE＝16cm。沿着长方体的表面拉紧一根线，从顶点A经过棱BF上的点P到达顶点G。当线的长度最短时，BP是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝12cm，BC＝4cm，AE＝16cm。沿著長方體的表面拉緊一條線，從頂點A經過邊BF上的點P到達頂點G。當線的長度最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 12+4 = 16、たて 16）": {
+  "en": "Open up faces ABFE and BCGF, which are joined along edge BF, into 1 rectangle (width 12+4 = 16, height 16)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成1个长方形（长 12+4 = 16，宽 16）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成1個長方形（長 12+4 = 16，寬 16）"
+ },
+ "三角形ABPとACGは同じ形なので BP:CG = AB:AC = 12:16 = 3:4": {
+  "en": "Triangles ABP and ACG have the same shape, so BP:CG = AB:AC = 12:16 = 3:4",
+  "zh-Hans": "三角形ABP和三角形ACG形状相同，所以 BP:CG = AB:AC = 12:16 = 3:4",
+  "zh-Hant": "三角形ABP和三角形ACG形狀相同，所以 BP:CG = AB:AC = 12:16 = 3:4"
+ },
+ "直方体ABCD-EFGHがあり、AB＝5cm、BC＝13cm、AE＝18cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 5 cm, BC = 13 cm and AE = 18 cm. A string is pulled tight along the surface of the box from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝5cm，BC＝13cm，AE＝18cm。沿着长方体的表面拉紧一根线，从顶点A经过棱BF上的点P到达顶点G。当线的长度最短时，BP是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝5cm，BC＝13cm，AE＝18cm。沿著長方體的表面拉緊一條線，從頂點A經過邊BF上的點P到達頂點G。當線的長度最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 5+13 = 18、たて 18）": {
+  "en": "Open up faces ABFE and BCGF, which are joined along edge BF, into 1 rectangle (width 5+13 = 18, height 18)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成1个长方形（长 5+13 = 18，宽 18）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成1個長方形（長 5+13 = 18，寬 18）"
+ },
+ "三角形ABPとACGは同じ形なので BP:CG = AB:AC = 5:18": {
+  "en": "Triangles ABP and ACG have the same shape, so BP:CG = AB:AC = 5:18",
+  "zh-Hans": "三角形ABP和三角形ACG形状相同，所以 BP:CG = AB:AC = 5:18",
+  "zh-Hant": "三角形ABP和三角形ACG形狀相同，所以 BP:CG = AB:AC = 5:18"
+ },
+ "直方体ABCD-EFGHがあり、AB＝3cm、BC＝4cm、AE＝10cmです。頂点Aから、辺BF上の点P、辺CG上の点Qを通って頂点Hまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、CQは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 3 cm, BC = 4 cm and AE = 10 cm. A string is pulled tight along the surface of the box from vertex A, through point P on edge BF and point Q on edge CG, to vertex H. When the string is as short as possible, how many cm is CQ?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝3cm，BC＝4cm，AE＝10cm。沿着长方体的表面拉紧一根线，从顶点A经过棱BF上的点P、棱CG上的点Q到达顶点H。当线的长度最短时，CQ是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝3cm，BC＝4cm，AE＝10cm。沿著長方體的表面拉緊一條線，從頂點A經過邊BF上的點P、邊CG上的點Q到達頂點H。當線的長度最短時，CQ是多少cm？"
+ },
+ "面ABFE、BCGF、CDHGの3つを開いて、1つの長方形にする（横 3+4+3 = 10、たて 10）": {
+  "en": "Open up the 3 faces ABFE, BCGF and CDHG into 1 rectangle (width 3+4+3 = 10, height 10)",
+  "zh-Hans": "把面ABFE、BCGF、CDHG这3个面展开，拼成1个长方形（长 3+4+3 = 10，宽 10）",
+  "zh-Hant": "把面ABFE、BCGF、CDHG這3個面展開，拼成1個長方形（長 3+4+3 = 10，寬 10）"
+ },
+ "Aから横に10進む間に10上がるので、横に 3+4 = 7 進んだCGでは 10×7/10 上がる": {
+  "en": "Going 10 across from A, the string rises 10, so at CG, which is 3+4 = 7 across, it rises 10×7/10",
+  "zh-Hans": "从A向右走10时上升10，所以在向右走了 3+4 = 7 的CG处，上升 10×7/10",
+  "zh-Hant": "從A向右走10時上升10，所以在向右走了 3+4 = 7 的CG處，上升 10×7/10"
+ },
+ "直方体ABCD-EFGHがあり、AB＝3cm、BC＝6cm、AE＝12cmです。頂点Aから、辺BF上の点P、辺CG上の点Qを通って頂点Hまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、CQは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 3 cm, BC = 6 cm and AE = 12 cm. A string is pulled tight along the surface of the box from vertex A, through point P on edge BF and point Q on edge CG, to vertex H. When the string is as short as possible, how many cm is CQ?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝3cm，BC＝6cm，AE＝12cm。沿着长方体的表面拉紧一根线，从顶点A经过棱BF上的点P、棱CG上的点Q到达顶点H。当线的长度最短时，CQ是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝3cm，BC＝6cm，AE＝12cm。沿著長方體的表面拉緊一條線，從頂點A經過邊BF上的點P、邊CG上的點Q到達頂點H。當線的長度最短時，CQ是多少cm？"
+ },
+ "面ABFE、BCGF、CDHGの3つを開いて、1つの長方形にする（横 3+6+3 = 12、たて 12）": {
+  "en": "Open up the 3 faces ABFE, BCGF and CDHG into 1 rectangle (width 3+6+3 = 12, height 12)",
+  "zh-Hans": "把面ABFE、BCGF、CDHG这3个面展开，拼成1个长方形（长 3+6+3 = 12，宽 12）",
+  "zh-Hant": "把面ABFE、BCGF、CDHG這3個面展開，拼成1個長方形（長 3+6+3 = 12，寬 12）"
+ },
+ "Aから横に12進む間に12上がるので、横に 3+6 = 9 進んだCGでは 12×9/12 上がる": {
+  "en": "Going 12 across from A, the string rises 12, so at CG, which is 3+6 = 9 across, it rises 12×9/12",
+  "zh-Hans": "从A向右走12时上升12，所以在向右走了 3+6 = 9 的CG处，上升 12×9/12",
+  "zh-Hant": "從A向右走12時上升12，所以在向右走了 3+6 = 9 的CG處，上升 12×9/12"
+ },
+ "直方体ABCD-EFGHがあり、AB＝4cm、BC＝6cm、AE＝14cmです。頂点Aから、辺BF上の点P、辺CG上の点Qを通って頂点Hまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、CQは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 4 cm, BC = 6 cm and AE = 14 cm. A string is pulled tight along the surface of the box from vertex A, through point P on edge BF and point Q on edge CG, to vertex H. When the string is as short as possible, how many cm is CQ?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝4cm，BC＝6cm，AE＝14cm。沿着长方体的表面拉紧一根线，从顶点A经过棱BF上的点P、棱CG上的点Q到达顶点H。当线的长度最短时，CQ是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝4cm，BC＝6cm，AE＝14cm。沿著長方體的表面拉緊一條線，從頂點A經過邊BF上的點P、邊CG上的點Q到達頂點H。當線的長度最短時，CQ是多少cm？"
+ },
+ "面ABFE、BCGF、CDHGの3つを開いて、1つの長方形にする（横 4+6+4 = 14、たて 14）": {
+  "en": "Open up the 3 faces ABFE, BCGF and CDHG into 1 rectangle (width 4+6+4 = 14, height 14)",
+  "zh-Hans": "把面ABFE、BCGF、CDHG这3个面展开，拼成1个长方形（长 4+6+4 = 14，宽 14）",
+  "zh-Hant": "把面ABFE、BCGF、CDHG這3個面展開，拼成1個長方形（長 4+6+4 = 14，寬 14）"
+ },
+ "Aから横に14進む間に14上がるので、横に 4+6 = 10 進んだCGでは 14×10/14 上がる": {
+  "en": "Going 14 across from A, the string rises 14, so at CG, which is 4+6 = 10 across, it rises 14×10/14",
+  "zh-Hans": "从A向右走14时上升14，所以在向右走了 4+6 = 10 的CG处，上升 14×10/14",
+  "zh-Hant": "從A向右走14時上升14，所以在向右走了 4+6 = 10 的CG處，上升 14×10/14"
+ },
+ "直方体ABCD-EFGHがあり、AB＝2cm、BC＝8cm、AE＝6cmです。頂点Aから、辺BF上の点P、辺CG上の点Qを通って頂点Hまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、CQは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 2 cm, BC = 8 cm and AE = 6 cm. A string is pulled tight along the surface of the box from vertex A, through point P on edge BF and point Q on edge CG, to vertex H. When the string is as short as possible, how many cm is CQ?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝2cm，BC＝8cm，AE＝6cm。沿着长方体的表面拉紧一根线，从顶点A经过棱BF上的点P、棱CG上的点Q到达顶点H。当线的长度最短时，CQ是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝2cm，BC＝8cm，AE＝6cm。沿著長方體的表面拉緊一條線，從頂點A經過邊BF上的點P、邊CG上的點Q到達頂點H。當線的長度最短時，CQ是多少cm？"
+ },
+ "面ABFE、BCGF、CDHGの3つを開いて、1つの長方形にする（横 2+8+2 = 12、たて 6）": {
+  "en": "Open up the 3 faces ABFE, BCGF and CDHG into 1 rectangle (width 2+8+2 = 12, height 6)",
+  "zh-Hans": "把面ABFE、BCGF、CDHG这3个面展开，拼成1个长方形（长 2+8+2 = 12，宽 6）",
+  "zh-Hant": "把面ABFE、BCGF、CDHG這3個面展開，拼成1個長方形（長 2+8+2 = 12，寬 6）"
+ },
+ "Aから横に12進む間に6上がるので、横に 2+8 = 10 進んだCGでは 6×10/12 上がる": {
+  "en": "Going 12 across from A, the string rises 6, so at CG, which is 2+8 = 10 across, it rises 6×10/12",
+  "zh-Hans": "从A向右走12时上升6，所以在向右走了 2+8 = 10 的CG处，上升 6×10/12",
+  "zh-Hant": "從A向右走12時上升6，所以在向右走了 2+8 = 10 的CG處，上升 6×10/12"
+ },
+ "直方体ABCD-EFGHがあり、AB＝5cm、BC＝6cm、AE＝16cmです。頂点Aから、辺BF上の点P、辺CG上の点Qを通って頂点Hまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、CQは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 5 cm, BC = 6 cm and AE = 16 cm. A string is pulled tight along the surface of the box from vertex A, through point P on edge BF and point Q on edge CG, to vertex H. When the string is as short as possible, how many cm is CQ?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝5cm，BC＝6cm，AE＝16cm。沿着长方体的表面拉紧一根线，从顶点A经过棱BF上的点P、棱CG上的点Q到达顶点H。当线的长度最短时，CQ是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝5cm，BC＝6cm，AE＝16cm。沿著長方體的表面拉緊一條線，從頂點A經過邊BF上的點P、邊CG上的點Q到達頂點H。當線的長度最短時，CQ是多少cm？"
+ },
+ "面ABFE、BCGF、CDHGの3つを開いて、1つの長方形にする（横 5+6+5 = 16、たて 16）": {
+  "en": "Open up the 3 faces ABFE, BCGF and CDHG into 1 rectangle (width 5+6+5 = 16, height 16)",
+  "zh-Hans": "把面ABFE、BCGF、CDHG这3个面展开，拼成1个长方形（长 5+6+5 = 16，宽 16）",
+  "zh-Hant": "把面ABFE、BCGF、CDHG這3個面展開，拼成1個長方形（長 5+6+5 = 16，寬 16）"
+ },
+ "Aから横に16進む間に16上がるので、横に 5+6 = 11 進んだCGでは 16×11/16 上がる": {
+  "en": "Going 16 across from A, the string rises 16, so at CG, which is 5+6 = 11 across, it rises 16×11/16",
+  "zh-Hans": "从A向右走16时上升16，所以在向右走了 5+6 = 11 的CG处，上升 16×11/16",
+  "zh-Hant": "從A向右走16時上升16，所以在向右走了 5+6 = 11 的CG處，上升 16×11/16"
+ },
+ "直方体ABCD-EFGHがあり、AB＝4cm、BC＝5cm、AE＝13cmです。頂点Aから、辺BF上の点P、辺CG上の点Qを通って頂点Hまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、CQは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 4 cm, BC = 5 cm and AE = 13 cm. A string is pulled tight along the surface of the box from vertex A, through point P on edge BF and point Q on edge CG, to vertex H. When the string is as short as possible, how many cm is CQ?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝4cm，BC＝5cm，AE＝13cm。沿着长方体的表面拉紧一根线，从顶点A经过棱BF上的点P、棱CG上的点Q到达顶点H。当线的长度最短时，CQ是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝4cm，BC＝5cm，AE＝13cm。沿著長方體的表面拉緊一條線，從頂點A經過邊BF上的點P、邊CG上的點Q到達頂點H。當線的長度最短時，CQ是多少cm？"
+ },
+ "面ABFE、BCGF、CDHGの3つを開いて、1つの長方形にする（横 4+5+4 = 13、たて 13）": {
+  "en": "Open up the 3 faces ABFE, BCGF and CDHG into 1 rectangle (width 4+5+4 = 13, height 13)",
+  "zh-Hans": "把面ABFE、BCGF、CDHG这3个面展开，拼成1个长方形（长 4+5+4 = 13，宽 13）",
+  "zh-Hant": "把面ABFE、BCGF、CDHG這3個面展開，拼成1個長方形（長 4+5+4 = 13，寬 13）"
+ },
+ "Aから横に13進む間に13上がるので、横に 4+5 = 9 進んだCGでは 13×9/13 上がる": {
+  "en": "Going 13 across from A, the string rises 13, so at CG, which is 4+5 = 9 across, it rises 13×9/13",
+  "zh-Hans": "从A向右走13时上升13，所以在向右走了 4+5 = 9 的CG处，上升 13×9/13",
+  "zh-Hant": "從A向右走13時上升13，所以在向右走了 4+5 = 9 的CG處，上升 13×9/13"
+ },
+ "直方体ABCD-EFGHがあり、AB＝2cm、BC＝3cm、AE＝7cmです。頂点Aから、辺BF上の点P、辺CG上の点Qを通って頂点Hまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、CQは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 2 cm, BC = 3 cm and AE = 7 cm. A string is pulled tight along the surface of the box from vertex A, through point P on edge BF and point Q on edge CG, to vertex H. When the string is as short as possible, how many cm is CQ?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝2cm，BC＝3cm，AE＝7cm。沿着长方体的表面拉紧一根线，从顶点A经过棱BF上的点P、棱CG上的点Q到达顶点H。当线的长度最短时，CQ是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝2cm，BC＝3cm，AE＝7cm。沿著長方體的表面拉緊一條線，從頂點A經過邊BF上的點P、邊CG上的點Q到達頂點H。當線的長度最短時，CQ是多少cm？"
+ },
+ "面ABFE、BCGF、CDHGの3つを開いて、1つの長方形にする（横 2+3+2 = 7、たて 7）": {
+  "en": "Open up the 3 faces ABFE, BCGF and CDHG into 1 rectangle (width 2+3+2 = 7, height 7)",
+  "zh-Hans": "把面ABFE、BCGF、CDHG这3个面展开，拼成1个长方形（长 2+3+2 = 7，宽 7）",
+  "zh-Hant": "把面ABFE、BCGF、CDHG這3個面展開，拼成1個長方形（長 2+3+2 = 7，寬 7）"
+ },
+ "Aから横に7進む間に7上がるので、横に 2+3 = 5 進んだCGでは 7×5/7 上がる": {
+  "en": "Going 7 across from A, the string rises 7, so at CG, which is 2+3 = 5 across, it rises 7×5/7",
+  "zh-Hans": "从A向右走7时上升7，所以在向右走了 2+3 = 5 的CG处，上升 7×5/7",
+  "zh-Hant": "從A向右走7時上升7，所以在向右走了 2+3 = 5 的CG處，上升 7×5/7"
+ },
+ "直方体ABCD-EFGHがあり、AB＝6cm、BC＝3cm、AE＝10cmです。頂点Aから、辺BF上の点P、辺CG上の点Qを通って頂点Hまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、CQは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 6 cm, BC = 3 cm and AE = 10 cm. A string is pulled tight along the surface of the box from vertex A, through point P on edge BF and point Q on edge CG, to vertex H. When the string is as short as possible, how many cm is CQ?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝6cm，BC＝3cm，AE＝10cm。沿着长方体的表面拉紧一根线，从顶点A经过棱BF上的点P、棱CG上的点Q到达顶点H。当线的长度最短时，CQ是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝6cm，BC＝3cm，AE＝10cm。沿著長方體的表面拉緊一條線，從頂點A經過邊BF上的點P、邊CG上的點Q到達頂點H。當線的長度最短時，CQ是多少cm？"
+ },
+ "面ABFE、BCGF、CDHGの3つを開いて、1つの長方形にする（横 6+3+6 = 15、たて 10）": {
+  "en": "Open up the 3 faces ABFE, BCGF and CDHG into 1 rectangle (width 6+3+6 = 15, height 10)",
+  "zh-Hans": "把面ABFE、BCGF、CDHG这3个面展开，拼成1个长方形（长 6+3+6 = 15，宽 10）",
+  "zh-Hant": "把面ABFE、BCGF、CDHG這3個面展開，拼成1個長方形（長 6+3+6 = 15，寬 10）"
+ },
+ "Aから横に15進む間に10上がるので、横に 6+3 = 9 進んだCGでは 10×9/15 上がる": {
+  "en": "Going 15 across from A, the string rises 10, so at CG, which is 6+3 = 9 across, it rises 10×9/15",
+  "zh-Hans": "从A向右走15时上升10，所以在向右走了 6+3 = 9 的CG处，上升 10×9/15",
+  "zh-Hant": "從A向右走15時上升10，所以在向右走了 6+3 = 9 的CG處，上升 10×9/15"
+ },
+ "直方体ABCD-EFGHがあり、AB＝4cm、BC＝7cm、AE＝15cmです。頂点Aから、辺BF上の点P、辺CG上の点Qを通って頂点Hまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、CQは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 4 cm, BC = 7 cm and AE = 15 cm. A string is pulled tight along the surface of the box from vertex A, through point P on edge BF and point Q on edge CG, to vertex H. When the string is as short as possible, how many cm is CQ?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝4cm，BC＝7cm，AE＝15cm。沿着长方体的表面拉紧一根线，从顶点A经过棱BF上的点P、棱CG上的点Q到达顶点H。当线的长度最短时，CQ是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝4cm，BC＝7cm，AE＝15cm。沿著長方體的表面拉緊一條線，從頂點A經過邊BF上的點P、邊CG上的點Q到達頂點H。當線的長度最短時，CQ是多少cm？"
+ },
+ "面ABFE、BCGF、CDHGの3つを開いて、1つの長方形にする（横 4+7+4 = 15、たて 15）": {
+  "en": "Open up the 3 faces ABFE, BCGF and CDHG into 1 rectangle (width 4+7+4 = 15, height 15)",
+  "zh-Hans": "把面ABFE、BCGF、CDHG这3个面展开，拼成1个长方形（长 4+7+4 = 15，宽 15）",
+  "zh-Hant": "把面ABFE、BCGF、CDHG這3個面展開，拼成1個長方形（長 4+7+4 = 15，寬 15）"
+ },
+ "Aから横に15進む間に15上がるので、横に 4+7 = 11 進んだCGでは 15×11/15 上がる": {
+  "en": "Going 15 across from A, the string rises 15, so at CG, which is 4+7 = 11 across, it rises 15×11/15",
+  "zh-Hans": "从A向右走15时上升15，所以在向右走了 4+7 = 11 的CG处，上升 15×11/15",
+  "zh-Hant": "從A向右走15時上升15，所以在向右走了 4+7 = 11 的CG處，上升 15×11/15"
+ },
+ "直方体ABCD-EFGHがあり、AB＝6cm、BC＝4cm、AE＝16cmです。頂点Aから、辺BF上の点P、辺CG上の点Qを通って頂点Hまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、CQは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 6 cm, BC = 4 cm and AE = 16 cm. A string is pulled tight along the surface of the box from vertex A, through point P on edge BF and point Q on edge CG, to vertex H. When the string is as short as possible, how many cm is CQ?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝6cm，BC＝4cm，AE＝16cm。沿着长方体的表面拉紧一根线，从顶点A经过棱BF上的点P、棱CG上的点Q到达顶点H。当线的长度最短时，CQ是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝6cm，BC＝4cm，AE＝16cm。沿著長方體的表面拉緊一條線，從頂點A經過邊BF上的點P、邊CG上的點Q到達頂點H。當線的長度最短時，CQ是多少cm？"
+ },
+ "面ABFE、BCGF、CDHGの3つを開いて、1つの長方形にする（横 6+4+6 = 16、たて 16）": {
+  "en": "Open up the 3 faces ABFE, BCGF and CDHG into 1 rectangle (width 6+4+6 = 16, height 16)",
+  "zh-Hans": "把面ABFE、BCGF、CDHG这3个面展开，拼成1个长方形（长 6+4+6 = 16，宽 16）",
+  "zh-Hant": "把面ABFE、BCGF、CDHG這3個面展開，拼成1個長方形（長 6+4+6 = 16，寬 16）"
+ },
+ "Aから横に16進む間に16上がるので、横に 6+4 = 10 進んだCGでは 16×10/16 上がる": {
+  "en": "Going 16 across from A, the string rises 16, so at CG, which is 6+4 = 10 across, it rises 16×10/16",
+  "zh-Hans": "从A向右走16时上升16，所以在向右走了 6+4 = 10 的CG处，上升 16×10/16",
+  "zh-Hant": "從A向右走16時上升16，所以在向右走了 6+4 = 10 的CG處，上升 16×10/16"
+ },
+ "直方体ABCD-EFGHがあり、AB＝5cm、BC＝15cm、AE＝12cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 5 cm, BC = 15 cm and AE = 12 cm. A string is pulled tight along the surface of the box from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝5cm，BC＝15cm，AE＝12cm。沿着长方体的表面拉紧一根线，从顶点A经过棱BF上的点P到达顶点G。当线的长度最短时，BP是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝5cm，BC＝15cm，AE＝12cm。沿著長方體的表面拉緊一條線，從頂點A經過邊BF上的點P到達頂點G。當線的長度最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 5+15 = 20、たて 12）": {
+  "en": "Open up faces ABFE and BCGF, which are joined along edge BF, into 1 rectangle (width 5+15 = 20, height 12)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成1个长方形（长 5+15 = 20，宽 12）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成1個長方形（長 5+15 = 20，寬 12）"
+ },
+ "三角形ABPとACGは同じ形なので BP:CG = AB:AC = 5:20 = 1:4": {
+  "en": "Triangles ABP and ACG have the same shape, so BP:CG = AB:AC = 5:20 = 1:4",
+  "zh-Hans": "三角形ABP和三角形ACG形状相同，所以 BP:CG = AB:AC = 5:20 = 1:4",
+  "zh-Hant": "三角形ABP和三角形ACG形狀相同，所以 BP:CG = AB:AC = 5:20 = 1:4"
+ },
+ "直方体ABCD-EFGHがあり、AB＝4cm、BC＝14cm、AE＝18cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 4 cm, BC = 14 cm and AE = 18 cm. A string is pulled tight along the surface of the box from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝4cm，BC＝14cm，AE＝18cm。沿着长方体的表面拉紧一根线，从顶点A经过棱BF上的点P到达顶点G。当线的长度最短时，BP是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝4cm，BC＝14cm，AE＝18cm。沿著長方體的表面拉緊一條線，從頂點A經過邊BF上的點P到達頂點G。當線的長度最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 4+14 = 18、たて 18）": {
+  "en": "Open up faces ABFE and BCGF, which are joined along edge BF, into 1 rectangle (width 4+14 = 18, height 18)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成1个长方形（长 4+14 = 18，宽 18）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成1個長方形（長 4+14 = 18，寬 18）"
+ },
+ "三角形ABPとACGは同じ形なので BP:CG = AB:AC = 4:18 = 2:9": {
+  "en": "Triangles ABP and ACG have the same shape, so BP:CG = AB:AC = 4:18 = 2:9",
+  "zh-Hans": "三角形ABP和三角形ACG形状相同，所以 BP:CG = AB:AC = 4:18 = 2:9",
+  "zh-Hant": "三角形ABP和三角形ACG形狀相同，所以 BP:CG = AB:AC = 4:18 = 2:9"
+ },
+ "直方体ABCD-EFGHがあり、AB＝12cm、BC＝5cm、AE＝17cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 12 cm, BC = 5 cm and AE = 17 cm. A string is pulled tight along the surface of the box from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝12cm，BC＝5cm，AE＝17cm。沿着长方体的表面拉紧一根线，从顶点A经过棱BF上的点P到达顶点G。当线的长度最短时，BP是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝12cm，BC＝5cm，AE＝17cm。沿著長方體的表面拉緊一條線，從頂點A經過邊BF上的點P到達頂點G。當線的長度最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 12+5 = 17、たて 17）": {
+  "en": "Open up faces ABFE and BCGF, which are joined along edge BF, into 1 rectangle (width 12+5 = 17, height 17)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成1个长方形（长 12+5 = 17，宽 17）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成1個長方形（長 12+5 = 17，寬 17）"
+ },
+ "三角形ABPとACGは同じ形なので BP:CG = AB:AC = 12:17": {
+  "en": "Triangles ABP and ACG have the same shape, so BP:CG = AB:AC = 12:17",
+  "zh-Hans": "三角形ABP和三角形ACG形状相同，所以 BP:CG = AB:AC = 12:17",
+  "zh-Hant": "三角形ABP和三角形ACG形狀相同，所以 BP:CG = AB:AC = 12:17"
+ },
+ "直方体ABCD-EFGHがあり、AB＝9cm、BC＝4cm、AE＝13cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 9 cm, BC = 4 cm and AE = 13 cm. A string is pulled tight along the surface of the box from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝9cm，BC＝4cm，AE＝13cm。沿着长方体的表面拉紧一根线，从顶点A经过棱BF上的点P到达顶点G。当线的长度最短时，BP是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝9cm，BC＝4cm，AE＝13cm。沿著長方體的表面拉緊一條線，從頂點A經過邊BF上的點P到達頂點G。當線的長度最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 9+4 = 13、たて 13）": {
+  "en": "Open up faces ABFE and BCGF, which are joined along edge BF, into 1 rectangle (width 9+4 = 13, height 13)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成1个长方形（长 9+4 = 13，宽 13）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成1個長方形（長 9+4 = 13，寬 13）"
+ },
+ "三角形ABPとACGは同じ形なので BP:CG = AB:AC = 9:13": {
+  "en": "Triangles ABP and ACG have the same shape, so BP:CG = AB:AC = 9:13",
+  "zh-Hans": "三角形ABP和三角形ACG形状相同，所以 BP:CG = AB:AC = 9:13",
+  "zh-Hant": "三角形ABP和三角形ACG形狀相同，所以 BP:CG = AB:AC = 9:13"
+ },
+ "直方体ABCD-EFGHがあり、AB＝6cm、BC＝9cm、AE＝7cmです。辺の上だけを通って、頂点Aから頂点Gまで行きます。いちばん短い道のりは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 6 cm, BC = 9 cm and AE = 7 cm. You travel from vertex A to vertex G moving only along the edges. How many cm is the shortest route?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝6cm，BC＝9cm，AE＝7cm。只沿着棱走，从顶点A走到顶点G。最短的路程是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝6cm，BC＝9cm，AE＝7cm。只沿著邊走，從頂點A走到頂點G。最短的路程是多少cm？"
+ },
+ "直方体ABCD-EFGHがあり、AB＝2cm、BC＝10cm、AE＝14cmです。辺の上だけを通って、頂点Aから頂点Gまで行きます。いちばん短い道のりは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 2 cm, BC = 10 cm and AE = 14 cm. You travel from vertex A to vertex G moving only along the edges. How many cm is the shortest route?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝2cm，BC＝10cm，AE＝14cm。只沿着棱走，从顶点A走到顶点G。最短的路程是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝2cm，BC＝10cm，AE＝14cm。只沿著邊走，從頂點A走到頂點G。最短的路程是多少cm？"
+ },
+ "直方体ABCD-EFGHがあり、AB＝12cm、BC＝3cm、AE＝8cmです。辺の上だけを通って、頂点Aから頂点Gまで行きます。いちばん短い道のりは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 12 cm, BC = 3 cm and AE = 8 cm. You travel from vertex A to vertex G moving only along the edges. How many cm is the shortest route?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝12cm，BC＝3cm，AE＝8cm。只沿着棱走，从顶点A走到顶点G。最短的路程是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝12cm，BC＝3cm，AE＝8cm。只沿著邊走，從頂點A走到頂點G。最短的路程是多少cm？"
+ },
+ "直方体ABCD-EFGHがあり、AB＝7cm、BC＝8cm、AE＝9cmです。辺の上だけを通って、頂点Aから頂点Gまで行きます。いちばん短い道のりは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 7 cm, BC = 8 cm and AE = 9 cm. You travel from vertex A to vertex G moving only along the edges. How many cm is the shortest route?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝7cm，BC＝8cm，AE＝9cm。只沿着棱走，从顶点A走到顶点G。最短的路程是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝7cm，BC＝8cm，AE＝9cm。只沿著邊走，從頂點A走到頂點G。最短的路程是多少cm？"
+ },
+ "直方体ABCD-EFGHがあり、AB＝2cm、BC＝5cm、AE＝10cmです。辺の上だけを通って、頂点Aから頂点Gまで行きます。いちばん短い道のりは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 2 cm, BC = 5 cm and AE = 10 cm. You travel from vertex A to vertex G moving only along the edges. How many cm is the shortest route?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝2cm，BC＝5cm，AE＝10cm。只沿着棱走，从顶点A走到顶点G。最短的路程是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝2cm，BC＝5cm，AE＝10cm。只沿著邊走，從頂點A走到頂點G。最短的路程是多少cm？"
+ },
+ "直方体ABCD-EFGHがあり、AB＝6cm、BC＝4cm、AE＝5cmです。3つの頂点B、D、Eを通る平面でこの直方体を切り、頂点Aをふくむ小さい方の立体を切り取ります。切り取った立体の体積は何cm³ですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 6 cm, BC = 4 cm and AE = 5 cm. Cut the box with the plane through the 3 vertices B, D and E, and cut off the smaller solid that contains vertex A. What is the volume of the cut-off solid in cm³?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝6cm，BC＝4cm，AE＝5cm。用经过顶点B、D、E这3个点的平面切这个长方体，切下含有顶点A的较小的立体。切下的立体的体积是多少cm³？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝6cm，BC＝4cm，AE＝5cm。用通過頂點B、D、E這3個點的平面切這個長方體，切下含有頂點A的較小的立體。切下的立體的體積是多少cm³？"
+ },
+ "底面は直角三角形ABD：6×4÷2 = 12": {
+  "en": "The base is right triangle ABD: 6×4÷2 = 12",
+  "zh-Hans": "底面是直角三角形ABD：6×4÷2 = 12",
+  "zh-Hant": "底面是直角三角形ABD：6×4÷2 = 12"
+ },
+ "高さはAE＝5。三角すいの体積は 底面積×高さ÷3：12×5÷3 = 20": {
+  "en": "The height is AE = 5. Volume of a triangular pyramid = base area × height ÷ 3: 12×5÷3 = 20",
+  "zh-Hans": "高是AE＝5。三棱锥的体积 = 底面积×高÷3：12×5÷3 = 20",
+  "zh-Hant": "高是AE＝5。三角錐的體積 = 底面積×高÷3：12×5÷3 = 20"
+ },
+ "直方体ABCD-EFGHがあり、AB＝8cm、BC＝6cm、AE＝10cmです。3つの頂点B、D、Eを通る平面でこの直方体を切り、頂点Aをふくむ小さい方の立体を切り取ります。切り取った立体の体積は何cm³ですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 8 cm, BC = 6 cm and AE = 10 cm. Cut the box with the plane through the 3 vertices B, D and E, and cut off the smaller solid that contains vertex A. What is the volume of the cut-off solid in cm³?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝8cm，BC＝6cm，AE＝10cm。用经过顶点B、D、E这3个点的平面切这个长方体，切下含有顶点A的较小的立体。切下的立体的体积是多少cm³？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝8cm，BC＝6cm，AE＝10cm。用通過頂點B、D、E這3個點的平面切這個長方體，切下含有頂點A的較小的立體。切下的立體的體積是多少cm³？"
+ },
+ "高さはAE＝10。三角すいの体積は 底面積×高さ÷3：24×10÷3 = 80": {
+  "en": "The height is AE = 10. Volume of a triangular pyramid = base area × height ÷ 3: 24×10÷3 = 80",
+  "zh-Hans": "高是AE＝10。三棱锥的体积 = 底面积×高÷3：24×10÷3 = 80",
+  "zh-Hant": "高是AE＝10。三角錐的體積 = 底面積×高÷3：24×10÷3 = 80"
+ },
+ "直方体ABCD-EFGHがあり、AB＝9cm、BC＝11cm、AE＝4cmです。3つの頂点B、D、Eを通る平面でこの直方体を切り、頂点Aをふくむ小さい方の立体を切り取ります。切り取った立体の体積は何cm³ですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 9 cm, BC = 11 cm and AE = 4 cm. Cut the box with the plane through the 3 vertices B, D and E, and cut off the smaller solid that contains vertex A. What is the volume of the cut-off solid in cm³?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝9cm，BC＝11cm，AE＝4cm。用经过顶点B、D、E这3个点的平面切这个长方体，切下含有顶点A的较小的立体。切下的立体的体积是多少cm³？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝9cm，BC＝11cm，AE＝4cm。用通過頂點B、D、E這3個點的平面切這個長方體，切下含有頂點A的較小的立體。切下的立體的體積是多少cm³？"
+ },
+ "底面は直角三角形ABD：9×11÷2 = 49.5": {
+  "en": "The base is right triangle ABD: 9×11÷2 = 49.5",
+  "zh-Hans": "底面是直角三角形ABD：9×11÷2 = 49.5",
+  "zh-Hant": "底面是直角三角形ABD：9×11÷2 = 49.5"
+ },
+ "高さはAE＝4。三角すいの体積は 底面積×高さ÷3：49.5×4÷3 = 66": {
+  "en": "The height is AE = 4. Volume of a triangular pyramid = base area × height ÷ 3: 49.5×4÷3 = 66",
+  "zh-Hans": "高是AE＝4。三棱锥的体积 = 底面积×高÷3：49.5×4÷3 = 66",
+  "zh-Hant": "高是AE＝4。三角錐的體積 = 底面積×高÷3：49.5×4÷3 = 66"
+ },
+ "直方体ABCD-EFGHがあり、AB＝8cm、BC＝3cm、AE＝6cmです。3つの頂点B、D、Eを通る平面でこの直方体を切り、頂点Aをふくむ小さい方の立体を切り取ります。切り取った立体の体積は何cm³ですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 8 cm, BC = 3 cm and AE = 6 cm. Cut the box with the plane through the 3 vertices B, D and E, and cut off the smaller solid that contains vertex A. What is the volume of the cut-off solid in cm³?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝8cm，BC＝3cm，AE＝6cm。用经过顶点B、D、E这3个点的平面切这个长方体，切下含有顶点A的较小的立体。切下的立体的体积是多少cm³？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝8cm，BC＝3cm，AE＝6cm。用通過頂點B、D、E這3個點的平面切這個長方體，切下含有頂點A的較小的立體。切下的立體的體積是多少cm³？"
+ },
+ "底面は直角三角形ABD：8×3÷2 = 12": {
+  "en": "The base is right triangle ABD: 8×3÷2 = 12",
+  "zh-Hans": "底面是直角三角形ABD：8×3÷2 = 12",
+  "zh-Hant": "底面是直角三角形ABD：8×3÷2 = 12"
+ },
+ "高さはAE＝6。三角すいの体積は 底面積×高さ÷3：12×6÷3 = 24": {
+  "en": "The height is AE = 6. Volume of a triangular pyramid = base area × height ÷ 3: 12×6÷3 = 24",
+  "zh-Hans": "高是AE＝6。三棱锥的体积 = 底面积×高÷3：12×6÷3 = 24",
+  "zh-Hant": "高是AE＝6。三角錐的體積 = 底面積×高÷3：12×6÷3 = 24"
+ },
+ "直方体ABCD-EFGHがあり、AB＝7cm、BC＝12cm、AE＝11cmです。3つの頂点B、D、Eを通る平面でこの直方体を切り、頂点Aをふくむ小さい方の立体を切り取ります。切り取った立体の体積は何cm³ですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 7 cm, BC = 12 cm and AE = 11 cm. Cut the box with the plane through the 3 vertices B, D and E, and cut off the smaller solid that contains vertex A. What is the volume of the cut-off solid in cm³?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝7cm，BC＝12cm，AE＝11cm。用经过顶点B、D、E这3个点的平面切这个长方体，切下含有顶点A的较小的立体。切下的立体的体积是多少cm³？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝7cm，BC＝12cm，AE＝11cm。用通過頂點B、D、E這3個點的平面切這個長方體，切下含有頂點A的較小的立體。切下的立體的體積是多少cm³？"
+ },
+ "底面は直角三角形ABD：7×12÷2 = 42": {
+  "en": "The base is right triangle ABD: 7×12÷2 = 42",
+  "zh-Hans": "底面是直角三角形ABD：7×12÷2 = 42",
+  "zh-Hant": "底面是直角三角形ABD：7×12÷2 = 42"
+ },
+ "高さはAE＝11。三角すいの体積は 底面積×高さ÷3：42×11÷3 = 154": {
+  "en": "The height is AE = 11. Volume of a triangular pyramid = base area × height ÷ 3: 42×11÷3 = 154",
+  "zh-Hans": "高是AE＝11。三棱锥的体积 = 底面积×高÷3：42×11÷3 = 154",
+  "zh-Hant": "高是AE＝11。三角錐的體積 = 底面積×高÷3：42×11÷3 = 154"
+ },
+ "直方体ABCD-EFGHがあり、AB＝6cm、BC＝9cm、AE＝12cmです。3つの頂点B、D、Eを通る平面でこの直方体を切り、頂点Aをふくむ小さい方の立体を切り取ります。切り取った立体の体積は何cm³ですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 6 cm, BC = 9 cm and AE = 12 cm. Cut the box with the plane through the 3 vertices B, D and E, and cut off the smaller solid that contains vertex A. What is the volume of the cut-off solid in cm³?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝6cm，BC＝9cm，AE＝12cm。用经过顶点B、D、E这3个点的平面切这个长方体，切下含有顶点A的较小的立体。切下的立体的体积是多少cm³？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝6cm，BC＝9cm，AE＝12cm。用通過頂點B、D、E這3個點的平面切這個長方體，切下含有頂點A的較小的立體。切下的立體的體積是多少cm³？"
+ },
+ "底面は直角三角形ABD：6×9÷2 = 27": {
+  "en": "The base is right triangle ABD: 6×9÷2 = 27",
+  "zh-Hans": "底面是直角三角形ABD：6×9÷2 = 27",
+  "zh-Hant": "底面是直角三角形ABD：6×9÷2 = 27"
+ },
+ "高さはAE＝12。三角すいの体積は 底面積×高さ÷3：27×12÷3 = 108": {
+  "en": "The height is AE = 12. Volume of a triangular pyramid = base area × height ÷ 3: 27×12÷3 = 108",
+  "zh-Hans": "高是AE＝12。三棱锥的体积 = 底面积×高÷3：27×12÷3 = 108",
+  "zh-Hant": "高是AE＝12。三角錐的體積 = 底面積×高÷3：27×12÷3 = 108"
+ },
+ "直方体ABCD-EFGHがあり、AB＝11cm、BC＝4cm、AE＝9cmです。3つの頂点B、D、Eを通る平面でこの直方体を切り、頂点Aをふくむ小さい方の立体を切り取ります。切り取った立体の体積は何cm³ですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 11 cm, BC = 4 cm and AE = 9 cm. Cut the box with the plane through the 3 vertices B, D and E, and cut off the smaller solid that contains vertex A. What is the volume of the cut-off solid in cm³?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝11cm，BC＝4cm，AE＝9cm。用经过顶点B、D、E这3个点的平面切这个长方体，切下含有顶点A的较小的立体。切下的立体的体积是多少cm³？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝11cm，BC＝4cm，AE＝9cm。用通過頂點B、D、E這3個點的平面切這個長方體，切下含有頂點A的較小的立體。切下的立體的體積是多少cm³？"
+ },
+ "底面は直角三角形ABD：11×4÷2 = 22": {
+  "en": "The base is right triangle ABD: 11×4÷2 = 22",
+  "zh-Hans": "底面是直角三角形ABD：11×4÷2 = 22",
+  "zh-Hant": "底面是直角三角形ABD：11×4÷2 = 22"
+ },
+ "高さはAE＝9。三角すいの体積は 底面積×高さ÷3：22×9÷3 = 66": {
+  "en": "The height is AE = 9. Volume of a triangular pyramid = base area × height ÷ 3: 22×9÷3 = 66",
+  "zh-Hans": "高是AE＝9。三棱锥的体积 = 底面积×高÷3：22×9÷3 = 66",
+  "zh-Hant": "高是AE＝9。三角錐的體積 = 底面積×高÷3：22×9÷3 = 66"
+ },
+ "直方体ABCD-EFGHがあり、AB＝3cm、BC＝10cm、AE＝7cmです。3つの頂点B、D、Eを通る平面でこの直方体を切り、頂点Aをふくむ小さい方の立体を切り取ります。切り取った立体の体積は何cm³ですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 3 cm, BC = 10 cm and AE = 7 cm. Cut the box with the plane through the 3 vertices B, D and E, and cut off the smaller solid that contains vertex A. What is the volume of the cut-off solid in cm³?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝3cm，BC＝10cm，AE＝7cm。用经过顶点B、D、E这3个点的平面切这个长方体，切下含有顶点A的较小的立体。切下的立体的体积是多少cm³？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝3cm，BC＝10cm，AE＝7cm。用通過頂點B、D、E這3個點的平面切這個長方體，切下含有頂點A的較小的立體。切下的立體的體積是多少cm³？"
+ },
+ "底面は直角三角形ABD：3×10÷2 = 15": {
+  "en": "The base is right triangle ABD: 3×10÷2 = 15",
+  "zh-Hans": "底面是直角三角形ABD：3×10÷2 = 15",
+  "zh-Hant": "底面是直角三角形ABD：3×10÷2 = 15"
+ },
+ "高さはAE＝7。三角すいの体積は 底面積×高さ÷3：15×7÷3 = 35": {
+  "en": "The height is AE = 7. Volume of a triangular pyramid = base area × height ÷ 3: 15×7÷3 = 35",
+  "zh-Hans": "高是AE＝7。三棱锥的体积 = 底面积×高÷3：15×7÷3 = 35",
+  "zh-Hant": "高是AE＝7。三角錐的體積 = 底面積×高÷3：15×7÷3 = 35"
+ },
+ "直方体ABCD-EFGHがあり、AB＝12cm、BC＝6cm、AE＝4cmです。3つの頂点B、D、Eを通る平面でこの直方体を切り、頂点Aをふくむ小さい方の立体を切り取ります。切り取った立体の体積は何cm³ですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 12 cm, BC = 6 cm and AE = 4 cm. Cut the box with the plane through the 3 vertices B, D and E, and cut off the smaller solid that contains vertex A. What is the volume of the cut-off solid in cm³?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝12cm，BC＝6cm，AE＝4cm。用经过顶点B、D、E这3个点的平面切这个长方体，切下含有顶点A的较小的立体。切下的立体的体积是多少cm³？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝12cm，BC＝6cm，AE＝4cm。用通過頂點B、D、E這3個點的平面切這個長方體，切下含有頂點A的較小的立體。切下的立體的體積是多少cm³？"
+ },
+ "底面は直角三角形ABD：12×6÷2 = 36": {
+  "en": "The base is right triangle ABD: 12×6÷2 = 36",
+  "zh-Hans": "底面是直角三角形ABD：12×6÷2 = 36",
+  "zh-Hant": "底面是直角三角形ABD：12×6÷2 = 36"
+ },
+ "高さはAE＝4。三角すいの体積は 底面積×高さ÷3：36×4÷3 = 48": {
+  "en": "The height is AE = 4. Volume of a triangular pyramid = base area × height ÷ 3: 36×4÷3 = 48",
+  "zh-Hans": "高是AE＝4。三棱锥的体积 = 底面积×高÷3：36×4÷3 = 48",
+  "zh-Hant": "高是AE＝4。三角錐的體積 = 底面積×高÷3：36×4÷3 = 48"
+ },
+ "直方体ABCD-EFGHがあり、AB＝6cm、BC＝4cm、AE＝5cmです。辺の上だけを通って、頂点Aから頂点Gまで行きます。いちばん短い道のりは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 6 cm, BC = 4 cm and AE = 5 cm. You travel from vertex A to vertex G moving only along the edges. How many cm is the shortest route?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝6cm，BC＝4cm，AE＝5cm。只沿着棱走，从顶点A走到顶点G。最短的路程是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝6cm，BC＝4cm，AE＝5cm。只沿著邊走，從頂點A走到頂點G。最短的路程是多少cm？"
+ },
+ "直方体ABCD-EFGHがあり、AB＝8cm、BC＝7cm、AE＝12cmです。辺の上だけを通って、頂点Aから頂点Gまで行きます。いちばん短い道のりは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 8 cm, BC = 7 cm and AE = 12 cm. You travel from vertex A to vertex G moving only along the edges. How many cm is the shortest route?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝8cm，BC＝7cm，AE＝12cm。只沿着棱走，从顶点A走到顶点G。最短的路程是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝8cm，BC＝7cm，AE＝12cm。只沿著邊走，從頂點A走到頂點G。最短的路程是多少cm？"
+ },
+ "直方体ABCD-EFGHがあり、AB＝7cm、BC＝9cm、AE＝13cmです。辺の上だけを通って、頂点Aから頂点Gまで行きます。いちばん短い道のりは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 7 cm, BC = 9 cm and AE = 13 cm. You travel from vertex A to vertex G moving only along the edges. How many cm is the shortest route?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝7cm，BC＝9cm，AE＝13cm。只沿着棱走，从顶点A走到顶点G。最短的路程是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝7cm，BC＝9cm，AE＝13cm。只沿著邊走，從頂點A走到頂點G。最短的路程是多少cm？"
+ },
+ "直方体ABCD-EFGHがあり、AB＝7cm、BC＝8cm、AE＝15cmです。辺の上だけを通って、頂点Aから頂点Gまで行きます。いちばん短い道のりは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 7 cm, BC = 8 cm and AE = 15 cm. You travel from vertex A to vertex G moving only along the edges. How many cm is the shortest route?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝7cm，BC＝8cm，AE＝15cm。只沿着棱走，从顶点A走到顶点G。最短的路程是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝7cm，BC＝8cm，AE＝15cm。只沿著邊走，從頂點A走到頂點G。最短的路程是多少cm？"
+ },
+ "直方体ABCD-EFGHがあり、AB＝9cm、BC＝3cm、AE＝7cmです。辺の上だけを通って、頂点Aから頂点Gまで行きます。いちばん短い道のりは何cmですか。": {
+  "en": "A rectangular box ABCD-EFGH has AB = 9 cm, BC = 3 cm and AE = 7 cm. You travel from vertex A to vertex G moving only along the edges. How many cm is the shortest route?",
+  "zh-Hans": "有一个长方体ABCD-EFGH，AB＝9cm，BC＝3cm，AE＝7cm。只沿着棱走，从顶点A走到顶点G。最短的路程是多少cm？",
+  "zh-Hant": "有一個長方體ABCD-EFGH，AB＝9cm，BC＝3cm，AE＝7cm。只沿著邊走，從頂點A走到頂點G。最短的路程是多少cm？"
+ }
+}

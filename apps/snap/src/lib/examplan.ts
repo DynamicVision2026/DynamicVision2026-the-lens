@@ -1,5 +1,5 @@
 import { app } from "../copy";
-import { type Grade, UNITS, type Unit, unitById } from "../curriculum";
+import { type Grade, UNITS, type Unit, unitById, gradeLabel } from "../curriculum";
 import { markSourceOf } from "./marks";
 import type { SavedPage } from "./model";
 import { goldUnits, reasonFor } from "./review";
@@ -294,7 +294,7 @@ export function buildPlan(pages: SavedPage[], rangeIds: string[], kept: Iterable
 }
 
 /** 「小5 平均」 (the grade only for units outside the child's grade, as in the テスト前リスト). */
-export const unitName = (u: Unit) => `${u.appGrade} ${u.topic}`;
+export const unitName = (u: Unit) => `${gradeLabel(u.appGrade)} ${u.topic}`;
 
 /** 「小4 数量の関係を表す式 — 小5 平均 のもと」. */
 export function rootLabel(g: PlanGroup): string {
@@ -311,7 +311,7 @@ export function missingLine(plan: ExamPlan): string | null {
 export function rangeLine(range: Unit[]): string {
   const byGrade = new Map<string, string[]>();
   for (const u of range) byGrade.set(u.appGrade, [...(byGrade.get(u.appGrade) ?? []), u.topic]);
-  return [...byGrade].map(([g, ts]) => `${g} ${ts.join("・")}`).join(" ／ ");
+  return [...byGrade].map(([g, ts]) => `${gradeLabel(g)} ${ts.join("・")}`).join(" ／ ");
 }
 
 /** One summary row per group: label + problems (and how many are done), for the parent summary. */

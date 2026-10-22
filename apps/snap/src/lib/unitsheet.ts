@@ -1,5 +1,5 @@
 import { app } from "../copy";
-import { unitById } from "../curriculum";
+import { unitById, gradeLabel } from "../curriculum";
 import type { Mark } from "../reader/schema";
 import { type MarkSource, markSourceOf } from "./marks";
 import type { SavedPage, SavedProblem } from "./model";
@@ -123,7 +123,7 @@ export function pageView(page: SavedPage, unitId: string | null): PageView {
       mark: p.mark,
       sourceLabel: markSourceLabel(p),
       correctAnswer: p.correctAnswer ?? null,
-      unitLabel: u ? `${u.appGrade} ${u.topic}` : app.map.viewer.noUnit,
+      unitLabel: u ? `${gradeLabel(u.appGrade)} ${u.topic}` : app.map.viewer.noUnit,
       topic: u?.topic ?? null,
       inUnit: !!unitId && p.unit === unitId,
     };

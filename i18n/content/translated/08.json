@@ -1,0 +1,1502 @@
+{
+ "そのとおり。y軸の上の対角線を共通の底辺にして、2つの三角形に分ける。": {
+  "en": "Right. Use the diagonal on the y-axis as a shared base and split the shape into 2 triangles.",
+  "zh-Hans": "没错。把y轴上的对角线当作公共底边，分成2个三角形。",
+  "zh-Hant": "沒錯。把y軸上的對角線當作共同底邊，分成2個三角形。"
+ },
+ "座標平面上に4点A(−7, 0)、B(0, −6)、C(5, 1)、D(0, 7)があります。四角形ABCDの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On a coordinate plane there are 4 points A(−7, 0), B(0, −6), C(5, 1) and D(0, 7). Find the area of quadrilateral ABCD. Each grid unit is 1 cm.",
+  "zh-Hans": "在坐标平面上有4个点A(−7, 0)、B(0, −6)、C(5, 1)、D(0, 7)。求四边形ABCD的面积。坐标的1格为1cm。",
+  "zh-Hant": "在坐標平面上有4個點A(−7, 0)、B(0, −6)、C(5, 1)、D(0, 7)。求四邊形ABCD的面積。坐標的1格為1cm。"
+ },
+ "共通の底辺 BD = 7−(−6) = 13": {
+  "en": "Shared base BD = 7−(−6) = 13",
+  "zh-Hans": "公共底边 BD = 7−(−6) = 13",
+  "zh-Hant": "共同底邊 BD = 7−(−6) = 13"
+ },
+ "高さはAからy軸まで 7、Cからy軸まで 5。高さの和は 7+5 = 12": {
+  "en": "Heights: from A to the y-axis is 7, from C to the y-axis is 5. Sum of heights: 7+5 = 12",
+  "zh-Hans": "高：A到y轴是 7，C到y轴是 5。高的和是 7+5 = 12",
+  "zh-Hant": "高：A到y軸是 7，C到y軸是 5。高的和是 7+5 = 12"
+ },
+ "座標平面上に4点A(−7, −3)、B(0, −6)、C(5, −1)、D(0, 6)があります。四角形ABCDの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On a coordinate plane there are 4 points A(−7, −3), B(0, −6), C(5, −1) and D(0, 6). Find the area of quadrilateral ABCD. Each grid unit is 1 cm.",
+  "zh-Hans": "在坐标平面上有4个点A(−7, −3)、B(0, −6)、C(5, −1)、D(0, 6)。求四边形ABCD的面积。坐标的1格为1cm。",
+  "zh-Hant": "在坐標平面上有4個點A(−7, −3)、B(0, −6)、C(5, −1)、D(0, 6)。求四邊形ABCD的面積。坐標的1格為1cm。"
+ },
+ "共通の底辺 BD = 6−(−6) = 12": {
+  "en": "Shared base BD = 6−(−6) = 12",
+  "zh-Hans": "公共底边 BD = 6−(−6) = 12",
+  "zh-Hant": "共同底邊 BD = 6−(−6) = 12"
+ },
+ "座標平面上に4点A(−4, −1)、B(0, −6)、C(2, −2)、D(0, 5)があります。四角形ABCDの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On a coordinate plane there are 4 points A(−4, −1), B(0, −6), C(2, −2) and D(0, 5). Find the area of quadrilateral ABCD. Each grid unit is 1 cm.",
+  "zh-Hans": "在坐标平面上有4个点A(−4, −1)、B(0, −6)、C(2, −2)、D(0, 5)。求四边形ABCD的面积。坐标的1格为1cm。",
+  "zh-Hant": "在坐標平面上有4個點A(−4, −1)、B(0, −6)、C(2, −2)、D(0, 5)。求四邊形ABCD的面積。坐標的1格為1cm。"
+ },
+ "共通の底辺 BD = 5−(−6) = 11": {
+  "en": "Shared base BD = 5−(−6) = 11",
+  "zh-Hans": "公共底边 BD = 5−(−6) = 11",
+  "zh-Hant": "共同底邊 BD = 5−(−6) = 11"
+ },
+ "高さはAからy軸まで 4、Cからy軸まで 2。高さの和は 4+2 = 6": {
+  "en": "Heights: from A to the y-axis is 4, from C to the y-axis is 2. Sum of heights: 4+2 = 6",
+  "zh-Hans": "高：A到y轴是 4，C到y轴是 2。高的和是 4+2 = 6",
+  "zh-Hant": "高：A到y軸是 4，C到y軸是 2。高的和是 4+2 = 6"
+ },
+ "座標平面上に4点A(−7, 1)、B(0, −7)、C(3, 2)、D(0, 3)があります。四角形ABCDの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On a coordinate plane there are 4 points A(−7, 1), B(0, −7), C(3, 2) and D(0, 3). Find the area of quadrilateral ABCD. Each grid unit is 1 cm.",
+  "zh-Hans": "在坐标平面上有4个点A(−7, 1)、B(0, −7)、C(3, 2)、D(0, 3)。求四边形ABCD的面积。坐标的1格为1cm。",
+  "zh-Hant": "在坐標平面上有4個點A(−7, 1)、B(0, −7)、C(3, 2)、D(0, 3)。求四邊形ABCD的面積。坐標的1格為1cm。"
+ },
+ "共通の底辺 BD = 3−(−7) = 10": {
+  "en": "Shared base BD = 3−(−7) = 10",
+  "zh-Hans": "公共底边 BD = 3−(−7) = 10",
+  "zh-Hant": "共同底邊 BD = 3−(−7) = 10"
+ },
+ "高さはAからy軸まで 7、Cからy軸まで 3。高さの和は 7+3 = 10": {
+  "en": "Heights: from A to the y-axis is 7, from C to the y-axis is 3. Sum of heights: 7+3 = 10",
+  "zh-Hans": "高：A到y轴是 7，C到y轴是 3。高的和是 7+3 = 10",
+  "zh-Hant": "高：A到y軸是 7，C到y軸是 3。高的和是 7+3 = 10"
+ },
+ "座標平面上に3点A(−3, 0)、B(4, 0)、C(2, 6)があります。△ABCの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On a coordinate plane there are 3 points A(−3, 0), B(4, 0) and C(2, 6). Find the area of △ABC. Each grid unit is 1 cm.",
+  "zh-Hans": "在坐标平面上有3个点A(−3, 0)、B(4, 0)、C(2, 6)。求△ABC的面积。坐标的1格为1cm。",
+  "zh-Hant": "在坐標平面上有3個點A(−3, 0)、B(4, 0)、C(2, 6)。求△ABC的面積。坐標的1格為1cm。"
+ },
+ "座標の三角形なので、くせで長方形で囲む": {
+  "en": "It's a triangle on coordinates, so out of habit you enclose it in a rectangle",
+  "zh-Hans": "因为是坐标里的三角形，习惯性地用长方形围起来",
+  "zh-Hant": "因為是坐標上的三角形，習慣性地用長方形圍起來"
+ },
+ "すみの三角形を1つずつ計算して引くので、手間がふえる": {
+  "en": "You have to work out each corner triangle and subtract it, which means extra work",
+  "zh-Hans": "要把角上的三角形一个个算出来再减掉，比较费事",
+  "zh-Hant": "要把角落的三角形一個個算出來再減掉，比較費工"
+ },
+ "ABはx軸の上にある。底辺 AB = 7": {
+  "en": "AB lies on the x-axis. Base AB = 7",
+  "zh-Hans": "AB在x轴上。底 AB = 7",
+  "zh-Hant": "AB在x軸上。底邊 AB = 7"
+ },
+ "高さはCからx軸までの 6": {
+  "en": "The height is the distance from C to the x-axis: 6",
+  "zh-Hans": "高是C到x轴的距离 6",
+  "zh-Hant": "高是C到x軸的距離 6"
+ },
+ "1辺が軸の上にあれば、囲まなくてよい。その辺を底辺にして、底辺×高さ÷2。": {
+  "en": "If one side lies on an axis, you don't need to enclose. Use that side as the base: base×height÷2.",
+  "zh-Hans": "如果有一条边在坐标轴上，就不用围起来。把那条边当作底，底×高÷2。",
+  "zh-Hant": "如果有一邊在座標軸上，就不用圍起來。把那一邊當作底邊，底×高÷2。"
+ },
+ "囲んでも出せるが、ここでは遠回り。ABがx軸の上にある。": {
+  "en": "Enclosing works too, but here it's the long way round. AB lies on the x-axis.",
+  "zh-Hans": "围起来也能算，但这里是绕远路。AB在x轴上。",
+  "zh-Hant": "圍起來也算得出來，但這裡是繞遠路。AB在x軸上。"
+ },
+ "面積の等しい三角形を作る問題ではない。": {
+  "en": "This isn't a problem about making a triangle with the same area.",
+  "zh-Hans": "这不是要作出面积相等的三角形的题。",
+  "zh-Hant": "這不是要畫出面積相等的三角形的題目。"
+ },
+ "最短の道を聞いている問題ではない。": {
+  "en": "This problem isn't asking for the shortest path.",
+  "zh-Hans": "这道题不是在问最短路线。",
+  "zh-Hant": "這題不是在問最短路徑。"
+ },
+ "そのとおり。x軸上の辺を底辺に、残りの点からx軸までのきょりが高さ。": {
+  "en": "Right. The side on the x-axis is the base, and the distance from the other point to the x-axis is the height.",
+  "zh-Hans": "没错。以x轴上的边为底，剩下那个点到x轴的距离就是高。",
+  "zh-Hant": "沒錯。以x軸上的邊為底邊，剩下那個點到x軸的距離就是高。"
+ },
+ "座標平面上に3点A(−1, 0)、B(4, 0)、C(0, 7)があります。△ABCの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On a coordinate plane there are 3 points A(−1, 0), B(4, 0) and C(0, 7). Find the area of △ABC. Each grid unit is 1 cm.",
+  "zh-Hans": "在坐标平面上有3个点A(−1, 0)、B(4, 0)、C(0, 7)。求△ABC的面积。坐标的1格为1cm。",
+  "zh-Hant": "在坐標平面上有3個點A(−1, 0)、B(4, 0)、C(0, 7)。求△ABC的面積。坐標的1格為1cm。"
+ },
+ "ABはx軸の上にある。底辺 AB = 5": {
+  "en": "AB lies on the x-axis. Base AB = 5",
+  "zh-Hans": "AB在x轴上。底 AB = 5",
+  "zh-Hant": "AB在x軸上。底邊 AB = 5"
+ },
+ "高さはCからx軸までの 7": {
+  "en": "The height is the distance from C to the x-axis: 7",
+  "zh-Hans": "高是C到x轴的距离 7",
+  "zh-Hant": "高是C到x軸的距離 7"
+ },
+ "座標平面上に3点A(−3, 0)、B(6, 0)、C(1, 2)があります。△ABCの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On a coordinate plane there are 3 points A(−3, 0), B(6, 0) and C(1, 2). Find the area of △ABC. Each grid unit is 1 cm.",
+  "zh-Hans": "在坐标平面上有3个点A(−3, 0)、B(6, 0)、C(1, 2)。求△ABC的面积。坐标的1格为1cm。",
+  "zh-Hant": "在坐標平面上有3個點A(−3, 0)、B(6, 0)、C(1, 2)。求△ABC的面積。坐標的1格為1cm。"
+ },
+ "ABはx軸の上にある。底辺 AB = 9": {
+  "en": "AB lies on the x-axis. Base AB = 9",
+  "zh-Hans": "AB在x轴上。底 AB = 9",
+  "zh-Hant": "AB在x軸上。底邊 AB = 9"
+ },
+ "高さはCからx軸までの 2": {
+  "en": "The height is the distance from C to the x-axis: 2",
+  "zh-Hans": "高是C到x轴的距离 2",
+  "zh-Hant": "高是C到x軸的距離 2"
+ },
+ "座標平面上に3点A(6, 0)、B(−3, 0)、C(5, −4)があります。△ABCの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On a coordinate plane there are 3 points A(6, 0), B(−3, 0) and C(5, −4). Find the area of △ABC. Each grid unit is 1 cm.",
+  "zh-Hans": "在坐标平面上有3个点A(6, 0)、B(−3, 0)、C(5, −4)。求△ABC的面积。坐标的1格为1cm。",
+  "zh-Hant": "在坐標平面上有3個點A(6, 0)、B(−3, 0)、C(5, −4)。求△ABC的面積。坐標的1格為1cm。"
+ },
+ "高さはCからx軸までの 4": {
+  "en": "The height is the distance from C to the x-axis: 4",
+  "zh-Hans": "高是C到x轴的距离 4",
+  "zh-Hant": "高是C到x軸的距離 4"
+ },
+ "座標平面上に3点A(−1, 0)、B(5, 0)、C(5, 2)があります。△ABCの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On a coordinate plane there are 3 points A(−1, 0), B(5, 0) and C(5, 2). Find the area of △ABC. Each grid unit is 1 cm.",
+  "zh-Hans": "在坐标平面上有3个点A(−1, 0)、B(5, 0)、C(5, 2)。求△ABC的面积。坐标的1格为1cm。",
+  "zh-Hant": "在坐標平面上有3個點A(−1, 0)、B(5, 0)、C(5, 2)。求△ABC的面積。坐標的1格為1cm。"
+ },
+ "ABはx軸の上にある。底辺 AB = 6": {
+  "en": "AB lies on the x-axis. Base AB = 6",
+  "zh-Hans": "AB在x轴上。底 AB = 6",
+  "zh-Hant": "AB在x軸上。底邊 AB = 6"
+ },
+ "直線 (a + 1)x + (a − 1)y − 2a = 0 は、定数 a の値にかかわらず定点を通ります。その定点の座標を求めなさい。": {
+  "en": "The line (a + 1)x + (a − 1)y − 2a = 0 passes through a fixed point whatever the value of the constant a. Find the coordinates of that fixed point.",
+  "zh-Hans": "无论常数 a 取何值，直线 (a + 1)x + (a − 1)y − 2a = 0 都经过一个定点。求这个定点的坐标。",
+  "zh-Hant": "無論常數 a 為何值，直線 (a + 1)x + (a − 1)y − 2a = 0 都通過一個定點。求這個定點的坐標。"
+ },
+ "aに2つの値を代入して、2本のグラフの交点を求める": {
+  "en": "Substitute 2 values for a and find where the 2 graphs cross",
+  "zh-Hans": "给a代入2个值，求2条图像的交点",
+  "zh-Hant": "給a代入2個值，求2條圖形的交點"
+ },
+ "それが本当にすべてのaで通るか、もう一度確かめる": {
+  "en": "Check again that it really works for every a",
+  "zh-Hans": "再确认一次，是否真的对所有a都经过",
+  "zh-Hant": "再確認一次，是否真的對所有a都通過"
+ },
+ "ここで約2分半。代入する値の選び方で計算が変わる": {
+  "en": "That's about 2 and a half minutes. The work depends on which values you pick",
+  "zh-Hans": "到这里大约2分半钟。代入哪个值，计算量就不同",
+  "zh-Hant": "到這裡大約2分半鐘。代入哪個值，計算量就不同"
+ },
+ "aを止めて考える：aについて整理すると a×(…) + (…) = 0。どんなaでも成り立つのは、2つのかっこが両方0のとき": {
+  "en": "Freeze a: grouping by a gives a×(…) + (…) = 0. It holds for every a only when both brackets are 0",
+  "zh-Hans": "把a定住来想：按a整理得 a×(…) + (…) = 0。要对任何a都成立，2个括号都必须是0",
+  "zh-Hant": "把a定住來想：依a整理得 a×(…) + (…) = 0。要對任何a都成立，2個括號都必須是0"
+ },
+ "x + y − 2 = 0 と x − y = 0 を連立して、定点 (1, 1)": {
+  "en": "Solve x + y − 2 = 0 and x − y = 0 together: fixed point (1, 1)",
+  "zh-Hans": "联立 x + y − 2 = 0 和 x − y = 0，得定点 (1, 1)",
+  "zh-Hant": "聯立 x + y − 2 = 0 與 x − y = 0，得定點 (1, 1)"
+ },
+ "そのとおり。aについて整理し、aの係数と残りがどちらも0になる点を求める。": {
+  "en": "Right. Group by a, then find the point where both the coefficient of a and the rest are 0.",
+  "zh-Hans": "没错。按a整理，求出a的系数和剩下部分都为0的点。",
+  "zh-Hant": "沒錯。依a整理，求出a的係數和剩下部分都為0的點。"
+ },
+ "aに値を2つ代入して交点を出しても答えは出るが、すべてのaで成り立つか確かめが要る。": {
+  "en": "Substituting 2 values for a and finding the intersection does give the answer, but you then need to check it works for every a.",
+  "zh-Hans": "给a代入2个值求交点也能得到答案，但还要验证是否对所有a都成立。",
+  "zh-Hant": "給a代入2個值求交點也能得到答案，但還要驗證是否對所有a都成立。"
+ },
+ "直線 (3a + 3)x + (3a + 2)y − 3a − 1 = 0 は、定数 a の値にかかわらず定点を通ります。その定点の座標を求めなさい。": {
+  "en": "The line (3a + 3)x + (3a + 2)y − 3a − 1 = 0 passes through a fixed point whatever the value of the constant a. Find the coordinates of that fixed point.",
+  "zh-Hans": "无论常数 a 取何值，直线 (3a + 3)x + (3a + 2)y − 3a − 1 = 0 都经过一个定点。求这个定点的坐标。",
+  "zh-Hant": "無論常數 a 為何值，直線 (3a + 3)x + (3a + 2)y − 3a − 1 = 0 都通過一個定點。求這個定點的坐標。"
+ },
+ "3x + 3y − 3 = 0 と 3x + 2y − 1 = 0 を連立して、定点 (−1, 2)": {
+  "en": "Solve 3x + 3y − 3 = 0 and 3x + 2y − 1 = 0 together: fixed point (−1, 2)",
+  "zh-Hans": "联立 3x + 3y − 3 = 0 和 3x + 2y − 1 = 0，得定点 (−1, 2)",
+  "zh-Hant": "聯立 3x + 3y − 3 = 0 與 3x + 2y − 1 = 0，得定點 (−1, 2)"
+ },
+ "直線 (3a − 1)x + (−2a + 3)y − 12a + 4 = 0 は、定数 a の値にかかわらず定点を通ります。その定点の座標を求めなさい。": {
+  "en": "The line (3a − 1)x + (−2a + 3)y − 12a + 4 = 0 passes through a fixed point whatever the value of the constant a. Find the coordinates of that fixed point.",
+  "zh-Hans": "无论常数 a 取何值，直线 (3a − 1)x + (−2a + 3)y − 12a + 4 = 0 都经过一个定点。求这个定点的坐标。",
+  "zh-Hant": "無論常數 a 為何值，直線 (3a − 1)x + (−2a + 3)y − 12a + 4 = 0 都通過一個定點。求這個定點的坐標。"
+ },
+ "3x − 2y − 12 = 0 と −x + 3y + 4 = 0 を連立して、定点 (4, 0)": {
+  "en": "Solve 3x − 2y − 12 = 0 and −x + 3y + 4 = 0 together: fixed point (4, 0)",
+  "zh-Hans": "联立 3x − 2y − 12 = 0 和 −x + 3y + 4 = 0，得定点 (4, 0)",
+  "zh-Hant": "聯立 3x − 2y − 12 = 0 與 −x + 3y + 4 = 0，得定點 (4, 0)"
+ },
+ "直線 (−2a + 1)x − 2y + 2a + 3 = 0 は、定数 a の値にかかわらず定点を通ります。その定点の座標を求めなさい。": {
+  "en": "The line (−2a + 1)x − 2y + 2a + 3 = 0 passes through a fixed point whatever the value of the constant a. Find the coordinates of that fixed point.",
+  "zh-Hans": "无论常数 a 取何值，直线 (−2a + 1)x − 2y + 2a + 3 = 0 都经过一个定点。求这个定点的坐标。",
+  "zh-Hant": "無論常數 a 為何值，直線 (−2a + 1)x − 2y + 2a + 3 = 0 都通過一個定點。求這個定點的坐標。"
+ },
+ "−2x + 0y + 2 = 0 と x − 2y + 3 = 0 を連立して、定点 (1, 2)": {
+  "en": "Solve −2x + 0y + 2 = 0 and x − 2y + 3 = 0 together: fixed point (1, 2)",
+  "zh-Hans": "联立 −2x + 0y + 2 = 0 和 x − 2y + 3 = 0，得定点 (1, 2)",
+  "zh-Hant": "聯立 −2x + 0y + 2 = 0 與 x − 2y + 3 = 0，得定點 (1, 2)"
+ },
+ "直線 (−a + 3)x + (3a − 3)y + 15a − 21 = 0 は、定数 a の値にかかわらず定点を通ります。その定点の座標を求めなさい。": {
+  "en": "The line (−a + 3)x + (3a − 3)y + 15a − 21 = 0 passes through a fixed point whatever the value of the constant a. Find the coordinates of that fixed point.",
+  "zh-Hans": "无论常数 a 取何值，直线 (−a + 3)x + (3a − 3)y + 15a − 21 = 0 都经过一个定点。求这个定点的坐标。",
+  "zh-Hant": "無論常數 a 為何值，直線 (−a + 3)x + (3a − 3)y + 15a − 21 = 0 都通過一個定點。求這個定點的坐標。"
+ },
+ "−x + 3y + 15 = 0 と 3x − 3y − 21 = 0 を連立して、定点 (3, −4)": {
+  "en": "Solve −x + 3y + 15 = 0 and 3x − 3y − 21 = 0 together: fixed point (3, −4)",
+  "zh-Hans": "联立 −x + 3y + 15 = 0 和 3x − 3y − 21 = 0，得定点 (3, −4)",
+  "zh-Hant": "聯立 −x + 3y + 15 = 0 與 3x − 3y − 21 = 0，得定點 (3, −4)"
+ },
+ "直線 (2a + 1)x + (a − 3)y − 3a − 5 = 0 は、定数 a の値にかかわらず定点を通ります。その定点の座標を求めなさい。": {
+  "en": "The line (2a + 1)x + (a − 3)y − 3a − 5 = 0 passes through a fixed point whatever the value of the constant a. Find the coordinates of that fixed point.",
+  "zh-Hans": "无论常数 a 取何值，直线 (2a + 1)x + (a − 3)y − 3a − 5 = 0 都经过一个定点。求这个定点的坐标。",
+  "zh-Hant": "無論常數 a 為何值，直線 (2a + 1)x + (a − 3)y − 3a − 5 = 0 都通過一個定點。求這個定點的坐標。"
+ },
+ "2x + y − 3 = 0 と x − 3y − 5 = 0 を連立して、定点 (2, −1)": {
+  "en": "Solve 2x + y − 3 = 0 and x − 3y − 5 = 0 together: fixed point (2, −1)",
+  "zh-Hans": "联立 2x + y − 3 = 0 和 x − 3y − 5 = 0，得定点 (2, −1)",
+  "zh-Hant": "聯立 2x + y − 3 = 0 與 x − 3y − 5 = 0，得定點 (2, −1)"
+ },
+ "直線 (−a − 3)x + (−2a − 1)y + 7a + 6 = 0 は、定数 a の値にかかわらず定点を通ります。その定点の座標を求めなさい。": {
+  "en": "The line (−a − 3)x + (−2a − 1)y + 7a + 6 = 0 passes through a fixed point whatever the value of the constant a. Find the coordinates of that fixed point.",
+  "zh-Hans": "无论常数 a 取何值，直线 (−a − 3)x + (−2a − 1)y + 7a + 6 = 0 都经过一个定点。求这个定点的坐标。",
+  "zh-Hant": "無論常數 a 為何值，直線 (−a − 3)x + (−2a − 1)y + 7a + 6 = 0 都通過一個定點。求這個定點的坐標。"
+ },
+ "−x − 2y + 7 = 0 と −3x − y + 6 = 0 を連立して、定点 (1, 3)": {
+  "en": "Solve −x − 2y + 7 = 0 and −3x − y + 6 = 0 together: fixed point (1, 3)",
+  "zh-Hans": "联立 −x − 2y + 7 = 0 和 −3x − y + 6 = 0，得定点 (1, 3)",
+  "zh-Hant": "聯立 −x − 2y + 7 = 0 與 −3x − y + 6 = 0，得定點 (1, 3)"
+ },
+ "直線 (−2a + 2)x + (−3a − 2)y + 7a + 8 = 0 は、定数 a の値にかかわらず定点を通ります。その定点の座標を求めなさい。": {
+  "en": "The line (−2a + 2)x + (−3a − 2)y + 7a + 8 = 0 passes through a fixed point whatever the value of the constant a. Find the coordinates of that fixed point.",
+  "zh-Hans": "无论常数 a 取何值，直线 (−2a + 2)x + (−3a − 2)y + 7a + 8 = 0 都经过一个定点。求这个定点的坐标。",
+  "zh-Hant": "無論常數 a 為何值，直線 (−2a + 2)x + (−3a − 2)y + 7a + 8 = 0 都通過一個定點。求這個定點的坐標。"
+ },
+ "−2x − 3y + 7 = 0 と 2x − 2y + 8 = 0 を連立して、定点 (−1, 3)": {
+  "en": "Solve −2x − 3y + 7 = 0 and 2x − 2y + 8 = 0 together: fixed point (−1, 3)",
+  "zh-Hans": "联立 −2x − 3y + 7 = 0 和 2x − 2y + 8 = 0，得定点 (−1, 3)",
+  "zh-Hant": "聯立 −2x − 3y + 7 = 0 與 2x − 2y + 8 = 0，得定點 (−1, 3)"
+ },
+ "直線 (3a − 2)x − y + 6a − 5 = 0 は、定数 a の値にかかわらず定点を通ります。その定点の座標を求めなさい。": {
+  "en": "The line (3a − 2)x − y + 6a − 5 = 0 passes through a fixed point whatever the value of the constant a. Find the coordinates of that fixed point.",
+  "zh-Hans": "无论常数 a 取何值，直线 (3a − 2)x − y + 6a − 5 = 0 都经过一个定点。求这个定点的坐标。",
+  "zh-Hant": "無論常數 a 為何值，直線 (3a − 2)x − y + 6a − 5 = 0 都通過一個定點。求這個定點的坐標。"
+ },
+ "3x + 0y + 6 = 0 と −2x − y − 5 = 0 を連立して、定点 (−2, −1)": {
+  "en": "Solve 3x + 0y + 6 = 0 and −2x − y − 5 = 0 together: fixed point (−2, −1)",
+  "zh-Hans": "联立 3x + 0y + 6 = 0 和 −2x − y − 5 = 0，得定点 (−2, −1)",
+  "zh-Hant": "聯立 3x + 0y + 6 = 0 與 −2x − y − 5 = 0，得定點 (−2, −1)"
+ },
+ "直線 (−a − 2)x + (−3a + 3)y + 16a − 4 = 0 は、定数 a の値にかかわらず定点を通ります。その定点の座標を求めなさい。": {
+  "en": "The line (−a − 2)x + (−3a + 3)y + 16a − 4 = 0 passes through a fixed point whatever the value of the constant a. Find the coordinates of that fixed point.",
+  "zh-Hans": "无论常数 a 取何值，直线 (−a − 2)x + (−3a + 3)y + 16a − 4 = 0 都经过一个定点。求这个定点的坐标。",
+  "zh-Hant": "無論常數 a 為何值，直線 (−a − 2)x + (−3a + 3)y + 16a − 4 = 0 都通過一個定點。求這個定點的坐標。"
+ },
+ "−x − 3y + 16 = 0 と −2x + 3y − 4 = 0 を連立して、定点 (4, 4)": {
+  "en": "Solve −x − 3y + 16 = 0 and −2x + 3y − 4 = 0 together: fixed point (4, 4)",
+  "zh-Hans": "联立 −x − 3y + 16 = 0 和 −2x + 3y − 4 = 0，得定点 (4, 4)",
+  "zh-Hant": "聯立 −x − 3y + 16 = 0 與 −2x + 3y − 4 = 0，得定點 (4, 4)"
+ },
+ "放物線 y = x² − 2ax + 4a − 3 は、定数 a の値にかかわらず定点を通ります。その定点の座標を求めなさい。": {
+  "en": "The parabola y = x² − 2ax + 4a − 3 passes through a fixed point whatever the value of the constant a. Find the coordinates of that fixed point.",
+  "zh-Hans": "无论常数 a 取何值，抛物线 y = x² − 2ax + 4a − 3 都经过一个定点。求这个定点的坐标。",
+  "zh-Hant": "無論常數 a 為何值，拋物線 y = x² − 2ax + 4a − 3 都通過一個定點。求這個定點的坐標。"
+ },
+ "aを止めて考える：aについて整理すると a×(…) + (…) = 0。どんなaでも成り立つのは、両方のかっこが0のとき": {
+  "en": "Freeze a: grouping by a gives a×(…) + (…) = 0. It holds for every a only when both brackets are 0",
+  "zh-Hans": "把a定住来想：按a整理得 a×(…) + (…) = 0。要对任何a都成立，两个括号都必须是0",
+  "zh-Hant": "把a定住來想：依a整理得 a×(…) + (…) = 0。要對任何a都成立，兩個括號都必須是0"
+ },
+ "−2x + 4 = 0 から x = 2、もう一方に代入して y = 1。定点 (2, 1)": {
+  "en": "From −2x + 4 = 0, x = 2; substitute into the other to get y = 1. Fixed point (2, 1)",
+  "zh-Hans": "由 −2x + 4 = 0 得 x = 2，代入另一个式子得 y = 1。定点 (2, 1)",
+  "zh-Hant": "由 −2x + 4 = 0 得 x = 2，代入另一個式子得 y = 1。定點 (2, 1)"
+ },
+ "放物線 y = x² + (−2a + 1)x − 6a は、定数 a の値にかかわらず定点を通ります。その定点の座標を求めなさい。": {
+  "en": "The parabola y = x² + (−2a + 1)x − 6a passes through a fixed point whatever the value of the constant a. Find the coordinates of that fixed point.",
+  "zh-Hans": "无论常数 a 取何值，抛物线 y = x² + (−2a + 1)x − 6a 都经过一个定点。求这个定点的坐标。",
+  "zh-Hant": "無論常數 a 為何值，拋物線 y = x² + (−2a + 1)x − 6a 都通過一個定點。求這個定點的坐標。"
+ },
+ "−2x − 6 = 0 から x = −3、もう一方に代入して y = 6。定点 (−3, 6)": {
+  "en": "From −2x − 6 = 0, x = −3; substitute into the other to get y = 6. Fixed point (−3, 6)",
+  "zh-Hans": "由 −2x − 6 = 0 得 x = −3，代入另一个式子得 y = 6。定点 (−3, 6)",
+  "zh-Hant": "由 −2x − 6 = 0 得 x = −3，代入另一個式子得 y = 6。定點 (−3, 6)"
+ },
+ "放物線 y = x² + (a + 3)x + 3a + 3 は、定数 a の値にかかわらず定点を通ります。その定点の座標を求めなさい。": {
+  "en": "The parabola y = x² + (a + 3)x + 3a + 3 passes through a fixed point whatever the value of the constant a. Find the coordinates of that fixed point.",
+  "zh-Hans": "无论常数 a 取何值，抛物线 y = x² + (a + 3)x + 3a + 3 都经过一个定点。求这个定点的坐标。",
+  "zh-Hant": "無論常數 a 為何值，拋物線 y = x² + (a + 3)x + 3a + 3 都通過一個定點。求這個定點的坐標。"
+ },
+ "x + 3 = 0 から x = −3、もう一方に代入して y = 3。定点 (−3, 3)": {
+  "en": "From x + 3 = 0, x = −3; substitute into the other to get y = 3. Fixed point (−3, 3)",
+  "zh-Hans": "由 x + 3 = 0 得 x = −3，代入另一个式子得 y = 3。定点 (−3, 3)",
+  "zh-Hant": "由 x + 3 = 0 得 x = −3，代入另一個式子得 y = 3。定點 (−3, 3)"
+ },
+ "放物線 y = x² + (−2a + 4)x + 2a − 1 は、定数 a の値にかかわらず定点を通ります。その定点の座標を求めなさい。": {
+  "en": "The parabola y = x² + (−2a + 4)x + 2a − 1 passes through a fixed point whatever the value of the constant a. Find the coordinates of that fixed point.",
+  "zh-Hans": "无论常数 a 取何值，抛物线 y = x² + (−2a + 4)x + 2a − 1 都经过一个定点。求这个定点的坐标。",
+  "zh-Hant": "無論常數 a 為何值，拋物線 y = x² + (−2a + 4)x + 2a − 1 都通過一個定點。求這個定點的坐標。"
+ },
+ "−2x + 2 = 0 から x = 1、もう一方に代入して y = 4。定点 (1, 4)": {
+  "en": "From −2x + 2 = 0, x = 1; substitute into the other to get y = 4. Fixed point (1, 4)",
+  "zh-Hans": "由 −2x + 2 = 0 得 x = 1，代入另一个式子得 y = 4。定点 (1, 4)",
+  "zh-Hant": "由 −2x + 2 = 0 得 x = 1，代入另一個式子得 y = 4。定點 (1, 4)"
+ },
+ "放物線 y = x² + (2a − 2)x − 4a − 3 は、定数 a の値にかかわらず定点を通ります。その定点の座標を求めなさい。": {
+  "en": "The parabola y = x² + (2a − 2)x − 4a − 3 passes through a fixed point whatever the value of the constant a. Find the coordinates of that fixed point.",
+  "zh-Hans": "无论常数 a 取何值，抛物线 y = x² + (2a − 2)x − 4a − 3 都经过一个定点。求这个定点的坐标。",
+  "zh-Hant": "無論常數 a 為何值，拋物線 y = x² + (2a − 2)x − 4a − 3 都通過一個定點。求這個定點的坐標。"
+ },
+ "2x − 4 = 0 から x = 2、もう一方に代入して y = −3。定点 (2, −3)": {
+  "en": "From 2x − 4 = 0, x = 2; substitute into the other to get y = −3. Fixed point (2, −3)",
+  "zh-Hans": "由 2x − 4 = 0 得 x = 2，代入另一个式子得 y = −3。定点 (2, −3)",
+  "zh-Hant": "由 2x − 4 = 0 得 x = 2，代入另一個式子得 y = −3。定點 (2, −3)"
+ },
+ "放物線 y = x² + (a − 1)x − 3a + 2 は、定数 a の値にかかわらず定点を通ります。その定点の座標を求めなさい。": {
+  "en": "The parabola y = x² + (a − 1)x − 3a + 2 passes through a fixed point whatever the value of the constant a. Find the coordinates of that fixed point.",
+  "zh-Hans": "无论常数 a 取何值，抛物线 y = x² + (a − 1)x − 3a + 2 都经过一个定点。求这个定点的坐标。",
+  "zh-Hant": "無論常數 a 為何值，拋物線 y = x² + (a − 1)x − 3a + 2 都通過一個定點。求這個定點的坐標。"
+ },
+ "x − 3 = 0 から x = 3、もう一方に代入して y = 8。定点 (3, 8)": {
+  "en": "From x − 3 = 0, x = 3; substitute into the other to get y = 8. Fixed point (3, 8)",
+  "zh-Hans": "由 x − 3 = 0 得 x = 3，代入另一个式子得 y = 8。定点 (3, 8)",
+  "zh-Hant": "由 x − 3 = 0 得 x = 3，代入另一個式子得 y = 8。定點 (3, 8)"
+ },
+ "放物線 y = x² + (−2a + 4)x − 4a + 3 は、定数 a の値にかかわらず定点を通ります。その定点の座標を求めなさい。": {
+  "en": "The parabola y = x² + (−2a + 4)x − 4a + 3 passes through a fixed point whatever the value of the constant a. Find the coordinates of that fixed point.",
+  "zh-Hans": "无论常数 a 取何值，抛物线 y = x² + (−2a + 4)x − 4a + 3 都经过一个定点。求这个定点的坐标。",
+  "zh-Hant": "無論常數 a 為何值，拋物線 y = x² + (−2a + 4)x − 4a + 3 都通過一個定點。求這個定點的坐標。"
+ },
+ "−2x − 4 = 0 から x = −2、もう一方に代入して y = −1。定点 (−2, −1)": {
+  "en": "From −2x − 4 = 0, x = −2; substitute into the other to get y = −1. Fixed point (−2, −1)",
+  "zh-Hans": "由 −2x − 4 = 0 得 x = −2，代入另一个式子得 y = −1。定点 (−2, −1)",
+  "zh-Hant": "由 −2x − 4 = 0 得 x = −2，代入另一個式子得 y = −1。定點 (−2, −1)"
+ },
+ "放物線 y = x² + (−2a − 2)x − 6a − 1 は、定数 a の値にかかわらず定点を通ります。その定点の座標を求めなさい。": {
+  "en": "The parabola y = x² + (−2a − 2)x − 6a − 1 passes through a fixed point whatever the value of the constant a. Find the coordinates of that fixed point.",
+  "zh-Hans": "无论常数 a 取何值，抛物线 y = x² + (−2a − 2)x − 6a − 1 都经过一个定点。求这个定点的坐标。",
+  "zh-Hant": "無論常數 a 為何值，拋物線 y = x² + (−2a − 2)x − 6a − 1 都通過一個定點。求這個定點的坐標。"
+ },
+ "−2x − 6 = 0 から x = −3、もう一方に代入して y = 14。定点 (−3, 14)": {
+  "en": "From −2x − 6 = 0, x = −3; substitute into the other to get y = 14. Fixed point (−3, 14)",
+  "zh-Hans": "由 −2x − 6 = 0 得 x = −3，代入另一个式子得 y = 14。定点 (−3, 14)",
+  "zh-Hant": "由 −2x − 6 = 0 得 x = −3，代入另一個式子得 y = 14。定點 (−3, 14)"
+ },
+ "放物線 y = x² + (−2a + 1)x − 2a は、定数 a の値にかかわらず定点を通ります。その定点の座標を求めなさい。": {
+  "en": "The parabola y = x² + (−2a + 1)x − 2a passes through a fixed point whatever the value of the constant a. Find the coordinates of that fixed point.",
+  "zh-Hans": "无论常数 a 取何值，抛物线 y = x² + (−2a + 1)x − 2a 都经过一个定点。求这个定点的坐标。",
+  "zh-Hant": "無論常數 a 為何值，拋物線 y = x² + (−2a + 1)x − 2a 都通過一個定點。求這個定點的坐標。"
+ },
+ "−2x − 2 = 0 から x = −1、もう一方に代入して y = 0。定点 (−1, 0)": {
+  "en": "From −2x − 2 = 0, x = −1; substitute into the other to get y = 0. Fixed point (−1, 0)",
+  "zh-Hans": "由 −2x − 2 = 0 得 x = −1，代入另一个式子得 y = 0。定点 (−1, 0)",
+  "zh-Hant": "由 −2x − 2 = 0 得 x = −1，代入另一個式子得 y = 0。定點 (−1, 0)"
+ },
+ "放物線 y = x² + (−2a + 1)x − 6a + 4 は、定数 a の値にかかわらず定点を通ります。その定点の座標を求めなさい。": {
+  "en": "The parabola y = x² + (−2a + 1)x − 6a + 4 passes through a fixed point whatever the value of the constant a. Find the coordinates of that fixed point.",
+  "zh-Hans": "无论常数 a 取何值，抛物线 y = x² + (−2a + 1)x − 6a + 4 都经过一个定点。求这个定点的坐标。",
+  "zh-Hant": "無論常數 a 為何值，拋物線 y = x² + (−2a + 1)x − 6a + 4 都通過一個定點。求這個定點的坐標。"
+ },
+ "−2x − 6 = 0 から x = −3、もう一方に代入して y = 10。定点 (−3, 10)": {
+  "en": "From −2x − 6 = 0, x = −3; substitute into the other to get y = 10. Fixed point (−3, 10)",
+  "zh-Hans": "由 −2x − 6 = 0 得 x = −3，代入另一个式子得 y = 10。定点 (−3, 10)",
+  "zh-Hant": "由 −2x − 6 = 0 得 x = −3，代入另一個式子得 y = 10。定點 (−3, 10)"
+ },
+ "直線 (2a + 1)x + (a − 3)y − 3a − 5 = 0 が点(0, 1)を通るとき、定数 a の値を求めなさい。": {
+  "en": "The line (2a + 1)x + (a − 3)y − 3a − 5 = 0 passes through the point (0, 1). Find the value of the constant a.",
+  "zh-Hans": "直线 (2a + 1)x + (a − 3)y − 3a − 5 = 0 经过点(0, 1)时，求常数 a 的值。",
+  "zh-Hant": "直線 (2a + 1)x + (a − 3)y − 3a − 5 = 0 通過點(0, 1)時，求常數 a 的值。"
+ },
+ "aについて整理して、定点を求めてしまう": {
+  "en": "You group by a and end up finding the fixed point",
+  "zh-Hans": "按a整理，结果求成了定点",
+  "zh-Hant": "依a整理，結果求成了定點"
+ },
+ "求めたいのは定点ではなく、aの値だと気づく": {
+  "en": "Then you notice it's the value of a you want, not the fixed point",
+  "zh-Hans": "这才发现要求的不是定点，而是a的值",
+  "zh-Hant": "這才發現要求的不是定點，而是a的值"
+ },
+ "通る点が決まっているので、x = 0、y = 1 を代入するだけ（aでまとめなくてよい）": {
+  "en": "The point is given, so just substitute x = 0, y = 1 (no need to group by a)",
+  "zh-Hans": "经过的点已经确定，只要代入 x = 0、y = 1 就行（不用按a整理）",
+  "zh-Hant": "通過的點已經確定，只要代入 x = 0、y = 1 就好（不用依a整理）"
+ },
+ "aの1次方程式を解いて a = −4": {
+  "en": "Solve the linear equation in a: a = −4",
+  "zh-Hans": "解关于a的一元一次方程，得 a = −4",
+  "zh-Hant": "解a的一元一次方程式，得 a = −4"
+ },
+ "おしい。aを止めて求まるのは、すべてのaで通る定点。ここでは点が決まっていて、aを求める。": {
+  "en": "Close. Freezing a gives the fixed point that works for every a. Here the point is given, and you find a.",
+  "zh-Hans": "差一点。把a定住求出的是对所有a都经过的定点。这里点已经给定，要求的是a。",
+  "zh-Hant": "差一點。把a定住求出的是對所有a都通過的定點。這裡點已經給定，要求的是a。"
+ },
+ "そのとおり。通る点が決まっているので、代入してaの方程式を解く。": {
+  "en": "Right. The point is given, so substitute it and solve the equation for a.",
+  "zh-Hans": "没错。经过的点已经确定，代入后解关于a的方程。",
+  "zh-Hant": "沒錯。通過的點已經確定，代入後解a的方程式。"
+ },
+ "直線 −x + (2a − 1)y + 4a − 2 = 0 が点(−2, −1)を通るとき、定数 a の値を求めなさい。": {
+  "en": "The line −x + (2a − 1)y + 4a − 2 = 0 passes through the point (−2, −1). Find the value of the constant a.",
+  "zh-Hans": "直线 −x + (2a − 1)y + 4a − 2 = 0 经过点(−2, −1)时，求常数 a 的值。",
+  "zh-Hant": "直線 −x + (2a − 1)y + 4a − 2 = 0 通過點(−2, −1)時，求常數 a 的值。"
+ },
+ "通る点が決まっているので、x = −2、y = −1 を代入するだけ（aでまとめなくてよい）": {
+  "en": "The point is given, so just substitute x = −2, y = −1 (no need to group by a)",
+  "zh-Hans": "经过的点已经确定，只要代入 x = −2、y = −1 就行（不用按a整理）",
+  "zh-Hant": "通過的點已經確定，只要代入 x = −2、y = −1 就好（不用依a整理）"
+ },
+ "aの1次方程式を解いて a = −1/2": {
+  "en": "Solve the linear equation in a: a = −1/2",
+  "zh-Hans": "解关于a的一元一次方程，得 a = −1/2",
+  "zh-Hant": "解a的一元一次方程式，得 a = −1/2"
+ },
+ "直線 (3a + 2)x + (−2a − 1)y − 12a − 8 = 0 が点(−3, 0)を通るとき、定数 a の値を求めなさい。": {
+  "en": "The line (3a + 2)x + (−2a − 1)y − 12a − 8 = 0 passes through the point (−3, 0). Find the value of the constant a.",
+  "zh-Hans": "直线 (3a + 2)x + (−2a − 1)y − 12a − 8 = 0 经过点(−3, 0)时，求常数 a 的值。",
+  "zh-Hant": "直線 (3a + 2)x + (−2a − 1)y − 12a − 8 = 0 通過點(−3, 0)時，求常數 a 的值。"
+ },
+ "通る点が決まっているので、x = −3、y = 0 を代入するだけ（aでまとめなくてよい）": {
+  "en": "The point is given, so just substitute x = −3, y = 0 (no need to group by a)",
+  "zh-Hans": "经过的点已经确定，只要代入 x = −3、y = 0 就行（不用按a整理）",
+  "zh-Hant": "通過的點已經確定，只要代入 x = −3、y = 0 就好（不用依a整理）"
+ },
+ "aの1次方程式を解いて a = −2/3": {
+  "en": "Solve the linear equation in a: a = −2/3",
+  "zh-Hans": "解关于a的一元一次方程，得 a = −2/3",
+  "zh-Hant": "解a的一元一次方程式，得 a = −2/3"
+ },
+ "直線 ax + (3a + 2)y − 3a = 0 が点(−1, −3)を通るとき、定数 a の値を求めなさい。": {
+  "en": "The line ax + (3a + 2)y − 3a = 0 passes through the point (−1, −3). Find the value of the constant a.",
+  "zh-Hans": "直线 ax + (3a + 2)y − 3a = 0 经过点(−1, −3)时，求常数 a 的值。",
+  "zh-Hant": "直線 ax + (3a + 2)y − 3a = 0 通過點(−1, −3)時，求常數 a 的值。"
+ },
+ "通る点が決まっているので、x = −1、y = −3 を代入するだけ（aでまとめなくてよい）": {
+  "en": "The point is given, so just substitute x = −1, y = −3 (no need to group by a)",
+  "zh-Hans": "经过的点已经确定，只要代入 x = −1、y = −3 就行（不用按a整理）",
+  "zh-Hant": "通過的點已經確定，只要代入 x = −1、y = −3 就好（不用依a整理）"
+ },
+ "aの1次方程式を解いて a = −6/13": {
+  "en": "Solve the linear equation in a: a = −6/13",
+  "zh-Hans": "解关于a的一元一次方程，得 a = −6/13",
+  "zh-Hant": "解a的一元一次方程式，得 a = −6/13"
+ },
+ "直線 (−2a + 3)x − y + 6a − 7 = 0 が点(0, 3)を通るとき、定数 a の値を求めなさい。": {
+  "en": "The line (−2a + 3)x − y + 6a − 7 = 0 passes through the point (0, 3). Find the value of the constant a.",
+  "zh-Hans": "直线 (−2a + 3)x − y + 6a − 7 = 0 经过点(0, 3)时，求常数 a 的值。",
+  "zh-Hant": "直線 (−2a + 3)x − y + 6a − 7 = 0 通過點(0, 3)時，求常數 a 的值。"
+ },
+ "通る点が決まっているので、x = 0、y = 3 を代入するだけ（aでまとめなくてよい）": {
+  "en": "The point is given, so just substitute x = 0, y = 3 (no need to group by a)",
+  "zh-Hans": "经过的点已经确定，只要代入 x = 0、y = 3 就行（不用按a整理）",
+  "zh-Hant": "通過的點已經確定，只要代入 x = 0、y = 3 就好（不用依a整理）"
+ },
+ "aの1次方程式を解いて a = 5/3": {
+  "en": "Solve the linear equation in a: a = 5/3",
+  "zh-Hans": "解关于a的一元一次方程，得 a = 5/3",
+  "zh-Hant": "解a的一元一次方程式，得 a = 5/3"
+ },
+ "直線 (a + 1)x + (a − 1)y − 2a = 0 について、a = 2 のときの傾きを求めなさい。": {
+  "en": "For the line (a + 1)x + (a − 1)y − 2a = 0, find the slope when a = 2.",
+  "zh-Hans": "对于直线 (a + 1)x + (a − 1)y − 2a = 0，求 a = 2 时的斜率。",
+  "zh-Hant": "對於直線 (a + 1)x + (a − 1)y − 2a = 0，求 a = 2 時的斜率。"
+ },
+ "aの値が決まっているので、a = 2 を代入するだけ": {
+  "en": "The value of a is given, so just substitute a = 2",
+  "zh-Hans": "a的值已经确定，只要代入 a = 2 就行",
+  "zh-Hant": "a的值已經確定，只要代入 a = 2 就好"
+ },
+ "3x + y − 4 = 0 → 傾き = −3": {
+  "en": "3x + y − 4 = 0 → slope = −3",
+  "zh-Hans": "3x + y − 4 = 0 → 斜率 = −3",
+  "zh-Hant": "3x + y − 4 = 0 → 斜率 = −3"
+ },
+ "aの値が1つに決まっているときは、代入するだけ。aでまとめなくてよい。": {
+  "en": "When a has one given value, just substitute it. No need to group by a.",
+  "zh-Hans": "a的值已经确定为一个时，只要代入就行，不用按a整理。",
+  "zh-Hant": "a的值已經確定為一個時，只要代入就好，不用依a整理。"
+ },
+ "aの値はもう決まっている。すべてのaで成り立つ点を探す問題ではない。": {
+  "en": "The value of a is already given. This isn't about finding a point that works for every a.",
+  "zh-Hans": "a的值已经确定了。这不是找对所有a都成立的点的题。",
+  "zh-Hant": "a的值已經確定了。這不是找對所有a都成立的點的題目。"
+ },
+ "そのとおり。aの値が決まっているので、代入するだけ。": {
+  "en": "Right. The value of a is given, so just substitute it.",
+  "zh-Hans": "没错。a的值已经确定，只要代入就行。",
+  "zh-Hant": "沒錯。a的值已經確定，只要代入就好。"
+ },
+ "直線 (−2a + 2)x + (−3a + 1)y + 6a − 6 = 0 について、a = 0 のときの傾きを求めなさい。": {
+  "en": "For the line (−2a + 2)x + (−3a + 1)y + 6a − 6 = 0, find the slope when a = 0.",
+  "zh-Hans": "对于直线 (−2a + 2)x + (−3a + 1)y + 6a − 6 = 0，求 a = 0 时的斜率。",
+  "zh-Hant": "對於直線 (−2a + 2)x + (−3a + 1)y + 6a − 6 = 0，求 a = 0 時的斜率。"
+ },
+ "aの値が決まっているので、a = 0 を代入するだけ": {
+  "en": "The value of a is given, so just substitute a = 0",
+  "zh-Hans": "a的值已经确定，只要代入 a = 0 就行",
+  "zh-Hant": "a的值已經確定，只要代入 a = 0 就好"
+ },
+ "2x + y − 6 = 0 → 傾き = −2": {
+  "en": "2x + y − 6 = 0 → slope = −2",
+  "zh-Hans": "2x + y − 6 = 0 → 斜率 = −2",
+  "zh-Hant": "2x + y − 6 = 0 → 斜率 = −2"
+ },
+ "直線 (a + 3)x + (−2a − 2)y + 3a + 1 = 0 について、a = −2 のときの傾きを求めなさい。": {
+  "en": "For the line (a + 3)x + (−2a − 2)y + 3a + 1 = 0, find the slope when a = −2.",
+  "zh-Hans": "对于直线 (a + 3)x + (−2a − 2)y + 3a + 1 = 0，求 a = −2 时的斜率。",
+  "zh-Hant": "對於直線 (a + 3)x + (−2a − 2)y + 3a + 1 = 0，求 a = −2 時的斜率。"
+ },
+ "aの値が決まっているので、a = −2 を代入するだけ": {
+  "en": "The value of a is given, so just substitute a = −2",
+  "zh-Hans": "a的值已经确定，只要代入 a = −2 就行",
+  "zh-Hant": "a的值已經確定，只要代入 a = −2 就好"
+ },
+ "x + 2y − 5 = 0 → 傾き = −1/2": {
+  "en": "x + 2y − 5 = 0 → slope = −1/2",
+  "zh-Hans": "x + 2y − 5 = 0 → 斜率 = −1/2",
+  "zh-Hant": "x + 2y − 5 = 0 → 斜率 = −1/2"
+ },
+ "直線 (−3a + 3)x + 2ay − 3a + 9 = 0 について、a = −1 のときの傾きを求めなさい。": {
+  "en": "For the line (−3a + 3)x + 2ay − 3a + 9 = 0, find the slope when a = −1.",
+  "zh-Hans": "对于直线 (−3a + 3)x + 2ay − 3a + 9 = 0，求 a = −1 时的斜率。",
+  "zh-Hant": "對於直線 (−3a + 3)x + 2ay − 3a + 9 = 0，求 a = −1 時的斜率。"
+ },
+ "aの値が決まっているので、a = −1 を代入するだけ": {
+  "en": "The value of a is given, so just substitute a = −1",
+  "zh-Hans": "a的值已经确定，只要代入 a = −1 就行",
+  "zh-Hant": "a的值已經確定，只要代入 a = −1 就好"
+ },
+ "6x − 2y + 12 = 0 → 傾き = 3": {
+  "en": "6x − 2y + 12 = 0 → slope = 3",
+  "zh-Hans": "6x − 2y + 12 = 0 → 斜率 = 3",
+  "zh-Hant": "6x − 2y + 12 = 0 → 斜率 = 3"
+ },
+ "直線 (a + 3)x − 3y − 4a − 6 = 0 について、a = 2 のときの傾きを求めなさい。": {
+  "en": "For the line (a + 3)x − 3y − 4a − 6 = 0, find the slope when a = 2.",
+  "zh-Hans": "对于直线 (a + 3)x − 3y − 4a − 6 = 0，求 a = 2 时的斜率。",
+  "zh-Hant": "對於直線 (a + 3)x − 3y − 4a − 6 = 0，求 a = 2 時的斜率。"
+ },
+ "5x − 3y − 14 = 0 → 傾き = 5/3": {
+  "en": "5x − 3y − 14 = 0 → slope = 5/3",
+  "zh-Hans": "5x − 3y − 14 = 0 → 斜率 = 5/3",
+  "zh-Hant": "5x − 3y − 14 = 0 → 斜率 = 5/3"
+ },
+ "1800mはなれた道の両はしから、兄は分速80m、弟は分速70mで、向かい合って同時に歩き始めます。2人が出会うのは何分後ですか。": {
+  "en": "An older brother and a younger brother stand at the two ends of a road 1800 m long. They start walking toward each other at the same time, the older brother at 80 m per minute and the younger brother at 70 m per minute. After how many minutes do they meet?",
+  "zh-Hans": "哥哥和弟弟分别站在一条长1800m的路的两端，同时相向而行。哥哥每分钟走80m，弟弟每分钟走70m。两人几分钟后相遇？",
+  "zh-Hant": "哥哥和弟弟分別站在一條長1800m的路的兩端，同時相向而行。哥哥分速80m，弟弟分速70m。兩人幾分鐘後相遇？"
+ },
+ "分後": {
+  "en": " minutes later",
+  "zh-Hans": "分钟后",
+  "zh-Hant": "分鐘後"
+ },
+ "12分後": {
+  "en": "12 minutes later",
+  "zh-Hans": "12分钟后",
+  "zh-Hant": "12分鐘後"
+ },
+ "1分後、2分後…と、2人がいる場所を表に書いていく": {
+  "en": "Make a table of where the two are after 1 minute, 2 minutes, …",
+  "zh-Hans": "把1分钟后、2分钟后……两人所在的位置列成表",
+  "zh-Hant": "把1分鐘後、2分鐘後……兩人所在的位置列成表"
+ },
+ "まん中の900mで出会う、と考えてしまうこともある（速さがちがうので、まちがい）": {
+  "en": "You might think they meet in the middle at 900 m (wrong, because their speeds differ)",
+  "zh-Hans": "有时会以为两人在正中间900m处相遇（速度不同，所以是错的）",
+  "zh-Hant": "有時會以為兩人在正中間900m處相遇（速度不同，所以是錯的）"
+ },
+ "ここで約3分。表が長くなる": {
+  "en": "That's about 3 minutes. The table gets long",
+  "zh-Hans": "到这里大约3分钟。表格会很长",
+  "zh-Hant": "到這裡大約3分鐘。表格會很長"
+ },
+ "弟を止めて考えると、兄は1分に 80+70 = 150m ずつ近づく": {
+  "en": "Freeze the younger brother: the older brother gets 80+70 = 150 m closer every minute",
+  "zh-Hans": "把弟弟定住来看，哥哥每分钟靠近 80+70 = 150m",
+  "zh-Hant": "把弟弟定住來看，哥哥每分鐘靠近 80+70 = 150m"
+ },
+ "はじめのきょりは1800m": {
+  "en": "The starting distance is 1800 m",
+  "zh-Hans": "一开始的距离是1800m",
+  "zh-Hant": "一開始的距離是1800m"
+ },
+ "1800÷150 = 12（分後）": {
+  "en": "1800÷150 = 12 (minutes later)",
+  "zh-Hans": "1800÷150 = 12（分钟后）",
+  "zh-Hant": "1800÷150 = 12（分鐘後）"
+ },
+ "2つのものが同時に動くときは、片方を止めて、2人の速さをまとめる。": {
+  "en": "When two things move at the same time, freeze one and combine their speeds.",
+  "zh-Hans": "两个物体同时运动时，把其中一个定住，把两人的速度合起来。",
+  "zh-Hant": "兩個物體同時移動時，把其中一個定住，把兩人的速度合起來。"
+ },
+ "そのとおり。弟を止めると、兄が分速150mで近づくだけになる。": {
+  "en": "Right. Freeze the younger brother, and it's just the older brother approaching at 150 m per minute.",
+  "zh-Hans": "没错。把弟弟定住，就只是哥哥以每分钟150m的速度靠近。",
+  "zh-Hant": "沒錯。把弟弟定住，就只是哥哥以分速150m靠近。"
+ },
+ "年れいの差のように、変わらない差を使う問題ではない。": {
+  "en": "This isn't a problem that uses an unchanging difference, like an age gap.",
+  "zh-Hans": "这不是像年龄差那样利用不变的差的题。",
+  "zh-Hant": "這不是像年齡差那樣利用不變的差的題目。"
+ },
+ "1分ずつ表にすると何行も書くことになる。まん中で出会うとも限らない。": {
+  "en": "A minute-by-minute table means writing many rows. And they don't necessarily meet in the middle.",
+  "zh-Hans": "每1分钟列一行表，要写很多行。而且不一定在正中间相遇。",
+  "zh-Hant": "每1分鐘列一行表，要寫很多行。而且不一定在正中間相遇。"
+ },
+ "2800mはなれた道の両はしから、兄は分速100m、弟は分速40mで、向かい合って同時に歩き始めます。2人が出会うのは何分後ですか。": {
+  "en": "An older brother and a younger brother stand at the two ends of a road 2800 m long. They start walking toward each other at the same time, the older brother at 100 m per minute and the younger brother at 40 m per minute. After how many minutes do they meet?",
+  "zh-Hans": "哥哥和弟弟分别站在一条长2800m的路的两端，同时相向而行。哥哥每分钟走100m，弟弟每分钟走40m。两人几分钟后相遇？",
+  "zh-Hant": "哥哥和弟弟分別站在一條長2800m的路的兩端，同時相向而行。哥哥分速100m，弟弟分速40m。兩人幾分鐘後相遇？"
+ },
+ "弟を止めて考えると、兄は1分に 100+40 = 140m ずつ近づく": {
+  "en": "Freeze the younger brother: the older brother gets 100+40 = 140 m closer every minute",
+  "zh-Hans": "把弟弟定住来看，哥哥每分钟靠近 100+40 = 140m",
+  "zh-Hant": "把弟弟定住來看，哥哥每分鐘靠近 100+40 = 140m"
+ },
+ "はじめのきょりは2800m": {
+  "en": "The starting distance is 2800 m",
+  "zh-Hans": "一开始的距离是2800m",
+  "zh-Hant": "一開始的距離是2800m"
+ },
+ "2800÷140 = 20（分後）": {
+  "en": "2800÷140 = 20 (minutes later)",
+  "zh-Hans": "2800÷140 = 20（分钟后）",
+  "zh-Hant": "2800÷140 = 20（分鐘後）"
+ },
+ "2250mはなれた道の両はしから、兄は分速100m、弟は分速50mで、向かい合って同時に歩き始めます。2人が出会うのは何分後ですか。": {
+  "en": "An older brother and a younger brother stand at the two ends of a road 2250 m long. They start walking toward each other at the same time, the older brother at 100 m per minute and the younger brother at 50 m per minute. After how many minutes do they meet?",
+  "zh-Hans": "哥哥和弟弟分别站在一条长2250m的路的两端，同时相向而行。哥哥每分钟走100m，弟弟每分钟走50m。两人几分钟后相遇？",
+  "zh-Hant": "哥哥和弟弟分別站在一條長2250m的路的兩端，同時相向而行。哥哥分速100m，弟弟分速50m。兩人幾分鐘後相遇？"
+ },
+ "弟を止めて考えると、兄は1分に 100+50 = 150m ずつ近づく": {
+  "en": "Freeze the younger brother: the older brother gets 100+50 = 150 m closer every minute",
+  "zh-Hans": "把弟弟定住来看，哥哥每分钟靠近 100+50 = 150m",
+  "zh-Hant": "把弟弟定住來看，哥哥每分鐘靠近 100+50 = 150m"
+ },
+ "はじめのきょりは2250m": {
+  "en": "The starting distance is 2250 m",
+  "zh-Hans": "一开始的距离是2250m",
+  "zh-Hant": "一開始的距離是2250m"
+ },
+ "2250÷150 = 15（分後）": {
+  "en": "2250÷150 = 15 (minutes later)",
+  "zh-Hans": "2250÷150 = 15（分钟后）",
+  "zh-Hant": "2250÷150 = 15（分鐘後）"
+ },
+ "1430mはなれた道の両はしから、兄は分速80m、弟は分速50mで、向かい合って同時に歩き始めます。2人が出会うのは何分後ですか。": {
+  "en": "An older brother and a younger brother stand at the two ends of a road 1430 m long. They start walking toward each other at the same time, the older brother at 80 m per minute and the younger brother at 50 m per minute. After how many minutes do they meet?",
+  "zh-Hans": "哥哥和弟弟分别站在一条长1430m的路的两端，同时相向而行。哥哥每分钟走80m，弟弟每分钟走50m。两人几分钟后相遇？",
+  "zh-Hant": "哥哥和弟弟分別站在一條長1430m的路的兩端，同時相向而行。哥哥分速80m，弟弟分速50m。兩人幾分鐘後相遇？"
+ },
+ "弟を止めて考えると、兄は1分に 80+50 = 130m ずつ近づく": {
+  "en": "Freeze the younger brother: the older brother gets 80+50 = 130 m closer every minute",
+  "zh-Hans": "把弟弟定住来看，哥哥每分钟靠近 80+50 = 130m",
+  "zh-Hant": "把弟弟定住來看，哥哥每分鐘靠近 80+50 = 130m"
+ },
+ "はじめのきょりは1430m": {
+  "en": "The starting distance is 1430 m",
+  "zh-Hans": "一开始的距离是1430m",
+  "zh-Hant": "一開始的距離是1430m"
+ },
+ "1430÷130 = 11（分後）": {
+  "en": "1430÷130 = 11 (minutes later)",
+  "zh-Hans": "1430÷130 = 11（分钟后）",
+  "zh-Hant": "1430÷130 = 11（分鐘後）"
+ },
+ "1170mはなれた道の両はしから、兄は分速50m、弟は分速80mで、向かい合って同時に歩き始めます。2人が出会うのは何分後ですか。": {
+  "en": "An older brother and a younger brother stand at the two ends of a road 1170 m long. They start walking toward each other at the same time, the older brother at 50 m per minute and the younger brother at 80 m per minute. After how many minutes do they meet?",
+  "zh-Hans": "哥哥和弟弟分别站在一条长1170m的路的两端，同时相向而行。哥哥每分钟走50m，弟弟每分钟走80m。两人几分钟后相遇？",
+  "zh-Hant": "哥哥和弟弟分別站在一條長1170m的路的兩端，同時相向而行。哥哥分速50m，弟弟分速80m。兩人幾分鐘後相遇？"
+ },
+ "弟を止めて考えると、兄は1分に 50+80 = 130m ずつ近づく": {
+  "en": "Freeze the younger brother: the older brother gets 50+80 = 130 m closer every minute",
+  "zh-Hans": "把弟弟定住来看，哥哥每分钟靠近 50+80 = 130m",
+  "zh-Hant": "把弟弟定住來看，哥哥每分鐘靠近 50+80 = 130m"
+ },
+ "はじめのきょりは1170m": {
+  "en": "The starting distance is 1170 m",
+  "zh-Hans": "一开始的距离是1170m",
+  "zh-Hant": "一開始的距離是1170m"
+ },
+ "1170÷130 = 9（分後）": {
+  "en": "1170÷130 = 9 (minutes later)",
+  "zh-Hans": "1170÷130 = 9（分钟后）",
+  "zh-Hant": "1170÷130 = 9（分鐘後）"
+ },
+ "弟が家を出て、分速60mで歩き始めました。その10分後に、兄が家を出て、分速100mで同じ道を追いかけます。兄が弟に追いつくのは、兄が家を出てから何分後ですか。": {
+  "en": "A younger brother leaves home and starts walking at 60 m per minute. 10 minutes later, his older brother leaves home and follows him along the same road at 100 m per minute. How many minutes after leaving home does the older brother catch up with the younger brother?",
+  "zh-Hans": "弟弟从家出发，以每分钟60m的速度步行。10分钟后，哥哥从家出发，以每分钟100m的速度沿同一条路去追。哥哥出发后几分钟追上弟弟？",
+  "zh-Hant": "弟弟從家出發，以分速60m步行。10分鐘後，哥哥從家出發，以分速100m沿同一條路去追。哥哥出發後幾分鐘追上弟弟？"
+ },
+ "15分後": {
+  "en": "15 minutes later",
+  "zh-Hans": "15分钟后",
+  "zh-Hant": "15分鐘後"
+ },
+ "1分後、2分後…と、2人がいる場所を表に書いて比べる": {
+  "en": "Make a table of where the two are after 1 minute, 2 minutes, … and compare",
+  "zh-Hans": "把1分钟后、2分钟后……两人所在的位置列成表来比较",
+  "zh-Hant": "把1分鐘後、2分鐘後……兩人所在的位置列成表來比較"
+ },
+ "弟は先に出ているので、表がずれてまちがえやすい": {
+  "en": "The younger brother left first, so the table is out of step and easy to get wrong",
+  "zh-Hans": "弟弟先出发，表格会错开，容易出错",
+  "zh-Hant": "弟弟先出發，表格會錯開，容易出錯"
+ },
+ "弟を止めて考えると、兄は1分に 100−60 = 40m ずつ近づく": {
+  "en": "Freeze the younger brother: the older brother gets 100−60 = 40 m closer every minute",
+  "zh-Hans": "把弟弟定住来看，哥哥每分钟靠近 100−60 = 40m",
+  "zh-Hant": "把弟弟定住來看，哥哥每分鐘靠近 100−60 = 40m"
+ },
+ "兄が家を出るとき、弟は 60×10 = 600m 先にいる": {
+  "en": "When the older brother leaves, the younger brother is 60×10 = 600 m ahead",
+  "zh-Hans": "哥哥出发时，弟弟已经在前面 60×10 = 600m",
+  "zh-Hant": "哥哥出發時，弟弟已經在前面 60×10 = 600m"
+ },
+ "600÷40 = 15（分後）": {
+  "en": "600÷40 = 15 (minutes later)",
+  "zh-Hans": "600÷40 = 15（分钟后）",
+  "zh-Hant": "600÷40 = 15（分鐘後）"
+ },
+ "あとから追いかけるときは、前の人を止めて、速さの差で近づくと考える。": {
+  "en": "When someone chases from behind, freeze the person in front and think of closing the gap at the difference in speeds.",
+  "zh-Hans": "后面的人追前面的人时，把前面的人定住，看成以速度差靠近。",
+  "zh-Hant": "後面的人追前面的人時，把前面的人定住，看成以速度差靠近。"
+ },
+ "そのとおり。弟を止めると、兄は1分に40mずつ近づく。はじめの差は600m。": {
+  "en": "Right. Freeze the younger brother, and the older brother gets 40 m closer every minute. The starting gap is 600 m.",
+  "zh-Hans": "没错。把弟弟定住，哥哥每分钟靠近40m。一开始相差600m。",
+  "zh-Hant": "沒錯。把弟弟定住，哥哥每分鐘靠近40m。一開始相差600m。"
+ },
+ "年れいの問題ではない。2人の間のきょりは変わる。": {
+  "en": "This isn't an age problem. The distance between the two changes.",
+  "zh-Hans": "这不是年龄问题。两人之间的距离会变。",
+  "zh-Hant": "這不是年齡問題。兩人之間的距離會變。"
+ },
+ "表にすると、時間がずれていてまちがえやすい。": {
+  "en": "In a table the times are out of step, so it's easy to make mistakes.",
+  "zh-Hans": "列表的话，时间错开，容易出错。",
+  "zh-Hant": "列表的話，時間錯開，容易出錯。"
+ },
+ "弟が家を出て、分速60mで歩き始めました。その4分後に、兄が家を出て、分速100mで同じ道を追いかけます。兄が弟に追いつくのは、兄が家を出てから何分後ですか。": {
+  "en": "A younger brother leaves home and starts walking at 60 m per minute. 4 minutes later, his older brother leaves home and follows him along the same road at 100 m per minute. How many minutes after leaving home does the older brother catch up with the younger brother?",
+  "zh-Hans": "弟弟从家出发，以每分钟60m的速度步行。4分钟后，哥哥从家出发，以每分钟100m的速度沿同一条路去追。哥哥出发后几分钟追上弟弟？",
+  "zh-Hant": "弟弟從家出發，以分速60m步行。4分鐘後，哥哥從家出發，以分速100m沿同一條路去追。哥哥出發後幾分鐘追上弟弟？"
+ },
+ "兄が家を出るとき、弟は 60×4 = 240m 先にいる": {
+  "en": "When the older brother leaves, the younger brother is 60×4 = 240 m ahead",
+  "zh-Hans": "哥哥出发时，弟弟已经在前面 60×4 = 240m",
+  "zh-Hant": "哥哥出發時，弟弟已經在前面 60×4 = 240m"
+ },
+ "240÷40 = 6（分後）": {
+  "en": "240÷40 = 6 (minutes later)",
+  "zh-Hans": "240÷40 = 6（分钟后）",
+  "zh-Hant": "240÷40 = 6（分鐘後）"
+ },
+ "弟が家を出て、分速80mで歩き始めました。その6分後に、兄が家を出て、分速110mで同じ道を追いかけます。兄が弟に追いつくのは、兄が家を出てから何分後ですか。": {
+  "en": "A younger brother leaves home and starts walking at 80 m per minute. 6 minutes later, his older brother leaves home and follows him along the same road at 110 m per minute. How many minutes after leaving home does the older brother catch up with the younger brother?",
+  "zh-Hans": "弟弟从家出发，以每分钟80m的速度步行。6分钟后，哥哥从家出发，以每分钟110m的速度沿同一条路去追。哥哥出发后几分钟追上弟弟？",
+  "zh-Hant": "弟弟從家出發，以分速80m步行。6分鐘後，哥哥從家出發，以分速110m沿同一條路去追。哥哥出發後幾分鐘追上弟弟？"
+ },
+ "弟を止めて考えると、兄は1分に 110−80 = 30m ずつ近づく": {
+  "en": "Freeze the younger brother: the older brother gets 110−80 = 30 m closer every minute",
+  "zh-Hans": "把弟弟定住来看，哥哥每分钟靠近 110−80 = 30m",
+  "zh-Hant": "把弟弟定住來看，哥哥每分鐘靠近 110−80 = 30m"
+ },
+ "兄が家を出るとき、弟は 80×6 = 480m 先にいる": {
+  "en": "When the older brother leaves, the younger brother is 80×6 = 480 m ahead",
+  "zh-Hans": "哥哥出发时，弟弟已经在前面 80×6 = 480m",
+  "zh-Hant": "哥哥出發時，弟弟已經在前面 80×6 = 480m"
+ },
+ "480÷30 = 16（分後）": {
+  "en": "480÷30 = 16 (minutes later)",
+  "zh-Hans": "480÷30 = 16（分钟后）",
+  "zh-Hant": "480÷30 = 16（分鐘後）"
+ },
+ "弟が家を出て、分速60mで歩き始めました。その3分後に、兄が家を出て、分速80mで同じ道を追いかけます。兄が弟に追いつくのは、兄が家を出てから何分後ですか。": {
+  "en": "A younger brother leaves home and starts walking at 60 m per minute. 3 minutes later, his older brother leaves home and follows him along the same road at 80 m per minute. How many minutes after leaving home does the older brother catch up with the younger brother?",
+  "zh-Hans": "弟弟从家出发，以每分钟60m的速度步行。3分钟后，哥哥从家出发，以每分钟80m的速度沿同一条路去追。哥哥出发后几分钟追上弟弟？",
+  "zh-Hant": "弟弟從家出發，以分速60m步行。3分鐘後，哥哥從家出發，以分速80m沿同一條路去追。哥哥出發後幾分鐘追上弟弟？"
+ },
+ "弟を止めて考えると、兄は1分に 80−60 = 20m ずつ近づく": {
+  "en": "Freeze the younger brother: the older brother gets 80−60 = 20 m closer every minute",
+  "zh-Hans": "把弟弟定住来看，哥哥每分钟靠近 80−60 = 20m",
+  "zh-Hant": "把弟弟定住來看，哥哥每分鐘靠近 80−60 = 20m"
+ },
+ "兄が家を出るとき、弟は 60×3 = 180m 先にいる": {
+  "en": "When the older brother leaves, the younger brother is 60×3 = 180 m ahead",
+  "zh-Hans": "哥哥出发时，弟弟已经在前面 60×3 = 180m",
+  "zh-Hant": "哥哥出發時，弟弟已經在前面 60×3 = 180m"
+ },
+ "180÷20 = 9（分後）": {
+  "en": "180÷20 = 9 (minutes later)",
+  "zh-Hans": "180÷20 = 9（分钟后）",
+  "zh-Hant": "180÷20 = 9（分鐘後）"
+ },
+ "弟が家を出て、分速60mで歩き始めました。その6分後に、兄が家を出て、分速80mで同じ道を追いかけます。兄が弟に追いつくのは、兄が家を出てから何分後ですか。": {
+  "en": "A younger brother leaves home and starts walking at 60 m per minute. 6 minutes later, his older brother leaves home and follows him along the same road at 80 m per minute. How many minutes after leaving home does the older brother catch up with the younger brother?",
+  "zh-Hans": "弟弟从家出发，以每分钟60m的速度步行。6分钟后，哥哥从家出发，以每分钟80m的速度沿同一条路去追。哥哥出发后几分钟追上弟弟？",
+  "zh-Hant": "弟弟從家出發，以分速60m步行。6分鐘後，哥哥從家出發，以分速80m沿同一條路去追。哥哥出發後幾分鐘追上弟弟？"
+ },
+ "兄が家を出るとき、弟は 60×6 = 360m 先にいる": {
+  "en": "When the older brother leaves, the younger brother is 60×6 = 360 m ahead",
+  "zh-Hans": "哥哥出发时，弟弟已经在前面 60×6 = 360m",
+  "zh-Hant": "哥哥出發時，弟弟已經在前面 60×6 = 360m"
+ },
+ "360÷20 = 18（分後）": {
+  "en": "360÷20 = 18 (minutes later)",
+  "zh-Hans": "360÷20 = 18（分钟后）",
+  "zh-Hant": "360÷20 = 18（分鐘後）"
+ },
+ "片方の列車を止めると、もう片方は速さの和で進み、2つの長さの和だけ進めばはなれる。": {
+  "en": "Freeze one train, and the other moves at the sum of the speeds; once it has gone the sum of the two lengths, they are apart.",
+  "zh-Hans": "把一列列车定住，另一列就以速度之和前进，走完两列车长度之和就离开了。",
+  "zh-Hant": "把一列列車定住，另一列就以速度的和前進，走完兩列車長度的和就離開了。"
+ },
+ "長さ160mで秒速20mの列車Aと、長さ190mで秒速15mの列車Bが、向かい合って走っています。2つの列車が出会ってから完全にはなれるまで、何秒かかりますか。": {
+  "en": "Train A (160 m long, 20 m per second) and train B (190 m long, 15 m per second) are running toward each other. How many seconds does it take from the moment they meet until they have completely passed each other?",
+  "zh-Hans": "长160m、每秒行驶20m的列车A，和长190m、每秒行驶15m的列车B相向而行。两列车从相遇到完全离开，需要多少秒？",
+  "zh-Hant": "長160m、秒速20m的列車A，和長190m、秒速15m的列車B相向而行。兩列車從相遇到完全離開，需要幾秒？"
+ },
+ "秒": {
+  "en": " s",
+  "zh-Hans": "秒",
+  "zh-Hant": "秒"
+ },
+ "10秒": {
+  "en": "10 s",
+  "zh-Hans": "10秒",
+  "zh-Hant": "10秒"
+ },
+ "2つの列車を両方動かしたまま図をかき、どこからどこまで進むか考える": {
+  "en": "Draw both trains moving and work out where each goes from and to",
+  "zh-Hans": "画出两列车都在动的图，想想从哪里走到哪里",
+  "zh-Hant": "畫出兩列車都在動的圖，想想從哪裡走到哪裡"
+ },
+ "先頭とうしろの位置がこんがらがる": {
+  "en": "The positions of the fronts and backs get mixed up",
+  "zh-Hans": "车头和车尾的位置搞混了",
+  "zh-Hant": "車頭和車尾的位置搞混了"
+ },
+ "列車Bを止めて考えると、列車Aは秒速 20+15 = 35m で近づく": {
+  "en": "Freeze train B: train A approaches at 20+15 = 35 m per second",
+  "zh-Hans": "把列车B定住来看，列车A以每秒 20+15 = 35m 的速度靠近",
+  "zh-Hant": "把列車B定住來看，列車A以秒速 20+15 = 35m 靠近"
+ },
+ "出会ってからはなれるまでに進むのは、2つの列車の長さの和 160+190 = 350m": {
+  "en": "From meeting to separating, it travels the sum of the two train lengths: 160+190 = 350 m",
+  "zh-Hans": "从相遇到离开所走的路程，是两列车长度之和 160+190 = 350m",
+  "zh-Hant": "從相遇到離開所走的距離，是兩列車長度的和 160+190 = 350m"
+ },
+ "350÷35 = 10（秒）": {
+  "en": "350÷35 = 10 (s)",
+  "zh-Hans": "350÷35 = 10（秒）",
+  "zh-Hant": "350÷35 = 10（秒）"
+ },
+ "2つの列車がすれちがうときは、片方を止めて、速さの和で長さの和を進むと考える。": {
+  "en": "When two trains pass each other, freeze one and think of the other covering the sum of the lengths at the sum of the speeds.",
+  "zh-Hans": "两列车错车时，把其中一列定住，看成以速度之和走完长度之和。",
+  "zh-Hant": "兩列車會車時，把其中一列定住，看成以速度的和走完長度的和。"
+ },
+ "そのとおり。Bを止めると、Aは2つの速さの和で進み、2つの列車の長さの和だけ進めばはなれる。": {
+  "en": "Right. Freeze B, and A moves at the sum of the two speeds; once it has gone the sum of the two train lengths, they are apart.",
+  "zh-Hans": "没错。把B定住，A以两个速度之和前进，走完两列车长度之和就离开了。",
+  "zh-Hant": "沒錯。把B定住，A以兩個速度的和前進，走完兩列車長度的和就離開了。"
+ },
+ "両方動かしたまま考えると、位置の関係がややこしい。": {
+  "en": "If you keep both moving, the positions get confusing.",
+  "zh-Hans": "两列都动着来想，位置关系很复杂。",
+  "zh-Hant": "兩列都動著來想，位置關係很複雜。"
+ },
+ "長さ120mで秒速17mの列車Aと、長さ300mで秒速11mの列車Bが、向かい合って走っています。2つの列車が出会ってから完全にはなれるまで、何秒かかりますか。": {
+  "en": "Train A (120 m long, 17 m per second) and train B (300 m long, 11 m per second) are running toward each other. How many seconds does it take from the moment they meet until they have completely passed each other?",
+  "zh-Hans": "长120m、每秒行驶17m的列车A，和长300m、每秒行驶11m的列车B相向而行。两列车从相遇到完全离开，需要多少秒？",
+  "zh-Hant": "長120m、秒速17m的列車A，和長300m、秒速11m的列車B相向而行。兩列車從相遇到完全離開，需要幾秒？"
+ },
+ "列車Bを止めて考えると、列車Aは秒速 17+11 = 28m で近づく": {
+  "en": "Freeze train B: train A approaches at 17+11 = 28 m per second",
+  "zh-Hans": "把列车B定住来看，列车A以每秒 17+11 = 28m 的速度靠近",
+  "zh-Hant": "把列車B定住來看，列車A以秒速 17+11 = 28m 靠近"
+ },
+ "出会ってからはなれるまでに進むのは、2つの列車の長さの和 120+300 = 420m": {
+  "en": "From meeting to separating, it travels the sum of the two train lengths: 120+300 = 420 m",
+  "zh-Hans": "从相遇到离开所走的路程，是两列车长度之和 120+300 = 420m",
+  "zh-Hant": "從相遇到離開所走的距離，是兩列車長度的和 120+300 = 420m"
+ },
+ "420÷28 = 15（秒）": {
+  "en": "420÷28 = 15 (s)",
+  "zh-Hans": "420÷28 = 15（秒）",
+  "zh-Hant": "420÷28 = 15（秒）"
+ },
+ "長さ80mで秒速26mの列車Aと、長さ170mで秒速24mの列車Bが、向かい合って走っています。2つの列車が出会ってから完全にはなれるまで、何秒かかりますか。": {
+  "en": "Train A (80 m long, 26 m per second) and train B (170 m long, 24 m per second) are running toward each other. How many seconds does it take from the moment they meet until they have completely passed each other?",
+  "zh-Hans": "长80m、每秒行驶26m的列车A，和长170m、每秒行驶24m的列车B相向而行。两列车从相遇到完全离开，需要多少秒？",
+  "zh-Hant": "長80m、秒速26m的列車A，和長170m、秒速24m的列車B相向而行。兩列車從相遇到完全離開，需要幾秒？"
+ },
+ "列車Bを止めて考えると、列車Aは秒速 26+24 = 50m で近づく": {
+  "en": "Freeze train B: train A approaches at 26+24 = 50 m per second",
+  "zh-Hans": "把列车B定住来看，列车A以每秒 26+24 = 50m 的速度靠近",
+  "zh-Hant": "把列車B定住來看，列車A以秒速 26+24 = 50m 靠近"
+ },
+ "出会ってからはなれるまでに進むのは、2つの列車の長さの和 80+170 = 250m": {
+  "en": "From meeting to separating, it travels the sum of the two train lengths: 80+170 = 250 m",
+  "zh-Hans": "从相遇到离开所走的路程，是两列车长度之和 80+170 = 250m",
+  "zh-Hant": "從相遇到離開所走的距離，是兩列車長度的和 80+170 = 250m"
+ },
+ "250÷50 = 5（秒）": {
+  "en": "250÷50 = 5 (s)",
+  "zh-Hans": "250÷50 = 5（秒）",
+  "zh-Hant": "250÷50 = 5（秒）"
+ },
+ "長さ260mで秒速14mの列車Aと、長さ300mで秒速26mの列車Bが、向かい合って走っています。2つの列車が出会ってから完全にはなれるまで、何秒かかりますか。": {
+  "en": "Train A (260 m long, 14 m per second) and train B (300 m long, 26 m per second) are running toward each other. How many seconds does it take from the moment they meet until they have completely passed each other?",
+  "zh-Hans": "长260m、每秒行驶14m的列车A，和长300m、每秒行驶26m的列车B相向而行。两列车从相遇到完全离开，需要多少秒？",
+  "zh-Hant": "長260m、秒速14m的列車A，和長300m、秒速26m的列車B相向而行。兩列車從相遇到完全離開，需要幾秒？"
+ },
+ "列車Bを止めて考えると、列車Aは秒速 14+26 = 40m で近づく": {
+  "en": "Freeze train B: train A approaches at 14+26 = 40 m per second",
+  "zh-Hans": "把列车B定住来看，列车A以每秒 14+26 = 40m 的速度靠近",
+  "zh-Hant": "把列車B定住來看，列車A以秒速 14+26 = 40m 靠近"
+ },
+ "出会ってからはなれるまでに進むのは、2つの列車の長さの和 260+300 = 560m": {
+  "en": "From meeting to separating, it travels the sum of the two train lengths: 260+300 = 560 m",
+  "zh-Hans": "从相遇到离开所走的路程，是两列车长度之和 260+300 = 560m",
+  "zh-Hant": "從相遇到離開所走的距離，是兩列車長度的和 260+300 = 560m"
+ },
+ "560÷40 = 14（秒）": {
+  "en": "560÷40 = 14 (s)",
+  "zh-Hans": "560÷40 = 14（秒）",
+  "zh-Hant": "560÷40 = 14（秒）"
+ },
+ "長さ120mで秒速15mの列車Aと、長さ280mで秒速10mの列車Bが、向かい合って走っています。2つの列車が出会ってから完全にはなれるまで、何秒かかりますか。": {
+  "en": "Train A (120 m long, 15 m per second) and train B (280 m long, 10 m per second) are running toward each other. How many seconds does it take from the moment they meet until they have completely passed each other?",
+  "zh-Hans": "长120m、每秒行驶15m的列车A，和长280m、每秒行驶10m的列车B相向而行。两列车从相遇到完全离开，需要多少秒？",
+  "zh-Hant": "長120m、秒速15m的列車A，和長280m、秒速10m的列車B相向而行。兩列車從相遇到完全離開，需要幾秒？"
+ },
+ "列車Bを止めて考えると、列車Aは秒速 15+10 = 25m で近づく": {
+  "en": "Freeze train B: train A approaches at 15+10 = 25 m per second",
+  "zh-Hans": "把列车B定住来看，列车A以每秒 15+10 = 25m 的速度靠近",
+  "zh-Hant": "把列車B定住來看，列車A以秒速 15+10 = 25m 靠近"
+ },
+ "出会ってからはなれるまでに進むのは、2つの列車の長さの和 120+280 = 400m": {
+  "en": "From meeting to separating, it travels the sum of the two train lengths: 120+280 = 400 m",
+  "zh-Hans": "从相遇到离开所走的路程，是两列车长度之和 120+280 = 400m",
+  "zh-Hant": "從相遇到離開所走的距離，是兩列車長度的和 120+280 = 400m"
+ },
+ "400÷25 = 16（秒）": {
+  "en": "400÷25 = 16 (s)",
+  "zh-Hans": "400÷25 = 16（秒）",
+  "zh-Hant": "400÷25 = 16（秒）"
+ },
+ "短針を止めて考えると、長針は1分に5.5度ずつ近づく。時計の問題も、追いかける問題と同じ。": {
+  "en": "Freeze the hour hand: the minute hand gets 5.5 degrees closer every minute. Clock problems are just chase problems.",
+  "zh-Hans": "把时针定住来看，分针每分钟靠近5.5度。钟表问题和追及问题是一样的。",
+  "zh-Hant": "把短針定住來看，長針每分鐘靠近5.5度。時鐘問題和追趕問題是一樣的。"
+ },
+ "3時と4時の間で、時計の長針と短針が重なるのは、3時何分ですか。": {
+  "en": "Between 3 o'clock and 4 o'clock, the minute hand and the hour hand overlap. At how many minutes past 3 does this happen?",
+  "zh-Hans": "在3点到4点之间，钟表的分针和时针重合是在3点几分？",
+  "zh-Hant": "在3點到4點之間，時鐘的長針和短針重疊是在3點幾分？"
+ },
+ "分": {
+  "en": " min",
+  "zh-Hans": "分",
+  "zh-Hant": "分"
+ },
+ "3時16と4/11分": {
+  "en": "16 4/11 min past 3",
+  "zh-Hans": "3点16又4/11分",
+  "zh-Hant": "3點16又4/11分"
+ },
+ "1分ずつ、両方の針の角度を計算する": {
+  "en": "Work out the angle of both hands minute by minute",
+  "zh-Hans": "每1分钟都算一次两根针的角度",
+  "zh-Hant": "每1分鐘都算一次兩根針的角度"
+ },
+ "短針も動くのを忘れて、長針だけで答えてしまう": {
+  "en": "You forget that the hour hand moves too, and answer using only the minute hand",
+  "zh-Hans": "忘了时针也在动，只用分针来回答",
+  "zh-Hant": "忘了短針也在動，只用長針來回答"
+ },
+ "長針は1分に6度、短針は1分に0.5度進む": {
+  "en": "The minute hand moves 6 degrees a minute; the hour hand moves 0.5 degrees a minute",
+  "zh-Hans": "分针每分钟走6度，时针每分钟走0.5度",
+  "zh-Hant": "長針每分鐘走6度，短針每分鐘走0.5度"
+ },
+ "短針を止めて考えると、長針は1分に 6−0.5 = 5.5 度ずつ近づく": {
+  "en": "Freeze the hour hand: the minute hand gets 6−0.5 = 5.5 degrees closer every minute",
+  "zh-Hans": "把时针定住来看，分针每分钟靠近 6−0.5 = 5.5 度",
+  "zh-Hant": "把短針定住來看，長針每分鐘靠近 6−0.5 = 5.5 度"
+ },
+ "3時ちょうどのとき、長針は短針より 3×30 = 90 度うしろにいる": {
+  "en": "At exactly 3 o'clock, the minute hand is 3×30 = 90 degrees behind the hour hand",
+  "zh-Hans": "3点整时，分针在时针后面 3×30 = 90 度",
+  "zh-Hant": "3點整時，長針在短針後面 3×30 = 90 度"
+ },
+ "90÷5.5 = 16と4/11（分）": {
+  "en": "90÷5.5 = 16と4/11 (min)",
+  "zh-Hans": "90÷5.5 = 16と4/11（分钟）",
+  "zh-Hant": "90÷5.5 = 16と4/11（分鐘）"
+ },
+ "時計の2本の針は、短針を止めて、長針が追いかけると考える。": {
+  "en": "For the two hands of a clock, freeze the hour hand and think of the minute hand chasing it.",
+  "zh-Hans": "钟表的两根针，把时针定住，看成分针在追时针。",
+  "zh-Hant": "時鐘的兩根針，把短針定住，看成長針在追短針。"
+ },
+ "そのとおり。短針を止めると、長針は1分に5.5度ずつ、90度の差を追いかける。": {
+  "en": "Right. Freeze the hour hand, and the minute hand closes the 90-degree gap at 5.5 degrees a minute.",
+  "zh-Hans": "没错。把时针定住，分针每分钟追5.5度，追上90度的差。",
+  "zh-Hant": "沒錯。把短針定住，長針每分鐘追5.5度，追上90度的差。"
+ },
+ "差は変わる。1分に5.5度ずつちぢむ。": {
+  "en": "The gap changes. It shrinks by 5.5 degrees every minute.",
+  "zh-Hans": "差会变。每分钟缩小5.5度。",
+  "zh-Hant": "差會變。每分鐘縮小5.5度。"
+ },
+ "折り返す問題ではない。": {
+  "en": "This isn't a reflection problem.",
+  "zh-Hans": "这不是翻折的题。",
+  "zh-Hant": "這不是翻折的題目。"
+ },
+ "長針だけ動くと考えた答えは、短針が動くのを忘れている。": {
+  "en": "An answer that has only the minute hand moving forgets that the hour hand moves too.",
+  "zh-Hans": "只考虑分针在动的答案，忘了时针也在动。",
+  "zh-Hant": "只考慮長針在動的答案，忘了短針也在動。"
+ },
+ "5時と6時の間で、時計の長針と短針が重なるのは、5時何分ですか。": {
+  "en": "Between 5 o'clock and 6 o'clock, the minute hand and the hour hand overlap. At how many minutes past 5 does this happen?",
+  "zh-Hans": "在5点到6点之间，钟表的分针和时针重合是在5点几分？",
+  "zh-Hant": "在5點到6點之間，時鐘的長針和短針重疊是在5點幾分？"
+ },
+ "5時ちょうどのとき、長針は短針より 5×30 = 150 度うしろにいる": {
+  "en": "At exactly 5 o'clock, the minute hand is 5×30 = 150 degrees behind the hour hand",
+  "zh-Hans": "5点整时，分针在时针后面 5×30 = 150 度",
+  "zh-Hant": "5點整時，長針在短針後面 5×30 = 150 度"
+ },
+ "150÷5.5 = 27と3/11（分）": {
+  "en": "150÷5.5 = 27と3/11 (min)",
+  "zh-Hans": "150÷5.5 = 27と3/11（分钟）",
+  "zh-Hant": "150÷5.5 = 27と3/11（分鐘）"
+ },
+ "5時27と3/11分": {
+  "en": "27 3/11 min past 5",
+  "zh-Hans": "5点27又3/11分",
+  "zh-Hant": "5點27又3/11分"
+ },
+ "8時と9時の間で、時計の長針と短針が重なるのは、8時何分ですか。": {
+  "en": "Between 8 o'clock and 9 o'clock, the minute hand and the hour hand overlap. At how many minutes past 8 does this happen?",
+  "zh-Hans": "在8点到9点之间，钟表的分针和时针重合是在8点几分？",
+  "zh-Hant": "在8點到9點之間，時鐘的長針和短針重疊是在8點幾分？"
+ },
+ "8時ちょうどのとき、長針は短針より 8×30 = 240 度うしろにいる": {
+  "en": "At exactly 8 o'clock, the minute hand is 8×30 = 240 degrees behind the hour hand",
+  "zh-Hans": "8点整时，分针在时针后面 8×30 = 240 度",
+  "zh-Hant": "8點整時，長針在短針後面 8×30 = 240 度"
+ },
+ "240÷5.5 = 43と7/11（分）": {
+  "en": "240÷5.5 = 43と7/11 (min)",
+  "zh-Hans": "240÷5.5 = 43と7/11（分钟）",
+  "zh-Hant": "240÷5.5 = 43と7/11（分鐘）"
+ },
+ "8時43と7/11分": {
+  "en": "43 7/11 min past 8",
+  "zh-Hans": "8点43又7/11分",
+  "zh-Hant": "8點43又7/11分"
+ },
+ "2時と3時の間で、時計の長針と短針が重なるのは、2時何分ですか。": {
+  "en": "Between 2 o'clock and 3 o'clock, the minute hand and the hour hand overlap. At how many minutes past 2 does this happen?",
+  "zh-Hans": "在2点到3点之间，钟表的分针和时针重合是在2点几分？",
+  "zh-Hant": "在2點到3點之間，時鐘的長針和短針重疊是在2點幾分？"
+ },
+ "2時ちょうどのとき、長針は短針より 2×30 = 60 度うしろにいる": {
+  "en": "At exactly 2 o'clock, the minute hand is 2×30 = 60 degrees behind the hour hand",
+  "zh-Hans": "2点整时，分针在时针后面 2×30 = 60 度",
+  "zh-Hant": "2點整時，長針在短針後面 2×30 = 60 度"
+ },
+ "60÷5.5 = 10と10/11（分）": {
+  "en": "60÷5.5 = 10と10/11 (min)",
+  "zh-Hans": "60÷5.5 = 10と10/11（分钟）",
+  "zh-Hant": "60÷5.5 = 10と10/11（分鐘）"
+ },
+ "2時10と10/11分": {
+  "en": "10 10/11 min past 2",
+  "zh-Hans": "2点10又10/11分",
+  "zh-Hant": "2點10又10/11分"
+ },
+ "9時と10時の間で、時計の長針と短針が重なるのは、9時何分ですか。": {
+  "en": "Between 9 o'clock and 10 o'clock, the minute hand and the hour hand overlap. At how many minutes past 9 does this happen?",
+  "zh-Hans": "在9点到10点之间，钟表的分针和时针重合是在9点几分？",
+  "zh-Hant": "在9點到10點之間，時鐘的長針和短針重疊是在9點幾分？"
+ },
+ "9時ちょうどのとき、長針は短針より 9×30 = 270 度うしろにいる": {
+  "en": "At exactly 9 o'clock, the minute hand is 9×30 = 270 degrees behind the hour hand",
+  "zh-Hans": "9点整时，分针在时针后面 9×30 = 270 度",
+  "zh-Hant": "9點整時，長針在短針後面 9×30 = 270 度"
+ },
+ "270÷5.5 = 49と1/11（分）": {
+  "en": "270÷5.5 = 49と1/11 (min)",
+  "zh-Hans": "270÷5.5 = 49と1/11（分钟）",
+  "zh-Hant": "270÷5.5 = 49と1/11（分鐘）"
+ },
+ "9時49と1/11分": {
+  "en": "49 1/11 min past 9",
+  "zh-Hans": "9点49又1/11分",
+  "zh-Hant": "9點49又1/11分"
+ },
+ "片方を止めると、もう片方は速さの差で近づく。追いこすまでに進むのは、2つの列車の長さの和。": {
+  "en": "Freeze one, and the other closes in at the difference in speeds. To pass, it must travel the sum of the two train lengths.",
+  "zh-Hans": "把一列定住，另一列就以速度差靠近。超车过程中要走的是两列车长度之和。",
+  "zh-Hant": "把一列定住，另一列就以速度差靠近。超越過程中要走的是兩列車長度的和。"
+ },
+ "長さ180mで秒速25mの列車Aが、同じ向きに走る長さ140mで秒速17mの列車Bに、うしろから追いつきました。Aの先頭がBの最後尾に追いついてから、AがBを完全に追いこすまで、何秒かかりますか。": {
+  "en": "Train A (180 m long, 25 m per second) catches up from behind with train B (140 m long, 17 m per second), which is running in the same direction. How many seconds does it take from when the front of A reaches the back of B until A has completely passed B?",
+  "zh-Hans": "长180m、每秒行驶25m的列车A，从后面追上同向行驶、长140m、每秒行驶17m的列车B。从A的车头追上B的车尾，到A完全超过B，需要多少秒？",
+  "zh-Hant": "長180m、秒速25m的列車A，從後面追上同向行駛、長140m、秒速17m的列車B。從A的車頭追上B的車尾，到A完全超越B，需要幾秒？"
+ },
+ "40秒": {
+  "en": "40 s",
+  "zh-Hans": "40秒",
+  "zh-Hant": "40秒"
+ },
+ "2つの列車を両方動かしたまま、先頭と最後尾の位置を追いかける": {
+  "en": "Keep both trains moving and track the positions of the fronts and backs",
+  "zh-Hans": "让两列车都动着，追踪车头和车尾的位置",
+  "zh-Hant": "讓兩列車都動著，追蹤車頭和車尾的位置"
+ },
+ "どこからどこまで進むかがこんがらがる": {
+  "en": "You get mixed up about where it goes from and to",
+  "zh-Hans": "从哪里走到哪里搞混了",
+  "zh-Hant": "從哪裡走到哪裡搞混了"
+ },
+ "列車Bを止めて考えると、列車Aは秒速 25−17 = 8m で近づく": {
+  "en": "Freeze train B: train A approaches at 25−17 = 8 m per second",
+  "zh-Hans": "把列车B定住来看，列车A以每秒 25−17 = 8m 的速度靠近",
+  "zh-Hant": "把列車B定住來看，列車A以秒速 25−17 = 8m 靠近"
+ },
+ "追いこすまでに進むのは、2つの列車の長さの和 180+140 = 320m": {
+  "en": "To pass completely, it travels the sum of the two train lengths: 180+140 = 320 m",
+  "zh-Hans": "超车过程中所走的路程，是两列车长度之和 180+140 = 320m",
+  "zh-Hant": "超越過程中所走的距離，是兩列車長度的和 180+140 = 320m"
+ },
+ "320÷8 = 40（秒）": {
+  "en": "320÷8 = 40 (s)",
+  "zh-Hans": "320÷8 = 40（秒）",
+  "zh-Hant": "320÷8 = 40（秒）"
+ },
+ "同じ向きに走る列車が追いこすときは、遅い方を止めて、速さの差で長さの和を進むと考える。": {
+  "en": "When a train overtakes another going the same way, freeze the slower one and think of covering the sum of the lengths at the difference in speeds.",
+  "zh-Hans": "同向行驶的列车超车时，把慢的那列定住，看成以速度差走完长度之和。",
+  "zh-Hant": "同向行駛的列車超車時，把慢的那列定住，看成以速度差走完長度的和。"
+ },
+ "そのとおり。Bを止めると、Aは2つの速さの差で進み、2つの列車の長さの和だけ進めば追いこせる。": {
+  "en": "Right. Freeze B, and A moves at the difference of the two speeds; once it has gone the sum of the two train lengths, it has passed.",
+  "zh-Hans": "没错。把B定住，A以两个速度之差前进，走完两列车长度之和就超过了。",
+  "zh-Hant": "沒錯。把B定住，A以兩個速度的差前進，走完兩列車長度的和就超越了。"
+ },
+ "長さ240mで秒速27mの列車Aが、同じ向きに走る長さ80mで秒速17mの列車Bに、うしろから追いつきました。Aの先頭がBの最後尾に追いついてから、AがBを完全に追いこすまで、何秒かかりますか。": {
+  "en": "Train A (240 m long, 27 m per second) catches up from behind with train B (80 m long, 17 m per second), which is running in the same direction. How many seconds does it take from when the front of A reaches the back of B until A has completely passed B?",
+  "zh-Hans": "长240m、每秒行驶27m的列车A，从后面追上同向行驶、长80m、每秒行驶17m的列车B。从A的车头追上B的车尾，到A完全超过B，需要多少秒？",
+  "zh-Hant": "長240m、秒速27m的列車A，從後面追上同向行駛、長80m、秒速17m的列車B。從A的車頭追上B的車尾，到A完全超越B，需要幾秒？"
+ },
+ "列車Bを止めて考えると、列車Aは秒速 27−17 = 10m で近づく": {
+  "en": "Freeze train B: train A approaches at 27−17 = 10 m per second",
+  "zh-Hans": "把列车B定住来看，列车A以每秒 27−17 = 10m 的速度靠近",
+  "zh-Hant": "把列車B定住來看，列車A以秒速 27−17 = 10m 靠近"
+ },
+ "追いこすまでに進むのは、2つの列車の長さの和 240+80 = 320m": {
+  "en": "To pass completely, it travels the sum of the two train lengths: 240+80 = 320 m",
+  "zh-Hans": "超车过程中所走的路程，是两列车长度之和 240+80 = 320m",
+  "zh-Hant": "超越過程中所走的距離，是兩列車長度的和 240+80 = 320m"
+ },
+ "320÷10 = 32（秒）": {
+  "en": "320÷10 = 32 (s)",
+  "zh-Hans": "320÷10 = 32（秒）",
+  "zh-Hant": "320÷10 = 32（秒）"
+ },
+ "長さ80mで秒速28mの列車Aが、同じ向きに走る長さ210mで秒速18mの列車Bに、うしろから追いつきました。Aの先頭がBの最後尾に追いついてから、AがBを完全に追いこすまで、何秒かかりますか。": {
+  "en": "Train A (80 m long, 28 m per second) catches up from behind with train B (210 m long, 18 m per second), which is running in the same direction. How many seconds does it take from when the front of A reaches the back of B until A has completely passed B?",
+  "zh-Hans": "长80m、每秒行驶28m的列车A，从后面追上同向行驶、长210m、每秒行驶18m的列车B。从A的车头追上B的车尾，到A完全超过B，需要多少秒？",
+  "zh-Hant": "長80m、秒速28m的列車A，從後面追上同向行駛、長210m、秒速18m的列車B。從A的車頭追上B的車尾，到A完全超越B，需要幾秒？"
+ },
+ "列車Bを止めて考えると、列車Aは秒速 28−18 = 10m で近づく": {
+  "en": "Freeze train B: train A approaches at 28−18 = 10 m per second",
+  "zh-Hans": "把列车B定住来看，列车A以每秒 28−18 = 10m 的速度靠近",
+  "zh-Hant": "把列車B定住來看，列車A以秒速 28−18 = 10m 靠近"
+ },
+ "追いこすまでに進むのは、2つの列車の長さの和 80+210 = 290m": {
+  "en": "To pass completely, it travels the sum of the two train lengths: 80+210 = 290 m",
+  "zh-Hans": "超车过程中所走的路程，是两列车长度之和 80+210 = 290m",
+  "zh-Hant": "超越過程中所走的距離，是兩列車長度的和 80+210 = 290m"
+ },
+ "290÷10 = 29（秒）": {
+  "en": "290÷10 = 29 (s)",
+  "zh-Hans": "290÷10 = 29（秒）",
+  "zh-Hant": "290÷10 = 29（秒）"
+ },
+ "長さ80mで秒速23mの列車Aが、同じ向きに走る長さ250mで秒速13mの列車Bに、うしろから追いつきました。Aの先頭がBの最後尾に追いついてから、AがBを完全に追いこすまで、何秒かかりますか。": {
+  "en": "Train A (80 m long, 23 m per second) catches up from behind with train B (250 m long, 13 m per second), which is running in the same direction. How many seconds does it take from when the front of A reaches the back of B until A has completely passed B?",
+  "zh-Hans": "长80m、每秒行驶23m的列车A，从后面追上同向行驶、长250m、每秒行驶13m的列车B。从A的车头追上B的车尾，到A完全超过B，需要多少秒？",
+  "zh-Hant": "長80m、秒速23m的列車A，從後面追上同向行駛、長250m、秒速13m的列車B。從A的車頭追上B的車尾，到A完全超越B，需要幾秒？"
+ },
+ "列車Bを止めて考えると、列車Aは秒速 23−13 = 10m で近づく": {
+  "en": "Freeze train B: train A approaches at 23−13 = 10 m per second",
+  "zh-Hans": "把列车B定住来看，列车A以每秒 23−13 = 10m 的速度靠近",
+  "zh-Hant": "把列車B定住來看，列車A以秒速 23−13 = 10m 靠近"
+ },
+ "追いこすまでに進むのは、2つの列車の長さの和 80+250 = 330m": {
+  "en": "To pass completely, it travels the sum of the two train lengths: 80+250 = 330 m",
+  "zh-Hans": "超车过程中所走的路程，是两列车长度之和 80+250 = 330m",
+  "zh-Hant": "超越過程中所走的距離，是兩列車長度的和 80+250 = 330m"
+ },
+ "330÷10 = 33（秒）": {
+  "en": "330÷10 = 33 (s)",
+  "zh-Hans": "330÷10 = 33（秒）",
+  "zh-Hant": "330÷10 = 33（秒）"
+ },
+ "長さ90mで秒速27mの列車Aが、同じ向きに走る長さ250mで秒速17mの列車Bに、うしろから追いつきました。Aの先頭がBの最後尾に追いついてから、AがBを完全に追いこすまで、何秒かかりますか。": {
+  "en": "Train A (90 m long, 27 m per second) catches up from behind with train B (250 m long, 17 m per second), which is running in the same direction. How many seconds does it take from when the front of A reaches the back of B until A has completely passed B?",
+  "zh-Hans": "长90m、每秒行驶27m的列车A，从后面追上同向行驶、长250m、每秒行驶17m的列车B。从A的车头追上B的车尾，到A完全超过B，需要多少秒？",
+  "zh-Hant": "長90m、秒速27m的列車A，從後面追上同向行駛、長250m、秒速17m的列車B。從A的車頭追上B的車尾，到A完全超越B，需要幾秒？"
+ },
+ "追いこすまでに進むのは、2つの列車の長さの和 90+250 = 340m": {
+  "en": "To pass completely, it travels the sum of the two train lengths: 90+250 = 340 m",
+  "zh-Hans": "超车过程中所走的路程，是两列车长度之和 90+250 = 340m",
+  "zh-Hant": "超越過程中所走的距離，是兩列車長度的和 90+250 = 340m"
+ },
+ "340÷10 = 34（秒）": {
+  "en": "340÷10 = 34 (s)",
+  "zh-Hans": "340÷10 = 34（秒）",
+  "zh-Hant": "340÷10 = 34（秒）"
+ },
+ "反対向きに回ると、2人の間は1分に速さの和だけちぢむ。出会うまでに1周分ちぢめばよい。": {
+  "en": "Going opposite ways, the gap between them shrinks by the sum of their speeds every minute. They meet once it has shrunk by one lap.",
+  "zh-Hans": "反向而行时，两人之间每分钟缩短速度之和。缩短一周就相遇了。",
+  "zh-Hant": "反方向走時，兩人之間每分鐘縮短速度的和。縮短一圈就相遇了。"
+ },
+ "1周1800mの池のまわりを、兄は分速80m、弟は分速70mで、同じ地点から反対向きに同時に歩き始めます。2人が初めて出会うのは何分後ですか。": {
+  "en": "A path around a pond is 1800 m all the way around. An older brother (80 m per minute) and a younger brother (70 m per minute) start walking from the same spot at the same time in opposite directions. After how many minutes do they meet for the first time?",
+  "zh-Hans": "一个池塘一周长1800m。哥哥每分钟走80m，弟弟每分钟走70m，两人从同一地点同时出发，沿池塘反向而行。两人几分钟后第一次相遇？",
+  "zh-Hant": "一個池塘一圈長1800m。哥哥分速80m，弟弟分速70m，兩人從同一地點同時出發，沿池塘反方向走。兩人幾分鐘後第一次相遇？"
+ },
+ "2人が池のどこで出会うかを、1分ずつ図にかいて調べる": {
+  "en": "Draw a picture minute by minute to find where around the pond they meet",
+  "zh-Hans": "每1分钟画一次图，找出两人在池塘的哪里相遇",
+  "zh-Hant": "每1分鐘畫一次圖，找出兩人在池塘的哪裡相遇"
+ },
+ "池が丸いので、位置がわかりにくい": {
+  "en": "The pond is round, so positions are hard to follow",
+  "zh-Hans": "池塘是圆的，位置不好看清",
+  "zh-Hant": "池塘是圓的，位置不好看清"
+ },
+ "弟を止めて考えると、兄は1分に 80+70 = 150m ずつ弟に近づく": {
+  "en": "Freeze the younger brother: the older brother gets 80+70 = 150 m closer to him every minute",
+  "zh-Hans": "把弟弟定住来看，哥哥每分钟向弟弟靠近 80+70 = 150m",
+  "zh-Hant": "把弟弟定住來看，哥哥每分鐘向弟弟靠近 80+70 = 150m"
+ },
+ "反対向きに進むので、出会うまでに近づくきょりは池1周の1800m": {
+  "en": "They go in opposite directions, so the distance they must close before meeting is one lap of the pond: 1800 m",
+  "zh-Hans": "因为反向而行，相遇前要缩短的距离是池塘一周的1800m",
+  "zh-Hant": "因為反方向走，相遇前要縮短的距離是池塘一圈的1800m"
+ },
+ "池のまわりを反対向きに回るときは、片方を止めて、速さの和で1周を進むと考える。": {
+  "en": "When walking around a pond in opposite directions, freeze one and think of covering one lap at the sum of the speeds.",
+  "zh-Hans": "沿池塘反向而行时，把其中一人定住，看成以速度之和走完一周。",
+  "zh-Hant": "沿池塘反方向走時，把其中一人定住，看成以速度的和走完一圈。"
+ },
+ "そのとおり。弟を止めると、兄は2人の速さの和で近づく。出会うまでに1周分。": {
+  "en": "Right. Freeze the younger brother, and the older brother approaches at the sum of their speeds. One lap until they meet.",
+  "zh-Hans": "没错。把弟弟定住，哥哥以两人速度之和靠近。相遇前要走一周。",
+  "zh-Hant": "沒錯。把弟弟定住，哥哥以兩人速度的和靠近。相遇前要走一圈。"
+ },
+ "1分ずつ図にかくと、時間がかかる。": {
+  "en": "Drawing it minute by minute takes a long time.",
+  "zh-Hans": "每1分钟画一次图，很花时间。",
+  "zh-Hant": "每1分鐘畫一次圖，很花時間。"
+ },
+ "1周2730mの池のまわりを、兄は分速70m、弟は分速60mで、同じ地点から反対向きに同時に歩き始めます。2人が初めて出会うのは何分後ですか。": {
+  "en": "A path around a pond is 2730 m all the way around. An older brother (70 m per minute) and a younger brother (60 m per minute) start walking from the same spot at the same time in opposite directions. After how many minutes do they meet for the first time?",
+  "zh-Hans": "一个池塘一周长2730m。哥哥每分钟走70m，弟弟每分钟走60m，两人从同一地点同时出发，沿池塘反向而行。两人几分钟后第一次相遇？",
+  "zh-Hant": "一個池塘一圈長2730m。哥哥分速70m，弟弟分速60m，兩人從同一地點同時出發，沿池塘反方向走。兩人幾分鐘後第一次相遇？"
+ },
+ "弟を止めて考えると、兄は1分に 70+60 = 130m ずつ弟に近づく": {
+  "en": "Freeze the younger brother: the older brother gets 70+60 = 130 m closer to him every minute",
+  "zh-Hans": "把弟弟定住来看，哥哥每分钟向弟弟靠近 70+60 = 130m",
+  "zh-Hant": "把弟弟定住來看，哥哥每分鐘向弟弟靠近 70+60 = 130m"
+ },
+ "反対向きに進むので、出会うまでに近づくきょりは池1周の2730m": {
+  "en": "They go in opposite directions, so the distance they must close before meeting is one lap of the pond: 2730 m",
+  "zh-Hans": "因为反向而行，相遇前要缩短的距离是池塘一周的2730m",
+  "zh-Hant": "因為反方向走，相遇前要縮短的距離是池塘一圈的2730m"
+ },
+ "2730÷130 = 21（分後）": {
+  "en": "2730÷130 = 21 (minutes later)",
+  "zh-Hans": "2730÷130 = 21（分钟后）",
+  "zh-Hant": "2730÷130 = 21（分鐘後）"
+ },
+ "1周3000mの池のまわりを、兄は分速90m、弟は分速60mで、同じ地点から反対向きに同時に歩き始めます。2人が初めて出会うのは何分後ですか。": {
+  "en": "A path around a pond is 3000 m all the way around. An older brother (90 m per minute) and a younger brother (60 m per minute) start walking from the same spot at the same time in opposite directions. After how many minutes do they meet for the first time?",
+  "zh-Hans": "一个池塘一周长3000m。哥哥每分钟走90m，弟弟每分钟走60m，两人从同一地点同时出发，沿池塘反向而行。两人几分钟后第一次相遇？",
+  "zh-Hant": "一個池塘一圈長3000m。哥哥分速90m，弟弟分速60m，兩人從同一地點同時出發，沿池塘反方向走。兩人幾分鐘後第一次相遇？"
+ },
+ "弟を止めて考えると、兄は1分に 90+60 = 150m ずつ弟に近づく": {
+  "en": "Freeze the younger brother: the older brother gets 90+60 = 150 m closer to him every minute",
+  "zh-Hans": "把弟弟定住来看，哥哥每分钟向弟弟靠近 90+60 = 150m",
+  "zh-Hant": "把弟弟定住來看，哥哥每分鐘向弟弟靠近 90+60 = 150m"
+ },
+ "反対向きに進むので、出会うまでに近づくきょりは池1周の3000m": {
+  "en": "They go in opposite directions, so the distance they must close before meeting is one lap of the pond: 3000 m",
+  "zh-Hans": "因为反向而行，相遇前要缩短的距离是池塘一周的3000m",
+  "zh-Hant": "因為反方向走，相遇前要縮短的距離是池塘一圈的3000m"
+ },
+ "3000÷150 = 20（分後）": {
+  "en": "3000÷150 = 20 (minutes later)",
+  "zh-Hans": "3000÷150 = 20（分钟后）",
+  "zh-Hant": "3000÷150 = 20（分鐘後）"
+ },
+ "1周2800mの池のまわりを、兄は分速120m、弟は分速80mで、同じ地点から反対向きに同時に歩き始めます。2人が初めて出会うのは何分後ですか。": {
+  "en": "A path around a pond is 2800 m all the way around. An older brother (120 m per minute) and a younger brother (80 m per minute) start walking from the same spot at the same time in opposite directions. After how many minutes do they meet for the first time?",
+  "zh-Hans": "一个池塘一周长2800m。哥哥每分钟走120m，弟弟每分钟走80m，两人从同一地点同时出发，沿池塘反向而行。两人几分钟后第一次相遇？",
+  "zh-Hant": "一個池塘一圈長2800m。哥哥分速120m，弟弟分速80m，兩人從同一地點同時出發，沿池塘反方向走。兩人幾分鐘後第一次相遇？"
+ },
+ "弟を止めて考えると、兄は1分に 120+80 = 200m ずつ弟に近づく": {
+  "en": "Freeze the younger brother: the older brother gets 120+80 = 200 m closer to him every minute",
+  "zh-Hans": "把弟弟定住来看，哥哥每分钟向弟弟靠近 120+80 = 200m",
+  "zh-Hant": "把弟弟定住來看，哥哥每分鐘向弟弟靠近 120+80 = 200m"
+ },
+ "反対向きに進むので、出会うまでに近づくきょりは池1周の2800m": {
+  "en": "They go in opposite directions, so the distance they must close before meeting is one lap of the pond: 2800 m",
+  "zh-Hans": "因为反向而行，相遇前要缩短的距离是池塘一周的2800m",
+  "zh-Hant": "因為反方向走，相遇前要縮短的距離是池塘一圈的2800m"
+ },
+ "2800÷200 = 14（分後）": {
+  "en": "2800÷200 = 14 (minutes later)",
+  "zh-Hans": "2800÷200 = 14（分钟后）",
+  "zh-Hant": "2800÷200 = 14（分鐘後）"
+ },
+ "1周1040mの池のまわりを、兄は分速70m、弟は分速60mで、同じ地点から反対向きに同時に歩き始めます。2人が初めて出会うのは何分後ですか。": {
+  "en": "A path around a pond is 1040 m all the way around. An older brother (70 m per minute) and a younger brother (60 m per minute) start walking from the same spot at the same time in opposite directions. After how many minutes do they meet for the first time?",
+  "zh-Hans": "一个池塘一周长1040m。哥哥每分钟走70m，弟弟每分钟走60m，两人从同一地点同时出发，沿池塘反向而行。两人几分钟后第一次相遇？",
+  "zh-Hant": "一個池塘一圈長1040m。哥哥分速70m，弟弟分速60m，兩人從同一地點同時出發，沿池塘反方向走。兩人幾分鐘後第一次相遇？"
+ },
+ "反対向きに進むので、出会うまでに近づくきょりは池1周の1040m": {
+  "en": "They go in opposite directions, so the distance they must close before meeting is one lap of the pond: 1040 m",
+  "zh-Hans": "因为反向而行，相遇前要缩短的距离是池塘一周的1040m",
+  "zh-Hant": "因為反方向走，相遇前要縮短的距離是池塘一圈的1040m"
+ },
+ "1040÷130 = 8（分後）": {
+  "en": "1040÷130 = 8 (minutes later)",
+  "zh-Hans": "1040÷130 = 8（分钟后）",
+  "zh-Hant": "1040÷130 = 8（分鐘後）"
+ },
+ "同じ向きに回ると、2人の間は1分に速さの差だけちぢむ。初めて追いつくのは、ちょうど1周分の差がついたとき。": {
+  "en": "Going the same way, the gap between them shrinks by the difference in speeds every minute. She first catches up when she is exactly one lap ahead.",
+  "zh-Hans": "同向而行时，两人之间每分钟缩短速度之差。正好拉开一周的差时，第一次追上。",
+  "zh-Hant": "同方向走時，兩人之間每分鐘縮短速度的差。剛好拉開一圈的差時，第一次追上。"
+ },
+ "1周1200mの池のまわりを、姉は分速90m、妹は分速60mで、同じ地点から同じ向きに同時に歩き始めます。姉が妹に初めて追いつくのは何分後ですか。": {
+  "en": "A path around a pond is 1200 m all the way around. An older sister (90 m per minute) and a younger sister (60 m per minute) start walking from the same spot at the same time in the same direction. After how many minutes does the older sister first catch up with the younger sister?",
+  "zh-Hans": "一个池塘一周长1200m。姐姐每分钟走90m，妹妹每分钟走60m，两人从同一地点同时出发，沿池塘同向而行。姐姐几分钟后第一次追上妹妹？",
+  "zh-Hant": "一個池塘一圈長1200m。姊姊分速90m，妹妹分速60m，兩人從同一地點同時出發，沿池塘同方向走。姊姊幾分鐘後第一次追上妹妹？"
+ },
+ "40分後": {
+  "en": "40 minutes later",
+  "zh-Hans": "40分钟后",
+  "zh-Hant": "40分鐘後"
+ },
+ "姉が1周したとき、2周したとき…と、妹の位置と比べる": {
+  "en": "Compare with the younger sister's position after the older sister has done 1 lap, 2 laps, …",
+  "zh-Hans": "在姐姐走完1周、2周……时，和妹妹的位置比较",
+  "zh-Hant": "在姊姊走完1圈、2圈……時，和妹妹的位置比較"
+ },
+ "同じ地点から出るので、どこで追いつくか分かりにくい": {
+  "en": "They start from the same spot, so it's hard to see where she catches up",
+  "zh-Hans": "从同一地点出发，不容易看出在哪里追上",
+  "zh-Hant": "從同一地點出發，不容易看出在哪裡追上"
+ },
+ "妹を止めて考えると、姉は1分に 90−60 = 30m ずつ妹に近づく": {
+  "en": "Freeze the younger sister: the older sister gets 90−60 = 30 m closer to her every minute",
+  "zh-Hans": "把妹妹定住来看，姐姐每分钟向妹妹靠近 90−60 = 30m",
+  "zh-Hant": "把妹妹定住來看，姊姊每分鐘向妹妹靠近 90−60 = 30m"
+ },
+ "同じ向きに進むので、出会う（追いつく）までに近づくきょりは池1周の1200m": {
+  "en": "They go in the same direction, so the distance she must close to meet (catch up) is one lap of the pond: 1200 m",
+  "zh-Hans": "因为同向而行，相遇（追上）前要缩短的距离是池塘一周的1200m",
+  "zh-Hant": "因為同方向走，相遇（追上）前要縮短的距離是池塘一圈的1200m"
+ },
+ "1200÷30 = 40（分後）": {
+  "en": "1200÷30 = 40 (minutes later)",
+  "zh-Hans": "1200÷30 = 40（分钟后）",
+  "zh-Hant": "1200÷30 = 40（分鐘後）"
+ },
+ "池のまわりを同じ向きに回るときは、遅い方を止めて、速さの差で1周を追いつくと考える。": {
+  "en": "When walking around a pond in the same direction, freeze the slower one and think of catching up one lap at the difference in speeds.",
+  "zh-Hans": "沿池塘同向而行时，把慢的人定住，看成以速度差追上一周。",
+  "zh-Hant": "沿池塘同方向走時，把慢的人定住，看成以速度差追上一圈。"
+ },
+ "そのとおり。妹を止めると、姉は2人の速さの差で近づく。追いつくには1周分。": {
+  "en": "Right. Freeze the younger sister, and the older sister approaches at the difference in their speeds. One lap to catch up.",
+  "zh-Hans": "没错。把妹妹定住，姐姐以两人速度之差靠近。追上要一周。",
+  "zh-Hant": "沒錯。把妹妹定住，姊姊以兩人速度的差靠近。追上要一圈。"
+ },
+ "1周ずつ比べると、何周分も計算することになる。": {
+  "en": "Comparing lap by lap means calculating many laps.",
+  "zh-Hans": "一周一周地比较，要算好几周。",
+  "zh-Hant": "一圈一圈地比較，要算好幾圈。"
+ },
+ "1周880mの池のまわりを、姉は分速120m、妹は分速80mで、同じ地点から同じ向きに同時に歩き始めます。姉が妹に初めて追いつくのは何分後ですか。": {
+  "en": "A path around a pond is 880 m all the way around. An older sister (120 m per minute) and a younger sister (80 m per minute) start walking from the same spot at the same time in the same direction. After how many minutes does the older sister first catch up with the younger sister?",
+  "zh-Hans": "一个池塘一周长880m。姐姐每分钟走120m，妹妹每分钟走80m，两人从同一地点同时出发，沿池塘同向而行。姐姐几分钟后第一次追上妹妹？",
+  "zh-Hant": "一個池塘一圈長880m。姊姊分速120m，妹妹分速80m，兩人從同一地點同時出發，沿池塘同方向走。姊姊幾分鐘後第一次追上妹妹？"
+ },
+ "妹を止めて考えると、姉は1分に 120−80 = 40m ずつ妹に近づく": {
+  "en": "Freeze the younger sister: the older sister gets 120−80 = 40 m closer to her every minute",
+  "zh-Hans": "把妹妹定住来看，姐姐每分钟向妹妹靠近 120−80 = 40m",
+  "zh-Hant": "把妹妹定住來看，姊姊每分鐘向妹妹靠近 120−80 = 40m"
+ },
+ "同じ向きに進むので、出会う（追いつく）までに近づくきょりは池1周の880m": {
+  "en": "They go in the same direction, so the distance she must close to meet (catch up) is one lap of the pond: 880 m",
+  "zh-Hans": "因为同向而行，相遇（追上）前要缩短的距离是池塘一周的880m",
+  "zh-Hant": "因為同方向走，相遇（追上）前要縮短的距離是池塘一圈的880m"
+ },
+ "880÷40 = 22（分後）": {
+  "en": "880÷40 = 22 (minutes later)",
+  "zh-Hans": "880÷40 = 22（分钟后）",
+  "zh-Hant": "880÷40 = 22（分鐘後）"
+ },
+ "1周640mの池のまわりを、姉は分速110m、妹は分速70mで、同じ地点から同じ向きに同時に歩き始めます。姉が妹に初めて追いつくのは何分後ですか。": {
+  "en": "A path around a pond is 640 m all the way around. An older sister (110 m per minute) and a younger sister (70 m per minute) start walking from the same spot at the same time in the same direction. After how many minutes does the older sister first catch up with the younger sister?",
+  "zh-Hans": "一个池塘一周长640m。姐姐每分钟走110m，妹妹每分钟走70m，两人从同一地点同时出发，沿池塘同向而行。姐姐几分钟后第一次追上妹妹？",
+  "zh-Hant": "一個池塘一圈長640m。姊姊分速110m，妹妹分速70m，兩人從同一地點同時出發，沿池塘同方向走。姊姊幾分鐘後第一次追上妹妹？"
+ },
+ "妹を止めて考えると、姉は1分に 110−70 = 40m ずつ妹に近づく": {
+  "en": "Freeze the younger sister: the older sister gets 110−70 = 40 m closer to her every minute",
+  "zh-Hans": "把妹妹定住来看，姐姐每分钟向妹妹靠近 110−70 = 40m",
+  "zh-Hant": "把妹妹定住來看，姊姊每分鐘向妹妹靠近 110−70 = 40m"
+ },
+ "同じ向きに進むので、出会う（追いつく）までに近づくきょりは池1周の640m": {
+  "en": "They go in the same direction, so the distance she must close to meet (catch up) is one lap of the pond: 640 m",
+  "zh-Hans": "因为同向而行，相遇（追上）前要缩短的距离是池塘一周的640m",
+  "zh-Hant": "因為同方向走，相遇（追上）前要縮短的距離是池塘一圈的640m"
+ },
+ "640÷40 = 16（分後）": {
+  "en": "640÷40 = 16 (minutes later)",
+  "zh-Hans": "640÷40 = 16（分钟后）",
+  "zh-Hant": "640÷40 = 16（分鐘後）"
+ },
+ "1周750mの池のまわりを、姉は分速90m、妹は分速60mで、同じ地点から同じ向きに同時に歩き始めます。姉が妹に初めて追いつくのは何分後ですか。": {
+  "en": "A path around a pond is 750 m all the way around. An older sister (90 m per minute) and a younger sister (60 m per minute) start walking from the same spot at the same time in the same direction. After how many minutes does the older sister first catch up with the younger sister?",
+  "zh-Hans": "一个池塘一周长750m。姐姐每分钟走90m，妹妹每分钟走60m，两人从同一地点同时出发，沿池塘同向而行。姐姐几分钟后第一次追上妹妹？",
+  "zh-Hant": "一個池塘一圈長750m。姊姊分速90m，妹妹分速60m，兩人從同一地點同時出發，沿池塘同方向走。姊姊幾分鐘後第一次追上妹妹？"
+ },
+ "同じ向きに進むので、出会う（追いつく）までに近づくきょりは池1周の750m": {
+  "en": "They go in the same direction, so the distance she must close to meet (catch up) is one lap of the pond: 750 m",
+  "zh-Hans": "因为同向而行，相遇（追上）前要缩短的距离是池塘一周的750m",
+  "zh-Hant": "因為同方向走，相遇（追上）前要縮短的距離是池塘一圈的750m"
+ },
+ "750÷30 = 25（分後）": {
+  "en": "750÷30 = 25 (minutes later)",
+  "zh-Hans": "750÷30 = 25（分钟后）",
+  "zh-Hant": "750÷30 = 25（分鐘後）"
+ },
+ "1周600mの池のまわりを、姉は分速90m、妹は分速60mで、同じ地点から同じ向きに同時に歩き始めます。姉が妹に初めて追いつくのは何分後ですか。": {
+  "en": "A path around a pond is 600 m all the way around. An older sister (90 m per minute) and a younger sister (60 m per minute) start walking from the same spot at the same time in the same direction. After how many minutes does the older sister first catch up with the younger sister?",
+  "zh-Hans": "一个池塘一周长600m。姐姐每分钟走90m，妹妹每分钟走60m，两人从同一地点同时出发，沿池塘同向而行。姐姐几分钟后第一次追上妹妹？",
+  "zh-Hant": "一個池塘一圈長600m。姊姊分速90m，妹妹分速60m，兩人從同一地點同時出發，沿池塘同方向走。姊姊幾分鐘後第一次追上妹妹？"
+ }
+}

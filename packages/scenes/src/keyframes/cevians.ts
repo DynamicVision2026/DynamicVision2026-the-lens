@@ -20,8 +20,8 @@ const steps = (card: LensCard) => card.lens_route.steps;
 const result = (card: LensCard) => steps(card).find((s) => s.op === 'result');
 const caption = (s: Step | undefined, t: number, prev: CeviansState['caption']) => (s ? { step: s, t } : prev);
 /** The step where the weights are put on one scale (「A:B:C＝…」), else the CA step. */
-const scaleStep = (card: LensCard) => steps(card).find((s) => /A\s*[:：]\s*B\s*[:：]\s*C/.test(s.ja)) ?? steps(card)[1];
-const gatherStep = (card: LensCard) => steps(card).find((s) => /集まる/.test(s.ja));
+const scaleStep = (card: LensCard) => steps(card).find((s) => /A\s*[:：]\s*B\s*[:：]\s*C/.test(s.ja_orig ?? s.ja)) ?? steps(card)[1];
+const gatherStep = (card: LensCard) => steps(card).find((s) => /集まる/.test(s.ja_orig ?? s.ja));
 
 export const CEVIANS_KEYFRAMES: Record<string, Reducer> = {
   show_triangle: (s, t) => ({ ...s, show: t }),
