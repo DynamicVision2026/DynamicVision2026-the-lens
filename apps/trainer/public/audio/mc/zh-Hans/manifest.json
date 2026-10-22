@@ -1,0 +1,1259 @@
+{
+ "enclose": {
+  "principle": {
+   "text": "斜着的图形。面积怎么求？",
+   "file": "principle.m4a",
+   "sha1": "fe4826f37fd5"
+  },
+  "principle_turn": {
+   "text": "到这里就卡住了…怎么办？",
+   "file": "principle_turn.m4a",
+   "sha1": "af7ab1aedccf"
+  },
+  "principle_lens": {
+   "text": "围起来透镜！用外框把它围起来试试",
+   "file": "principle_lens.m4a",
+   "sha1": "9477eec30e68"
+  },
+  "example1": {
+   "text": "跟着影子手指，试着做做看",
+   "file": "example1.m4a",
+   "sha1": "d4fbe111fa19"
+  },
+  "example1_done": {
+   "text": "斜边的长度不用量",
+   "file": "example1_done.m4a",
+   "sha1": "98b2e457529e"
+  },
+  "example2": {
+   "text": "这次是五边形。能围起来吗？",
+   "file": "example2.m4a",
+   "sha1": "040769c993b7"
+  },
+  "example2_done": {
+   "text": "不管什么形状，都是围起来再减去角落",
+   "file": "example2_done.m4a",
+   "sha1": "c4d9ecb39d30"
+  },
+  "boundary": {
+   "text": "但是要注意！这种时候不要围",
+   "file": "boundary.m4a",
+   "sha1": "b3ddf8d40da4"
+  },
+  "onboarding": {
+   "text": "线索 → 工具 → 拖动。这次没有提示哦",
+   "file": "onboarding.m4a",
+   "sha1": "6e81a0d6c641"
+  },
+  "onboarding_done": {
+   "text": "准备好了！自己试着做5道题吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "b69f899f4647"
+  }
+ },
+ "slide": {
+  "principle": {
+   "text": "好多个三角形。面积加起来是多少？",
+   "file": "principle.m4a",
+   "sha1": "60638675c3e8"
+  },
+  "principle_turn": {
+   "text": "每个三角形的底都不知道…怎么办？",
+   "file": "principle_turn.m4a",
+   "sha1": "8be0b7e38ca0"
+  },
+  "principle_lens": {
+   "text": "等积变形透镜！沿着平行线移动顶点",
+   "file": "principle_lens.m4a",
+   "sha1": "44a112592dbb"
+  },
+  "example1": {
+   "text": "试着把顶点集中到1个地方",
+   "file": "example1.m4a",
+   "sha1": "af8eebe06409"
+  },
+  "example1_done": {
+   "text": "高相同，面积就不变",
+   "file": "example1_done.m4a",
+   "sha1": "e95d0bd40225"
+  },
+  "example2": {
+   "text": "这次有5个三角形。用同样的思路！",
+   "file": "example2.m4a",
+   "sha1": "9837cda4ac3e"
+  },
+  "example2_done": {
+   "text": "不管有几个，都能合成1个",
+   "file": "example2_done.m4a",
+   "sha1": "7c9424ce29a0"
+  },
+  "boundary": {
+   "text": "但是，如果底和高已经看得出来…",
+   "file": "boundary.m4a",
+   "sha1": "6afe95012185"
+  },
+  "onboarding": {
+   "text": "线索 → 工具 → 拖动。这次没有提示哦",
+   "file": "onboarding.m4a",
+   "sha1": "6e81a0d6c641"
+  },
+  "onboarding_done": {
+   "text": "准备好了！自己试着做5道题吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "b69f899f4647"
+  }
+ },
+ "area": {
+  "principle": {
+   "text": "2种混在一起。怎么数？",
+   "file": "principle.m4a",
+   "sha1": "1be8f1e3d007"
+  },
+  "principle_turn": {
+   "text": "表格越列越长…怎么办？",
+   "file": "principle_turn.m4a",
+   "sha1": "fc0da557b448"
+  },
+  "principle_lens": {
+   "text": "面积图透镜！把“每张的金额×张数”画成长方形",
+   "file": "principle_lens.m4a",
+   "sha1": "824cc35c8866"
+  },
+  "example1": {
+   "text": "抓住虚线，往下移动",
+   "file": "example1.m4a",
+   "sha1": "b7f133dbf1ab"
+  },
+  "example1_done": {
+   "text": "只看多出来的部分，就能得出答案",
+   "file": "example1_done.m4a",
+   "sha1": "91018325a89e"
+  },
+  "example2": {
+   "text": "这次是平均数问题。也用面积图！",
+   "file": "example2.m4a",
+   "sha1": "e4facd025e10"
+  },
+  "example2_done": {
+   "text": "多出来的和凹下去的，面积一样大",
+   "file": "example2_done.m4a",
+   "sha1": "633c14223e59"
+  },
+  "boundary": {
+   "text": "但是要注意！不知道总数的时候…",
+   "file": "boundary.m4a",
+   "sha1": "e2e92f889d87"
+  },
+  "onboarding": {
+   "text": "线索 → 工具 → 拖动。这次没有提示哦",
+   "file": "onboarding.m4a",
+   "sha1": "6e81a0d6c641"
+  },
+  "onboarding_done": {
+   "text": "准备好了！自己试着做5道题吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "b69f899f4647"
+  }
+ },
+ "constant": {
+  "principle": {
+   "text": "几年后变成3倍？怎么想？",
+   "file": "principle.m4a",
+   "sha1": "fd90f31dc57c"
+  },
+  "principle_turn": {
+   "text": "表格变得好长…怎么办？",
+   "file": "principle_turn.m4a",
+   "sha1": "ff7f1fda5867"
+  },
+  "principle_lens": {
+   "text": "和差不变透镜！年龄差永远不变",
+   "file": "principle_lens.m4a",
+   "sha1": "9f70ab8c32c9"
+  },
+  "example1": {
+   "text": "移动 ●，看看差",
+   "file": "example1.m4a",
+   "sha1": "20599c1d69e8"
+  },
+  "example1_done": {
+   "text": "把差看成“几份”，只要做1次除法",
+   "file": "example1_done.m4a",
+   "sha1": "eaadd6b1f921"
+  },
+  "example2": {
+   "text": "这次是钱。差会变吗？",
+   "file": "example2.m4a",
+   "sha1": "06ad161883ec"
+  },
+  "example2_done": {
+   "text": "不管是钱还是年龄，差都一样",
+   "file": "example2_done.m4a",
+   "sha1": "f108fb7a05aa"
+  },
+  "boundary": {
+   "text": "但是要注意！如果是1个人和几个人的合计…",
+   "file": "boundary.m4a",
+   "sha1": "c7aa65978dbc"
+  },
+  "onboarding": {
+   "text": "线索 → 工具 → 拖动。这次没有提示哦",
+   "file": "onboarding.m4a",
+   "sha1": "6e81a0d6c641"
+  },
+  "onboarding_done": {
+   "text": "准备好了！自己试着做5道题吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "b69f899f4647"
+  }
+ },
+ "balance": {
+  "principle": {
+   "text": "浓度不同的盐水。要混合多少g？",
+   "file": "principle.m4a",
+   "sha1": "775ae8ac7e5f"
+  },
+  "principle_turn": {
+   "text": "算式里全是分数…怎么办？",
+   "file": "principle_turn.m4a",
+   "sha1": "2418e31afefa"
+  },
+  "principle_lens": {
+   "text": "天平透镜！浓度当位置，重量当砝码",
+   "file": "principle_lens.m4a",
+   "sha1": "7155333c181a"
+  },
+  "example1": {
+   "text": "移动砝码，让天平保持水平",
+   "file": "example1.m4a",
+   "sha1": "12e870363e8c"
+  },
+  "example1_done": {
+   "text": "重量的比是臂长的反比",
+   "file": "example1_done.m4a",
+   "sha1": "8867608b81fa"
+  },
+  "example2": {
+   "text": "这次是加盐。天平会怎样？",
+   "file": "example2.m4a",
+   "sha1": "8029e1c9c6b7"
+  },
+  "example2_done": {
+   "text": "盐是100%。放在天平的最右端",
+   "file": "example2_done.m4a",
+   "sha1": "69c5efe4b4c7"
+  },
+  "boundary": {
+   "text": "但是要注意！什么都没混合的时候…",
+   "file": "boundary.m4a",
+   "sha1": "98cef6be005d"
+  },
+  "onboarding": {
+   "text": "线索 → 工具 → 拖动。这次没有提示哦",
+   "file": "onboarding.m4a",
+   "sha1": "6e81a0d6c641"
+  },
+  "onboarding_done": {
+   "text": "准备好了！自己试着做5道题吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "b69f899f4647"
+  }
+ },
+ "freeze": {
+  "principle": {
+   "text": "2个人相向而行。什么时候相遇？",
+   "file": "principle.m4a",
+   "sha1": "9f991d08d321"
+  },
+  "principle_turn": {
+   "text": "不一定在正中间相遇。怎么办？",
+   "file": "principle_turn.m4a",
+   "sha1": "f28dc5b9af20"
+  },
+  "principle_lens": {
+   "text": "定住一方透镜！试着让其中一个人停下来",
+   "file": "principle_lens.m4a",
+   "sha1": "ec2787d59e83"
+  },
+  "example1": {
+   "text": "点一下弟弟，让他停下来！",
+   "file": "example1.m4a",
+   "sha1": "fa04e8ba0ff6"
+  },
+  "example1_done": {
+   "text": "只要用距离除以靠近的速度",
+   "file": "example1_done.m4a",
+   "sha1": "a46272a491f6"
+  },
+  "example2": {
+   "text": "这次是火车错车！",
+   "file": "example2.m4a",
+   "sha1": "517d508df09f"
+  },
+  "example2_done": {
+   "text": "火车也一样，定住一方就行",
+   "file": "example2_done.m4a",
+   "sha1": "2629f7403819"
+  },
+  "boundary": {
+   "text": "但是要注意！如果只有1个人在动…",
+   "file": "boundary.m4a",
+   "sha1": "4457607b8813"
+  },
+  "onboarding": {
+   "text": "线索 → 工具 → 拖动。这次没有提示哦",
+   "file": "onboarding.m4a",
+   "sha1": "6e81a0d6c641"
+  },
+  "onboarding_done": {
+   "text": "准备好了！自己试着做5道题吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "b69f899f4647"
+  }
+ },
+ "mirror": {
+  "principle": {
+   "text": "顺路到河边打水。最短的路线是哪条？",
+   "file": "principle.m4a",
+   "sha1": "24feaeb220b1"
+  },
+  "principle_turn": {
+   "text": "走正中间并不是最短…怎么办？",
+   "file": "principle_turn.m4a",
+   "sha1": "2cb890f1f1fa"
+  },
+  "principle_lens": {
+   "text": "翻折透镜！把Q沿河翻折过去",
+   "file": "principle_lens.m4a",
+   "sha1": "18700a55750c"
+  },
+  "example1": {
+   "text": "把点翻折到河的另一边",
+   "file": "example1.m4a",
+   "sha1": "f1216eff3ba6"
+  },
+  "example1_done": {
+   "text": "直线最短",
+   "file": "example1_done.m4a",
+   "sha1": "317295fc7054"
+  },
+  "example2": {
+   "text": "数字变大了，思路也一样",
+   "file": "example2.m4a",
+   "sha1": "1c1ebbe2f205"
+  },
+  "example2_done": {
+   "text": "先化简比，再计算",
+   "file": "example2_done.m4a",
+   "sha1": "2fd0b95adb26"
+  },
+  "boundary": {
+   "text": "但是，如果是立体表面上的路线…",
+   "file": "boundary.m4a",
+   "sha1": "b351d156a78c"
+  },
+  "onboarding": {
+   "text": "线索 → 工具 → 拖动。这次没有提示哦",
+   "file": "onboarding.m4a",
+   "sha1": "6e81a0d6c641"
+  },
+  "onboarding_done": {
+   "text": "准备好了！自己试着做5道题吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "b69f899f4647"
+  }
+ },
+ "unfold": {
+  "principle": {
+   "text": "在盒子表面绕一根线。怎样最短？",
+   "file": "principle.m4a",
+   "sha1": "065fd582a6bf"
+  },
+  "principle_turn": {
+   "text": "斜的长度算不出来…怎么办？",
+   "file": "principle_turn.m4a",
+   "sha1": "4083d4b41b09"
+  },
+  "principle_lens": {
+   "text": "展开透镜！把2个面展开铺平",
+   "file": "principle_lens.m4a",
+   "sha1": "4f2a27995768"
+  },
+  "example1": {
+   "text": "抓住一个面，展开看看",
+   "file": "example1.m4a",
+   "sha1": "29591473b1f9"
+  },
+  "example1_done": {
+   "text": "展开以后，线的长度也不变",
+   "file": "example1_done.m4a",
+   "sha1": "0fc37575e37c"
+  },
+  "example2": {
+   "text": "盒子大小变了，展开后也一样",
+   "file": "example2.m4a",
+   "sha1": "c00e35cdd683"
+  },
+  "example2_done": {
+   "text": "展开后，找形状相同的三角形",
+   "file": "example2_done.m4a",
+   "sha1": "a52f07d6a8d8"
+  },
+  "boundary": {
+   "text": "但是，如果是平面上的路线…",
+   "file": "boundary.m4a",
+   "sha1": "8c1c4c5d36ac"
+  },
+  "onboarding": {
+   "text": "线索 → 工具 → 拖动。这次没有提示哦",
+   "file": "onboarding.m4a",
+   "sha1": "6e81a0d6c641"
+  },
+  "onboarding_done": {
+   "text": "准备好了！自己试着做5道题吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "b69f899f4647"
+  }
+ },
+ "koukou_juken/enclose": {
+  "principle": {
+   "text": "坐标上的四边形。面积怎么求？",
+   "file": "principle.m4a",
+   "sha1": "67c363150a9c"
+  },
+  "principle_turn": {
+   "text": "边和高都是斜的…怎么办？",
+   "file": "principle_turn.m4a",
+   "sha1": "bb2ecfa01454"
+  },
+  "principle_lens": {
+   "text": "围起来透镜！用平行于坐标轴的长方形围起来",
+   "file": "principle_lens.m4a",
+   "sha1": "c87e20eb9a4e"
+  },
+  "example1": {
+   "text": "跟着影子手指，试着围起来",
+   "file": "example1.m4a",
+   "sha1": "7b1266440d6f"
+  },
+  "example1_done": {
+   "text": "角落的三角形，用坐标的差就能读出来",
+   "file": "example1_done.m4a",
+   "sha1": "7550b5068995"
+  },
+  "example2": {
+   "text": "这次是四边形。用同样的步骤行吗？",
+   "file": "example2.m4a",
+   "sha1": "478a583b08fb"
+  },
+  "example2_done": {
+   "text": "形状变了，也只是围起来再减",
+   "file": "example2_done.m4a",
+   "sha1": "54857ccc2cca"
+  },
+  "boundary": {
+   "text": "但是，如果对角线在坐标轴上…",
+   "file": "boundary.m4a",
+   "sha1": "37ee8431abd1"
+  },
+  "onboarding": {
+   "text": "线索 → 工具 → 拖动。没有提示",
+   "file": "onboarding.m4a",
+   "sha1": "6c509cfec64d"
+  },
+  "onboarding_done": {
+   "text": "准备好了！自己试着做5道题吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "b69f899f4647"
+  }
+ },
+ "koukou_juken/slide": {
+  "principle": {
+   "text": "使面积相等的点P。在哪里？",
+   "file": "principle.m4a",
+   "sha1": "d06f92702a9a"
+  },
+  "principle_turn": {
+   "text": "列方程要分情况讨论，很麻烦…怎么办？",
+   "file": "principle_turn.m4a",
+   "sha1": "6ee534494a07"
+  },
+  "principle_lens": {
+   "text": "等积变形透镜！画一条平行线",
+   "file": "principle_lens.m4a",
+   "sha1": "3ba9c442b709"
+  },
+  "example1": {
+   "text": "把C沿着与AB平行的方向滑动",
+   "file": "example1.m4a",
+   "sha1": "42177a0619de"
+  },
+  "example1_done": {
+   "text": "底相同、高也相同，面积就相同",
+   "file": "example1_done.m4a",
+   "sha1": "41f99f890b28"
+  },
+  "example2": {
+   "text": "坐标不同，思路一样",
+   "file": "example2.m4a",
+   "sha1": "4cfa6382b9ca"
+  },
+  "example2_done": {
+   "text": "求出平行线的解析式，P就确定了",
+   "file": "example2_done.m4a",
+   "sha1": "3b6e846eee4a"
+  },
+  "boundary": {
+   "text": "但是，如果只知道面积的值…",
+   "file": "boundary.m4a",
+   "sha1": "a5a0e32d5f43"
+  },
+  "onboarding": {
+   "text": "线索 → 工具 → 拖动。没有提示",
+   "file": "onboarding.m4a",
+   "sha1": "6c509cfec64d"
+  },
+  "onboarding_done": {
+   "text": "准备好了！自己试着做5道题吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "b69f899f4647"
+  }
+ },
+ "koukou_juken/mirror": {
+  "principle": {
+   "text": "使AP＋PB最短的P在哪里？",
+   "file": "principle.m4a",
+   "sha1": "e04c67bcb866"
+  },
+  "principle_turn": {
+   "text": "走正中间并不是最短…怎么办？",
+   "file": "principle_turn.m4a",
+   "sha1": "2cb890f1f1fa"
+  },
+  "principle_lens": {
+   "text": "翻折透镜！把B沿x轴翻折过去",
+   "file": "principle_lens.m4a",
+   "sha1": "efe6a6ffd777"
+  },
+  "example1": {
+   "text": "把B翻折到B'，再用直线和A连起来",
+   "file": "example1.m4a",
+   "sha1": "53854e057025"
+  },
+  "example1_done": {
+   "text": "直线和x轴的交点就是P",
+   "file": "example1_done.m4a",
+   "sha1": "83f4d4457292"
+  },
+  "example2": {
+   "text": "确定了P，就能求出△ABP的面积",
+   "file": "example2.m4a",
+   "sha1": "b69c3d0adf3c"
+  },
+  "example2_done": {
+   "text": "透镜可以连续用2个",
+   "file": "example2_done.m4a",
+   "sha1": "1c52f6ba2842"
+  },
+  "boundary": {
+   "text": "但是，如果是差最大的点…",
+   "file": "boundary.m4a",
+   "sha1": "a11d1f074a74"
+  },
+  "onboarding": {
+   "text": "线索 → 工具 → 拖动。没有提示",
+   "file": "onboarding.m4a",
+   "sha1": "6c509cfec64d"
+  },
+  "onboarding_done": {
+   "text": "准备好了！自己试着做5道题吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "b69f899f4647"
+  }
+ },
+ "koukou_juken/area": {
+  "principle": {
+   "text": "大人和初中生，一共多少人？",
+   "file": "principle.m4a",
+   "sha1": "ccadd2ef5740"
+  },
+  "principle_turn": {
+   "text": "列x和y的2个方程…好麻烦。怎么办？",
+   "file": "principle_turn.m4a",
+   "sha1": "335142df8b04"
+  },
+  "principle_lens": {
+   "text": "面积图透镜！把2个长方形并排",
+   "file": "principle_lens.m4a",
+   "sha1": "d816c8566e1c"
+  },
+  "example1": {
+   "text": "假设全是初中生，看看多出来的部分",
+   "file": "example1.m4a",
+   "sha1": "7ab2969222f8"
+  },
+  "example1_done": {
+   "text": "多出来的面积÷高的差，就是答案",
+   "file": "example1_done.m4a",
+   "sha1": "4d4e3f357fb0"
+  },
+  "example2": {
+   "text": "比较平均线的上面和下面",
+   "file": "example2.m4a",
+   "sha1": "3b543fbd96c0"
+  },
+  "example2_done": {
+   "text": "多出来的和凹下去的，面积相同",
+   "file": "example2_done.m4a",
+   "sha1": "693f610c3e7f"
+  },
+  "boundary": {
+   "text": "但是，如果不知道总数…",
+   "file": "boundary.m4a",
+   "sha1": "a70c07071be6"
+  },
+  "onboarding": {
+   "text": "线索 → 工具 → 拖动。没有提示",
+   "file": "onboarding.m4a",
+   "sha1": "6c509cfec64d"
+  },
+  "onboarding_done": {
+   "text": "准备好了！自己试着做5道题吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "b69f899f4647"
+  }
+ },
+ "koukou_juken/constant": {
+  "principle": {
+   "text": "几年前妈妈的年龄是5倍？",
+   "file": "principle.m4a",
+   "sha1": "f7d32078932b"
+  },
+  "principle_turn": {
+   "text": "算式的方向搞不清…怎么办？",
+   "file": "principle_turn.m4a",
+   "sha1": "8a7b55245170"
+  },
+  "principle_lens": {
+   "text": "和差不变透镜！年龄差不会变",
+   "file": "principle_lens.m4a",
+   "sha1": "a1ba44fe9a19"
+  },
+  "example1": {
+   "text": "把表示差的线段分成几份",
+   "file": "example1.m4a",
+   "sha1": "e5f07f8b76dd"
+  },
+  "example1_done": {
+   "text": "差÷（倍数−1），就是那时的年龄",
+   "file": "example1_done.m4a",
+   "sha1": "78c2b906d0dc"
+  },
+  "example2": {
+   "text": "花掉同样的钱，差也不变",
+   "file": "example2.m4a",
+   "sha1": "efed43c35c54"
+  },
+  "example2_done": {
+   "text": "找到不变的量，就能很快解出",
+   "file": "example2_done.m4a",
+   "sha1": "0cf9ec770d16"
+  },
+  "boundary": {
+   "text": "但是，如果是和3个人的合计比较…",
+   "file": "boundary.m4a",
+   "sha1": "95581c994a5d"
+  },
+  "onboarding": {
+   "text": "线索 → 工具 → 拖动。没有提示",
+   "file": "onboarding.m4a",
+   "sha1": "6c509cfec64d"
+  },
+  "onboarding_done": {
+   "text": "准备好了！自己试着做5道题吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "b69f899f4647"
+  }
+ },
+ "koukou_juken/balance": {
+  "principle": {
+   "text": "浓度不同的盐水。要混合多少g？",
+   "file": "principle.m4a",
+   "sha1": "775ae8ac7e5f"
+  },
+  "principle_turn": {
+   "text": "%的算式越来越长…怎么办？",
+   "file": "principle_turn.m4a",
+   "sha1": "2b5e18bf8709"
+  },
+  "principle_lens": {
+   "text": "天平透镜！把浓度放到天平臂上",
+   "file": "principle_lens.m4a",
+   "sha1": "0a59acf72b37"
+  },
+  "example1": {
+   "text": "把支点对准混合后的浓度",
+   "file": "example1.m4a",
+   "sha1": "9ea155ff19e0"
+  },
+  "example1_done": {
+   "text": "重量的比是臂长的反比",
+   "file": "example1_done.m4a",
+   "sha1": "8867608b81fa"
+  },
+  "example2": {
+   "text": "如果只加盐，就和100%放在天平上",
+   "file": "example2.m4a",
+   "sha1": "659e58b145aa"
+  },
+  "example2_done": {
+   "text": "把水看成0%，盐看成100%",
+   "file": "example2_done.m4a",
+   "sha1": "038e11066c1c"
+  },
+  "boundary": {
+   "text": "但是，如果只是让水蒸发…",
+   "file": "boundary.m4a",
+   "sha1": "fd3d5853ba92"
+  },
+  "onboarding": {
+   "text": "线索 → 工具 → 拖动。没有提示",
+   "file": "onboarding.m4a",
+   "sha1": "6c509cfec64d"
+  },
+  "onboarding_done": {
+   "text": "准备好了！自己试着做5道题吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "b69f899f4647"
+  }
+ },
+ "koukou_juken/freeze": {
+  "principle": {
+   "text": "哥哥几分钟后追上弟弟？",
+   "file": "principle.m4a",
+   "sha1": "b986d28b3e7b"
+  },
+  "principle_turn": {
+   "text": "出发时间不一样，搞不清楚…怎么办？",
+   "file": "principle_turn.m4a",
+   "sha1": "fa0665c18f1f"
+  },
+  "principle_lens": {
+   "text": "定住一方透镜！试着让弟弟停下来",
+   "file": "principle_lens.m4a",
+   "sha1": "8400d3ecb18b"
+  },
+  "example1": {
+   "text": "点一下弟弟，让他停下来！",
+   "file": "example1.m4a",
+   "sha1": "fa04e8ba0ff6"
+  },
+  "example1_done": {
+   "text": "靠近的速度就是速度之差",
+   "file": "example1_done.m4a",
+   "sha1": "a3500c7e53fa"
+  },
+  "example2": {
+   "text": "错车的火车，也定住一方",
+   "file": "example2.m4a",
+   "sha1": "b4117d104b30"
+  },
+  "example2_done": {
+   "text": "用速度之和走完长度之和",
+   "file": "example2_done.m4a",
+   "sha1": "cc3b0c2b8605"
+  },
+  "boundary": {
+   "text": "但是，如果只有1个人改变速度…",
+   "file": "boundary.m4a",
+   "sha1": "377b586254b1"
+  },
+  "onboarding": {
+   "text": "线索 → 工具 → 拖动。没有提示",
+   "file": "onboarding.m4a",
+   "sha1": "6c509cfec64d"
+  },
+  "onboarding_done": {
+   "text": "准备好了！自己试着做5道题吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "b69f899f4647"
+  }
+ },
+ "koukou_juken/unfold": {
+  "principle": {
+   "text": "经过表面的最短的线。P在哪里？",
+   "file": "principle.m4a",
+   "sha1": "82f46d840377"
+  },
+  "principle_turn": {
+   "text": "直接在立体上没法比较…怎么办？",
+   "file": "principle_turn.m4a",
+   "sha1": "885b21c49132"
+  },
+  "principle_lens": {
+   "text": "展开透镜！把面展开铺平",
+   "file": "principle_lens.m4a",
+   "sha1": "d4aadc0ec447"
+  },
+  "example1": {
+   "text": "展开2个面，连接A和G",
+   "file": "example1.m4a",
+   "sha1": "501b4129b6a8"
+  },
+  "example1_done": {
+   "text": "用相似三角形求出BP",
+   "file": "example1_done.m4a",
+   "sha1": "5906e1de9eaa"
+  },
+  "example2": {
+   "text": "这次是3个面。展开成1条直线",
+   "file": "example2.m4a",
+   "sha1": "76fde6d1ce16"
+  },
+  "example2_done": {
+   "text": "不管经过几个面，展开就是直线",
+   "file": "example2_done.m4a",
+   "sha1": "8631abcbc22d"
+  },
+  "boundary": {
+   "text": "但是，如果是切下来的立体的体积…",
+   "file": "boundary.m4a",
+   "sha1": "42112b2500f6"
+  },
+  "onboarding": {
+   "text": "线索 → 工具 → 拖动。没有提示",
+   "file": "onboarding.m4a",
+   "sha1": "6c509cfec64d"
+  },
+  "onboarding_done": {
+   "text": "准备好了！自己试着做5道题吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "b69f899f4647"
+  }
+ },
+ "daigaku_juken/balance": {
+  "principle": {
+   "text": "2条线的交点P。AP:PD是多少？",
+   "file": "principle.m4a",
+   "sha1": "7aef99f40dbc"
+  },
+  "principle_turn": {
+   "text": "用向量解，算式很长…怎么办？",
+   "file": "principle_turn.m4a",
+   "sha1": "abbadfa38ddd"
+  },
+  "principle_lens": {
+   "text": "天平透镜！在每条边上放砝码",
+   "file": "principle_lens.m4a",
+   "sha1": "3f1f6d4d0bc8"
+  },
+  "example1": {
+   "text": "按比的反比，在B和C上放砝码",
+   "file": "example1.m4a",
+   "sha1": "a7f773d18bdf"
+  },
+  "example1_done": {
+   "text": "聚到D的砝码和A的砝码之比",
+   "file": "example1_done.m4a",
+   "sha1": "f5e5fd0428d5"
+  },
+  "example2": {
+   "text": "这次是BE上的比。思路一样",
+   "file": "example2.m4a",
+   "sha1": "cd30901bcaef"
+  },
+  "example2_done": {
+   "text": "把砝码统一起来，什么比都能求出",
+   "file": "example2_done.m4a",
+   "sha1": "8a523460b53c"
+  },
+  "boundary": {
+   "text": "但是，如果是往返的平均速度…",
+   "file": "boundary.m4a",
+   "sha1": "5ee0cba2b7b2"
+  },
+  "onboarding": {
+   "text": "线索 → 工具 → 拖动。没有提示",
+   "file": "onboarding.m4a",
+   "sha1": "6c509cfec64d"
+  },
+  "onboarding_done": {
+   "text": "准备好了！自己试着做5道题吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "b69f899f4647"
+  }
+ },
+ "daigaku_juken/enclose": {
+  "principle": {
+   "text": "抛物线和直线围成的面积是多少？",
+   "file": "principle.m4a",
+   "sha1": "bc64e563bb1d"
+  },
+  "principle_turn": {
+   "text": "3次方的计算很长…怎么办？",
+   "file": "principle_turn.m4a",
+   "sha1": "add9b5fd7182"
+  },
+  "principle_lens": {
+   "text": "围起来透镜！只看交点α和β",
+   "file": "principle_lens.m4a",
+   "sha1": "db5d03a63ad6"
+  },
+  "example1": {
+   "text": "作差，求出交点的x坐标",
+   "file": "example1.m4a",
+   "sha1": "41cd6d2e4a92"
+  },
+  "example1_done": {
+   "text": "用 |a|(β−α)³÷6 马上就能求出",
+   "file": "example1_done.m4a",
+   "sha1": "8cf368ba5b8d"
+  },
+  "example2": {
+   "text": "2条抛物线也一样，差是二次式",
+   "file": "example2.m4a",
+   "sha1": "d396d4e5b9f9"
+  },
+  "example2_done": {
+   "text": "用x²系数的差就行",
+   "file": "example2_done.m4a",
+   "sha1": "bdbfacfd061f"
+  },
+  "boundary": {
+   "text": "但是，如果不是由交点围成的…",
+   "file": "boundary.m4a",
+   "sha1": "79f46af6abde"
+  },
+  "onboarding": {
+   "text": "线索 → 工具 → 拖动。没有提示",
+   "file": "onboarding.m4a",
+   "sha1": "6c509cfec64d"
+  },
+  "onboarding_done": {
+   "text": "准备好了！自己试着做5道题吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "b69f899f4647"
+  }
+ },
+ "daigaku_juken/slide": {
+  "principle": {
+   "text": "抛物线上的点P，△ABP的最大值是多少？",
+   "file": "principle.m4a",
+   "sha1": "b5238b91f78a"
+  },
+  "principle_turn": {
+   "text": "又是根号又是绝对值，好麻烦…怎么办？",
+   "file": "principle_turn.m4a",
+   "sha1": "0ed1c5cbf6ac"
+  },
+  "principle_lens": {
+   "text": "等积变形透镜！移动与AB平行的直线",
+   "file": "principle_lens.m4a",
+   "sha1": "c07bfc069bdb"
+  },
+  "example1": {
+   "text": "移动平行线，直到碰到抛物线",
+   "file": "example1.m4a",
+   "sha1": "c9b900b32d56"
+  },
+  "example1_done": {
+   "text": "切点的x就在A和B的正中间",
+   "file": "example1_done.m4a",
+   "sha1": "e215185765cc"
+  },
+  "example2": {
+   "text": "在过O的平行线上，高就相同",
+   "file": "example2.m4a",
+   "sha1": "0eb8a0f74c42"
+  },
+  "example2_done": {
+   "text": "平行线和抛物线的交点就是P",
+   "file": "example2_done.m4a",
+   "sha1": "657e6bcc9691"
+  },
+  "boundary": {
+   "text": "但是，如果P能移动的范围是限定的…",
+   "file": "boundary.m4a",
+   "sha1": "4dc7d15fd984"
+  },
+  "onboarding": {
+   "text": "线索 → 工具 → 拖动。没有提示",
+   "file": "onboarding.m4a",
+   "sha1": "6c509cfec64d"
+  },
+  "onboarding_done": {
+   "text": "准备好了！自己试着做5道题吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "b69f899f4647"
+  }
+ },
+ "daigaku_juken/mirror": {
+  "principle": {
+   "text": "直线上的点P，AP＋PB的最小值是多少？",
+   "file": "principle.m4a",
+   "sha1": "6bbf0dab0ca3"
+  },
+  "principle_turn": {
+   "text": "根号的和很难对付…怎么办？",
+   "file": "principle_turn.m4a",
+   "sha1": "a659f5e48ec0"
+  },
+  "principle_lens": {
+   "text": "翻折透镜！把B沿直线翻折过去",
+   "file": "principle_lens.m4a",
+   "sha1": "ded215b35542"
+  },
+  "example1": {
+   "text": "把B翻到B'。中点在ℓ上，BB'与ℓ垂直",
+   "file": "example1.m4a",
+   "sha1": "94c0c42391ce"
+  },
+  "example1_done": {
+   "text": "最小值就是AB'的长度",
+   "file": "example1_done.m4a",
+   "sha1": "1d30e7042244"
+  },
+  "example2": {
+   "text": "斜率是2，求对称点的方法也一样",
+   "file": "example2.m4a",
+   "sha1": "7d64e932cac3"
+  },
+  "example2_done": {
+   "text": "翻折之后，只用勾股定理",
+   "file": "example2_done.m4a",
+   "sha1": "52cb62377e55"
+  },
+  "boundary": {
+   "text": "但是，如果是差最大的点…",
+   "file": "boundary.m4a",
+   "sha1": "a11d1f074a74"
+  },
+  "onboarding": {
+   "text": "线索 → 工具 → 拖动。没有提示",
+   "file": "onboarding.m4a",
+   "sha1": "6c509cfec64d"
+  },
+  "onboarding_done": {
+   "text": "准备好了！自己试着做5道题吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "b69f899f4647"
+  }
+ },
+ "daigaku_juken/freeze": {
+  "principle": {
+   "text": "无论a取何值都经过的点在哪里？",
+   "file": "principle.m4a",
+   "sha1": "d439698bfff2"
+  },
+  "principle_turn": {
+   "text": "代入2个a的值，还得再验证…",
+   "file": "principle_turn.m4a",
+   "sha1": "674ce9eb2484"
+  },
+  "principle_lens": {
+   "text": "定住一方透镜！定住a，整理一下",
+   "file": "principle_lens.m4a",
+   "sha1": "ec1829cc2d36"
+  },
+  "example1": {
+   "text": "分成a的系数括号和其余部分",
+   "file": "example1.m4a",
+   "sha1": "2241c67bed25"
+  },
+  "example1_done": {
+   "text": "两者都为0的点，就是定点",
+   "file": "example1_done.m4a",
+   "sha1": "ba585ea3c550"
+  },
+  "example2": {
+   "text": "抛物线也一样，按a整理就行",
+   "file": "example2.m4a",
+   "sha1": "9141052773ea"
+  },
+  "example2_done": {
+   "text": "对任意a都经过的点，马上就求出来",
+   "file": "example2_done.m4a",
+   "sha1": "42594b9d46aa"
+  },
+  "boundary": {
+   "text": "但如果经过的点事先已经确定…",
+   "file": "boundary.m4a",
+   "sha1": "06b068d449cc"
+  },
+  "onboarding": {
+   "text": "线索 → 工具 → 拖动。没有提示",
+   "file": "onboarding.m4a",
+   "sha1": "6c509cfec64d"
+  },
+  "onboarding_done": {
+   "text": "准备好了！自己试着做5道题吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "b69f899f4647"
+  }
+ },
+ "daigaku_juken/unfold": {
+  "principle": {
+   "text": "绕圆锥1周的线，最短是多少？",
+   "file": "principle.m4a",
+   "sha1": "4cefcd1f14de"
+  },
+  "principle_turn": {
+   "text": "在曲面上没法量…怎么办？",
+   "file": "principle_turn.m4a",
+   "sha1": "e32a6f8941ee"
+  },
+  "principle_lens": {
+   "text": "展开透镜！把侧面展开看看",
+   "file": "principle_lens.m4a",
+   "sha1": "cf7c9cf847af"
+  },
+  "example1": {
+   "text": "圆心角 = 360°×半径÷母线",
+   "file": "example1.m4a",
+   "sha1": "5b22f5d06a94"
+  },
+  "example1_done": {
+   "text": "展开图中的弦，就是最短的线",
+   "file": "example1_done.m4a",
+   "sha1": "5ab8f610cb03"
+  },
+  "example2": {
+   "text": "这次连到母线中途的一点。连连看",
+   "file": "example2.m4a",
+   "sha1": "aa074da5ab5f"
+  },
+  "example2_done": {
+   "text": "用余弦定理求出长度",
+   "file": "example2_done.m4a",
+   "sha1": "f30cef90a96f"
+  },
+  "boundary": {
+   "text": "但如果展开的角超过180°…",
+   "file": "boundary.m4a",
+   "sha1": "7b4057299778"
+  },
+  "onboarding": {
+   "text": "线索 → 工具 → 拖动。没有提示",
+   "file": "onboarding.m4a",
+   "sha1": "6c509cfec64d"
+  },
+  "onboarding_done": {
+   "text": "准备好了！自己试着做5道题吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "b69f899f4647"
+  }
+ },
+ "daigaku_juken/area": {
+  "principle": {
+   "text": "2个骰子。点数差在3以上的概率是多少？",
+   "file": "principle.m4a",
+   "sha1": "d062fa0d2486"
+  },
+  "principle_turn": {
+   "text": "全部写出来，容易漏掉…怎么办？",
+   "file": "principle_turn.m4a",
+   "sha1": "774924df5614"
+  },
+  "principle_lens": {
+   "text": "面积图透镜！用6×6的表来看",
+   "file": "principle_lens.m4a",
+   "sha1": "49797f8ee56f"
+  },
+  "example1": {
+   "text": "把离对角线3条及以上的格子涂上颜色",
+   "file": "example1.m4a",
+   "sha1": "6e81aa890387"
+  },
+  "example1_done": {
+   "text": "只要数2个三角形的面积",
+   "file": "example1_done.m4a",
+   "sha1": "d3b4d3c518dc"
+  },
+  "example2": {
+   "text": "这次是积。每行有几格？",
+   "file": "example2.m4a",
+   "sha1": "813b56f2bc8d"
+  },
+  "example2_done": {
+   "text": "用表格，条件会变成看得见的形状",
+   "file": "example2_done.m4a",
+   "sha1": "b5a067ed6a51"
+  },
+  "boundary": {
+   "text": "但如果是3个骰子…",
+   "file": "boundary.m4a",
+   "sha1": "5d440c7d8e6d"
+  },
+  "onboarding": {
+   "text": "线索 → 工具 → 拖动。没有提示",
+   "file": "onboarding.m4a",
+   "sha1": "6c509cfec64d"
+  },
+  "onboarding_done": {
+   "text": "准备好了！自己试着做5道题吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "b69f899f4647"
+  }
+ },
+ "daigaku_juken/constant": {
+  "principle": {
+   "text": "x＋y＝8 时，x²＋y² 的最小值是多少？",
+   "file": "principle.m4a",
+   "sha1": "bde56edbd762"
+  },
+  "principle_turn": {
+   "text": "一代入，式子就很长…怎么办？",
+   "file": "principle_turn.m4a",
+   "sha1": "e41838601520"
+  },
+  "principle_lens": {
+   "text": "和差不变透镜！和不变，看中间值",
+   "file": "principle_lens.m4a",
+   "sha1": "69d3483c3562"
+  },
+  "example1": {
+   "text": "设 x＝4＋t、y＝4−t，让它们动起来",
+   "file": "example1.m4a",
+   "sha1": "066506375e0f"
+  },
+  "example1_done": {
+   "text": "在中间 t＝0 时最小",
+   "file": "example1_done.m4a",
+   "sha1": "3ebe0451c122"
+  },
+  "example2": {
+   "text": "把2x和y看成和不变的2个数",
+   "file": "example2.m4a",
+   "sha1": "e8d79ac35c84"
+  },
+  "example2_done": {
+   "text": "在中间，积最大",
+   "file": "example2_done.m4a",
+   "sha1": "049603a29138"
+  },
+  "boundary": {
+   "text": "但如果范围里取不到中间值…",
+   "file": "boundary.m4a",
+   "sha1": "35a056e8decd"
+  },
+  "onboarding": {
+   "text": "线索 → 工具 → 拖动。没有提示",
+   "file": "onboarding.m4a",
+   "sha1": "6c509cfec64d"
+  },
+  "onboarding_done": {
+   "text": "准备好了！自己试着做5道题吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "b69f899f4647"
+  }
+ },
+ "_voice": {
+  "engine": "Google Cloud Text-to-Speech",
+  "languageCode": "cmn-CN",
+  "name": "cmn-CN-Wavenet-A",
+  "audioEncoding": "MP3",
+  "speakingRate": 1.08,
+  "pitch": 2.0,
+  "sampleRateHertz": 24000
+ }
+}

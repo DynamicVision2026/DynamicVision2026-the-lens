@@ -1,0 +1,1259 @@
+{
+ "enclose": {
+  "principle": {
+   "text": "A slanted shape. How do you find its area?",
+   "file": "principle.m4a",
+   "sha1": "9e5e81e137ac"
+  },
+  "principle_turn": {
+   "text": "This is where you get stuck… What now?",
+   "file": "principle_turn.m4a",
+   "sha1": "60fb0c1bc3b7"
+  },
+  "principle_lens": {
+   "text": "Enclose lens! Try boxing it in with an outer frame",
+   "file": "principle_lens.m4a",
+   "sha1": "d19f68039804"
+  },
+  "example1": {
+   "text": "Copy the ghost finger and give it a try",
+   "file": "example1.m4a",
+   "sha1": "430c04e68232"
+  },
+  "example1_done": {
+   "text": "You don't need to measure the slanted lengths",
+   "file": "example1_done.m4a",
+   "sha1": "6f856f737c3e"
+  },
+  "example2": {
+   "text": "Now a pentagon. Can you enclose it?",
+   "file": "example2.m4a",
+   "sha1": "4b8990b91ede"
+  },
+  "example2_done": {
+   "text": "Any shape: enclose it, then subtract the corners",
+   "file": "example2_done.m4a",
+   "sha1": "9234cf0ba7ca"
+  },
+  "boundary": {
+   "text": "But watch out! Don't enclose in cases like this",
+   "file": "boundary.m4a",
+   "sha1": "1ea67eb135df"
+  },
+  "onboarding": {
+   "text": "Clue → tool → drag. No hints this time",
+   "file": "onboarding.m4a",
+   "sha1": "3aef1dfe7fed"
+  },
+  "onboarding_done": {
+   "text": "All set! Try 5 problems on your own",
+   "file": "onboarding_done.m4a",
+   "sha1": "e5274c849755"
+  }
+ },
+ "slide": {
+  "principle": {
+   "text": "Lots of triangles. What's their total area?",
+   "file": "principle.m4a",
+   "sha1": "79e6c8057311"
+  },
+  "principle_turn": {
+   "text": "You can't find each base one by one… What now?",
+   "file": "principle_turn.m4a",
+   "sha1": "f1c6f4319e5c"
+  },
+  "principle_lens": {
+   "text": "Equal-Area Slide lens! Move the vertices along parallel lines",
+   "file": "principle_lens.m4a",
+   "sha1": "da62fec92967"
+  },
+  "example1": {
+   "text": "Try gathering the vertices at 1 point",
+   "file": "example1.m4a",
+   "sha1": "b0a4c6f3a1fa"
+  },
+  "example1_done": {
+   "text": "Same height means the area doesn't change",
+   "file": "example1_done.m4a",
+   "sha1": "649dc5beff42"
+  },
+  "example2": {
+   "text": "Now 5 triangles. Same idea!",
+   "file": "example2.m4a",
+   "sha1": "9889cbb8b0c2"
+  },
+  "example2_done": {
+   "text": "No matter how many, you can merge them into 1",
+   "file": "example2_done.m4a",
+   "sha1": "312703a2c17d"
+  },
+  "boundary": {
+   "text": "But if you can already see the base and height…",
+   "file": "boundary.m4a",
+   "sha1": "f7f39b3d7fa4"
+  },
+  "onboarding": {
+   "text": "Clue → tool → drag. No hints this time",
+   "file": "onboarding.m4a",
+   "sha1": "3aef1dfe7fed"
+  },
+  "onboarding_done": {
+   "text": "All set! Try 5 problems on your own",
+   "file": "onboarding_done.m4a",
+   "sha1": "e5274c849755"
+  }
+ },
+ "area": {
+  "principle": {
+   "text": "2 kinds are mixed together. How do you count them?",
+   "file": "principle.m4a",
+   "sha1": "a79fc3c83daf"
+  },
+  "principle_turn": {
+   "text": "The table keeps getting longer… What now?",
+   "file": "principle_turn.m4a",
+   "sha1": "0e090e380471"
+  },
+  "principle_lens": {
+   "text": "Area Diagram lens! Make \"amount per piece × number of pieces\" a rectangle",
+   "file": "principle_lens.m4a",
+   "sha1": "1ba520393819"
+  },
+  "example1": {
+   "text": "Grab the dotted line and move it down",
+   "file": "example1.m4a",
+   "sha1": "9d70ce1d2b2c"
+  },
+  "example1_done": {
+   "text": "The part that sticks out gives you the answer",
+   "file": "example1_done.m4a",
+   "sha1": "68945f9647b0"
+  },
+  "example2": {
+   "text": "Now an average problem. Area diagram again!",
+   "file": "example2.m4a",
+   "sha1": "63f8cb1f7143"
+  },
+  "example2_done": {
+   "text": "The bump and the dip have the same area",
+   "file": "example2_done.m4a",
+   "sha1": "02a48ed6d0f6"
+  },
+  "boundary": {
+   "text": "But watch out! When you don't know the totals…",
+   "file": "boundary.m4a",
+   "sha1": "5330937ea792"
+  },
+  "onboarding": {
+   "text": "Clue → tool → drag. No hints this time",
+   "file": "onboarding.m4a",
+   "sha1": "3aef1dfe7fed"
+  },
+  "onboarding_done": {
+   "text": "All set! Try 5 problems on your own",
+   "file": "onboarding_done.m4a",
+   "sha1": "e5274c849755"
+  }
+ },
+ "constant": {
+  "principle": {
+   "text": "In how many years will it be 3 times? How do you think about it?",
+   "file": "principle.m4a",
+   "sha1": "ac5f62cc5752"
+  },
+  "principle_turn": {
+   "text": "The table gets long… What now?",
+   "file": "principle_turn.m4a",
+   "sha1": "f597c86001b0"
+  },
+  "principle_lens": {
+   "text": "Constant Sum/Difference lens! The age difference always stays the same",
+   "file": "principle_lens.m4a",
+   "sha1": "2b80ffcc3996"
+  },
+  "example1": {
+   "text": "Move the ● and look at the difference",
+   "file": "example1.m4a",
+   "sha1": "cbb56bfc422a"
+  },
+  "example1_done": {
+   "text": "See the difference as \"how many parts\" and it takes just 1 division",
+   "file": "example1_done.m4a",
+   "sha1": "6517f0254184"
+  },
+  "example2": {
+   "text": "Now it's money. Does the difference change?",
+   "file": "example2.m4a",
+   "sha1": "19eec2908cd8"
+  },
+  "example2_done": {
+   "text": "Money or age, the difference stays the same",
+   "file": "example2_done.m4a",
+   "sha1": "99a1c62fee7d"
+  },
+  "boundary": {
+   "text": "But watch out! With 1 person versus the total of several…",
+   "file": "boundary.m4a",
+   "sha1": "1ee12174a860"
+  },
+  "onboarding": {
+   "text": "Clue → tool → drag. No hints this time",
+   "file": "onboarding.m4a",
+   "sha1": "3aef1dfe7fed"
+  },
+  "onboarding_done": {
+   "text": "All set! Try 5 problems on your own",
+   "file": "onboarding_done.m4a",
+   "sha1": "e5274c849755"
+  }
+ },
+ "balance": {
+  "principle": {
+   "text": "Salt water of different concentrations. How many g do you mix?",
+   "file": "principle.m4a",
+   "sha1": "a1bb66510681"
+  },
+  "principle_turn": {
+   "text": "The equation is full of fractions… What now?",
+   "file": "principle_turn.m4a",
+   "sha1": "ae14622edff3"
+  },
+  "principle_lens": {
+   "text": "Balance lens! Concentration is the position, weight is the counterweight",
+   "file": "principle_lens.m4a",
+   "sha1": "73c0e46401ad"
+  },
+  "example1": {
+   "text": "Move the weights to make it level",
+   "file": "example1.m4a",
+   "sha1": "aa024f8434d1"
+  },
+  "example1_done": {
+   "text": "The weight ratio is the inverse of the arm-length ratio",
+   "file": "example1_done.m4a",
+   "sha1": "688077296ff4"
+  },
+  "example2": {
+   "text": "Now we add salt. What about the balance?",
+   "file": "example2.m4a",
+   "sha1": "0f30b2c08703"
+  },
+  "example2_done": {
+   "text": "Salt is 100%. It goes at the right end of the balance",
+   "file": "example2_done.m4a",
+   "sha1": "dfb2f20f2fe4"
+  },
+  "boundary": {
+   "text": "But watch out! When nothing is being mixed…",
+   "file": "boundary.m4a",
+   "sha1": "3d6c3970842e"
+  },
+  "onboarding": {
+   "text": "Clue → tool → drag. No hints this time",
+   "file": "onboarding.m4a",
+   "sha1": "3aef1dfe7fed"
+  },
+  "onboarding_done": {
+   "text": "All set! Try 5 problems on your own",
+   "file": "onboarding_done.m4a",
+   "sha1": "e5274c849755"
+  }
+ },
+ "freeze": {
+  "principle": {
+   "text": "2 people walk toward each other. When do they meet?",
+   "file": "principle.m4a",
+   "sha1": "5eee14320ed8"
+  },
+  "principle_turn": {
+   "text": "They won't necessarily meet in the middle. What now?",
+   "file": "principle_turn.m4a",
+   "sha1": "743b25a477f7"
+  },
+  "principle_lens": {
+   "text": "Freeze lens! Try freezing one of them",
+   "file": "principle_lens.m4a",
+   "sha1": "6a5de3c9d1ec"
+  },
+  "example1": {
+   "text": "Tap the little brother to freeze him!",
+   "file": "example1.m4a",
+   "sha1": "cd74e92da831"
+  },
+  "example1_done": {
+   "text": "Just divide the distance by the closing speed",
+   "file": "example1_done.m4a",
+   "sha1": "111ff51b6594"
+  },
+  "example2": {
+   "text": "Now, trains passing each other!",
+   "file": "example2.m4a",
+   "sha1": "eead18918436"
+  },
+  "example2_done": {
+   "text": "Trains too: freeze one and it's the same",
+   "file": "example2_done.m4a",
+   "sha1": "e4209d44e58e"
+  },
+  "boundary": {
+   "text": "But watch out! If only 1 person is moving…",
+   "file": "boundary.m4a",
+   "sha1": "6173ef6ba441"
+  },
+  "onboarding": {
+   "text": "Clue → tool → drag. No hints this time",
+   "file": "onboarding.m4a",
+   "sha1": "3aef1dfe7fed"
+  },
+  "onboarding_done": {
+   "text": "All set! Try 5 problems on your own",
+   "file": "onboarding_done.m4a",
+   "sha1": "e5274c849755"
+  }
+ },
+ "mirror": {
+  "principle": {
+   "text": "Stop by the river to fetch water. What's the shortest route?",
+   "file": "principle.m4a",
+   "sha1": "64fa58439736"
+  },
+  "principle_turn": {
+   "text": "The middle isn't the shortest… What now?",
+   "file": "principle_turn.m4a",
+   "sha1": "47f085036acf"
+  },
+  "principle_lens": {
+   "text": "Reflect lens! Reflect Q across the river",
+   "file": "principle_lens.m4a",
+   "sha1": "bb498f56267a"
+  },
+  "example1": {
+   "text": "Reflect the point to the other side of the river",
+   "file": "example1.m4a",
+   "sha1": "c586365ba0e1"
+  },
+  "example1_done": {
+   "text": "A straight line is the shortest",
+   "file": "example1_done.m4a",
+   "sha1": "3067305a47e6"
+  },
+  "example2": {
+   "text": "Even with bigger numbers, it's the same idea",
+   "file": "example2.m4a",
+   "sha1": "9e969a83d562"
+  },
+  "example2_done": {
+   "text": "Simplify the ratio first, then calculate",
+   "file": "example2_done.m4a",
+   "sha1": "d894afad363a"
+  },
+  "boundary": {
+   "text": "But if the path is on the surface of a solid…",
+   "file": "boundary.m4a",
+   "sha1": "04f81055c355"
+  },
+  "onboarding": {
+   "text": "Clue → tool → drag. No hints this time",
+   "file": "onboarding.m4a",
+   "sha1": "3aef1dfe7fed"
+  },
+  "onboarding_done": {
+   "text": "All set! Try 5 problems on your own",
+   "file": "onboarding_done.m4a",
+   "sha1": "e5274c849755"
+  }
+ },
+ "unfold": {
+  "principle": {
+   "text": "Wrap a string around the surface of a box. What's the shortest way?",
+   "file": "principle.m4a",
+   "sha1": "2fe00d4d2d94"
+  },
+  "principle_turn": {
+   "text": "You can't calculate the slanted length… What now?",
+   "file": "principle_turn.m4a",
+   "sha1": "2a95257cd324"
+  },
+  "principle_lens": {
+   "text": "Unfold lens! Open 2 faces and lay them flat",
+   "file": "principle_lens.m4a",
+   "sha1": "539e9fc61c3f"
+  },
+  "example1": {
+   "text": "Grab a face and open it up",
+   "file": "example1.m4a",
+   "sha1": "5ade936cec94"
+  },
+  "example1_done": {
+   "text": "Opening it doesn't change the string's length",
+   "file": "example1_done.m4a",
+   "sha1": "faf943556272"
+  },
+  "example2": {
+   "text": "Even if the box size changes, unfold it and it's the same",
+   "file": "example2.m4a",
+   "sha1": "a6866df89479"
+  },
+  "example2_done": {
+   "text": "Unfold it and look for similar triangles",
+   "file": "example2_done.m4a",
+   "sha1": "75f9ffbf927c"
+  },
+  "boundary": {
+   "text": "But if the path is on a flat plane…",
+   "file": "boundary.m4a",
+   "sha1": "4771e9e4c442"
+  },
+  "onboarding": {
+   "text": "Clue → tool → drag. No hints this time",
+   "file": "onboarding.m4a",
+   "sha1": "3aef1dfe7fed"
+  },
+  "onboarding_done": {
+   "text": "All set! Try 5 problems on your own",
+   "file": "onboarding_done.m4a",
+   "sha1": "e5274c849755"
+  }
+ },
+ "koukou_juken/enclose": {
+  "principle": {
+   "text": "A quadrilateral on coordinates. How do you find its area?",
+   "file": "principle.m4a",
+   "sha1": "dcb162d0fa59"
+  },
+  "principle_turn": {
+   "text": "The sides and heights are all slanted… What now?",
+   "file": "principle_turn.m4a",
+   "sha1": "43bc1e2d3ff4"
+  },
+  "principle_lens": {
+   "text": "Enclose lens! Box it in a rectangle parallel to the axes",
+   "file": "principle_lens.m4a",
+   "sha1": "2144ff800d87"
+  },
+  "example1": {
+   "text": "Copy the ghost finger and enclose it",
+   "file": "example1.m4a",
+   "sha1": "4935754eed86"
+  },
+  "example1_done": {
+   "text": "Read the corner triangles from differences in coordinates",
+   "file": "example1_done.m4a",
+   "sha1": "e61e087c5d56"
+  },
+  "example2": {
+   "text": "Now a quadrilateral. Will the same steps work?",
+   "file": "example2.m4a",
+   "sha1": "7476e31ed45e"
+  },
+  "example2_done": {
+   "text": "Even if the shape changes, just enclose and subtract",
+   "file": "example2_done.m4a",
+   "sha1": "2e895820ec7c"
+  },
+  "boundary": {
+   "text": "But if a diagonal lies on an axis…",
+   "file": "boundary.m4a",
+   "sha1": "81d593e63ee1"
+  },
+  "onboarding": {
+   "text": "Clue → tool → drag. No hints",
+   "file": "onboarding.m4a",
+   "sha1": "b1f6477129d3"
+  },
+  "onboarding_done": {
+   "text": "All set! Try 5 problems on your own",
+   "file": "onboarding_done.m4a",
+   "sha1": "e5274c849755"
+  }
+ },
+ "koukou_juken/slide": {
+  "principle": {
+   "text": "Point P makes the areas equal. Where is it?",
+   "file": "principle.m4a",
+   "sha1": "e1f138466a69"
+  },
+  "principle_turn": {
+   "text": "Equations need case-by-case work and get heavy… What now?",
+   "file": "principle_turn.m4a",
+   "sha1": "8fbf09e81f3b"
+  },
+  "principle_lens": {
+   "text": "Equal-Area Slide lens! Draw a parallel line",
+   "file": "principle_lens.m4a",
+   "sha1": "d8562f610b27"
+  },
+  "example1": {
+   "text": "Slide C parallel to AB",
+   "file": "example1.m4a",
+   "sha1": "5e2e5270853f"
+  },
+  "example1_done": {
+   "text": "Same base and same height means the same area",
+   "file": "example1_done.m4a",
+   "sha1": "8d5594e43be1"
+  },
+  "example2": {
+   "text": "Different coordinates, same idea",
+   "file": "example2.m4a",
+   "sha1": "1646ec7131e9"
+  },
+  "example2_done": {
+   "text": "Find the equation of the parallel line, and P is determined",
+   "file": "example2_done.m4a",
+   "sha1": "42a3fe04583d"
+  },
+  "boundary": {
+   "text": "But if you only know the area value…",
+   "file": "boundary.m4a",
+   "sha1": "630c7a86da0e"
+  },
+  "onboarding": {
+   "text": "Clue → tool → drag. No hints",
+   "file": "onboarding.m4a",
+   "sha1": "b1f6477129d3"
+  },
+  "onboarding_done": {
+   "text": "All set! Try 5 problems on your own",
+   "file": "onboarding_done.m4a",
+   "sha1": "e5274c849755"
+  }
+ },
+ "koukou_juken/mirror": {
+  "principle": {
+   "text": "Where is P so that AP＋PB is shortest?",
+   "file": "principle.m4a",
+   "sha1": "d7a2a49a5207"
+  },
+  "principle_turn": {
+   "text": "The middle isn't the shortest… What now?",
+   "file": "principle_turn.m4a",
+   "sha1": "47f085036acf"
+  },
+  "principle_lens": {
+   "text": "Reflect lens! Reflect B across the x-axis",
+   "file": "principle_lens.m4a",
+   "sha1": "590db4fb9ce5"
+  },
+  "example1": {
+   "text": "Reflect B to B', then join it to A with a straight line",
+   "file": "example1.m4a",
+   "sha1": "baebce4f073d"
+  },
+  "example1_done": {
+   "text": "P is where the straight line crosses the x-axis",
+   "file": "example1_done.m4a",
+   "sha1": "1edb2bb7b9fd"
+  },
+  "example2": {
+   "text": "Once P is found, you can also get the area of △ABP",
+   "file": "example2.m4a",
+   "sha1": "37949e138e97"
+  },
+  "example2_done": {
+   "text": "You can use 2 lenses one after another",
+   "file": "example2_done.m4a",
+   "sha1": "440dd5df7db5"
+  },
+  "boundary": {
+   "text": "But if it's the point where the difference is greatest…",
+   "file": "boundary.m4a",
+   "sha1": "c6ab1cac1aad"
+  },
+  "onboarding": {
+   "text": "Clue → tool → drag. No hints",
+   "file": "onboarding.m4a",
+   "sha1": "b1f6477129d3"
+  },
+  "onboarding_done": {
+   "text": "All set! Try 5 problems on your own",
+   "file": "onboarding_done.m4a",
+   "sha1": "e5274c849755"
+  }
+ },
+ "koukou_juken/area": {
+  "principle": {
+   "text": "Adults and middle schoolers — how many in total?",
+   "file": "principle.m4a",
+   "sha1": "13cc5217bb6b"
+  },
+  "principle_turn": {
+   "text": "2 equations in x and y… that's heavy. What now?",
+   "file": "principle_turn.m4a",
+   "sha1": "9244a9a321d5"
+  },
+  "principle_lens": {
+   "text": "Area Diagram lens! Line up 2 rectangles",
+   "file": "principle_lens.m4a",
+   "sha1": "5f85f2a192a9"
+  },
+  "example1": {
+   "text": "Pretend they're all middle schoolers, and look at what sticks out",
+   "file": "example1.m4a",
+   "sha1": "c2cf5585096b"
+  },
+  "example1_done": {
+   "text": "Area sticking out ÷ difference in height = the answer",
+   "file": "example1_done.m4a",
+   "sha1": "38e88b48f5d0"
+  },
+  "example2": {
+   "text": "Compare above and below the average line",
+   "file": "example2.m4a",
+   "sha1": "7dc4dbdbcee7"
+  },
+  "example2_done": {
+   "text": "The bump and the dip have the same area",
+   "file": "example2_done.m4a",
+   "sha1": "02a48ed6d0f6"
+  },
+  "boundary": {
+   "text": "But if you don't know the total number…",
+   "file": "boundary.m4a",
+   "sha1": "f824f3646e87"
+  },
+  "onboarding": {
+   "text": "Clue → tool → drag. No hints",
+   "file": "onboarding.m4a",
+   "sha1": "b1f6477129d3"
+  },
+  "onboarding_done": {
+   "text": "All set! Try 5 problems on your own",
+   "file": "onboarding_done.m4a",
+   "sha1": "e5274c849755"
+  }
+ },
+ "koukou_juken/constant": {
+  "principle": {
+   "text": "How many years ago was Mom 5 times as old?",
+   "file": "principle.m4a",
+   "sha1": "ae1edddef41a"
+  },
+  "principle_turn": {
+   "text": "Which way should the equation go?… What now?",
+   "file": "principle_turn.m4a",
+   "sha1": "a70d343cc238"
+  },
+  "principle_lens": {
+   "text": "Constant Sum/Difference lens! The age difference doesn't change",
+   "file": "principle_lens.m4a",
+   "sha1": "bdb250f2f2ae"
+  },
+  "example1": {
+   "text": "Split the difference tape into equal parts",
+   "file": "example1.m4a",
+   "sha1": "5d855a3c000d"
+  },
+  "example1_done": {
+   "text": "Difference ÷ (times − 1) gives the age at that time",
+   "file": "example1_done.m4a",
+   "sha1": "eb7183c8368f"
+  },
+  "example2": {
+   "text": "Even if they spend the same amount, the difference stays the same",
+   "file": "example2.m4a",
+   "sha1": "a90d35e997e2"
+  },
+  "example2_done": {
+   "text": "Find what doesn't change, and it's fast",
+   "file": "example2_done.m4a",
+   "sha1": "bb3632e13ec5"
+  },
+  "boundary": {
+   "text": "But if you compare with the total of 3 people…",
+   "file": "boundary.m4a",
+   "sha1": "4f7fbddf633c"
+  },
+  "onboarding": {
+   "text": "Clue → tool → drag. No hints",
+   "file": "onboarding.m4a",
+   "sha1": "b1f6477129d3"
+  },
+  "onboarding_done": {
+   "text": "All set! Try 5 problems on your own",
+   "file": "onboarding_done.m4a",
+   "sha1": "e5274c849755"
+  }
+ },
+ "koukou_juken/balance": {
+  "principle": {
+   "text": "Salt water of different concentrations. How many g do you mix?",
+   "file": "principle.m4a",
+   "sha1": "a1bb66510681"
+  },
+  "principle_turn": {
+   "text": "The % equation gets long… What now?",
+   "file": "principle_turn.m4a",
+   "sha1": "14f99e486a25"
+  },
+  "principle_lens": {
+   "text": "Balance lens! Put the concentrations on the arm",
+   "file": "principle_lens.m4a",
+   "sha1": "1da8162a4332"
+  },
+  "example1": {
+   "text": "Set the pivot at the concentration after mixing",
+   "file": "example1.m4a",
+   "sha1": "b8c72515f6e0"
+  },
+  "example1_done": {
+   "text": "The weight ratio is the inverse of the arm-length ratio",
+   "file": "example1_done.m4a",
+   "sha1": "688077296ff4"
+  },
+  "example2": {
+   "text": "If you only add salt, balance it against 100%",
+   "file": "example2.m4a",
+   "sha1": "f37bcf3a416c"
+  },
+  "example2_done": {
+   "text": "Think of water as 0% and salt as 100%",
+   "file": "example2_done.m4a",
+   "sha1": "a6e7dbe433ed"
+  },
+  "boundary": {
+   "text": "But if you're only evaporating water…",
+   "file": "boundary.m4a",
+   "sha1": "971113d5741a"
+  },
+  "onboarding": {
+   "text": "Clue → tool → drag. No hints",
+   "file": "onboarding.m4a",
+   "sha1": "b1f6477129d3"
+  },
+  "onboarding_done": {
+   "text": "All set! Try 5 problems on your own",
+   "file": "onboarding_done.m4a",
+   "sha1": "e5274c849755"
+  }
+ },
+ "koukou_juken/freeze": {
+  "principle": {
+   "text": "In how many minutes does the big brother catch up with the little brother?",
+   "file": "principle.m4a",
+   "sha1": "9f0a1a8ade0f"
+  },
+  "principle_turn": {
+   "text": "They start at different times, which is confusing… What now?",
+   "file": "principle_turn.m4a",
+   "sha1": "fcbb6c7bba95"
+  },
+  "principle_lens": {
+   "text": "Freeze lens! Try freezing the little brother",
+   "file": "principle_lens.m4a",
+   "sha1": "64f62b8f324e"
+  },
+  "example1": {
+   "text": "Tap the little brother to freeze him!",
+   "file": "example1.m4a",
+   "sha1": "cd74e92da831"
+  },
+  "example1_done": {
+   "text": "The closing speed is the difference of the speeds",
+   "file": "example1_done.m4a",
+   "sha1": "eb23f777767a"
+  },
+  "example2": {
+   "text": "Trains passing each other too: freeze one",
+   "file": "example2.m4a",
+   "sha1": "b0cfa49b94b0"
+  },
+  "example2_done": {
+   "text": "Cover the sum of the lengths at the sum of the speeds",
+   "file": "example2_done.m4a",
+   "sha1": "44c7a9a00d44"
+  },
+  "boundary": {
+   "text": "But if just 1 person changes speed…",
+   "file": "boundary.m4a",
+   "sha1": "cfead8e2b1c1"
+  },
+  "onboarding": {
+   "text": "Clue → tool → drag. No hints",
+   "file": "onboarding.m4a",
+   "sha1": "b1f6477129d3"
+  },
+  "onboarding_done": {
+   "text": "All set! Try 5 problems on your own",
+   "file": "onboarding_done.m4a",
+   "sha1": "e5274c849755"
+  }
+ },
+ "koukou_juken/unfold": {
+  "principle": {
+   "text": "The shortest string over the surface. Where is P?",
+   "file": "principle.m4a",
+   "sha1": "b4cdd4118642"
+  },
+  "principle_turn": {
+   "text": "You can't compare them on the solid as it is… What now?",
+   "file": "principle_turn.m4a",
+   "sha1": "99c7fc45a4d0"
+  },
+  "principle_lens": {
+   "text": "Unfold lens! Open the faces and lay them flat",
+   "file": "principle_lens.m4a",
+   "sha1": "c67371cac1ff"
+  },
+  "example1": {
+   "text": "Open 2 faces and connect A and G",
+   "file": "example1.m4a",
+   "sha1": "813d44e2a4b4"
+  },
+  "example1_done": {
+   "text": "Similar triangles give you BP",
+   "file": "example1_done.m4a",
+   "sha1": "e088b4dea355"
+  },
+  "example2": {
+   "text": "Now 3 faces. Open them into 1 straight line",
+   "file": "example2.m4a",
+   "sha1": "faa8ca0a5eb2"
+  },
+  "example2_done": {
+   "text": "However many faces it crosses, unfold and it's straight",
+   "file": "example2_done.m4a",
+   "sha1": "014af989f767"
+  },
+  "boundary": {
+   "text": "But if it's the volume of a cut-off solid…",
+   "file": "boundary.m4a",
+   "sha1": "e76845141afd"
+  },
+  "onboarding": {
+   "text": "Clue → tool → drag. No hints",
+   "file": "onboarding.m4a",
+   "sha1": "b1f6477129d3"
+  },
+  "onboarding_done": {
+   "text": "All set! Try 5 problems on your own",
+   "file": "onboarding_done.m4a",
+   "sha1": "e5274c849755"
+  }
+ },
+ "daigaku_juken/balance": {
+  "principle": {
+   "text": "P is where 2 lines cross. What is AP:PD?",
+   "file": "principle.m4a",
+   "sha1": "f72ae98cf140"
+  },
+  "principle_turn": {
+   "text": "Solving with vectors makes the equations long… What now?",
+   "file": "principle_turn.m4a",
+   "sha1": "d9b18d977d43"
+  },
+  "principle_lens": {
+   "text": "Balance lens! Put weights on each side",
+   "file": "principle_lens.m4a",
+   "sha1": "efe45a0e701a"
+  },
+  "example1": {
+   "text": "Place weights on B and C in the inverse ratio",
+   "file": "example1.m4a",
+   "sha1": "2b75577976a4"
+  },
+  "example1_done": {
+   "text": "The ratio of the weight gathered at D to the weight at A",
+   "file": "example1_done.m4a",
+   "sha1": "44f63967b281"
+  },
+  "example2": {
+   "text": "Now the ratio on BE. Same idea",
+   "file": "example2.m4a",
+   "sha1": "2f6e2347e46b"
+  },
+  "example2_done": {
+   "text": "Match up the weights, and you can get any ratio",
+   "file": "example2_done.m4a",
+   "sha1": "4bb3ffac2c4a"
+  },
+  "boundary": {
+   "text": "But if it's the average speed of a round trip…",
+   "file": "boundary.m4a",
+   "sha1": "cd610b4f72a4"
+  },
+  "onboarding": {
+   "text": "Clue → tool → drag. No hints",
+   "file": "onboarding.m4a",
+   "sha1": "b1f6477129d3"
+  },
+  "onboarding_done": {
+   "text": "All set! Try 5 problems on your own",
+   "file": "onboarding_done.m4a",
+   "sha1": "e5274c849755"
+  }
+ },
+ "daigaku_juken/enclose": {
+  "principle": {
+   "text": "What's the area enclosed by the parabola and the line?",
+   "file": "principle.m4a",
+   "sha1": "cb9af2fc378d"
+  },
+  "principle_turn": {
+   "text": "Cubing takes a long time… What now?",
+   "file": "principle_turn.m4a",
+   "sha1": "d43afa780204"
+  },
+  "principle_lens": {
+   "text": "Enclose lens! Look only at the intersection points α and β",
+   "file": "principle_lens.m4a",
+   "sha1": "bc7e7f81553e"
+  },
+  "example1": {
+   "text": "Take the difference and find the x-coordinates of the intersections",
+   "file": "example1.m4a",
+   "sha1": "29cbed1c5621"
+  },
+  "example1_done": {
+   "text": "|a|(β−α)³÷6 gives it right away",
+   "file": "example1_done.m4a",
+   "sha1": "c80c1324a372"
+  },
+  "example2": {
+   "text": "Even with 2 parabolas, the difference is a quadratic",
+   "file": "example2.m4a",
+   "sha1": "f345482b369c"
+  },
+  "example2_done": {
+   "text": "Just use the difference of the x² coefficients",
+   "file": "example2_done.m4a",
+   "sha1": "2cd59000e9a8"
+  },
+  "boundary": {
+   "text": "But if it isn't bounded by the intersection points…",
+   "file": "boundary.m4a",
+   "sha1": "a50764560dcf"
+  },
+  "onboarding": {
+   "text": "Clue → tool → drag. No hints",
+   "file": "onboarding.m4a",
+   "sha1": "b1f6477129d3"
+  },
+  "onboarding_done": {
+   "text": "All set! Try 5 problems on your own",
+   "file": "onboarding_done.m4a",
+   "sha1": "e5274c849755"
+  }
+ },
+ "daigaku_juken/slide": {
+  "principle": {
+   "text": "For P on the parabola, what's the maximum of △ABP?",
+   "file": "principle.m4a",
+   "sha1": "f42e51a64d82"
+  },
+  "principle_turn": {
+   "text": "Radicals and absolute values make it heavy… What now?",
+   "file": "principle_turn.m4a",
+   "sha1": "ec0bf2e65d4b"
+  },
+  "principle_lens": {
+   "text": "Equal-Area Slide lens! Move a line parallel to AB",
+   "file": "principle_lens.m4a",
+   "sha1": "73fd260fa0c9"
+  },
+  "example1": {
+   "text": "Move the parallel line until it touches the parabola",
+   "file": "example1.m4a",
+   "sha1": "ba934cfb245c"
+  },
+  "example1_done": {
+   "text": "The tangent point is at the x midway between A and B",
+   "file": "example1_done.m4a",
+   "sha1": "42fd04e5486b"
+  },
+  "example2": {
+   "text": "On the parallel line through O, the height is the same",
+   "file": "example2.m4a",
+   "sha1": "801a41c584c1"
+  },
+  "example2_done": {
+   "text": "P is where the parallel line meets the parabola",
+   "file": "example2_done.m4a",
+   "sha1": "829a25ef4d27"
+  },
+  "boundary": {
+   "text": "But if P's allowed range is fixed…",
+   "file": "boundary.m4a",
+   "sha1": "289d498e36f8"
+  },
+  "onboarding": {
+   "text": "Clue → tool → drag. No hints",
+   "file": "onboarding.m4a",
+   "sha1": "b1f6477129d3"
+  },
+  "onboarding_done": {
+   "text": "All set! Try 5 problems on your own",
+   "file": "onboarding_done.m4a",
+   "sha1": "e5274c849755"
+  }
+ },
+ "daigaku_juken/mirror": {
+  "principle": {
+   "text": "For P on a line, what's the minimum of AP＋PB?",
+   "file": "principle.m4a",
+   "sha1": "4d791048292a"
+  },
+  "principle_turn": {
+   "text": "A sum of radicals is tough… What now?",
+   "file": "principle_turn.m4a",
+   "sha1": "3249094e971e"
+  },
+  "principle_lens": {
+   "text": "Reflect lens! Reflect B across the line",
+   "file": "principle_lens.m4a",
+   "sha1": "5900627624f2"
+  },
+  "example1": {
+   "text": "B goes to B'. The midpoint is on ℓ, and BB' is perpendicular to ℓ",
+   "file": "example1.m4a",
+   "sha1": "815b6c292d3e"
+  },
+  "example1_done": {
+   "text": "The minimum is exactly the length of AB'",
+   "file": "example1_done.m4a",
+   "sha1": "f50a369f910b"
+  },
+  "example2": {
+   "text": "Even with slope 2, you find the symmetric point the same way",
+   "file": "example2.m4a",
+   "sha1": "a429d107757f"
+  },
+  "example2_done": {
+   "text": "Reflect it, and all you need is the Pythagorean theorem",
+   "file": "example2_done.m4a",
+   "sha1": "6eac951b5231"
+  },
+  "boundary": {
+   "text": "But if it's the point where the difference is greatest…",
+   "file": "boundary.m4a",
+   "sha1": "c6ab1cac1aad"
+  },
+  "onboarding": {
+   "text": "Clue → tool → drag. No hints",
+   "file": "onboarding.m4a",
+   "sha1": "b1f6477129d3"
+  },
+  "onboarding_done": {
+   "text": "All set! Try 5 problems on your own",
+   "file": "onboarding_done.m4a",
+   "sha1": "e5274c849755"
+  }
+ },
+ "daigaku_juken/freeze": {
+  "principle": {
+   "text": "Which point does it pass through for every value of a?",
+   "file": "principle.m4a",
+   "sha1": "a051099eb43c"
+  },
+  "principle_turn": {
+   "text": "Even after plugging in 2 values of a, you still have to check…",
+   "file": "principle_turn.m4a",
+   "sha1": "6a1ac827e67c"
+  },
+  "principle_lens": {
+   "text": "Freeze lens! Freeze a and rearrange",
+   "file": "principle_lens.m4a",
+   "sha1": "678bdd079514"
+  },
+  "example1": {
+   "text": "Split it into a bracket for the coefficient of a, and the rest",
+   "file": "example1.m4a",
+   "sha1": "dd460a34bd26"
+  },
+  "example1_done": {
+   "text": "The point where both are 0 is the fixed point",
+   "file": "example1_done.m4a",
+   "sha1": "2138d18e5c93"
+  },
+  "example2": {
+   "text": "Same with parabolas: just group by a",
+   "file": "example2.m4a",
+   "sha1": "a0dcf3fe8eec"
+  },
+  "example2_done": {
+   "text": "The point it passes through for any a pops right out",
+   "file": "example2_done.m4a",
+   "sha1": "acf83f7e625e"
+  },
+  "boundary": {
+   "text": "But if the point is given first…",
+   "file": "boundary.m4a",
+   "sha1": "d8c37d2db67b"
+  },
+  "onboarding": {
+   "text": "Clue → tool → drag. No hints",
+   "file": "onboarding.m4a",
+   "sha1": "b1f6477129d3"
+  },
+  "onboarding_done": {
+   "text": "All set! Try 5 problems on your own",
+   "file": "onboarding_done.m4a",
+   "sha1": "e5274c849755"
+  }
+ },
+ "daigaku_juken/unfold": {
+  "principle": {
+   "text": "A string going 1 full lap around a cone. What's the shortest?",
+   "file": "principle.m4a",
+   "sha1": "82d850e01c02"
+  },
+  "principle_turn": {
+   "text": "You can't measure it on the curved surface… What now?",
+   "file": "principle_turn.m4a",
+   "sha1": "d630cf6d7184"
+  },
+  "principle_lens": {
+   "text": "Unfold lens! Open up the side surface",
+   "file": "principle_lens.m4a",
+   "sha1": "6b57c6188b6a"
+  },
+  "example1": {
+   "text": "Central angle = 360° × radius ÷ slant height",
+   "file": "example1.m4a",
+   "sha1": "e4aa5db23ea9"
+  },
+  "example1_done": {
+   "text": "The chord in the unfolded figure is the shortest string",
+   "file": "example1_done.m4a",
+   "sha1": "8547dab45ea5"
+  },
+  "example2": {
+   "text": "Now to a point partway along the slant edge. Connect them",
+   "file": "example2.m4a",
+   "sha1": "7c2827b0833e"
+  },
+  "example2_done": {
+   "text": "The law of cosines gives the length",
+   "file": "example2_done.m4a",
+   "sha1": "08ef23f8f297"
+  },
+  "boundary": {
+   "text": "But if the unfolded angle goes over 180°…",
+   "file": "boundary.m4a",
+   "sha1": "56a6a24ff1f4"
+  },
+  "onboarding": {
+   "text": "Clue → tool → drag. No hints",
+   "file": "onboarding.m4a",
+   "sha1": "b1f6477129d3"
+  },
+  "onboarding_done": {
+   "text": "All set! Try 5 problems on your own",
+   "file": "onboarding_done.m4a",
+   "sha1": "e5274c849755"
+  }
+ },
+ "daigaku_juken/area": {
+  "principle": {
+   "text": "2 dice. What's the probability the difference is 3 or more?",
+   "file": "principle.m4a",
+   "sha1": "d581e5365be4"
+  },
+  "principle_turn": {
+   "text": "If you list them all, you miss some… What now?",
+   "file": "principle_turn.m4a",
+   "sha1": "52a8356d9a96"
+  },
+  "principle_lens": {
+   "text": "Area Diagram lens! Look at it as a 6×6 table",
+   "file": "principle_lens.m4a",
+   "sha1": "822648636eb6"
+  },
+  "example1": {
+   "text": "Shade the squares 3 or more lines away from the diagonal",
+   "file": "example1.m4a",
+   "sha1": "bffce020fbf4"
+  },
+  "example1_done": {
+   "text": "Just count the area of 2 triangles",
+   "file": "example1_done.m4a",
+   "sha1": "a433295c3cb5"
+  },
+  "example2": {
+   "text": "Now the product. How many squares in each row?",
+   "file": "example2.m4a",
+   "sha1": "1d9d17937a27"
+  },
+  "example2_done": {
+   "text": "In a table, the condition shows up as a shape",
+   "file": "example2_done.m4a",
+   "sha1": "0b153e03cae4"
+  },
+  "boundary": {
+   "text": "But with 3 dice…",
+   "file": "boundary.m4a",
+   "sha1": "35d864423e7f"
+  },
+  "onboarding": {
+   "text": "Clue → tool → drag. No hints",
+   "file": "onboarding.m4a",
+   "sha1": "b1f6477129d3"
+  },
+  "onboarding_done": {
+   "text": "All set! Try 5 problems on your own",
+   "file": "onboarding_done.m4a",
+   "sha1": "e5274c849755"
+  }
+ },
+ "daigaku_juken/constant": {
+  "principle": {
+   "text": "If x＋y＝8, what's the minimum of x²＋y²?",
+   "file": "principle.m4a",
+   "sha1": "0e77b1eba848"
+  },
+  "principle_turn": {
+   "text": "Substituting makes the expression long… What now?",
+   "file": "principle_turn.m4a",
+   "sha1": "ae88ff4baf78"
+  },
+  "principle_lens": {
+   "text": "Constant Sum/Difference lens! The sum is fixed, so look at the middle",
+   "file": "principle_lens.m4a",
+   "sha1": "b38954d4b73a"
+  },
+  "example1": {
+   "text": "Let x＝4＋t, y＝4−t and move t",
+   "file": "example1.m4a",
+   "sha1": "616c77db0975"
+  },
+  "example1_done": {
+   "text": "Minimum at the middle, t＝0",
+   "file": "example1_done.m4a",
+   "sha1": "d018a4609af1"
+  },
+  "example2": {
+   "text": "See 2x and y as 2 numbers with a fixed sum",
+   "file": "example2.m4a",
+   "sha1": "920bd733980d"
+  },
+  "example2_done": {
+   "text": "At the middle, the product is largest",
+   "file": "example2_done.m4a",
+   "sha1": "cdd2b79b17eb"
+  },
+  "boundary": {
+   "text": "But if the range doesn't include the middle…",
+   "file": "boundary.m4a",
+   "sha1": "8310e845c55d"
+  },
+  "onboarding": {
+   "text": "Clue → tool → drag. No hints",
+   "file": "onboarding.m4a",
+   "sha1": "b1f6477129d3"
+  },
+  "onboarding_done": {
+   "text": "All set! Try 5 problems on your own",
+   "file": "onboarding_done.m4a",
+   "sha1": "e5274c849755"
+  }
+ },
+ "_voice": {
+  "engine": "Google Cloud Text-to-Speech",
+  "languageCode": "en-US",
+  "name": "en-US-Wavenet-F",
+  "audioEncoding": "MP3",
+  "speakingRate": 1.08,
+  "pitch": 2.0,
+  "sampleRateHertz": 24000
+ }
+}
