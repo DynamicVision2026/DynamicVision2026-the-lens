@@ -762,6 +762,8 @@ def cu_variant(rng, fig0):
         return {**fig0, "r": r, "l": l}
     if fig0.get("expect") == "through_apex":
         r = rng.randint(3, 9); l = rng.randint(r + 1, 2 * r)
+        if l == 2 * r or (360 * r) % l:
+            return None  # exactly 180° (the line A–A′ runs through the apex, not outside) or a fractional angle: draw again
         fig = {**fig0, "r": r, "l": l}
         if ask != "loop":
             fig["d"] = rng.randint(1, l - 1)

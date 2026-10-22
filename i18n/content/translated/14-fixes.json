@@ -1,0 +1,52 @@
+{
+ "平均の速さ＝全体の道のり÷全体の時間。速さの平均 (4+6)÷2 ではない（速さのおそい区間ほど、時間が長くかかる）": {
+  "en": "Average speed = total distance ÷ total time. It is not the average of the speeds, (4+6)÷2 (the slower leg takes more time).",
+  "zh-Hans": "平均速度＝总路程÷总时间。不是速度的平均 (4+6)÷2（速度越慢的那一段，用的时间越长）",
+  "zh-Hant": "平均速度＝總路程÷總時間。不是速度的平均 (4+6)÷2（速度越慢的那一段，花的時間越長）"
+ },
+ "平均の速さ＝全体の道のり÷全体の時間。速さの平均 (8+40)÷2 ではない（速さのおそい区間ほど、時間が長くかかる）": {
+  "en": "Average speed = total distance ÷ total time. It is not the average of the speeds, (8+40)÷2 (the slower leg takes more time).",
+  "zh-Hans": "平均速度＝总路程÷总时间。不是速度的平均 (8+40)÷2（速度越慢的那一段，用的时间越长）",
+  "zh-Hant": "平均速度＝總路程÷總時間。不是速度的平均 (8+40)÷2（速度越慢的那一段，花的時間越長）"
+ },
+ "平均の速さ＝全体の道のり÷全体の時間。速さの平均 (6+3)÷2 ではない（速さのおそい区間ほど、時間が長くかかる）": {
+  "en": "Average speed = total distance ÷ total time. It is not the average of the speeds, (6+3)÷2 (the slower leg takes more time).",
+  "zh-Hans": "平均速度＝总路程÷总时间。不是速度的平均 (6+3)÷2（速度越慢的那一段，用的时间越长）",
+  "zh-Hant": "平均速度＝總路程÷總時間。不是速度的平均 (6+3)÷2（速度越慢的那一段，花的時間越長）"
+ },
+ "平均の速さ＝全体の道のり÷全体の時間。速さの平均 (20+12)÷2 ではない（速さのおそい区間ほど、時間が長くかかる）": {
+  "en": "Average speed = total distance ÷ total time. It is not the average of the speeds, (20+12)÷2 (the slower leg takes more time).",
+  "zh-Hans": "平均速度＝总路程÷总时间。不是速度的平均 (20+12)÷2（速度越慢的那一段，用的时间越长）",
+  "zh-Hant": "平均速度＝總路程÷總時間。不是速度的平均 (20+12)÷2（速度越慢的那一段，花的時間越長）"
+ },
+ "平均の速さ＝全体の道のり÷全体の時間。速さの平均 (4+12)÷2 ではない（速さのおそい区間ほど、時間が長くかかる）": {
+  "en": "Average speed = total distance ÷ total time. It is not the average of the speeds, (4+12)÷2 (the slower leg takes more time).",
+  "zh-Hans": "平均速度＝总路程÷总时间。不是速度的平均 (4+12)÷2（速度越慢的那一段，用的时间越长）",
+  "zh-Hant": "平均速度＝總路程÷總時間。不是速度的平均 (4+12)÷2（速度越慢的那一段，花的時間越長）"
+ },
+ "1辺がy軸の上にある三角形は、その辺を底辺にすれば高さはy軸までのきょり（x座標の絶対値）。面積からすぐに底辺の長さが出る。": {
+  "en": "For a triangle with one side on the y-axis, take that side as the base: the height is the distance to the y-axis (the absolute value of the x-coordinate). The area then gives the base length right away.",
+  "zh-Hans": "一边在y轴上的三角形，把这条边当作底，高就是到y轴的距离（x坐标的绝对值）。由面积马上可以求出底的长度。",
+  "zh-Hant": "一邊在y軸上的三角形，把這條邊當作底，高就是到y軸的距離（x坐標的絕對值）。由面積馬上可以求出底的長度。"
+ },
+ "囲む必要はない。OPを底辺にすれば、高さはAからy軸までのきょり。": {
+  "en": "No need to enclose it. Take OP as the base, and the height is the distance from A to the y-axis.",
+  "zh-Hans": "不需要围起来。把OP当作底，高就是A到y轴的距离。",
+  "zh-Hant": "不需要圍起來。把OP當作底，高就是A到y軸的距離。"
+ },
+ "底面の半径が6cm、母線の長さが9cmの円すいがあります。底面の円周上の点Aから、側面を1周してAにもどるように糸をかけます。糸の長さの最小値を求めなさい。": {
+  "en": "A cone has a base radius of 6cm and a slant height of 9cm. A string is wound from point A on the base circle once around the side and back to A. Find the shortest possible length of the string.",
+  "zh-Hans": "有一个底面半径为6cm、母线长为9cm的圆锥。从底面圆周上的点A出发，绕侧面一周回到A，挂上一根线。求线长的最小值。",
+  "zh-Hant": "有一個底面半徑為6cm、母線長為9cm的圓錐。從底面圓周上的點A出發，繞側面一圈回到A，掛上一條線。求線長的最小值。"
+ },
+ "側面を開くと、半径9のおうぎ形。中心角は 360°×6/9 = 240°": {
+  "en": "Open the side: a sector of radius 9. The central angle is 360°×6/9 = 240°",
+  "zh-Hans": "把侧面展开，是半径9的扇形。圆心角是 360°×6/9 = 240°",
+  "zh-Hant": "把側面展開，是半徑9的扇形。圓心角是 360°×6/9 = 240°"
+ },
+ "最短の糸は頂点Oを通る：9+9 = 18": {
+  "en": "The shortest string goes through the apex O: 9+9 = 18",
+  "zh-Hans": "最短的线经过顶点O：9+9 = 18",
+  "zh-Hant": "最短的線經過頂點O：9+9 = 18"
+ }
+}

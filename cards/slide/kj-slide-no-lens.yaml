@@ -54,7 +54,7 @@ lens_route:
     value: '6'
     op: result
 trigger:
-  ja: 1辺がy軸の上にある三角形は、その辺を底辺にすれば高さはx座標。面積からすぐに底辺の長さが出る。
+  ja: 1辺がy軸の上にある三角形は、その辺を底辺にすれば高さはy軸までのきょり（x座標の絶対値）。面積からすぐに底辺の長さが出る。
   en: 'One side on the y-axis: that side is the base, the height is the x-coordinate; the area gives the base directly.'
   tags:
   - side_on_axis
@@ -71,7 +71,7 @@ picker:
   - tilted_polygon
   feedback_ja:
     slide: 平行な線で動かす頂点がない。OPがy軸の上にあるので、そのまま底辺にできる。
-    enclose: 囲む必要はない。OPを底辺にすれば、高さはAのx座標。
+    enclose: 囲む必要はない。OPを底辺にすれば、高さはAからy軸までのきょり。
     mirror: 最短の道すじを求める問題ではない。
     direct: そのとおり。OPを底辺、Aからy軸までを高さにして、面積の式からOPを出す。
 animation:
