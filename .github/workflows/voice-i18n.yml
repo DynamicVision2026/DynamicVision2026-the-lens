@@ -1,4 +1,4 @@
-name: Masterclass voice (English / Chinese)
+name: Masterclass voice (English / Chinese / Cantonese)
 
 # The masterclass narration in en / zh-Hans / zh-Hant: Google Cloud Text-to-Speech (WaveNet) speaks each
 # translated `say` line (i18n/content/<lang>.json) via tools/make_voice_i18n.py, signed in to Google through
@@ -13,6 +13,10 @@ on:
         description: "Regenerate every clip (otherwise only new or changed lines)"
         type: boolean
         default: false
+      only:
+        description: "Voice folders to make, comma-separated (en,zh-Hans,zh-Hant,yue); empty = all"
+        type: string
+        default: ""
 
 permissions:
   contents: write
@@ -36,7 +40,7 @@ jobs:
       - name: ffmpeg
         run: command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
       - name: Voices
-        run: python3 tools/make_voice_i18n.py ${{ inputs.all && '--all' || '' }}
+        run: python3 tools/make_voice_i18n.py ${{ inputs.all && '--all' || '' }} ${{ inputs.only && format('--only {0}', inputs.only) || '' }}
       - name: Push and open a PR
         env:
           GH_TOKEN: ${{ github.token }}
@@ -45,7 +49,8 @@ jobs:
           git config user.email "lens-voice-bot@users.noreply.github.com"
           git checkout -B voice/i18n-clips
           git add apps/trainer/public/audio/mc/en apps/trainer/public/audio/mc/zh-Hans apps/trainer/public/audio/mc/zh-Hant
+          [ -d apps/trainer/public/audio/mc/yue ] && git add apps/trainer/public/audio/mc/yue
           git diff --cached --quiet && { echo "no changes"; exit 0; }
-          git commit -m "Masterclass voice: English / 简体中文 / 繁體中文 clips (Google TTS)"
+          git commit -m "Masterclass voice clips (Google TTS): ${{ inputs.only || 'all' }}"
           git push -f origin voice/i18n-clips
           gh pr create --base main --head voice/i18n-clips --title "Masterclass voice: English / 简体中文 / 繁體中文" --body "Clips from tools/make_voice_i18n.py (Google Cloud Text-to-Speech, WaveNet)." || true
