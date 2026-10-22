@@ -1,0 +1,1259 @@
+{
+ "enclose": {
+  "principle": {
+   "text": "斜斜的圖形。面積怎麼求？",
+   "file": "principle.m4a",
+   "sha1": "d1ab0a10d9b5"
+  },
+  "principle_turn": {
+   "text": "到這裡就卡住了…怎麼辦？",
+   "file": "principle_turn.m4a",
+   "sha1": "cdfce92f5924"
+  },
+  "principle_lens": {
+   "text": "圍起來透鏡！用外框把它圍起來試試",
+   "file": "principle_lens.m4a",
+   "sha1": "f785b9c0dd73"
+  },
+  "example1": {
+   "text": "跟著影子手指，試著做做看",
+   "file": "example1.m4a",
+   "sha1": "fc16450ae28d"
+  },
+  "example1_done": {
+   "text": "斜邊的長度不用量",
+   "file": "example1_done.m4a",
+   "sha1": "664da6847778"
+  },
+  "example2": {
+   "text": "這次是五邊形。能圍起來嗎？",
+   "file": "example2.m4a",
+   "sha1": "d96d8ce186f8"
+  },
+  "example2_done": {
+   "text": "不管什麼形狀，都是圍起來再減去角落",
+   "file": "example2_done.m4a",
+   "sha1": "03ac901e7c7e"
+  },
+  "boundary": {
+   "text": "但是要注意！這種時候不要圍",
+   "file": "boundary.m4a",
+   "sha1": "14df9f49657b"
+  },
+  "onboarding": {
+   "text": "線索 → 工具 → 拖曳。這次沒有提示喔",
+   "file": "onboarding.m4a",
+   "sha1": "d4ead720503e"
+  },
+  "onboarding_done": {
+   "text": "準備好了！自己試著做5題吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "f5a8e8d681ae"
+  }
+ },
+ "slide": {
+  "principle": {
+   "text": "好多個三角形。面積加起來是多少？",
+   "file": "principle.m4a",
+   "sha1": "3549ab91e205"
+  },
+  "principle_turn": {
+   "text": "每個三角形的底都不知道…怎麼辦？",
+   "file": "principle_turn.m4a",
+   "sha1": "6dc84a3e1f37"
+  },
+  "principle_lens": {
+   "text": "等積變形透鏡！沿著平行線移動頂點",
+   "file": "principle_lens.m4a",
+   "sha1": "f5fcac8b39df"
+  },
+  "example1": {
+   "text": "試著把頂點集中到1個地方",
+   "file": "example1.m4a",
+   "sha1": "9525b879944b"
+  },
+  "example1_done": {
+   "text": "高相同，面積就不變",
+   "file": "example1_done.m4a",
+   "sha1": "1d3e1fadee05"
+  },
+  "example2": {
+   "text": "這次有5個三角形。用同樣的想法！",
+   "file": "example2.m4a",
+   "sha1": "a5127f3ce034"
+  },
+  "example2_done": {
+   "text": "不管有幾個，都能合成1個",
+   "file": "example2_done.m4a",
+   "sha1": "a72d13535e7d"
+  },
+  "boundary": {
+   "text": "但是，如果底和高已經看得出來…",
+   "file": "boundary.m4a",
+   "sha1": "f623940462cf"
+  },
+  "onboarding": {
+   "text": "線索 → 工具 → 拖曳。這次沒有提示喔",
+   "file": "onboarding.m4a",
+   "sha1": "d4ead720503e"
+  },
+  "onboarding_done": {
+   "text": "準備好了！自己試著做5題吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "f5a8e8d681ae"
+  }
+ },
+ "area": {
+  "principle": {
+   "text": "2種混在一起。怎麼數？",
+   "file": "principle.m4a",
+   "sha1": "2090dfde5f68"
+  },
+  "principle_turn": {
+   "text": "表格越列越長…怎麼辦？",
+   "file": "principle_turn.m4a",
+   "sha1": "ff261940ef39"
+  },
+  "principle_lens": {
+   "text": "面積圖透鏡！把「每張的金額×張數」畫成長方形",
+   "file": "principle_lens.m4a",
+   "sha1": "770508547783"
+  },
+  "example1": {
+   "text": "抓住虛線，往下移動",
+   "file": "example1.m4a",
+   "sha1": "85a7ec61b19a"
+  },
+  "example1_done": {
+   "text": "只看多出來的部分，就能得出答案",
+   "file": "example1_done.m4a",
+   "sha1": "c7de59eeed64"
+  },
+  "example2": {
+   "text": "這次是平均問題。也用面積圖！",
+   "file": "example2.m4a",
+   "sha1": "06c0b71f1a9a"
+  },
+  "example2_done": {
+   "text": "多出來的和凹下去的，面積一樣大",
+   "file": "example2_done.m4a",
+   "sha1": "ffa3f054bc37"
+  },
+  "boundary": {
+   "text": "但是要注意！不知道總數的時候…",
+   "file": "boundary.m4a",
+   "sha1": "49ae98d8d346"
+  },
+  "onboarding": {
+   "text": "線索 → 工具 → 拖曳。這次沒有提示喔",
+   "file": "onboarding.m4a",
+   "sha1": "d4ead720503e"
+  },
+  "onboarding_done": {
+   "text": "準備好了！自己試著做5題吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "f5a8e8d681ae"
+  }
+ },
+ "constant": {
+  "principle": {
+   "text": "幾年後變成3倍？怎麼想？",
+   "file": "principle.m4a",
+   "sha1": "9acac50b88ce"
+  },
+  "principle_turn": {
+   "text": "表格變得好長…怎麼辦？",
+   "file": "principle_turn.m4a",
+   "sha1": "b4f476b843b7"
+  },
+  "principle_lens": {
+   "text": "和差不變透鏡！年齡差永遠不變",
+   "file": "principle_lens.m4a",
+   "sha1": "b8bb20ca99cb"
+  },
+  "example1": {
+   "text": "移動 ●，看看差",
+   "file": "example1.m4a",
+   "sha1": "671e09d24dbb"
+  },
+  "example1_done": {
+   "text": "把差看成「幾份」，只要做1次除法",
+   "file": "example1_done.m4a",
+   "sha1": "88eee70ac7ce"
+  },
+  "example2": {
+   "text": "這次是錢。差會變嗎？",
+   "file": "example2.m4a",
+   "sha1": "9b57465ae324"
+  },
+  "example2_done": {
+   "text": "不管是錢還是年齡，差都一樣",
+   "file": "example2_done.m4a",
+   "sha1": "6e68a52e89b4"
+  },
+  "boundary": {
+   "text": "但是要注意！如果是1個人和幾個人的合計…",
+   "file": "boundary.m4a",
+   "sha1": "8b566554e798"
+  },
+  "onboarding": {
+   "text": "線索 → 工具 → 拖曳。這次沒有提示喔",
+   "file": "onboarding.m4a",
+   "sha1": "d4ead720503e"
+  },
+  "onboarding_done": {
+   "text": "準備好了！自己試著做5題吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "f5a8e8d681ae"
+  }
+ },
+ "balance": {
+  "principle": {
+   "text": "濃度不同的食鹽水。要混合多少g？",
+   "file": "principle.m4a",
+   "sha1": "149ecf38cc1a"
+  },
+  "principle_turn": {
+   "text": "算式裡全是分數…怎麼辦？",
+   "file": "principle_turn.m4a",
+   "sha1": "fc67d744a562"
+  },
+  "principle_lens": {
+   "text": "天平透鏡！濃度當位置，重量當砝碼",
+   "file": "principle_lens.m4a",
+   "sha1": "4e9a2fc464e1"
+  },
+  "example1": {
+   "text": "移動砝碼，讓天平保持水平",
+   "file": "example1.m4a",
+   "sha1": "3981f3c30fa3"
+  },
+  "example1_done": {
+   "text": "重量的比是臂長的反比",
+   "file": "example1_done.m4a",
+   "sha1": "7b93e13cb3b2"
+  },
+  "example2": {
+   "text": "這次是加鹽。天平會怎樣？",
+   "file": "example2.m4a",
+   "sha1": "4bc0ff1538aa"
+  },
+  "example2_done": {
+   "text": "鹽是100%。放在天平的最右端",
+   "file": "example2_done.m4a",
+   "sha1": "fe6225b38cfb"
+  },
+  "boundary": {
+   "text": "但是要注意！什麼都沒混合的時候…",
+   "file": "boundary.m4a",
+   "sha1": "d47e4bd2bdb4"
+  },
+  "onboarding": {
+   "text": "線索 → 工具 → 拖曳。這次沒有提示喔",
+   "file": "onboarding.m4a",
+   "sha1": "d4ead720503e"
+  },
+  "onboarding_done": {
+   "text": "準備好了！自己試著做5題吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "f5a8e8d681ae"
+  }
+ },
+ "freeze": {
+  "principle": {
+   "text": "2個人相向而行。什麼時候相遇？",
+   "file": "principle.m4a",
+   "sha1": "87ddca502afe"
+  },
+  "principle_turn": {
+   "text": "不一定在正中間相遇。怎麼辦？",
+   "file": "principle_turn.m4a",
+   "sha1": "65bf5432c91a"
+  },
+  "principle_lens": {
+   "text": "定住一方透鏡！試著讓其中一個人停下來",
+   "file": "principle_lens.m4a",
+   "sha1": "e0fb66ca2ec5"
+  },
+  "example1": {
+   "text": "點一下弟弟，讓他停下來！",
+   "file": "example1.m4a",
+   "sha1": "458c19c3eb2a"
+  },
+  "example1_done": {
+   "text": "只要用距離除以靠近的速度",
+   "file": "example1_done.m4a",
+   "sha1": "8672ef31e0a8"
+  },
+  "example2": {
+   "text": "這次是火車交會！",
+   "file": "example2.m4a",
+   "sha1": "b489dffdbff0"
+  },
+  "example2_done": {
+   "text": "火車也一樣，定住一方就行",
+   "file": "example2_done.m4a",
+   "sha1": "b3fbe3d0b661"
+  },
+  "boundary": {
+   "text": "但是要注意！如果只有1個人在動…",
+   "file": "boundary.m4a",
+   "sha1": "ab52318df5c1"
+  },
+  "onboarding": {
+   "text": "線索 → 工具 → 拖曳。這次沒有提示喔",
+   "file": "onboarding.m4a",
+   "sha1": "d4ead720503e"
+  },
+  "onboarding_done": {
+   "text": "準備好了！自己試著做5題吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "f5a8e8d681ae"
+  }
+ },
+ "mirror": {
+  "principle": {
+   "text": "順路到河邊打水。最短的路線是哪條？",
+   "file": "principle.m4a",
+   "sha1": "f85d65d4a435"
+  },
+  "principle_turn": {
+   "text": "走正中間並不是最短…怎麼辦？",
+   "file": "principle_turn.m4a",
+   "sha1": "47f8297f1a41"
+  },
+  "principle_lens": {
+   "text": "翻折透鏡！把Q沿河翻折過去",
+   "file": "principle_lens.m4a",
+   "sha1": "7dd681f348f5"
+  },
+  "example1": {
+   "text": "把點翻折到河的另一邊",
+   "file": "example1.m4a",
+   "sha1": "3712aa8423b9"
+  },
+  "example1_done": {
+   "text": "直線最短",
+   "file": "example1_done.m4a",
+   "sha1": "58ba7dda3c25"
+  },
+  "example2": {
+   "text": "數字變大了，想法也一樣",
+   "file": "example2.m4a",
+   "sha1": "38f9319625fd"
+  },
+  "example2_done": {
+   "text": "先化簡比，再計算",
+   "file": "example2_done.m4a",
+   "sha1": "051e4122a16a"
+  },
+  "boundary": {
+   "text": "但是，如果是立體表面上的路線…",
+   "file": "boundary.m4a",
+   "sha1": "c71e7ce0949f"
+  },
+  "onboarding": {
+   "text": "線索 → 工具 → 拖曳。這次沒有提示喔",
+   "file": "onboarding.m4a",
+   "sha1": "d4ead720503e"
+  },
+  "onboarding_done": {
+   "text": "準備好了！自己試著做5題吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "f5a8e8d681ae"
+  }
+ },
+ "unfold": {
+  "principle": {
+   "text": "在盒子表面繞一條線。怎樣最短？",
+   "file": "principle.m4a",
+   "sha1": "44a27ad6a38e"
+  },
+  "principle_turn": {
+   "text": "斜的長度算不出來…怎麼辦？",
+   "file": "principle_turn.m4a",
+   "sha1": "78b750c733f9"
+  },
+  "principle_lens": {
+   "text": "展開透鏡！把2個面展開攤平",
+   "file": "principle_lens.m4a",
+   "sha1": "6f8025d71061"
+  },
+  "example1": {
+   "text": "抓住一個面，展開看看",
+   "file": "example1.m4a",
+   "sha1": "f3a2631c6b23"
+  },
+  "example1_done": {
+   "text": "展開以後，線的長度也不變",
+   "file": "example1_done.m4a",
+   "sha1": "3e18bc1e2501"
+  },
+  "example2": {
+   "text": "盒子大小變了，展開後也一樣",
+   "file": "example2.m4a",
+   "sha1": "3c0198da06f9"
+  },
+  "example2_done": {
+   "text": "展開後，找形狀相同的三角形",
+   "file": "example2_done.m4a",
+   "sha1": "e28b67b50d48"
+  },
+  "boundary": {
+   "text": "但是，如果是平面上的路線…",
+   "file": "boundary.m4a",
+   "sha1": "cb985597e4fb"
+  },
+  "onboarding": {
+   "text": "線索 → 工具 → 拖曳。這次沒有提示喔",
+   "file": "onboarding.m4a",
+   "sha1": "d4ead720503e"
+  },
+  "onboarding_done": {
+   "text": "準備好了！自己試著做5題吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "f5a8e8d681ae"
+  }
+ },
+ "koukou_juken/enclose": {
+  "principle": {
+   "text": "座標上的四邊形。面積怎麼求？",
+   "file": "principle.m4a",
+   "sha1": "ea92903833a2"
+  },
+  "principle_turn": {
+   "text": "邊和高都是斜的…怎麼辦？",
+   "file": "principle_turn.m4a",
+   "sha1": "9d51faa69739"
+  },
+  "principle_lens": {
+   "text": "圍起來透鏡！用平行於座標軸的長方形圍起來",
+   "file": "principle_lens.m4a",
+   "sha1": "a7d036dcd9fd"
+  },
+  "example1": {
+   "text": "跟著影子手指，試著圍起來",
+   "file": "example1.m4a",
+   "sha1": "c562bd035c3e"
+  },
+  "example1_done": {
+   "text": "角落的三角形，用座標的差就能讀出來",
+   "file": "example1_done.m4a",
+   "sha1": "6373305d8513"
+  },
+  "example2": {
+   "text": "這次是四邊形。用同樣的步驟行嗎？",
+   "file": "example2.m4a",
+   "sha1": "28380a8327b2"
+  },
+  "example2_done": {
+   "text": "形狀變了，也只是圍起來再減",
+   "file": "example2_done.m4a",
+   "sha1": "30d99562061e"
+  },
+  "boundary": {
+   "text": "但是，如果對角線在座標軸上…",
+   "file": "boundary.m4a",
+   "sha1": "3967fd14187d"
+  },
+  "onboarding": {
+   "text": "線索 → 工具 → 拖曳。沒有提示",
+   "file": "onboarding.m4a",
+   "sha1": "f4976a2288d8"
+  },
+  "onboarding_done": {
+   "text": "準備好了！自己試著做5題吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "f5a8e8d681ae"
+  }
+ },
+ "koukou_juken/slide": {
+  "principle": {
+   "text": "使面積相等的點P。在哪裡？",
+   "file": "principle.m4a",
+   "sha1": "74b3cc7d0a5b"
+  },
+  "principle_turn": {
+   "text": "列方程式要分情況討論，很麻煩…怎麼辦？",
+   "file": "principle_turn.m4a",
+   "sha1": "6dee4691653f"
+  },
+  "principle_lens": {
+   "text": "等積變形透鏡！畫一條平行線",
+   "file": "principle_lens.m4a",
+   "sha1": "8c7a03c6f273"
+  },
+  "example1": {
+   "text": "把C沿著與AB平行的方向滑動",
+   "file": "example1.m4a",
+   "sha1": "51f22d21ffd3"
+  },
+  "example1_done": {
+   "text": "底相同、高也相同，面積就相同",
+   "file": "example1_done.m4a",
+   "sha1": "bc7564312896"
+  },
+  "example2": {
+   "text": "座標不同，想法一樣",
+   "file": "example2.m4a",
+   "sha1": "dcc531d4b18a"
+  },
+  "example2_done": {
+   "text": "求出平行線的方程式，P就確定了",
+   "file": "example2_done.m4a",
+   "sha1": "016da4fb75d4"
+  },
+  "boundary": {
+   "text": "但是，如果只知道面積的值…",
+   "file": "boundary.m4a",
+   "sha1": "60cbbfdca851"
+  },
+  "onboarding": {
+   "text": "線索 → 工具 → 拖曳。沒有提示",
+   "file": "onboarding.m4a",
+   "sha1": "f4976a2288d8"
+  },
+  "onboarding_done": {
+   "text": "準備好了！自己試著做5題吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "f5a8e8d681ae"
+  }
+ },
+ "koukou_juken/mirror": {
+  "principle": {
+   "text": "使AP＋PB最短的P在哪裡？",
+   "file": "principle.m4a",
+   "sha1": "fc7411bfaac0"
+  },
+  "principle_turn": {
+   "text": "走正中間並不是最短…怎麼辦？",
+   "file": "principle_turn.m4a",
+   "sha1": "47f8297f1a41"
+  },
+  "principle_lens": {
+   "text": "翻折透鏡！把B沿x軸翻折過去",
+   "file": "principle_lens.m4a",
+   "sha1": "7bc9cda0c2ac"
+  },
+  "example1": {
+   "text": "把B翻折到B'，再用直線和A連起來",
+   "file": "example1.m4a",
+   "sha1": "f322290a7b7f"
+  },
+  "example1_done": {
+   "text": "直線和x軸的交點就是P",
+   "file": "example1_done.m4a",
+   "sha1": "e67e6ba2c222"
+  },
+  "example2": {
+   "text": "確定了P，就能求出△ABP的面積",
+   "file": "example2.m4a",
+   "sha1": "3823594c90ac"
+  },
+  "example2_done": {
+   "text": "透鏡可以連續用2個",
+   "file": "example2_done.m4a",
+   "sha1": "00bd3f76cb4b"
+  },
+  "boundary": {
+   "text": "但是，如果是差最大的點…",
+   "file": "boundary.m4a",
+   "sha1": "971d718f5096"
+  },
+  "onboarding": {
+   "text": "線索 → 工具 → 拖曳。沒有提示",
+   "file": "onboarding.m4a",
+   "sha1": "f4976a2288d8"
+  },
+  "onboarding_done": {
+   "text": "準備好了！自己試著做5題吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "f5a8e8d681ae"
+  }
+ },
+ "koukou_juken/area": {
+  "principle": {
+   "text": "大人和國中生，一共多少人？",
+   "file": "principle.m4a",
+   "sha1": "624594a39189"
+  },
+  "principle_turn": {
+   "text": "列x和y的2個方程式…好麻煩。怎麼辦？",
+   "file": "principle_turn.m4a",
+   "sha1": "d1d0198a034f"
+  },
+  "principle_lens": {
+   "text": "面積圖透鏡！把2個長方形並排",
+   "file": "principle_lens.m4a",
+   "sha1": "415d70a132f4"
+  },
+  "example1": {
+   "text": "假設全是國中生，看看多出來的部分",
+   "file": "example1.m4a",
+   "sha1": "354d590eea10"
+  },
+  "example1_done": {
+   "text": "多出來的面積÷高的差，就是答案",
+   "file": "example1_done.m4a",
+   "sha1": "e425dfd3c6da"
+  },
+  "example2": {
+   "text": "比較平均線的上面和下面",
+   "file": "example2.m4a",
+   "sha1": "0559690d7356"
+  },
+  "example2_done": {
+   "text": "多出來的和凹下去的，面積相同",
+   "file": "example2_done.m4a",
+   "sha1": "1d091b0ea558"
+  },
+  "boundary": {
+   "text": "但是，如果不知道總數…",
+   "file": "boundary.m4a",
+   "sha1": "8110e1cfe065"
+  },
+  "onboarding": {
+   "text": "線索 → 工具 → 拖曳。沒有提示",
+   "file": "onboarding.m4a",
+   "sha1": "f4976a2288d8"
+  },
+  "onboarding_done": {
+   "text": "準備好了！自己試著做5題吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "f5a8e8d681ae"
+  }
+ },
+ "koukou_juken/constant": {
+  "principle": {
+   "text": "幾年前媽媽的年齡是5倍？",
+   "file": "principle.m4a",
+   "sha1": "5e5539f98b58"
+  },
+  "principle_turn": {
+   "text": "算式的方向搞不清楚…怎麼辦？",
+   "file": "principle_turn.m4a",
+   "sha1": "5af9747b7b57"
+  },
+  "principle_lens": {
+   "text": "和差不變透鏡！年齡差不會變",
+   "file": "principle_lens.m4a",
+   "sha1": "595eae16c49f"
+  },
+  "example1": {
+   "text": "把表示差的線段分成幾份",
+   "file": "example1.m4a",
+   "sha1": "4597b9d589a2"
+  },
+  "example1_done": {
+   "text": "差÷（倍數−1），就是那時的年齡",
+   "file": "example1_done.m4a",
+   "sha1": "f0db2379b4a0"
+  },
+  "example2": {
+   "text": "花掉同樣的錢，差也不變",
+   "file": "example2.m4a",
+   "sha1": "914bf829948c"
+  },
+  "example2_done": {
+   "text": "找到不變的量，就能很快解出",
+   "file": "example2_done.m4a",
+   "sha1": "26ef635516d7"
+  },
+  "boundary": {
+   "text": "但是，如果是和3個人的合計比較…",
+   "file": "boundary.m4a",
+   "sha1": "1364c6e6b767"
+  },
+  "onboarding": {
+   "text": "線索 → 工具 → 拖曳。沒有提示",
+   "file": "onboarding.m4a",
+   "sha1": "f4976a2288d8"
+  },
+  "onboarding_done": {
+   "text": "準備好了！自己試著做5題吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "f5a8e8d681ae"
+  }
+ },
+ "koukou_juken/balance": {
+  "principle": {
+   "text": "濃度不同的食鹽水。要混合多少g？",
+   "file": "principle.m4a",
+   "sha1": "149ecf38cc1a"
+  },
+  "principle_turn": {
+   "text": "%的算式越來越長…怎麼辦？",
+   "file": "principle_turn.m4a",
+   "sha1": "5dae246e7d1e"
+  },
+  "principle_lens": {
+   "text": "天平透鏡！把濃度放到天平臂上",
+   "file": "principle_lens.m4a",
+   "sha1": "19434eae8412"
+  },
+  "example1": {
+   "text": "把支點對準混合後的濃度",
+   "file": "example1.m4a",
+   "sha1": "501b9d60f381"
+  },
+  "example1_done": {
+   "text": "重量的比是臂長的反比",
+   "file": "example1_done.m4a",
+   "sha1": "7b93e13cb3b2"
+  },
+  "example2": {
+   "text": "如果只加鹽，就和100%放在天平上",
+   "file": "example2.m4a",
+   "sha1": "43019a78cd86"
+  },
+  "example2_done": {
+   "text": "把水看成0%，鹽看成100%",
+   "file": "example2_done.m4a",
+   "sha1": "6d786fcca9f5"
+  },
+  "boundary": {
+   "text": "但是，如果只是讓水蒸發…",
+   "file": "boundary.m4a",
+   "sha1": "67b668617fdc"
+  },
+  "onboarding": {
+   "text": "線索 → 工具 → 拖曳。沒有提示",
+   "file": "onboarding.m4a",
+   "sha1": "f4976a2288d8"
+  },
+  "onboarding_done": {
+   "text": "準備好了！自己試著做5題吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "f5a8e8d681ae"
+  }
+ },
+ "koukou_juken/freeze": {
+  "principle": {
+   "text": "哥哥幾分鐘後追上弟弟？",
+   "file": "principle.m4a",
+   "sha1": "3230cacedc16"
+  },
+  "principle_turn": {
+   "text": "出發時間不一樣，搞不清楚…怎麼辦？",
+   "file": "principle_turn.m4a",
+   "sha1": "b732bc82d7f0"
+  },
+  "principle_lens": {
+   "text": "定住一方透鏡！試著讓弟弟停下來",
+   "file": "principle_lens.m4a",
+   "sha1": "4f5b4dba4559"
+  },
+  "example1": {
+   "text": "點一下弟弟，讓他停下來！",
+   "file": "example1.m4a",
+   "sha1": "458c19c3eb2a"
+  },
+  "example1_done": {
+   "text": "靠近的速度就是速度之差",
+   "file": "example1_done.m4a",
+   "sha1": "19148feff249"
+  },
+  "example2": {
+   "text": "交會的火車，也定住一方",
+   "file": "example2.m4a",
+   "sha1": "f4187fe275be"
+  },
+  "example2_done": {
+   "text": "用速度之和走完長度之和",
+   "file": "example2_done.m4a",
+   "sha1": "87873336e6cf"
+  },
+  "boundary": {
+   "text": "但是，如果只有1個人改變速度…",
+   "file": "boundary.m4a",
+   "sha1": "8e76d7a93d6e"
+  },
+  "onboarding": {
+   "text": "線索 → 工具 → 拖曳。沒有提示",
+   "file": "onboarding.m4a",
+   "sha1": "f4976a2288d8"
+  },
+  "onboarding_done": {
+   "text": "準備好了！自己試著做5題吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "f5a8e8d681ae"
+  }
+ },
+ "koukou_juken/unfold": {
+  "principle": {
+   "text": "經過表面的最短的線。P在哪裡？",
+   "file": "principle.m4a",
+   "sha1": "9f164446bf53"
+  },
+  "principle_turn": {
+   "text": "直接在立體上沒辦法比較…怎麼辦？",
+   "file": "principle_turn.m4a",
+   "sha1": "e62d271a894d"
+  },
+  "principle_lens": {
+   "text": "展開透鏡！把面展開攤平",
+   "file": "principle_lens.m4a",
+   "sha1": "adbf60512672"
+  },
+  "example1": {
+   "text": "展開2個面，連接A和G",
+   "file": "example1.m4a",
+   "sha1": "3a4f955969b7"
+  },
+  "example1_done": {
+   "text": "用相似三角形求出BP",
+   "file": "example1_done.m4a",
+   "sha1": "32e1439a80fb"
+  },
+  "example2": {
+   "text": "這次是3個面。展開成1條直線",
+   "file": "example2.m4a",
+   "sha1": "986862cd3ced"
+  },
+  "example2_done": {
+   "text": "不管經過幾個面，展開就是直線",
+   "file": "example2_done.m4a",
+   "sha1": "3baf0693cbb9"
+  },
+  "boundary": {
+   "text": "但是，如果是切下來的立體的體積…",
+   "file": "boundary.m4a",
+   "sha1": "72330ee3c35b"
+  },
+  "onboarding": {
+   "text": "線索 → 工具 → 拖曳。沒有提示",
+   "file": "onboarding.m4a",
+   "sha1": "f4976a2288d8"
+  },
+  "onboarding_done": {
+   "text": "準備好了！自己試著做5題吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "f5a8e8d681ae"
+  }
+ },
+ "daigaku_juken/balance": {
+  "principle": {
+   "text": "2條線的交點P。AP:PD是多少？",
+   "file": "principle.m4a",
+   "sha1": "387f8b3dc289"
+  },
+  "principle_turn": {
+   "text": "用向量解，算式很長…怎麼辦？",
+   "file": "principle_turn.m4a",
+   "sha1": "742ec9b1dc92"
+  },
+  "principle_lens": {
+   "text": "天平透鏡！在每條邊上放砝碼",
+   "file": "principle_lens.m4a",
+   "sha1": "ec12c6efd306"
+  },
+  "example1": {
+   "text": "按比的反比，在B和C上放砝碼",
+   "file": "example1.m4a",
+   "sha1": "579f4015e41b"
+  },
+  "example1_done": {
+   "text": "聚到D的砝碼和A的砝碼之比",
+   "file": "example1_done.m4a",
+   "sha1": "60a3ecd30ab8"
+  },
+  "example2": {
+   "text": "這次是BE上的比。想法一樣",
+   "file": "example2.m4a",
+   "sha1": "4575ffeabd29"
+  },
+  "example2_done": {
+   "text": "把砝碼統一起來，什麼比都能求出",
+   "file": "example2_done.m4a",
+   "sha1": "886de731b6d4"
+  },
+  "boundary": {
+   "text": "但是，如果是往返的平均速度…",
+   "file": "boundary.m4a",
+   "sha1": "697e35fea37d"
+  },
+  "onboarding": {
+   "text": "線索 → 工具 → 拖曳。沒有提示",
+   "file": "onboarding.m4a",
+   "sha1": "f4976a2288d8"
+  },
+  "onboarding_done": {
+   "text": "準備好了！自己試著做5題吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "f5a8e8d681ae"
+  }
+ },
+ "daigaku_juken/enclose": {
+  "principle": {
+   "text": "拋物線和直線圍成的面積是多少？",
+   "file": "principle.m4a",
+   "sha1": "f93cbfa6921b"
+  },
+  "principle_turn": {
+   "text": "3次方的計算很長…怎麼辦？",
+   "file": "principle_turn.m4a",
+   "sha1": "11c6044d7fab"
+  },
+  "principle_lens": {
+   "text": "圍起來透鏡！只看交點α和β",
+   "file": "principle_lens.m4a",
+   "sha1": "3d4db0b03d42"
+  },
+  "example1": {
+   "text": "作差，求出交點的x座標",
+   "file": "example1.m4a",
+   "sha1": "5430fb912dfc"
+  },
+  "example1_done": {
+   "text": "用 |a|(β−α)³÷6 馬上就能求出",
+   "file": "example1_done.m4a",
+   "sha1": "8870eab3dd20"
+  },
+  "example2": {
+   "text": "2條拋物線也一樣，差是二次式",
+   "file": "example2.m4a",
+   "sha1": "8bc181d60443"
+  },
+  "example2_done": {
+   "text": "用x²係數的差就行",
+   "file": "example2_done.m4a",
+   "sha1": "ddf105ff1dd3"
+  },
+  "boundary": {
+   "text": "但是，如果不是由交點圍成的…",
+   "file": "boundary.m4a",
+   "sha1": "b00533a0e737"
+  },
+  "onboarding": {
+   "text": "線索 → 工具 → 拖曳。沒有提示",
+   "file": "onboarding.m4a",
+   "sha1": "f4976a2288d8"
+  },
+  "onboarding_done": {
+   "text": "準備好了！自己試著做5題吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "f5a8e8d681ae"
+  }
+ },
+ "daigaku_juken/slide": {
+  "principle": {
+   "text": "拋物線上的點P，△ABP的最大值是多少？",
+   "file": "principle.m4a",
+   "sha1": "b0f2804b0c51"
+  },
+  "principle_turn": {
+   "text": "又是根號又是絕對值，好麻煩…怎麼辦？",
+   "file": "principle_turn.m4a",
+   "sha1": "216e5a787a48"
+  },
+  "principle_lens": {
+   "text": "等積變形透鏡！移動與AB平行的直線",
+   "file": "principle_lens.m4a",
+   "sha1": "2a29cae1aa35"
+  },
+  "example1": {
+   "text": "移動平行線，直到碰到拋物線",
+   "file": "example1.m4a",
+   "sha1": "3b51733d9366"
+  },
+  "example1_done": {
+   "text": "切點的x就在A和B的正中間",
+   "file": "example1_done.m4a",
+   "sha1": "e1b09b3f83fa"
+  },
+  "example2": {
+   "text": "在過O的平行線上，高就相同",
+   "file": "example2.m4a",
+   "sha1": "2b4e217de4e2"
+  },
+  "example2_done": {
+   "text": "平行線和拋物線的交點就是P",
+   "file": "example2_done.m4a",
+   "sha1": "001cc375a721"
+  },
+  "boundary": {
+   "text": "但是，如果P能移動的範圍是限定的…",
+   "file": "boundary.m4a",
+   "sha1": "dfd82b2dc7e7"
+  },
+  "onboarding": {
+   "text": "線索 → 工具 → 拖曳。沒有提示",
+   "file": "onboarding.m4a",
+   "sha1": "f4976a2288d8"
+  },
+  "onboarding_done": {
+   "text": "準備好了！自己試著做5題吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "f5a8e8d681ae"
+  }
+ },
+ "daigaku_juken/mirror": {
+  "principle": {
+   "text": "直線上的點P，AP＋PB的最小值是多少？",
+   "file": "principle.m4a",
+   "sha1": "f7286d857ba3"
+  },
+  "principle_turn": {
+   "text": "根號的和很難對付…怎麼辦？",
+   "file": "principle_turn.m4a",
+   "sha1": "c6921b638c48"
+  },
+  "principle_lens": {
+   "text": "翻折透鏡！把B沿直線翻折過去",
+   "file": "principle_lens.m4a",
+   "sha1": "ec6615a4abc4"
+  },
+  "example1": {
+   "text": "把B翻到B'。中點在ℓ上，BB'與ℓ垂直",
+   "file": "example1.m4a",
+   "sha1": "11a2c99dd135"
+  },
+  "example1_done": {
+   "text": "最小值就是AB'的長度",
+   "file": "example1_done.m4a",
+   "sha1": "3c7b6507d8f5"
+  },
+  "example2": {
+   "text": "斜率是2，求對稱點的方法也一樣",
+   "file": "example2.m4a",
+   "sha1": "9decdac63fbc"
+  },
+  "example2_done": {
+   "text": "翻折之後，只用畢氏定理",
+   "file": "example2_done.m4a",
+   "sha1": "27f6c2d7a662"
+  },
+  "boundary": {
+   "text": "但是，如果是差最大的點…",
+   "file": "boundary.m4a",
+   "sha1": "971d718f5096"
+  },
+  "onboarding": {
+   "text": "線索 → 工具 → 拖曳。沒有提示",
+   "file": "onboarding.m4a",
+   "sha1": "f4976a2288d8"
+  },
+  "onboarding_done": {
+   "text": "準備好了！自己試著做5題吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "f5a8e8d681ae"
+  }
+ },
+ "daigaku_juken/freeze": {
+  "principle": {
+   "text": "不論a為何值都通過的點在哪裡？",
+   "file": "principle.m4a",
+   "sha1": "a31f07f66eb8"
+  },
+  "principle_turn": {
+   "text": "代入2個a的值，還得再驗證…",
+   "file": "principle_turn.m4a",
+   "sha1": "22ec7da96a13"
+  },
+  "principle_lens": {
+   "text": "定住一方透鏡！定住a，整理一下",
+   "file": "principle_lens.m4a",
+   "sha1": "55197eaf4f4e"
+  },
+  "example1": {
+   "text": "分成a的係數括號和其餘部分",
+   "file": "example1.m4a",
+   "sha1": "5754db960f2c"
+  },
+  "example1_done": {
+   "text": "兩者都為0的點，就是定點",
+   "file": "example1_done.m4a",
+   "sha1": "7c928ace3ac5"
+  },
+  "example2": {
+   "text": "拋物線也一樣，按a整理就行",
+   "file": "example2.m4a",
+   "sha1": "956d31637356"
+  },
+  "example2_done": {
+   "text": "對任意a都通過的點，馬上就求出來",
+   "file": "example2_done.m4a",
+   "sha1": "7c3ee304a6d0"
+  },
+  "boundary": {
+   "text": "但如果通過的點事先已經確定…",
+   "file": "boundary.m4a",
+   "sha1": "a6e5fb59cbb4"
+  },
+  "onboarding": {
+   "text": "線索 → 工具 → 拖曳。沒有提示",
+   "file": "onboarding.m4a",
+   "sha1": "f4976a2288d8"
+  },
+  "onboarding_done": {
+   "text": "準備好了！自己試著做5題吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "f5a8e8d681ae"
+  }
+ },
+ "daigaku_juken/unfold": {
+  "principle": {
+   "text": "繞圓錐1圈的線，最短是多少？",
+   "file": "principle.m4a",
+   "sha1": "71c544bcaa86"
+  },
+  "principle_turn": {
+   "text": "在曲面上沒辦法量…怎麼辦？",
+   "file": "principle_turn.m4a",
+   "sha1": "d28b25ad5100"
+  },
+  "principle_lens": {
+   "text": "展開透鏡！把側面展開看看",
+   "file": "principle_lens.m4a",
+   "sha1": "f4933d334c2e"
+  },
+  "example1": {
+   "text": "圓心角 = 360°×半徑÷母線",
+   "file": "example1.m4a",
+   "sha1": "543edc2fd2b5"
+  },
+  "example1_done": {
+   "text": "展開圖中的弦，就是最短的線",
+   "file": "example1_done.m4a",
+   "sha1": "c55838947d92"
+  },
+  "example2": {
+   "text": "這次連到母線中途的一點。連連看",
+   "file": "example2.m4a",
+   "sha1": "249895379f99"
+  },
+  "example2_done": {
+   "text": "用餘弦定理求出長度",
+   "file": "example2_done.m4a",
+   "sha1": "7f865fc65ca7"
+  },
+  "boundary": {
+   "text": "但如果展開的角超過180°…",
+   "file": "boundary.m4a",
+   "sha1": "f3d51889f51f"
+  },
+  "onboarding": {
+   "text": "線索 → 工具 → 拖曳。沒有提示",
+   "file": "onboarding.m4a",
+   "sha1": "f4976a2288d8"
+  },
+  "onboarding_done": {
+   "text": "準備好了！自己試著做5題吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "f5a8e8d681ae"
+  }
+ },
+ "daigaku_juken/area": {
+  "principle": {
+   "text": "2顆骰子。點數差在3以上的機率是多少？",
+   "file": "principle.m4a",
+   "sha1": "b5bf3b352bec"
+  },
+  "principle_turn": {
+   "text": "全部寫出來，容易漏掉…怎麼辦？",
+   "file": "principle_turn.m4a",
+   "sha1": "aa95ac8bd441"
+  },
+  "principle_lens": {
+   "text": "面積圖透鏡！用6×6的表來看",
+   "file": "principle_lens.m4a",
+   "sha1": "440b5331ed0b"
+  },
+  "example1": {
+   "text": "把離對角線3條以上的格子塗上顏色",
+   "file": "example1.m4a",
+   "sha1": "cec03cdb698c"
+  },
+  "example1_done": {
+   "text": "只要數2個三角形的面積",
+   "file": "example1_done.m4a",
+   "sha1": "25bcc985018f"
+  },
+  "example2": {
+   "text": "這次是積。每列有幾格？",
+   "file": "example2.m4a",
+   "sha1": "13d970897fdf"
+  },
+  "example2_done": {
+   "text": "用表格，條件會變成看得見的形狀",
+   "file": "example2_done.m4a",
+   "sha1": "989e72dbcb0f"
+  },
+  "boundary": {
+   "text": "但如果是3顆骰子…",
+   "file": "boundary.m4a",
+   "sha1": "476ddde5e453"
+  },
+  "onboarding": {
+   "text": "線索 → 工具 → 拖曳。沒有提示",
+   "file": "onboarding.m4a",
+   "sha1": "f4976a2288d8"
+  },
+  "onboarding_done": {
+   "text": "準備好了！自己試著做5題吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "f5a8e8d681ae"
+  }
+ },
+ "daigaku_juken/constant": {
+  "principle": {
+   "text": "x＋y＝8 時，x²＋y² 的最小值是多少？",
+   "file": "principle.m4a",
+   "sha1": "04605f10d4fd"
+  },
+  "principle_turn": {
+   "text": "一代入，式子就很長…怎麼辦？",
+   "file": "principle_turn.m4a",
+   "sha1": "a70448bf7b5b"
+  },
+  "principle_lens": {
+   "text": "和差不變透鏡！和不變，看中間值",
+   "file": "principle_lens.m4a",
+   "sha1": "52ae8ed23f60"
+  },
+  "example1": {
+   "text": "設 x＝4＋t、y＝4−t，讓它們動起來",
+   "file": "example1.m4a",
+   "sha1": "6152ef09b96b"
+  },
+  "example1_done": {
+   "text": "在中間 t＝0 時最小",
+   "file": "example1_done.m4a",
+   "sha1": "d64076bc8e63"
+  },
+  "example2": {
+   "text": "把2x和y看成和不變的2個數",
+   "file": "example2.m4a",
+   "sha1": "aa2163936358"
+  },
+  "example2_done": {
+   "text": "在中間，積最大",
+   "file": "example2_done.m4a",
+   "sha1": "ccc4fda80126"
+  },
+  "boundary": {
+   "text": "但如果範圍裡取不到中間值…",
+   "file": "boundary.m4a",
+   "sha1": "db4ffaf01a4f"
+  },
+  "onboarding": {
+   "text": "線索 → 工具 → 拖曳。沒有提示",
+   "file": "onboarding.m4a",
+   "sha1": "f4976a2288d8"
+  },
+  "onboarding_done": {
+   "text": "準備好了！自己試著做5題吧",
+   "file": "onboarding_done.m4a",
+   "sha1": "f5a8e8d681ae"
+  }
+ },
+ "_voice": {
+  "engine": "Google Cloud Text-to-Speech",
+  "languageCode": "cmn-TW",
+  "name": "cmn-TW-Wavenet-A",
+  "audioEncoding": "MP3",
+  "speakingRate": 1.08,
+  "pitch": 2.0,
+  "sampleRateHertz": 24000
+ }
+}
