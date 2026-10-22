@@ -159,7 +159,7 @@ function EndCard() {
       <div style={{ position: "absolute", left: 0, right: 0, top: 620, textAlign: "center", fontFamily: FONT, opacity: logo }}>
         <div style={{ fontSize: 46, fontWeight: 800, color: C.muted }}>書き写さなくていい、毎日の復習。</div>
         <div style={{ marginTop: 16, fontSize: 132, fontWeight: 900, color: C.text, letterSpacing: "0.04em", textShadow: `0 0 70px ${C.cyan}55` }}>つまずきマップ</div>
-        <div style={{ marginTop: 60, display: "inline-block", padding: "22px 46px", borderRadius: 999, background: C.gold, color: "#0b1830", fontSize: 54, fontWeight: 900, transform: `scale(${0.7 + 0.3 * pill})`, opacity: Math.min(1, pill) }}>tsumazuki.domo-ai.com</div>
+        <div style={{ marginTop: 60, display: "inline-block", padding: "20px 64px", borderRadius: 999, background: C.gold, color: "#0b1830", fontSize: 70, fontWeight: 900, transform: `scale(${0.7 + 0.3 * pill})`, opacity: Math.min(1, pill) }}>domo-ai.com</div>
         <div style={{ marginTop: 26, fontSize: 40, fontWeight: 900, color: C.text }}>登録不要 ・ 30枚まで無料</div>
         <div style={{ marginTop: 12, fontSize: 32, fontWeight: 700, color: C.muted }}>小1〜高3 の算数・数学</div>
       </div>

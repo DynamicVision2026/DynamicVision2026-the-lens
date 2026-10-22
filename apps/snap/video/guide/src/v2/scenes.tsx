@@ -621,20 +621,20 @@ export function PlansScene({ sc }: { sc: Scene }) {
         </div>
       </AbsoluteFill>
       <AbsoluteFill style={{ opacity: logo }}>
-        <div style={{ position: "absolute", left: 0, right: 0, top: 130, display: "flex", justifyContent: "center", gap: 18 }}>
+        <div style={{ position: "absolute", left: 0, right: 0, top: 90, display: "flex", justifyContent: "center", gap: 18 }}>
           {[C.grey, C.red, C.green, C.gold, C.purple].map((c, i) => (
             <div key={i} style={{ transform: `translateY(${Math.sin((f + i * 10) / 16) * 9}px)` }}>
               <Hex color={c} size={72} />
             </div>
           ))}
         </div>
-        <div style={{ position: "absolute", left: 0, right: 0, top: 270, textAlign: "center", fontFamily: FONT }}>
+        <div style={{ position: "absolute", left: 0, right: 0, top: 215, textAlign: "center", fontFamily: FONT }}>
           <div style={{ fontSize: 50, fontWeight: 800, color: C.muted }}>毎日の復習も、テスト前も。</div>
           <div style={{ marginTop: 18, fontSize: 160, fontWeight: 900, color: C.text, letterSpacing: "0.06em", textShadow: `0 0 70px ${C.cyan}55`, transform: `scale(${0.94 + 0.06 * logo})` }}>つまずきマップ</div>
           <div style={{ marginTop: 18, fontSize: 52, fontWeight: 800, color: C.text }}>
             撮るだけで、<span style={{ color: C.gold }}>何を復習すればいいか</span>がわかる。
           </div>
-          <div style={{ marginTop: 56, display: "inline-block", padding: "16px 44px", borderRadius: 999, background: C.gold, color: "#0b1830", fontSize: 50, fontWeight: 900, letterSpacing: "0.04em" }}>tsumazuki.domo-ai.com</div>
+          <div style={{ marginTop: 56, display: "inline-block", padding: "14px 60px", borderRadius: 999, background: C.gold, color: "#0b1830", fontSize: 66, fontWeight: 900, letterSpacing: "0.04em" }}>domo-ai.com</div>
           <div style={{ marginTop: 18, fontSize: 32, fontWeight: 800, color: C.muted }}>登録不要 ・ 30枚まで無料でお試し</div>
         </div>
         <div style={{ position: "absolute", right: 40, bottom: 26, fontFamily: FONT, fontSize: 20, color: "rgba(200,210,230,0.6)" }}>VOICEVOX:No.7</div>

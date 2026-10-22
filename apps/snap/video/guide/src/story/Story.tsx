@@ -371,7 +371,7 @@ function EndCard() {
         <div style={{ marginTop: 18, fontSize: 52, fontWeight: 800, color: C.text }}>
           撮るだけで、<span style={{ color: C.gold }}>何を復習すればいいか</span>がわかる。
         </div>
-        <div style={{ marginTop: 50, display: "inline-block", padding: "16px 44px", borderRadius: 999, background: C.gold, color: "#0b1830", fontSize: 50, fontWeight: 900, transform: `scale(${0.7 + 0.3 * pill})`, opacity: Math.min(1, pill) }}>tsumazuki.domo-ai.com</div>
+        <div style={{ marginTop: 50, display: "inline-block", padding: "14px 60px", borderRadius: 999, background: C.gold, color: "#0b1830", fontSize: 66, fontWeight: 900, transform: `scale(${0.7 + 0.3 * pill})`, opacity: Math.min(1, pill) }}>domo-ai.com</div>
         <div style={{ marginTop: 18, fontSize: 32, fontWeight: 800, color: C.muted }}>登録不要 ・ 30枚まで無料でお試し ・ 小1〜高3</div>
       </div>
       <div style={{ position: "absolute", right: 36, bottom: 22, fontFamily: FONT, fontSize: 18, color: "rgba(200,210,230,0.6)" }}>{CREDITS}</div>
