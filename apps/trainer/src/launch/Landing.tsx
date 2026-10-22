@@ -316,6 +316,10 @@ export function Courses() {
                     <span>{LANDING.term}</span>
                   </li>
                   <li>
+                    <span>{LANDING.rows.bonus}</span>
+                    <span>{LANDING.bonus}</span>
+                  </li>
+                  <li>
                     <span>{LANDING.rows.free}</span>
                     <span>{LANDING.free(bundle.labels.lenses[freeLens]?.ja ?? freeLens)}</span>
                   </li>
@@ -324,7 +328,6 @@ export function Courses() {
                   <strong>{LANDING.price}</strong>
                   <span>{LANDING.priceNote}</span>
                 </p>
-                <p className="list">{LANDING.list}</p>
                 <div className="buttons">
                   <a className="lp2-btn buy" href={LAUNCH.passes[p.id]!.shopUrl} onClick={() => track({ name: 'select_course', params: { pass: p.id } })}>
                     {LANDING.buy}
@@ -339,6 +342,14 @@ export function Courses() {
           );
         })}
       </div>
+      <aside className="lp2-mapbundle">
+        <span className="kicker">{LANDING.mapBundle.kicker}</span>
+        <strong>{LANDING.mapBundle.title}</strong>
+        <p>{LANDING.mapBundle.body}</p>
+        <a className="lp2-btn outline" href={LANDING.mapBundle.url} target="_blank" rel="noopener">
+          {LANDING.mapBundle.cta}
+        </a>
+      </aside>
     </section>
   );
 }
