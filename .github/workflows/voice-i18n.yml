@@ -1,0 +1,51 @@
+name: Masterclass voice (English / Chinese)
+
+# The masterclass narration in en / zh-Hans / zh-Hant: Google Cloud Text-to-Speech (WaveNet) speaks each
+# translated `say` line (i18n/content/<lang>.json) via tools/make_voice_i18n.py, signed in to Google through
+# the repo's workload identity (main only). The clips go to the branch voice/i18n-clips and a PR is opened.
+# Run from the Actions tab ("Run workflow") on main. Needs the Text-to-Speech API enabled once:
+#   gcloud services enable texttospeech.googleapis.com --project shiten-lens-511712
+
+on:
+  workflow_dispatch:
+    inputs:
+      all:
+        description: "Regenerate every clip (otherwise only new or changed lines)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+env:
+  PROVIDER: projects/453311523826/locations/global/workloadIdentityPools/github/providers/github-repo
+  DEPLOYER: github-deployer@shiten-lens-511712.iam.gserviceaccount.com
+
+jobs:
+  voice:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ env.PROVIDER }}
+          service_account: ${{ env.DEPLOYER }}
+      - uses: google-github-actions/setup-gcloud@v2
+      - name: ffmpeg
+        run: command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
+      - name: Voices
+        run: python3 tools/make_voice_i18n.py ${{ inputs.all && '--all' || '' }}
+      - name: Push and open a PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "lens-voice-bot"
+          git config user.email "lens-voice-bot@users.noreply.github.com"
+          git checkout -B voice/i18n-clips
+          git add apps/trainer/public/audio/mc/en apps/trainer/public/audio/mc/zh-Hans apps/trainer/public/audio/mc/zh-Hant
+          git diff --cached --quiet && { echo "no changes"; exit 0; }
+          git commit -m "Masterclass voice: English / 简体中文 / 繁體中文 clips (Google TTS)"
+          git push -f origin voice/i18n-clips
+          gh pr create --base main --head voice/i18n-clips --title "Masterclass voice: English / 简体中文 / 繁體中文" --body "Clips from tools/make_voice_i18n.py (Google Cloud Text-to-Speech, WaveNet)." || true

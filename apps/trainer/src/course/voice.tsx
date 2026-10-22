@@ -4,6 +4,7 @@
 // iOS only plays after a gesture, so the first tap unlocks the element; a rejected play() is silent.
 import { useEffect, useSyncExternalStore } from 'react';
 import { t } from '../i18n/ja';
+import { LANG } from '../i18n/lang';
 
 export const MUTE_KEY = 'lens.mute';
 
@@ -14,6 +15,12 @@ export interface AudioLike {
   paused: boolean;
   play: () => Promise<void> | void;
   pause: () => void;
+  addEventListener?: (type: 'error', fn: () => void) => void;
+}
+
+/** The display language's clip of a Japanese clip URL (/audio/mc/x/y.m4a → /audio/mc/en/x/y.m4a); 日本語: unchanged. */
+export function localClip(url: string): string {
+  return LANG === 'ja' ? url : url.replace('/audio/mc/', `/audio/mc/${LANG}/`);
 }
 
 function readMuted(): boolean {
@@ -61,8 +68,27 @@ export class Voice {
     this.muted = muted;
   }
 
+  /** The Japanese clip to try when the display language's clip is missing. */
+  private fallback: string | null = null;
+
   private audio(): AudioLike | null {
-    if (!this.el) this.el = this.make();
+    if (!this.el) {
+      this.el = this.make();
+      // No clip in this language (yet): play the Japanese one instead.
+      this.el?.addEventListener?.('error', () => {
+        const el = this.el;
+        const ja = this.fallback;
+        this.fallback = null;
+        if (!el || !ja || !this.current || this.muted) return;
+        try {
+          el.src = ja;
+          const p = el.play();
+          if (p && typeof p.catch === 'function') p.catch(() => {});
+        } catch {
+          // The bubble is enough.
+        }
+      });
+    }
     return this.el;
   }
 
@@ -109,7 +135,9 @@ export class Voice {
     const el = this.audio();
     if (!el) return;
     try {
-      el.src = url;
+      const local = localClip(url);
+      this.fallback = local === url ? null : url;
+      el.src = local;
       el.currentTime = 0;
       const p = el.play();
       if (p && typeof p.catch === 'function') p.catch(() => {});
