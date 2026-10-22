@@ -147,7 +147,7 @@ describe('landing page (WO-024, approved Lens.dc.html artboard)', () => {
       expect(body).toContain(p.title_ja);
       expect(body).toContain(LANDING.content(size.lessons, size.problems));
       expect(body).toContain(LANDING.free(loadBundle().labels.lenses[p.lessons[0]!.lens]!.ja));
-      for (const line of [LANDING.course[id!]!.audience, LANDING.course[id!]!.blurb, LANDING.term, LANDING.price, LANDING.priceNote, LANDING.list, LANDING.buy, LANDING.trial]) expect(body, line).toContain(line);
+      for (const line of [LANDING.course[id!]!.audience, LANDING.course[id!]!.blurb, LANDING.term, LANDING.bonus, LANDING.price, LANDING.priceNote, LANDING.buy, LANDING.trial]) expect(body, line).toContain(line);
       expect(body).toContain(`href="${LAUNCH.passes[id!]!.shopUrl}"`);
       expect(body).toContain(`href="/trial/${id}"`);
     }

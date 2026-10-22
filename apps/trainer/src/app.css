@@ -2054,6 +2054,32 @@ html[data-theme='course'] body {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+.lp2-mapbundle {
+  margin-top: 24px;
+  background: var(--l-card);
+  border: 2px solid var(--l-accent);
+  border-radius: 28px;
+  padding: 24px 28px;
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+}
+.lp2-mapbundle .kicker {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--l-muted);
+}
+.lp2-mapbundle strong {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--l-navy);
+}
+.lp2-mapbundle p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--l-text);
+}
 .lp2-news {
   display: inline-block;
   margin-top: 18px;
