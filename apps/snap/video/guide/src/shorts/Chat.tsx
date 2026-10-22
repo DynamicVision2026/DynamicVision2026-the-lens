@@ -15,6 +15,10 @@ export type ChatItem = {
   /** typing dots before it (default: every reply except the first message) */
   typing?: boolean;
   sfx?: "pop" | "shutter" | "chime" | null;
+  /** image bubble spans the frame width (the payoff screenshot) */
+  wide?: boolean;
+  /** after the bubble lands, the camera zooms into (fx, fy) of the image (0–1) by `z` for `hold` s, starting `after` s later */
+  zoom?: { after: number; hold: number; fx: number; fy: number; z: number };
 };
 export type ChatProps = {
   name: string;
@@ -30,8 +34,8 @@ export const CHAT_DEFAULT: ChatProps = {
   name: "ゆうと",
   clock: "22:14",
   battery: 23,
-  shrinkAt: 20.6,
-  endAt: 23.0,
+  shrinkAt: 21.9,
+  endAt: 24.3,
   script: [
     { t: 0.5, who: "kid", text: "ママ、明日テスト", typing: false },
     { t: 2.0, who: "mom", text: "どこやるの？" },
@@ -43,10 +47,11 @@ export const CHAT_DEFAULT: ChatProps = {
     { t: 9.8, who: "kid", img: "notebooks", typing: false },
     { t: 11.2, who: "mom", text: "……", sfx: null },
     { t: 12.6, who: "mom", img: "sheet", typing: false, sfx: "shutter" },
-    { t: 14.6, who: "mom", img: "plan", typing: false, sfx: "chime" },
-    { t: 17.0, who: "kid", text: "それだけ？" },
-    { t: 18.4, who: "mom", text: "それだけ。" },
-    { t: 19.8, who: "kid", text: "👍" },
+    // 2.5 s of silence, no typing dots: the wait is the joke
+    { t: 15.1, who: "mom", img: "plan", typing: false, sfx: "chime", wide: true, zoom: { after: 0.5, hold: 1.5, fx: 0.4, fy: 0.652, z: 1.55 } },
+    { t: 18.3, who: "kid", text: "それだけ？" },
+    { t: 19.7, who: "mom", text: "それだけ。" },
+    { t: 21.1, who: "kid", text: "👍" },
   ],
 };
 export const chatFrames = (p: ChatProps) => s(p.endAt + 4);
@@ -56,7 +61,8 @@ const KID = "#ffffff";
 const MOM = "#b9e6b0";
 const INK = "#1d2533";
 const TOP = 250; // messages are clipped above this (status bar + header)
-const BOTTOM = 1400; // newest message's bottom edge (captions end above SAFE_BOTTOM)
+const BOTTOM = 1432; // newest message sits just above the input bar (and above SAFE_BOTTOM)
+const INPUT = SAFE_BOTTOM + 12; // input bar top; the keyboard fills the frame below it
 const RIGHT = 890; // mother's bubbles end here (right column stays free)
 const LEFT = 64;
 const GAP = 24;
@@ -65,7 +71,7 @@ const FS = 44;
 const IMG = {
   notebooks: { w: 420, h: 420 },
   sheet: { w: 540, h: Math.round((540 * 764) / 1400) },
-  plan: { w: 500, h: Math.round((500 * 1900) / 1170) },
+  plan: { w: 918, h: Math.round((918 * 1380) / 1170) },
 };
 const textW = (t: string) => [...t].reduce((a, ch) => a + (ch.charCodeAt(0) < 0x2000 ? 0.6 : 1) * FS, 0);
 
@@ -90,7 +96,7 @@ function Bubble({ row, at }: { row: Row; at: number }) {
   const it = row.item;
   const style = {
     position: "absolute" as const,
-    left: mom ? RIGHT - row.w : LEFT,
+    left: it?.wide ? (W - row.w) / 2 : mom ? RIGHT - row.w : LEFT,
     width: row.w,
     height: row.h,
     borderRadius: 34,
@@ -125,7 +131,7 @@ function Bubble({ row, at }: { row: Row; at: number }) {
             </div>
           )}
           {it.img === "sheet" && <Img src={staticFile("sheet.jpg")} style={{ width: d.w, height: d.h, objectFit: "cover" }} />}
-          {it.img === "plan" && <Img src={staticFile("shorts/plan.png")} style={{ width: d.w, height: d.h, objectFit: "cover" }} />}
+          {it.img === "plan" && <Img src={staticFile("shorts/plan-crop.png")} style={{ width: d.w, height: d.h, objectFit: "cover" }} />}
         </div>
       </div>
     );
@@ -159,7 +165,7 @@ function ChatScreen({ p }: { p: ChatProps }) {
   return (
     <AbsoluteFill style={{ background: BG, fontFamily: FONT }}>
       {/* messages */}
-      <div style={{ position: "absolute", left: 0, top: TOP, width: W, height: SAFE_BOTTOM - TOP + 20, overflow: "hidden" }}>
+      <div style={{ position: "absolute", left: 0, top: TOP, width: W, height: INPUT - TOP, overflow: "hidden" }}>
         {placed.map(({ r, top }) => (
           <div key={r.key} style={{ position: "absolute", left: 0, top: top - TOP, width: W, height: r.h }}>
             <Bubble row={r} at={s(r.t)} />
@@ -180,11 +186,19 @@ function ChatScreen({ p }: { p: ChatProps }) {
         <div style={{ position: "absolute", left: 110, top: 112, width: 92, height: 92, borderRadius: 46, background: "#c9d3df" }} />
         <div style={{ position: "absolute", left: 226, top: 132, fontSize: 46, fontWeight: 800, color: INK }}>{p.name}</div>
       </div>
-      {/* input bar (no text) */}
-      <div style={{ position: "absolute", left: 0, top: SAFE_BOTTOM + 30, width: W, height: H - SAFE_BOTTOM - 30, background: BG }}>
-        <div style={{ position: "absolute", left: 0, top: 0, width: W, height: 140, background: "#f6f8fb" }} />
-        <div style={{ position: "absolute", left: 50, top: 34, width: 70, height: 70, borderRadius: 35, background: "#c9d3df" }} />
-        <div style={{ position: "absolute", left: 150, top: 30, width: 720, height: 80, borderRadius: 40, background: "#ffffff", border: "2px solid #dde3ea" }} />
+      {/* input bar (no text) + keyboard, like a real reply in progress */}
+      <div style={{ position: "absolute", left: 0, top: INPUT, width: W, height: 120, background: "#f6f8fb", borderTop: "2px solid #e3e8ee" }}>
+        <div style={{ position: "absolute", left: 44, top: 26, width: 68, height: 68, borderRadius: 34, background: "#c9d3df" }} />
+        <div style={{ position: "absolute", left: 140, top: 22, width: 740, height: 76, borderRadius: 38, background: "#ffffff", border: "2px solid #dde3ea" }} />
+      </div>
+      <div style={{ position: "absolute", left: 0, top: INPUT + 120, width: W, height: H - INPUT - 120, background: "#cfd4db", padding: "22px 18px" }}>
+        {[10, 9, 7].map((n, r) => (
+          <div key={r} style={{ display: "flex", justifyContent: "center", gap: 14, marginBottom: 18 }}>
+            {Array.from({ length: n }, (_, k) => (
+              <div key={k} style={{ width: 88, height: 88, borderRadius: 14, background: "#fdfdfe", boxShadow: "0 2px 0 #9aa3ae" }} />
+            ))}
+          </div>
+        ))}
       </div>
     </AbsoluteFill>
   );
@@ -193,6 +207,24 @@ function ChatScreen({ p }: { p: ChatProps }) {
 export function Chat(p: ChatProps) {
   const f = useCurrentFrame();
   const sh = interpolate(f, [s(p.shrinkAt), s(p.endAt)], [0, 1], { ...clamp, easing: ease });
+  // zoom into the payoff screenshot (it is the newest bubble while the camera is on it)
+  let cam = { z: 1, x: W / 2, y: H / 2 };
+  for (const it of p.script) {
+    if (!it.zoom || !it.img) continue;
+    const t0 = s(it.t + it.zoom.after);
+    const t1 = t0 + s(0.45);
+    const t2 = t1 + s(it.zoom.hold);
+    const t3 = t2 + s(0.45);
+    const q = interpolate(f, [t0, t1, t2, t3], [0, 1, 1, 0], { ...clamp, easing: ease });
+    if (q <= 0) continue;
+    const d = IMG[it.img];
+    const bw = d.w + 20;
+    const left = it.wide ? (W - bw) / 2 : it.who === "mom" ? RIGHT - bw : LEFT;
+    const imgTop = BOTTOM - (d.h + 20) + 10;
+    const fx = left + 10 + it.zoom.fx * d.w;
+    const fy = imgTop + it.zoom.fy * d.h;
+    cam = { z: 1 + (it.zoom.z - 1) * q, x: W / 2 + (fx - W / 2) * q, y: H / 2 + (fy - H / 2) * q };
+  }
   const fadeIn = interpolate(f, [0, s(0.5)], [1, 0], clamp);
   return (
     <AbsoluteFill style={{ background: "#000" }}>
@@ -201,7 +233,9 @@ export function Chat(p: ChatProps) {
         <Img src={staticFile("shorts/map.png")} style={{ width: W, height: (W * 2532) / 1170, marginTop: -200 }} />
       </AbsoluteFill>
       <AbsoluteFill style={{ transform: `scale(${1 - 0.4 * sh})`, transformOrigin: "50% 42%", borderRadius: 40 * sh, overflow: "hidden", boxShadow: sh > 0 ? `0 40px 120px rgba(0,0,0,${0.55 * sh})` : undefined }}>
-        <ChatScreen p={p} />
+        <AbsoluteFill style={{ transformOrigin: "0 0", transform: `translate(${W / 2}px, ${H / 2 - 120 * (cam.z - 1)}px) scale(${cam.z}) translate(${-cam.x}px, ${-cam.y}px)` }}>
+          <ChatScreen p={p} />
+        </AbsoluteFill>
       </AbsoluteFill>
       <AbsoluteFill style={{ background: "#000", opacity: fadeIn }} />
       {p.script.map((it, i) => {
