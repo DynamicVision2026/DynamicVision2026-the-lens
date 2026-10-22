@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Masterclass voice in English / 简体中文 / 繁體中文 (Google Cloud Text-to-Speech, WaveNet voices).
+"""Masterclass voice in English / 简体中文 / 繁體中文 / 廣東話 (Google Cloud Text-to-Speech).
 
 Every Japanese clip in apps/trainer/public/audio/mc/manifest.json gets a clip in each language, spoken from that
 line's translation in i18n/content/<lang>.json (the same text the subtitles show). Run by
@@ -8,6 +8,10 @@ line's translation in i18n/content/<lang>.json (the same text the subtitles show
 
   python3 tools/make_voice_i18n.py              # only clips that are new or whose text changed
   python3 tools/make_voice_i18n.py --all        # regenerate everything
+  python3 tools/make_voice_i18n.py --only yue   # one voice folder (en, zh-Hans, zh-Hant, yue)
+
+Cantonese (yue, for Hong Kong / Macau) reads the 繁體中文 text (i18n/content/zh-Hant.json) aloud in Cantonese, the
+way written Chinese is read in Hong Kong schools; its voice is the best female yue-HK voice Google lists.
 
 Writes apps/trainer/public/audio/mc/<lang>/<lesson path>/<key>.m4a and mc/<lang>/manifest.json
 ({lesson: {key: {text, file, sha1}}}). The trainer plays mc/<lang>/… and falls back to the Japanese clip.
@@ -36,7 +40,9 @@ VOICES = {
     "en": {"languageCode": "en-US", "name": "en-US-Wavenet-F"},
     "zh-Hans": {"languageCode": "cmn-CN", "name": "cmn-CN-Wavenet-A"},
     "zh-Hant": {"languageCode": "cmn-TW", "name": "cmn-TW-Wavenet-A"},
+    "yue": {"languageCode": "yue-HK", "name": None},  # picked by best_voice()
 }
+TEXT_LANG = {"yue": "zh-Hant"}  # which translation table a voice folder reads
 AUDIO = {"audioEncoding": "MP3", "speakingRate": 1.08, "pitch": 2.0, "sampleRateHertz": 24000}
 
 
@@ -45,6 +51,21 @@ def token() -> str:
     if not t:
         sys.exit("no Google access token (gcloud auth print-access-token)")
     return t
+
+
+def best_voice(code: str, tok: str) -> str:
+    """The best female voice Google lists for a language (WaveNet > Neural2 > Standard)."""
+    req = urllib.request.Request(f"https://texttospeech.googleapis.com/v1/voices?languageCode={code}",
+                                 headers={"Authorization": f"Bearer {tok}", "x-goog-user-project": PROJECT})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        voices = [v for v in json.loads(r.read()).get("voices", []) if code in v["languageCodes"]]
+    rank = {"Wavenet": 0, "Neural2": 1, "Standard": 2}
+    ok = [v for v in voices if v.get("ssmlGender") == "FEMALE" and any(f"-{k}-" in v["name"] for k in rank)]
+    if not ok:
+        sys.exit(f"no usable {code} voice: {[v['name'] for v in voices]}")
+    ok.sort(key=lambda v: (min(rank[k] for k in rank if f"-{k}-" in v["name"]), v["name"]))
+    print(f"{code}: {ok[0]['name']} (of {[v['name'] for v in voices]})")
+    return ok[0]["name"]
 
 
 def spoken(text: str, lang: str) -> str:
@@ -64,12 +85,15 @@ def synth(text: str, lang: str, tok: str) -> bytes:
 
 def main():
     regen = "--all" in sys.argv
+    only = sys.argv[sys.argv.index("--only") + 1].split(",") if "--only" in sys.argv else list(VOICES)
     src = json.loads((MC / "manifest.json").read_text())
     tok = token()
     if not shutil.which("ffmpeg"):
         sys.exit("ffmpeg is needed")
-    for lang in VOICES:
-        table = json.loads((ROOT / "i18n" / "content" / f"{lang}.json").read_text())
+    for lang in only:
+        if not VOICES[lang]["name"]:
+            VOICES[lang]["name"] = best_voice(VOICES[lang]["languageCode"], tok)
+        table = json.loads((ROOT / "i18n" / "content" / f"{TEXT_LANG.get(lang, lang)}.json").read_text())
         out_dir = MC / lang
         man_path = out_dir / "manifest.json"
         man = json.loads(man_path.read_text()) if man_path.exists() else {}
