@@ -78,7 +78,7 @@ function Subtitle({ line }: { line: Line }) {
   const o = interpolate(f, [0, 4, line.dur + 2, line.dur + 8], [0, 1, 1, 0], clamp);
   return (
     <AbsoluteFill style={{ justifyContent: "flex-end", alignItems: "center", paddingBottom: 46, opacity: o }}>
-      <div style={{ maxWidth: 1500, padding: "12px 30px", borderRadius: 16, background: "rgba(4,9,20,0.78)", fontFamily: FONT, fontSize: 40, fontWeight: 900, color: C.text, textAlign: "center", lineHeight: 1.4 }}>
+      <div style={{ maxWidth: 1760, padding: "12px 30px", borderRadius: 16, background: "rgba(4,9,20,0.78)", fontFamily: FONT, fontSize: 38, fontWeight: 900, color: C.text, textAlign: "center", lineHeight: 1.4 }}>
         <Who v={line.v} />
         {line.text}
       </div>
@@ -272,11 +272,11 @@ function Turn() {
 }
 const D12 = (T.lines.find((l) => l.id === "t12") as Line).dur / FPS;
 
-function Step({ n, title, sub, color }: { n: string; title: string; sub?: string; color: string }) {
+function Step({ n, title, sub, color }: { n: string; title: string[]; sub?: string; color: string }) {
   return (
-    <div style={{ position: "absolute", left: 110, top: 300, width: 900 }}>
+    <div style={{ position: "absolute", left: 110, top: 300, width: 700 }}>
       <Kicker color={color}>{n}</Kicker>
-      <Slam parts={[title]} start={6} size={72} style={{ marginTop: 26 }} />
+      <Slam parts={title} start={6} size={68} style={{ marginTop: 26 }} />
       {sub && <div style={{ marginTop: 26, fontFamily: FONT, fontSize: 36, fontWeight: 800, color: C.muted, opacity: useIn(16, 16) }}>{sub}</div>}
     </div>
   );
@@ -289,7 +289,7 @@ function Snap() {
   return (
     <Fade dur={dur + 6} edge={8}>
       <Backdrop tint={C.accent} />
-      {f < k ? <Step n="1  撮る" title="返ってきたプリントを、撮るだけ。" sub="宿題・ドリル・テスト、1枚まるごと" color={C.accent} /> : <Sequence from={k} layout="none"><Step n="2  AIが記録" title="単元と○✕を、自動で記録。" sub="保存する前に、確認・修正もできます" color={C.accent} /></Sequence>}
+      {f < k ? <Step n="1  撮る" title={["プリントを、", "撮るだけ。"]}  sub="宿題・ドリル・テスト、1枚まるごと" color={C.accent} /> : <Sequence from={k} layout="none"><Step n="2  AIが記録" title={["単元と○✕を、", "自動で記録。"]} sub="保存する前に、確認・修正もできます" color={C.accent} /></Sequence>}
       <Screen clip="snap_phone" width={430} segs={[{ from: 0, to: k, a: 0.44, b: 4.8 }, { from: k, to: dur + 6, a: 5.25, b: 13.42 }]} style={{ left: 1240, top: 100, transform: `translateY(${(1 - useIn(0, 18)) * 120}px)` }} glow="rgba(255,138,92,0.3)" />
       <Sfx at={k - 6} src="shutter" volume={0.35} />
     </Fade>
@@ -301,7 +301,7 @@ function MapS() {
   return (
     <Fade dur={dur + 6} edge={8}>
       <Backdrop tint={C.green} />
-      <Step n="3  つまずきマップ" title="つまずいた単元が、ひと目で。" sub="小1〜高3、算数・数学の110単元" color={C.green} />
+      <Step n="3  つまずきマップ" title={["つまずいた単元が、", "ひと目で。"]} sub="小1〜高3、算数・数学の110単元" color={C.green} />
       <Screen clip="map_ipad" segs={[{ from: 0, to: dur + 6, a: 1.2, b: 10.5 }]} width={980} camera={false} sfx={false} style={{ left: 860, top: 170, transform: `scale(${0.96 + 0.04 * useIn(0, 24)})` }} glow="rgba(71,199,139,0.3)" />
     </Fade>
   );
@@ -312,7 +312,7 @@ function Exam() {
   return (
     <Fade dur={dur + 6} edge={8}>
       <Backdrop tint={C.gold} />
-      <Step n="4  テスト前" title="今夜やる問題だけ、一覧に。" sub="日にちと範囲を選ぶだけ" color={C.gold} />
+      <Step n="4  テスト前" title={["今夜やる問題だけ、", "一覧に。"]} sub="日にちと範囲を選ぶだけ" color={C.gold} />
       <Screen clip="exam_ipad" segs={[{ from: 0, to: dur + 6, a: 0.9, b: 13.8 }]} width={1000} style={{ left: 840, top: 170 }} glow="rgba(246,196,83,0.3)" />
     </Fade>
   );
