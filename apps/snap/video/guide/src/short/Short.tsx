@@ -150,7 +150,7 @@ function EndCard() {
         <div style={{ marginTop: 18, fontSize: 46, fontWeight: 800, color: C.text }}>
           撮るだけで、<span style={{ color: C.gold }}>何を復習すればいいか</span>がわかる。
         </div>
-        <div style={{ marginTop: 60, display: "inline-block", padding: "22px 46px", borderRadius: 999, background: C.gold, color: "#0b1830", fontSize: 54, fontWeight: 900, transform: `scale(${0.7 + 0.3 * pill})`, opacity: Math.min(1, pill) }}>tsumazuki.domo-ai.com</div>
+        <div style={{ marginTop: 60, display: "inline-block", padding: "20px 64px", borderRadius: 999, background: C.gold, color: "#0b1830", fontSize: 70, fontWeight: 900, transform: `scale(${0.7 + 0.3 * pill})`, opacity: Math.min(1, pill) }}>domo-ai.com</div>
         <div style={{ marginTop: 26, fontSize: 40, fontWeight: 900, color: C.text, opacity: useIn(30, 14) }}>登録不要 ・ 30枚まで無料</div>
         <div style={{ marginTop: 12, fontSize: 32, fontWeight: 700, color: C.muted, opacity: useIn(36, 14) }}>小1〜高3 の算数・数学</div>
       </div>

@@ -1,0 +1,41 @@
+name: Story video voices
+
+# つまずきマップ story film: makes the voices (VOICEVOX, 3 speakers) on GitHub's runner from
+# apps/snap/video/story.json and pushes the WAVs to the branch story/voice-out.
+# Runs when story.json changes on a story/* branch (no app change, nothing deployed).
+
+on:
+  push:
+    branches: ["story/**"]
+    paths: ["apps/snap/video/story.json", "apps/snap/video/make_story_voice.py", ".github/workflows/story-voice.yml"]
+
+permissions:
+  contents: write
+
+jobs:
+  voice:
+    runs-on: ubuntu-latest
+    services:
+      voicevox:
+        image: voicevox/voicevox_engine:cpu-latest
+        ports:
+          - 50021:50021
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for the VOICEVOX engine
+        run: |
+          for _ in $(seq 1 90); do
+            curl -sf http://127.0.0.1:50021/version && exit 0
+            sleep 2
+          done
+          echo "VOICEVOX engine did not start" && exit 1
+      - name: Voices
+        run: python3 apps/snap/video/make_story_voice.py
+      - name: Push to story/voice-out
+        run: |
+          git config user.name "lens-voice-bot"
+          git config user.email "lens-voice-bot@users.noreply.github.com"
+          git checkout -B story/voice-out
+          git add -f apps/snap/video/audio-story
+          git commit -m "Story film voices (VOICEVOX)"
+          git push -f origin story/voice-out

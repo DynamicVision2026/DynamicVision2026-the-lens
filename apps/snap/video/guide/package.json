@@ -7,6 +7,7 @@
     "render": "remotion render src/index.ts Guide out/tsumazuki-map-guide.mp4"
   },
   "dependencies": {
+    "@fontsource/klee-one": "^5.3.1",
     "@remotion/cli": "4.0.535",
     "react": "19.2.0",
     "react-dom": "19.2.0",
