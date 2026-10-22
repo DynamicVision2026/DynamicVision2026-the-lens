@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { PhotoThumb } from "../components/PhotoThumb";
-import { app } from "../copy";
-import { type Grade, type Unit, unitById, unitsForGrade } from "../curriculum";
+import { app, MISC } from "../copy";
+import { type Grade, type Unit, unitById, unitsForGrade, gradeLabel } from "../curriculum";
 import { type ListItem, parseLit, readiness, splitTestList } from "../lib/review";
 import { setReviewed } from "../lib/store";
 import { readPref, usePages, writePref } from "../state";
@@ -71,7 +71,7 @@ export function TestList({ grade }: { grade: Grade }) {
             data-unit={u.id}
             onClick={() => toggle(u.id)}
           >
-            {u.appGrade !== grade ? `${u.grade} ` : ""}
+            {u.appGrade !== grade ? `${gradeLabel(u.grade)} ` : ""}
             {u.label}
           </button>
         ))}
@@ -132,13 +132,13 @@ function Item({ item, grade, onTick }: { item: ListItem; grade: Grade; onTick: (
             {reason === "wrong" ? app.list.wrong : app.list.low}
           </span>
           <span className="muted small">
-            {unit && unit.appGrade !== grade ? `${unit.grade} ` : ""}
+            {unit && unit.appGrade !== grade ? `${gradeLabel(unit.grade)} ` : ""}
             {unit?.label}
           </span>
         </div>
         <p className="problem-q">{problem.q}</p>
         {problem.answer && (
-          <p className="small muted">{app.list.yourAnswer}：<span className="answer">{problem.answer}</span></p>
+          <p className="small muted">{app.list.yourAnswer}{MISC.colon}<span className="answer">{problem.answer}</span></p>
         )}
         <label className="check">
           <input type="checkbox" checked={problem.reviewed} onChange={(e) => onTick(item, e.target.checked)} />

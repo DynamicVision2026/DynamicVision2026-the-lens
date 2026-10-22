@@ -1,3 +1,4 @@
+import { tc } from './bundle';
 // Display formatting for exact SymPy strings. Formatting only: never derives a new value.
 import type { LensCard } from './types';
 
@@ -55,7 +56,7 @@ export function answerText(card: LensCard): string {
   // WO-020 mass points: a variant has no display_ja, so it reads like its anchor's (「AP:PD＝5:1」, 「3/17倍」).
   // The exact value n/d is rewritten as n:d, never recomputed.
   if (f.type === 'triangle_cevians') {
-    if (f.ask === 'area_pbc' || f.ask === 'area_abd') return `${formatExact(card.answer.value)}倍`;
+    if (f.ask === 'area_pbc' || f.ask === 'area_abd') return `${formatExact(card.answer.value)}${tc('倍')}`;
     const [n, d = '1'] = card.answer.value.split('/');
     return `${f.ask === 'bp_pe' ? 'BP:PE' : 'AP:PD'}＝${n}:${d}`;
   }

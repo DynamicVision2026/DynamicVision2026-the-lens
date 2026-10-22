@@ -1,0 +1,1502 @@
+{
+ "直線ℓと直線mは平行で、その間は8cmです。直線m上のAFの長さは17cmで、B、C、D、EはAとFの間の点です。P、Q、R、S、Tは直線ℓ上の点です。かげをつけた三角形ABP、BCQ、CDR、DES、EFTの面積の合計は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, and the distance between them is 8 cm. On line m, AF is 17 cm long, and B, C, D and E are points between A and F. P, Q, R, S and T are points on line ℓ. What is the total area of the shaded triangles ABP, BCQ, CDR, DES and EFT in cm²?",
+  "zh-Hans": "直线ℓ与直线m平行，两条直线之间的距离是8cm。直线m上AF的长是17cm，B、C、D、E是A和F之间的点。P、Q、R、S、T是直线ℓ上的点。阴影部分三角形ABP、BCQ、CDR、DES、EFT的面积之和是多少cm²？",
+  "zh-Hant": "直線ℓ與直線m平行，兩條直線之間的距離是8cm。直線m上AF的長是17cm，B、C、D、E是A和F之間的點。P、Q、R、S、T是直線ℓ上的點。塗色的三角形ABP、BCQ、CDR、DES、EFT的面積總和是多少cm²？"
+ },
+ "底辺17、高さ8の1つの三角形になる": {
+  "en": "It becomes 1 triangle with base 17 and height 8",
+  "zh-Hans": "变成底边17、高8的1个三角形",
+  "zh-Hant": "變成底邊17、高8的1個三角形"
+ },
+ "底辺と高さが分かっていれば、三角形の面積は底辺×高さ÷2。レンズはいらない。": {
+  "en": "If you know the base and the height, the area of a triangle is base×height÷2. No lens needed.",
+  "zh-Hans": "只要知道底和高，三角形的面积就是 底×高÷2。不需要透镜。",
+  "zh-Hant": "只要知道底和高，三角形的面積就是 底×高÷2。不需要透鏡。"
+ },
+ "直線ℓと直線mは平行で、その間は8cmです。点A、Bは直線m上の点でAB＝5cm、点Pは直線ℓ上の点です。三角形ABPの面積は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, and the distance between them is 8 cm. Points A and B are on line m with AB＝5 cm, and point P is on line ℓ. What is the area of triangle ABP in cm²?",
+  "zh-Hans": "直线ℓ与直线m平行，两条直线之间的距离是8cm。点A、B在直线m上，AB＝5cm，点P在直线ℓ上。三角形ABP的面积是多少cm²？",
+  "zh-Hant": "直線ℓ與直線m平行，兩條直線之間的距離是8cm。點A、B在直線m上，AB＝5cm，點P在直線ℓ上。三角形ABP的面積是多少cm²？"
+ },
+ "平行線を見て、くせで頂点Pをすべらせようとする": {
+  "en": "Seeing parallel lines, you slide vertex P out of habit",
+  "zh-Hans": "一看到平行线，就习惯性地想把顶点P滑动",
+  "zh-Hant": "一看到平行線，就習慣性地想把頂點P滑動"
+ },
+ "どこへ動かしても面積は同じなので、動かす意味がない": {
+  "en": "The area is the same wherever you move it, so there is no point in moving it",
+  "zh-Hans": "移到哪里面积都一样，所以移动没有意义",
+  "zh-Hant": "移到哪裡面積都一樣，所以移動沒有意義"
+ },
+ "底辺AB＝5cm、高さ＝平行線の間の8cm が、もう分かっている": {
+  "en": "We already know the base AB＝5 cm and the height＝8 cm (the distance between the parallel lines)",
+  "zh-Hans": "底边AB＝5cm，高＝平行线之间的距离8cm，都已经知道了",
+  "zh-Hant": "底邊AB＝5cm，高＝平行線之間的距離8cm，都已經知道了"
+ },
+ "底辺と高さがもう分かっていたら、等積変形はいらない。そのまま計算。": {
+  "en": "If you already know the base and the height, you don't need Equal-Area Slide. Just calculate directly.",
+  "zh-Hans": "如果底和高已经知道了，就不需要等积变形。直接计算。",
+  "zh-Hant": "如果底和高已經知道了，就不需要等積變形。直接計算。"
+ },
+ "動かしても面積は変わらないが、底辺も高さももう分かっている。動かす必要がない。": {
+  "en": "Moving it doesn't change the area, but you already know both the base and the height. There's no need to move it.",
+  "zh-Hans": "移动后面积确实不变，但底和高都已经知道了。没必要移动。",
+  "zh-Hant": "移動後面積確實不變，但底和高都已經知道了。沒必要移動。"
+ },
+ "そのとおり。三角形は1つだけ。底辺×高さ÷2でおしまい。": {
+  "en": "That's right. There is only 1 triangle. Base×height÷2 and you're done.",
+  "zh-Hans": "没错。三角形只有1个。底×高÷2就完成了。",
+  "zh-Hant": "沒錯。三角形只有1個。底×高÷2就完成了。"
+ },
+ "直線ℓと直線mは平行で、その間は6cmです。点A、Bは直線m上の点でAB＝10cm、点Pは直線ℓ上の点です。三角形ABPの面積は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, and the distance between them is 6 cm. Points A and B are on line m with AB＝10 cm, and point P is on line ℓ. What is the area of triangle ABP in cm²?",
+  "zh-Hans": "直线ℓ与直线m平行，两条直线之间的距离是6cm。点A、B在直线m上，AB＝10cm，点P在直线ℓ上。三角形ABP的面积是多少cm²？",
+  "zh-Hant": "直線ℓ與直線m平行，兩條直線之間的距離是6cm。點A、B在直線m上，AB＝10cm，點P在直線ℓ上。三角形ABP的面積是多少cm²？"
+ },
+ "底辺AB＝10cm、高さ＝平行線の間の6cm が、もう分かっている": {
+  "en": "We already know the base AB＝10 cm and the height＝6 cm (the distance between the parallel lines)",
+  "zh-Hans": "底边AB＝10cm，高＝平行线之间的距离6cm，都已经知道了",
+  "zh-Hant": "底邊AB＝10cm，高＝平行線之間的距離6cm，都已經知道了"
+ },
+ "直線ℓと直線mは平行で、その間は4cmです。点A、Bは直線m上の点でAB＝8cm、点Pは直線ℓ上の点です。三角形ABPの面積は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, and the distance between them is 4 cm. Points A and B are on line m with AB＝8 cm, and point P is on line ℓ. What is the area of triangle ABP in cm²?",
+  "zh-Hans": "直线ℓ与直线m平行，两条直线之间的距离是4cm。点A、B在直线m上，AB＝8cm，点P在直线ℓ上。三角形ABP的面积是多少cm²？",
+  "zh-Hant": "直線ℓ與直線m平行，兩條直線之間的距離是4cm。點A、B在直線m上，AB＝8cm，點P在直線ℓ上。三角形ABP的面積是多少cm²？"
+ },
+ "底辺AB＝8cm、高さ＝平行線の間の4cm が、もう分かっている": {
+  "en": "We already know the base AB＝8 cm and the height＝4 cm (the distance between the parallel lines)",
+  "zh-Hans": "底边AB＝8cm，高＝平行线之间的距离4cm，都已经知道了",
+  "zh-Hant": "底邊AB＝8cm，高＝平行線之間的距離4cm，都已經知道了"
+ },
+ "直線ℓと直線mは平行で、その間は5cmです。点A、Bは直線m上の点でAB＝6cm、点Pは直線ℓ上の点です。三角形ABPの面積は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, and the distance between them is 5 cm. Points A and B are on line m with AB＝6 cm, and point P is on line ℓ. What is the area of triangle ABP in cm²?",
+  "zh-Hans": "直线ℓ与直线m平行，两条直线之间的距离是5cm。点A、B在直线m上，AB＝6cm，点P在直线ℓ上。三角形ABP的面积是多少cm²？",
+  "zh-Hant": "直線ℓ與直線m平行，兩條直線之間的距離是5cm。點A、B在直線m上，AB＝6cm，點P在直線ℓ上。三角形ABP的面積是多少cm²？"
+ },
+ "底辺AB＝6cm、高さ＝平行線の間の5cm が、もう分かっている": {
+  "en": "We already know the base AB＝6 cm and the height＝5 cm (the distance between the parallel lines)",
+  "zh-Hans": "底边AB＝6cm，高＝平行线之间的距离5cm，都已经知道了",
+  "zh-Hant": "底邊AB＝6cm，高＝平行線之間的距離5cm，都已經知道了"
+ },
+ "直線ℓと直線mは平行で、その間は3cmです。点A、Bは直線m上の点でAB＝11cm、点Pは直線ℓ上の点です。三角形ABPの面積は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, and the distance between them is 3 cm. Points A and B are on line m with AB＝11 cm, and point P is on line ℓ. What is the area of triangle ABP in cm²?",
+  "zh-Hans": "直线ℓ与直线m平行，两条直线之间的距离是3cm。点A、B在直线m上，AB＝11cm，点P在直线ℓ上。三角形ABP的面积是多少cm²？",
+  "zh-Hant": "直線ℓ與直線m平行，兩條直線之間的距離是3cm。點A、B在直線m上，AB＝11cm，點P在直線ℓ上。三角形ABP的面積是多少cm²？"
+ },
+ "底辺AB＝11cm、高さ＝平行線の間の3cm が、もう分かっている": {
+  "en": "We already know the base AB＝11 cm and the height＝3 cm (the distance between the parallel lines)",
+  "zh-Hans": "底边AB＝11cm，高＝平行线之间的距离3cm，都已经知道了",
+  "zh-Hant": "底邊AB＝11cm，高＝平行線之間的距離3cm，都已經知道了"
+ },
+ "等積変形は、高さが変わらないときだけ使える。平行でない線の上では、頂点を動かすと高さも変わる。": {
+  "en": "Equal-Area Slide only works when the height stays the same. On a line that isn't parallel, moving the vertex changes the height too.",
+  "zh-Hans": "等积变形只有在高不变时才能用。在不平行的直线上，移动顶点，高也会跟着变。",
+  "zh-Hant": "等積變形只有在高不變時才能用。在不平行的直線上，移動頂點，高也會跟著變。"
+ },
+ "直線m上に点A、B、C、Dがこの順にあり、AB＝3cm、BC＝4cm、CD＝3cmです。P、Q、Rは直線ℓ上の点ですが、直線ℓと直線mは平行ではなく、P、Q、Rから直線mまでの高さはそれぞれ4cm、8cm、10cmです。かげをつけた三角形ABP、BCQ、CDRの面積の合計は何cm²ですか。": {
+  "en": "Points A, B, C and D lie on line m in this order, with AB＝3 cm, BC＝4 cm and CD＝3 cm. P, Q and R are points on line ℓ, but lines ℓ and m are not parallel: the heights from P, Q and R to line m are 4 cm, 8 cm and 10 cm. What is the total area of the shaded triangles ABP, BCQ and CDR in cm²?",
+  "zh-Hans": "直线m上依次有点A、B、C、D，AB＝3cm，BC＝4cm，CD＝3cm。P、Q、R是直线ℓ上的点，但直线ℓ与直线m不平行，P、Q、R到直线m的高分别是4cm、8cm、10cm。阴影部分三角形ABP、BCQ、CDR的面积之和是多少cm²？",
+  "zh-Hant": "直線m上依序有點A、B、C、D，AB＝3cm，BC＝4cm，CD＝3cm。P、Q、R是直線ℓ上的點，但直線ℓ與直線m不平行，P、Q、R到直線m的高分別是4cm、8cm、10cm。塗色的三角形ABP、BCQ、CDR的面積總和是多少cm²？"
+ },
+ "くせで頂点を1点に集めて、底辺ADの1つの三角形にする": {
+  "en": "Out of habit, you gather the vertices at 1 point to make 1 triangle with base AD",
+  "zh-Hans": "习惯性地把顶点集中到1个点，变成以AD为底的1个三角形",
+  "zh-Hant": "習慣性地把頂點集中到1個點，變成以AD為底的1個三角形"
+ },
+ "でも、高さがばらばらで、どの高さを使えばいいか決まらない": {
+  "en": "But the heights are all different, so you can't decide which height to use",
+  "zh-Hans": "但是高各不相同，不知道该用哪个高",
+  "zh-Hant": "但是高各不相同，不知道該用哪個高"
+ },
+ "集めると面積が変わってしまい、答えが合わない。約3分むだになる": {
+  "en": "Gathering them changes the area, so the answer comes out wrong. About 3 minutes wasted",
+  "zh-Hans": "一集中面积就变了，答案对不上。白白浪费约3分钟",
+  "zh-Hant": "一集中面積就變了，答案對不上。白白浪費約3分鐘"
+ },
+ "直線ℓとmが平行ではないので、頂点を動かすと高さが変わる。等積変形は使えない": {
+  "en": "Lines ℓ and m are not parallel, so moving a vertex changes the height. Equal-Area Slide can't be used",
+  "zh-Hans": "直线ℓ和m不平行，所以移动顶点，高就会变。不能用等积变形",
+  "zh-Hant": "直線ℓ和m不平行，所以移動頂點，高就會變。不能用等積變形"
+ },
+ "三角形ABP：3×4÷2 = 6": {
+  "en": "Triangle ABP: 3×4÷2 = 6",
+  "zh-Hans": "三角形ABP：3×4÷2 = 6",
+  "zh-Hant": "三角形ABP：3×4÷2 = 6"
+ },
+ "三角形BCQ：4×8÷2 = 16": {
+  "en": "Triangle BCQ: 4×8÷2 = 16",
+  "zh-Hans": "三角形BCQ：4×8÷2 = 16",
+  "zh-Hant": "三角形BCQ：4×8÷2 = 16"
+ },
+ "三角形CDR：3×10÷2 = 15": {
+  "en": "Triangle CDR: 3×10÷2 = 15",
+  "zh-Hans": "三角形CDR：3×10÷2 = 15",
+  "zh-Hant": "三角形CDR：3×10÷2 = 15"
+ },
+ "2本の直線が平行でなければ、頂点を動かすと高さが変わる。1つずつ計算する。": {
+  "en": "If the 2 lines are not parallel, moving a vertex changes the height. Calculate them one at a time.",
+  "zh-Hans": "如果2条直线不平行，移动顶点高就会变。要一个一个地计算。",
+  "zh-Hant": "如果2條直線不平行，移動頂點高就會變。要一個一個地計算。"
+ },
+ "おしい。等積変形が使えるのは、頂点が底辺に平行な直線の上を動くときだけ。ここは平行ではない。": {
+  "en": "Close! Equal-Area Slide only works when the vertex moves along a line parallel to the base. Here the lines are not parallel.",
+  "zh-Hans": "差一点！只有顶点在与底边平行的直线上移动时，才能用等积变形。这里不平行。",
+  "zh-Hant": "差一點！只有頂點在與底邊平行的直線上移動時，才能用等積變形。這裡不平行。"
+ },
+ "そのとおり。高さがちがうので、1つずつ 底辺×高さ÷2 を出してたす。": {
+  "en": "That's right. The heights are different, so find base×height÷2 for each one and add them up.",
+  "zh-Hans": "没错。高不一样，所以一个一个地算出 底×高÷2 再相加。",
+  "zh-Hant": "沒錯。高不一樣，所以一個一個地算出 底×高÷2 再相加。"
+ },
+ "直線m上に点A、B、C、Dがこの順にあり、AB＝4cm、BC＝6cm、CD＝1cmです。P、Q、Rは直線ℓ上の点ですが、直線ℓと直線mは平行ではなく、P、Q、Rから直線mまでの高さはそれぞれ5cm、4cm、2cmです。かげをつけた三角形ABP、BCQ、CDRの面積の合計は何cm²ですか。": {
+  "en": "Points A, B, C and D lie on line m in this order, with AB＝4 cm, BC＝6 cm and CD＝1 cm. P, Q and R are points on line ℓ, but lines ℓ and m are not parallel: the heights from P, Q and R to line m are 5 cm, 4 cm and 2 cm. What is the total area of the shaded triangles ABP, BCQ and CDR in cm²?",
+  "zh-Hans": "直线m上依次有点A、B、C、D，AB＝4cm，BC＝6cm，CD＝1cm。P、Q、R是直线ℓ上的点，但直线ℓ与直线m不平行，P、Q、R到直线m的高分别是5cm、4cm、2cm。阴影部分三角形ABP、BCQ、CDR的面积之和是多少cm²？",
+  "zh-Hant": "直線m上依序有點A、B、C、D，AB＝4cm，BC＝6cm，CD＝1cm。P、Q、R是直線ℓ上的點，但直線ℓ與直線m不平行，P、Q、R到直線m的高分別是5cm、4cm、2cm。塗色的三角形ABP、BCQ、CDR的面積總和是多少cm²？"
+ },
+ "三角形ABP：4×5÷2 = 10": {
+  "en": "Triangle ABP: 4×5÷2 = 10",
+  "zh-Hans": "三角形ABP：4×5÷2 = 10",
+  "zh-Hant": "三角形ABP：4×5÷2 = 10"
+ },
+ "三角形BCQ：6×4÷2 = 12": {
+  "en": "Triangle BCQ: 6×4÷2 = 12",
+  "zh-Hans": "三角形BCQ：6×4÷2 = 12",
+  "zh-Hant": "三角形BCQ：6×4÷2 = 12"
+ },
+ "三角形CDR：1×2÷2 = 1": {
+  "en": "Triangle CDR: 1×2÷2 = 1",
+  "zh-Hans": "三角形CDR：1×2÷2 = 1",
+  "zh-Hant": "三角形CDR：1×2÷2 = 1"
+ },
+ "直線m上に点A、B、C、Dがこの順にあり、AB＝7cm、BC＝5cm、CD＝2cmです。P、Q、Rは直線ℓ上の点ですが、直線ℓと直線mは平行ではなく、P、Q、Rから直線mまでの高さはそれぞれ8cm、13cm、14cmです。かげをつけた三角形ABP、BCQ、CDRの面積の合計は何cm²ですか。": {
+  "en": "Points A, B, C and D lie on line m in this order, with AB＝7 cm, BC＝5 cm and CD＝2 cm. P, Q and R are points on line ℓ, but lines ℓ and m are not parallel: the heights from P, Q and R to line m are 8 cm, 13 cm and 14 cm. What is the total area of the shaded triangles ABP, BCQ and CDR in cm²?",
+  "zh-Hans": "直线m上依次有点A、B、C、D，AB＝7cm，BC＝5cm，CD＝2cm。P、Q、R是直线ℓ上的点，但直线ℓ与直线m不平行，P、Q、R到直线m的高分别是8cm、13cm、14cm。阴影部分三角形ABP、BCQ、CDR的面积之和是多少cm²？",
+  "zh-Hant": "直線m上依序有點A、B、C、D，AB＝7cm，BC＝5cm，CD＝2cm。P、Q、R是直線ℓ上的點，但直線ℓ與直線m不平行，P、Q、R到直線m的高分別是8cm、13cm、14cm。塗色的三角形ABP、BCQ、CDR的面積總和是多少cm²？"
+ },
+ "三角形ABP：7×8÷2 = 28": {
+  "en": "Triangle ABP: 7×8÷2 = 28",
+  "zh-Hans": "三角形ABP：7×8÷2 = 28",
+  "zh-Hant": "三角形ABP：7×8÷2 = 28"
+ },
+ "三角形BCQ：5×13÷2 = 32.5": {
+  "en": "Triangle BCQ: 5×13÷2 = 32.5",
+  "zh-Hans": "三角形BCQ：5×13÷2 = 32.5",
+  "zh-Hant": "三角形BCQ：5×13÷2 = 32.5"
+ },
+ "三角形CDR：2×14÷2 = 14": {
+  "en": "Triangle CDR: 2×14÷2 = 14",
+  "zh-Hans": "三角形CDR：2×14÷2 = 14",
+  "zh-Hant": "三角形CDR：2×14÷2 = 14"
+ },
+ "直線m上に点A、B、C、Dがこの順にあり、AB＝3cm、BC＝5cm、CD＝1cmです。P、Q、Rは直線ℓ上の点ですが、直線ℓと直線mは平行ではなく、P、Q、Rから直線mまでの高さはそれぞれ4cm、7cm、10cmです。かげをつけた三角形ABP、BCQ、CDRの面積の合計は何cm²ですか。": {
+  "en": "Points A, B, C and D lie on line m in this order, with AB＝3 cm, BC＝5 cm and CD＝1 cm. P, Q and R are points on line ℓ, but lines ℓ and m are not parallel: the heights from P, Q and R to line m are 4 cm, 7 cm and 10 cm. What is the total area of the shaded triangles ABP, BCQ and CDR in cm²?",
+  "zh-Hans": "直线m上依次有点A、B、C、D，AB＝3cm，BC＝5cm，CD＝1cm。P、Q、R是直线ℓ上的点，但直线ℓ与直线m不平行，P、Q、R到直线m的高分别是4cm、7cm、10cm。阴影部分三角形ABP、BCQ、CDR的面积之和是多少cm²？",
+  "zh-Hant": "直線m上依序有點A、B、C、D，AB＝3cm，BC＝5cm，CD＝1cm。P、Q、R是直線ℓ上的點，但直線ℓ與直線m不平行，P、Q、R到直線m的高分別是4cm、7cm、10cm。塗色的三角形ABP、BCQ、CDR的面積總和是多少cm²？"
+ },
+ "三角形BCQ：5×7÷2 = 17.5": {
+  "en": "Triangle BCQ: 5×7÷2 = 17.5",
+  "zh-Hans": "三角形BCQ：5×7÷2 = 17.5",
+  "zh-Hant": "三角形BCQ：5×7÷2 = 17.5"
+ },
+ "三角形CDR：1×10÷2 = 5": {
+  "en": "Triangle CDR: 1×10÷2 = 5",
+  "zh-Hans": "三角形CDR：1×10÷2 = 5",
+  "zh-Hant": "三角形CDR：1×10÷2 = 5"
+ },
+ "直線m上に点A、B、C、Dがこの順にあり、AB＝3cm、BC＝6cm、CD＝4cmです。P、Q、Rは直線ℓ上の点ですが、直線ℓと直線mは平行ではなく、P、Q、Rから直線mまでの高さはそれぞれ5cm、8cm、11cmです。かげをつけた三角形ABP、BCQ、CDRの面積の合計は何cm²ですか。": {
+  "en": "Points A, B, C and D lie on line m in this order, with AB＝3 cm, BC＝6 cm and CD＝4 cm. P, Q and R are points on line ℓ, but lines ℓ and m are not parallel: the heights from P, Q and R to line m are 5 cm, 8 cm and 11 cm. What is the total area of the shaded triangles ABP, BCQ and CDR in cm²?",
+  "zh-Hans": "直线m上依次有点A、B、C、D，AB＝3cm，BC＝6cm，CD＝4cm。P、Q、R是直线ℓ上的点，但直线ℓ与直线m不平行，P、Q、R到直线m的高分别是5cm、8cm、11cm。阴影部分三角形ABP、BCQ、CDR的面积之和是多少cm²？",
+  "zh-Hant": "直線m上依序有點A、B、C、D，AB＝3cm，BC＝6cm，CD＝4cm。P、Q、R是直線ℓ上的點，但直線ℓ與直線m不平行，P、Q、R到直線m的高分別是5cm、8cm、11cm。塗色的三角形ABP、BCQ、CDR的面積總和是多少cm²？"
+ },
+ "三角形ABP：3×5÷2 = 7.5": {
+  "en": "Triangle ABP: 3×5÷2 = 7.5",
+  "zh-Hans": "三角形ABP：3×5÷2 = 7.5",
+  "zh-Hant": "三角形ABP：3×5÷2 = 7.5"
+ },
+ "三角形BCQ：6×8÷2 = 24": {
+  "en": "Triangle BCQ: 6×8÷2 = 24",
+  "zh-Hans": "三角形BCQ：6×8÷2 = 24",
+  "zh-Hant": "三角形BCQ：6×8÷2 = 24"
+ },
+ "三角形CDR：4×11÷2 = 22": {
+  "en": "Triangle CDR: 4×11÷2 = 22",
+  "zh-Hans": "三角形CDR：4×11÷2 = 22",
+  "zh-Hant": "三角形CDR：4×11÷2 = 22"
+ },
+ "直線m上に点A、B、C、Dがこの順にあり、AB＝5cm、BC＝2cm、CD＝1cmです。P、Q、Rは直線ℓ上の点ですが、直線ℓと直線mは平行ではなく、P、Q、Rから直線mまでの高さはそれぞれ3cm、7cm、9cmです。かげをつけた三角形ABP、BCQ、CDRの面積の合計は何cm²ですか。": {
+  "en": "Points A, B, C and D lie on line m in this order, with AB＝5 cm, BC＝2 cm and CD＝1 cm. P, Q and R are points on line ℓ, but lines ℓ and m are not parallel: the heights from P, Q and R to line m are 3 cm, 7 cm and 9 cm. What is the total area of the shaded triangles ABP, BCQ and CDR in cm²?",
+  "zh-Hans": "直线m上依次有点A、B、C、D，AB＝5cm，BC＝2cm，CD＝1cm。P、Q、R是直线ℓ上的点，但直线ℓ与直线m不平行，P、Q、R到直线m的高分别是3cm、7cm、9cm。阴影部分三角形ABP、BCQ、CDR的面积之和是多少cm²？",
+  "zh-Hant": "直線m上依序有點A、B、C、D，AB＝5cm，BC＝2cm，CD＝1cm。P、Q、R是直線ℓ上的點，但直線ℓ與直線m不平行，P、Q、R到直線m的高分別是3cm、7cm、9cm。塗色的三角形ABP、BCQ、CDR的面積總和是多少cm²？"
+ },
+ "三角形ABP：5×3÷2 = 7.5": {
+  "en": "Triangle ABP: 5×3÷2 = 7.5",
+  "zh-Hans": "三角形ABP：5×3÷2 = 7.5",
+  "zh-Hant": "三角形ABP：5×3÷2 = 7.5"
+ },
+ "三角形BCQ：2×7÷2 = 7": {
+  "en": "Triangle BCQ: 2×7÷2 = 7",
+  "zh-Hans": "三角形BCQ：2×7÷2 = 7",
+  "zh-Hant": "三角形BCQ：2×7÷2 = 7"
+ },
+ "三角形CDR：1×9÷2 = 4.5": {
+  "en": "Triangle CDR: 1×9÷2 = 4.5",
+  "zh-Hans": "三角形CDR：1×9÷2 = 4.5",
+  "zh-Hant": "三角形CDR：1×9÷2 = 4.5"
+ },
+ "直線m上に点A、B、C、Dがこの順にあり、AB＝10cm、BC＝1cm、CD＝2cmです。P、Q、Rは直線ℓ上の点ですが、直線ℓと直線mは平行ではなく、P、Q、Rから直線mまでの高さはそれぞれ8cm、6cm、5cmです。かげをつけた三角形ABP、BCQ、CDRの面積の合計は何cm²ですか。": {
+  "en": "Points A, B, C and D lie on line m in this order, with AB＝10 cm, BC＝1 cm and CD＝2 cm. P, Q and R are points on line ℓ, but lines ℓ and m are not parallel: the heights from P, Q and R to line m are 8 cm, 6 cm and 5 cm. What is the total area of the shaded triangles ABP, BCQ and CDR in cm²?",
+  "zh-Hans": "直线m上依次有点A、B、C、D，AB＝10cm，BC＝1cm，CD＝2cm。P、Q、R是直线ℓ上的点，但直线ℓ与直线m不平行，P、Q、R到直线m的高分别是8cm、6cm、5cm。阴影部分三角形ABP、BCQ、CDR的面积之和是多少cm²？",
+  "zh-Hant": "直線m上依序有點A、B、C、D，AB＝10cm，BC＝1cm，CD＝2cm。P、Q、R是直線ℓ上的點，但直線ℓ與直線m不平行，P、Q、R到直線m的高分別是8cm、6cm、5cm。塗色的三角形ABP、BCQ、CDR的面積總和是多少cm²？"
+ },
+ "三角形ABP：10×8÷2 = 40": {
+  "en": "Triangle ABP: 10×8÷2 = 40",
+  "zh-Hans": "三角形ABP：10×8÷2 = 40",
+  "zh-Hant": "三角形ABP：10×8÷2 = 40"
+ },
+ "三角形BCQ：1×6÷2 = 3": {
+  "en": "Triangle BCQ: 1×6÷2 = 3",
+  "zh-Hans": "三角形BCQ：1×6÷2 = 3",
+  "zh-Hant": "三角形BCQ：1×6÷2 = 3"
+ },
+ "三角形CDR：2×5÷2 = 5": {
+  "en": "Triangle CDR: 2×5÷2 = 5",
+  "zh-Hans": "三角形CDR：2×5÷2 = 5",
+  "zh-Hant": "三角形CDR：2×5÷2 = 5"
+ },
+ "直線m上に点A、B、C、Dがこの順にあり、AB＝6cm、BC＝4cm、CD＝2cmです。P、Q、Rは直線ℓ上の点ですが、直線ℓと直線mは平行ではなく、P、Q、Rから直線mまでの高さはそれぞれ4cm、6cm、9cmです。かげをつけた三角形ABP、BCQ、CDRの面積の合計は何cm²ですか。": {
+  "en": "Points A, B, C and D lie on line m in this order, with AB＝6 cm, BC＝4 cm and CD＝2 cm. P, Q and R are points on line ℓ, but lines ℓ and m are not parallel: the heights from P, Q and R to line m are 4 cm, 6 cm and 9 cm. What is the total area of the shaded triangles ABP, BCQ and CDR in cm²?",
+  "zh-Hans": "直线m上依次有点A、B、C、D，AB＝6cm，BC＝4cm，CD＝2cm。P、Q、R是直线ℓ上的点，但直线ℓ与直线m不平行，P、Q、R到直线m的高分别是4cm、6cm、9cm。阴影部分三角形ABP、BCQ、CDR的面积之和是多少cm²？",
+  "zh-Hant": "直線m上依序有點A、B、C、D，AB＝6cm，BC＝4cm，CD＝2cm。P、Q、R是直線ℓ上的點，但直線ℓ與直線m不平行，P、Q、R到直線m的高分別是4cm、6cm、9cm。塗色的三角形ABP、BCQ、CDR的面積總和是多少cm²？"
+ },
+ "三角形ABP：6×4÷2 = 12": {
+  "en": "Triangle ABP: 6×4÷2 = 12",
+  "zh-Hans": "三角形ABP：6×4÷2 = 12",
+  "zh-Hant": "三角形ABP：6×4÷2 = 12"
+ },
+ "三角形BCQ：4×6÷2 = 12": {
+  "en": "Triangle BCQ: 4×6÷2 = 12",
+  "zh-Hans": "三角形BCQ：4×6÷2 = 12",
+  "zh-Hant": "三角形BCQ：4×6÷2 = 12"
+ },
+ "三角形CDR：2×9÷2 = 9": {
+  "en": "Triangle CDR: 2×9÷2 = 9",
+  "zh-Hans": "三角形CDR：2×9÷2 = 9",
+  "zh-Hant": "三角形CDR：2×9÷2 = 9"
+ },
+ "直線m上に点A、B、C、Dがこの順にあり、AB＝5cm、BC＝1cm、CD＝4cmです。P、Q、Rは直線ℓ上の点ですが、直線ℓと直線mは平行ではなく、P、Q、Rから直線mまでの高さはそれぞれ7cm、4cm、3cmです。かげをつけた三角形ABP、BCQ、CDRの面積の合計は何cm²ですか。": {
+  "en": "Points A, B, C and D lie on line m in this order, with AB＝5 cm, BC＝1 cm and CD＝4 cm. P, Q and R are points on line ℓ, but lines ℓ and m are not parallel: the heights from P, Q and R to line m are 7 cm, 4 cm and 3 cm. What is the total area of the shaded triangles ABP, BCQ and CDR in cm²?",
+  "zh-Hans": "直线m上依次有点A、B、C、D，AB＝5cm，BC＝1cm，CD＝4cm。P、Q、R是直线ℓ上的点，但直线ℓ与直线m不平行，P、Q、R到直线m的高分别是7cm、4cm、3cm。阴影部分三角形ABP、BCQ、CDR的面积之和是多少cm²？",
+  "zh-Hant": "直線m上依序有點A、B、C、D，AB＝5cm，BC＝1cm，CD＝4cm。P、Q、R是直線ℓ上的點，但直線ℓ與直線m不平行，P、Q、R到直線m的高分別是7cm、4cm、3cm。塗色的三角形ABP、BCQ、CDR的面積總和是多少cm²？"
+ },
+ "三角形ABP：5×7÷2 = 17.5": {
+  "en": "Triangle ABP: 5×7÷2 = 17.5",
+  "zh-Hans": "三角形ABP：5×7÷2 = 17.5",
+  "zh-Hant": "三角形ABP：5×7÷2 = 17.5"
+ },
+ "三角形BCQ：1×4÷2 = 2": {
+  "en": "Triangle BCQ: 1×4÷2 = 2",
+  "zh-Hans": "三角形BCQ：1×4÷2 = 2",
+  "zh-Hant": "三角形BCQ：1×4÷2 = 2"
+ },
+ "三角形CDR：4×3÷2 = 6": {
+  "en": "Triangle CDR: 4×3÷2 = 6",
+  "zh-Hans": "三角形CDR：4×3÷2 = 6",
+  "zh-Hant": "三角形CDR：4×3÷2 = 6"
+ },
+ "直線m上に点A、B、C、Dがこの順にあり、AB＝1cm、BC＝6cm、CD＝4cmです。P、Q、Rは直線ℓ上の点ですが、直線ℓと直線mは平行ではなく、P、Q、Rから直線mまでの高さはそれぞれ6cm、7cm、12cmです。かげをつけた三角形ABP、BCQ、CDRの面積の合計は何cm²ですか。": {
+  "en": "Points A, B, C and D lie on line m in this order, with AB＝1 cm, BC＝6 cm and CD＝4 cm. P, Q and R are points on line ℓ, but lines ℓ and m are not parallel: the heights from P, Q and R to line m are 6 cm, 7 cm and 12 cm. What is the total area of the shaded triangles ABP, BCQ and CDR in cm²?",
+  "zh-Hans": "直线m上依次有点A、B、C、D，AB＝1cm，BC＝6cm，CD＝4cm。P、Q、R是直线ℓ上的点，但直线ℓ与直线m不平行，P、Q、R到直线m的高分别是6cm、7cm、12cm。阴影部分三角形ABP、BCQ、CDR的面积之和是多少cm²？",
+  "zh-Hant": "直線m上依序有點A、B、C、D，AB＝1cm，BC＝6cm，CD＝4cm。P、Q、R是直線ℓ上的點，但直線ℓ與直線m不平行，P、Q、R到直線m的高分別是6cm、7cm、12cm。塗色的三角形ABP、BCQ、CDR的面積總和是多少cm²？"
+ },
+ "三角形ABP：1×6÷2 = 3": {
+  "en": "Triangle ABP: 1×6÷2 = 3",
+  "zh-Hans": "三角形ABP：1×6÷2 = 3",
+  "zh-Hant": "三角形ABP：1×6÷2 = 3"
+ },
+ "三角形BCQ：6×7÷2 = 21": {
+  "en": "Triangle BCQ: 6×7÷2 = 21",
+  "zh-Hans": "三角形BCQ：6×7÷2 = 21",
+  "zh-Hant": "三角形BCQ：6×7÷2 = 21"
+ },
+ "三角形CDR：4×12÷2 = 24": {
+  "en": "Triangle CDR: 4×12÷2 = 24",
+  "zh-Hans": "三角形CDR：4×12÷2 = 24",
+  "zh-Hant": "三角形CDR：4×12÷2 = 24"
+ },
+ "直線ℓと直線mは平行で、その間は5cmです。点A、Bは直線m上の点でAB＝7cm、点Pは直線ℓ上の点です。三角形ABPの面積は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, and the distance between them is 5 cm. Points A and B are on line m with AB＝7 cm, and point P is on line ℓ. What is the area of triangle ABP in cm²?",
+  "zh-Hans": "直线ℓ与直线m平行，两条直线之间的距离是5cm。点A、B在直线m上，AB＝7cm，点P在直线ℓ上。三角形ABP的面积是多少cm²？",
+  "zh-Hant": "直線ℓ與直線m平行，兩條直線之間的距離是5cm。點A、B在直線m上，AB＝7cm，點P在直線ℓ上。三角形ABP的面積是多少cm²？"
+ },
+ "底辺AB＝7cm、高さ＝平行線の間の5cm が、もう分かっている": {
+  "en": "We already know the base AB＝7 cm and the height＝5 cm (the distance between the parallel lines)",
+  "zh-Hans": "底边AB＝7cm，高＝平行线之间的距离5cm，都已经知道了",
+  "zh-Hant": "底邊AB＝7cm，高＝平行線之間的距離5cm，都已經知道了"
+ },
+ "直線ℓと直線mは平行で、その間は8cmです。点A、Bは直線m上の点でAB＝11cm、点Pは直線ℓ上の点です。三角形ABPの面積は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, and the distance between them is 8 cm. Points A and B are on line m with AB＝11 cm, and point P is on line ℓ. What is the area of triangle ABP in cm²?",
+  "zh-Hans": "直线ℓ与直线m平行，两条直线之间的距离是8cm。点A、B在直线m上，AB＝11cm，点P在直线ℓ上。三角形ABP的面积是多少cm²？",
+  "zh-Hant": "直線ℓ與直線m平行，兩條直線之間的距離是8cm。點A、B在直線m上，AB＝11cm，點P在直線ℓ上。三角形ABP的面積是多少cm²？"
+ },
+ "底辺AB＝11cm、高さ＝平行線の間の8cm が、もう分かっている": {
+  "en": "We already know the base AB＝11 cm and the height＝8 cm (the distance between the parallel lines)",
+  "zh-Hans": "底边AB＝11cm，高＝平行线之间的距离8cm，都已经知道了",
+  "zh-Hant": "底邊AB＝11cm，高＝平行線之間的距離8cm，都已經知道了"
+ },
+ "直線ℓと直線mは平行で、その間は9cmです。点A、Bは直線m上の点でAB＝8cm、点Pは直線ℓ上の点です。三角形ABPの面積は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, and the distance between them is 9 cm. Points A and B are on line m with AB＝8 cm, and point P is on line ℓ. What is the area of triangle ABP in cm²?",
+  "zh-Hans": "直线ℓ与直线m平行，两条直线之间的距离是9cm。点A、B在直线m上，AB＝8cm，点P在直线ℓ上。三角形ABP的面积是多少cm²？",
+  "zh-Hant": "直線ℓ與直線m平行，兩條直線之間的距離是9cm。點A、B在直線m上，AB＝8cm，點P在直線ℓ上。三角形ABP的面積是多少cm²？"
+ },
+ "底辺AB＝8cm、高さ＝平行線の間の9cm が、もう分かっている": {
+  "en": "We already know the base AB＝8 cm and the height＝9 cm (the distance between the parallel lines)",
+  "zh-Hans": "底边AB＝8cm，高＝平行线之间的距离9cm，都已经知道了",
+  "zh-Hant": "底邊AB＝8cm，高＝平行線之間的距離9cm，都已經知道了"
+ },
+ "直線ℓと直線mは平行で、その間は7cmです。点A、Bは直線m上の点でAB＝6cm、点Pは直線ℓ上の点です。三角形ABPの面積は何cm²ですか。": {
+  "en": "Lines ℓ and m are parallel, and the distance between them is 7 cm. Points A and B are on line m with AB＝6 cm, and point P is on line ℓ. What is the area of triangle ABP in cm²?",
+  "zh-Hans": "直线ℓ与直线m平行，两条直线之间的距离是7cm。点A、B在直线m上，AB＝6cm，点P在直线ℓ上。三角形ABP的面积是多少cm²？",
+  "zh-Hant": "直線ℓ與直線m平行，兩條直線之間的距離是7cm。點A、B在直線m上，AB＝6cm，點P在直線ℓ上。三角形ABP的面積是多少cm²？"
+ },
+ "底辺AB＝6cm、高さ＝平行線の間の7cm が、もう分かっている": {
+  "en": "We already know the base AB＝6 cm and the height＝7 cm (the distance between the parallel lines)",
+  "zh-Hans": "底边AB＝6cm，高＝平行线之间的距离7cm，都已经知道了",
+  "zh-Hant": "底邊AB＝6cm，高＝平行線之間的距離7cm，都已經知道了"
+ },
+ "底面の半径が2cm、母線の長さが8cmの円すいがあります。底面の円周上の点Aから、側面を1周してAにもどるように糸をかけます。糸の長さの最小値を求めなさい。": {
+  "en": "A cone has a base radius of 2 cm and a slant height of 8 cm. A string starts at point A on the edge of the base, wraps once around the side, and comes back to A. Find the shortest possible length of the string.",
+  "zh-Hans": "有一个圆锥，底面半径是2cm，母线长是8cm。从底面圆周上的点A出发，绕侧面一周回到A，挂上一根线。求线长的最小值。",
+  "zh-Hant": "有一個圓錐，底面半徑是2cm，母線長是8cm。從底面圓周上的點A出發，繞側面一圈回到A，掛上一條線。求線長的最小值。"
+ },
+ "立体のまま、糸の通る点の位置を文字でおく": {
+  "en": "Keeping the solid as it is, you use letters for the points the string passes through",
+  "zh-Hans": "保持立体不动，用字母表示线经过的点的位置",
+  "zh-Hant": "保持立體不動，用字母表示線經過的點的位置"
+ },
+ "曲面の上の長さは、そのままでは式にできない": {
+  "en": "A length on a curved surface can't be written as an expression as it is",
+  "zh-Hans": "曲面上的长度，直接没法列式",
+  "zh-Hant": "曲面上的長度，直接沒辦法列式"
+ },
+ "ここで約3分。決め手がない": {
+  "en": "About 3 minutes gone here, with no way forward",
+  "zh-Hans": "在这里花了约3分钟，还是没有突破口",
+  "zh-Hant": "在這裡花了約3分鐘，還是沒有突破口"
+ },
+ "側面を開くと、半径8のおうぎ形。中心角は 360°×2/8 = 90°": {
+  "en": "Open up the side and you get a sector with radius 8. Central angle: 360°×2/8 = 90°",
+  "zh-Hans": "把侧面展开，得到半径为8的扇形。圆心角是 360°×2/8 = 90°",
+  "zh-Hant": "把側面展開，得到半徑為8的扇形。圓心角是 360°×2/8 = 90°"
+ },
+ "1周してもどる糸は、開いた図で両はしのAとA'を結ぶ線分（弦）": {
+  "en": "In the opened figure, the string that goes once around and back is the segment (chord) joining the two ends A and A'",
+  "zh-Hans": "绕一周回来的线，在展开图中就是连接两端A和A'的线段（弦）",
+  "zh-Hant": "繞一圈回來的線，在展開圖中就是連接兩端A和A'的線段（弦）"
+ },
+ "中心角90°の二等辺三角形の底辺：2×8×sin45° = 8√2": {
+  "en": "Base of the isosceles triangle with central angle 90°: 2×8×sin45° = 8√2",
+  "zh-Hans": "圆心角为90°的等腰三角形的底边：2×8×sin45° = 8√2",
+  "zh-Hant": "圓心角為90°的等腰三角形的底邊：2×8×sin45° = 8√2"
+ },
+ "そのとおり。側面を開いておうぎ形にし、まっすぐ結ぶ。": {
+  "en": "That's right. Open the side into a sector and join the points with a straight line.",
+  "zh-Hans": "没错。把侧面展开成扇形，用直线连起来。",
+  "zh-Hant": "沒錯。把側面展開成扇形，用直線連起來。"
+ },
+ "立体のままでは、曲面上の長さが計算できない。": {
+  "en": "As a solid, you can't calculate a length on the curved surface.",
+  "zh-Hans": "保持立体的样子，没法计算曲面上的长度。",
+  "zh-Hant": "保持立體的樣子，沒辦法計算曲面上的長度。"
+ },
+ "底面の半径が4cm、母線の長さが16cmの円すいがあります。底面の円周上の点Aから、側面を1周してAにもどるように糸をかけます。糸の長さの最小値を求めなさい。": {
+  "en": "A cone has a base radius of 4 cm and a slant height of 16 cm. A string starts at point A on the edge of the base, wraps once around the side, and comes back to A. Find the shortest possible length of the string.",
+  "zh-Hans": "有一个圆锥，底面半径是4cm，母线长是16cm。从底面圆周上的点A出发，绕侧面一周回到A，挂上一根线。求线长的最小值。",
+  "zh-Hant": "有一個圓錐，底面半徑是4cm，母線長是16cm。從底面圓周上的點A出發，繞側面一圈回到A，掛上一條線。求線長的最小值。"
+ },
+ "側面を開くと、半径16のおうぎ形。中心角は 360°×4/16 = 90°": {
+  "en": "Open up the side and you get a sector with radius 16. Central angle: 360°×4/16 = 90°",
+  "zh-Hans": "把侧面展开，得到半径为16的扇形。圆心角是 360°×4/16 = 90°",
+  "zh-Hant": "把側面展開，得到半徑為16的扇形。圓心角是 360°×4/16 = 90°"
+ },
+ "中心角90°の二等辺三角形の底辺：2×16×sin45° = 16√2": {
+  "en": "Base of the isosceles triangle with central angle 90°: 2×16×sin45° = 16√2",
+  "zh-Hans": "圆心角为90°的等腰三角形的底边：2×16×sin45° = 16√2",
+  "zh-Hant": "圓心角為90°的等腰三角形的底邊：2×16×sin45° = 16√2"
+ },
+ "底面の半径が1cm、母線の長さが6cmの円すいがあります。底面の円周上の点Aから、側面を1周してAにもどるように糸をかけます。糸の長さの最小値を求めなさい。": {
+  "en": "A cone has a base radius of 1 cm and a slant height of 6 cm. A string starts at point A on the edge of the base, wraps once around the side, and comes back to A. Find the shortest possible length of the string.",
+  "zh-Hans": "有一个圆锥，底面半径是1cm，母线长是6cm。从底面圆周上的点A出发，绕侧面一周回到A，挂上一根线。求线长的最小值。",
+  "zh-Hant": "有一個圓錐，底面半徑是1cm，母線長是6cm。從底面圓周上的點A出發，繞側面一圈回到A，掛上一條線。求線長的最小值。"
+ },
+ "側面を開くと、半径6のおうぎ形。中心角は 360°×1/6 = 60°": {
+  "en": "Open up the side and you get a sector with radius 6. Central angle: 360°×1/6 = 60°",
+  "zh-Hans": "把侧面展开，得到半径为6的扇形。圆心角是 360°×1/6 = 60°",
+  "zh-Hant": "把側面展開，得到半徑為6的扇形。圓心角是 360°×1/6 = 60°"
+ },
+ "中心角60°の二等辺三角形の底辺：2×6×sin30° = 6": {
+  "en": "Base of the isosceles triangle with central angle 60°: 2×6×sin30° = 6",
+  "zh-Hans": "圆心角为60°的等腰三角形的底边：2×6×sin30° = 6",
+  "zh-Hant": "圓心角為60°的等腰三角形的底邊：2×6×sin30° = 6"
+ },
+ "底面の半径が2cm、母線の長さが12cmの円すいがあります。底面の円周上の点Aから、側面を1周してAにもどるように糸をかけます。糸の長さの最小値を求めなさい。": {
+  "en": "A cone has a base radius of 2 cm and a slant height of 12 cm. A string starts at point A on the edge of the base, wraps once around the side, and comes back to A. Find the shortest possible length of the string.",
+  "zh-Hans": "有一个圆锥，底面半径是2cm，母线长是12cm。从底面圆周上的点A出发，绕侧面一周回到A，挂上一根线。求线长的最小值。",
+  "zh-Hant": "有一個圓錐，底面半徑是2cm，母線長是12cm。從底面圓周上的點A出發，繞側面一圈回到A，掛上一條線。求線長的最小值。"
+ },
+ "側面を開くと、半径12のおうぎ形。中心角は 360°×2/12 = 60°": {
+  "en": "Open up the side and you get a sector with radius 12. Central angle: 360°×2/12 = 60°",
+  "zh-Hans": "把侧面展开，得到半径为12的扇形。圆心角是 360°×2/12 = 60°",
+  "zh-Hant": "把側面展開，得到半徑為12的扇形。圓心角是 360°×2/12 = 60°"
+ },
+ "中心角60°の二等辺三角形の底辺：2×12×sin30° = 12": {
+  "en": "Base of the isosceles triangle with central angle 60°: 2×12×sin30° = 12",
+  "zh-Hans": "圆心角为60°的等腰三角形的底边：2×12×sin30° = 12",
+  "zh-Hant": "圓心角為60°的等腰三角形的底邊：2×12×sin30° = 12"
+ },
+ "底面の半径が3cm、母線の長さが9cmの円すいがあります。底面の円周上の点Aから、側面を1周してAにもどるように糸をかけます。糸の長さの最小値を求めなさい。": {
+  "en": "A cone has a base radius of 3 cm and a slant height of 9 cm. A string starts at point A on the edge of the base, wraps once around the side, and comes back to A. Find the shortest possible length of the string.",
+  "zh-Hans": "有一个圆锥，底面半径是3cm，母线长是9cm。从底面圆周上的点A出发，绕侧面一周回到A，挂上一根线。求线长的最小值。",
+  "zh-Hant": "有一個圓錐，底面半徑是3cm，母線長是9cm。從底面圓周上的點A出發，繞側面一圈回到A，掛上一條線。求線長的最小值。"
+ },
+ "側面を開くと、半径9のおうぎ形。中心角は 360°×3/9 = 120°": {
+  "en": "Open up the side and you get a sector with radius 9. Central angle: 360°×3/9 = 120°",
+  "zh-Hans": "把侧面展开，得到半径为9的扇形。圆心角是 360°×3/9 = 120°",
+  "zh-Hant": "把側面展開，得到半徑為9的扇形。圓心角是 360°×3/9 = 120°"
+ },
+ "中心角120°の二等辺三角形の底辺：2×9×sin60° = 9√3": {
+  "en": "Base of the isosceles triangle with central angle 120°: 2×9×sin60° = 9√3",
+  "zh-Hans": "圆心角为120°的等腰三角形的底边：2×9×sin60° = 9√3",
+  "zh-Hant": "圓心角為120°的等腰三角形的底邊：2×9×sin60° = 9√3"
+ },
+ "底面の半径が1cm、母線の長さが4cmの円すいがあります。底面の円周上の点Aから、側面を1周してAにもどるように糸をかけます。糸の長さの最小値を求めなさい。": {
+  "en": "A cone has a base radius of 1 cm and a slant height of 4 cm. A string starts at point A on the edge of the base, wraps once around the side, and comes back to A. Find the shortest possible length of the string.",
+  "zh-Hans": "有一个圆锥，底面半径是1cm，母线长是4cm。从底面圆周上的点A出发，绕侧面一周回到A，挂上一根线。求线长的最小值。",
+  "zh-Hant": "有一個圓錐，底面半徑是1cm，母線長是4cm。從底面圓周上的點A出發，繞側面一圈回到A，掛上一條線。求線長的最小值。"
+ },
+ "側面を開くと、半径4のおうぎ形。中心角は 360°×1/4 = 90°": {
+  "en": "Open up the side and you get a sector with radius 4. Central angle: 360°×1/4 = 90°",
+  "zh-Hans": "把侧面展开，得到半径为4的扇形。圆心角是 360°×1/4 = 90°",
+  "zh-Hant": "把側面展開，得到半徑為4的扇形。圓心角是 360°×1/4 = 90°"
+ },
+ "中心角90°の二等辺三角形の底辺：2×4×sin45° = 4√2": {
+  "en": "Base of the isosceles triangle with central angle 90°: 2×4×sin45° = 4√2",
+  "zh-Hans": "圆心角为90°的等腰三角形的底边：2×4×sin45° = 4√2",
+  "zh-Hant": "圓心角為90°的等腰三角形的底邊：2×4×sin45° = 4√2"
+ },
+ "底面の半径が4cm、母線の長さが12cmの円すいがあります。底面の円周上の点Aから、側面を1周してAにもどるように糸をかけます。糸の長さの最小値を求めなさい。": {
+  "en": "A cone has a base radius of 4 cm and a slant height of 12 cm. A string starts at point A on the edge of the base, wraps once around the side, and comes back to A. Find the shortest possible length of the string.",
+  "zh-Hans": "有一个圆锥，底面半径是4cm，母线长是12cm。从底面圆周上的点A出发，绕侧面一周回到A，挂上一根线。求线长的最小值。",
+  "zh-Hant": "有一個圓錐，底面半徑是4cm，母線長是12cm。從底面圓周上的點A出發，繞側面一圈回到A，掛上一條線。求線長的最小值。"
+ },
+ "側面を開くと、半径12のおうぎ形。中心角は 360°×4/12 = 120°": {
+  "en": "Open up the side and you get a sector with radius 12. Central angle: 360°×4/12 = 120°",
+  "zh-Hans": "把侧面展开，得到半径为12的扇形。圆心角是 360°×4/12 = 120°",
+  "zh-Hant": "把側面展開，得到半徑為12的扇形。圓心角是 360°×4/12 = 120°"
+ },
+ "中心角120°の二等辺三角形の底辺：2×12×sin60° = 12√3": {
+  "en": "Base of the isosceles triangle with central angle 120°: 2×12×sin60° = 12√3",
+  "zh-Hans": "圆心角为120°的等腰三角形的底边：2×12×sin60° = 12√3",
+  "zh-Hant": "圓心角為120°的等腰三角形的底邊：2×12×sin60° = 12√3"
+ },
+ "底面の半径が1cm、母線の長さが4cmの円すいがあります。頂点をOとし、母線OA上にOB＝3cmとなる点Bをとります。点Aから側面を1周して点Bまで糸をかけるとき、糸の長さの最小値を求めなさい。": {
+  "en": "A cone has a base radius of 1 cm and a slant height of 4 cm. Call the apex O, and take point B on the slant line OA so that OB＝3 cm. A string goes from point A once around the side to point B. Find the shortest possible length of the string.",
+  "zh-Hans": "有一个圆锥，底面半径是1cm，母线长是4cm。设顶点为O，在母线OA上取点B，使OB＝3cm。从点A出发绕侧面一周到点B挂一根线，求线长的最小值。",
+  "zh-Hant": "有一個圓錐，底面半徑是1cm，母線長是4cm。設頂點為O，在母線OA上取點B，使OB＝3cm。從點A出發繞側面一圈到點B掛一條線，求線長的最小值。"
+ },
+ "開いた図で、Aと、反対のはしの半径上のB'（OB'＝3）を結ぶ線分が最短": {
+  "en": "In the opened figure, the shortest path is the segment from A to B' on the radius at the other end (OB'＝3)",
+  "zh-Hans": "在展开图中，连接A和另一端半径上的点B'（OB'＝3）的线段最短",
+  "zh-Hant": "在展開圖中，連接A和另一端半徑上的點B'（OB'＝3）的線段最短"
+ },
+ "余弦定理：AB'² = 4²+3²−2×4×3×cos90° = 25": {
+  "en": "Law of cosines: AB'² = 4²+3²−2×4×3×cos90° = 25",
+  "zh-Hans": "余弦定理：AB'² = 4²+3²−2×4×3×cos90° = 25",
+  "zh-Hant": "餘弦定理：AB'² = 4²+3²−2×4×3×cos90° = 25"
+ },
+ "底面の半径が2cm、母線の長さが12cmの円すいがあります。頂点をOとし、母線OA上にOB＝2cmとなる点Bをとります。点Aから側面を1周して点Bまで糸をかけるとき、糸の長さの最小値を求めなさい。": {
+  "en": "A cone has a base radius of 2 cm and a slant height of 12 cm. Call the apex O, and take point B on the slant line OA so that OB＝2 cm. A string goes from point A once around the side to point B. Find the shortest possible length of the string.",
+  "zh-Hans": "有一个圆锥，底面半径是2cm，母线长是12cm。设顶点为O，在母线OA上取点B，使OB＝2cm。从点A出发绕侧面一周到点B挂一根线，求线长的最小值。",
+  "zh-Hant": "有一個圓錐，底面半徑是2cm，母線長是12cm。設頂點為O，在母線OA上取點B，使OB＝2cm。從點A出發繞側面一圈到點B掛一條線，求線長的最小值。"
+ },
+ "開いた図で、Aと、反対のはしの半径上のB'（OB'＝2）を結ぶ線分が最短": {
+  "en": "In the opened figure, the shortest path is the segment from A to B' on the radius at the other end (OB'＝2)",
+  "zh-Hans": "在展开图中，连接A和另一端半径上的点B'（OB'＝2）的线段最短",
+  "zh-Hant": "在展開圖中，連接A和另一端半徑上的點B'（OB'＝2）的線段最短"
+ },
+ "余弦定理：AB'² = 12²+2²−2×12×2×cos60° = 124": {
+  "en": "Law of cosines: AB'² = 12²+2²−2×12×2×cos60° = 124",
+  "zh-Hans": "余弦定理：AB'² = 12²+2²−2×12×2×cos60° = 124",
+  "zh-Hant": "餘弦定理：AB'² = 12²+2²−2×12×2×cos60° = 124"
+ },
+ "底面の半径が3cm、母線の長さが12cmの円すいがあります。頂点をOとし、母線OA上にOB＝8cmとなる点Bをとります。点Aから側面を1周して点Bまで糸をかけるとき、糸の長さの最小値を求めなさい。": {
+  "en": "A cone has a base radius of 3 cm and a slant height of 12 cm. Call the apex O, and take point B on the slant line OA so that OB＝8 cm. A string goes from point A once around the side to point B. Find the shortest possible length of the string.",
+  "zh-Hans": "有一个圆锥，底面半径是3cm，母线长是12cm。设顶点为O，在母线OA上取点B，使OB＝8cm。从点A出发绕侧面一周到点B挂一根线，求线长的最小值。",
+  "zh-Hant": "有一個圓錐，底面半徑是3cm，母線長是12cm。設頂點為O，在母線OA上取點B，使OB＝8cm。從點A出發繞側面一圈到點B掛一條線，求線長的最小值。"
+ },
+ "側面を開くと、半径12のおうぎ形。中心角は 360°×3/12 = 90°": {
+  "en": "Open up the side and you get a sector with radius 12. Central angle: 360°×3/12 = 90°",
+  "zh-Hans": "把侧面展开，得到半径为12的扇形。圆心角是 360°×3/12 = 90°",
+  "zh-Hant": "把側面展開，得到半徑為12的扇形。圓心角是 360°×3/12 = 90°"
+ },
+ "開いた図で、Aと、反対のはしの半径上のB'（OB'＝8）を結ぶ線分が最短": {
+  "en": "In the opened figure, the shortest path is the segment from A to B' on the radius at the other end (OB'＝8)",
+  "zh-Hans": "在展开图中，连接A和另一端半径上的点B'（OB'＝8）的线段最短",
+  "zh-Hant": "在展開圖中，連接A和另一端半徑上的點B'（OB'＝8）的線段最短"
+ },
+ "余弦定理：AB'² = 12²+8²−2×12×8×cos90° = 208": {
+  "en": "Law of cosines: AB'² = 12²+8²−2×12×8×cos90° = 208",
+  "zh-Hans": "余弦定理：AB'² = 12²+8²−2×12×8×cos90° = 208",
+  "zh-Hant": "餘弦定理：AB'² = 12²+8²−2×12×8×cos90° = 208"
+ },
+ "底面の半径が2cm、母線の長さが8cmの円すいがあります。頂点をOとし、母線OA上にOB＝5cmとなる点Bをとります。点Aから側面を1周して点Bまで糸をかけるとき、糸の長さの最小値を求めなさい。": {
+  "en": "A cone has a base radius of 2 cm and a slant height of 8 cm. Call the apex O, and take point B on the slant line OA so that OB＝5 cm. A string goes from point A once around the side to point B. Find the shortest possible length of the string.",
+  "zh-Hans": "有一个圆锥，底面半径是2cm，母线长是8cm。设顶点为O，在母线OA上取点B，使OB＝5cm。从点A出发绕侧面一周到点B挂一根线，求线长的最小值。",
+  "zh-Hant": "有一個圓錐，底面半徑是2cm，母線長是8cm。設頂點為O，在母線OA上取點B，使OB＝5cm。從點A出發繞側面一圈到點B掛一條線，求線長的最小值。"
+ },
+ "開いた図で、Aと、反対のはしの半径上のB'（OB'＝5）を結ぶ線分が最短": {
+  "en": "In the opened figure, the shortest path is the segment from A to B' on the radius at the other end (OB'＝5)",
+  "zh-Hans": "在展开图中，连接A和另一端半径上的点B'（OB'＝5）的线段最短",
+  "zh-Hant": "在展開圖中，連接A和另一端半徑上的點B'（OB'＝5）的線段最短"
+ },
+ "余弦定理：AB'² = 8²+5²−2×8×5×cos90° = 89": {
+  "en": "Law of cosines: AB'² = 8²+5²−2×8×5×cos90° = 89",
+  "zh-Hans": "余弦定理：AB'² = 8²+5²−2×8×5×cos90° = 89",
+  "zh-Hant": "餘弦定理：AB'² = 8²+5²−2×8×5×cos90° = 89"
+ },
+ "底面の半径が1cm、母線の長さが4cmの円すいがあります。頂点をOとし、母線OA上にOB＝1cmとなる点Bをとります。点Aから側面を1周して点Bまで糸をかけるとき、糸の長さの最小値を求めなさい。": {
+  "en": "A cone has a base radius of 1 cm and a slant height of 4 cm. Call the apex O, and take point B on the slant line OA so that OB＝1 cm. A string goes from point A once around the side to point B. Find the shortest possible length of the string.",
+  "zh-Hans": "有一个圆锥，底面半径是1cm，母线长是4cm。设顶点为O，在母线OA上取点B，使OB＝1cm。从点A出发绕侧面一周到点B挂一根线，求线长的最小值。",
+  "zh-Hant": "有一個圓錐，底面半徑是1cm，母線長是4cm。設頂點為O，在母線OA上取點B，使OB＝1cm。從點A出發繞側面一圈到點B掛一條線，求線長的最小值。"
+ },
+ "開いた図で、Aと、反対のはしの半径上のB'（OB'＝1）を結ぶ線分が最短": {
+  "en": "In the opened figure, the shortest path is the segment from A to B' on the radius at the other end (OB'＝1)",
+  "zh-Hans": "在展开图中，连接A和另一端半径上的点B'（OB'＝1）的线段最短",
+  "zh-Hant": "在展開圖中，連接A和另一端半徑上的點B'（OB'＝1）的線段最短"
+ },
+ "余弦定理：AB'² = 4²+1²−2×4×1×cos90° = 17": {
+  "en": "Law of cosines: AB'² = 4²+1²−2×4×1×cos90° = 17",
+  "zh-Hans": "余弦定理：AB'² = 4²+1²−2×4×1×cos90° = 17",
+  "zh-Hant": "餘弦定理：AB'² = 4²+1²−2×4×1×cos90° = 17"
+ },
+ "底面の半径が3cm、母線の長さが9cmの円すいがあります。頂点をOとし、母線OA上にOB＝3cmとなる点Bをとります。点Aから側面を1周して点Bまで糸をかけるとき、糸の長さの最小値を求めなさい。": {
+  "en": "A cone has a base radius of 3 cm and a slant height of 9 cm. Call the apex O, and take point B on the slant line OA so that OB＝3 cm. A string goes from point A once around the side to point B. Find the shortest possible length of the string.",
+  "zh-Hans": "有一个圆锥，底面半径是3cm，母线长是9cm。设顶点为O，在母线OA上取点B，使OB＝3cm。从点A出发绕侧面一周到点B挂一根线，求线长的最小值。",
+  "zh-Hant": "有一個圓錐，底面半徑是3cm，母線長是9cm。設頂點為O，在母線OA上取點B，使OB＝3cm。從點A出發繞側面一圈到點B掛一條線，求線長的最小值。"
+ },
+ "余弦定理：AB'² = 9²+3²−2×9×3×cos120° = 117": {
+  "en": "Law of cosines: AB'² = 9²+3²−2×9×3×cos120° = 117",
+  "zh-Hans": "余弦定理：AB'² = 9²+3²−2×9×3×cos120° = 117",
+  "zh-Hant": "餘弦定理：AB'² = 9²+3²−2×9×3×cos120° = 117"
+ },
+ "底面の半径が1cm、母線の長さが6cmの円すいがあります。頂点をOとし、母線OA上にOB＝2cmとなる点Bをとります。点Aから側面を1周して点Bまで糸をかけるとき、糸の長さの最小値を求めなさい。": {
+  "en": "A cone has a base radius of 1 cm and a slant height of 6 cm. Call the apex O, and take point B on the slant line OA so that OB＝2 cm. A string goes from point A once around the side to point B. Find the shortest possible length of the string.",
+  "zh-Hans": "有一个圆锥，底面半径是1cm，母线长是6cm。设顶点为O，在母线OA上取点B，使OB＝2cm。从点A出发绕侧面一周到点B挂一根线，求线长的最小值。",
+  "zh-Hant": "有一個圓錐，底面半徑是1cm，母線長是6cm。設頂點為O，在母線OA上取點B，使OB＝2cm。從點A出發繞側面一圈到點B掛一條線，求線長的最小值。"
+ },
+ "余弦定理：AB'² = 6²+2²−2×6×2×cos60° = 28": {
+  "en": "Law of cosines: AB'² = 6²+2²−2×6×2×cos60° = 28",
+  "zh-Hans": "余弦定理：AB'² = 6²+2²−2×6×2×cos60° = 28",
+  "zh-Hant": "餘弦定理：AB'² = 6²+2²−2×6×2×cos60° = 28"
+ },
+ "底面の半径が4cm、母線の長さが12cmの円すいがあります。頂点をOとし、母線OA上にOB＝10cmとなる点Bをとります。点Aから側面を1周して点Bまで糸をかけるとき、糸の長さの最小値を求めなさい。": {
+  "en": "A cone has a base radius of 4 cm and a slant height of 12 cm. Call the apex O, and take point B on the slant line OA so that OB＝10 cm. A string goes from point A once around the side to point B. Find the shortest possible length of the string.",
+  "zh-Hans": "有一个圆锥，底面半径是4cm，母线长是12cm。设顶点为O，在母线OA上取点B，使OB＝10cm。从点A出发绕侧面一周到点B挂一根线，求线长的最小值。",
+  "zh-Hant": "有一個圓錐，底面半徑是4cm，母線長是12cm。設頂點為O，在母線OA上取點B，使OB＝10cm。從點A出發繞側面一圈到點B掛一條線，求線長的最小值。"
+ },
+ "開いた図で、Aと、反対のはしの半径上のB'（OB'＝10）を結ぶ線分が最短": {
+  "en": "In the opened figure, the shortest path is the segment from A to B' on the radius at the other end (OB'＝10)",
+  "zh-Hans": "在展开图中，连接A和另一端半径上的点B'（OB'＝10）的线段最短",
+  "zh-Hant": "在展開圖中，連接A和另一端半徑上的點B'（OB'＝10）的線段最短"
+ },
+ "余弦定理：AB'² = 12²+10²−2×12×10×cos120° = 364": {
+  "en": "Law of cosines: AB'² = 12²+10²−2×12×10×cos120° = 364",
+  "zh-Hans": "余弦定理：AB'² = 12²+10²−2×12×10×cos120° = 364",
+  "zh-Hant": "餘弦定理：AB'² = 12²+10²−2×12×10×cos120° = 364"
+ },
+ "底面の半径が2cm、母線の長さが6cmの円すいがあります。頂点をOとし、母線OA上にOB＝5cmとなる点Bをとります。点Aから側面を1周して点Bまで糸をかけるとき、糸の長さの最小値を求めなさい。": {
+  "en": "A cone has a base radius of 2 cm and a slant height of 6 cm. Call the apex O, and take point B on the slant line OA so that OB＝5 cm. A string goes from point A once around the side to point B. Find the shortest possible length of the string.",
+  "zh-Hans": "有一个圆锥，底面半径是2cm，母线长是6cm。设顶点为O，在母线OA上取点B，使OB＝5cm。从点A出发绕侧面一周到点B挂一根线，求线长的最小值。",
+  "zh-Hant": "有一個圓錐，底面半徑是2cm，母線長是6cm。設頂點為O，在母線OA上取點B，使OB＝5cm。從點A出發繞側面一圈到點B掛一條線，求線長的最小值。"
+ },
+ "側面を開くと、半径6のおうぎ形。中心角は 360°×2/6 = 120°": {
+  "en": "Open up the side and you get a sector with radius 6. Central angle: 360°×2/6 = 120°",
+  "zh-Hans": "把侧面展开，得到半径为6的扇形。圆心角是 360°×2/6 = 120°",
+  "zh-Hant": "把側面展開，得到半徑為6的扇形。圓心角是 360°×2/6 = 120°"
+ },
+ "余弦定理：AB'² = 6²+5²−2×6×5×cos120° = 91": {
+  "en": "Law of cosines: AB'² = 6²+5²−2×6×5×cos120° = 91",
+  "zh-Hans": "余弦定理：AB'² = 6²+5²−2×6×5×cos120° = 91",
+  "zh-Hant": "餘弦定理：AB'² = 6²+5²−2×6×5×cos120° = 91"
+ },
+ "底面の半径が2cm、母線の長さが6cmの円すいがあります。頂点をOとし、母線OA上にOB＝3cmとなる点Bをとります。点Aから側面を1周して点Bまで糸をかけるとき、糸の長さの最小値を求めなさい。": {
+  "en": "A cone has a base radius of 2 cm and a slant height of 6 cm. Call the apex O, and take point B on the slant line OA so that OB＝3 cm. A string goes from point A once around the side to point B. Find the shortest possible length of the string.",
+  "zh-Hans": "有一个圆锥，底面半径是2cm，母线长是6cm。设顶点为O，在母线OA上取点B，使OB＝3cm。从点A出发绕侧面一周到点B挂一根线，求线长的最小值。",
+  "zh-Hant": "有一個圓錐，底面半徑是2cm，母線長是6cm。設頂點為O，在母線OA上取點B，使OB＝3cm。從點A出發繞側面一圈到點B掛一條線，求線長的最小值。"
+ },
+ "余弦定理：AB'² = 6²+3²−2×6×3×cos120° = 63": {
+  "en": "Law of cosines: AB'² = 6²+3²−2×6×3×cos120° = 63",
+  "zh-Hans": "余弦定理：AB'² = 6²+3²−2×6×3×cos120° = 63",
+  "zh-Hant": "餘弦定理：AB'² = 6²+3²−2×6×3×cos120° = 63"
+ },
+ "底面の半径が4cm、母線の長さが6cmの円すいがあります。底面の円周上の点Aから、側面を1周してAにもどるように糸をかけます。糸の長さの最小値を求めなさい。": {
+  "en": "A cone has a base radius of 4 cm and a slant height of 6 cm. A string starts at point A on the edge of the base, wraps once around the side, and comes back to A. Find the shortest possible length of the string.",
+  "zh-Hans": "有一个圆锥，底面半径是4cm，母线长是6cm。从底面圆周上的点A出发，绕侧面一周回到A，挂上一根线。求线长的最小值。",
+  "zh-Hant": "有一個圓錐，底面半徑是4cm，母線長是6cm。從底面圓周上的點A出發，繞側面一圈回到A，掛上一條線。求線長的最小值。"
+ },
+ "側面を開いて、両はしを直線で結ぶ": {
+  "en": "Open the side and join the two ends with a straight line",
+  "zh-Hans": "把侧面展开，用直线连接两端",
+  "zh-Hant": "把側面展開，用直線連接兩端"
+ },
+ "中心角が180°以上なので、その直線はおうぎ形の外を通る": {
+  "en": "The central angle is 180° or more, so that line passes outside the sector",
+  "zh-Hans": "圆心角在180°以上，所以那条直线会经过扇形外面",
+  "zh-Hant": "圓心角在180°以上，所以那條直線會經過扇形外面"
+ },
+ "ここで約2分。弦の長さは答えにならない": {
+  "en": "About 2 minutes gone here. The chord length is not the answer",
+  "zh-Hans": "在这里花了约2分钟。弦长并不是答案",
+  "zh-Hant": "在這裡花了約2分鐘。弦長並不是答案"
+ },
+ "側面を開くと、半径6のおうぎ形。中心角は 360°×4/6 = 240°": {
+  "en": "Open up the side and you get a sector with radius 6. Central angle: 360°×4/6 = 240°",
+  "zh-Hans": "把侧面展开，得到半径为6的扇形。圆心角是 360°×4/6 = 240°",
+  "zh-Hant": "把側面展開，得到半徑為6的扇形。圓心角是 360°×4/6 = 240°"
+ },
+ "中心角が180°以上なので、開いた図でAとA'を結ぶ直線はおうぎ形の外に出てしまう。展開しても1本の直線にならない": {
+  "en": "The central angle is 180° or more, so in the opened figure the line joining A and A' goes outside the sector. Even after unfolding, the path is not 1 straight line",
+  "zh-Hans": "圆心角在180°以上，所以在展开图中连接A和A'的直线会跑到扇形外面。展开后也不能变成1条直线",
+  "zh-Hant": "圓心角在180°以上，所以在展開圖中連接A和A'的直線會跑到扇形外面。展開後也不能變成1條直線"
+ },
+ "最短の糸は頂点Oを通る：6+6 = 12": {
+  "en": "The shortest string passes through the apex O: 6+6 = 12",
+  "zh-Hans": "最短的线经过顶点O：6+6 = 12",
+  "zh-Hant": "最短的線經過頂點O：6+6 = 12"
+ },
+ "おしい。開くところまでは正しいが、中心角が180°以上なので、両はしを結ぶ直線はおうぎ形からはみ出す。": {
+  "en": "Close! Opening it up is right, but the central angle is 180° or more, so the line joining the two ends sticks out of the sector.",
+  "zh-Hans": "差一点！展开这一步是对的，但圆心角在180°以上，连接两端的直线会超出扇形。",
+  "zh-Hant": "差一點！展開這一步是對的，但圓心角在180°以上，連接兩端的直線會超出扇形。"
+ },
+ "そのとおり。中心角が180°以上なので、開いた図の直線はおうぎ形の外に出る。頂点を通る道が最短。": {
+  "en": "That's right. The central angle is 180° or more, so the straight line in the opened figure goes outside the sector. The path through the apex is the shortest.",
+  "zh-Hans": "没错。圆心角在180°以上，展开图中的直线会跑到扇形外面。经过顶点的路最短。",
+  "zh-Hant": "沒錯。圓心角在180°以上，展開圖中的直線會跑到扇形外面。經過頂點的路最短。"
+ },
+ "底面の半径が6cm、母線の長さが10cmの円すいがあります。底面の円周上の点Aから、側面を1周してAにもどるように糸をかけます。糸の長さの最小値を求めなさい。": {
+  "en": "A cone has a base radius of 6 cm and a slant height of 10 cm. A string starts at point A on the edge of the base, wraps once around the side, and comes back to A. Find the shortest possible length of the string.",
+  "zh-Hans": "有一个圆锥，底面半径是6cm，母线长是10cm。从底面圆周上的点A出发，绕侧面一周回到A，挂上一根线。求线长的最小值。",
+  "zh-Hant": "有一個圓錐，底面半徑是6cm，母線長是10cm。從底面圓周上的點A出發，繞側面一圈回到A，掛上一條線。求線長的最小值。"
+ },
+ "側面を開くと、半径10のおうぎ形。中心角は 360°×6/10 = 216°": {
+  "en": "Open up the side and you get a sector with radius 10. Central angle: 360°×6/10 = 216°",
+  "zh-Hans": "把侧面展开，得到半径为10的扇形。圆心角是 360°×6/10 = 216°",
+  "zh-Hant": "把側面展開，得到半徑為10的扇形。圓心角是 360°×6/10 = 216°"
+ },
+ "最短の糸は頂点Oを通る：10+10 = 20": {
+  "en": "The shortest string passes through the apex O: 10+10 = 20",
+  "zh-Hans": "最短的线经过顶点O：10+10 = 20",
+  "zh-Hant": "最短的線經過頂點O：10+10 = 20"
+ },
+ "底面の半径が3cm、母線の長さが5cmの円すいがあります。底面の円周上の点Aから、側面を1周してAにもどるように糸をかけます。糸の長さの最小値を求めなさい。": {
+  "en": "A cone has a base radius of 3 cm and a slant height of 5 cm. A string starts at point A on the edge of the base, wraps once around the side, and comes back to A. Find the shortest possible length of the string.",
+  "zh-Hans": "有一个圆锥，底面半径是3cm，母线长是5cm。从底面圆周上的点A出发，绕侧面一周回到A，挂上一根线。求线长的最小值。",
+  "zh-Hant": "有一個圓錐，底面半徑是3cm，母線長是5cm。從底面圓周上的點A出發，繞側面一圈回到A，掛上一條線。求線長的最小值。"
+ },
+ "側面を開くと、半径5のおうぎ形。中心角は 360°×3/5 = 216°": {
+  "en": "Open up the side and you get a sector with radius 5. Central angle: 360°×3/5 = 216°",
+  "zh-Hans": "把侧面展开，得到半径为5的扇形。圆心角是 360°×3/5 = 216°",
+  "zh-Hant": "把側面展開，得到半徑為5的扇形。圓心角是 360°×3/5 = 216°"
+ },
+ "最短の糸は頂点Oを通る：5+5 = 10": {
+  "en": "The shortest string passes through the apex O: 5+5 = 10",
+  "zh-Hans": "最短的线经过顶点O：5+5 = 10",
+  "zh-Hant": "最短的線經過頂點O：5+5 = 10"
+ },
+ "底面の半径が8cm、母線の長さが16cmの円すいがあります。底面の円周上の点Aから、側面を1周してAにもどるように糸をかけます。糸の長さの最小値を求めなさい。": {
+  "en": "A cone has a base radius of 8 cm and a slant height of 16 cm. A string starts at point A on the edge of the base, wraps once around the side, and comes back to A. Find the shortest possible length of the string.",
+  "zh-Hans": "有一个圆锥，底面半径是8cm，母线长是16cm。从底面圆周上的点A出发，绕侧面一周回到A，挂上一根线。求线长的最小值。",
+  "zh-Hant": "有一個圓錐，底面半徑是8cm，母線長是16cm。從底面圓周上的點A出發，繞側面一圈回到A，掛上一條線。求線長的最小值。"
+ },
+ "側面を開くと、半径16のおうぎ形。中心角は 360°×8/16 = 180°": {
+  "en": "Open up the side and you get a sector with radius 16. Central angle: 360°×8/16 = 180°",
+  "zh-Hans": "把侧面展开，得到半径为16的扇形。圆心角是 360°×8/16 = 180°",
+  "zh-Hant": "把側面展開，得到半徑為16的扇形。圓心角是 360°×8/16 = 180°"
+ },
+ "最短の糸は頂点Oを通る：16+16 = 32": {
+  "en": "The shortest string passes through the apex O: 16+16 = 32",
+  "zh-Hans": "最短的线经过顶点O：16+16 = 32",
+  "zh-Hant": "最短的線經過頂點O：16+16 = 32"
+ },
+ "底面の半径が8cm、母線の長さが12cmの円すいがあります。底面の円周上の点Aから、側面を1周してAにもどるように糸をかけます。糸の長さの最小値を求めなさい。": {
+  "en": "A cone has a base radius of 8 cm and a slant height of 12 cm. A string starts at point A on the edge of the base, wraps once around the side, and comes back to A. Find the shortest possible length of the string.",
+  "zh-Hans": "有一个圆锥，底面半径是8cm，母线长是12cm。从底面圆周上的点A出发，绕侧面一周回到A，挂上一根线。求线长的最小值。",
+  "zh-Hant": "有一個圓錐，底面半徑是8cm，母線長是12cm。從底面圓周上的點A出發，繞側面一圈回到A，掛上一條線。求線長的最小值。"
+ },
+ "側面を開くと、半径12のおうぎ形。中心角は 360°×8/12 = 240°": {
+  "en": "Open up the side and you get a sector with radius 12. Central angle: 360°×8/12 = 240°",
+  "zh-Hans": "把侧面展开，得到半径为12的扇形。圆心角是 360°×8/12 = 240°",
+  "zh-Hant": "把側面展開，得到半徑為12的扇形。圓心角是 360°×8/12 = 240°"
+ },
+ "最短の糸は頂点Oを通る：12+12 = 24": {
+  "en": "The shortest string passes through the apex O: 12+12 = 24",
+  "zh-Hans": "最短的线经过顶点O：12+12 = 24",
+  "zh-Hant": "最短的線經過頂點O：12+12 = 24"
+ },
+ "底面の半径が3cm、母線の長さが5cmの円すいがあります。この円すいの側面積を求めなさい。": {
+  "en": "A cone has a base radius of 3 cm and a slant height of 5 cm. Find the lateral surface area of this cone.",
+  "zh-Hans": "有一个圆锥，底面半径是3cm，母线长是5cm。求这个圆锥的侧面积。",
+  "zh-Hant": "有一個圓錐，底面半徑是3cm，母線長是5cm。求這個圓錐的側面積。"
+ },
+ "側面積は公式 π×半径×母線 でそのまま出る（最短の道の問題ではない）": {
+  "en": "The lateral area comes straight from the formula π×radius×slant height (this is not a shortest-path problem)",
+  "zh-Hans": "侧面积用公式 π×半径×母线 直接就能求出（这不是最短路径问题）",
+  "zh-Hant": "側面積用公式 π×半徑×母線 直接就能求出（這不是最短路徑問題）"
+ },
+ "面積や体積を聞かれたら、公式でそのまま。展開するのは、表面の道すじを聞かれたとき。": {
+  "en": "If the question asks for area or volume, just use the formula. Unfold only when it asks about a path on the surface.",
+  "zh-Hans": "问面积或体积时，直接用公式。只有问到表面上的路径时才展开。",
+  "zh-Hant": "問面積或體積時，直接用公式。只有問到表面上的路徑時才展開。"
+ },
+ "道すじの問題ではない。側面積は公式で出る。": {
+  "en": "This isn't a path problem. The lateral area comes from the formula.",
+  "zh-Hans": "这不是路径问题。侧面积用公式就能求出。",
+  "zh-Hant": "這不是路徑問題。側面積用公式就能求出。"
+ },
+ "そのとおり。側面積は π×半径×母線 の公式でそのまま出る。": {
+  "en": "That's right. The lateral area comes straight from the formula π×radius×slant height.",
+  "zh-Hans": "没错。侧面积用 π×半径×母线 的公式直接就能求出。",
+  "zh-Hant": "沒錯。側面積用 π×半徑×母線 的公式直接就能求出。"
+ },
+ "底面の半径が3cm、母線の長さが4cmの円すいがあります。この円すいの側面積を求めなさい。": {
+  "en": "A cone has a base radius of 3 cm and a slant height of 4 cm. Find the lateral surface area of this cone.",
+  "zh-Hans": "有一个圆锥，底面半径是3cm，母线长是4cm。求这个圆锥的侧面积。",
+  "zh-Hant": "有一個圓錐，底面半徑是3cm，母線長是4cm。求這個圓錐的側面積。"
+ },
+ "底面の半径が2cm、母線の長さが3cmの円すいがあります。この円すいの側面積を求めなさい。": {
+  "en": "A cone has a base radius of 2 cm and a slant height of 3 cm. Find the lateral surface area of this cone.",
+  "zh-Hans": "有一个圆锥，底面半径是2cm，母线长是3cm。求这个圆锥的侧面积。",
+  "zh-Hant": "有一個圓錐，底面半徑是2cm，母線長是3cm。求這個圓錐的側面積。"
+ },
+ "底面の半径が3cm、母線の長さが10cmの円すいがあります。この円すいの側面積を求めなさい。": {
+  "en": "A cone has a base radius of 3 cm and a slant height of 10 cm. Find the lateral surface area of this cone.",
+  "zh-Hans": "有一个圆锥，底面半径是3cm，母线长是10cm。求这个圆锥的侧面积。",
+  "zh-Hant": "有一個圓錐，底面半徑是3cm，母線長是10cm。求這個圓錐的側面積。"
+ },
+ "底面の半径が3cm、母線の長さが7cmの円すいがあります。この円すいの側面積を求めなさい。": {
+  "en": "A cone has a base radius of 3 cm and a slant height of 7 cm. Find the lateral surface area of this cone.",
+  "zh-Hans": "有一个圆锥，底面半径是3cm，母线长是7cm。求这个圆锥的侧面积。",
+  "zh-Hant": "有一個圓錐，底面半徑是3cm，母線長是7cm。求這個圓錐的側面積。"
+ },
+ "直方体ABCD-EFGHがあり、AB＝4cm、BC＝8cm、AE＝9cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝4 cm, BC＝8 cm and AE＝9 cm. A string is pulled tight over the surface of the prism from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝4cm，BC＝8cm，AE＝9cm。从顶点A经过棱BF上的点P到顶点G，沿长方体的表面拉紧一根线。当线长最短时，BP是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝4cm，BC＝8cm，AE＝9cm。從頂點A經過邊BF上的點P到頂點G，沿長方體的表面拉緊一條線。當線長最短時，BP是多少cm？"
+ },
+ "BFのまん中を通ればいい、と考える": {
+  "en": "You think the string should just pass through the middle of BF",
+  "zh-Hans": "以为只要经过BF的中点就行",
+  "zh-Hant": "以為只要經過BF的中點就行"
+ },
+ "ABとBCの長さがちがうので、まん中では最短にならない": {
+  "en": "AB and BC have different lengths, so the middle doesn't give the shortest path",
+  "zh-Hans": "AB和BC的长度不同，所以经过中点并不是最短",
+  "zh-Hant": "AB和BC的長度不同，所以經過中點並不是最短"
+ },
+ "立体の図のまま、糸の長さを比べようとするが、ななめの長さが計算できない": {
+  "en": "You try to compare string lengths on the drawing of the solid, but you can't calculate the slanted lengths",
+  "zh-Hans": "想在立体图上直接比较线的长度，但斜线的长度算不出来",
+  "zh-Hant": "想在立體圖上直接比較線的長度，但斜線的長度算不出來"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 4+8 = 12、たて 9）": {
+  "en": "Open faces ABFE and BCGF, which share edge BF, into a single rectangle (width 4+8 = 12, height 9)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成一个长方形（宽 4+8 = 12，高 9）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成一個長方形（寬 4+8 = 12，高 9）"
+ },
+ "開いた図でAとGをまっすぐ結ぶ。辺BFと交わる点がP": {
+  "en": "In the opened figure, join A and G with a straight line. Where it crosses edge BF is P",
+  "zh-Hans": "在展开图中用直线连接A和G。与棱BF的交点就是P",
+  "zh-Hant": "在展開圖中用直線連接A和G。與邊BF的交點就是P"
+ },
+ "三角形ABPとACGは同じ形なので BP:CG = AB:AC = 4:12 = 1:3": {
+  "en": "Triangles ABP and ACG have the same shape (similar), so BP:CG = AB:AC = 4:12 = 1:3",
+  "zh-Hans": "三角形ABP和ACG形状相同（相似），所以 BP:CG = AB:AC = 4:12 = 1:3",
+  "zh-Hant": "三角形ABP和ACG形狀相同（相似），所以 BP:CG = AB:AC = 4:12 = 1:3"
+ },
+ "立体の表面を通る最短の道は、面を開いて展開図にし、まっすぐ結ぶ。": {
+  "en": "For the shortest path over the surface of a solid, open the faces into a net and join the points with a straight line.",
+  "zh-Hans": "立体表面上的最短路径：把面展开成展开图，再用直线连接。",
+  "zh-Hant": "立體表面上的最短路徑：把面展開成展開圖，再用直線連接。"
+ },
+ "そのとおり。面を開いても糸の長さは変わらないので、展開図でまっすぐ結んだ線が最短になる。": {
+  "en": "That's right. Opening the faces doesn't change the string's length, so the straight line on the net is the shortest.",
+  "zh-Hans": "没错。把面展开，线的长度也不变，所以在展开图上连成的直线最短。",
+  "zh-Hant": "沒錯。把面展開，線的長度也不變，所以在展開圖上連成的直線最短。"
+ },
+ "方眼の上の図形の面積ではない。立体の表面の道すじの問題。": {
+  "en": "This isn't the area of a shape on grid paper. It's a problem about a path on the surface of a solid.",
+  "zh-Hans": "这不是方格纸上图形的面积问题，而是立体表面上的路径问题。",
+  "zh-Hant": "這不是方格紙上圖形的面積問題，而是立體表面上的路徑問題。"
+ },
+ "BFのまん中を通るのが最短とは限らない。ABとBCの長さがちがう。": {
+  "en": "Going through the middle of BF isn't necessarily the shortest. AB and BC have different lengths.",
+  "zh-Hans": "经过BF的中点不一定最短。AB和BC的长度不同。",
+  "zh-Hant": "經過BF的中點不一定最短。AB和BC的長度不同。"
+ },
+ "直方体ABCD-EFGHがあり、AB＝2cm、BC＝6cm、AE＝4cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝2 cm, BC＝6 cm and AE＝4 cm. A string is pulled tight over the surface of the prism from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝2cm，BC＝6cm，AE＝4cm。从顶点A经过棱BF上的点P到顶点G，沿长方体的表面拉紧一根线。当线长最短时，BP是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝2cm，BC＝6cm，AE＝4cm。從頂點A經過邊BF上的點P到頂點G，沿長方體的表面拉緊一條線。當線長最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 2+6 = 8、たて 4）": {
+  "en": "Open faces ABFE and BCGF, which share edge BF, into a single rectangle (width 2+6 = 8, height 4)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成一个长方形（宽 2+6 = 8，高 4）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成一個長方形（寬 2+6 = 8，高 4）"
+ },
+ "三角形ABPとACGは同じ形なので BP:CG = AB:AC = 2:8 = 1:4": {
+  "en": "Triangles ABP and ACG have the same shape (similar), so BP:CG = AB:AC = 2:8 = 1:4",
+  "zh-Hans": "三角形ABP和ACG形状相同（相似），所以 BP:CG = AB:AC = 2:8 = 1:4",
+  "zh-Hant": "三角形ABP和ACG形狀相同（相似），所以 BP:CG = AB:AC = 2:8 = 1:4"
+ },
+ "直方体ABCD-EFGHがあり、AB＝5cm、BC＝2cm、AE＝7cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝5 cm, BC＝2 cm and AE＝7 cm. A string is pulled tight over the surface of the prism from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝5cm，BC＝2cm，AE＝7cm。从顶点A经过棱BF上的点P到顶点G，沿长方体的表面拉紧一根线。当线长最短时，BP是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝5cm，BC＝2cm，AE＝7cm。從頂點A經過邊BF上的點P到頂點G，沿長方體的表面拉緊一條線。當線長最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 5+2 = 7、たて 7）": {
+  "en": "Open faces ABFE and BCGF, which share edge BF, into a single rectangle (width 5+2 = 7, height 7)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成一个长方形（宽 5+2 = 7，高 7）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成一個長方形（寬 5+2 = 7，高 7）"
+ },
+ "三角形ABPとACGは同じ形なので BP:CG = AB:AC = 5:7": {
+  "en": "Triangles ABP and ACG have the same shape (similar), so BP:CG = AB:AC = 5:7",
+  "zh-Hans": "三角形ABP和ACG形状相同（相似），所以 BP:CG = AB:AC = 5:7",
+  "zh-Hant": "三角形ABP和ACG形狀相同（相似），所以 BP:CG = AB:AC = 5:7"
+ },
+ "直方体ABCD-EFGHがあり、AB＝4cm、BC＝2cm、AE＝6cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝4 cm, BC＝2 cm and AE＝6 cm. A string is pulled tight over the surface of the prism from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝4cm，BC＝2cm，AE＝6cm。从顶点A经过棱BF上的点P到顶点G，沿长方体的表面拉紧一根线。当线长最短时，BP是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝4cm，BC＝2cm，AE＝6cm。從頂點A經過邊BF上的點P到頂點G，沿長方體的表面拉緊一條線。當線長最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 4+2 = 6、たて 6）": {
+  "en": "Open faces ABFE and BCGF, which share edge BF, into a single rectangle (width 4+2 = 6, height 6)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成一个长方形（宽 4+2 = 6，高 6）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成一個長方形（寬 4+2 = 6，高 6）"
+ },
+ "三角形ABPとACGは同じ形なので BP:CG = AB:AC = 4:6 = 2:3": {
+  "en": "Triangles ABP and ACG have the same shape (similar), so BP:CG = AB:AC = 4:6 = 2:3",
+  "zh-Hans": "三角形ABP和ACG形状相同（相似），所以 BP:CG = AB:AC = 4:6 = 2:3",
+  "zh-Hant": "三角形ABP和ACG形狀相同（相似），所以 BP:CG = AB:AC = 4:6 = 2:3"
+ },
+ "直方体ABCD-EFGHがあり、AB＝6cm、BC＝2cm、AE＝8cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝6 cm, BC＝2 cm and AE＝8 cm. A string is pulled tight over the surface of the prism from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝6cm，BC＝2cm，AE＝8cm。从顶点A经过棱BF上的点P到顶点G，沿长方体的表面拉紧一根线。当线长最短时，BP是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝6cm，BC＝2cm，AE＝8cm。從頂點A經過邊BF上的點P到頂點G，沿長方體的表面拉緊一條線。當線長最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 6+2 = 8、たて 8）": {
+  "en": "Open faces ABFE and BCGF, which share edge BF, into a single rectangle (width 6+2 = 8, height 8)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成一个长方形（宽 6+2 = 8，高 8）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成一個長方形（寬 6+2 = 8，高 8）"
+ },
+ "三角形ABPとACGは同じ形なので BP:CG = AB:AC = 6:8 = 3:4": {
+  "en": "Triangles ABP and ACG have the same shape (similar), so BP:CG = AB:AC = 6:8 = 3:4",
+  "zh-Hans": "三角形ABP和ACG形状相同（相似），所以 BP:CG = AB:AC = 6:8 = 3:4",
+  "zh-Hant": "三角形ABP和ACG形狀相同（相似），所以 BP:CG = AB:AC = 6:8 = 3:4"
+ },
+ "直方体ABCD-EFGHがあり、AB＝5cm、BC＝7cm、AE＝12cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝5 cm, BC＝7 cm and AE＝12 cm. A string is pulled tight over the surface of the prism from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝5cm，BC＝7cm，AE＝12cm。从顶点A经过棱BF上的点P到顶点G，沿长方体的表面拉紧一根线。当线长最短时，BP是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝5cm，BC＝7cm，AE＝12cm。從頂點A經過邊BF上的點P到頂點G，沿長方體的表面拉緊一條線。當線長最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 5+7 = 12、たて 12）": {
+  "en": "Open faces ABFE and BCGF, which share edge BF, into a single rectangle (width 5+7 = 12, height 12)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成一个长方形（宽 5+7 = 12，高 12）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成一個長方形（寬 5+7 = 12，高 12）"
+ },
+ "三角形ABPとACGは同じ形なので BP:CG = AB:AC = 5:12": {
+  "en": "Triangles ABP and ACG have the same shape (similar), so BP:CG = AB:AC = 5:12",
+  "zh-Hans": "三角形ABP和ACG形状相同（相似），所以 BP:CG = AB:AC = 5:12",
+  "zh-Hant": "三角形ABP和ACG形狀相同（相似），所以 BP:CG = AB:AC = 5:12"
+ },
+ "直方体ABCD-EFGHがあり、AB＝2cm、BC＝8cm、AE＝10cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝2 cm, BC＝8 cm and AE＝10 cm. A string is pulled tight over the surface of the prism from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝2cm，BC＝8cm，AE＝10cm。从顶点A经过棱BF上的点P到顶点G，沿长方体的表面拉紧一根线。当线长最短时，BP是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝2cm，BC＝8cm，AE＝10cm。從頂點A經過邊BF上的點P到頂點G，沿長方體的表面拉緊一條線。當線長最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 2+8 = 10、たて 10）": {
+  "en": "Open faces ABFE and BCGF, which share edge BF, into a single rectangle (width 2+8 = 10, height 10)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成一个长方形（宽 2+8 = 10，高 10）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成一個長方形（寬 2+8 = 10，高 10）"
+ },
+ "三角形ABPとACGは同じ形なので BP:CG = AB:AC = 2:10 = 1:5": {
+  "en": "Triangles ABP and ACG have the same shape (similar), so BP:CG = AB:AC = 2:10 = 1:5",
+  "zh-Hans": "三角形ABP和ACG形状相同（相似），所以 BP:CG = AB:AC = 2:10 = 1:5",
+  "zh-Hant": "三角形ABP和ACG形狀相同（相似），所以 BP:CG = AB:AC = 2:10 = 1:5"
+ },
+ "直方体ABCD-EFGHがあり、AB＝11cm、BC＝3cm、AE＝14cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝11 cm, BC＝3 cm and AE＝14 cm. A string is pulled tight over the surface of the prism from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝11cm，BC＝3cm，AE＝14cm。从顶点A经过棱BF上的点P到顶点G，沿长方体的表面拉紧一根线。当线长最短时，BP是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝11cm，BC＝3cm，AE＝14cm。從頂點A經過邊BF上的點P到頂點G，沿長方體的表面拉緊一條線。當線長最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 11+3 = 14、たて 14）": {
+  "en": "Open faces ABFE and BCGF, which share edge BF, into a single rectangle (width 11+3 = 14, height 14)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成一个长方形（宽 11+3 = 14，高 14）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成一個長方形（寬 11+3 = 14，高 14）"
+ },
+ "三角形ABPとACGは同じ形なので BP:CG = AB:AC = 11:14": {
+  "en": "Triangles ABP and ACG have the same shape (similar), so BP:CG = AB:AC = 11:14",
+  "zh-Hans": "三角形ABP和ACG形状相同（相似），所以 BP:CG = AB:AC = 11:14",
+  "zh-Hant": "三角形ABP和ACG形狀相同（相似），所以 BP:CG = AB:AC = 11:14"
+ },
+ "直方体ABCD-EFGHがあり、AB＝12cm、BC＝6cm、AE＝9cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝12 cm, BC＝6 cm and AE＝9 cm. A string is pulled tight over the surface of the prism from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝12cm，BC＝6cm，AE＝9cm。从顶点A经过棱BF上的点P到顶点G，沿长方体的表面拉紧一根线。当线长最短时，BP是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝12cm，BC＝6cm，AE＝9cm。從頂點A經過邊BF上的點P到頂點G，沿長方體的表面拉緊一條線。當線長最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 12+6 = 18、たて 9）": {
+  "en": "Open faces ABFE and BCGF, which share edge BF, into a single rectangle (width 12+6 = 18, height 9)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成一个长方形（宽 12+6 = 18，高 9）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成一個長方形（寬 12+6 = 18，高 9）"
+ },
+ "三角形ABPとACGは同じ形なので BP:CG = AB:AC = 12:18 = 2:3": {
+  "en": "Triangles ABP and ACG have the same shape (similar), so BP:CG = AB:AC = 12:18 = 2:3",
+  "zh-Hans": "三角形ABP和ACG形状相同（相似），所以 BP:CG = AB:AC = 12:18 = 2:3",
+  "zh-Hant": "三角形ABP和ACG形狀相同（相似），所以 BP:CG = AB:AC = 12:18 = 2:3"
+ },
+ "直方体ABCD-EFGHがあり、AB＝4cm、BC＝11cm、AE＝15cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝4 cm, BC＝11 cm and AE＝15 cm. A string is pulled tight over the surface of the prism from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝4cm，BC＝11cm，AE＝15cm。从顶点A经过棱BF上的点P到顶点G，沿长方体的表面拉紧一根线。当线长最短时，BP是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝4cm，BC＝11cm，AE＝15cm。從頂點A經過邊BF上的點P到頂點G，沿長方體的表面拉緊一條線。當線長最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 4+11 = 15、たて 15）": {
+  "en": "Open faces ABFE and BCGF, which share edge BF, into a single rectangle (width 4+11 = 15, height 15)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成一个长方形（宽 4+11 = 15，高 15）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成一個長方形（寬 4+11 = 15，高 15）"
+ },
+ "三角形ABPとACGは同じ形なので BP:CG = AB:AC = 4:15": {
+  "en": "Triangles ABP and ACG have the same shape (similar), so BP:CG = AB:AC = 4:15",
+  "zh-Hans": "三角形ABP和ACG形状相同（相似），所以 BP:CG = AB:AC = 4:15",
+  "zh-Hant": "三角形ABP和ACG形狀相同（相似），所以 BP:CG = AB:AC = 4:15"
+ },
+ "直方体ABCD-EFGHがあり、AB＝2cm、BC＝5cm、AE＝18cmです。頂点Aから、辺BF上の点P、辺CG上の点Qを通って頂点Hまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、CQは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝2 cm, BC＝5 cm and AE＝18 cm. A string is pulled tight over the surface of the prism from vertex A, through point P on edge BF and point Q on edge CG, to vertex H. When the string is as short as possible, how many cm is CQ?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝2cm，BC＝5cm，AE＝18cm。从顶点A经过棱BF上的点P、棱CG上的点Q到顶点H，沿长方体的表面拉紧一根线。当线长最短时，CQ是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝2cm，BC＝5cm，AE＝18cm。從頂點A經過邊BF上的點P、邊CG上的點Q到頂點H，沿長方體的表面拉緊一條線。當線長最短時，CQ是多少cm？"
+ },
+ "BFとCGを、それぞれまん中で通ればいいと考える": {
+  "en": "You think the string should just pass through the middles of BF and CG",
+  "zh-Hans": "以为只要分别经过BF和CG的中点就行",
+  "zh-Hant": "以為只要分別經過BF和CG的中點就行"
+ },
+ "面ごとに長さを比べようとするが、ななめの長さが計算できない": {
+  "en": "You try to compare lengths face by face, but you can't calculate the slanted lengths",
+  "zh-Hans": "想一个面一个面地比较长度，但斜线的长度算不出来",
+  "zh-Hant": "想一個面一個面地比較長度，但斜線的長度算不出來"
+ },
+ "PとQを少しずつずらしても決め手がない。約5分": {
+  "en": "Shifting P and Q little by little gets you nowhere. About 5 minutes",
+  "zh-Hans": "把P和Q一点点挪动也找不到突破口。约5分钟",
+  "zh-Hant": "把P和Q一點點挪動也找不到突破口。約5分鐘"
+ },
+ "面ABFE、BCGF、CDHGの3つを開いて、1つの長方形にする（横 2+5+2 = 9、たて 18）": {
+  "en": "Open the 3 faces ABFE, BCGF and CDHG into a single rectangle (width 2+5+2 = 9, height 18)",
+  "zh-Hans": "把面ABFE、BCGF、CDHG这3个面展开，拼成一个长方形（宽 2+5+2 = 9，高 18）",
+  "zh-Hant": "把面ABFE、BCGF、CDHG這3個面展開，拼成一個長方形（寬 2+5+2 = 9，高 18）"
+ },
+ "開いた図でAとHをまっすぐ結ぶ。辺BFと交わる点がP、辺CGと交わる点がQ": {
+  "en": "In the opened figure, join A and H with a straight line. Where it crosses edge BF is P, and where it crosses edge CG is Q",
+  "zh-Hans": "在展开图中用直线连接A和H。与棱BF的交点是P，与棱CG的交点是Q",
+  "zh-Hant": "在展開圖中用直線連接A和H。與邊BF的交點是P，與邊CG的交點是Q"
+ },
+ "Aから横に9進む間に18上がるので、横に 2+5 = 7 進んだCGでは 18×7/9 上がる": {
+  "en": "While going 9 across from A, the line rises 18, so at CG, which is 2+5 = 7 across, it rises 18×7/9",
+  "zh-Hans": "从A横着走9的过程中上升了18，所以横着走了 2+5 = 7 的CG处，上升 18×7/9",
+  "zh-Hant": "從A橫著走9的過程中上升了18，所以橫著走了 2+5 = 7 的CG處，上升 18×7/9"
+ },
+ "立体の表面をいくつかの面にまたがる最短の道は、通る面を全部開いて、まっすぐ結ぶ。": {
+  "en": "For the shortest path that crosses several faces of a solid, open all the faces it passes and join the points with a straight line.",
+  "zh-Hans": "跨越立体表面多个面的最短路径：把经过的面全部展开，再用直线连接。",
+  "zh-Hant": "跨越立體表面多個面的最短路徑：把經過的面全部展開，再用直線連接。"
+ },
+ "直方体ABCD-EFGHがあり、AB＝6cm、BC＝2cm、AE＝7cmです。頂点Aから、辺BF上の点P、辺CG上の点Qを通って頂点Hまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、CQは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝6 cm, BC＝2 cm and AE＝7 cm. A string is pulled tight over the surface of the prism from vertex A, through point P on edge BF and point Q on edge CG, to vertex H. When the string is as short as possible, how many cm is CQ?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝6cm，BC＝2cm，AE＝7cm。从顶点A经过棱BF上的点P、棱CG上的点Q到顶点H，沿长方体的表面拉紧一根线。当线长最短时，CQ是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝6cm，BC＝2cm，AE＝7cm。從頂點A經過邊BF上的點P、邊CG上的點Q到頂點H，沿長方體的表面拉緊一條線。當線長最短時，CQ是多少cm？"
+ },
+ "面ABFE、BCGF、CDHGの3つを開いて、1つの長方形にする（横 6+2+6 = 14、たて 7）": {
+  "en": "Open the 3 faces ABFE, BCGF and CDHG into a single rectangle (width 6+2+6 = 14, height 7)",
+  "zh-Hans": "把面ABFE、BCGF、CDHG这3个面展开，拼成一个长方形（宽 6+2+6 = 14，高 7）",
+  "zh-Hant": "把面ABFE、BCGF、CDHG這3個面展開，拼成一個長方形（寬 6+2+6 = 14，高 7）"
+ },
+ "Aから横に14進む間に7上がるので、横に 6+2 = 8 進んだCGでは 7×8/14 上がる": {
+  "en": "While going 14 across from A, the line rises 7, so at CG, which is 6+2 = 8 across, it rises 7×8/14",
+  "zh-Hans": "从A横着走14的过程中上升了7，所以横着走了 6+2 = 8 的CG处，上升 7×8/14",
+  "zh-Hant": "從A橫著走14的過程中上升了7，所以橫著走了 6+2 = 8 的CG處，上升 7×8/14"
+ },
+ "直方体ABCD-EFGHがあり、AB＝2cm、BC＝6cm、AE＝10cmです。頂点Aから、辺BF上の点P、辺CG上の点Qを通って頂点Hまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、CQは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝2 cm, BC＝6 cm and AE＝10 cm. A string is pulled tight over the surface of the prism from vertex A, through point P on edge BF and point Q on edge CG, to vertex H. When the string is as short as possible, how many cm is CQ?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝2cm，BC＝6cm，AE＝10cm。从顶点A经过棱BF上的点P、棱CG上的点Q到顶点H，沿长方体的表面拉紧一根线。当线长最短时，CQ是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝2cm，BC＝6cm，AE＝10cm。從頂點A經過邊BF上的點P、邊CG上的點Q到頂點H，沿長方體的表面拉緊一條線。當線長最短時，CQ是多少cm？"
+ },
+ "面ABFE、BCGF、CDHGの3つを開いて、1つの長方形にする（横 2+6+2 = 10、たて 10）": {
+  "en": "Open the 3 faces ABFE, BCGF and CDHG into a single rectangle (width 2+6+2 = 10, height 10)",
+  "zh-Hans": "把面ABFE、BCGF、CDHG这3个面展开，拼成一个长方形（宽 2+6+2 = 10，高 10）",
+  "zh-Hant": "把面ABFE、BCGF、CDHG這3個面展開，拼成一個長方形（寬 2+6+2 = 10，高 10）"
+ },
+ "Aから横に10進む間に10上がるので、横に 2+6 = 8 進んだCGでは 10×8/10 上がる": {
+  "en": "While going 10 across from A, the line rises 10, so at CG, which is 2+6 = 8 across, it rises 10×8/10",
+  "zh-Hans": "从A横着走10的过程中上升了10，所以横着走了 2+6 = 8 的CG处，上升 10×8/10",
+  "zh-Hant": "從A橫著走10的過程中上升了10，所以橫著走了 2+6 = 8 的CG處，上升 10×8/10"
+ },
+ "直方体ABCD-EFGHがあり、AB＝3cm、BC＝6cm、AE＝16cmです。頂点Aから、辺BF上の点P、辺CG上の点Qを通って頂点Hまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、CQは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝3 cm, BC＝6 cm and AE＝16 cm. A string is pulled tight over the surface of the prism from vertex A, through point P on edge BF and point Q on edge CG, to vertex H. When the string is as short as possible, how many cm is CQ?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝3cm，BC＝6cm，AE＝16cm。从顶点A经过棱BF上的点P、棱CG上的点Q到顶点H，沿长方体的表面拉紧一根线。当线长最短时，CQ是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝3cm，BC＝6cm，AE＝16cm。從頂點A經過邊BF上的點P、邊CG上的點Q到頂點H，沿長方體的表面拉緊一條線。當線長最短時，CQ是多少cm？"
+ },
+ "面ABFE、BCGF、CDHGの3つを開いて、1つの長方形にする（横 3+6+3 = 12、たて 16）": {
+  "en": "Open the 3 faces ABFE, BCGF and CDHG into a single rectangle (width 3+6+3 = 12, height 16)",
+  "zh-Hans": "把面ABFE、BCGF、CDHG这3个面展开，拼成一个长方形（宽 3+6+3 = 12，高 16）",
+  "zh-Hant": "把面ABFE、BCGF、CDHG這3個面展開，拼成一個長方形（寬 3+6+3 = 12，高 16）"
+ },
+ "Aから横に12進む間に16上がるので、横に 3+6 = 9 進んだCGでは 16×9/12 上がる": {
+  "en": "While going 12 across from A, the line rises 16, so at CG, which is 3+6 = 9 across, it rises 16×9/12",
+  "zh-Hans": "从A横着走12的过程中上升了16，所以横着走了 3+6 = 9 的CG处，上升 16×9/12",
+  "zh-Hant": "從A橫著走12的過程中上升了16，所以橫著走了 3+6 = 9 的CG處，上升 16×9/12"
+ },
+ "直方体ABCD-EFGHがあり、AB＝8cm、BC＝6cm、AE＝11cmです。頂点Aから、辺BF上の点P、辺CG上の点Qを通って頂点Hまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、CQは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝8 cm, BC＝6 cm and AE＝11 cm. A string is pulled tight over the surface of the prism from vertex A, through point P on edge BF and point Q on edge CG, to vertex H. When the string is as short as possible, how many cm is CQ?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝8cm，BC＝6cm，AE＝11cm。从顶点A经过棱BF上的点P、棱CG上的点Q到顶点H，沿长方体的表面拉紧一根线。当线长最短时，CQ是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝8cm，BC＝6cm，AE＝11cm。從頂點A經過邊BF上的點P、邊CG上的點Q到頂點H，沿長方體的表面拉緊一條線。當線長最短時，CQ是多少cm？"
+ },
+ "面ABFE、BCGF、CDHGの3つを開いて、1つの長方形にする（横 8+6+8 = 22、たて 11）": {
+  "en": "Open the 3 faces ABFE, BCGF and CDHG into a single rectangle (width 8+6+8 = 22, height 11)",
+  "zh-Hans": "把面ABFE、BCGF、CDHG这3个面展开，拼成一个长方形（宽 8+6+8 = 22，高 11）",
+  "zh-Hant": "把面ABFE、BCGF、CDHG這3個面展開，拼成一個長方形（寬 8+6+8 = 22，高 11）"
+ },
+ "Aから横に22進む間に11上がるので、横に 8+6 = 14 進んだCGでは 11×14/22 上がる": {
+  "en": "While going 22 across from A, the line rises 11, so at CG, which is 8+6 = 14 across, it rises 11×14/22",
+  "zh-Hans": "从A横着走22的过程中上升了11，所以横着走了 8+6 = 14 的CG处，上升 11×14/22",
+  "zh-Hant": "從A橫著走22的過程中上升了11，所以橫著走了 8+6 = 14 的CG處，上升 11×14/22"
+ },
+ "直方体ABCD-EFGHがあり、AB＝3cm、BC＝2cm、AE＝16cmです。頂点Aから、辺BF上の点P、辺CG上の点Qを通って頂点Hまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、CQは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝3 cm, BC＝2 cm and AE＝16 cm. A string is pulled tight over the surface of the prism from vertex A, through point P on edge BF and point Q on edge CG, to vertex H. When the string is as short as possible, how many cm is CQ?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝3cm，BC＝2cm，AE＝16cm。从顶点A经过棱BF上的点P、棱CG上的点Q到顶点H，沿长方体的表面拉紧一根线。当线长最短时，CQ是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝3cm，BC＝2cm，AE＝16cm。從頂點A經過邊BF上的點P、邊CG上的點Q到頂點H，沿長方體的表面拉緊一條線。當線長最短時，CQ是多少cm？"
+ },
+ "面ABFE、BCGF、CDHGの3つを開いて、1つの長方形にする（横 3+2+3 = 8、たて 16）": {
+  "en": "Open the 3 faces ABFE, BCGF and CDHG into a single rectangle (width 3+2+3 = 8, height 16)",
+  "zh-Hans": "把面ABFE、BCGF、CDHG这3个面展开，拼成一个长方形（宽 3+2+3 = 8，高 16）",
+  "zh-Hant": "把面ABFE、BCGF、CDHG這3個面展開，拼成一個長方形（寬 3+2+3 = 8，高 16）"
+ },
+ "Aから横に8進む間に16上がるので、横に 3+2 = 5 進んだCGでは 16×5/8 上がる": {
+  "en": "While going 8 across from A, the line rises 16, so at CG, which is 3+2 = 5 across, it rises 16×5/8",
+  "zh-Hans": "从A横着走8的过程中上升了16，所以横着走了 3+2 = 5 的CG处，上升 16×5/8",
+  "zh-Hant": "從A橫著走8的過程中上升了16，所以橫著走了 3+2 = 5 的CG處，上升 16×5/8"
+ },
+ "直方体ABCD-EFGHがあり、AB＝8cm、BC＝4cm、AE＝15cmです。頂点Aから、辺BF上の点P、辺CG上の点Qを通って頂点Hまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、CQは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝8 cm, BC＝4 cm and AE＝15 cm. A string is pulled tight over the surface of the prism from vertex A, through point P on edge BF and point Q on edge CG, to vertex H. When the string is as short as possible, how many cm is CQ?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝8cm，BC＝4cm，AE＝15cm。从顶点A经过棱BF上的点P、棱CG上的点Q到顶点H，沿长方体的表面拉紧一根线。当线长最短时，CQ是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝8cm，BC＝4cm，AE＝15cm。從頂點A經過邊BF上的點P、邊CG上的點Q到頂點H，沿長方體的表面拉緊一條線。當線長最短時，CQ是多少cm？"
+ },
+ "面ABFE、BCGF、CDHGの3つを開いて、1つの長方形にする（横 8+4+8 = 20、たて 15）": {
+  "en": "Open the 3 faces ABFE, BCGF and CDHG into a single rectangle (width 8+4+8 = 20, height 15)",
+  "zh-Hans": "把面ABFE、BCGF、CDHG这3个面展开，拼成一个长方形（宽 8+4+8 = 20，高 15）",
+  "zh-Hant": "把面ABFE、BCGF、CDHG這3個面展開，拼成一個長方形（寬 8+4+8 = 20，高 15）"
+ },
+ "Aから横に20進む間に15上がるので、横に 8+4 = 12 進んだCGでは 15×12/20 上がる": {
+  "en": "While going 20 across from A, the line rises 15, so at CG, which is 8+4 = 12 across, it rises 15×12/20",
+  "zh-Hans": "从A横着走20的过程中上升了15，所以横着走了 8+4 = 12 的CG处，上升 15×12/20",
+  "zh-Hant": "從A橫著走20的過程中上升了15，所以橫著走了 8+4 = 12 的CG處，上升 15×12/20"
+ },
+ "直方体ABCD-EFGHがあり、AB＝2cm、BC＝4cm、AE＝8cmです。頂点Aから、辺BF上の点P、辺CG上の点Qを通って頂点Hまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、CQは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝2 cm, BC＝4 cm and AE＝8 cm. A string is pulled tight over the surface of the prism from vertex A, through point P on edge BF and point Q on edge CG, to vertex H. When the string is as short as possible, how many cm is CQ?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝2cm，BC＝4cm，AE＝8cm。从顶点A经过棱BF上的点P、棱CG上的点Q到顶点H，沿长方体的表面拉紧一根线。当线长最短时，CQ是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝2cm，BC＝4cm，AE＝8cm。從頂點A經過邊BF上的點P、邊CG上的點Q到頂點H，沿長方體的表面拉緊一條線。當線長最短時，CQ是多少cm？"
+ },
+ "面ABFE、BCGF、CDHGの3つを開いて、1つの長方形にする（横 2+4+2 = 8、たて 8）": {
+  "en": "Open the 3 faces ABFE, BCGF and CDHG into a single rectangle (width 2+4+2 = 8, height 8)",
+  "zh-Hans": "把面ABFE、BCGF、CDHG这3个面展开，拼成一个长方形（宽 2+4+2 = 8，高 8）",
+  "zh-Hant": "把面ABFE、BCGF、CDHG這3個面展開，拼成一個長方形（寬 2+4+2 = 8，高 8）"
+ },
+ "Aから横に8進む間に8上がるので、横に 2+4 = 6 進んだCGでは 8×6/8 上がる": {
+  "en": "While going 8 across from A, the line rises 8, so at CG, which is 2+4 = 6 across, it rises 8×6/8",
+  "zh-Hans": "从A横着走8的过程中上升了8，所以横着走了 2+4 = 6 的CG处，上升 8×6/8",
+  "zh-Hant": "從A橫著走8的過程中上升了8，所以橫著走了 2+4 = 6 的CG處，上升 8×6/8"
+ },
+ "直方体ABCD-EFGHがあり、AB＝5cm、BC＝3cm、AE＝6cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をかけます。糸の長さが最も短くなるとき、その糸の長さを求めなさい。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝5 cm, BC＝3 cm and AE＝6 cm. A string runs over the surface of the prism from vertex A, through point P on edge BF, to vertex G. Find the length of the string when it is as short as possible.",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝5cm，BC＝3cm，AE＝6cm。从顶点A经过棱BF上的点P到顶点G，沿长方体的表面挂一根线。求线长最短时这根线的长度。",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝5cm，BC＝3cm，AE＝6cm。從頂點A經過邊BF上的點P到頂點G，沿長方體的表面掛一條線。求線長最短時這條線的長度。"
+ },
+ "AとGを立体の中でまっすぐ結び、空間の対角線の長さを出してしまう": {
+  "en": "You join A and G straight through the inside of the solid and work out the length of the space diagonal",
+  "zh-Hans": "在立体内部直接连接A和G，算成了体对角线的长度",
+  "zh-Hant": "在立體內部直接連接A和G，算成了空間對角線的長度"
+ },
+ "それは立体の中を通る線で、表面の糸ではないと気づく": {
+  "en": "You realize that line goes through the inside of the solid; it isn't a string on the surface",
+  "zh-Hans": "发现那是穿过立体内部的线，不是表面上的线",
+  "zh-Hant": "發現那是穿過立體內部的線，不是表面上的線"
+ },
+ "BP の位置をxとおいて、2つの斜辺の和を式にするが、最小を出せない": {
+  "en": "You set BP as x and write the sum of the 2 slanted sides as an expression, but can't find the minimum",
+  "zh-Hans": "设BP为x，把2条斜边之和列成式子，却求不出最小值",
+  "zh-Hant": "設BP為x，把2條斜邊之和列成式子，卻求不出最小值"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 5+3 = 8、縦 6）": {
+  "en": "Open faces ABFE and BCGF, which share edge BF, into a single rectangle (width 5+3 = 8, height 6)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成一个长方形（宽 5+3 = 8，高 6）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成一個長方形（寬 5+3 = 8，高 6）"
+ },
+ "開いた図でAとGをまっすぐ結んだ線分AGが、最も短い糸": {
+  "en": "In the opened figure, the straight segment AG joining A and G is the shortest string",
+  "zh-Hans": "在展开图中用直线连接A和G得到的线段AG，就是最短的线",
+  "zh-Hant": "在展開圖中用直線連接A和G得到的線段AG，就是最短的線"
+ },
+ "三平方の定理：AG² = 8²+6² = 64+36 = 100": {
+  "en": "Pythagorean theorem: AG² = 8²+6² = 64+36 = 100",
+  "zh-Hans": "勾股定理：AG² = 8²+6² = 64+36 = 100",
+  "zh-Hant": "畢氏定理：AG² = 8²+6² = 64+36 = 100"
+ },
+ "立体の表面を通る糸の長さの最小値は、面を開いた展開図の直線の長さ。三平方の定理で求める。": {
+  "en": "The shortest string over the surface of a solid equals the length of the straight line on the net. Find it with the Pythagorean theorem.",
+  "zh-Hans": "立体表面上线长的最小值，就是展开图中直线的长度。用勾股定理来求。",
+  "zh-Hant": "立體表面上線長的最小值，就是展開圖中直線的長度。用畢氏定理來求。"
+ },
+ "そのとおり。面を開いても糸の長さは変わらない。開いた長方形の対角線が最短で、三平方の定理で長さが出る。": {
+  "en": "That's right. Opening the faces doesn't change the string's length. The diagonal of the opened rectangle is the shortest, and the Pythagorean theorem gives its length.",
+  "zh-Hans": "没错。把面展开，线的长度也不变。展开后长方形的对角线最短，用勾股定理就能求出长度。",
+  "zh-Hant": "沒錯。把面展開，線的長度也不變。展開後長方形的對角線最短，用畢氏定理就能求出長度。"
+ },
+ "立体のままAとGを結ぶと、表面ではなく中を通る線になってしまう。": {
+  "en": "If you join A and G in the solid as it is, the line goes through the inside, not over the surface.",
+  "zh-Hans": "保持立体直接连接A和G，得到的是穿过内部的线，而不是表面上的线。",
+  "zh-Hant": "保持立體直接連接A和G，得到的是穿過內部的線，而不是表面上的線。"
+ },
+ "直方体ABCD-EFGHがあり、AB＝9cm、BC＝3cm、AE＝5cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をかけます。糸の長さが最も短くなるとき、その糸の長さを求めなさい。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝9 cm, BC＝3 cm and AE＝5 cm. A string runs over the surface of the prism from vertex A, through point P on edge BF, to vertex G. Find the length of the string when it is as short as possible.",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝9cm，BC＝3cm，AE＝5cm。从顶点A经过棱BF上的点P到顶点G，沿长方体的表面挂一根线。求线长最短时这根线的长度。",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝9cm，BC＝3cm，AE＝5cm。從頂點A經過邊BF上的點P到頂點G，沿長方體的表面掛一條線。求線長最短時這條線的長度。"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 9+3 = 12、縦 5）": {
+  "en": "Open faces ABFE and BCGF, which share edge BF, into a single rectangle (width 9+3 = 12, height 5)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成一个长方形（宽 9+3 = 12，高 5）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成一個長方形（寬 9+3 = 12，高 5）"
+ },
+ "三平方の定理：AG² = 12²+5² = 144+25 = 169": {
+  "en": "Pythagorean theorem: AG² = 12²+5² = 144+25 = 169",
+  "zh-Hans": "勾股定理：AG² = 12²+5² = 144+25 = 169",
+  "zh-Hant": "畢氏定理：AG² = 12²+5² = 144+25 = 169"
+ },
+ "直方体ABCD-EFGHがあり、AB＝11cm、BC＝4cm、AE＝8cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をかけます。糸の長さが最も短くなるとき、その糸の長さを求めなさい。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝11 cm, BC＝4 cm and AE＝8 cm. A string runs over the surface of the prism from vertex A, through point P on edge BF, to vertex G. Find the length of the string when it is as short as possible.",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝11cm，BC＝4cm，AE＝8cm。从顶点A经过棱BF上的点P到顶点G，沿长方体的表面挂一根线。求线长最短时这根线的长度。",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝11cm，BC＝4cm，AE＝8cm。從頂點A經過邊BF上的點P到頂點G，沿長方體的表面掛一條線。求線長最短時這條線的長度。"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 11+4 = 15、縦 8）": {
+  "en": "Open faces ABFE and BCGF, which share edge BF, into a single rectangle (width 11+4 = 15, height 8)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成一个长方形（宽 11+4 = 15，高 8）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成一個長方形（寬 11+4 = 15，高 8）"
+ },
+ "三平方の定理：AG² = 15²+8² = 225+64 = 289": {
+  "en": "Pythagorean theorem: AG² = 15²+8² = 225+64 = 289",
+  "zh-Hans": "勾股定理：AG² = 15²+8² = 225+64 = 289",
+  "zh-Hant": "畢氏定理：AG² = 15²+8² = 225+64 = 289"
+ },
+ "直方体ABCD-EFGHがあり、AB＝4cm、BC＝5cm、AE＝12cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をかけます。糸の長さが最も短くなるとき、その糸の長さを求めなさい。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝4 cm, BC＝5 cm and AE＝12 cm. A string runs over the surface of the prism from vertex A, through point P on edge BF, to vertex G. Find the length of the string when it is as short as possible.",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝4cm，BC＝5cm，AE＝12cm。从顶点A经过棱BF上的点P到顶点G，沿长方体的表面挂一根线。求线长最短时这根线的长度。",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝4cm，BC＝5cm，AE＝12cm。從頂點A經過邊BF上的點P到頂點G，沿長方體的表面掛一條線。求線長最短時這條線的長度。"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 4+5 = 9、縦 12）": {
+  "en": "Open faces ABFE and BCGF, which share edge BF, into a single rectangle (width 4+5 = 9, height 12)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成一个长方形（宽 4+5 = 9，高 12）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成一個長方形（寬 4+5 = 9，高 12）"
+ },
+ "三平方の定理：AG² = 9²+12² = 81+144 = 225": {
+  "en": "Pythagorean theorem: AG² = 9²+12² = 81+144 = 225",
+  "zh-Hans": "勾股定理：AG² = 9²+12² = 81+144 = 225",
+  "zh-Hant": "畢氏定理：AG² = 9²+12² = 81+144 = 225"
+ },
+ "直方体ABCD-EFGHがあり、AB＝12cm、BC＝8cm、AE＝15cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をかけます。糸の長さが最も短くなるとき、その糸の長さを求めなさい。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝12 cm, BC＝8 cm and AE＝15 cm. A string runs over the surface of the prism from vertex A, through point P on edge BF, to vertex G. Find the length of the string when it is as short as possible.",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝12cm，BC＝8cm，AE＝15cm。从顶点A经过棱BF上的点P到顶点G，沿长方体的表面挂一根线。求线长最短时这根线的长度。",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝12cm，BC＝8cm，AE＝15cm。從頂點A經過邊BF上的點P到頂點G，沿長方體的表面掛一條線。求線長最短時這條線的長度。"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 12+8 = 20、縦 15）": {
+  "en": "Open faces ABFE and BCGF, which share edge BF, into a single rectangle (width 12+8 = 20, height 15)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成一个长方形（宽 12+8 = 20，高 15）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成一個長方形（寬 12+8 = 20，高 15）"
+ },
+ "三平方の定理：AG² = 20²+15² = 400+225 = 625": {
+  "en": "Pythagorean theorem: AG² = 20²+15² = 400+225 = 625",
+  "zh-Hans": "勾股定理：AG² = 20²+15² = 400+225 = 625",
+  "zh-Hant": "畢氏定理：AG² = 20²+15² = 400+225 = 625"
+ },
+ "展開は、表面の上の長さ（最短の道）を平面で見るための道具。体積は面を開いても変わらないので、立体のまま底面積と高さで考える。": {
+  "en": "Unfolding is a tool for seeing lengths on the surface (shortest paths) on a flat plane. Opening the faces tells you nothing new about volume, so think about the solid as it is, using base area and height.",
+  "zh-Hans": "展开是用来在平面上观察表面长度（最短路径）的工具。体积不会因为展开而变得好求，所以保持立体，用底面积和高来思考。",
+  "zh-Hant": "展開是用來在平面上觀察表面長度（最短路徑）的工具。體積不會因為展開而變得好求，所以保持立體，用底面積和高來思考。"
+ },
+ "直方体ABCD-EFGHがあり、AB＝8cm、BC＝6cm、AE＝9cmです。3つの頂点B、D、Eを通る平面でこの直方体を切り、頂点Aをふくむ小さい方の立体を切り取ります。切り取った立体の体積は何cm³ですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝8 cm, BC＝6 cm and AE＝9 cm. Cut the prism with the plane through the 3 vertices B, D and E, and remove the smaller piece that contains vertex A. What is the volume of the removed piece in cm³?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝8cm，BC＝6cm，AE＝9cm。用经过B、D、E这3个顶点的平面切开这个长方体，切下含有顶点A的较小的那块立体。切下的立体的体积是多少cm³？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝8cm，BC＝6cm，AE＝9cm。用通過B、D、E這3個頂點的平面切開這個長方體，切下含有頂點A的較小的那塊立體。切下的立體的體積是多少cm³？"
+ },
+ "直方体と頂点の名前を見て、くせで展開図をかく": {
+  "en": "Seeing a rectangular prism and vertex names, you draw a net out of habit",
+  "zh-Hans": "一看到长方体和顶点名称，就习惯性地画展开图",
+  "zh-Hant": "一看到長方體和頂點名稱，就習慣性地畫展開圖"
+ },
+ "面を開いても、切り取った立体の体積はどこにも出てこない": {
+  "en": "Even with the faces opened, the volume of the removed piece doesn't show up anywhere",
+  "zh-Hans": "把面展开了，切下的立体的体积也不会出现在任何地方",
+  "zh-Hant": "把面展開了，切下的立體的體積也不會出現在任何地方"
+ },
+ "立体にもどって考え直すので、約2分半": {
+  "en": "You have to go back to the solid and rethink, about 2 and a half minutes",
+  "zh-Hans": "只好回到立体重新思考，花了约2分半钟",
+  "zh-Hant": "只好回到立體重新思考，花了約2分半鐘"
+ },
+ "体積の問題なので、面を開いても答えは出ない。切り取ったのは、頂点Aに3本の辺が集まる三角すい": {
+  "en": "It's a volume problem, so opening the faces won't give the answer. The removed piece is a triangular pyramid with 3 edges meeting at vertex A",
+  "zh-Hans": "这是体积问题，展开面也求不出答案。切下的是3条棱交于顶点A的三棱锥",
+  "zh-Hant": "這是體積問題，展開面也求不出答案。切下的是3條邊交於頂點A的三角錐"
+ },
+ "底面は直角三角形ABD：8×6÷2 = 24": {
+  "en": "The base is right triangle ABD: 8×6÷2 = 24",
+  "zh-Hans": "底面是直角三角形ABD：8×6÷2 = 24",
+  "zh-Hant": "底面是直角三角形ABD：8×6÷2 = 24"
+ },
+ "高さはAE＝9。三角すいの体積は 底面積×高さ÷3：24×9÷3 = 72": {
+  "en": "The height is AE＝9. Volume of a triangular pyramid is base area×height÷3: 24×9÷3 = 72",
+  "zh-Hans": "高是AE＝9。三棱锥的体积是 底面积×高÷3：24×9÷3 = 72",
+  "zh-Hant": "高是AE＝9。三角錐的體積是 底面積×高÷3：24×9÷3 = 72"
+ },
+ "おしい。直方体の問題だが、聞いているのは体積。面を開いても体積は出ない。": {
+  "en": "Close! It's a rectangular prism problem, but it asks for volume. Opening the faces won't give you the volume.",
+  "zh-Hans": "差一点！虽然是长方体的问题，但问的是体积。展开面求不出体积。",
+  "zh-Hant": "差一點！雖然是長方體的問題，但問的是體積。展開面求不出體積。"
+ },
+ "方眼の上の面積の問題ではない。": {
+  "en": "This isn't an area problem on grid paper.",
+  "zh-Hans": "这不是方格纸上的面积问题。",
+  "zh-Hant": "這不是方格紙上的面積問題。"
+ },
+ "そのとおり。切り取ったのは三角すい。底面積×高さ÷3で求める。": {
+  "en": "That's right. The removed piece is a triangular pyramid. Find it with base area×height÷3.",
+  "zh-Hans": "没错。切下的是三棱锥，用 底面积×高÷3 来求。",
+  "zh-Hant": "沒錯。切下的是三角錐，用 底面積×高÷3 來求。"
+ },
+ "直方体ABCD-EFGHがあり、AB＝4cm、BC＝6cm、AE＝10cmです。3つの頂点B、D、Eを通る平面でこの直方体を切り、頂点Aをふくむ小さい方の立体を切り取ります。切り取った立体の体積は何cm³ですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝4 cm, BC＝6 cm and AE＝10 cm. Cut the prism with the plane through the 3 vertices B, D and E, and remove the smaller piece that contains vertex A. What is the volume of the removed piece in cm³?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝4cm，BC＝6cm，AE＝10cm。用经过B、D、E这3个顶点的平面切开这个长方体，切下含有顶点A的较小的那块立体。切下的立体的体积是多少cm³？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝4cm，BC＝6cm，AE＝10cm。用通過B、D、E這3個頂點的平面切開這個長方體，切下含有頂點A的較小的那塊立體。切下的立體的體積是多少cm³？"
+ },
+ "底面は直角三角形ABD：4×6÷2 = 12": {
+  "en": "The base is right triangle ABD: 4×6÷2 = 12",
+  "zh-Hans": "底面是直角三角形ABD：4×6÷2 = 12",
+  "zh-Hant": "底面是直角三角形ABD：4×6÷2 = 12"
+ },
+ "高さはAE＝10。三角すいの体積は 底面積×高さ÷3：12×10÷3 = 40": {
+  "en": "The height is AE＝10. Volume of a triangular pyramid is base area×height÷3: 12×10÷3 = 40",
+  "zh-Hans": "高是AE＝10。三棱锥的体积是 底面积×高÷3：12×10÷3 = 40",
+  "zh-Hant": "高是AE＝10。三角錐的體積是 底面積×高÷3：12×10÷3 = 40"
+ },
+ "直方体ABCD-EFGHがあり、AB＝3cm、BC＝7cm、AE＝8cmです。3つの頂点B、D、Eを通る平面でこの直方体を切り、頂点Aをふくむ小さい方の立体を切り取ります。切り取った立体の体積は何cm³ですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝3 cm, BC＝7 cm and AE＝8 cm. Cut the prism with the plane through the 3 vertices B, D and E, and remove the smaller piece that contains vertex A. What is the volume of the removed piece in cm³?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝3cm，BC＝7cm，AE＝8cm。用经过B、D、E这3个顶点的平面切开这个长方体，切下含有顶点A的较小的那块立体。切下的立体的体积是多少cm³？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝3cm，BC＝7cm，AE＝8cm。用通過B、D、E這3個頂點的平面切開這個長方體，切下含有頂點A的較小的那塊立體。切下的立體的體積是多少cm³？"
+ },
+ "底面は直角三角形ABD：3×7÷2 = 10.5": {
+  "en": "The base is right triangle ABD: 3×7÷2 = 10.5",
+  "zh-Hans": "底面是直角三角形ABD：3×7÷2 = 10.5",
+  "zh-Hant": "底面是直角三角形ABD：3×7÷2 = 10.5"
+ },
+ "高さはAE＝8。三角すいの体積は 底面積×高さ÷3：10.5×8÷3 = 28": {
+  "en": "The height is AE＝8. Volume of a triangular pyramid is base area×height÷3: 10.5×8÷3 = 28",
+  "zh-Hans": "高是AE＝8。三棱锥的体积是 底面积×高÷3：10.5×8÷3 = 28",
+  "zh-Hant": "高是AE＝8。三角錐的體積是 底面積×高÷3：10.5×8÷3 = 28"
+ },
+ "直方体ABCD-EFGHがあり、AB＝9cm、BC＝4cm、AE＝3cmです。3つの頂点B、D、Eを通る平面でこの直方体を切り、頂点Aをふくむ小さい方の立体を切り取ります。切り取った立体の体積は何cm³ですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝9 cm, BC＝4 cm and AE＝3 cm. Cut the prism with the plane through the 3 vertices B, D and E, and remove the smaller piece that contains vertex A. What is the volume of the removed piece in cm³?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝9cm，BC＝4cm，AE＝3cm。用经过B、D、E这3个顶点的平面切开这个长方体，切下含有顶点A的较小的那块立体。切下的立体的体积是多少cm³？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝9cm，BC＝4cm，AE＝3cm。用通過B、D、E這3個頂點的平面切開這個長方體，切下含有頂點A的較小的那塊立體。切下的立體的體積是多少cm³？"
+ },
+ "底面は直角三角形ABD：9×4÷2 = 18": {
+  "en": "The base is right triangle ABD: 9×4÷2 = 18",
+  "zh-Hans": "底面是直角三角形ABD：9×4÷2 = 18",
+  "zh-Hant": "底面是直角三角形ABD：9×4÷2 = 18"
+ },
+ "高さはAE＝3。三角すいの体積は 底面積×高さ÷3：18×3÷3 = 18": {
+  "en": "The height is AE＝3. Volume of a triangular pyramid is base area×height÷3: 18×3÷3 = 18",
+  "zh-Hans": "高是AE＝3。三棱锥的体积是 底面积×高÷3：18×3÷3 = 18",
+  "zh-Hant": "高是AE＝3。三角錐的體積是 底面積×高÷3：18×3÷3 = 18"
+ },
+ "直方体ABCD-EFGHがあり、AB＝7cm、BC＝3cm、AE＝12cmです。3つの頂点B、D、Eを通る平面でこの直方体を切り、頂点Aをふくむ小さい方の立体を切り取ります。切り取った立体の体積は何cm³ですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝7 cm, BC＝3 cm and AE＝12 cm. Cut the prism with the plane through the 3 vertices B, D and E, and remove the smaller piece that contains vertex A. What is the volume of the removed piece in cm³?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝7cm，BC＝3cm，AE＝12cm。用经过B、D、E这3个顶点的平面切开这个长方体，切下含有顶点A的较小的那块立体。切下的立体的体积是多少cm³？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝7cm，BC＝3cm，AE＝12cm。用通過B、D、E這3個頂點的平面切開這個長方體，切下含有頂點A的較小的那塊立體。切下的立體的體積是多少cm³？"
+ },
+ "底面は直角三角形ABD：7×3÷2 = 10.5": {
+  "en": "The base is right triangle ABD: 7×3÷2 = 10.5",
+  "zh-Hans": "底面是直角三角形ABD：7×3÷2 = 10.5",
+  "zh-Hant": "底面是直角三角形ABD：7×3÷2 = 10.5"
+ },
+ "高さはAE＝12。三角すいの体積は 底面積×高さ÷3：10.5×12÷3 = 42": {
+  "en": "The height is AE＝12. Volume of a triangular pyramid is base area×height÷3: 10.5×12÷3 = 42",
+  "zh-Hans": "高是AE＝12。三棱锥的体积是 底面积×高÷3：10.5×12÷3 = 42",
+  "zh-Hant": "高是AE＝12。三角錐的體積是 底面積×高÷3：10.5×12÷3 = 42"
+ },
+ "辺の上だけを通るなら、面を開く必要はない。横・おく・たてを1回ずつ通る道がいちばん短い。": {
+  "en": "If you only travel along the edges, there's no need to open the faces. A path that goes along the width, depth and height 1 time each is the shortest.",
+  "zh-Hans": "如果只沿着棱走，就不需要展开面。长、宽、高各走1次的路最短。",
+  "zh-Hant": "如果只沿著邊走，就不需要展開面。長、寬、高各走1次的路最短。"
+ },
+ "直方体ABCD-EFGHがあり、AB＝8cm、BC＝5cm、AE＝6cmです。辺の上だけを通って、頂点Aから頂点Gまで行きます。いちばん短い道のりは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝8 cm, BC＝5 cm and AE＝6 cm. Moving only along the edges, you go from vertex A to vertex G. What is the shortest distance in cm?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝8cm，BC＝5cm，AE＝6cm。只沿着棱从顶点A走到顶点G。最短的路程是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝8cm，BC＝5cm，AE＝6cm。只沿著邊從頂點A走到頂點G。最短的路程是多少cm？"
+ },
+ "くせで面を開いて、AとGをまっすぐ結ぼうとする": {
+  "en": "Out of habit, you open the faces and try to join A and G with a straight line",
+  "zh-Hans": "习惯性地把面展开，想用直线连接A和G",
+  "zh-Hant": "習慣性地把面展開，想用直線連接A和G"
+ },
+ "でも、通れるのは辺の上だけ。ななめの線は通れない": {
+  "en": "But you can only travel along the edges. Slanted lines are not allowed",
+  "zh-Hans": "但是只能沿着棱走，不能走斜线",
+  "zh-Hant": "但是只能沿著邊走，不能走斜線"
+ },
+ "辺の上だけを通るので、面を開く必要はない": {
+  "en": "You only travel along the edges, so there's no need to open the faces",
+  "zh-Hans": "只沿着棱走，所以不需要展开面",
+  "zh-Hant": "只沿著邊走，所以不需要展開面"
+ },
+ "どの最短の道も、横・奥・縦の辺を1回ずつ通る": {
+  "en": "Every shortest path goes along a width edge, a depth edge and a height edge 1 time each",
+  "zh-Hans": "每一条最短路径都是长、宽、高的棱各走1次",
+  "zh-Hant": "每一條最短路徑都是長、寬、高的邊各走1次"
+ },
+ "辺の上だけを通るなら、展開はいらない。3つの辺の長さをたす。": {
+  "en": "If you only travel along the edges, you don't need to unfold. Add up the lengths of the 3 edges.",
+  "zh-Hans": "如果只沿着棱走，就不需要展开。把3条棱的长度加起来。",
+  "zh-Hant": "如果只沿著邊走，就不需要展開。把3條邊的長度加起來。"
+ },
+ "面を開くのは、表面の上をななめに通るとき。ここは辺の上だけ。": {
+  "en": "You open the faces when the path cuts diagonally across the surface. Here it's along the edges only.",
+  "zh-Hans": "展开面是在表面上斜着走的时候用的。这里只沿着棱走。",
+  "zh-Hant": "展開面是在表面上斜著走的時候用的。這裡只沿著邊走。"
+ },
+ "そのとおり。横・おく・たての辺を1回ずつ通る。": {
+  "en": "That's right. Go along a width, depth and height edge 1 time each.",
+  "zh-Hans": "没错。长、宽、高的棱各走1次。",
+  "zh-Hant": "沒錯。長、寬、高的邊各走1次。"
+ },
+ "直方体ABCD-EFGHがあり、AB＝2cm、BC＝6cm、AE＝3cmです。辺の上だけを通って、頂点Aから頂点Gまで行きます。いちばん短い道のりは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝2 cm, BC＝6 cm and AE＝3 cm. Moving only along the edges, you go from vertex A to vertex G. What is the shortest distance in cm?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝2cm，BC＝6cm，AE＝3cm。只沿着棱从顶点A走到顶点G。最短的路程是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝2cm，BC＝6cm，AE＝3cm。只沿著邊從頂點A走到頂點G。最短的路程是多少cm？"
+ },
+ "どの最短の道も、横・おく・たての辺を1回ずつ通る": {
+  "en": "Every shortest path goes along a width edge, a depth edge and a height edge 1 time each",
+  "zh-Hans": "每一条最短路径都是长、宽、高的棱各走1次",
+  "zh-Hant": "每一條最短路徑都是長、寬、高的邊各走1次"
+ },
+ "直方体ABCD-EFGHがあり、AB＝4cm、BC＝3cm、AE＝13cmです。辺の上だけを通って、頂点Aから頂点Gまで行きます。いちばん短い道のりは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝4 cm, BC＝3 cm and AE＝13 cm. Moving only along the edges, you go from vertex A to vertex G. What is the shortest distance in cm?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝4cm，BC＝3cm，AE＝13cm。只沿着棱从顶点A走到顶点G。最短的路程是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝4cm，BC＝3cm，AE＝13cm。只沿著邊從頂點A走到頂點G。最短的路程是多少cm？"
+ },
+ "直方体ABCD-EFGHがあり、AB＝9cm、BC＝4cm、AE＝14cmです。辺の上だけを通って、頂点Aから頂点Gまで行きます。いちばん短い道のりは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝9 cm, BC＝4 cm and AE＝14 cm. Moving only along the edges, you go from vertex A to vertex G. What is the shortest distance in cm?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝9cm，BC＝4cm，AE＝14cm。只沿着棱从顶点A走到顶点G。最短的路程是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝9cm，BC＝4cm，AE＝14cm。只沿著邊從頂點A走到頂點G。最短的路程是多少cm？"
+ },
+ "直方体ABCD-EFGHがあり、AB＝9cm、BC＝10cm、AE＝8cmです。辺の上だけを通って、頂点Aから頂点Gまで行きます。いちばん短い道のりは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝9 cm, BC＝10 cm and AE＝8 cm. Moving only along the edges, you go from vertex A to vertex G. What is the shortest distance in cm?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝9cm，BC＝10cm，AE＝8cm。只沿着棱从顶点A走到顶点G。最短的路程是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝9cm，BC＝10cm，AE＝8cm。只沿著邊從頂點A走到頂點G。最短的路程是多少cm？"
+ },
+ "直方体ABCD-EFGHがあり、AB＝6cm、BC＝4cm、AE＝5cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝6 cm, BC＝4 cm and AE＝5 cm. A string is pulled tight over the surface of the prism from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝6cm，BC＝4cm，AE＝5cm。从顶点A经过棱BF上的点P到顶点G，沿长方体的表面拉紧一根线。当线长最短时，BP是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝6cm，BC＝4cm，AE＝5cm。從頂點A經過邊BF上的點P到頂點G，沿長方體的表面拉緊一條線。當線長最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 6+4 = 10、たて 5）": {
+  "en": "Open faces ABFE and BCGF, which share edge BF, into a single rectangle (width 6+4 = 10, height 5)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成一个长方形（宽 6+4 = 10，高 5）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成一個長方形（寬 6+4 = 10，高 5）"
+ },
+ "三角形ABPとACGは同じ形なので BP:CG = AB:AC = 6:10 = 3:5": {
+  "en": "Triangles ABP and ACG have the same shape (similar), so BP:CG = AB:AC = 6:10 = 3:5",
+  "zh-Hans": "三角形ABP和ACG形状相同（相似），所以 BP:CG = AB:AC = 6:10 = 3:5",
+  "zh-Hant": "三角形ABP和ACG形狀相同（相似），所以 BP:CG = AB:AC = 6:10 = 3:5"
+ },
+ "直方体ABCD-EFGHがあり、AB＝4cm、BC＝2cm、AE＝12cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝4 cm, BC＝2 cm and AE＝12 cm. A string is pulled tight over the surface of the prism from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝4cm，BC＝2cm，AE＝12cm。从顶点A经过棱BF上的点P到顶点G，沿长方体的表面拉紧一根线。当线长最短时，BP是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝4cm，BC＝2cm，AE＝12cm。從頂點A經過邊BF上的點P到頂點G，沿長方體的表面拉緊一條線。當線長最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 4+2 = 6、たて 12）": {
+  "en": "Open faces ABFE and BCGF, which share edge BF, into a single rectangle (width 4+2 = 6, height 12)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成一个长方形（宽 4+2 = 6，高 12）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成一個長方形（寬 4+2 = 6，高 12）"
+ },
+ "直方体ABCD-EFGHがあり、AB＝9cm、BC＝3cm、AE＝8cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝9 cm, BC＝3 cm and AE＝8 cm. A string is pulled tight over the surface of the prism from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝9cm，BC＝3cm，AE＝8cm。从顶点A经过棱BF上的点P到顶点G，沿长方体的表面拉紧一根线。当线长最短时，BP是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝9cm，BC＝3cm，AE＝8cm。從頂點A經過邊BF上的點P到頂點G，沿長方體的表面拉緊一條線。當線長最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 9+3 = 12、たて 8）": {
+  "en": "Open faces ABFE and BCGF, which share edge BF, into a single rectangle (width 9+3 = 12, height 8)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成一个长方形（宽 9+3 = 12，高 8）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成一個長方形（寬 9+3 = 12，高 8）"
+ },
+ "三角形ABPとACGは同じ形なので BP:CG = AB:AC = 9:12 = 3:4": {
+  "en": "Triangles ABP and ACG have the same shape (similar), so BP:CG = AB:AC = 9:12 = 3:4",
+  "zh-Hans": "三角形ABP和ACG形状相同（相似），所以 BP:CG = AB:AC = 9:12 = 3:4",
+  "zh-Hant": "三角形ABP和ACG形狀相同（相似），所以 BP:CG = AB:AC = 9:12 = 3:4"
+ },
+ "直方体ABCD-EFGHがあり、AB＝5cm、BC＝10cm、AE＝15cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝5 cm, BC＝10 cm and AE＝15 cm. A string is pulled tight over the surface of the prism from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝5cm，BC＝10cm，AE＝15cm。从顶点A经过棱BF上的点P到顶点G，沿长方体的表面拉紧一根线。当线长最短时，BP是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝5cm，BC＝10cm，AE＝15cm。從頂點A經過邊BF上的點P到頂點G，沿長方體的表面拉緊一條線。當線長最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 5+10 = 15、たて 15）": {
+  "en": "Open faces ABFE and BCGF, which share edge BF, into a single rectangle (width 5+10 = 15, height 15)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成一个长方形（宽 5+10 = 15，高 15）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成一個長方形（寬 5+10 = 15，高 15）"
+ },
+ "三角形ABPとACGは同じ形なので BP:CG = AB:AC = 5:15 = 1:3": {
+  "en": "Triangles ABP and ACG have the same shape (similar), so BP:CG = AB:AC = 5:15 = 1:3",
+  "zh-Hans": "三角形ABP和ACG形状相同（相似），所以 BP:CG = AB:AC = 5:15 = 1:3",
+  "zh-Hant": "三角形ABP和ACG形狀相同（相似），所以 BP:CG = AB:AC = 5:15 = 1:3"
+ },
+ "直方体ABCD-EFGHがあり、AB＝3cm、BC＝6cm、AE＝6cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝3 cm, BC＝6 cm and AE＝6 cm. A string is pulled tight over the surface of the prism from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝3cm，BC＝6cm，AE＝6cm。从顶点A经过棱BF上的点P到顶点G，沿长方体的表面拉紧一根线。当线长最短时，BP是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝3cm，BC＝6cm，AE＝6cm。從頂點A經過邊BF上的點P到頂點G，沿長方體的表面拉緊一條線。當線長最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 3+6 = 9、たて 6）": {
+  "en": "Open faces ABFE and BCGF, which share edge BF, into a single rectangle (width 3+6 = 9, height 6)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成一个长方形（宽 3+6 = 9，高 6）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成一個長方形（寬 3+6 = 9，高 6）"
+ },
+ "三角形ABPとACGは同じ形なので BP:CG = AB:AC = 3:9 = 1:3": {
+  "en": "Triangles ABP and ACG have the same shape (similar), so BP:CG = AB:AC = 3:9 = 1:3",
+  "zh-Hans": "三角形ABP和ACG形状相同（相似），所以 BP:CG = AB:AC = 3:9 = 1:3",
+  "zh-Hant": "三角形ABP和ACG形狀相同（相似），所以 BP:CG = AB:AC = 3:9 = 1:3"
+ },
+ "直方体ABCD-EFGHがあり、AB＝8cm、BC＝2cm、AE＝5cmです。頂点Aから辺BF上の点Pを通って頂点Gまで、直方体の表面に糸をぴんとかけます。糸の長さがいちばん短くなるとき、BPは何cmですか。": {
+  "en": "Rectangular prism ABCD-EFGH has AB＝8 cm, BC＝2 cm and AE＝5 cm. A string is pulled tight over the surface of the prism from vertex A, through point P on edge BF, to vertex G. When the string is as short as possible, how many cm is BP?",
+  "zh-Hans": "长方体ABCD-EFGH中，AB＝8cm，BC＝2cm，AE＝5cm。从顶点A经过棱BF上的点P到顶点G，沿长方体的表面拉紧一根线。当线长最短时，BP是多少cm？",
+  "zh-Hant": "長方體ABCD-EFGH中，AB＝8cm，BC＝2cm，AE＝5cm。從頂點A經過邊BF上的點P到頂點G，沿長方體的表面拉緊一條線。當線長最短時，BP是多少cm？"
+ },
+ "辺BFでつながった面ABFEと面BCGFを開いて、1つの長方形にする（横 8+2 = 10、たて 5）": {
+  "en": "Open faces ABFE and BCGF, which share edge BF, into a single rectangle (width 8+2 = 10, height 5)",
+  "zh-Hans": "把以棱BF相连的面ABFE和面BCGF展开，拼成一个长方形（宽 8+2 = 10，高 5）",
+  "zh-Hant": "把以邊BF相連的面ABFE和面BCGF展開，拼成一個長方形（寬 8+2 = 10，高 5）"
+ }
+}

@@ -2267,3 +2267,32 @@ html[data-theme='course'] body {
 .course .book-end .actions a.go {
   flex: 1 1 160px;
 }
+
+/* language switch (日本語 / English / 简体中文 / 繁體中文) */
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 14px;
+  opacity: 0.9;
+  white-space: nowrap;
+}
+.lang-switch select {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  padding: 4px 2px;
+  cursor: pointer;
+}
+.lang-switch select:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* long lens names in other languages (Constant Sum/Difference) wrap inside their card */
+.course h2, .course h3 { overflow-wrap: anywhere; }

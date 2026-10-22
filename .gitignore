@@ -6,3 +6,5 @@ node_modules/
 out/
 dist/
 *.tsbuildinfo
+i18n/content/strings.json
+i18n/content/chunks/

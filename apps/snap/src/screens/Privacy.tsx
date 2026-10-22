@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom";
-import { app, copy, landingUi } from "../copy";
+import { app, copy, landingUi, BRAND, MISC } from "../copy";
 import { Footer, useMeta } from "./Landing";
 
 /** /privacy — built only from existing copy (privacy FAQ, notThis privacy item, waitlist note). */
 export function Privacy() {
-  useMeta("プライバシーポリシー｜つまずきマップ", "つまずきマップでの写真と個人情報の扱いについて。");
+  useMeta(MISC.privacyMeta[0], MISC.privacyMeta[1]);
   const faq = copy.faq.items[1];
   const photo = copy.notThis.items[2];
   return (
     <div className="landing">
       <header className="hero hero-compact">
-        <Link to="/" className="brand-lg">つまずきマップ</Link>
+        <Link to="/" className="brand-lg">{BRAND}</Link>
         <h1>{copy.footer.privacyLabel}</h1>
         <p className="muted">{landingUi.privacyIntro}</p>
       </header>

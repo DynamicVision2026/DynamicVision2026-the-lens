@@ -1,3 +1,4 @@
+import { LANG } from "./lang";
 import { useCallback, useEffect, useState } from "react";
 import { readPref, writePref } from "../state";
 import { readPilotCode } from "./pilot";
@@ -131,13 +132,16 @@ export function usePlan() {
   return { plan, setPlan, reload };
 }
 
-/** 2027年10月18日 */
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+/** 2027年10月18日 (English: Oct 18, 2027); dates are in Japan time, like the plan itself. */
 export function jaDate(iso: string): string {
   const d = new Date(new Date(iso).getTime() + 9 * 3600 * 1000);
+  if (LANG === "en") return `${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()}`;
   return `${d.getUTCFullYear()}年${d.getUTCMonth() + 1}月${d.getUTCDate()}日`;
 }
-/** The day a pass's month comes back: resetsAt is 00:00 JST on the 1st, so show that date (11月1日). */
-export const resetDay = (iso: string) => jaDate(iso).replace(/^\d+年/, "");
+/** The day a pass's month comes back: resetsAt is 00:00 JST on the 1st, so show that date (11月1日 / Nov 1). */
+export const resetDay = (iso: string) => (LANG === "en" ? jaDate(iso).replace(/, \d+$/, "") : jaDate(iso).replace(/^\d+年/, ""));
 
 /** Share of the month used, and the warning level: "low" from 80%, "out" at the limit. */
 export function monthUse(plan: { used: number; limit: number }): { pct: number; level: "ok" | "low" | "out" } {

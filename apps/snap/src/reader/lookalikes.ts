@@ -195,6 +195,6 @@ export function lookalikesFor(units: Unit[]): LookAlikeLine[] {
 export function sameNameGroups(units: Unit[]): string[][] {
   const covered = lookalikesFor(units).map((l) => new Set(l.ids));
   const by = new Map<string, string[]>();
-  for (const u of units) by.set(u.topic, [...(by.get(u.topic) ?? []), u.id]);
+  for (const u of units) by.set(u.topicJa, [...(by.get(u.topicJa) ?? []), u.id]);
   return [...by.values()].filter((ids) => ids.length >= 2 && !covered.some((c) => ids.every((id) => c.has(id))));
 }

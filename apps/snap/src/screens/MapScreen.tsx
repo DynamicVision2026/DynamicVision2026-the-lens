@@ -8,8 +8,8 @@ import { TerrGlyph } from "../components/TerrGlyph";
 import { type ExamLook, type MapApi, TerritoryMap } from "../components/TerritoryMap";
 import { VideoLink, YouTubeGlyph } from "../components/VideoLink";
 import { WelcomeCard } from "../components/WelcomeCard";
-import { app } from "../copy";
-import { type Grade, type Unit, isHighSchool, unitById } from "../curriculum";
+import { app, MISC } from "../copy";
+import { type Grade, type Unit, isHighSchool, unitById, gradeLabel } from "../curriculum";
 import { type ExamStore, type PlanItem, buildPlan, countdown, currentTest, defaultRange, keepTick, parseStore, toggleUnit, toggleZone, withTest, zoneFull } from "../lib/examplan";
 import { focusFromParam, savedToast } from "../lib/home";
 import { EXAM_ENTRY, type NavStep, arrivalStep, closeTop, layersOf, openExam, openShare, openSheet, openViewer, openYears } from "../lib/layers";
@@ -31,7 +31,7 @@ const HISTORY_ROWS = 6;
 type View = "sky" | "list";
 
 const reduceMotion = () => window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
-const codeOf = (u: Unit) => (u.level === "高" ? `${u.grade} ${u.unit}` : u.unit);
+const codeOf = (u: Unit) => (u.level === "高" ? `${gradeLabel(u.grade)} ${u.unit}` : u.unit);
 
 /**
  * `examEntry`: the テスト前 tab (`/app/exam`) — the same map with テスト前モード open (the plan when a test
@@ -222,7 +222,7 @@ function TerritoryView(props: {
   }, [secured]);
   const tickPlan = (item: PlanItem, checked: boolean) => {
     const others = pages.some((pg) => pg.problems.some((p, j) => p.unit === item.unit.id && p.mark === "✕" && !p.reviewed && !(pg.id === item.page.id && j === item.index)));
-    if (checked && item.reason === "wrong" && !others) setSecured(app.exam.secured(`${item.unit.appGrade} ${item.unit.topic}`));
+    if (checked && item.reason === "wrong" && !others) setSecured(app.exam.secured(`${gradeLabel(item.unit.appGrade)} ${item.unit.topic}`));
     props.onTick(item.page.id, item.index, checked);
     if (test) save(withTest(store, keepTick(test, item.key, checked)));
   };
@@ -451,7 +451,7 @@ function HudCard({ hud }: { hud: Hud }) {
         const { taken, total } = hud.levels[l];
         return (
           <div key={l} className="hud-bar" data-level={l}>
-            <span className="hud-bar-l">{l}</span>
+            <span className="hud-bar-l">{MISC.level[l]}</span>
             <i>
               <b className={`hb-${l === "小" ? "e" : l === "中" ? "j" : "h"}`} style={{ width: `${total ? (taken / total) * 100 : 0}%` }} />
             </i>
@@ -809,7 +809,7 @@ function UnitProblem({ p, onOpenPage, onTick }: { p: SheetProblem; onOpenPage: (
           </button>
         )}
         <p className="up-a">
-          {s.yourAnswer}：<span className="up-ans">{pr.answer || s.blank}</span>
+          {s.yourAnswer}{MISC.colon}<span className="up-ans">{pr.answer || s.blank}</span>
         </p>
         <div className="up-mark">
           <span className={`pv-mark mk-${mk}`}>{p.mark ?? "—"}</span>

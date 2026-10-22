@@ -1,0 +1,1502 @@
+{
+ "差をとると x² − 4x + 3 = (x − 1)(x − 3)。交点のx座標は 1 と 3": {
+  "en": "Take the difference: x² − 4x + 3 = (x − 1)(x − 3). The intersections are at x = 1 and 3",
+  "zh-Hans": "两式相减得 x² − 4x + 3 = (x − 1)(x − 3)。交点的x坐标为 1 和 3",
+  "zh-Hant": "兩式相減得 x² − 4x + 3 = (x − 1)(x − 3)。交點的x坐標為 1 與 3"
+ },
+ "放物線 y = 3x² − 21x + 36 と直線 y = 3x で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the parabola y = 3x² − 21x + 36 and the line y = 3x.",
+  "zh-Hans": "求抛物线 y = 3x² − 21x + 36 与直线 y = 3x 所围成部分的面积。",
+  "zh-Hant": "求拋物線 y = 3x² − 21x + 36 與直線 y = 3x 所圍成部分的面積。"
+ },
+ "差をとると 3x² − 24x + 36 = 3(x − 2)(x − 6)。交点のx座標は 2 と 6": {
+  "en": "Take the difference: 3x² − 24x + 36 = 3(x − 2)(x − 6). The intersections are at x = 2 and 6",
+  "zh-Hans": "两式相减得 3x² − 24x + 36 = 3(x − 2)(x − 6)。交点的x坐标为 2 和 6",
+  "zh-Hant": "兩式相減得 3x² − 24x + 36 = 3(x − 2)(x − 6)。交點的x坐標為 2 與 6"
+ },
+ "2つの放物線 y = 3x² − x − 1 と y = x² + x + 3 で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the 2 parabolas y = 3x² − x − 1 and y = x² + x + 3.",
+  "zh-Hans": "求2条抛物线 y = 3x² − x − 1 与 y = x² + x + 3 所围成部分的面积。",
+  "zh-Hant": "求2條拋物線 y = 3x² − x − 1 與 y = x² + x + 3 所圍成部分的面積。"
+ },
+ "差をとると 2x² − 2x − 4 = 2(x + 1)(x − 2)。交点のx座標は −1 と 2": {
+  "en": "Take the difference: 2x² − 2x − 4 = 2(x + 1)(x − 2). The intersections are at x = −1 and 2",
+  "zh-Hans": "两式相减得 2x² − 2x − 4 = 2(x + 1)(x − 2)。交点的x坐标为 −1 和 2",
+  "zh-Hant": "兩式相減得 2x² − 2x − 4 = 2(x + 1)(x − 2)。交點的x坐標為 −1 與 2"
+ },
+ "2つの放物線 y = 3x² − 2x − 12 と y = x² − 2x − 4 で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the 2 parabolas y = 3x² − 2x − 12 and y = x² − 2x − 4.",
+  "zh-Hans": "求2条抛物线 y = 3x² − 2x − 12 与 y = x² − 2x − 4 所围成部分的面积。",
+  "zh-Hant": "求2條拋物線 y = 3x² − 2x − 12 與 y = x² − 2x − 4 所圍成部分的面積。"
+ },
+ "差をとると 2x² − 8 = 2(x + 2)(x − 2)。交点のx座標は −2 と 2": {
+  "en": "Take the difference: 2x² − 8 = 2(x + 2)(x − 2). The intersections are at x = −2 and 2",
+  "zh-Hans": "两式相减得 2x² − 8 = 2(x + 2)(x − 2)。交点的x坐标为 −2 和 2",
+  "zh-Hant": "兩式相減得 2x² − 8 = 2(x + 2)(x − 2)。交點的x坐標為 −2 與 2"
+ },
+ "2つの放物線 y = 2x² − 8x + 6 と y = x² − x − 4 で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the 2 parabolas y = 2x² − 8x + 6 and y = x² − x − 4.",
+  "zh-Hans": "求2条抛物线 y = 2x² − 8x + 6 与 y = x² − x − 4 所围成部分的面积。",
+  "zh-Hant": "求2條拋物線 y = 2x² − 8x + 6 與 y = x² − x − 4 所圍成部分的面積。"
+ },
+ "差をとると x² − 7x + 10 = (x − 2)(x − 5)。交点のx座標は 2 と 5": {
+  "en": "Take the difference: x² − 7x + 10 = (x − 2)(x − 5). The intersections are at x = 2 and 5",
+  "zh-Hans": "两式相减得 x² − 7x + 10 = (x − 2)(x − 5)。交点的x坐标为 2 和 5",
+  "zh-Hant": "兩式相減得 x² − 7x + 10 = (x − 2)(x − 5)。交點的x坐標為 2 與 5"
+ },
+ "2つの放物線 y = 2x² − 19x + 11 と y = −x² − x − 4 で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the 2 parabolas y = 2x² − 19x + 11 and y = −x² − x − 4.",
+  "zh-Hans": "求2条抛物线 y = 2x² − 19x + 11 与 y = −x² − x − 4 所围成部分的面积。",
+  "zh-Hant": "求2條拋物線 y = 2x² − 19x + 11 與 y = −x² − x − 4 所圍成部分的面積。"
+ },
+ "差をとると 3x² − 18x + 15 = 3(x − 1)(x − 5)。交点のx座標は 1 と 5": {
+  "en": "Take the difference: 3x² − 18x + 15 = 3(x − 1)(x − 5). The intersections are at x = 1 and 5",
+  "zh-Hans": "两式相减得 3x² − 18x + 15 = 3(x − 1)(x − 5)。交点的x坐标为 1 和 5",
+  "zh-Hant": "兩式相減得 3x² − 18x + 15 = 3(x − 1)(x − 5)。交點的x坐標為 1 與 5"
+ },
+ "2つの放物線 y = 5x² − 3x − 21 と y = 2x² − 3 で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the 2 parabolas y = 5x² − 3x − 21 and y = 2x² − 3.",
+  "zh-Hans": "求2条抛物线 y = 5x² − 3x − 21 与 y = 2x² − 3 所围成部分的面积。",
+  "zh-Hant": "求2條拋物線 y = 5x² − 3x − 21 與 y = 2x² − 3 所圍成部分的面積。"
+ },
+ "差をとると 3x² − 3x − 18 = 3(x + 2)(x − 3)。交点のx座標は −2 と 3": {
+  "en": "Take the difference: 3x² − 3x − 18 = 3(x + 2)(x − 3). The intersections are at x = −2 and 3",
+  "zh-Hans": "两式相减得 3x² − 3x − 18 = 3(x + 2)(x − 3)。交点的x坐标为 −2 和 3",
+  "zh-Hant": "兩式相減得 3x² − 3x − 18 = 3(x + 2)(x − 3)。交點的x坐標為 −2 與 3"
+ },
+ "2つの放物線 y = −x² + 2x + 3 と y = x² − 2x − 3 で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the 2 parabolas y = −x² + 2x + 3 and y = x² − 2x − 3.",
+  "zh-Hans": "求2条抛物线 y = −x² + 2x + 3 与 y = x² − 2x − 3 所围成部分的面积。",
+  "zh-Hant": "求2條拋物線 y = −x² + 2x + 3 與 y = x² − 2x − 3 所圍成部分的面積。"
+ },
+ "差をとると −2x² + 4x + 6 = −2(x + 1)(x − 3)。交点のx座標は −1 と 3": {
+  "en": "Take the difference: −2x² + 4x + 6 = −2(x + 1)(x − 3). The intersections are at x = −1 and 3",
+  "zh-Hans": "两式相减得 −2x² + 4x + 6 = −2(x + 1)(x − 3)。交点的x坐标为 −1 和 3",
+  "zh-Hant": "兩式相減得 −2x² + 4x + 6 = −2(x + 1)(x − 3)。交點的x坐標為 −1 與 3"
+ },
+ "2つの放物線 y = 3x² − 5x + 8 と y = x² + 3x + 2 で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the 2 parabolas y = 3x² − 5x + 8 and y = x² + 3x + 2.",
+  "zh-Hans": "求2条抛物线 y = 3x² − 5x + 8 与 y = x² + 3x + 2 所围成部分的面积。",
+  "zh-Hant": "求2條拋物線 y = 3x² − 5x + 8 與 y = x² + 3x + 2 所圍成部分的面積。"
+ },
+ "差をとると 2x² − 8x + 6 = 2(x − 1)(x − 3)。交点のx座標は 1 と 3": {
+  "en": "Take the difference: 2x² − 8x + 6 = 2(x − 1)(x − 3). The intersections are at x = 1 and 3",
+  "zh-Hans": "两式相减得 2x² − 8x + 6 = 2(x − 1)(x − 3)。交点的x坐标为 1 和 3",
+  "zh-Hant": "兩式相減得 2x² − 8x + 6 = 2(x − 1)(x − 3)。交點的x坐標為 1 與 3"
+ },
+ "2つの放物線 y = 5x² − 6 と y = 2x² + 3x で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the 2 parabolas y = 5x² − 6 and y = 2x² + 3x.",
+  "zh-Hans": "求2条抛物线 y = 5x² − 6 与 y = 2x² + 3x 所围成部分的面积。",
+  "zh-Hant": "求2條拋物線 y = 5x² − 6 與 y = 2x² + 3x 所圍成部分的面積。"
+ },
+ "差をとると 3x² − 3x − 6 = 3(x + 1)(x − 2)。交点のx座標は −1 と 2": {
+  "en": "Take the difference: 3x² − 3x − 6 = 3(x + 1)(x − 2). The intersections are at x = −1 and 2",
+  "zh-Hans": "两式相减得 3x² − 3x − 6 = 3(x + 1)(x − 2)。交点的x坐标为 −1 和 2",
+  "zh-Hant": "兩式相減得 3x² − 3x − 6 = 3(x + 1)(x − 2)。交點的x坐標為 −1 與 2"
+ },
+ "2つの放物線 y = −2x² + 3x − 3 と y = −x² + x − 3 で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the 2 parabolas y = −2x² + 3x − 3 and y = −x² + x − 3.",
+  "zh-Hans": "求2条抛物线 y = −2x² + 3x − 3 与 y = −x² + x − 3 所围成部分的面积。",
+  "zh-Hant": "求2條拋物線 y = −2x² + 3x − 3 與 y = −x² + x − 3 所圍成部分的面積。"
+ },
+ "差をとると −x² + 2x = −x(x − 2)。交点のx座標は 0 と 2": {
+  "en": "Take the difference: −x² + 2x = −x(x − 2). The intersections are at x = 0 and 2",
+  "zh-Hans": "两式相减得 −x² + 2x = −x(x − 2)。交点的x坐标为 0 和 2",
+  "zh-Hant": "兩式相減得 −x² + 2x = −x(x − 2)。交點的x坐標為 0 與 2"
+ },
+ "2つの放物線 y = 4x² − 17x + 24 と y = 2x² + x − 4 で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the 2 parabolas y = 4x² − 17x + 24 and y = 2x² + x − 4.",
+  "zh-Hans": "求2条抛物线 y = 4x² − 17x + 24 与 y = 2x² + x − 4 所围成部分的面积。",
+  "zh-Hant": "求2條拋物線 y = 4x² − 17x + 24 與 y = 2x² + x − 4 所圍成部分的面積。"
+ },
+ "差をとると 2x² − 18x + 28 = 2(x − 2)(x − 7)。交点のx座標は 2 と 7": {
+  "en": "Take the difference: 2x² − 18x + 28 = 2(x − 2)(x − 7). The intersections are at x = 2 and 7",
+  "zh-Hans": "两式相减得 2x² − 18x + 28 = 2(x − 2)(x − 7)。交点的x坐标为 2 和 7",
+  "zh-Hant": "兩式相減得 2x² − 18x + 28 = 2(x − 2)(x − 7)。交點的x坐標為 2 與 7"
+ },
+ "放物線 y = x² − 2x + 3 と x軸、および 2直線 x = 0、x = 2 で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the parabola y = x² − 2x + 3, the x-axis, and the 2 lines x = 0 and x = 2.",
+  "zh-Hans": "求抛物线 y = x² − 2x + 3 与x轴及2条直线 x = 0、x = 2 所围成部分的面积。",
+  "zh-Hant": "求拋物線 y = x² − 2x + 3 與x軸及2條直線 x = 0、x = 2 所圍成部分的面積。"
+ },
+ "1/6公式を使おうとして、放物線とx軸の交点を探す": {
+  "en": "Trying to use the 1/6 formula, you look for where the parabola meets the x-axis",
+  "zh-Hans": "想用1/6公式，于是去找抛物线与x轴的交点",
+  "zh-Hant": "想用1/6公式，於是去找拋物線與x軸的交點"
+ },
+ "x軸と交わらないので、αとβが出てこない": {
+  "en": "It never meets the x-axis, so there's no α or β",
+  "zh-Hans": "它与x轴不相交，所以求不出α和β",
+  "zh-Hant": "它與x軸不相交，所以求不出α和β"
+ },
+ "ここで約1分半。公式が使えないと気づく": {
+  "en": "About 1½ minutes in. Then you realize the formula doesn't work",
+  "zh-Hans": "到这里约1分半钟。才发现公式用不了",
+  "zh-Hant": "到這裡約1分半鐘。才發現公式用不了"
+ },
+ "放物線はx軸と交わらない。端は直線 x = 0、x = 2 なので、1/6公式は使えない": {
+  "en": "The parabola doesn't meet the x-axis. The ends are the lines x = 0 and x = 2, so the 1/6 formula can't be used",
+  "zh-Hans": "抛物线与x轴不相交。两端是直线 x = 0、x = 2，所以不能用1/6公式",
+  "zh-Hant": "拋物線與x軸不相交。兩端是直線 x = 0、x = 2，所以不能用1/6公式"
+ },
+ "そのまま積分する：∫[0→2] (x² − 2x + 3) dx": {
+  "en": "Integrate directly: ∫[0→2] (x² − 2x + 3) dx",
+  "zh-Hans": "直接积分：∫[0→2] (x² − 2x + 3) dx",
+  "zh-Hant": "直接積分：∫[0→2] (x² − 2x + 3) dx"
+ },
+ "原始関数 (1/3)x³ − x² + 3x に代入：14/3 − 0 = 14/3": {
+  "en": "Substitute into the antiderivative (1/3)x³ − x² + 3x: 14/3 − 0 = 14/3",
+  "zh-Hans": "代入原函数 (1/3)x³ − x² + 3x：14/3 − 0 = 14/3",
+  "zh-Hant": "代入反導函數 (1/3)x³ − x² + 3x：14/3 − 0 = 14/3"
+ },
+ "おしい。1/6公式は、2つのグラフの交点で囲まれたときだけ。ここは端が直線 x = p、x = q。": {
+  "en": "Close. The 1/6 formula only works when the region is closed off by the 2 graphs' intersection points. Here the ends are the lines x = p and x = q.",
+  "zh-Hans": "差一点。1/6公式只适用于由2个图像的交点围成的部分。这里的两端是直线 x = p、x = q。",
+  "zh-Hant": "差一點。1/6公式只適用於由2個圖形的交點圍成的部分。這裡的兩端是直線 x = p、x = q。"
+ },
+ "そのとおり。端が交点ではないので、そのまま積分する。": {
+  "en": "That's right. The ends aren't intersection points, so integrate directly.",
+  "zh-Hans": "没错。两端不是交点，所以直接积分。",
+  "zh-Hant": "沒錯。兩端不是交點，所以直接積分。"
+ },
+ "放物線 y = x² + 4x + 7 と x軸、および 2直線 x = 1、x = 3 で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the parabola y = x² + 4x + 7, the x-axis, and the 2 lines x = 1 and x = 3.",
+  "zh-Hans": "求抛物线 y = x² + 4x + 7 与x轴及2条直线 x = 1、x = 3 所围成部分的面积。",
+  "zh-Hant": "求拋物線 y = x² + 4x + 7 與x軸及2條直線 x = 1、x = 3 所圍成部分的面積。"
+ },
+ "放物線はx軸と交わらない。端は直線 x = 1、x = 3 なので、1/6公式は使えない": {
+  "en": "The parabola doesn't meet the x-axis. The ends are the lines x = 1 and x = 3, so the 1/6 formula can't be used",
+  "zh-Hans": "抛物线与x轴不相交。两端是直线 x = 1、x = 3，所以不能用1/6公式",
+  "zh-Hant": "拋物線與x軸不相交。兩端是直線 x = 1、x = 3，所以不能用1/6公式"
+ },
+ "そのまま積分する：∫[1→3] (x² + 4x + 7) dx": {
+  "en": "Integrate directly: ∫[1→3] (x² + 4x + 7) dx",
+  "zh-Hans": "直接积分：∫[1→3] (x² + 4x + 7) dx",
+  "zh-Hant": "直接積分：∫[1→3] (x² + 4x + 7) dx"
+ },
+ "原始関数 (1/3)x³ + 2x² + 7x に代入：48 − 28/3 = 116/3": {
+  "en": "Substitute into the antiderivative (1/3)x³ + 2x² + 7x: 48 − 28/3 = 116/3",
+  "zh-Hans": "代入原函数 (1/3)x³ + 2x² + 7x：48 − 28/3 = 116/3",
+  "zh-Hant": "代入反導函數 (1/3)x³ + 2x² + 7x：48 − 28/3 = 116/3"
+ },
+ "放物線 y = 2x² − 4x + 8 と x軸、および 2直線 x = −1、x = 2 で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the parabola y = 2x² − 4x + 8, the x-axis, and the 2 lines x = −1 and x = 2.",
+  "zh-Hans": "求抛物线 y = 2x² − 4x + 8 与x轴及2条直线 x = −1、x = 2 所围成部分的面积。",
+  "zh-Hant": "求拋物線 y = 2x² − 4x + 8 與x軸及2條直線 x = −1、x = 2 所圍成部分的面積。"
+ },
+ "放物線はx軸と交わらない。端は直線 x = −1、x = 2 なので、1/6公式は使えない": {
+  "en": "The parabola doesn't meet the x-axis. The ends are the lines x = −1 and x = 2, so the 1/6 formula can't be used",
+  "zh-Hans": "抛物线与x轴不相交。两端是直线 x = −1、x = 2，所以不能用1/6公式",
+  "zh-Hant": "拋物線與x軸不相交。兩端是直線 x = −1、x = 2，所以不能用1/6公式"
+ },
+ "そのまま積分する：∫[−1→2] (2x² − 4x + 8) dx": {
+  "en": "Integrate directly: ∫[−1→2] (2x² − 4x + 8) dx",
+  "zh-Hans": "直接积分：∫[−1→2] (2x² − 4x + 8) dx",
+  "zh-Hant": "直接積分：∫[−1→2] (2x² − 4x + 8) dx"
+ },
+ "原始関数 (2/3)x³ − 2x² + 8x に代入：40/3 − (−32/3) = 24": {
+  "en": "Substitute into the antiderivative (2/3)x³ − 2x² + 8x: 40/3 − (−32/3) = 24",
+  "zh-Hans": "代入原函数 (2/3)x³ − 2x² + 8x：40/3 − (−32/3) = 24",
+  "zh-Hant": "代入反導函數 (2/3)x³ − 2x² + 8x：40/3 − (−32/3) = 24"
+ },
+ "放物線 y = x² + x + 7 と x軸、および 2直線 x = 1、x = 4 で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the parabola y = x² + x + 7, the x-axis, and the 2 lines x = 1 and x = 4.",
+  "zh-Hans": "求抛物线 y = x² + x + 7 与x轴及2条直线 x = 1、x = 4 所围成部分的面积。",
+  "zh-Hant": "求拋物線 y = x² + x + 7 與x軸及2條直線 x = 1、x = 4 所圍成部分的面積。"
+ },
+ "放物線はx軸と交わらない。端は直線 x = 1、x = 4 なので、1/6公式は使えない": {
+  "en": "The parabola doesn't meet the x-axis. The ends are the lines x = 1 and x = 4, so the 1/6 formula can't be used",
+  "zh-Hans": "抛物线与x轴不相交。两端是直线 x = 1、x = 4，所以不能用1/6公式",
+  "zh-Hant": "拋物線與x軸不相交。兩端是直線 x = 1、x = 4，所以不能用1/6公式"
+ },
+ "そのまま積分する：∫[1→4] (x² + x + 7) dx": {
+  "en": "Integrate directly: ∫[1→4] (x² + x + 7) dx",
+  "zh-Hans": "直接积分：∫[1→4] (x² + x + 7) dx",
+  "zh-Hant": "直接積分：∫[1→4] (x² + x + 7) dx"
+ },
+ "原始関数 (1/3)x³ + (1/2)x² + 7x に代入：172/3 − 47/6 = 99/2": {
+  "en": "Substitute into the antiderivative (1/3)x³ + (1/2)x² + 7x: 172/3 − 47/6 = 99/2",
+  "zh-Hans": "代入原函数 (1/3)x³ + (1/2)x² + 7x：172/3 − 47/6 = 99/2",
+  "zh-Hant": "代入反導函數 (1/3)x³ + (1/2)x² + 7x：172/3 − 47/6 = 99/2"
+ },
+ "放物線 y = 2x² − 4x + 3 と x軸、および 2直線 x = 0、x = 2 で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the parabola y = 2x² − 4x + 3, the x-axis, and the 2 lines x = 0 and x = 2.",
+  "zh-Hans": "求抛物线 y = 2x² − 4x + 3 与x轴及2条直线 x = 0、x = 2 所围成部分的面积。",
+  "zh-Hant": "求拋物線 y = 2x² − 4x + 3 與x軸及2條直線 x = 0、x = 2 所圍成部分的面積。"
+ },
+ "そのまま積分する：∫[0→2] (2x² − 4x + 3) dx": {
+  "en": "Integrate directly: ∫[0→2] (2x² − 4x + 3) dx",
+  "zh-Hans": "直接积分：∫[0→2] (2x² − 4x + 3) dx",
+  "zh-Hant": "直接積分：∫[0→2] (2x² − 4x + 3) dx"
+ },
+ "原始関数 (2/3)x³ − 2x² + 3x に代入：10/3 − 0 = 10/3": {
+  "en": "Substitute into the antiderivative (2/3)x³ − 2x² + 3x: 10/3 − 0 = 10/3",
+  "zh-Hans": "代入原函数 (2/3)x³ − 2x² + 3x：10/3 − 0 = 10/3",
+  "zh-Hant": "代入反導函數 (2/3)x³ − 2x² + 3x：10/3 − 0 = 10/3"
+ },
+ "直線 y = 2x + 1 と x軸、および 2直線 x = 1、x = 3 で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the line y = 2x + 1, the x-axis, and the 2 lines x = 1 and x = 3.",
+  "zh-Hans": "求直线 y = 2x + 1 与x轴及2条直线 x = 1、x = 3 所围成部分的面积。",
+  "zh-Hant": "求直線 y = 2x + 1 與x軸及2條直線 x = 1、x = 3 所圍成部分的面積。"
+ },
+ "直線なので、囲まれた部分は台形。積分はいらない": {
+  "en": "It's a straight line, so the region is a trapezoid. No integral needed",
+  "zh-Hans": "因为是直线，围成的部分是梯形。不需要积分",
+  "zh-Hant": "因為是直線，圍成的部分是梯形。不需要積分"
+ },
+ "x = 1 のとき y = 3、x = 3 のとき y = 7": {
+  "en": "When x = 1, y = 3; when x = 3, y = 7",
+  "zh-Hans": "x = 1 时 y = 3，x = 3 时 y = 7",
+  "zh-Hant": "x = 1 時 y = 3，x = 3 時 y = 7"
+ },
+ "直線とx軸で囲まれた部分は台形や三角形。積分も1/6公式もいらない。": {
+  "en": "A region enclosed by a straight line and the x-axis is a trapezoid or a triangle. You need neither integration nor the 1/6 formula.",
+  "zh-Hans": "由直线和x轴围成的部分是梯形或三角形。既不需要积分，也不需要1/6公式。",
+  "zh-Hant": "由直線和x軸圍成的部分是梯形或三角形。既不需要積分，也不需要1/6公式。"
+ },
+ "1/6公式は放物線のときの道具。直線なら台形の面積で十分。": {
+  "en": "The 1/6 formula is a tool for parabolas. For a straight line, the trapezoid area is enough.",
+  "zh-Hans": "1/6公式是用于抛物线的工具。直线的话，用梯形面积就够了。",
+  "zh-Hant": "1/6公式是用於拋物線的工具。直線的話，用梯形面積就夠了。"
+ },
+ "そのとおり。直線なので台形。上底＋下底に高さをかけて÷2。": {
+  "en": "That's right. It's a straight line, so it's a trapezoid: (top + bottom) × height ÷2.",
+  "zh-Hans": "没错。因为是直线，所以是梯形。（上底＋下底）×高÷2。",
+  "zh-Hant": "沒錯。因為是直線，所以是梯形。（上底＋下底）×高÷2。"
+ },
+ "直線 y = 3x + 6 と x軸、および 2直線 x = 1、x = 4 で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the line y = 3x + 6, the x-axis, and the 2 lines x = 1 and x = 4.",
+  "zh-Hans": "求直线 y = 3x + 6 与x轴及2条直线 x = 1、x = 4 所围成部分的面积。",
+  "zh-Hant": "求直線 y = 3x + 6 與x軸及2條直線 x = 1、x = 4 所圍成部分的面積。"
+ },
+ "x = 1 のとき y = 9、x = 4 のとき y = 18": {
+  "en": "When x = 1, y = 9; when x = 4, y = 18",
+  "zh-Hans": "x = 1 时 y = 9，x = 4 时 y = 18",
+  "zh-Hant": "x = 1 時 y = 9，x = 4 時 y = 18"
+ },
+ "直線 y = 2x + 1 と x軸、および 2直線 x = 2、x = 5 で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the line y = 2x + 1, the x-axis, and the 2 lines x = 2 and x = 5.",
+  "zh-Hans": "求直线 y = 2x + 1 与x轴及2条直线 x = 2、x = 5 所围成部分的面积。",
+  "zh-Hant": "求直線 y = 2x + 1 與x軸及2條直線 x = 2、x = 5 所圍成部分的面積。"
+ },
+ "x = 2 のとき y = 5、x = 5 のとき y = 11": {
+  "en": "When x = 2, y = 5; when x = 5, y = 11",
+  "zh-Hans": "x = 2 时 y = 5，x = 5 时 y = 11",
+  "zh-Hant": "x = 2 時 y = 5，x = 5 時 y = 11"
+ },
+ "直線 y = 2x + 1 と x軸、および 2直線 x = 1、x = 5 で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the line y = 2x + 1, the x-axis, and the 2 lines x = 1 and x = 5.",
+  "zh-Hans": "求直线 y = 2x + 1 与x轴及2条直线 x = 1、x = 5 所围成部分的面积。",
+  "zh-Hant": "求直線 y = 2x + 1 與x軸及2條直線 x = 1、x = 5 所圍成部分的面積。"
+ },
+ "x = 1 のとき y = 3、x = 5 のとき y = 11": {
+  "en": "When x = 1, y = 3; when x = 5, y = 11",
+  "zh-Hans": "x = 1 时 y = 3，x = 5 时 y = 11",
+  "zh-Hant": "x = 1 時 y = 3，x = 5 時 y = 11"
+ },
+ "直線 y = −x + 6 と x軸、および 2直線 x = 1、x = 3 で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the line y = −x + 6, the x-axis, and the 2 lines x = 1 and x = 3.",
+  "zh-Hans": "求直线 y = −x + 6 与x轴及2条直线 x = 1、x = 3 所围成部分的面积。",
+  "zh-Hant": "求直線 y = −x + 6 與x軸及2條直線 x = 1、x = 3 所圍成部分的面積。"
+ },
+ "x = 1 のとき y = 5、x = 3 のとき y = 3": {
+  "en": "When x = 1, y = 5; when x = 3, y = 3",
+  "zh-Hans": "x = 1 时 y = 5，x = 3 时 y = 3",
+  "zh-Hant": "x = 1 時 y = 5，x = 3 時 y = 3"
+ },
+ "方眼の1目もりは1cmです。四角形ABCDの面積は何cm²ですか。": {
+  "en": "On the grid, 1 square is 1 cm. What is the area of the quadrilateral ABCD in cm²?",
+  "zh-Hans": "方格的1小格是1cm。四边形ABCD的面积是多少cm²？",
+  "zh-Hant": "方格的1小格是1cm。四邊形ABCD的面積是多少cm²？"
+ },
+ "対角線ACで2つの三角形に分ける": {
+  "en": "Split it into 2 triangles along diagonal AC",
+  "zh-Hans": "沿对角线AC分成2个三角形",
+  "zh-Hant": "沿對角線AC分成2個三角形"
+ },
+ "底辺ACが方眼の線に乗っていない": {
+  "en": "Base AC doesn't lie on a grid line",
+  "zh-Hans": "底边AC不在方格线上",
+  "zh-Hant": "底邊AC不在方格線上"
+ },
+ "高さが読み取れず、目分量で測って誤差が出る": {
+  "en": "You can't read the height, so you eyeball it and it comes out wrong",
+  "zh-Hans": "读不出高，只好目测，结果产生误差",
+  "zh-Hant": "讀不出高，只好目測，結果產生誤差"
+ },
+ "ここで約4分。答えが合わない": {
+  "en": "About 4 minutes in. The answer doesn't match",
+  "zh-Hans": "到这里约4分钟。答案对不上",
+  "zh-Hant": "到這裡約4分鐘。答案對不上"
+ },
+ "6×6の正方形で囲む": {
+  "en": "Enclose it in a 6×6 square",
+  "zh-Hans": "用6×6的正方形围起来",
+  "zh-Hant": "用6×6的正方形圍起來"
+ },
+ "右下の三角形 5×2÷2": {
+  "en": "Lower-right triangle: 5×2÷2",
+  "zh-Hans": "右下的三角形 5×2÷2",
+  "zh-Hant": "右下的三角形 5×2÷2"
+ },
+ "右上の三角形 2×4÷2": {
+  "en": "Upper-right triangle: 2×4÷2",
+  "zh-Hans": "右上的三角形 2×4÷2",
+  "zh-Hant": "右上的三角形 2×4÷2"
+ },
+ "左上の三角形 4×3÷2": {
+  "en": "Upper-left triangle: 4×3÷2",
+  "zh-Hans": "左上的三角形 4×3÷2",
+  "zh-Hant": "左上的三角形 4×3÷2"
+ },
+ "左下の三角形 1×3÷2": {
+  "en": "Lower-left triangle: 1×3÷2",
+  "zh-Hans": "左下的三角形 1×3÷2",
+  "zh-Hant": "左下的三角形 1×3÷2"
+ },
+ "方眼の上のななめの図形は、切らずに囲む。": {
+  "en": "For a slanted shape on a grid, don't cut it up — enclose it.",
+  "zh-Hans": "方格上的斜放图形，不要切开，直接围起来。",
+  "zh-Hant": "方格上的斜放圖形，不要切開，直接圍起來。"
+ },
+ "そのとおり。4つの頂点がすべて外側の長方形の辺に乗っている。": {
+  "en": "That's right. All 4 vertices lie on the sides of the outer rectangle.",
+  "zh-Hans": "没错。4个顶点全都在外侧长方形的边上。",
+  "zh-Hant": "沒錯。4個頂點全都在外側長方形的邊上。"
+ },
+ "平行な線がないので、等積変形の手がかりがない。": {
+  "en": "There are no parallel lines, so there's nothing to hang an Equal-Area Slide on.",
+  "zh-Hans": "没有平行线，所以找不到等积变形的线索。",
+  "zh-Hant": "沒有平行線，所以找不到等積變形的線索。"
+ },
+ "最短の道すじを求める問題ではない。": {
+  "en": "This isn't a shortest-path problem.",
+  "zh-Hans": "这不是求最短路径的题。",
+  "zh-Hant": "這不是求最短路徑的題目。"
+ },
+ "底辺も高さも方眼の線に乗らないので、直接は計算しにくい。": {
+  "en": "Neither the base nor the height lies on a grid line, so it's hard to calculate directly.",
+  "zh-Hans": "底边和高都不在方格线上，很难直接计算。",
+  "zh-Hant": "底邊和高都不在方格線上，很難直接計算。"
+ },
+ "4×5の長方形で囲む": {
+  "en": "Enclose it in a 4×5 rectangle",
+  "zh-Hans": "用4×5的长方形围起来",
+  "zh-Hant": "用4×5的長方形圍起來"
+ },
+ "すみの三角形 3×4÷2": {
+  "en": "Corner triangle: 3×4÷2",
+  "zh-Hans": "角落的三角形 3×4÷2",
+  "zh-Hant": "角落的三角形 3×4÷2"
+ },
+ "すみの三角形 3×1÷2": {
+  "en": "Corner triangle: 3×1÷2",
+  "zh-Hans": "角落的三角形 3×1÷2",
+  "zh-Hant": "角落的三角形 3×1÷2"
+ },
+ "すみの三角形 1×1÷2": {
+  "en": "Corner triangle: 1×1÷2",
+  "zh-Hans": "角落的三角形 1×1÷2",
+  "zh-Hant": "角落的三角形 1×1÷2"
+ },
+ "すみの三角形 1×4÷2": {
+  "en": "Corner triangle: 1×4÷2",
+  "zh-Hans": "角落的三角形 1×4÷2",
+  "zh-Hant": "角落的三角形 1×4÷2"
+ },
+ "6×8の長方形で囲む": {
+  "en": "Enclose it in a 6×8 rectangle",
+  "zh-Hans": "用6×8的长方形围起来",
+  "zh-Hant": "用6×8的長方形圍起來"
+ },
+ "すみの三角形 2×7÷2": {
+  "en": "Corner triangle: 2×7÷2",
+  "zh-Hans": "角落的三角形 2×7÷2",
+  "zh-Hant": "角落的三角形 2×7÷2"
+ },
+ "すみの三角形 5×6÷2": {
+  "en": "Corner triangle: 5×6÷2",
+  "zh-Hans": "角落的三角形 5×6÷2",
+  "zh-Hant": "角落的三角形 5×6÷2"
+ },
+ "すみの三角形 4×2÷2": {
+  "en": "Corner triangle: 4×2÷2",
+  "zh-Hans": "角落的三角形 4×2÷2",
+  "zh-Hant": "角落的三角形 4×2÷2"
+ },
+ "8×4の長方形で囲む": {
+  "en": "Enclose it in a 8×4 rectangle",
+  "zh-Hans": "用8×4的长方形围起来",
+  "zh-Hant": "用8×4的長方形圍起來"
+ },
+ "すみの三角形 7×3÷2": {
+  "en": "Corner triangle: 7×3÷2",
+  "zh-Hans": "角落的三角形 7×3÷2",
+  "zh-Hant": "角落的三角形 7×3÷2"
+ },
+ "すみの三角形 2×1÷2": {
+  "en": "Corner triangle: 2×1÷2",
+  "zh-Hans": "角落的三角形 2×1÷2",
+  "zh-Hant": "角落的三角形 2×1÷2"
+ },
+ "すみの三角形 6×1÷2": {
+  "en": "Corner triangle: 6×1÷2",
+  "zh-Hans": "角落的三角形 6×1÷2",
+  "zh-Hant": "角落的三角形 6×1÷2"
+ },
+ "すみの三角形 1×3÷2": {
+  "en": "Corner triangle: 1×3÷2",
+  "zh-Hans": "角落的三角形 1×3÷2",
+  "zh-Hant": "角落的三角形 1×3÷2"
+ },
+ "面積の加法性：外側の正方形から、合同な4つの直角三角形を引くと、ななめの正方形の面積が残る。": {
+  "en": "Areas add up: take the 4 congruent right triangles away from the outer square, and what's left is the area of the tilted square.",
+  "zh-Hans": "面积的可加性：从外面的正方形减去4个全等的直角三角形，剩下的就是斜正方形的面积。",
+  "zh-Hant": "面積的可加性：從外面的正方形減去4個全等的直角三角形，剩下的就是斜正方形的面積。"
+ },
+ "方眼の1目もりは1cmです。ななめに置かれた正方形ABCDの面積は何cm²ですか。": {
+  "en": "On the grid, 1 square is 1 cm. What is the area of the tilted square ABCD in cm²?",
+  "zh-Hans": "方格的1小格是1cm。斜放的正方形ABCD的面积是多少cm²？",
+  "zh-Hant": "方格的1小格是1cm。斜放的正方形ABCD的面積是多少cm²？"
+ },
+ "正方形だから「1辺×1辺」で求めようとする": {
+  "en": "It's a square, so you try \"side × side\"",
+  "zh-Hans": "因为是正方形，想用“边长×边长”来求",
+  "zh-Hant": "因為是正方形，想用「邊長×邊長」來求"
+ },
+ "1辺ABがななめで、方眼で長さが読めない": {
+  "en": "Side AB is slanted, so you can't read its length from the grid",
+  "zh-Hans": "边AB是斜的，无法从方格读出长度",
+  "zh-Hant": "邊AB是斜的，無法從方格讀出長度"
+ },
+ "定規で測ると約5.4cm。5.4×5.4 = 29.16で合わない": {
+  "en": "A ruler gives about 5.4 cm. 5.4×5.4 = 29.16, which doesn't match",
+  "zh-Hans": "用尺子量约5.4cm。5.4×5.4 = 29.16，对不上",
+  "zh-Hant": "用尺量約5.4cm。5.4×5.4 = 29.16，對不上"
+ },
+ "ここで約3分半。答えが決まらない": {
+  "en": "About 3½ minutes in. Still no answer",
+  "zh-Hans": "到这里约3分半钟。答案还是定不下来",
+  "zh-Hant": "到這裡約3分半鐘。答案還是定不下來"
+ },
+ "7×7の正方形で囲む": {
+  "en": "Enclose it in a 7×7 square",
+  "zh-Hans": "用7×7的正方形围起来",
+  "zh-Hant": "用7×7的正方形圍起來"
+ },
+ "下の三角形 5×2÷2": {
+  "en": "Bottom triangle: 5×2÷2",
+  "zh-Hans": "下方的三角形 5×2÷2",
+  "zh-Hant": "下方的三角形 5×2÷2"
+ },
+ "右の三角形 2×5÷2": {
+  "en": "Right triangle: 2×5÷2",
+  "zh-Hans": "右边的三角形 2×5÷2",
+  "zh-Hant": "右邊的三角形 2×5÷2"
+ },
+ "上の三角形 5×2÷2": {
+  "en": "Top triangle: 5×2÷2",
+  "zh-Hans": "上方的三角形 5×2÷2",
+  "zh-Hant": "上方的三角形 5×2÷2"
+ },
+ "左の三角形 2×5÷2": {
+  "en": "Left triangle: 2×5÷2",
+  "zh-Hans": "左边的三角形 2×5÷2",
+  "zh-Hant": "左邊的三角形 2×5÷2"
+ },
+ "ななめの正方形は、1辺を測らずに外側の正方形で囲む。": {
+  "en": "For a tilted square, don't measure a side — enclose it in an outer square.",
+  "zh-Hans": "斜放的正方形，不用量边长，用外面的正方形围起来。",
+  "zh-Hant": "斜放的正方形，不用量邊長，用外面的正方形圍起來。"
+ },
+ "そのとおり。4つの頂点が外側の正方形の4辺に1つずつ乗っている。": {
+  "en": "That's right. The 4 vertices sit 1 on each of the outer square's 4 sides.",
+  "zh-Hans": "没错。4个顶点在外侧正方形的4条边上各有1个。",
+  "zh-Hant": "沒錯。4個頂點在外側正方形的4條邊上各有1個。"
+ },
+ "平行な線はあるが、動かしても底辺と高さが方眼に乗らない。": {
+  "en": "There are parallel lines, but even after sliding, the base and height don't land on the grid.",
+  "zh-Hans": "虽然有平行线，但移动后底边和高仍不在方格线上。",
+  "zh-Hant": "雖然有平行線，但移動後底邊和高仍不在方格線上。"
+ },
+ "1辺がななめなので、1辺×1辺は方眼では計算できない。": {
+  "en": "The sides are slanted, so side × side can't be worked out from the grid.",
+  "zh-Hans": "边是斜的，所以无法用方格算出边长×边长。",
+  "zh-Hant": "邊是斜的，所以無法用方格算出邊長×邊長。"
+ },
+ "6×6の長方形で囲む": {
+  "en": "Enclose it in a 6×6 rectangle",
+  "zh-Hans": "用6×6的长方形围起来",
+  "zh-Hant": "用6×6的長方形圍起來"
+ },
+ "すみの三角形 2×4÷2": {
+  "en": "Corner triangle: 2×4÷2",
+  "zh-Hans": "角落的三角形 2×4÷2",
+  "zh-Hant": "角落的三角形 2×4÷2"
+ },
+ "7×7の長方形で囲む": {
+  "en": "Enclose it in a 7×7 rectangle",
+  "zh-Hans": "用7×7的长方形围起来",
+  "zh-Hant": "用7×7的長方形圍起來"
+ },
+ "すみの三角形 4×3÷2": {
+  "en": "Corner triangle: 4×3÷2",
+  "zh-Hans": "角落的三角形 4×3÷2",
+  "zh-Hant": "角落的三角形 4×3÷2"
+ },
+ "8×8の長方形で囲む": {
+  "en": "Enclose it in a 8×8 rectangle",
+  "zh-Hans": "用8×8的长方形围起来",
+  "zh-Hant": "用8×8的長方形圍起來"
+ },
+ "すみの三角形 6×2÷2": {
+  "en": "Corner triangle: 6×2÷2",
+  "zh-Hans": "角落的三角形 6×2÷2",
+  "zh-Hant": "角落的三角形 6×2÷2"
+ },
+ "すみの三角形 2×6÷2": {
+  "en": "Corner triangle: 2×6÷2",
+  "zh-Hans": "角落的三角形 2×6÷2",
+  "zh-Hant": "角落的三角形 2×6÷2"
+ },
+ "面積の加法性：三角形も、囲んだ長方形から、まわりの3つの直角三角形を引けば求まる。": {
+  "en": "Areas add up: a triangle, too, can be found by taking the 3 right triangles around it away from the enclosing rectangle.",
+  "zh-Hans": "面积的可加性：三角形也一样，从围住它的长方形减去周围3个直角三角形就能求出。",
+  "zh-Hant": "面積的可加性：三角形也一樣，從圍住它的長方形減去周圍3個直角三角形就能求出。"
+ },
+ "方眼の1目もりは1cmです。三角形ABCの面積は何cm²ですか。": {
+  "en": "On the grid, 1 square is 1 cm. What is the area of the triangle ABC in cm²?",
+  "zh-Hans": "方格的1小格是1cm。三角形ABC的面积是多少cm²？",
+  "zh-Hant": "方格的1小格是1cm。三角形ABC的面積是多少cm²？"
+ },
+ "三角形だから「底辺×高さ÷2」を使おうとする": {
+  "en": "It's a triangle, so you try \"base × height ÷2\"",
+  "zh-Hans": "因为是三角形，想用“底×高÷2”",
+  "zh-Hant": "因為是三角形，想用「底×高÷2」"
+ },
+ "どの辺も方眼の線に乗っていない。底辺が読めない": {
+  "en": "No side lies on a grid line. You can't read the base",
+  "zh-Hans": "没有一条边在方格线上。读不出底边",
+  "zh-Hant": "沒有一條邊在方格線上。讀不出底邊"
+ },
+ "高さも、底辺に垂直な線を自分で引かないと分からない": {
+  "en": "And you can't find the height without drawing a line perpendicular to the base yourself",
+  "zh-Hans": "高也一样，不自己画一条垂直于底边的线就不知道",
+  "zh-Hant": "高也一樣，不自己畫一條垂直於底邊的線就不知道"
+ },
+ "ここで約2分半。式が立たない": {
+  "en": "About 2½ minutes in. You still can't write a calculation",
+  "zh-Hans": "到这里约2分半钟。还是列不出算式",
+  "zh-Hant": "到這裡約2分半鐘。還是列不出算式"
+ },
+ "6×5の長方形で囲む": {
+  "en": "Enclose it in a 6×5 rectangle",
+  "zh-Hans": "用6×5的长方形围起来",
+  "zh-Hant": "用6×5的長方形圍起來"
+ },
+ "下の三角形 6×1÷2": {
+  "en": "Bottom triangle: 6×1÷2",
+  "zh-Hans": "下方的三角形 6×1÷2",
+  "zh-Hant": "下方的三角形 6×1÷2"
+ },
+ "右上の三角形 2×5÷2": {
+  "en": "Upper-right triangle: 2×5÷2",
+  "zh-Hans": "右上的三角形 2×5÷2",
+  "zh-Hant": "右上的三角形 2×5÷2"
+ },
+ "左上の三角形 4×4÷2": {
+  "en": "Upper-left triangle: 4×4÷2",
+  "zh-Hans": "左上的三角形 4×4÷2",
+  "zh-Hant": "左上的三角形 4×4÷2"
+ },
+ "どの辺も方眼の線に乗らない三角形は、底辺を探さずに囲む。": {
+  "en": "When no side of a triangle lies on a grid line, don't hunt for a base — enclose it.",
+  "zh-Hans": "没有一条边在方格线上的三角形，不找底边，直接围起来。",
+  "zh-Hant": "沒有一條邊在方格線上的三角形，不找底邊，直接圍起來。"
+ },
+ "そのとおり。3つの頂点がすべて外側の長方形の辺に乗っている。": {
+  "en": "That's right. All 3 vertices lie on the sides of the outer rectangle.",
+  "zh-Hans": "没错。3个顶点全都在外侧长方形的边上。",
+  "zh-Hant": "沒錯。3個頂點全都在外側長方形的邊上。"
+ },
+ "底辺×高さ÷2を使いたいが、どの辺も方眼の線に乗っていない。": {
+  "en": "You'd like to use base × height ÷2, but no side lies on a grid line.",
+  "zh-Hans": "想用底×高÷2，但没有一条边在方格线上。",
+  "zh-Hant": "想用底×高÷2，但沒有一條邊在方格線上。"
+ },
+ "7×8の長方形で囲む": {
+  "en": "Enclose it in a 7×8 rectangle",
+  "zh-Hans": "用7×8的长方形围起来",
+  "zh-Hant": "用7×8的長方形圍起來"
+ },
+ "すみの三角形 5×8÷2": {
+  "en": "Corner triangle: 5×8÷2",
+  "zh-Hans": "角落的三角形 5×8÷2",
+  "zh-Hant": "角落的三角形 5×8÷2"
+ },
+ "すみの三角形 2×5÷2": {
+  "en": "Corner triangle: 2×5÷2",
+  "zh-Hans": "角落的三角形 2×5÷2",
+  "zh-Hant": "角落的三角形 2×5÷2"
+ },
+ "すみの三角形 7×5÷2": {
+  "en": "Corner triangle: 7×5÷2",
+  "zh-Hans": "角落的三角形 7×5÷2",
+  "zh-Hant": "角落的三角形 7×5÷2"
+ },
+ "すみの三角形 3×7÷2": {
+  "en": "Corner triangle: 3×7÷2",
+  "zh-Hans": "角落的三角形 3×7÷2",
+  "zh-Hant": "角落的三角形 3×7÷2"
+ },
+ "7×4の長方形で囲む": {
+  "en": "Enclose it in a 7×4 rectangle",
+  "zh-Hans": "用7×4的长方形围起来",
+  "zh-Hant": "用7×4的長方形圍起來"
+ },
+ "すみの三角形 4×4÷2": {
+  "en": "Corner triangle: 4×4÷2",
+  "zh-Hans": "角落的三角形 4×4÷2",
+  "zh-Hant": "角落的三角形 4×4÷2"
+ },
+ "面積の加法性：ななめの長方形も、囲んだ長方形から、すみの4つの直角三角形を引けば求まる。": {
+  "en": "Areas add up: a tilted rectangle, too, can be found by taking the 4 corner right triangles away from the enclosing rectangle.",
+  "zh-Hans": "面积的可加性：斜放的长方形也一样，从围住它的长方形减去角落的4个直角三角形就能求出。",
+  "zh-Hant": "面積的可加性：斜放的長方形也一樣，從圍住它的長方形減去角落的4個直角三角形就能求出。"
+ },
+ "方眼の1目もりは1cmです。長方形ABCDの面積は何cm²ですか。": {
+  "en": "On the grid, 1 square is 1 cm. What is the area of the rectangle ABCD in cm²?",
+  "zh-Hans": "方格的1小格是1cm。长方形ABCD的面积是多少cm²？",
+  "zh-Hant": "方格的1小格是1cm。長方形ABCD的面積是多少cm²？"
+ },
+ "長方形だから「たて×横」を使おうとする": {
+  "en": "It's a rectangle, so you try \"length × width\"",
+  "zh-Hans": "因为是长方形，想用“长×宽”来求",
+  "zh-Hant": "因為是長方形，想用「長×寬」來求"
+ },
+ "たても横もななめで、長さが方眼から読めない": {
+  "en": "Both the length and the width are slanted, so you can't read them from the grid",
+  "zh-Hans": "长和宽都是斜的，无法从方格读出长度",
+  "zh-Hant": "長和寬都是斜的，無法從方格讀出長度"
+ },
+ "ここで約2分。式が立たない": {
+  "en": "About 2 minutes in. You still can't write a calculation",
+  "zh-Hans": "到这里约2分钟。还是列不出算式",
+  "zh-Hant": "到這裡約2分鐘。還是列不出算式"
+ },
+ "5×4の長方形で囲む": {
+  "en": "Enclose it in a 5×4 rectangle",
+  "zh-Hans": "用5×4的长方形围起来",
+  "zh-Hant": "用5×4的長方形圍起來"
+ },
+ "右下の三角形 4×2÷2": {
+  "en": "Lower-right triangle: 4×2÷2",
+  "zh-Hans": "右下的三角形 4×2÷2",
+  "zh-Hant": "右下的三角形 4×2÷2"
+ },
+ "右上の三角形 1×2÷2": {
+  "en": "Upper-right triangle: 1×2÷2",
+  "zh-Hans": "右上的三角形 1×2÷2",
+  "zh-Hant": "右上的三角形 1×2÷2"
+ },
+ "左上の三角形 4×2÷2": {
+  "en": "Upper-left triangle: 4×2÷2",
+  "zh-Hans": "左上的三角形 4×2÷2",
+  "zh-Hant": "左上的三角形 4×2÷2"
+ },
+ "左下の三角形 1×2÷2": {
+  "en": "Lower-left triangle: 1×2÷2",
+  "zh-Hans": "左下的三角形 1×2÷2",
+  "zh-Hant": "左下的三角形 1×2÷2"
+ },
+ "ななめにかたむいた長方形は、たてと横を探さずに囲む。": {
+  "en": "For a tilted rectangle, don't hunt for the length and width — enclose it.",
+  "zh-Hans": "斜放的长方形，不找长和宽，直接围起来。",
+  "zh-Hant": "斜放的長方形，不找長和寬，直接圍起來。"
+ },
+ "そのとおり。頂点がすべて外側の長方形の辺に乗っている。": {
+  "en": "That's right. All the vertices lie on the sides of the outer rectangle.",
+  "zh-Hans": "没错。顶点全都在外侧长方形的边上。",
+  "zh-Hant": "沒錯。頂點全都在外側長方形的邊上。"
+ },
+ "平行な2本の線の間に三角形がならぶ形ではない。": {
+  "en": "This isn't a shape with triangles lined up between 2 parallel lines.",
+  "zh-Hans": "这不是三角形排在2条平行线之间的图形。",
+  "zh-Hant": "這不是三角形排在2條平行線之間的圖形。"
+ },
+ "長方形の公式を使うには、方眼の線に乗った辺と高さが必要。ここではどちらも読めない。": {
+  "en": "To use the rectangle formula, you need a side and a height that lie on grid lines. Here you can't read either.",
+  "zh-Hans": "要用长方形的公式，需要在方格线上的边和高。这里两者都读不出来。",
+  "zh-Hant": "要用長方形的公式，需要在方格線上的邊和高。這裡兩者都讀不出來。"
+ },
+ "面積の加法性：五角形も、囲んだ長方形から、はみ出した直角三角形だけを引けば求まる。": {
+  "en": "Areas add up: a pentagon, too, can be found by taking just the leftover right triangles away from the enclosing rectangle.",
+  "zh-Hans": "面积的可加性：五边形也一样，从围住它的长方形只减去多出来的直角三角形就能求出。",
+  "zh-Hant": "面積的可加性：五邊形也一樣，從圍住它的長方形只減去多出來的直角三角形就能求出。"
+ },
+ "方眼の1目もりは1cmです。五角形ABCDEの面積は何cm²ですか。": {
+  "en": "On the grid, 1 square is 1 cm. What is the area of the pentagon ABCDE in cm²?",
+  "zh-Hans": "方格的1小格是1cm。五边形ABCDE的面积是多少cm²？",
+  "zh-Hant": "方格的1小格是1cm。五邊形ABCDE的面積是多少cm²？"
+ },
+ "五角形を三角形に分けようとする": {
+  "en": "You try to split the pentagon into triangles",
+  "zh-Hans": "想把五边形分成几个三角形",
+  "zh-Hant": "想把五邊形分成幾個三角形"
+ },
+ "分けた三角形の底辺と高さが、どれも方眼から読めない": {
+  "en": "None of the pieces' bases or heights can be read from the grid",
+  "zh-Hans": "分出来的三角形，底和高都无法从方格读出",
+  "zh-Hant": "分出來的三角形，底和高都無法從方格讀出"
+ },
+ "分け方を何度も変えて、ここで約3分": {
+  "en": "You keep changing how to split it — about 3 minutes in",
+  "zh-Hans": "换了好几种分法，到这里约3分钟",
+  "zh-Hant": "換了好幾種分法，到這裡約3分鐘"
+ },
+ "7×6の長方形で囲む": {
+  "en": "Enclose it in a 7×6 rectangle",
+  "zh-Hans": "用7×6的长方形围起来",
+  "zh-Hant": "用7×6的長方形圍起來"
+ },
+ "右下の三角形 3×3÷2": {
+  "en": "Lower-right triangle: 3×3÷2",
+  "zh-Hans": "右下的三角形 3×3÷2",
+  "zh-Hant": "右下的三角形 3×3÷2"
+ },
+ "右上の三角形 2×3÷2": {
+  "en": "Upper-right triangle: 2×3÷2",
+  "zh-Hans": "右上的三角形 2×3÷2",
+  "zh-Hant": "右上的三角形 2×3÷2"
+ },
+ "左上の三角形 5×2÷2": {
+  "en": "Upper-left triangle: 5×2÷2",
+  "zh-Hans": "左上的三角形 5×2÷2",
+  "zh-Hant": "左上的三角形 5×2÷2"
+ },
+ "頂点が外わくに乗った多角形は、分けずに囲んで、すみだけ引く。": {
+  "en": "For a polygon whose vertices sit on the outer frame, don't split it — enclose it and subtract just the corners.",
+  "zh-Hans": "顶点落在外框上的多边形，不要分割，围起来后只减去角落。",
+  "zh-Hant": "頂點落在外框上的多邊形，不要分割，圍起來後只減去角落。"
+ },
+ "五角形の公式を使うには、方眼の線に乗った辺と高さが必要。ここではどちらも読めない。": {
+  "en": "To use the pentagon formula, you need a side and a height that lie on grid lines. Here you can't read either.",
+  "zh-Hans": "要用五边形的公式，需要在方格线上的边和高。这里两者都读不出来。",
+  "zh-Hant": "要用五邊形的公式，需要在方格線上的邊和高。這裡兩者都讀不出來。"
+ },
+ "面積の加法性：六角形も、囲んだ長方形から、4つのすみの直角三角形を引けば求まる。": {
+  "en": "Areas add up: a hexagon, too, can be found by taking the 4 corner right triangles away from the enclosing rectangle.",
+  "zh-Hans": "面积的可加性：六边形也一样，从围住它的长方形减去4个角落的直角三角形就能求出。",
+  "zh-Hant": "面積的可加性：六邊形也一樣，從圍住它的長方形減去4個角落的直角三角形就能求出。"
+ },
+ "方眼の1目もりは1cmです。六角形ABCDEFの面積は何cm²ですか。": {
+  "en": "On the grid, 1 square is 1 cm. What is the area of the hexagon ABCDEF in cm²?",
+  "zh-Hans": "方格的1小格是1cm。六边形ABCDEF的面积是多少cm²？",
+  "zh-Hant": "方格的1小格是1cm。六邊形ABCDEF的面積是多少cm²？"
+ },
+ "六角形を三角形や台形に分けようとする": {
+  "en": "You try to split the hexagon into triangles and trapezoids",
+  "zh-Hans": "想把六边形分成三角形和梯形",
+  "zh-Hant": "想把六邊形分成三角形和梯形"
+ },
+ "ななめの辺が4本あり、分けた形の高さが読めない": {
+  "en": "There are 4 slanted sides, so you can't read the heights of the pieces",
+  "zh-Hans": "有4条斜边，分出来的图形读不出高",
+  "zh-Hant": "有4條斜邊，分出來的圖形讀不出高"
+ },
+ "ここで約3分。計算が長くなる": {
+  "en": "About 3 minutes in. The calculation keeps getting longer",
+  "zh-Hans": "到这里约3分钟。计算越来越长",
+  "zh-Hant": "到這裡約3分鐘。計算越來越長"
+ },
+ "8×7の長方形で囲む": {
+  "en": "Enclose it in a 8×7 rectangle",
+  "zh-Hans": "用8×7的长方形围起来",
+  "zh-Hant": "用8×7的長方形圍起來"
+ },
+ "右下の三角形 2×3÷2": {
+  "en": "Lower-right triangle: 2×3÷2",
+  "zh-Hans": "右下的三角形 2×3÷2",
+  "zh-Hant": "右下的三角形 2×3÷2"
+ },
+ "左上の三角形 1×4÷2": {
+  "en": "Upper-left triangle: 1×4÷2",
+  "zh-Hans": "左上的三角形 1×4÷2",
+  "zh-Hant": "左上的三角形 1×4÷2"
+ },
+ "左下の三角形 2×3÷2": {
+  "en": "Lower-left triangle: 2×3÷2",
+  "zh-Hans": "左下的三角形 2×3÷2",
+  "zh-Hant": "左下的三角形 2×3÷2"
+ },
+ "すみが欠けた形は、欠ける前の長方形で囲んで、欠けた三角形を引く。": {
+  "en": "For a shape with its corners cut off, enclose it in the rectangle it was before, and subtract the missing triangles.",
+  "zh-Hans": "缺了角的图形，用缺角前的长方形围起来，再减去缺掉的三角形。",
+  "zh-Hant": "缺了角的圖形，用缺角前的長方形圍起來，再減去缺掉的三角形。"
+ },
+ "六角形の公式を使うには、方眼の線に乗った辺と高さが必要。ここではどちらも読めない。": {
+  "en": "To use the hexagon formula, you need a side and a height that lie on grid lines. Here you can't read either.",
+  "zh-Hans": "要用六边形的公式，需要在方格线上的边和高。这里两者都读不出来。",
+  "zh-Hant": "要用六邊形的公式，需要在方格線上的邊和高。這裡兩者都讀不出來。"
+ },
+ "面積の加法性：辺が8本あっても、囲んだ長方形から、すみの4つの直角三角形を引けば求まる。": {
+  "en": "Areas add up: even with 8 sides, you can find it by taking the 4 corner right triangles away from the enclosing rectangle.",
+  "zh-Hans": "面积的可加性：即使有8条边，从围住它的长方形减去角落的4个直角三角形就能求出。",
+  "zh-Hant": "面積的可加性：即使有8條邊，從圍住它的長方形減去角落的4個直角三角形就能求出。"
+ },
+ "方眼の1目もりは1cmです。八角形ABCDEFGHの面積は何cm²ですか。": {
+  "en": "On the grid, 1 square is 1 cm. What is the area of the octagon ABCDEFGH in cm²?",
+  "zh-Hans": "方格的1小格是1cm。八边形ABCDEFGH的面积是多少cm²？",
+  "zh-Hant": "方格的1小格是1cm。八邊形ABCDEFGH的面積是多少cm²？"
+ },
+ "八角形を中心から8つの三角形に分けようとする": {
+  "en": "You try to split the octagon into 8 triangles from the center",
+  "zh-Hans": "想从中心把八边形分成8个三角形",
+  "zh-Hant": "想從中心把八邊形分成8個三角形"
+ },
+ "三角形の底辺も高さも方眼から読めず、数が多すぎる": {
+  "en": "You can't read the triangles' bases or heights, and there are too many of them",
+  "zh-Hans": "三角形的底和高都无法从方格读出，而且数量太多",
+  "zh-Hant": "三角形的底和高都無法從方格讀出，而且數量太多"
+ },
+ "ここで約4分。とちゅうで計算をまちがえやすい": {
+  "en": "About 4 minutes in. It's easy to make a calculation mistake along the way",
+  "zh-Hans": "到这里约4分钟。中途很容易算错",
+  "zh-Hant": "到這裡約4分鐘。中途很容易算錯"
+ },
+ "10×9の長方形で囲む": {
+  "en": "Enclose it in a 10×9 rectangle",
+  "zh-Hans": "用10×9的长方形围起来",
+  "zh-Hant": "用10×9的長方形圍起來"
+ },
+ "右下の三角形 4×3÷2": {
+  "en": "Lower-right triangle: 4×3÷2",
+  "zh-Hans": "右下的三角形 4×3÷2",
+  "zh-Hant": "右下的三角形 4×3÷2"
+ },
+ "右上の三角形 1×1÷2": {
+  "en": "Upper-right triangle: 1×1÷2",
+  "zh-Hans": "右上的三角形 1×1÷2",
+  "zh-Hant": "右上的三角形 1×1÷2"
+ },
+ "左上の三角形 3×4÷2": {
+  "en": "Upper-left triangle: 3×4÷2",
+  "zh-Hans": "左上的三角形 3×4÷2",
+  "zh-Hant": "左上的三角形 3×4÷2"
+ },
+ "辺が多い図形でも、頂点が外わくに乗っていれば、囲んで、すみだけ引く。": {
+  "en": "Even a shape with many sides: if its vertices sit on the outer frame, enclose it and subtract just the corners.",
+  "zh-Hans": "即使边很多，只要顶点落在外框上，就围起来，只减去角落。",
+  "zh-Hant": "即使邊很多，只要頂點落在外框上，就圍起來，只減去角落。"
+ },
+ "八角形の公式を使うには、方眼の線に乗った辺と高さが必要。ここではどちらも読めない。": {
+  "en": "To use the octagon formula, you need a side and a height that lie on grid lines. Here you can't read either.",
+  "zh-Hans": "要用八边形的公式，需要在方格线上的边和高。这里两者都读不出来。",
+  "zh-Hant": "要用八邊形的公式，需要在方格線上的邊和高。這裡兩者都讀不出來。"
+ },
+ "面積の加法性：平行四辺形も、囲んだ長方形から、すみの4つの直角三角形を引けば求まる。": {
+  "en": "Areas add up: a parallelogram, too, can be found by taking the 4 corner right triangles away from the enclosing rectangle.",
+  "zh-Hans": "面积的可加性：平行四边形也一样，从围住它的长方形减去角落的4个直角三角形就能求出。",
+  "zh-Hant": "面積的可加性：平行四邊形也一樣，從圍住它的長方形減去角落的4個直角三角形就能求出。"
+ },
+ "方眼の1目もりは1cmです。平行四辺形ABCDの面積は何cm²ですか。": {
+  "en": "On the grid, 1 square is 1 cm. What is the area of the parallelogram ABCD in cm²?",
+  "zh-Hans": "方格的1小格是1cm。平行四边形ABCD的面积是多少cm²？",
+  "zh-Hant": "方格的1小格是1cm。平行四邊形ABCD的面積是多少cm²？"
+ },
+ "平行四辺形だから「底辺×高さ」を使おうとする": {
+  "en": "It's a parallelogram, so you try \"base × height\"",
+  "zh-Hans": "因为是平行四边形，想用“底×高”",
+  "zh-Hant": "因為是平行四邊形，想用「底×高」"
+ },
+ "どの辺も方眼の線に乗っていない。底辺も高さも読めない": {
+  "en": "No side lies on a grid line. You can't read the base or the height",
+  "zh-Hans": "没有一条边在方格线上。底和高都读不出",
+  "zh-Hant": "沒有一條邊在方格線上。底和高都讀不出"
+ },
+ "7×5の長方形で囲む": {
+  "en": "Enclose it in a 7×5 rectangle",
+  "zh-Hans": "用7×5的长方形围起来",
+  "zh-Hant": "用7×5的長方形圍起來"
+ },
+ "左下の三角形 5×1÷2": {
+  "en": "Lower-left triangle: 5×1÷2",
+  "zh-Hans": "左下的三角形 5×1÷2",
+  "zh-Hant": "左下的三角形 5×1÷2"
+ },
+ "右下の三角形 2×4÷2": {
+  "en": "Lower-right triangle: 2×4÷2",
+  "zh-Hans": "右下的三角形 2×4÷2",
+  "zh-Hant": "右下的三角形 2×4÷2"
+ },
+ "右上の三角形 5×1÷2": {
+  "en": "Upper-right triangle: 5×1÷2",
+  "zh-Hans": "右上的三角形 5×1÷2",
+  "zh-Hant": "右上的三角形 5×1÷2"
+ },
+ "左上の三角形 2×4÷2": {
+  "en": "Upper-left triangle: 2×4÷2",
+  "zh-Hans": "左上的三角形 2×4÷2",
+  "zh-Hant": "左上的三角形 2×4÷2"
+ },
+ "辺が方眼の線に乗らない平行四辺形は、底辺を探さずに囲む。": {
+  "en": "For a parallelogram whose sides don't lie on grid lines, don't hunt for a base — enclose it.",
+  "zh-Hans": "边不在方格线上的平行四边形，不找底边，直接围起来。",
+  "zh-Hant": "邊不在方格線上的平行四邊形，不找底邊，直接圍起來。"
+ },
+ "平行四辺形の公式を使うには、方眼の線に乗った辺と高さが必要。ここではどちらも読めない。": {
+  "en": "To use the parallelogram formula, you need a side and a height that lie on grid lines. Here you can't read either.",
+  "zh-Hans": "要用平行四边形的公式，需要在方格线上的边和高。这里两者都读不出来。",
+  "zh-Hant": "要用平行四邊形的公式，需要在方格線上的邊和高。這裡兩者都讀不出來。"
+ },
+ "面積の加法性は、どう分けても成り立つ。直角三角形にならないすき間が出たら、分け方を変えるほうが速い。": {
+  "en": "Areas add up however you split a shape. If you get a gap that isn't a right triangle, it's faster to change how you split.",
+  "zh-Hans": "面积的可加性无论怎么分都成立。如果出现不是直角三角形的空隙，换一种分法更快。",
+  "zh-Hant": "面積的可加性無論怎麼分都成立。如果出現不是直角三角形的空隙，換一種分法更快。"
+ },
+ "すき間は四角形DEFA。直角三角形ではない": {
+  "en": "The gap is quadrilateral DEFA — not a right triangle",
+  "zh-Hans": "空隙是四边形DEFA，不是直角三角形",
+  "zh-Hant": "空隙是四邊形DEFA，不是直角三角形"
+ },
+ "すき間を三角形AFDに分ける 6×3÷2": {
+  "en": "Split triangle AFD off the gap: 6×3÷2",
+  "zh-Hans": "从空隙中分出三角形AFD 6×3÷2",
+  "zh-Hant": "從空隙中分出三角形AFD 6×3÷2"
+ },
+ "残りの細い三角形FEDはななめ。もう一度囲む必要がある": {
+  "en": "The thin leftover triangle FED is slanted. You'd have to enclose it again",
+  "zh-Hans": "剩下的细长三角形FED是斜的，还得再围一次",
+  "zh-Hant": "剩下的細長三角形FED是斜的，還得再圍一次"
+ },
+ "囲む→分ける→また囲む。約3分": {
+  "en": "Enclose → split → enclose again. About 3 minutes",
+  "zh-Hans": "围起来→分割→再围起来。约3分钟",
+  "zh-Hant": "圍起來→分割→再圍起來。約3分鐘"
+ },
+ "縦の線 x=3 で切る。右側は3×6の長方形": {
+  "en": "Cut along the vertical line x=3. The right part is a 3×6 rectangle",
+  "zh-Hans": "沿竖线 x=3 切开。右边是3×6的长方形",
+  "zh-Hant": "沿鉛直線 x=3 切開。右邊是3×6的長方形"
+ },
+ "左下の三角形 3×2÷2": {
+  "en": "Lower-left triangle: 3×2÷2",
+  "zh-Hans": "左下的三角形 3×2÷2",
+  "zh-Hant": "左下的三角形 3×2÷2"
+ },
+ "縦の辺を底辺とする三角形 4×1÷2": {
+  "en": "Triangle with the vertical side as base: 4×1÷2",
+  "zh-Hans": "以竖直的边为底的三角形 4×1÷2",
+  "zh-Hant": "以鉛直的邊為底的三角形 4×1÷2"
+ },
+ "上の辺を底辺とする三角形 3×2÷2": {
+  "en": "Triangle with the top side as base: 3×2÷2",
+  "zh-Hans": "以上面的边为底的三角形 3×2÷2",
+  "zh-Hant": "以上面的邊為底的三角形 3×2÷2"
+ },
+ "囲むと、すき間が直角三角形にならない。もう一度囲むはめになる。": {
+  "en": "If you enclose it, the gap isn't a right triangle. You end up enclosing all over again.",
+  "zh-Hans": "围起来的话，空隙不是直角三角形，结果还得再围一次。",
+  "zh-Hant": "圍起來的話，空隙不是直角三角形，結果還得再圍一次。"
+ },
+ "そのとおり。x=3で切ると、どの部分も底辺が方眼の線に乗る。": {
+  "en": "That's right. Cut at x=3 and every piece has its base on a grid line.",
+  "zh-Hans": "没错。沿 x=3 切开后，每一部分的底边都在方格线上。",
+  "zh-Hant": "沒錯。沿 x=3 切開後，每一部分的底邊都在方格線上。"
+ },
+ "縦の線 x=2 で切る。右側は3×7の長方形": {
+  "en": "Cut along the vertical line x=2. The right part is a 3×7 rectangle",
+  "zh-Hans": "沿竖线 x=2 切开。右边是3×7的长方形",
+  "zh-Hant": "沿鉛直線 x=2 切開。右邊是3×7的長方形"
+ },
+ "左下の三角形 2×1÷2": {
+  "en": "Lower-left triangle: 2×1÷2",
+  "zh-Hans": "左下的三角形 2×1÷2",
+  "zh-Hant": "左下的三角形 2×1÷2"
+ },
+ "縦の辺を底辺とする三角形 6×1÷2": {
+  "en": "Triangle with the vertical side as base: 6×1÷2",
+  "zh-Hans": "以竖直的边为底的三角形 6×1÷2",
+  "zh-Hant": "以鉛直的邊為底的三角形 6×1÷2"
+ },
+ "上の辺を底辺とする三角形 2×1÷2": {
+  "en": "Triangle with the top side as base: 2×1÷2",
+  "zh-Hans": "以上面的边为底的三角形 2×1÷2",
+  "zh-Hant": "以上面的邊為底的三角形 2×1÷2"
+ },
+ "合計 26": {
+  "en": "Total 26",
+  "zh-Hans": "合计 26",
+  "zh-Hant": "合計 26"
+ },
+ "縦の線 x=3 で切る。右側は3×5の長方形": {
+  "en": "Cut along the vertical line x=3. The right part is a 3×5 rectangle",
+  "zh-Hans": "沿竖线 x=3 切开。右边是3×5的长方形",
+  "zh-Hant": "沿鉛直線 x=3 切開。右邊是3×5的長方形"
+ },
+ "縦の辺を底辺とする三角形 3×2÷2": {
+  "en": "Triangle with the vertical side as base: 3×2÷2",
+  "zh-Hans": "以竖直的边为底的三角形 3×2÷2",
+  "zh-Hant": "以鉛直的邊為底的三角形 3×2÷2"
+ },
+ "合計 24": {
+  "en": "Total 24",
+  "zh-Hans": "合计 24",
+  "zh-Hant": "合計 24"
+ },
+ "縦の線 x=5 で切る。右側は2×7の長方形": {
+  "en": "Cut along the vertical line x=5. The right part is a 2×7 rectangle",
+  "zh-Hans": "沿竖线 x=5 切开。右边是2×7的长方形",
+  "zh-Hant": "沿鉛直線 x=5 切開。右邊是2×7的長方形"
+ },
+ "左下の三角形 5×4÷2": {
+  "en": "Lower-left triangle: 5×4÷2",
+  "zh-Hans": "左下的三角形 5×4÷2",
+  "zh-Hant": "左下的三角形 5×4÷2"
+ },
+ "縦の辺を底辺とする三角形 3×3÷2": {
+  "en": "Triangle with the vertical side as base: 3×3÷2",
+  "zh-Hans": "以竖直的边为底的三角形 3×3÷2",
+  "zh-Hant": "以鉛直的邊為底的三角形 3×3÷2"
+ },
+ "上の辺を底辺とする三角形 5×1÷2": {
+  "en": "Triangle with the top side as base: 5×1÷2",
+  "zh-Hans": "以上面的边为底的三角形 5×1÷2",
+  "zh-Hant": "以上面的邊為底的三角形 5×1÷2"
+ },
+ "合計 31": {
+  "en": "Total 31",
+  "zh-Hans": "合计 31",
+  "zh-Hant": "合計 31"
+ },
+ "三角形の面積 = 底辺×高さ÷2。底辺と高さが方眼の線に乗っていれば、レンズはいらない。": {
+  "en": "Triangle area = base × height ÷2. If the base and height lie on grid lines, you don't need a lens.",
+  "zh-Hans": "三角形的面积 = 底×高÷2。底和高都在方格线上时，不需要透镜。",
+  "zh-Hant": "三角形的面積 = 底×高÷2。底和高都在方格線上時，不需要透鏡。"
+ },
+ "くせで7×5の長方形で囲む": {
+  "en": "Out of habit, you enclose it in a 7×5 rectangle",
+  "zh-Hans": "习惯性地用7×5的长方形围起来",
+  "zh-Hant": "習慣性地用7×5的長方形圍起來"
+ },
+ "右上の三角形 5×5÷2": {
+  "en": "Upper-right triangle: 5×5÷2",
+  "zh-Hans": "右上的三角形 5×5÷2",
+  "zh-Hant": "右上的三角形 5×5÷2"
+ },
+ "左上の三角形 2×5÷2": {
+  "en": "Upper-left triangle: 2×5÷2",
+  "zh-Hans": "左上的三角形 2×5÷2",
+  "zh-Hant": "左上的三角形 2×5÷2"
+ },
+ "35 − 17.5 = 17.5。合っているが遠回り": {
+  "en": "35 − 17.5 = 17.5. Correct, but the long way round",
+  "zh-Hans": "35 − 17.5 = 17.5。答案对，但绕了远路",
+  "zh-Hant": "35 − 17.5 = 17.5。答案對，但繞了遠路"
+ },
+ "底辺ABは横の線に乗っている：7": {
+  "en": "Base AB lies on a horizontal grid line: 7",
+  "zh-Hans": "底边AB在横线上：7",
+  "zh-Hant": "底邊AB在水平線上：7"
+ },
+ "高さは方眼で読める：5": {
+  "en": "The height can be read from the grid: 5",
+  "zh-Hans": "高可以从方格读出：5",
+  "zh-Hant": "高可以從方格讀出：5"
+ },
+ "底辺と高さが方眼の線に乗っていたら、レンズは使わずにそのまま計算。": {
+  "en": "If the base and height lie on grid lines, skip the lenses and just calculate.",
+  "zh-Hans": "底和高都在方格线上时，不用透镜，直接计算。",
+  "zh-Hant": "底和高都在方格線上時，不用透鏡，直接計算。"
+ },
+ "囲んでも答えは出るが、3回計算が必要。ここではいちばん遠回り。": {
+  "en": "Enclosing does give the answer, but it takes 3 calculations. Here it's the longest way round.",
+  "zh-Hans": "围起来也能求出答案，但要算3次。在这里是最绕远的方法。",
+  "zh-Hant": "圍起來也能求出答案，但要算3次。在這裡是最繞遠的方法。"
+ },
+ "そのとおり。底辺7、高さ5が方眼で読める。レンズはいらない。": {
+  "en": "That's right. You can read base 7 and height 5 from the grid. No lens needed.",
+  "zh-Hans": "没错。底7、高5可以从方格读出。不需要透镜。",
+  "zh-Hant": "沒錯。底7、高5可以從方格讀出。不需要透鏡。"
+ },
+ "底辺は横の線に乗っている：7": {
+  "en": "Base lies on a horizontal grid line: 7",
+  "zh-Hans": "底边在横线上：7",
+  "zh-Hant": "底邊在水平線上：7"
+ },
+ "高さは方眼で読める：8": {
+  "en": "The height can be read from the grid: 8",
+  "zh-Hans": "高可以从方格读出：8",
+  "zh-Hant": "高可以從方格讀出：8"
+ },
+ "高さは方眼で読める：6": {
+  "en": "The height can be read from the grid: 6",
+  "zh-Hans": "高可以从方格读出：6",
+  "zh-Hant": "高可以從方格讀出：6"
+ },
+ "高さは方眼で読める：7": {
+  "en": "The height can be read from the grid: 7",
+  "zh-Hans": "高可以从方格读出：7",
+  "zh-Hant": "高可以從方格讀出：7"
+ },
+ "座標平面上に3点A(−2, 0)、B(3, −2)、C(1, 3)があります。△ABCの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane are 3 points A(−2, 0), B(3, −2) and C(1, 3). Find the area of △ABC. 1 unit on the coordinate grid is 1 cm.",
+  "zh-Hans": "坐标平面上有3个点A(−2, 0)、B(3, −2)、C(1, 3)。求△ABC的面积。其中，坐标的1个单位长度为1cm。",
+  "zh-Hant": "坐標平面上有3個點A(−2, 0)、B(3, −2)、C(1, 3)。求△ABC的面積。其中，坐標的1單位長為1cm。"
+ },
+ "辺の長さを三平方の定理で出そうとする": {
+  "en": "You try to find the side lengths with the Pythagorean theorem",
+  "zh-Hans": "想用勾股定理求边长",
+  "zh-Hant": "想用畢氏定理求邊長"
+ },
+ "高さを出すには、頂点から辺への垂線の長さが必要になる": {
+  "en": "To get the height, you need the length of the perpendicular from a vertex to a side",
+  "zh-Hans": "要求高，就需要从顶点到边的垂线长度",
+  "zh-Hant": "要求高，就需要從頂點到邊的垂線長度"
+ },
+ "ここで約3分。計算が重い": {
+  "en": "About 3 minutes in. The calculation is heavy",
+  "zh-Hans": "到这里约3分钟。计算量很大",
+  "zh-Hant": "到這裡約3分鐘。計算量很大"
+ },
+ "5×5の長方形で囲む": {
+  "en": "Enclose it in a 5×5 rectangle",
+  "zh-Hans": "用5×5的长方形围起来",
+  "zh-Hant": "用5×5的長方形圍起來"
+ },
+ "すみの三角形 5×2÷2": {
+  "en": "Corner triangle: 5×2÷2",
+  "zh-Hans": "角落的三角形 5×2÷2",
+  "zh-Hant": "角落的三角形 5×2÷2"
+ },
+ "すみの三角形 3×3÷2": {
+  "en": "Corner triangle: 3×3÷2",
+  "zh-Hans": "角落的三角形 3×3÷2",
+  "zh-Hant": "角落的三角形 3×3÷2"
+ },
+ "頂点が座標で分かり、どの辺も軸に平行でないときは、軸に平行な長方形で囲んで引く。": {
+  "en": "When you know the vertices' coordinates and no side is parallel to an axis, enclose it in a rectangle parallel to the axes and subtract.",
+  "zh-Hans": "知道顶点坐标、而且没有一条边与坐标轴平行时，用与坐标轴平行的长方形围起来再减。",
+  "zh-Hant": "知道頂點坐標、而且沒有一條邊與坐標軸平行時，用與坐標軸平行的長方形圍起來再減。"
+ },
+ "そのとおり。外わくの長方形で囲んで、すみの直角三角形を引く。": {
+  "en": "That's right. Enclose it in an outer rectangle and subtract the corner right triangles.",
+  "zh-Hans": "没错。用外框长方形围起来，再减去角落的直角三角形。",
+  "zh-Hant": "沒錯。用外框長方形圍起來，再減去角落的直角三角形。"
+ },
+ "底辺も高さも座標の線に乗っていないので、そのままでは計算しにくい。": {
+  "en": "Neither the base nor the height lies on a grid line, so it's hard to calculate as is.",
+  "zh-Hans": "底和高都不在坐标格线上，很难直接计算。",
+  "zh-Hant": "底和高都不在坐標格線上，很難直接計算。"
+ },
+ "座標平面上に3点A(−5, 1)、B(2, −2)、C(−2, 2)があります。△ABCの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane are 3 points A(−5, 1), B(2, −2) and C(−2, 2). Find the area of △ABC. 1 unit on the coordinate grid is 1 cm.",
+  "zh-Hans": "坐标平面上有3个点A(−5, 1)、B(2, −2)、C(−2, 2)。求△ABC的面积。其中，坐标的1个单位长度为1cm。",
+  "zh-Hant": "坐標平面上有3個點A(−5, 1)、B(2, −2)、C(−2, 2)。求△ABC的面積。其中，坐標的1單位長為1cm。"
+ },
+ "座標平面上に3点A(0, −3)、B(6, −5)、C(3, 0)があります。△ABCの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane are 3 points A(0, −3), B(6, −5) and C(3, 0). Find the area of △ABC. 1 unit on the coordinate grid is 1 cm.",
+  "zh-Hans": "坐标平面上有3个点A(0, −3)、B(6, −5)、C(3, 0)。求△ABC的面积。其中，坐标的1个单位长度为1cm。",
+  "zh-Hant": "坐標平面上有3個點A(0, −3)、B(6, −5)、C(3, 0)。求△ABC的面積。其中，坐標的1單位長為1cm。"
+ },
+ "すみの三角形 3×5÷2": {
+  "en": "Corner triangle: 3×5÷2",
+  "zh-Hans": "角落的三角形 3×5÷2",
+  "zh-Hant": "角落的三角形 3×5÷2"
+ },
+ "座標平面上に3点A(−4, 3)、B(2, −1)、C(1, 7)があります。△ABCの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane are 3 points A(−4, 3), B(2, −1) and C(1, 7). Find the area of △ABC. 1 unit on the coordinate grid is 1 cm.",
+  "zh-Hans": "坐标平面上有3个点A(−4, 3)、B(2, −1)、C(1, 7)。求△ABC的面积。其中，坐标的1个单位长度为1cm。",
+  "zh-Hant": "坐標平面上有3個點A(−4, 3)、B(2, −1)、C(1, 7)。求△ABC的面積。其中，坐標的1單位長為1cm。"
+ },
+ "すみの三角形 6×4÷2": {
+  "en": "Corner triangle: 6×4÷2",
+  "zh-Hans": "角落的三角形 6×4÷2",
+  "zh-Hant": "角落的三角形 6×4÷2"
+ },
+ "すみの三角形 1×8÷2": {
+  "en": "Corner triangle: 1×8÷2",
+  "zh-Hans": "角落的三角形 1×8÷2",
+  "zh-Hant": "角落的三角形 1×8÷2"
+ },
+ "すみの三角形 5×4÷2": {
+  "en": "Corner triangle: 5×4÷2",
+  "zh-Hans": "角落的三角形 5×4÷2",
+  "zh-Hant": "角落的三角形 5×4÷2"
+ },
+ "座標平面上に3点A(−2, −1)、B(2, −4)、C(0, 4)があります。△ABCの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane are 3 points A(−2, −1), B(2, −4) and C(0, 4). Find the area of △ABC. 1 unit on the coordinate grid is 1 cm.",
+  "zh-Hans": "坐标平面上有3个点A(−2, −1)、B(2, −4)、C(0, 4)。求△ABC的面积。其中，坐标的1个单位长度为1cm。",
+  "zh-Hant": "坐標平面上有3個點A(−2, −1)、B(2, −4)、C(0, 4)。求△ABC的面積。其中，坐標的1單位長為1cm。"
+ },
+ "4×8の長方形で囲む": {
+  "en": "Enclose it in a 4×8 rectangle",
+  "zh-Hans": "用4×8的长方形围起来",
+  "zh-Hant": "用4×8的長方形圍起來"
+ },
+ "すみの三角形 2×8÷2": {
+  "en": "Corner triangle: 2×8÷2",
+  "zh-Hans": "角落的三角形 2×8÷2",
+  "zh-Hant": "角落的三角形 2×8÷2"
+ },
+ "座標平面上に4点A(−3, −1)、B(1, −3)、C(3, 1)、D(−1, 3)があります。四角形ABCDの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane are 4 points A(−3, −1), B(1, −3), C(3, 1) and D(−1, 3). Find the area of quadrilateral ABCD. 1 unit on the coordinate grid is 1 cm.",
+  "zh-Hans": "坐标平面上有4个点A(−3, −1)、B(1, −3)、C(3, 1)、D(−1, 3)。求四边形ABCD的面积。其中，坐标的1个单位长度为1cm。",
+  "zh-Hant": "坐標平面上有4個點A(−3, −1)、B(1, −3)、C(3, 1)、D(−1, 3)。求四邊形ABCD的面積。其中，坐標的1單位長為1cm。"
+ },
+ "座標平面上に4点A(−5, −4)、B(−1, −7)、C(2, −3)、D(−2, 0)があります。四角形ABCDの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane are 4 points A(−5, −4), B(−1, −7), C(2, −3) and D(−2, 0). Find the area of quadrilateral ABCD. 1 unit on the coordinate grid is 1 cm.",
+  "zh-Hans": "坐标平面上有4个点A(−5, −4)、B(−1, −7)、C(2, −3)、D(−2, 0)。求四边形ABCD的面积。其中，坐标的1个单位长度为1cm。",
+  "zh-Hant": "坐標平面上有4個點A(−5, −4)、B(−1, −7)、C(2, −3)、D(−2, 0)。求四邊形ABCD的面積。其中，坐標的1單位長為1cm。"
+ },
+ "座標平面上に4点A(−4, 0)、B(−3, −3)、C(0, −2)、D(−1, 1)があります。四角形ABCDの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane are 4 points A(−4, 0), B(−3, −3), C(0, −2) and D(−1, 1). Find the area of quadrilateral ABCD. 1 unit on the coordinate grid is 1 cm.",
+  "zh-Hans": "坐标平面上有4个点A(−4, 0)、B(−3, −3)、C(0, −2)、D(−1, 1)。求四边形ABCD的面积。其中，坐标的1个单位长度为1cm。",
+  "zh-Hant": "坐標平面上有4個點A(−4, 0)、B(−3, −3)、C(0, −2)、D(−1, 1)。求四邊形ABCD的面積。其中，坐標的1單位長為1cm。"
+ },
+ "4×4の長方形で囲む": {
+  "en": "Enclose it in a 4×4 rectangle",
+  "zh-Hans": "用4×4的长方形围起来",
+  "zh-Hant": "用4×4的長方形圍起來"
+ },
+ "座標平面上に4点A(0, −2)、B(4, −3)、C(5, 1)、D(1, 2)があります。四角形ABCDの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane are 4 points A(0, −2), B(4, −3), C(5, 1) and D(1, 2). Find the area of quadrilateral ABCD. 1 unit on the coordinate grid is 1 cm.",
+  "zh-Hans": "坐标平面上有4个点A(0, −2)、B(4, −3)、C(5, 1)、D(1, 2)。求四边形ABCD的面积。其中，坐标的1个单位长度为1cm。",
+  "zh-Hant": "坐標平面上有4個點A(0, −2)、B(4, −3)、C(5, 1)、D(1, 2)。求四邊形ABCD的面積。其中，坐標的1單位長為1cm。"
+ },
+ "すみの三角形 4×1÷2": {
+  "en": "Corner triangle: 4×1÷2",
+  "zh-Hans": "角落的三角形 4×1÷2",
+  "zh-Hant": "角落的三角形 4×1÷2"
+ },
+ "座標平面上に4点A(0, −1)、B(1, −3)、C(3, −2)、D(2, 0)があります。四角形ABCDの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane are 4 points A(0, −1), B(1, −3), C(3, −2) and D(2, 0). Find the area of quadrilateral ABCD. 1 unit on the coordinate grid is 1 cm.",
+  "zh-Hans": "坐标平面上有4个点A(0, −1)、B(1, −3)、C(3, −2)、D(2, 0)。求四边形ABCD的面积。其中，坐标的1个单位长度为1cm。",
+  "zh-Hant": "坐標平面上有4個點A(0, −1)、B(1, −3)、C(3, −2)、D(2, 0)。求四邊形ABCD的面積。其中，坐標的1單位長為1cm。"
+ },
+ "3×3の長方形で囲む": {
+  "en": "Enclose it in a 3×3 rectangle",
+  "zh-Hans": "用3×3的长方形围起来",
+  "zh-Hant": "用3×3的長方形圍起來"
+ },
+ "すみの三角形 1×2÷2": {
+  "en": "Corner triangle: 1×2÷2",
+  "zh-Hans": "角落的三角形 1×2÷2",
+  "zh-Hant": "角落的三角形 1×2÷2"
+ },
+ "四角形でも、外わくの長方形から4つのすみの直角三角形を引けばよい。": {
+  "en": "Even for a quadrilateral, just take the 4 corner right triangles away from the outer rectangle.",
+  "zh-Hans": "四边形也一样，从外框长方形减去4个角落的直角三角形即可。",
+  "zh-Hant": "四邊形也一樣，從外框長方形減去4個角落的直角三角形即可。"
+ },
+ "座標平面上に4点A(−3, 1)、B(1, −2)、C(4, 2)、D(−1, 4)があります。四角形ABCDの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane are 4 points A(−3, 1), B(1, −2), C(4, 2) and D(−1, 4). Find the area of quadrilateral ABCD. 1 unit on the coordinate grid is 1 cm.",
+  "zh-Hans": "坐标平面上有4个点A(−3, 1)、B(1, −2)、C(4, 2)、D(−1, 4)。求四边形ABCD的面积。其中，坐标的1个单位长度为1cm。",
+  "zh-Hant": "坐標平面上有4個點A(−3, 1)、B(1, −2)、C(4, 2)、D(−1, 4)。求四邊形ABCD的面積。其中，坐標的1單位長為1cm。"
+ },
+ "対角線で2つの三角形に分けて、それぞれの底辺と高さをさがす": {
+  "en": "Split it into 2 triangles along a diagonal and look for each one's base and height",
+  "zh-Hans": "沿对角线分成2个三角形，分别找底和高",
+  "zh-Hant": "沿對角線分成2個三角形，分別找底和高"
+ },
+ "どの辺も軸に平行でなく、高さが出せない": {
+  "en": "No side is parallel to an axis, so you can't get the height",
+  "zh-Hans": "没有一条边与坐标轴平行，求不出高",
+  "zh-Hant": "沒有一條邊與坐標軸平行，求不出高"
+ },
+ "すみの三角形 2×3÷2": {
+  "en": "Corner triangle: 2×3÷2",
+  "zh-Hans": "角落的三角形 2×3÷2",
+  "zh-Hant": "角落的三角形 2×3÷2"
+ },
+ "座標平面上に4点A(−1, 1)、B(4, 0)、C(7, 1)、D(2, 7)があります。四角形ABCDの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane are 4 points A(−1, 1), B(4, 0), C(7, 1) and D(2, 7). Find the area of quadrilateral ABCD. 1 unit on the coordinate grid is 1 cm.",
+  "zh-Hans": "坐标平面上有4个点A(−1, 1)、B(4, 0)、C(7, 1)、D(2, 7)。求四边形ABCD的面积。其中，坐标的1个单位长度为1cm。",
+  "zh-Hant": "坐標平面上有4個點A(−1, 1)、B(4, 0)、C(7, 1)、D(2, 7)。求四邊形ABCD的面積。其中，坐標的1單位長為1cm。"
+ },
+ "すみの三角形 5×1÷2": {
+  "en": "Corner triangle: 5×1÷2",
+  "zh-Hans": "角落的三角形 5×1÷2",
+  "zh-Hant": "角落的三角形 5×1÷2"
+ },
+ "すみの三角形 3×6÷2": {
+  "en": "Corner triangle: 3×6÷2",
+  "zh-Hans": "角落的三角形 3×6÷2",
+  "zh-Hant": "角落的三角形 3×6÷2"
+ },
+ "座標平面上に4点A(−9, 1)、B(−6, −2)、C(1, −1)、D(−1, 5)があります。四角形ABCDの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane are 4 points A(−9, 1), B(−6, −2), C(1, −1) and D(−1, 5). Find the area of quadrilateral ABCD. 1 unit on the coordinate grid is 1 cm.",
+  "zh-Hans": "坐标平面上有4个点A(−9, 1)、B(−6, −2)、C(1, −1)、D(−1, 5)。求四边形ABCD的面积。其中，坐标的1个单位长度为1cm。",
+  "zh-Hant": "坐標平面上有4個點A(−9, 1)、B(−6, −2)、C(1, −1)、D(−1, 5)。求四邊形ABCD的面積。其中，坐標的1單位長為1cm。"
+ },
+ "10×7の長方形で囲む": {
+  "en": "Enclose it in a 10×7 rectangle",
+  "zh-Hans": "用10×7的长方形围起来",
+  "zh-Hant": "用10×7的長方形圍起來"
+ },
+ "すみの三角形 7×1÷2": {
+  "en": "Corner triangle: 7×1÷2",
+  "zh-Hans": "角落的三角形 7×1÷2",
+  "zh-Hant": "角落的三角形 7×1÷2"
+ },
+ "すみの三角形 8×4÷2": {
+  "en": "Corner triangle: 8×4÷2",
+  "zh-Hans": "角落的三角形 8×4÷2",
+  "zh-Hant": "角落的三角形 8×4÷2"
+ },
+ "座標平面上に4点A(−2, 3)、B(5, −5)、C(8, 0)、D(7, 4)があります。四角形ABCDの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane are 4 points A(−2, 3), B(5, −5), C(8, 0) and D(7, 4). Find the area of quadrilateral ABCD. 1 unit on the coordinate grid is 1 cm.",
+  "zh-Hans": "坐标平面上有4个点A(−2, 3)、B(5, −5)、C(8, 0)、D(7, 4)。求四边形ABCD的面积。其中，坐标的1个单位长度为1cm。",
+  "zh-Hant": "坐標平面上有4個點A(−2, 3)、B(5, −5)、C(8, 0)、D(7, 4)。求四邊形ABCD的面積。其中，坐標的1單位長為1cm。"
+ },
+ "すみの三角形 7×8÷2": {
+  "en": "Corner triangle: 7×8÷2",
+  "zh-Hans": "角落的三角形 7×8÷2",
+  "zh-Hant": "角落的三角形 7×8÷2"
+ },
+ "すみの三角形 9×1÷2": {
+  "en": "Corner triangle: 9×1÷2",
+  "zh-Hans": "角落的三角形 9×1÷2",
+  "zh-Hant": "角落的三角形 9×1÷2"
+ },
+ "座標平面上に4点A(−5, 3)、B(−2, −4)、C(4, 0)、D(−4, 6)があります。四角形ABCDの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane are 4 points A(−5, 3), B(−2, −4), C(4, 0) and D(−4, 6). Find the area of quadrilateral ABCD. 1 unit on the coordinate grid is 1 cm.",
+  "zh-Hans": "坐标平面上有4个点A(−5, 3)、B(−2, −4)、C(4, 0)、D(−4, 6)。求四边形ABCD的面积。其中，坐标的1个单位长度为1cm。",
+  "zh-Hant": "坐標平面上有4個點A(−5, 3)、B(−2, −4)、C(4, 0)、D(−4, 6)。求四邊形ABCD的面積。其中，坐標的1單位長為1cm。"
+ },
+ "9×10の長方形で囲む": {
+  "en": "Enclose it in a 9×10 rectangle",
+  "zh-Hans": "用9×10的长方形围起来",
+  "zh-Hant": "用9×10的長方形圍起來"
+ },
+ "すみの三角形 8×6÷2": {
+  "en": "Corner triangle: 8×6÷2",
+  "zh-Hans": "角落的三角形 8×6÷2",
+  "zh-Hant": "角落的三角形 8×6÷2"
+ },
+ "座標平面上に4点A(−5, 1)、B(1, −4)、C(4, −1)、D(−1, 4)があります。四角形ABCDの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane are 4 points A(−5, 1), B(1, −4), C(4, −1) and D(−1, 4). Find the area of quadrilateral ABCD. 1 unit on the coordinate grid is 1 cm.",
+  "zh-Hans": "坐标平面上有4个点A(−5, 1)、B(1, −4)、C(4, −1)、D(−1, 4)。求四边形ABCD的面积。其中，坐标的1个单位长度为1cm。",
+  "zh-Hant": "坐標平面上有4個點A(−5, 1)、B(1, −4)、C(4, −1)、D(−1, 4)。求四邊形ABCD的面積。其中，坐標的1單位長為1cm。"
+ },
+ "9×8の長方形で囲む": {
+  "en": "Enclose it in a 9×8 rectangle",
+  "zh-Hans": "用9×8的长方形围起来",
+  "zh-Hant": "用9×8的長方形圍起來"
+ },
+ "すみの三角形 6×5÷2": {
+  "en": "Corner triangle: 6×5÷2",
+  "zh-Hans": "角落的三角形 6×5÷2",
+  "zh-Hant": "角落的三角形 6×5÷2"
+ },
+ "すみの三角形 5×5÷2": {
+  "en": "Corner triangle: 5×5÷2",
+  "zh-Hans": "角落的三角形 5×5÷2",
+  "zh-Hant": "角落的三角形 5×5÷2"
+ },
+ "座標平面上に4点A(−3, 7)、B(0, −1)、C(2, 6)、D(−2, 9)があります。四角形ABCDの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane are 4 points A(−3, 7), B(0, −1), C(2, 6) and D(−2, 9). Find the area of quadrilateral ABCD. 1 unit on the coordinate grid is 1 cm.",
+  "zh-Hans": "坐标平面上有4个点A(−3, 7)、B(0, −1)、C(2, 6)、D(−2, 9)。求四边形ABCD的面积。其中，坐标的1个单位长度为1cm。",
+  "zh-Hant": "坐標平面上有4個點A(−3, 7)、B(0, −1)、C(2, 6)、D(−2, 9)。求四邊形ABCD的面積。其中，坐標的1單位長為1cm。"
+ },
+ "5×10の長方形で囲む": {
+  "en": "Enclose it in a 5×10 rectangle",
+  "zh-Hans": "用5×10的长方形围起来",
+  "zh-Hant": "用5×10的長方形圍起來"
+ },
+ "すみの三角形 3×8÷2": {
+  "en": "Corner triangle: 3×8÷2",
+  "zh-Hans": "角落的三角形 3×8÷2",
+  "zh-Hant": "角落的三角形 3×8÷2"
+ },
+ "座標平面上に4点A(−7, 6)、B(−2, −3)、C(3, 3)、D(−4, 7)があります。四角形ABCDの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane are 4 points A(−7, 6), B(−2, −3), C(3, 3) and D(−4, 7). Find the area of quadrilateral ABCD. 1 unit on the coordinate grid is 1 cm.",
+  "zh-Hans": "坐标平面上有4个点A(−7, 6)、B(−2, −3)、C(3, 3)、D(−4, 7)。求四边形ABCD的面积。其中，坐标的1个单位长度为1cm。",
+  "zh-Hant": "坐標平面上有4個點A(−7, 6)、B(−2, −3)、C(3, 3)、D(−4, 7)。求四邊形ABCD的面積。其中，坐標的1單位長為1cm。"
+ },
+ "10×10の長方形で囲む": {
+  "en": "Enclose it in a 10×10 rectangle",
+  "zh-Hans": "用10×10的长方形围起来",
+  "zh-Hant": "用10×10的長方形圍起來"
+ },
+ "すみの三角形 5×9÷2": {
+  "en": "Corner triangle: 5×9÷2",
+  "zh-Hans": "角落的三角形 5×9÷2",
+  "zh-Hant": "角落的三角形 5×9÷2"
+ },
+ "すみの三角形 7×4÷2": {
+  "en": "Corner triangle: 7×4÷2",
+  "zh-Hans": "角落的三角形 7×4÷2",
+  "zh-Hant": "角落的三角形 7×4÷2"
+ },
+ "座標平面上に4点A(−2, 0)、B(1, −8)、C(4, −2)、D(−1, 1)があります。四角形ABCDの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane are 4 points A(−2, 0), B(1, −8), C(4, −2) and D(−1, 1). Find the area of quadrilateral ABCD. 1 unit on the coordinate grid is 1 cm.",
+  "zh-Hans": "坐标平面上有4个点A(−2, 0)、B(1, −8)、C(4, −2)、D(−1, 1)。求四边形ABCD的面积。其中，坐标的1个单位长度为1cm。",
+  "zh-Hant": "坐標平面上有4個點A(−2, 0)、B(1, −8)、C(4, −2)、D(−1, 1)。求四邊形ABCD的面積。其中，坐標的1單位長為1cm。"
+ },
+ "6×9の長方形で囲む": {
+  "en": "Enclose it in a 6×9 rectangle",
+  "zh-Hans": "用6×9的长方形围起来",
+  "zh-Hant": "用6×9的長方形圍起來"
+ },
+ "すみの三角形 5×3÷2": {
+  "en": "Corner triangle: 5×3÷2",
+  "zh-Hans": "角落的三角形 5×3÷2",
+  "zh-Hant": "角落的三角形 5×3÷2"
+ },
+ "座標平面上に4点A(−5, 0)、B(−1, −1)、C(0, 7)、D(−3, 9)があります。四角形ABCDの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane are 4 points A(−5, 0), B(−1, −1), C(0, 7) and D(−3, 9). Find the area of quadrilateral ABCD. 1 unit on the coordinate grid is 1 cm.",
+  "zh-Hans": "坐标平面上有4个点A(−5, 0)、B(−1, −1)、C(0, 7)、D(−3, 9)。求四边形ABCD的面积。其中，坐标的1个单位长度为1cm。",
+  "zh-Hant": "坐標平面上有4個點A(−5, 0)、B(−1, −1)、C(0, 7)、D(−3, 9)。求四邊形ABCD的面積。其中，坐標的1單位長為1cm。"
+ },
+ "すみの三角形 3×2÷2": {
+  "en": "Corner triangle: 3×2÷2",
+  "zh-Hans": "角落的三角形 3×2÷2",
+  "zh-Hant": "角落的三角形 3×2÷2"
+ },
+ "すみの三角形 2×9÷2": {
+  "en": "Corner triangle: 2×9÷2",
+  "zh-Hans": "角落的三角形 2×9÷2",
+  "zh-Hant": "角落的三角形 2×9÷2"
+ },
+ "座標平面上に4点A(−3, 1)、B(0, −4)、C(4, 2)、D(0, 6)があります。四角形ABCDの面積を求めなさい。ただし、座標の1目もりを1cmとします。": {
+  "en": "On the coordinate plane are 4 points A(−3, 1), B(0, −4), C(4, 2) and D(0, 6). Find the area of quadrilateral ABCD. 1 unit on the coordinate grid is 1 cm.",
+  "zh-Hans": "坐标平面上有4个点A(−3, 1)、B(0, −4)、C(4, 2)、D(0, 6)。求四边形ABCD的面积。其中，坐标的1个单位长度为1cm。",
+  "zh-Hant": "坐標平面上有4個點A(−3, 1)、B(0, −4)、C(4, 2)、D(0, 6)。求四邊形ABCD的面積。其中，坐標的1單位長為1cm。"
+ },
+ "外わくの長方形で囲む": {
+  "en": "Enclose it in an outer rectangle",
+  "zh-Hans": "用外框长方形围起来",
+  "zh-Hant": "用外框長方形圍起來"
+ },
+ "すみの直角三角形を4つ、1つずつ計算して引く": {
+  "en": "Work out the 4 corner right triangles 1 at a time and subtract them",
+  "zh-Hans": "角落的4个直角三角形每次算1个，再逐一减去",
+  "zh-Hant": "角落的4個直角三角形每次算1個，再逐一減去"
+ },
+ "ここで約2分。引く三角形が多く、ミスが出やすい": {
+  "en": "About 2 minutes in. So many triangles to subtract that mistakes creep in",
+  "zh-Hans": "到这里约2分钟。要减的三角形太多，容易出错",
+  "zh-Hant": "到這裡約2分鐘。要減的三角形太多，容易出錯"
+ },
+ "対角線BDはy軸の上にある。四角形をBDで△ABDと△CBDに分ける": {
+  "en": "Diagonal BD lies on the y-axis. Split the quadrilateral along BD into △ABD and △CBD",
+  "zh-Hans": "对角线BD在y轴上。沿BD把四边形分成△ABD和△CBD",
+  "zh-Hant": "對角線BD在y軸上。沿BD把四邊形分成△ABD和△CBD"
+ },
+ "共通の底辺 BD = 6−(−4) = 10": {
+  "en": "Shared base BD = 6−(−4) = 10",
+  "zh-Hans": "公共底边 BD = 6−(−4) = 10",
+  "zh-Hant": "共同底邊 BD = 6−(−4) = 10"
+ },
+ "高さはAからy軸まで 3、Cからy軸まで 4。高さの和は 3+4 = 7": {
+  "en": "Heights: A to the y-axis is 3, C to the y-axis is 4. Sum of heights 3+4 = 7",
+  "zh-Hans": "高：A到y轴是 3，C到y轴是 4。高的和是 3+4 = 7",
+  "zh-Hant": "高：A到y軸是 3，C到y軸是 4。高的和是 3+4 = 7"
+ },
+ "おしい。囲んでも答えは出るが、すみの三角形が4つになる。対角線がy軸の上にあるので、2つに分ける方が速い。": {
+  "en": "Close. Enclosing does give the answer, but you get 4 corner triangles. The diagonal lies on the y-axis, so splitting into 2 is faster.",
+  "zh-Hans": "差一点。围起来也能求出答案，但角落会有4个三角形。对角线在y轴上，所以分成2部分更快。",
+  "zh-Hant": "差一點。圍起來也能求出答案，但角落會有4個三角形。對角線在y軸上，所以分成2部分更快。"
+ }
+}

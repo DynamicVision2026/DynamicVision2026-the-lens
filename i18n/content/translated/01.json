@@ -1,0 +1,1502 @@
+{
+ "傾き2でも、対称点の求め方は同じ": {
+  "en": "Even with slope 2, you find the symmetric point the same way",
+  "zh-Hans": "斜率是2，求对称点的方法也一样",
+  "zh-Hant": "斜率是2，求對稱點的方法也一樣"
+ },
+ "折り返せば、三平方の定理だけ": {
+  "en": "Reflect it, and all you need is the Pythagorean theorem",
+  "zh-Hans": "翻折之后，只用勾股定理",
+  "zh-Hant": "翻折之後，只用畢氏定理"
+ },
+ "根号の和を、微分したくなる": {
+  "en": "Tempted to differentiate a sum of square roots",
+  "zh-Hans": "忍不住想对根式之和求导",
+  "zh-Hant": "忍不住想對根號的和微分"
+ },
+ "直線で折り返して、まっすぐ": {
+  "en": "Reflect over the line, then go straight",
+  "zh-Hans": "沿直线翻折，连成直线",
+  "zh-Hant": "沿直線翻折，連成直線"
+ },
+ "傾き2の直線でも、折り返す": {
+  "en": "Reflect over a line of slope 2, too",
+  "zh-Hans": "斜率为2的直线也能翻折",
+  "zh-Hant": "斜率為2的直線也能翻折"
+ },
+ "通る点が決まっていて、aを求めるときは、代入してaの方程式を解く。": {
+  "en": "When the point it passes through is given and you need to find a, substitute the point and solve the equation for a.",
+  "zh-Hans": "已知经过的点、要求a时，代入后解关于a的方程。",
+  "zh-Hant": "已知通過的點、要求a時，代入後解關於a的方程式。"
+ },
+ "aの値によらず通る点はどこ？": {
+  "en": "Which point does it pass through for every value of a?",
+  "zh-Hans": "无论a取何值都经过的点在哪里？",
+  "zh-Hant": "不論a為何值都通過的點在哪裡？"
+ },
+ "aを2つ入れても、確かめが要る…": {
+  "en": "Even after plugging in 2 values of a, you still have to check…",
+  "zh-Hans": "代入2个a的值，还得再验证…",
+  "zh-Hant": "代入2個a的值，還得再驗證…"
+ },
+ "止めるレンズ！ aを止めて、整理しよう": {
+  "en": "Freeze lens! Freeze a and rearrange",
+  "zh-Hans": "定住一方透镜！定住a，整理一下",
+  "zh-Hant": "定住一方透鏡！定住a，整理一下"
+ },
+ "aの係数のかっこと、残りに分けよう": {
+  "en": "Split it into a bracket for the coefficient of a, and the rest",
+  "zh-Hans": "分成a的系数括号和其余部分",
+  "zh-Hant": "分成a的係數括號和其餘部分"
+ },
+ "両方0になる点が、定点": {
+  "en": "The point where both are 0 is the fixed point",
+  "zh-Hans": "两者都为0的点，就是定点",
+  "zh-Hant": "兩者都為0的點，就是定點"
+ },
+ "放物線でも、aでまとめれば同じ": {
+  "en": "Same with parabolas: just group by a",
+  "zh-Hans": "抛物线也一样，按a整理就行",
+  "zh-Hant": "拋物線也一樣，按a整理就行"
+ },
+ "どんなaでも通る点が、すぐ出る": {
+  "en": "The point it passes through for any a pops right out",
+  "zh-Hans": "对任意a都经过的点，马上就求出来",
+  "zh-Hant": "對任意a都通過的點，馬上就求出來"
+ },
+ "でも、通る点が先に決まっていたら…": {
+  "en": "But if the point is given first…",
+  "zh-Hans": "但如果经过的点事先已经确定…",
+  "zh-Hant": "但如果通過的點事先已經確定…"
+ },
+ "aに数を入れて試したくなる": {
+  "en": "Tempted to try plugging numbers in for a",
+  "zh-Hans": "忍不住想给a代入数值试试",
+  "zh-Hant": "忍不住想給a代入數值試試"
+ },
+ "aでまとめて、両方を0に": {
+  "en": "Group by a, make both parts 0",
+  "zh-Hans": "按a整理，让两部分都为0",
+  "zh-Hant": "按a整理，讓兩部分都為0"
+ },
+ "放物線の集まりでも、同じ": {
+  "en": "Same for a family of parabolas",
+  "zh-Hans": "抛物线族也一样",
+  "zh-Hant": "拋物線族也一樣"
+ },
+ "点が決まっているなら、代入": {
+  "en": "If the point is given, substitute",
+  "zh-Hans": "点已确定，就代入",
+  "zh-Hant": "點已確定，就代入"
+ },
+ "開いたおうぎ形の中心角が180°以上なら、両はしを結ぶ直線はおうぎ形の外。最短は頂点を通る。": {
+  "en": "If the unfolded sector's central angle is 180° or more, the straight line joining its two ends lies outside the sector. The shortest path goes through the apex.",
+  "zh-Hans": "如果展开后扇形的圆心角在180°以上，连接两端的直线会落在扇形外。最短路径经过顶点。",
+  "zh-Hant": "如果展開後扇形的圓心角在180°以上，連接兩端的直線會落在扇形外。最短路徑經過頂點。"
+ },
+ "円すいを1周する糸。最短は？": {
+  "en": "A string going 1 full lap around a cone. What's the shortest?",
+  "zh-Hans": "绕圆锥1周的线，最短是多少？",
+  "zh-Hant": "繞圓錐1圈的線，最短是多少？"
+ },
+ "曲面のままでは測れない…。どうする？": {
+  "en": "You can't measure it on the curved surface… What now?",
+  "zh-Hans": "在曲面上没法量…怎么办？",
+  "zh-Hant": "在曲面上沒辦法量…怎麼辦？"
+ },
+ "展開レンズ！ 側面を開いてみよう": {
+  "en": "Unfold lens! Open up the side surface",
+  "zh-Hans": "展开透镜！把侧面展开看看",
+  "zh-Hant": "展開透鏡！把側面展開看看"
+ },
+ "中心角は 360°×半径÷母線": {
+  "en": "Central angle = 360° × radius ÷ slant height",
+  "zh-Hans": "圆心角 = 360°×半径÷母线",
+  "zh-Hant": "圓心角 = 360°×半徑÷母線"
+ },
+ "開いた図の弦が、最短の糸": {
+  "en": "The chord in the unfolded figure is the shortest string",
+  "zh-Hans": "展开图中的弦，就是最短的线",
+  "zh-Hant": "展開圖中的弦，就是最短的線"
+ },
+ "こんどは母線の途中まで。結んでみよう": {
+  "en": "Now to a point partway along the slant edge. Connect them",
+  "zh-Hans": "这次连到母线中途的一点。连连看",
+  "zh-Hant": "這次連到母線中途的一點。連連看"
+ },
+ "余弦定理で、長さが出る": {
+  "en": "The law of cosines gives the length",
+  "zh-Hans": "用余弦定理求出长度",
+  "zh-Hant": "用餘弦定理求出長度"
+ },
+ "でも、開いた角が180°をこえたら…": {
+  "en": "But if the unfolded angle goes over 180°…",
+  "zh-Hans": "但如果展开的角超过180°…",
+  "zh-Hant": "但如果展開的角超過180°…"
+ },
+ "曲面のまま長さを出したくなる": {
+  "en": "Tempted to find the length on the curved surface",
+  "zh-Hans": "忍不住想直接在曲面上求长度",
+  "zh-Hant": "忍不住想直接在曲面上求長度"
+ },
+ "側面を開いて、おうぎ形に": {
+  "en": "Open the side into a sector",
+  "zh-Hans": "把侧面展开成扇形",
+  "zh-Hant": "把側面展開成扇形"
+ },
+ "母線上の点まで、余弦定理": {
+  "en": "To a point on the slant edge: law of cosines",
+  "zh-Hans": "连到母线上的点：余弦定理",
+  "zh-Hant": "連到母線上的點：餘弦定理"
+ },
+ "180°以上なら、頂点を通る": {
+  "en": "180° or more: go through the apex",
+  "zh-Hans": "180°以上，就经过顶点",
+  "zh-Hant": "180°以上，就經過頂點"
+ },
+ "さいころが3個なら、6×6の表にはならない。1個の目を決めて、残り2個で場合分けする。": {
+  "en": "With 3 dice, it's no longer a 6×6 table. Fix the number on 1 die, then split into cases for the other 2.",
+  "zh-Hans": "如果是3个骰子，就不能用6×6的表。先确定1个骰子的点数，再对剩下2个分情况讨论。",
+  "zh-Hant": "如果是3顆骰子，就不能用6×6的表。先確定1顆骰子的點數，再對剩下2顆分情況討論。"
+ },
+ "さいころ2個。差が3以上の確率は？": {
+  "en": "2 dice. What's the probability the difference is 3 or more?",
+  "zh-Hans": "2个骰子。点数差在3以上的概率是多少？",
+  "zh-Hant": "2顆骰子。點數差在3以上的機率是多少？"
+ },
+ "全部書くと、もれが出る…。どうする？": {
+  "en": "If you list them all, you miss some… What now?",
+  "zh-Hans": "全部写出来，容易漏掉…怎么办？",
+  "zh-Hant": "全部寫出來，容易漏掉…怎麼辦？"
+ },
+ "面積図レンズ！ 6×6の表で見よう": {
+  "en": "Area Diagram lens! Look at it as a 6×6 table",
+  "zh-Hans": "面积图透镜！用6×6的表来看",
+  "zh-Hant": "面積圖透鏡！用6×6的表來看"
+ },
+ "対角線から3本はなれたマスをぬろう": {
+  "en": "Shade the squares 3 or more lines away from the diagonal",
+  "zh-Hans": "把离对角线3条及以上的格子涂上颜色",
+  "zh-Hant": "把離對角線3條以上的格子塗上顏色"
+ },
+ "2つの三角形の面積を数えるだけ": {
+  "en": "Just count the area of 2 triangles",
+  "zh-Hans": "只要数2个三角形的面积",
+  "zh-Hant": "只要數2個三角形的面積"
+ },
+ "こんどは積。行ごとに何マス？": {
+  "en": "Now the product. How many squares in each row?",
+  "zh-Hans": "这次是积。每行有几格？",
+  "zh-Hant": "這次是積。每列有幾格？"
+ },
+ "表なら、条件が形になって見える": {
+  "en": "In a table, the condition shows up as a shape",
+  "zh-Hans": "用表格，条件会变成看得见的形状",
+  "zh-Hant": "用表格，條件會變成看得見的形狀"
+ },
+ "でも、さいころが3個なら…": {
+  "en": "But with 3 dice…",
+  "zh-Hans": "但如果是3个骰子…",
+  "zh-Hant": "但如果是3顆骰子…"
+ },
+ "36通りを書き出したくなる": {
+  "en": "Tempted to write out all 36 outcomes",
+  "zh-Hans": "忍不住想把36种情况全写出来",
+  "zh-Hant": "忍不住想把36種情況全寫出來"
+ },
+ "表の三角形を、まとめて数える": {
+  "en": "Count the table's triangles all at once",
+  "zh-Hans": "把表中的三角形一次数完",
+  "zh-Hant": "把表中的三角形一次數完"
+ },
+ "積の条件は、行ごとに数える": {
+  "en": "For a product condition, count row by row",
+  "zh-Hans": "积的条件，逐行来数",
+  "zh-Hant": "積的條件，逐列來數"
+ },
+ "3個なら、表にならない": {
+  "en": "With 3 dice, no table",
+  "zh-Hans": "3个骰子，就没法列表",
+  "zh-Hant": "3顆骰子，就沒辦法列表"
+ },
+ "範囲にまん中が入っていないときは、まん中では最大にならない。まん中に一番近いはしを調べる。": {
+  "en": "If the middle isn't inside the range, the maximum doesn't happen at the middle. Check the endpoint closest to the middle.",
+  "zh-Hans": "如果范围不包含中间值，最大值就不在中间取到。检查最靠近中间的端点。",
+  "zh-Hant": "如果範圍不包含中間值，最大值就不會在中間取到。檢查最靠近中間的端點。"
+ },
+ "x＋y＝8 で、x²＋y²の最小は？": {
+  "en": "If x＋y＝8, what's the minimum of x²＋y²?",
+  "zh-Hans": "x＋y＝8 时，x²＋y² 的最小值是多少？",
+  "zh-Hant": "x＋y＝8 時，x²＋y² 的最小值是多少？"
+ },
+ "代入すると式が長い…。どうする？": {
+  "en": "Substituting makes the expression long… What now?",
+  "zh-Hans": "一代入，式子就很长…怎么办？",
+  "zh-Hant": "一代入，式子就很長…怎麼辦？"
+ },
+ "和差一定レンズ！ 和が一定、まん中を見よう": {
+  "en": "Constant Sum/Difference lens! The sum is fixed, so look at the middle",
+  "zh-Hans": "和差不变透镜！和不变，看中间值",
+  "zh-Hant": "和差不變透鏡！和不變，看中間值"
+ },
+ "x＝4＋t、y＝4−t と動かしてみよう": {
+  "en": "Let x＝4＋t, y＝4−t and move t",
+  "zh-Hans": "设 x＝4＋t、y＝4−t，让它们动起来",
+  "zh-Hant": "設 x＝4＋t、y＝4−t，讓它們動起來"
+ },
+ "t＝0 のまん中で、最小": {
+  "en": "Minimum at the middle, t＝0",
+  "zh-Hans": "在中间 t＝0 时最小",
+  "zh-Hant": "在中間 t＝0 時最小"
+ },
+ "2xとyを、和が一定の2つと見よう": {
+  "en": "See 2x and y as 2 numbers with a fixed sum",
+  "zh-Hans": "把2x和y看成和不变的2个数",
+  "zh-Hant": "把2x和y看成和不變的2個數"
+ },
+ "まん中で、積が最大": {
+  "en": "At the middle, the product is largest",
+  "zh-Hans": "在中间，积最大",
+  "zh-Hant": "在中間，積最大"
+ },
+ "でも、まん中が使えない範囲なら…": {
+  "en": "But if the range doesn't include the middle…",
+  "zh-Hans": "但如果范围里取不到中间值…",
+  "zh-Hant": "但如果範圍裡取不到中間值…"
+ },
+ "代入して平方完成したくなる": {
+  "en": "Tempted to substitute and complete the square",
+  "zh-Hans": "忍不住想代入后配方",
+  "zh-Hant": "忍不住想代入後配方"
+ },
+ "まん中からのずれtで見る": {
+  "en": "Look at t, the shift from the middle",
+  "zh-Hans": "用偏离中间的量t来看",
+  "zh-Hant": "用偏離中間的量t來看"
+ },
+ "2xとyの和でも、まん中": {
+  "en": "Sum of 2x and y: still the middle",
+  "zh-Hans": "2x与y的和，也看中间",
+  "zh-Hant": "2x與y的和，也看中間"
+ },
+ "まん中が範囲の外なら、はし": {
+  "en": "Middle outside the range? Use an endpoint",
+  "zh-Hans": "中间值在范围外，就看端点",
+  "zh-Hant": "中間值在範圍外，就看端點"
+ },
+ "大学入試数学 視点レンズ": {
+  "en": "The Lens: University Entrance Exam Math",
+  "zh-Hans": "高考数学 视角透镜",
+  "zh-Hant": "大學入學考試數學 視角透鏡"
+ },
+ "大学入試の数学で差がつくのは、式を立てる前の「何を固定し、どこから見るか」の判断です。\nこの本は、内分の比をてんびんで見る、文字を1つ止めて考えるといった視点（レンズ）を、座標や公式に頼る遠回りと並べて練習するための問題集です。": {
+  "en": "In university entrance exam math, what sets students apart is the decision made before writing any equation: “what to hold fixed, and where to look from.”\nThis book is a problem set for practicing perspectives (lenses), such as seeing an internal division ratio as a balance or freezing 1 variable, side by side with the long way round that relies on coordinates and formulas.",
+  "zh-Hans": "高考数学中拉开差距的，是列式之前“固定什么、从哪里看”的判断。\n本书是一本习题集，把用天平看内分比、定住1个字母来思考等视角（透镜），与依赖坐标和公式的绕远路做法并排练习。",
+  "zh-Hant": "大學入學考試的數學中拉開差距的，是列式之前「固定什麼、從哪裡看」的判斷。\n本書是一本習題集，把用天平看內分比、定住1個變數來思考等視角（透鏡），與依賴坐標和公式的繞遠路做法並排練習。"
+ },
+ "「レンズが使えないとき」で、そのレンズより直接計算が速い問題を知る": {
+  "en": "Use “When the lens doesn't work” to learn which problems are faster by direct calculation than with that lens",
+  "zh-Hans": "通过“透镜用不上的时候”，了解哪些题直接计算比用该透镜更快",
+  "zh-Hant": "透過「透鏡用不上的時候」，了解哪些題目直接計算比用該透鏡更快"
+ },
+ "各章のQRコードから、同じ考え方を動かして確かめられます（Webアプリ「視点レンズ」）。": {
+  "en": "Scan each chapter's QR code to see the same idea in motion and check it yourself (web app “The Lens”).",
+  "zh-Hans": "扫描各章的二维码，可以让同样的思路动起来，亲手确认（网页应用“视角透镜”）。",
+  "zh-Hant": "掃描各章的QR碼，可以讓同樣的思路動起來，親手確認（網頁應用程式「視角透鏡」）。"
+ },
+ "1日1章の半分（20〜30分）が目安です。週5日なら、約4週間で一周できます。": {
+  "en": "A good pace is half a chapter a day (20–30 min). At 5 days a week, you can get through the whole book in about 4 weeks.",
+  "zh-Hans": "每天1章的一半（20〜30分钟）为宜。每周5天的话，约4周可以完成一轮。",
+  "zh-Hant": "每天1章的一半（20〜30分鐘）為宜。每週5天的話，約4週可以完成一輪。"
+ },
+ "内分点は、両はしのおもりがつり合う支点。おもりは比の逆。辺ごとのてんびんをつなげば、交点での比が出る。": {
+  "en": "An internal division point is the pivot where the weights at both ends balance. The weights are in the inverse ratio. Link up the balance on each side, and you get the ratios at the intersection.",
+  "zh-Hans": "内分点就是两端重物平衡的支点。重物之比是线段比的反比。把每条边上的天平连起来，就能求出交点处的比。",
+  "zh-Hant": "內分點就是兩端重物平衡的支點。重物之比是線段比的反比。把每條邊上的天平連起來，就能求出交點處的比。"
+ },
+ "放物線と直線（放物線）で囲まれた部分は、交点のx座標α、βだけで面積が決まる：|a|(β−α)³/6。": {
+  "en": "The area enclosed by a parabola and a line (or another parabola) is set by the intersection x-coordinates α and β alone: |a|(β−α)³/6.",
+  "zh-Hans": "抛物线与直线（抛物线）所围部分的面积，只由交点的横坐标α、β决定：|a|(β−α)³/6。",
+  "zh-Hant": "拋物線與直線（拋物線）所圍部分的面積，只由交點的x坐標α、β決定：|a|(β−α)³/6。"
+ },
+ "底辺ABが決まっているときは、ABに平行な直線を動かす。放物線にふれる点（接点）で高さが最大、平行線上なら面積は同じ。": {
+  "en": "When base AB is fixed, slide a line parallel to AB. The height is greatest where it touches the parabola (the point of tangency), and any point on the same parallel line gives the same area.",
+  "zh-Hans": "底边AB确定时，移动与AB平行的直线。与抛物线相切的点（切点）处高最大；在同一条平行线上，面积相同。",
+  "zh-Hant": "底邊AB確定時，移動與AB平行的直線。與拋物線相切的點（切點）處高最大；在同一條平行線上，面積相同。"
+ },
+ "直線上の点を通る2点間の最短は、一方の点を直線で折り返し、まっすぐ結ぶ。": {
+  "en": "For the shortest path between 2 points that passes through a point on a line, reflect one point over the line and join them with a straight line.",
+  "zh-Hans": "经过直线上一点、连接2点的最短路径：把其中一点关于直线翻折，再连成直线。",
+  "zh-Hant": "經過直線上一點、連接2點的最短路徑：把其中一點以直線為對稱軸翻折，再連成直線。"
+ },
+ "「aの値にかかわらず」は、aを止めて考える合図。aについて整理し、aの係数と残りがともに0になる点を求める。": {
+  "en": "“Regardless of the value of a” is your cue to freeze a. Rearrange in terms of a, and find the point where the coefficient of a and the rest are both 0.",
+  "zh-Hans": "“无论a取何值”是定住a来思考的信号。按a整理，求出a的系数与其余部分同时为0的点。",
+  "zh-Hant": "「不論a為何值」是定住a來思考的訊號。按a整理，求出a的係數與其餘部分同時為0的點。"
+ },
+ "円すいの側面は、開くとおうぎ形。中心角は 360°×半径/母線。開いた図で、まっすぐ結んだ線が最短。": {
+  "en": "A cone's side surface unfolds into a sector. Central angle = 360° × radius/slant height. In the unfolded figure, the straight line between the points is the shortest.",
+  "zh-Hans": "圆锥的侧面展开后是扇形。圆心角 = 360°×半径/母线。在展开图中，直接连起来的线段最短。",
+  "zh-Hant": "圓錐的側面展開後是扇形。圓心角 = 360°×半徑/母線。在展開圖中，直接連起來的線段最短。"
+ },
+ "2個のさいころは6×6の表（36マス）。条件をみたすマスの「面積」を、ななめの列や余事象でまとめて数える。": {
+  "en": "2 dice make a 6×6 table (36 squares). Count the “area” of the squares that meet the condition in one go, using diagonal rows or the complement.",
+  "zh-Hans": "2个骰子就是6×6的表（36格）。把满足条件的格子的“面积”，借助斜列或对立事件一次性数出来。",
+  "zh-Hant": "2顆骰子就是6×6的表（36格）。把滿足條件的格子的「面積」，借助斜列或餘事件一次數出來。"
+ },
+ "和が一定なら、まん中からのずれをtとおく。積は（まん中）²−t²、2乗の和は 2×（まん中）²＋2t²。t＝0 が最大・最小。": {
+  "en": "If the sum is fixed, let t be the shift from the middle. The product is (middle)²−t², and the sum of squares is 2×(middle)²＋2t². t＝0 gives the maximum or minimum.",
+  "zh-Hans": "和不变时，设偏离中间的量为t。积为（中间）²−t²，平方和为 2×（中间）²＋2t²。t＝0 时取最大・最小。",
+  "zh-Hant": "和不變時，設偏離中間的量為t。積為（中間）²−t²，平方和為 2×（中間）²＋2t²。t＝0 時取最大・最小。"
+ },
+ "視点レンズ visual tokens v1.0. One file read by the web trainer (CSS variables), the Shorts renderer (SVG) and the Typst book. Rule: every distinction must survive black-and-white print, so trap vs lens is carried by line weight, dash and tint first, and by hue only as a bonus.": {
+  "en": "The Lens visual tokens v1.0. One file read by the web trainer (CSS variables), the Shorts renderer (SVG) and the Typst book. Rule: every distinction must survive black-and-white print, so trap vs lens is carried by line weight, dash and tint first, and by hue only as a bonus.",
+  "zh-Hans": "视角透镜 视觉令牌 v1.0。网页训练器（CSS 变量）、Shorts 渲染器（SVG）和 Typst 书籍共同读取的同一个文件。规则：每一种区分都必须在黑白印刷中保留下来，因此陷阱与透镜的区别首先靠线宽、虚线和浓淡来体现，色相只是额外加分。",
+  "zh-Hant": "視角透鏡 視覺 token v1.0。網頁訓練器（CSS 變數）、Shorts 渲染器（SVG）與 Typst 書籍共同讀取的單一檔案。規則：每一種區分都必須在黑白列印中保留下來，因此陷阱與透鏡的區別首先靠線寬、虛線與濃淡呈現，色相只是額外加分。"
+ },
+ "+{min}分{sec}秒": {
+  "en": "+{min} min {sec} s",
+  "zh-Hans": "+{min}分{sec}秒",
+  "zh-Hant": "+{min}分{sec}秒"
+ },
+ "{sec}秒": {
+  "en": "{sec} s",
+  "zh-Hans": "{sec}秒",
+  "zh-Hant": "{sec}秒"
+ },
+ "{min}分{sec}秒の節約": {
+  "en": "{min} min {sec} s saved",
+  "zh-Hans": "节省{min}分{sec}秒",
+  "zh-Hant": "節省{min}分{sec}秒"
+ },
+ "目安": {
+  "en": "Estimate",
+  "zh-Hans": "估计",
+  "zh-Hant": "估計"
+ },
+ "実測": {
+  "en": "Measured",
+  "zh-Hans": "实测",
+  "zh-Hant": "實測"
+ },
+ "わなとレンズ": {
+  "en": "The trap and the lens",
+  "zh-Hans": "陷阱与透镜",
+  "zh-Hant": "陷阱與透鏡"
+ },
+ "例題1": {
+  "en": "Example 1",
+  "zh-Hans": "例题1",
+  "zh-Hant": "例題1"
+ },
+ "例題2": {
+  "en": "Example 2",
+  "zh-Hans": "例题2",
+  "zh-Hant": "例題2"
+ },
+ "使えないとき": {
+  "en": "When it doesn't work",
+  "zh-Hans": "用不上的时候",
+  "zh-Hant": "用不上的時候"
+ },
+ "練習のしかた": {
+  "en": "How to practice",
+  "zh-Hans": "练习方法",
+  "zh-Hant": "練習方法"
+ },
+ "50円玉と10円玉が合わせて20枚あり、合計金額は640円です。50円玉は何枚ありますか。": {
+  "en": "There are 20 coins in all, 50-yen coins and 10-yen coins, totaling 640 yen. How many 50-yen coins are there?",
+  "zh-Hans": "50日元硬币和10日元硬币共有20枚，总金额是640日元。50日元硬币有几枚？",
+  "zh-Hant": "50日圓硬幣和10日圓硬幣共有20枚，總金額是640日圓。50日圓硬幣有幾枚？"
+ },
+ "枚": {
+  "en": " coins",
+  "zh-Hans": "枚",
+  "zh-Hant": "枚"
+ },
+ "50円玉": {
+  "en": "50-yen coin",
+  "zh-Hans": "50日元硬币",
+  "zh-Hant": "50日圓硬幣"
+ },
+ "10円玉": {
+  "en": "10-yen coin",
+  "zh-Hans": "10日元硬币",
+  "zh-Hant": "10日圓硬幣"
+ },
+ "金額": {
+  "en": "Amount",
+  "zh-Hans": "金额",
+  "zh-Hant": "金額"
+ },
+ "円": {
+  "en": " yen",
+  "zh-Hans": "日元",
+  "zh-Hant": "日圓"
+ },
+ "11枚": {
+  "en": "11 coins",
+  "zh-Hans": "11枚",
+  "zh-Hant": "11枚"
+ },
+ "一方の硬貨が1枚、2枚、3枚…のときの合計を表にして、1つずつ調べる": {
+  "en": "Make a table of the total when one kind of coin is 1, 2, 3… and check each row one at a time",
+  "zh-Hans": "列表计算其中一种硬币为1枚、2枚、3枚…时的总额，逐一检查",
+  "zh-Hant": "列表計算其中一種硬幣為1枚、2枚、3枚…時的總額，逐一檢查"
+ },
+ "20通りまであり、計算が多くてまちがえやすい": {
+  "en": "There are up to 20 cases, so there's a lot of calculating and it's easy to slip up",
+  "zh-Hans": "最多有20种情况，计算量大，容易出错",
+  "zh-Hant": "最多有20種情況，計算量大，容易出錯"
+ },
+ "ここで約3分。表の途中で手が止まる": {
+  "en": "About 3 minutes gone here. You get stuck partway through the table",
+  "zh-Hans": "到这里约3分钟。表做到一半就卡住了",
+  "zh-Hant": "到這裡約3分鐘。表做到一半就卡住了"
+ },
+ "たて＝1枚あたりの金額、横＝枚数の長方形2つで表す（面積＝金額）": {
+  "en": "Draw 2 rectangles with height ＝ value of 1 coin and width ＝ number of coins (area ＝ amount)",
+  "zh-Hans": "画2个长方形：高＝每1枚的金额，宽＝枚数（面积＝金额）",
+  "zh-Hant": "畫2個長方形：高＝每1枚的金額，寬＝枚數（面積＝金額）"
+ },
+ "全部10円玉だとすると 10×20 = 200": {
+  "en": "If they were all 10-yen coins: 10×20 = 200",
+  "zh-Hans": "假设全是10日元硬币：10×20 = 200",
+  "zh-Hant": "假設全是10日圓硬幣：10×20 = 200"
+ },
+ "本当の金額との差 640−200 = 440 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real amount, 640−200 = 440, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际金额的差 640−200 = 440，就是上方多出来的长方形的面积",
+  "zh-Hant": "與實際金額的差 640−200 = 440，就是上方多出來的長方形的面積"
+ },
+ "その長方形のたては 50−10 = 40": {
+  "en": "That rectangle's height is 50−10 = 40",
+  "zh-Hans": "这个长方形的高是 50−10 = 40",
+  "zh-Hant": "這個長方形的高是 50−10 = 40"
+ },
+ "50円玉の数 = 440÷40 = 11": {
+  "en": "Number of 50-yen coins = 440÷40 = 11",
+  "zh-Hans": "50日元硬币的枚数 = 440÷40 = 11",
+  "zh-Hant": "50日圓硬幣的枚數 = 440÷40 = 11"
+ },
+ "2種類がまざっていて、全部の数と合計だけ分かるときは、長方形2つの面積図にする。": {
+  "en": "When 2 kinds are mixed and you only know the total count and the total amount, draw an area diagram with 2 rectangles.",
+  "zh-Hans": "2种东西混在一起，只知道总数和总额时，就画由2个长方形组成的面积图。",
+  "zh-Hant": "2種東西混在一起，只知道總數和總額時，就畫由2個長方形組成的面積圖。"
+ },
+ "そのとおり。1枚あたりの金額×枚数を長方形で表すと、ちがいの部分だけで答えが出る。": {
+  "en": "That's right. Show value per coin × number of coins as rectangles, and the difference part alone gives you the answer.",
+  "zh-Hans": "没错。把每1枚的金额×枚数画成长方形，只看差出来的部分就能得出答案。",
+  "zh-Hant": "沒錯。把每1枚的金額×枚數畫成長方形，只看差出來的部分就能得到答案。"
+ },
+ "年れいのように、差が変わらないものを使う問題ではない。": {
+  "en": "This isn't a problem that uses something whose difference stays the same, like ages.",
+  "zh-Hans": "这不是利用年龄这类差不变的量的题目。",
+  "zh-Hant": "這不是利用年齡這類差不變的量的題目。"
+ },
+ "こさや平均を混ぜる問題ではない。": {
+  "en": "This isn't a problem about mixing concentrations or averages.",
+  "zh-Hans": "这不是混合浓度或平均数的题目。",
+  "zh-Hant": "這不是混合濃度或平均數的題目。"
+ },
+ "1つずつ調べると20通りもあり、時間がかかる。": {
+  "en": "Checking them one at a time means 20 cases, which takes a long time.",
+  "zh-Hans": "逐一检查的话有20种情况，很花时间。",
+  "zh-Hant": "逐一檢查的話有20種情況，很花時間。"
+ },
+ "100円玉と50円玉が合わせて19枚あり、合計金額は1700円です。100円玉は何枚ありますか。": {
+  "en": "There are 19 coins in all, 100-yen coins and 50-yen coins, totaling 1700 yen. How many 100-yen coins are there?",
+  "zh-Hans": "100日元硬币和50日元硬币共有19枚，总金额是1700日元。100日元硬币有几枚？",
+  "zh-Hant": "100日圓硬幣和50日圓硬幣共有19枚，總金額是1700日圓。100日圓硬幣有幾枚？"
+ },
+ "100円玉": {
+  "en": "100-yen coin",
+  "zh-Hans": "100日元硬币",
+  "zh-Hant": "100日圓硬幣"
+ },
+ "全部50円玉だとすると 50×19 = 950": {
+  "en": "If they were all 50-yen coins: 50×19 = 950",
+  "zh-Hans": "假设全是50日元硬币：50×19 = 950",
+  "zh-Hant": "假設全是50日圓硬幣：50×19 = 950"
+ },
+ "本当の金額との差 1700−950 = 750 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real amount, 1700−950 = 750, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际金额的差 1700−950 = 750，就是上方多出来的长方形的面积",
+  "zh-Hant": "與實際金額的差 1700−950 = 750，就是上方多出來的長方形的面積"
+ },
+ "その長方形のたては 100−50 = 50": {
+  "en": "That rectangle's height is 100−50 = 50",
+  "zh-Hans": "这个长方形的高是 100−50 = 50",
+  "zh-Hant": "這個長方形的高是 100−50 = 50"
+ },
+ "100円玉の数 = 750÷50 = 15": {
+  "en": "Number of 100-yen coins = 750÷50 = 15",
+  "zh-Hans": "100日元硬币的枚数 = 750÷50 = 15",
+  "zh-Hant": "100日圓硬幣的枚數 = 750÷50 = 15"
+ },
+ "100円玉と10円玉が合わせて18枚あり、合計金額は1710円です。100円玉は何枚ありますか。": {
+  "en": "There are 18 coins in all, 100-yen coins and 10-yen coins, totaling 1710 yen. How many 100-yen coins are there?",
+  "zh-Hans": "100日元硬币和10日元硬币共有18枚，总金额是1710日元。100日元硬币有几枚？",
+  "zh-Hant": "100日圓硬幣和10日圓硬幣共有18枚，總金額是1710日圓。100日圓硬幣有幾枚？"
+ },
+ "全部10円玉だとすると 10×18 = 180": {
+  "en": "If they were all 10-yen coins: 10×18 = 180",
+  "zh-Hans": "假设全是10日元硬币：10×18 = 180",
+  "zh-Hant": "假設全是10日圓硬幣：10×18 = 180"
+ },
+ "本当の金額との差 1710−180 = 1530 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real amount, 1710−180 = 1530, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际金额的差 1710−180 = 1530，就是上方多出来的长方形的面积",
+  "zh-Hant": "與實際金額的差 1710−180 = 1530，就是上方多出來的長方形的面積"
+ },
+ "その長方形のたては 100−10 = 90": {
+  "en": "That rectangle's height is 100−10 = 90",
+  "zh-Hans": "这个长方形的高是 100−10 = 90",
+  "zh-Hant": "這個長方形的高是 100−10 = 90"
+ },
+ "100円玉の数 = 1530÷90 = 17": {
+  "en": "Number of 100-yen coins = 1530÷90 = 17",
+  "zh-Hans": "100日元硬币的枚数 = 1530÷90 = 17",
+  "zh-Hant": "100日圓硬幣的枚數 = 1530÷90 = 17"
+ },
+ "10円玉と5円玉が合わせて28枚あり、合計金額は160円です。10円玉は何枚ありますか。": {
+  "en": "There are 28 coins in all, 10-yen coins and 5-yen coins, totaling 160 yen. How many 10-yen coins are there?",
+  "zh-Hans": "10日元硬币和5日元硬币共有28枚，总金额是160日元。10日元硬币有几枚？",
+  "zh-Hant": "10日圓硬幣和5日圓硬幣共有28枚，總金額是160日圓。10日圓硬幣有幾枚？"
+ },
+ "5円玉": {
+  "en": "5-yen coin",
+  "zh-Hans": "5日元硬币",
+  "zh-Hant": "5日圓硬幣"
+ },
+ "全部5円玉だとすると 5×28 = 140": {
+  "en": "If they were all 5-yen coins: 5×28 = 140",
+  "zh-Hans": "假设全是5日元硬币：5×28 = 140",
+  "zh-Hant": "假設全是5日圓硬幣：5×28 = 140"
+ },
+ "本当の金額との差 160−140 = 20 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real amount, 160−140 = 20, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际金额的差 160−140 = 20，就是上方多出来的长方形的面积",
+  "zh-Hant": "與實際金額的差 160−140 = 20，就是上方多出來的長方形的面積"
+ },
+ "その長方形のたては 10−5 = 5": {
+  "en": "That rectangle's height is 10−5 = 5",
+  "zh-Hans": "这个长方形的高是 10−5 = 5",
+  "zh-Hant": "這個長方形的高是 10−5 = 5"
+ },
+ "10円玉の数 = 20÷5 = 4": {
+  "en": "Number of 10-yen coins = 20÷5 = 4",
+  "zh-Hans": "10日元硬币的枚数 = 20÷5 = 4",
+  "zh-Hant": "10日圓硬幣的枚數 = 20÷5 = 4"
+ },
+ "50円玉と10円玉が合わせて29枚あり、合計金額は690円です。50円玉は何枚ありますか。": {
+  "en": "There are 29 coins in all, 50-yen coins and 10-yen coins, totaling 690 yen. How many 50-yen coins are there?",
+  "zh-Hans": "50日元硬币和10日元硬币共有29枚，总金额是690日元。50日元硬币有几枚？",
+  "zh-Hant": "50日圓硬幣和10日圓硬幣共有29枚，總金額是690日圓。50日圓硬幣有幾枚？"
+ },
+ "全部10円玉だとすると 10×29 = 290": {
+  "en": "If they were all 10-yen coins: 10×29 = 290",
+  "zh-Hans": "假设全是10日元硬币：10×29 = 290",
+  "zh-Hant": "假設全是10日圓硬幣：10×29 = 290"
+ },
+ "本当の金額との差 690−290 = 400 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real amount, 690−290 = 400, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际金额的差 690−290 = 400，就是上方多出来的长方形的面积",
+  "zh-Hant": "與實際金額的差 690−290 = 400，就是上方多出來的長方形的面積"
+ },
+ "50円玉の数 = 400÷40 = 10": {
+  "en": "Number of 50-yen coins = 400÷40 = 10",
+  "zh-Hans": "50日元硬币的枚数 = 400÷40 = 10",
+  "zh-Hant": "50日圓硬幣的枚數 = 400÷40 = 10"
+ },
+ "「1台あたりのタイヤ×台数＝タイヤの数」は長方形の面積と同じ形。全部を少ないほうと考えると、はみ出した部分だけが残る。": {
+  "en": "“Tires per vehicle × number of vehicles ＝ number of tires” has the same shape as a rectangle's area. Treat them all as the kind with fewer tires, and only the part sticking out is left.",
+  "zh-Hans": "“每1辆的轮胎数×辆数＝轮胎数”和长方形面积的形式一样。把全部都看成轮胎少的那种，就只剩下多出来的部分。",
+  "zh-Hant": "「每1輛的輪胎數×輛數＝輪胎數」和長方形面積的形式一樣。把全部都看成輪胎少的那種，就只剩下多出來的部分。"
+ },
+ "自動車と自転車が合わせて18台あり、タイヤの数は合わせて52本です。自動車は何台ありますか。": {
+  "en": "There are 18 vehicles in all, cars and bicycles, with 52 tires altogether. How many cars are there?",
+  "zh-Hans": "汽车和自行车共有18辆，轮胎共有52条。汽车有几辆？",
+  "zh-Hant": "汽車和腳踏車共有18輛，輪胎共有52個。汽車有幾輛？"
+ },
+ "台": {
+  "en": " cars",
+  "zh-Hans": "辆",
+  "zh-Hant": "輛"
+ },
+ "自動車": {
+  "en": "Car",
+  "zh-Hans": "汽车",
+  "zh-Hant": "汽車"
+ },
+ "自転車": {
+  "en": "Bicycle",
+  "zh-Hans": "自行车",
+  "zh-Hant": "腳踏車"
+ },
+ "タイヤ": {
+  "en": "Tire",
+  "zh-Hans": "轮胎",
+  "zh-Hant": "輪胎"
+ },
+ "本": {
+  "en": " tires",
+  "zh-Hans": "条",
+  "zh-Hant": "個"
+ },
+ "タイヤの数": {
+  "en": "Number of tires",
+  "zh-Hans": "轮胎数",
+  "zh-Hant": "輪胎數"
+ },
+ "8台": {
+  "en": "8 cars",
+  "zh-Hans": "8辆",
+  "zh-Hant": "8輛"
+ },
+ "自動車が1台、2台、3台…のときのタイヤの数を表にして、1つずつ調べる": {
+  "en": "Make a table of the number of tires when there are 1, 2, 3… cars and check each row one at a time",
+  "zh-Hans": "列表计算汽车为1辆、2辆、3辆…时的轮胎数，逐一检查",
+  "zh-Hant": "列表計算汽車為1輛、2輛、3輛…時的輪胎數，逐一檢查"
+ },
+ "何通りもあり、どこで合計の本数になるか分かりにくい": {
+  "en": "There are many cases, and it's hard to see where the total number of tires comes out right",
+  "zh-Hans": "情况很多，很难看出哪一种正好等于轮胎总数",
+  "zh-Hant": "情況很多，很難看出哪一種正好等於輪胎總數"
+ },
+ "ここで約2分半。表が長くなる": {
+  "en": "About 2 and a half minutes gone here. The table gets long",
+  "zh-Hans": "到这里约2分半钟。表越来越长",
+  "zh-Hant": "到這裡約2分半鐘。表越來越長"
+ },
+ "たて＝1台あたりのタイヤの数、横＝台数の長方形2つで表す（面積＝タイヤの数）": {
+  "en": "Draw 2 rectangles with height ＝ tires on 1 vehicle and width ＝ number of vehicles (area ＝ number of tires)",
+  "zh-Hans": "画2个长方形：高＝每1辆的轮胎数，宽＝辆数（面积＝轮胎数）",
+  "zh-Hant": "畫2個長方形：高＝每1輛的輪胎數，寬＝輛數（面積＝輪胎數）"
+ },
+ "全部自転車だとすると 2×18 = 36": {
+  "en": "If they were all bicycles: 2×18 = 36",
+  "zh-Hans": "假设全是自行车：2×18 = 36",
+  "zh-Hant": "假設全是腳踏車：2×18 = 36"
+ },
+ "本当のタイヤの数との差 52−36 = 16 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real number of tires, 52−36 = 16, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际轮胎数的差 52−36 = 16，就是上方多出来的长方形的面积",
+  "zh-Hant": "與實際輪胎數的差 52−36 = 16，就是上方多出來的長方形的面積"
+ },
+ "その長方形のたては 4−2 = 2": {
+  "en": "That rectangle's height is 4−2 = 2",
+  "zh-Hans": "这个长方形的高是 4−2 = 2",
+  "zh-Hant": "這個長方形的高是 4−2 = 2"
+ },
+ "自動車の数 = 16÷2 = 8": {
+  "en": "Number of cars = 16÷2 = 8",
+  "zh-Hans": "汽车的辆数 = 16÷2 = 8",
+  "zh-Hant": "汽車的輛數 = 16÷2 = 8"
+ },
+ "そのとおり。1台あたりのタイヤの数×台数を長方形で表すと、はみ出した部分だけで答えが出る。": {
+  "en": "That's right. Show tires per vehicle × number of vehicles as rectangles, and the part sticking out alone gives you the answer.",
+  "zh-Hans": "没错。把每1辆的轮胎数×辆数画成长方形，只看多出来的部分就能得出答案。",
+  "zh-Hant": "沒錯。把每1輛的輪胎數×輛數畫成長方形，只看多出來的部分就能得到答案。"
+ },
+ "差が変わらないものを使う問題ではない。": {
+  "en": "This isn't a problem that uses something whose difference stays the same.",
+  "zh-Hans": "这不是利用差不变的量的题目。",
+  "zh-Hant": "這不是利用差不變的量的題目。"
+ },
+ "1台ずつ表にすると、答えまでに何行も書くことになる。": {
+  "en": "Making a table one vehicle at a time means writing many rows before you reach the answer.",
+  "zh-Hans": "一辆一辆地列表，要写好多行才能得到答案。",
+  "zh-Hant": "一輛一輛地列表，要寫好多列才能得到答案。"
+ },
+ "自動車と自転車が合わせて16台あり、タイヤの数は合わせて50本です。自動車は何台ありますか。": {
+  "en": "There are 16 vehicles in all, cars and bicycles, with 50 tires altogether. How many cars are there?",
+  "zh-Hans": "汽车和自行车共有16辆，轮胎共有50条。汽车有几辆？",
+  "zh-Hant": "汽車和腳踏車共有16輛，輪胎共有50個。汽車有幾輛？"
+ },
+ "全部自転車だとすると 2×16 = 32": {
+  "en": "If they were all bicycles: 2×16 = 32",
+  "zh-Hans": "假设全是自行车：2×16 = 32",
+  "zh-Hant": "假設全是腳踏車：2×16 = 32"
+ },
+ "本当のタイヤの数との差 50−32 = 18 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real number of tires, 50−32 = 18, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际轮胎数的差 50−32 = 18，就是上方多出来的长方形的面积",
+  "zh-Hant": "與實際輪胎數的差 50−32 = 18，就是上方多出來的長方形的面積"
+ },
+ "自動車の数 = 18÷2 = 9": {
+  "en": "Number of cars = 18÷2 = 9",
+  "zh-Hans": "汽车的辆数 = 18÷2 = 9",
+  "zh-Hant": "汽車的輛數 = 18÷2 = 9"
+ },
+ "自動車と自転車が合わせて21台あり、タイヤの数は合わせて68本です。自動車は何台ありますか。": {
+  "en": "There are 21 vehicles in all, cars and bicycles, with 68 tires altogether. How many cars are there?",
+  "zh-Hans": "汽车和自行车共有21辆，轮胎共有68条。汽车有几辆？",
+  "zh-Hant": "汽車和腳踏車共有21輛，輪胎共有68個。汽車有幾輛？"
+ },
+ "全部自転車だとすると 2×21 = 42": {
+  "en": "If they were all bicycles: 2×21 = 42",
+  "zh-Hans": "假设全是自行车：2×21 = 42",
+  "zh-Hant": "假設全是腳踏車：2×21 = 42"
+ },
+ "本当のタイヤの数との差 68−42 = 26 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real number of tires, 68−42 = 26, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际轮胎数的差 68−42 = 26，就是上方多出来的长方形的面积",
+  "zh-Hant": "與實際輪胎數的差 68−42 = 26，就是上方多出來的長方形的面積"
+ },
+ "自動車の数 = 26÷2 = 13": {
+  "en": "Number of cars = 26÷2 = 13",
+  "zh-Hans": "汽车的辆数 = 26÷2 = 13",
+  "zh-Hant": "汽車的輛數 = 26÷2 = 13"
+ },
+ "自動車と自転車が合わせて12台あり、タイヤの数は合わせて32本です。自動車は何台ありますか。": {
+  "en": "There are 12 vehicles in all, cars and bicycles, with 32 tires altogether. How many cars are there?",
+  "zh-Hans": "汽车和自行车共有12辆，轮胎共有32条。汽车有几辆？",
+  "zh-Hant": "汽車和腳踏車共有12輛，輪胎共有32個。汽車有幾輛？"
+ },
+ "全部自転車だとすると 2×12 = 24": {
+  "en": "If they were all bicycles: 2×12 = 24",
+  "zh-Hans": "假设全是自行车：2×12 = 24",
+  "zh-Hant": "假設全是腳踏車：2×12 = 24"
+ },
+ "本当のタイヤの数との差 32−24 = 8 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real number of tires, 32−24 = 8, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际轮胎数的差 32−24 = 8，就是上方多出来的长方形的面积",
+  "zh-Hant": "與實際輪胎數的差 32−24 = 8，就是上方多出來的長方形的面積"
+ },
+ "自動車の数 = 8÷2 = 4": {
+  "en": "Number of cars = 8÷2 = 4",
+  "zh-Hans": "汽车的辆数 = 8÷2 = 4",
+  "zh-Hant": "汽車的輛數 = 8÷2 = 4"
+ },
+ "自動車と自転車が合わせて22台あり、タイヤの数は合わせて64本です。自動車は何台ありますか。": {
+  "en": "There are 22 vehicles in all, cars and bicycles, with 64 tires altogether. How many cars are there?",
+  "zh-Hans": "汽车和自行车共有22辆，轮胎共有64条。汽车有几辆？",
+  "zh-Hant": "汽車和腳踏車共有22輛，輪胎共有64個。汽車有幾輛？"
+ },
+ "全部自転車だとすると 2×22 = 44": {
+  "en": "If they were all bicycles: 2×22 = 44",
+  "zh-Hans": "假设全是自行车：2×22 = 44",
+  "zh-Hant": "假設全是腳踏車：2×22 = 44"
+ },
+ "本当のタイヤの数との差 64−44 = 20 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real number of tires, 64−44 = 20, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际轮胎数的差 64−44 = 20，就是上方多出来的长方形的面积",
+  "zh-Hant": "與實際輪胎數的差 64−44 = 20，就是上方多出來的長方形的面積"
+ },
+ "自動車の数 = 20÷2 = 10": {
+  "en": "Number of cars = 20÷2 = 10",
+  "zh-Hans": "汽车的辆数 = 20÷2 = 10",
+  "zh-Hant": "汽車的輛數 = 20÷2 = 10"
+ },
+ "「平均点×人数＝合計点」は長方形の面積。全体の平均の線より上にはみ出した面積と、下にへこんだ面積は等しい。": {
+  "en": "“Average score × number of students ＝ total score” is a rectangle's area. The area sticking out above the overall average line equals the area dented in below it.",
+  "zh-Hans": "“平均分×人数＝总分”就是长方形的面积。高出整体平均线的面积，与凹在线下方的面积相等。",
+  "zh-Hant": "「平均分數×人數＝總分」就是長方形的面積。高出整體平均線的面積，與凹在線下方的面積相等。"
+ },
+ "1組30人のテストの平均点は74点、2組の平均点は62点で、2つの組を合わせた平均点は70点でした。2組は何人ですか。": {
+  "en": "Class 1 has 30 students with a test average of 74 points, Class 2 has an average of 62 points, and the 2 classes together average 70 points. How many students are in Class 2?",
+  "zh-Hans": "1班有30人，考试平均分是74分；2班的平均分是62分；2个班合起来的平均分是70分。2班有多少人？",
+  "zh-Hant": "1班有30人，考試平均分數是74分；2班的平均分數是62分；2個班合起來的平均分數是70分。2班有多少人？"
+ },
+ "人": {
+  "en": " people",
+  "zh-Hans": "人",
+  "zh-Hant": "人"
+ },
+ "15人": {
+  "en": "15 students",
+  "zh-Hans": "15人",
+  "zh-Hant": "15人"
+ },
+ "2組の人数を10人、11人、12人…と決めて、合計点÷全体の人数を1つずつ計算する": {
+  "en": "Set Class 2's size at 10, 11, 12… and work out total score ÷ total students for each one",
+  "zh-Hans": "把2班人数依次设为10人、11人、12人…，逐一计算总分÷总人数",
+  "zh-Hant": "把2班人數依次設為10人、11人、12人…，逐一計算總分÷總人數"
+ },
+ "わり算が毎回あり、小数になって手が止まる": {
+  "en": "There's a division every time, decimals show up, and you get stuck",
+  "zh-Hans": "每次都要做除法，出现小数就卡住了",
+  "zh-Hant": "每次都要做除法，出現小數就卡住了"
+ },
+ "ここで約3分半。どこで全体の平均になるか見えない": {
+  "en": "About 3 and a half minutes gone here. You can't see where it hits the overall average",
+  "zh-Hans": "到这里约3分半钟。看不出在哪里等于整体平均",
+  "zh-Hant": "到這裡約3分半鐘。看不出在哪裡等於整體平均"
+ },
+ "たて＝平均点、横＝人数の長方形2つをならべる（面積＝合計点）": {
+  "en": "Line up 2 rectangles with height ＝ average score and width ＝ number of students (area ＝ total score)",
+  "zh-Hans": "并排画2个长方形：高＝平均分，宽＝人数（面积＝总分）",
+  "zh-Hant": "並排畫2個長方形：高＝平均分數，寬＝人數（面積＝總分）"
+ },
+ "全体の平均70点の線を引く。1組がはみ出す部分のたては 74−70 = 4、面積は 30×4 = 120": {
+  "en": "Draw the line for the overall average of 70 points. Class 1's part sticking out has height 74−70 = 4 and area 30×4 = 120",
+  "zh-Hans": "画出整体平均70分的线。1班高出部分的高是 74−70 = 4，面积是 30×4 = 120",
+  "zh-Hant": "畫出整體平均70分的線。1班高出部分的高是 74−70 = 4，面積是 30×4 = 120"
+ },
+ "2組の、線より下のへこみも同じ面積。へこみのたては 70−62 = 8": {
+  "en": "Class 2's dent below the line has the same area. The dent's height is 70−62 = 8",
+  "zh-Hans": "2班在线下方凹进去的部分，面积也相同。凹进部分的高是 70−62 = 8",
+  "zh-Hant": "2班在線下方凹進去的部分，面積也相同。凹進部分的高是 70−62 = 8"
+ },
+ "2組の人数 = 120÷8 = 15（人）": {
+  "en": "Students in Class 2 = 120÷8 = 15 (students)",
+  "zh-Hans": "2班的人数 = 120÷8 = 15（人）",
+  "zh-Hant": "2班的人數 = 120÷8 = 15（人）"
+ },
+ "2つの組の平均と全体の平均が分かるときは、平均の線より上と下の面積が等しい面積図にする。": {
+  "en": "When you know the averages of 2 classes and the overall average, draw an area diagram where the areas above and below the average line are equal.",
+  "zh-Hans": "知道2个班各自的平均和整体平均时，就画面积图：平均线上方和下方的面积相等。",
+  "zh-Hant": "知道2個班各自的平均和整體平均時，就畫面積圖：平均線上方和下方的面積相等。"
+ },
+ "そのとおり。平均の線より上にはみ出した面積と、下のへこみの面積が等しくなる。": {
+  "en": "That's right. The area sticking out above the average line equals the area of the dent below it.",
+  "zh-Hans": "没错。高出平均线的面积，与线下方凹进部分的面积相等。",
+  "zh-Hant": "沒錯。高出平均線的面積，與線下方凹進部分的面積相等。"
+ },
+ "おしい。てんびんでも解けるが、ここでは人数と点数の長方形で、はみ出しとへこみを比べると見えやすい。": {
+  "en": "Close. A balance works too, but here it's easier to see by comparing the bump and the dent with rectangles of students and scores.",
+  "zh-Hans": "差一点。用天平也能解，但这里用人数和分数的长方形比较高出和凹进的部分，更容易看清。",
+  "zh-Hant": "差一點。用天平也能解，但這裡用人數和分數的長方形比較高出和凹進的部分，更容易看清。"
+ },
+ "人数を1つずつ決めて平均を出すと、わり算が何回も必要になる。": {
+  "en": "Trying each class size and working out the average means dividing again and again.",
+  "zh-Hans": "一个个设定人数再求平均，要做很多次除法。",
+  "zh-Hant": "一個個設定人數再求平均，要做很多次除法。"
+ },
+ "1組32人のテストの平均点は82点、2組の平均点は65点で、2つの組を合わせた平均点は73点でした。2組は何人ですか。": {
+  "en": "Class 1 has 32 students with a test average of 82 points, Class 2 has an average of 65 points, and the 2 classes together average 73 points. How many students are in Class 2?",
+  "zh-Hans": "1班有32人，考试平均分是82分；2班的平均分是65分；2个班合起来的平均分是73分。2班有多少人？",
+  "zh-Hant": "1班有32人，考試平均分數是82分；2班的平均分數是65分；2個班合起來的平均分數是73分。2班有多少人？"
+ },
+ "全体の平均73点の線を引く。1組がはみ出す部分のたては 82−73 = 9、面積は 32×9 = 288": {
+  "en": "Draw the line for the overall average of 73 points. Class 1's part sticking out has height 82−73 = 9 and area 32×9 = 288",
+  "zh-Hans": "画出整体平均73分的线。1班高出部分的高是 82−73 = 9，面积是 32×9 = 288",
+  "zh-Hant": "畫出整體平均73分的線。1班高出部分的高是 82−73 = 9，面積是 32×9 = 288"
+ },
+ "2組の、線より下のへこみも同じ面積。へこみのたては 73−65 = 8": {
+  "en": "Class 2's dent below the line has the same area. The dent's height is 73−65 = 8",
+  "zh-Hans": "2班在线下方凹进去的部分，面积也相同。凹进部分的高是 73−65 = 8",
+  "zh-Hant": "2班在線下方凹進去的部分，面積也相同。凹進部分的高是 73−65 = 8"
+ },
+ "2組の人数 = 288÷8 = 36（人）": {
+  "en": "Students in Class 2 = 288÷8 = 36 (students)",
+  "zh-Hans": "2班的人数 = 288÷8 = 36（人）",
+  "zh-Hant": "2班的人數 = 288÷8 = 36（人）"
+ },
+ "1組27人のテストの平均点は67点、2組の平均点は50点で、2つの組を合わせた平均点は59点でした。2組は何人ですか。": {
+  "en": "Class 1 has 27 students with a test average of 67 points, Class 2 has an average of 50 points, and the 2 classes together average 59 points. How many students are in Class 2?",
+  "zh-Hans": "1班有27人，考试平均分是67分；2班的平均分是50分；2个班合起来的平均分是59分。2班有多少人？",
+  "zh-Hant": "1班有27人，考試平均分數是67分；2班的平均分數是50分；2個班合起來的平均分數是59分。2班有多少人？"
+ },
+ "全体の平均59点の線を引く。1組がはみ出す部分のたては 67−59 = 8、面積は 27×8 = 216": {
+  "en": "Draw the line for the overall average of 59 points. Class 1's part sticking out has height 67−59 = 8 and area 27×8 = 216",
+  "zh-Hans": "画出整体平均59分的线。1班高出部分的高是 67−59 = 8，面积是 27×8 = 216",
+  "zh-Hant": "畫出整體平均59分的線。1班高出部分的高是 67−59 = 8，面積是 27×8 = 216"
+ },
+ "2組の、線より下のへこみも同じ面積。へこみのたては 59−50 = 9": {
+  "en": "Class 2's dent below the line has the same area. The dent's height is 59−50 = 9",
+  "zh-Hans": "2班在线下方凹进去的部分，面积也相同。凹进部分的高是 59−50 = 9",
+  "zh-Hant": "2班在線下方凹進去的部分，面積也相同。凹進部分的高是 59−50 = 9"
+ },
+ "2組の人数 = 216÷9 = 24（人）": {
+  "en": "Students in Class 2 = 216÷9 = 24 (students)",
+  "zh-Hans": "2班的人数 = 216÷9 = 24（人）",
+  "zh-Hant": "2班的人數 = 216÷9 = 24（人）"
+ },
+ "1組28人のテストの平均点は80点、2組の平均点は65点で、2つの組を合わせた平均点は72点でした。2組は何人ですか。": {
+  "en": "Class 1 has 28 students with a test average of 80 points, Class 2 has an average of 65 points, and the 2 classes together average 72 points. How many students are in Class 2?",
+  "zh-Hans": "1班有28人，考试平均分是80分；2班的平均分是65分；2个班合起来的平均分是72分。2班有多少人？",
+  "zh-Hant": "1班有28人，考試平均分數是80分；2班的平均分數是65分；2個班合起來的平均分數是72分。2班有多少人？"
+ },
+ "全体の平均72点の線を引く。1組がはみ出す部分のたては 80−72 = 8、面積は 28×8 = 224": {
+  "en": "Draw the line for the overall average of 72 points. Class 1's part sticking out has height 80−72 = 8 and area 28×8 = 224",
+  "zh-Hans": "画出整体平均72分的线。1班高出部分的高是 80−72 = 8，面积是 28×8 = 224",
+  "zh-Hant": "畫出整體平均72分的線。1班高出部分的高是 80−72 = 8，面積是 28×8 = 224"
+ },
+ "2組の、線より下のへこみも同じ面積。へこみのたては 72−65 = 7": {
+  "en": "Class 2's dent below the line has the same area. The dent's height is 72−65 = 7",
+  "zh-Hans": "2班在线下方凹进去的部分，面积也相同。凹进部分的高是 72−65 = 7",
+  "zh-Hant": "2班在線下方凹進去的部分，面積也相同。凹進部分的高是 72−65 = 7"
+ },
+ "2組の人数 = 224÷7 = 32（人）": {
+  "en": "Students in Class 2 = 224÷7 = 32 (students)",
+  "zh-Hans": "2班的人数 = 224÷7 = 32（人）",
+  "zh-Hant": "2班的人數 = 224÷7 = 32（人）"
+ },
+ "1組21人のテストの平均点は67点、2組の平均点は54点で、2つの組を合わせた平均点は61点でした。2組は何人ですか。": {
+  "en": "Class 1 has 21 students with a test average of 67 points, Class 2 has an average of 54 points, and the 2 classes together average 61 points. How many students are in Class 2?",
+  "zh-Hans": "1班有21人，考试平均分是67分；2班的平均分是54分；2个班合起来的平均分是61分。2班有多少人？",
+  "zh-Hant": "1班有21人，考試平均分數是67分；2班的平均分數是54分；2個班合起來的平均分數是61分。2班有多少人？"
+ },
+ "全体の平均61点の線を引く。1組がはみ出す部分のたては 67−61 = 6、面積は 21×6 = 126": {
+  "en": "Draw the line for the overall average of 61 points. Class 1's part sticking out has height 67−61 = 6 and area 21×6 = 126",
+  "zh-Hans": "画出整体平均61分的线。1班高出部分的高是 67−61 = 6，面积是 21×6 = 126",
+  "zh-Hant": "畫出整體平均61分的線。1班高出部分的高是 67−61 = 6，面積是 21×6 = 126"
+ },
+ "2組の、線より下のへこみも同じ面積。へこみのたては 61−54 = 7": {
+  "en": "Class 2's dent below the line has the same area. The dent's height is 61−54 = 7",
+  "zh-Hans": "2班在线下方凹进去的部分，面积也相同。凹进部分的高是 61−54 = 7",
+  "zh-Hant": "2班在線下方凹進去的部分，面積也相同。凹進部分的高是 61−54 = 7"
+ },
+ "2組の人数 = 126÷7 = 18（人）": {
+  "en": "Students in Class 2 = 126÷7 = 18 (students)",
+  "zh-Hans": "2班的人数 = 126÷7 = 18（人）",
+  "zh-Hant": "2班的人數 = 126÷7 = 18（人）"
+ },
+ "「1人あたりの数×人数」は長方形の面積。2つの配り方の長方形のちがいは、あまりと不足を合わせた数になる。": {
+  "en": "“Amount per child × number of children” is a rectangle's area. The difference between the rectangles for the 2 ways of handing out is the leftover plus the shortfall.",
+  "zh-Hans": "“每1人的个数×人数”就是长方形的面积。2种分法的长方形之差，等于剩余和不足合起来的数。",
+  "zh-Hant": "「每1人的個數×人數」就是長方形的面積。2種分法的長方形之差，等於剩餘和不足合起來的數。"
+ },
+ "何人かの子どもにあめを配ります。1人に4個ずつ配ると11個あまり、1人に7個ずつ配ると10個たりません。子どもは何人ですか。": {
+  "en": "Candies are handed out to some children. Giving 4 to each child leaves 11 over; giving 7 to each child is 10 short. How many children are there?",
+  "zh-Hans": "把糖果分给一些小朋友。每人分4颗，剩11颗；每人分7颗，少10颗。小朋友有几个人？",
+  "zh-Hant": "把糖果分給一些小朋友。每人分4顆，剩11顆；每人分7顆，少10顆。小朋友有幾個人？"
+ },
+ "あめ": {
+  "en": "Candy",
+  "zh-Hans": "糖果",
+  "zh-Hant": "糖果"
+ },
+ "7人": {
+  "en": "7 children",
+  "zh-Hans": "7人",
+  "zh-Hant": "7人"
+ },
+ "子どもの人数を1人ずつふやしながら、あめが何個あるかを2通りで計算して比べる": {
+  "en": "Add 1 child at a time and compare the number of candies worked out in 2 ways",
+  "zh-Hans": "把小朋友的人数1个1个增加，用2种方法算出糖果数来比较",
+  "zh-Hant": "把小朋友的人數1個1個增加，用2種方法算出糖果數來比較"
+ },
+ "2つの式の答えが合うまで、何回もためす": {
+  "en": "Keep trying until the answers to the 2 expressions match",
+  "zh-Hans": "反复尝试，直到2个式子的答案一致",
+  "zh-Hant": "反覆嘗試，直到2個式子的答案一致"
+ },
+ "ここで約2分半": {
+  "en": "About 2 and a half minutes gone here",
+  "zh-Hans": "到这里约2分半钟",
+  "zh-Hant": "到這裡約2分半鐘"
+ },
+ "たて＝1人あたりの数、横＝人数の長方形で、2つの配り方をかさねる": {
+  "en": "Overlap the 2 ways of handing out as rectangles with height ＝ amount per child and width ＝ number of children",
+  "zh-Hans": "用高＝每1人的个数、宽＝人数的长方形，把2种分法叠在一起",
+  "zh-Hant": "用高＝每1人的個數、寬＝人數的長方形，把2種分法疊在一起"
+ },
+ "2つの配り方の差は、あまり11個とたりない10個を合わせた 11+10 = 21": {
+  "en": "The difference between the 2 ways is the 11 left over plus the 10 short: 11+10 = 21",
+  "zh-Hans": "2种分法的差，是剩下的11颗加上不够的10颗：11+10 = 21",
+  "zh-Hant": "2種分法的差，是剩下的11顆加上不夠的10顆：11+10 = 21"
+ },
+ "その差は、たて 7−4 = 3、横＝人数 の長方形の面積": {
+  "en": "That difference is the area of a rectangle with height 7−4 = 3 and width ＝ number of children",
+  "zh-Hans": "这个差就是高 7−4 = 3、宽＝人数 的长方形的面积",
+  "zh-Hant": "這個差就是高 7−4 = 3、寬＝人數 的長方形的面積"
+ },
+ "人数 = 21÷3 = 7（人）": {
+  "en": "Number of children = 21÷3 = 7 (children)",
+  "zh-Hans": "人数 = 21÷3 = 7（人）",
+  "zh-Hant": "人數 = 21÷3 = 7（人）"
+ },
+ "2通りの配り方で、あまりと不足が分かるときは、2つの長方形をかさねてちがいを見る。": {
+  "en": "When you know the leftover and the shortfall for 2 ways of handing out, overlap the 2 rectangles and look at the difference.",
+  "zh-Hans": "知道2种分法的剩余和不足时，就把2个长方形叠在一起看差。",
+  "zh-Hant": "知道2種分法的剩餘和不足時，就把2個長方形疊在一起看差。"
+ },
+ "そのとおり。2つの配り方の差（あまりと足りない分をたしたもの）が、1人あたりの差をたてにした長方形の面積になる。": {
+  "en": "That's right. The difference between the 2 ways (leftover plus shortfall) is the area of a rectangle whose height is the difference per child.",
+  "zh-Hans": "没错。2种分法的差（剩余加上不足）就是以每1人的差为高的长方形面积。",
+  "zh-Hant": "沒錯。2種分法的差（剩餘加上不足）就是以每1人的差為高的長方形面積。"
+ },
+ "2人の差が変わらない問題ではない。": {
+  "en": "This isn't a problem where the difference between 2 people stays the same.",
+  "zh-Hans": "这不是2人之差不变的题目。",
+  "zh-Hant": "這不是2人之差不變的題目。"
+ },
+ "人数を1つずつためすと、毎回2つの式を計算することになる。": {
+  "en": "Trying each number of children means working out 2 expressions every time.",
+  "zh-Hans": "一个个试人数，每次都要算2个式子。",
+  "zh-Hant": "一個個試人數，每次都要算2個式子。"
+ },
+ "何人かの子どもにあめを配ります。1人に4個ずつ配ると1個あまり、1人に7個ずつ配ると47個たりません。子どもは何人ですか。": {
+  "en": "Candies are handed out to some children. Giving 4 to each child leaves 1 over; giving 7 to each child is 47 short. How many children are there?",
+  "zh-Hans": "把糖果分给一些小朋友。每人分4颗，剩1颗；每人分7颗，少47颗。小朋友有几个人？",
+  "zh-Hant": "把糖果分給一些小朋友。每人分4顆，剩1顆；每人分7顆，少47顆。小朋友有幾個人？"
+ },
+ "2つの配り方の差は、あまり1個とたりない47個を合わせた 1+47 = 48": {
+  "en": "The difference between the 2 ways is the 1 left over plus the 47 short: 1+47 = 48",
+  "zh-Hans": "2种分法的差，是剩下的1颗加上不够的47颗：1+47 = 48",
+  "zh-Hant": "2種分法的差，是剩下的1顆加上不夠的47顆：1+47 = 48"
+ },
+ "人数 = 48÷3 = 16（人）": {
+  "en": "Number of children = 48÷3 = 16 (children)",
+  "zh-Hans": "人数 = 48÷3 = 16（人）",
+  "zh-Hant": "人數 = 48÷3 = 16（人）"
+ },
+ "何人かの子どもにあめを配ります。1人に4個ずつ配ると13個あまり、1人に8個ずつ配ると47個たりません。子どもは何人ですか。": {
+  "en": "Candies are handed out to some children. Giving 4 to each child leaves 13 over; giving 8 to each child is 47 short. How many children are there?",
+  "zh-Hans": "把糖果分给一些小朋友。每人分4颗，剩13颗；每人分8颗，少47颗。小朋友有几个人？",
+  "zh-Hant": "把糖果分給一些小朋友。每人分4顆，剩13顆；每人分8顆，少47顆。小朋友有幾個人？"
+ },
+ "2つの配り方の差は、あまり13個とたりない47個を合わせた 13+47 = 60": {
+  "en": "The difference between the 2 ways is the 13 left over plus the 47 short: 13+47 = 60",
+  "zh-Hans": "2种分法的差，是剩下的13颗加上不够的47颗：13+47 = 60",
+  "zh-Hant": "2種分法的差，是剩下的13顆加上不夠的47顆：13+47 = 60"
+ },
+ "その差は、たて 8−4 = 4、横＝人数 の長方形の面積": {
+  "en": "That difference is the area of a rectangle with height 8−4 = 4 and width ＝ number of children",
+  "zh-Hans": "这个差就是高 8−4 = 4、宽＝人数 的长方形的面积",
+  "zh-Hant": "這個差就是高 8−4 = 4、寬＝人數 的長方形的面積"
+ },
+ "人数 = 60÷4 = 15（人）": {
+  "en": "Number of children = 60÷4 = 15 (children)",
+  "zh-Hans": "人数 = 60÷4 = 15（人）",
+  "zh-Hant": "人數 = 60÷4 = 15（人）"
+ },
+ "何人かの子どもにあめを配ります。1人に2個ずつ配ると39個あまり、1人に6個ずつ配ると13個たりません。子どもは何人ですか。": {
+  "en": "Candies are handed out to some children. Giving 2 to each child leaves 39 over; giving 6 to each child is 13 short. How many children are there?",
+  "zh-Hans": "把糖果分给一些小朋友。每人分2颗，剩39颗；每人分6颗，少13颗。小朋友有几个人？",
+  "zh-Hant": "把糖果分給一些小朋友。每人分2顆，剩39顆；每人分6顆，少13顆。小朋友有幾個人？"
+ },
+ "2つの配り方の差は、あまり39個とたりない13個を合わせた 39+13 = 52": {
+  "en": "The difference between the 2 ways is the 39 left over plus the 13 short: 39+13 = 52",
+  "zh-Hans": "2种分法的差，是剩下的39颗加上不够的13颗：39+13 = 52",
+  "zh-Hant": "2種分法的差，是剩下的39顆加上不夠的13顆：39+13 = 52"
+ },
+ "その差は、たて 6−2 = 4、横＝人数 の長方形の面積": {
+  "en": "That difference is the area of a rectangle with height 6−2 = 4 and width ＝ number of children",
+  "zh-Hans": "这个差就是高 6−2 = 4、宽＝人数 的长方形的面积",
+  "zh-Hant": "這個差就是高 6−2 = 4、寬＝人數 的長方形的面積"
+ },
+ "人数 = 52÷4 = 13（人）": {
+  "en": "Number of children = 52÷4 = 13 (children)",
+  "zh-Hans": "人数 = 52÷4 = 13（人）",
+  "zh-Hant": "人數 = 52÷4 = 13（人）"
+ },
+ "何人かの子どもにあめを配ります。1人に6個ずつ配ると10個あまり、1人に10個ずつ配ると22個たりません。子どもは何人ですか。": {
+  "en": "Candies are handed out to some children. Giving 6 to each child leaves 10 over; giving 10 to each child is 22 short. How many children are there?",
+  "zh-Hans": "把糖果分给一些小朋友。每人分6颗，剩10颗；每人分10颗，少22颗。小朋友有几个人？",
+  "zh-Hant": "把糖果分給一些小朋友。每人分6顆，剩10顆；每人分10顆，少22顆。小朋友有幾個人？"
+ },
+ "2つの配り方の差は、あまり10個とたりない22個を合わせた 10+22 = 32": {
+  "en": "The difference between the 2 ways is the 10 left over plus the 22 short: 10+22 = 32",
+  "zh-Hans": "2种分法的差，是剩下的10颗加上不够的22颗：10+22 = 32",
+  "zh-Hant": "2種分法的差，是剩下的10顆加上不夠的22顆：10+22 = 32"
+ },
+ "その差は、たて 10−6 = 4、横＝人数 の長方形の面積": {
+  "en": "That difference is the area of a rectangle with height 10−6 = 4 and width ＝ number of children",
+  "zh-Hans": "这个差就是高 10−6 = 4、宽＝人数 的长方形的面积",
+  "zh-Hant": "這個差就是高 10−6 = 4、寬＝人數 的長方形的面積"
+ },
+ "人数 = 32÷4 = 8（人）": {
+  "en": "Number of children = 32÷4 = 8 (children)",
+  "zh-Hans": "人数 = 32÷4 = 8（人）",
+  "zh-Hant": "人數 = 32÷4 = 8（人）"
+ },
+ "同じ数ずつある2種類は、1個ずつ組にすると「平均の値段のもの」が2個あるのと同じ。そうすれば2種類の面積図になる。": {
+  "en": "Pair up 2 kinds that have the same count, 1 of each, and it's the same as having 2 items at the average price. Then it becomes an area diagram with 2 kinds.",
+  "zh-Hans": "数量相同的2种东西，各取1个配成一组，就相当于2个“平均价格的东西”。这样就变成2种的面积图。",
+  "zh-Hant": "數量相同的2種東西，各取1個配成一組，就相當於2個「平均價格的東西」。這樣就變成2種的面積圖。"
+ },
+ "1個80円、60円、40円の3種類のお菓子を合わせて20個買い、代金は1240円でした。60円と40円のお菓子は同じ数です。80円のお菓子は何個買いましたか。": {
+  "en": "You buy 20 snacks in all, of 3 kinds costing 80 yen, 60 yen and 40 yen each, for a total of 1240 yen. You bought the same number of 60-yen and 40-yen snacks. How many 80-yen snacks did you buy?",
+  "zh-Hans": "买了每个80日元、60日元、40日元的3种点心共20个，总价1240日元。60日元和40日元的点心数量相同。80日元的点心买了几个？",
+  "zh-Hant": "買了每個80日圓、60日圓、40日圓的3種點心共20個，總價1240日圓。60日圓和40日圓的點心數量相同。80日圓的點心買了幾個？"
+ },
+ "個": {
+  "en": " pieces",
+  "zh-Hans": "个",
+  "zh-Hant": "個"
+ },
+ "お菓子": {
+  "en": "Snack",
+  "zh-Hans": "点心",
+  "zh-Hant": "點心"
+ },
+ "80円のお菓子": {
+  "en": "80-yen snack",
+  "zh-Hans": "80日元的点心",
+  "zh-Hant": "80日圓的點心"
+ },
+ "平均50円": {
+  "en": "Average 50 yen",
+  "zh-Hans": "平均50日元",
+  "zh-Hant": "平均50日圓"
+ },
+ "8個": {
+  "en": "8 pieces",
+  "zh-Hans": "8个",
+  "zh-Hant": "8個"
+ },
+ "1種類目の個数を1個、2個…と決め、残りを2種類に半分ずつ分けて代金を計算する": {
+  "en": "Set the count of kind 1 at 1, 2…, split the rest in half between the other 2 kinds, and work out the cost",
+  "zh-Hans": "把第1种的个数设为1个、2个…，剩下的平分给另外2种，计算总价",
+  "zh-Hant": "把第1種的個數設為1個、2個…，剩下的平分給另外2種，計算總價"
+ },
+ "残りが奇数のときは分けられず、ためし直しが多い": {
+  "en": "When the rest is an odd number it can't be split, so you redo it a lot",
+  "zh-Hans": "剩下的是奇数时就分不了，要重试很多次",
+  "zh-Hant": "剩下的是奇數時就分不了，要重試很多次"
+ },
+ "ここで約4分": {
+  "en": "About 4 minutes gone here",
+  "zh-Hans": "到这里约4分钟",
+  "zh-Hant": "到這裡約4分鐘"
+ },
+ "60円と40円は同じ数なので、1個ずつ組にすると平均 (60+40)÷2 = 50 円": {
+  "en": "60 yen and 40 yen have the same count, so pairing them 1 and 1 gives an average of (60+40)÷2 = 50 yen",
+  "zh-Hans": "60日元和40日元的数量相同，各取1个配成一组，平均 (60+40)÷2 = 50 日元",
+  "zh-Hant": "60日圓和40日圓的數量相同，各取1個配成一組，平均 (60+40)÷2 = 50 日圓"
+ },
+ "全部50円だとすると 50×20 = 1000": {
+  "en": "If they were all 50-yen snacks: 50×20 = 1000",
+  "zh-Hans": "假设全是50日元的点心：50×20 = 1000",
+  "zh-Hant": "假設全是50日圓的點心：50×20 = 1000"
+ },
+ "本当の代金との差 1240−1000 = 240 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real cost, 1240−1000 = 240, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际总价的差 1240−1000 = 240，就是上方多出来的长方形的面积",
+  "zh-Hant": "與實際總價的差 1240−1000 = 240，就是上方多出來的長方形的面積"
+ },
+ "その長方形のたては 80−50 = 30": {
+  "en": "That rectangle's height is 80−50 = 30",
+  "zh-Hans": "这个长方形的高是 80−50 = 30",
+  "zh-Hant": "這個長方形的高是 80−50 = 30"
+ },
+ "80円の数 = 240÷30 = 8（個）": {
+  "en": "Number of 80-yen snacks = 240÷30 = 8 (pieces)",
+  "zh-Hans": "80日元点心的个数 = 240÷30 = 8（个）",
+  "zh-Hant": "80日圓點心的個數 = 240÷30 = 8（個）"
+ },
+ "3種類でも、同じ数の2種類を組にして平均にすれば、2種類の面積図になる。": {
+  "en": "Even with 3 kinds, pair the 2 kinds with the same count and use their average, and it becomes an area diagram with 2 kinds.",
+  "zh-Hans": "即使有3种，把数量相同的2种配成一组取平均，就变成2种的面积图。",
+  "zh-Hant": "即使有3種，把數量相同的2種配成一組取平均，就變成2種的面積圖。"
+ },
+ "そのとおり。同じ個数ずつの2種類を組にして平均の値段にすると、あとは2種類の面積図。": {
+  "en": "That's right. Pair the 2 kinds with equal counts at their average price, and the rest is an area diagram with 2 kinds.",
+  "zh-Hans": "没错。把个数相同的2种配成一组、换成平均价格，剩下的就是2种的面积图。",
+  "zh-Hant": "沒錯。把個數相同的2種配成一組、換成平均價格，剩下的就是2種的面積圖。"
+ },
+ "平均は使うが、こさを混ぜる問題ではない。": {
+  "en": "You do use an average, but this isn't a problem about mixing concentrations.",
+  "zh-Hans": "虽然用到平均，但这不是混合浓度的题目。",
+  "zh-Hant": "雖然用到平均，但這不是混合濃度的題目。"
+ },
+ "1つずつためすと、組み合わせが多すぎる。": {
+  "en": "Trying them one at a time gives too many combinations.",
+  "zh-Hans": "一个个试的话，组合太多了。",
+  "zh-Hant": "一個個試的話，組合太多了。"
+ },
+ "1個110円、80円、40円の3種類のお菓子を合わせて10個買い、代金は800円でした。80円と40円のお菓子は同じ数です。110円のお菓子は何個買いましたか。": {
+  "en": "You buy 10 snacks in all, of 3 kinds costing 110 yen, 80 yen and 40 yen each, for a total of 800 yen. You bought the same number of 80-yen and 40-yen snacks. How many 110-yen snacks did you buy?",
+  "zh-Hans": "买了每个110日元、80日元、40日元的3种点心共10个，总价800日元。80日元和40日元的点心数量相同。110日元的点心买了几个？",
+  "zh-Hant": "買了每個110日圓、80日圓、40日圓的3種點心共10個，總價800日圓。80日圓和40日圓的點心數量相同。110日圓的點心買了幾個？"
+ },
+ "110円のお菓子": {
+  "en": "110-yen snack",
+  "zh-Hans": "110日元的点心",
+  "zh-Hant": "110日圓的點心"
+ },
+ "平均60円": {
+  "en": "Average 60 yen",
+  "zh-Hans": "平均60日元",
+  "zh-Hant": "平均60日圓"
+ },
+ "80円と40円は同じ数なので、1個ずつ組にすると平均 (80+40)÷2 = 60 円": {
+  "en": "80 yen and 40 yen have the same count, so pairing them 1 and 1 gives an average of (80+40)÷2 = 60 yen",
+  "zh-Hans": "80日元和40日元的数量相同，各取1个配成一组，平均 (80+40)÷2 = 60 日元",
+  "zh-Hant": "80日圓和40日圓的數量相同，各取1個配成一組，平均 (80+40)÷2 = 60 日圓"
+ },
+ "全部60円だとすると 60×10 = 600": {
+  "en": "If they were all 60-yen snacks: 60×10 = 600",
+  "zh-Hans": "假设全是60日元的点心：60×10 = 600",
+  "zh-Hant": "假設全是60日圓的點心：60×10 = 600"
+ },
+ "本当の代金との差 800−600 = 200 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real cost, 800−600 = 200, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际总价的差 800−600 = 200，就是上方多出来的长方形的面积",
+  "zh-Hant": "與實際總價的差 800−600 = 200，就是上方多出來的長方形的面積"
+ },
+ "その長方形のたては 110−60 = 50": {
+  "en": "That rectangle's height is 110−60 = 50",
+  "zh-Hans": "这个长方形的高是 110−60 = 50",
+  "zh-Hant": "這個長方形的高是 110−60 = 50"
+ },
+ "110円の数 = 200÷50 = 4（個）": {
+  "en": "Number of 110-yen snacks = 200÷50 = 4 (pieces)",
+  "zh-Hans": "110日元点心的个数 = 200÷50 = 4（个）",
+  "zh-Hant": "110日圓點心的個數 = 200÷50 = 4（個）"
+ },
+ "1個100円、70円、50円の3種類のお菓子を合わせて17個買い、代金は1220円でした。70円と50円のお菓子は同じ数です。100円のお菓子は何個買いましたか。": {
+  "en": "You buy 17 snacks in all, of 3 kinds costing 100 yen, 70 yen and 50 yen each, for a total of 1220 yen. You bought the same number of 70-yen and 50-yen snacks. How many 100-yen snacks did you buy?",
+  "zh-Hans": "买了每个100日元、70日元、50日元的3种点心共17个，总价1220日元。70日元和50日元的点心数量相同。100日元的点心买了几个？",
+  "zh-Hant": "買了每個100日圓、70日圓、50日圓的3種點心共17個，總價1220日圓。70日圓和50日圓的點心數量相同。100日圓的點心買了幾個？"
+ },
+ "100円のお菓子": {
+  "en": "100-yen snack",
+  "zh-Hans": "100日元的点心",
+  "zh-Hant": "100日圓的點心"
+ },
+ "70円と50円は同じ数なので、1個ずつ組にすると平均 (70+50)÷2 = 60 円": {
+  "en": "70 yen and 50 yen have the same count, so pairing them 1 and 1 gives an average of (70+50)÷2 = 60 yen",
+  "zh-Hans": "70日元和50日元的数量相同，各取1个配成一组，平均 (70+50)÷2 = 60 日元",
+  "zh-Hant": "70日圓和50日圓的數量相同，各取1個配成一組，平均 (70+50)÷2 = 60 日圓"
+ },
+ "全部60円だとすると 60×17 = 1020": {
+  "en": "If they were all 60-yen snacks: 60×17 = 1020",
+  "zh-Hans": "假设全是60日元的点心：60×17 = 1020",
+  "zh-Hant": "假設全是60日圓的點心：60×17 = 1020"
+ },
+ "本当の代金との差 1220−1020 = 200 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real cost, 1220−1020 = 200, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际总价的差 1220−1020 = 200，就是上方多出来的长方形的面积",
+  "zh-Hant": "與實際總價的差 1220−1020 = 200，就是上方多出來的長方形的面積"
+ },
+ "その長方形のたては 100−60 = 40": {
+  "en": "That rectangle's height is 100−60 = 40",
+  "zh-Hans": "这个长方形的高是 100−60 = 40",
+  "zh-Hant": "這個長方形的高是 100−60 = 40"
+ },
+ "100円の数 = 200÷40 = 5（個）": {
+  "en": "Number of 100-yen snacks = 200÷40 = 5 (pieces)",
+  "zh-Hans": "100日元点心的个数 = 200÷40 = 5（个）",
+  "zh-Hant": "100日圓點心的個數 = 200÷40 = 5（個）"
+ },
+ "1個150円、60円、20円の3種類のお菓子を合わせて16個買い、代金は1740円でした。60円と20円のお菓子は同じ数です。150円のお菓子は何個買いましたか。": {
+  "en": "You buy 16 snacks in all, of 3 kinds costing 150 yen, 60 yen and 20 yen each, for a total of 1740 yen. You bought the same number of 60-yen and 20-yen snacks. How many 150-yen snacks did you buy?",
+  "zh-Hans": "买了每个150日元、60日元、20日元的3种点心共16个，总价1740日元。60日元和20日元的点心数量相同。150日元的点心买了几个？",
+  "zh-Hant": "買了每個150日圓、60日圓、20日圓的3種點心共16個，總價1740日圓。60日圓和20日圓的點心數量相同。150日圓的點心買了幾個？"
+ },
+ "150円のお菓子": {
+  "en": "150-yen snack",
+  "zh-Hans": "150日元的点心",
+  "zh-Hant": "150日圓的點心"
+ },
+ "平均40円": {
+  "en": "Average 40 yen",
+  "zh-Hans": "平均40日元",
+  "zh-Hant": "平均40日圓"
+ },
+ "60円と20円は同じ数なので、1個ずつ組にすると平均 (60+20)÷2 = 40 円": {
+  "en": "60 yen and 20 yen have the same count, so pairing them 1 and 1 gives an average of (60+20)÷2 = 40 yen",
+  "zh-Hans": "60日元和20日元的数量相同，各取1个配成一组，平均 (60+20)÷2 = 40 日元",
+  "zh-Hant": "60日圓和20日圓的數量相同，各取1個配成一組，平均 (60+20)÷2 = 40 日圓"
+ },
+ "全部40円だとすると 40×16 = 640": {
+  "en": "If they were all 40-yen snacks: 40×16 = 640",
+  "zh-Hans": "假设全是40日元的点心：40×16 = 640",
+  "zh-Hant": "假設全是40日圓的點心：40×16 = 640"
+ },
+ "本当の代金との差 1740−640 = 1100 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real cost, 1740−640 = 1100, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际总价的差 1740−640 = 1100，就是上方多出来的长方形的面积",
+  "zh-Hant": "與實際總價的差 1740−640 = 1100，就是上方多出來的長方形的面積"
+ },
+ "その長方形のたては 150−40 = 110": {
+  "en": "That rectangle's height is 150−40 = 110",
+  "zh-Hans": "这个长方形的高是 150−40 = 110",
+  "zh-Hant": "這個長方形的高是 150−40 = 110"
+ },
+ "150円の数 = 1100÷110 = 10（個）": {
+  "en": "Number of 150-yen snacks = 1100÷110 = 10 (pieces)",
+  "zh-Hans": "150日元点心的个数 = 1100÷110 = 10（个）",
+  "zh-Hant": "150日圓點心的個數 = 1100÷110 = 10（個）"
+ },
+ "1個120円、90円、50円の3種類のお菓子を合わせて23個買い、代金は2160円でした。90円と50円のお菓子は同じ数です。120円のお菓子は何個買いましたか。": {
+  "en": "You buy 23 snacks in all, of 3 kinds costing 120 yen, 90 yen and 50 yen each, for a total of 2160 yen. You bought the same number of 90-yen and 50-yen snacks. How many 120-yen snacks did you buy?",
+  "zh-Hans": "买了每个120日元、90日元、50日元的3种点心共23个，总价2160日元。90日元和50日元的点心数量相同。120日元的点心买了几个？",
+  "zh-Hant": "買了每個120日圓、90日圓、50日圓的3種點心共23個，總價2160日圓。90日圓和50日圓的點心數量相同。120日圓的點心買了幾個？"
+ },
+ "120円のお菓子": {
+  "en": "120-yen snack",
+  "zh-Hans": "120日元的点心",
+  "zh-Hant": "120日圓的點心"
+ },
+ "平均70円": {
+  "en": "Average 70 yen",
+  "zh-Hans": "平均70日元",
+  "zh-Hant": "平均70日圓"
+ },
+ "90円と50円は同じ数なので、1個ずつ組にすると平均 (90+50)÷2 = 70 円": {
+  "en": "90 yen and 50 yen have the same count, so pairing them 1 and 1 gives an average of (90+50)÷2 = 70 yen",
+  "zh-Hans": "90日元和50日元的数量相同，各取1个配成一组，平均 (90+50)÷2 = 70 日元",
+  "zh-Hant": "90日圓和50日圓的數量相同，各取1個配成一組，平均 (90+50)÷2 = 70 日圓"
+ },
+ "全部70円だとすると 70×23 = 1610": {
+  "en": "If they were all 70-yen snacks: 70×23 = 1610",
+  "zh-Hans": "假设全是70日元的点心：70×23 = 1610",
+  "zh-Hant": "假設全是70日圓的點心：70×23 = 1610"
+ },
+ "本当の代金との差 2160−1610 = 550 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real cost, 2160−1610 = 550, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际总价的差 2160−1610 = 550，就是上方多出来的长方形的面积",
+  "zh-Hant": "與實際總價的差 2160−1610 = 550，就是上方多出來的長方形的面積"
+ },
+ "その長方形のたては 120−70 = 50": {
+  "en": "That rectangle's height is 120−70 = 50",
+  "zh-Hans": "这个长方形的高是 120−70 = 50",
+  "zh-Hant": "這個長方形的高是 120−70 = 50"
+ },
+ "120円の数 = 550÷50 = 11（個）": {
+  "en": "Number of 120-yen snacks = 550÷50 = 11 (pieces)",
+  "zh-Hans": "120日元点心的个数 = 550÷50 = 11（个）",
+  "zh-Hant": "120日圓點心的個數 = 550÷50 = 11（個）"
+ },
+ "1人あたりの数×人数は長方形。2つの配り方の長方形のちがいは、あまりの差になる。": {
+  "en": "Amount per child × number of children is a rectangle. The difference between the rectangles for the 2 ways of handing out is the difference in leftovers.",
+  "zh-Hans": "每1人的个数×人数是长方形。2种分法的长方形之差，就是剩余之差。",
+  "zh-Hant": "每1人的個數×人數是長方形。2種分法的長方形之差，就是剩餘之差。"
+ },
+ "何人かの子どもにえんぴつを配ります。1人に5本ずつ配ると38本あまり、1人に8本ずつ配っても8本あまります。子どもは何人ですか。": {
+  "en": "Pencils are handed out to some children. Giving 5 to each child leaves 38 over, and giving 8 to each child still leaves 8 over. How many children are there?",
+  "zh-Hans": "把铅笔分给一些小朋友。每人分5支，剩38支；每人分8支，也剩8支。小朋友有几个人？",
+  "zh-Hant": "把鉛筆分給一些小朋友。每人分5支，剩38支；每人分8支，也剩8支。小朋友有幾個人？"
+ },
+ "えんぴつ": {
+  "en": "Pencil",
+  "zh-Hans": "铅笔",
+  "zh-Hant": "鉛筆"
+ },
+ "10人": {
+  "en": "10 children",
+  "zh-Hans": "10人",
+  "zh-Hant": "10人"
+ },
+ "子どもの人数を1人ずつふやしながら、えんぴつの数を2通りで計算してくらべる": {
+  "en": "Add 1 child at a time and compare the number of pencils worked out in 2 ways",
+  "zh-Hans": "把小朋友的人数1个1个增加，用2种方法算出铅笔数来比较",
+  "zh-Hant": "把小朋友的人數1個1個增加，用2種方法算出鉛筆數來比較"
+ },
+ "「あまり」と「あまり」の関係で手が止まる": {
+  "en": "You get stuck on how one “leftover” relates to the other “leftover”",
+  "zh-Hans": "卡在“剩余”和“剩余”的关系上",
+  "zh-Hant": "卡在「剩餘」和「剩餘」的關係上"
+ },
+ "ここで約3分": {
+  "en": "About 3 minutes gone here",
+  "zh-Hans": "到这里约3分钟",
+  "zh-Hant": "到這裡約3分鐘"
+ },
+ "どちらもあまるので、2つの配り方の差は あまりの差 38−8 = 30": {
+  "en": "Both leave some over, so the difference between the 2 ways is the difference in leftovers: 38−8 = 30",
+  "zh-Hans": "两种都有剩余，所以2种分法的差就是剩余之差 38−8 = 30",
+  "zh-Hant": "兩種都有剩餘，所以2種分法的差就是剩餘之差 38−8 = 30"
+ },
+ "その差は、たて 8−5 = 3、横＝人数 の長方形の面積": {
+  "en": "That difference is the area of a rectangle with height 8−5 = 3 and width ＝ number of children",
+  "zh-Hans": "这个差就是高 8−5 = 3、宽＝人数 的长方形的面积",
+  "zh-Hant": "這個差就是高 8−5 = 3、寬＝人數 的長方形的面積"
+ },
+ "人数 = 30÷3 = 10（人）": {
+  "en": "Number of children = 30÷3 = 10 (children)",
+  "zh-Hans": "人数 = 30÷3 = 10（人）",
+  "zh-Hant": "人數 = 30÷3 = 10（人）"
+ },
+ "2通りの配り方で、どちらもあまるときは、あまりの差を長方形のたての差でわる。": {
+  "en": "When 2 ways of handing out both leave some over, divide the difference in leftovers by the difference in the rectangles' heights.",
+  "zh-Hans": "2种分法都有剩余时，用剩余之差除以长方形的高之差。",
+  "zh-Hant": "2種分法都有剩餘時，用剩餘之差除以長方形的高之差。"
+ },
+ "差や合計が変わらないことを使う問題ではない。": {
+  "en": "This isn't a problem that uses a difference or total staying the same.",
+  "zh-Hans": "这不是利用差或和不变的题目。",
+  "zh-Hant": "這不是利用差或和不變的題目。"
+ },
+ "そのとおり。どちらもあまるので、あまりの差が、1人あたりの差をたてにした長方形の面積。": {
+  "en": "That's right. Both leave some over, so the difference in leftovers is the area of a rectangle whose height is the difference per child.",
+  "zh-Hans": "没错。两种都有剩余，所以剩余之差就是以每1人的差为高的长方形面积。",
+  "zh-Hant": "沒錯。兩種都有剩餘，所以剩餘之差就是以每1人的差為高的長方形面積。"
+ },
+ "人数を1人ずつためすと、何回も計算することになる。": {
+  "en": "Trying 1 child at a time means calculating again and again.",
+  "zh-Hans": "把人数1个1个地试，要算很多次。",
+  "zh-Hant": "把人數1個1個地試，要算很多次。"
+ },
+ "何人かの子どもにえんぴつを配ります。1人に6本ずつ配ると23本あまり、1人に10本ずつ配っても3本あまります。子どもは何人ですか。": {
+  "en": "Pencils are handed out to some children. Giving 6 to each child leaves 23 over, and giving 10 to each child still leaves 3 over. How many children are there?",
+  "zh-Hans": "把铅笔分给一些小朋友。每人分6支，剩23支；每人分10支，也剩3支。小朋友有几个人？",
+  "zh-Hant": "把鉛筆分給一些小朋友。每人分6支，剩23支；每人分10支，也剩3支。小朋友有幾個人？"
+ },
+ "どちらもあまるので、2つの配り方の差は あまりの差 23−3 = 20": {
+  "en": "Both leave some over, so the difference between the 2 ways is the difference in leftovers: 23−3 = 20",
+  "zh-Hans": "两种都有剩余，所以2种分法的差就是剩余之差 23−3 = 20",
+  "zh-Hant": "兩種都有剩餘，所以2種分法的差就是剩餘之差 23−3 = 20"
+ },
+ "人数 = 20÷4 = 5（人）": {
+  "en": "Number of children = 20÷4 = 5 (children)",
+  "zh-Hans": "人数 = 20÷4 = 5（人）",
+  "zh-Hant": "人數 = 20÷4 = 5（人）"
+ },
+ "何人かの子どもにえんぴつを配ります。1人に5本ずつ配ると28本あまり、1人に9本ずつ配っても4本あまります。子どもは何人ですか。": {
+  "en": "Pencils are handed out to some children. Giving 5 to each child leaves 28 over, and giving 9 to each child still leaves 4 over. How many children are there?",
+  "zh-Hans": "把铅笔分给一些小朋友。每人分5支，剩28支；每人分9支，也剩4支。小朋友有几个人？",
+  "zh-Hant": "把鉛筆分給一些小朋友。每人分5支，剩28支；每人分9支，也剩4支。小朋友有幾個人？"
+ },
+ "どちらもあまるので、2つの配り方の差は あまりの差 28−4 = 24": {
+  "en": "Both leave some over, so the difference between the 2 ways is the difference in leftovers: 28−4 = 24",
+  "zh-Hans": "两种都有剩余，所以2种分法的差就是剩余之差 28−4 = 24",
+  "zh-Hant": "兩種都有剩餘，所以2種分法的差就是剩餘之差 28−4 = 24"
+ },
+ "その差は、たて 9−5 = 4、横＝人数 の長方形の面積": {
+  "en": "That difference is the area of a rectangle with height 9−5 = 4 and width ＝ number of children",
+  "zh-Hans": "这个差就是高 9−5 = 4、宽＝人数 的长方形的面积",
+  "zh-Hant": "這個差就是高 9−5 = 4、寬＝人數 的長方形的面積"
+ },
+ "人数 = 24÷4 = 6（人）": {
+  "en": "Number of children = 24÷4 = 6 (children)",
+  "zh-Hans": "人数 = 24÷4 = 6（人）",
+  "zh-Hant": "人數 = 24÷4 = 6（人）"
+ },
+ "何人かの子どもにえんぴつを配ります。1人に3本ずつ配ると51本あまり、1人に6本ずつ配っても9本あまります。子どもは何人ですか。": {
+  "en": "Pencils are handed out to some children. Giving 3 to each child leaves 51 over, and giving 6 to each child still leaves 9 over. How many children are there?",
+  "zh-Hans": "把铅笔分给一些小朋友。每人分3支，剩51支；每人分6支，也剩9支。小朋友有几个人？",
+  "zh-Hant": "把鉛筆分給一些小朋友。每人分3支，剩51支；每人分6支，也剩9支。小朋友有幾個人？"
+ },
+ "どちらもあまるので、2つの配り方の差は あまりの差 51−9 = 42": {
+  "en": "Both leave some over, so the difference between the 2 ways is the difference in leftovers: 51−9 = 42",
+  "zh-Hans": "两种都有剩余，所以2种分法的差就是剩余之差 51−9 = 42",
+  "zh-Hant": "兩種都有剩餘，所以2種分法的差就是剩餘之差 51−9 = 42"
+ },
+ "その差は、たて 6−3 = 3、横＝人数 の長方形の面積": {
+  "en": "That difference is the area of a rectangle with height 6−3 = 3 and width ＝ number of children",
+  "zh-Hans": "这个差就是高 6−3 = 3、宽＝人数 的长方形的面积",
+  "zh-Hant": "這個差就是高 6−3 = 3、寬＝人數 的長方形的面積"
+ },
+ "人数 = 42÷3 = 14（人）": {
+  "en": "Number of children = 42÷3 = 14 (children)",
+  "zh-Hans": "人数 = 42÷3 = 14（人）",
+  "zh-Hant": "人數 = 42÷3 = 14（人）"
+ },
+ "何人かの子どもにえんぴつを配ります。1人に6本ずつ配ると38本あまり、1人に8本ずつ配っても8本あまります。子どもは何人ですか。": {
+  "en": "Pencils are handed out to some children. Giving 6 to each child leaves 38 over, and giving 8 to each child still leaves 8 over. How many children are there?",
+  "zh-Hans": "把铅笔分给一些小朋友。每人分6支，剩38支；每人分8支，也剩8支。小朋友有几个人？",
+  "zh-Hant": "把鉛筆分給一些小朋友。每人分6支，剩38支；每人分8支，也剩8支。小朋友有幾個人？"
+ },
+ "その差は、たて 8−6 = 2、横＝人数 の長方形の面積": {
+  "en": "That difference is the area of a rectangle with height 8−6 = 2 and width ＝ number of children",
+  "zh-Hans": "这个差就是高 8−6 = 2、宽＝人数 的长方形的面积",
+  "zh-Hant": "這個差就是高 8−6 = 2、寬＝人數 的長方形的面積"
+ },
+ "人数 = 30÷2 = 15（人）": {
+  "en": "Number of children = 30÷2 = 15 (children)",
+  "zh-Hans": "人数 = 30÷2 = 15（人）",
+  "zh-Hant": "人數 = 30÷2 = 15（人）"
+ },
+ "ある博物館の入館料は、大人1人1200円、子ども1人800円です。大人と子ども合わせて24人で入館し、入館料は合計22400円でした。大人は何人ですか。": {
+  "en": "A museum charges 1200 yen for 1 adult and 800 yen for 1 child. A group of 24 adults and children went in and paid 22400 yen in total. How many adults were there?",
+  "zh-Hans": "某博物馆的门票是大人每1人1200日元，儿童每1人800日元。大人和儿童共24人入馆，门票共计22400日元。大人有几人？",
+  "zh-Hant": "某博物館的門票是大人每1人1200日圓，兒童每1人800日圓。大人和兒童共24人入館，門票合計22400日圓。大人有幾人？"
+ },
+ "大人": {
+  "en": "Adult",
+  "zh-Hans": "大人",
+  "zh-Hant": "大人"
+ },
+ "子ども": {
+  "en": "Child",
+  "zh-Hans": "儿童",
+  "zh-Hant": "兒童"
+ }
+}

@@ -1,3 +1,4 @@
+import { gradeLabel } from "../curriculum";
 import { type MutableRefObject, useCallback, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef } from "react";
 import { app } from "../copy";
 import type { Grade } from "../curriculum";
@@ -706,7 +707,7 @@ export function TerritoryMap(props: {
             >
               <b className="reg-name" aria-hidden>{zoneName(reg.grade)}</b>
               <span className="reg-meta" aria-hidden>
-                <i>{reg.grade}</i>
+                <i>{gradeLabel(reg.grade)}</i>
                 {app.map.terr.elevation(reg.metres)}
               </span>
               {onZone && (
@@ -818,7 +819,7 @@ export function TerritoryMap(props: {
               </span>
               {selected === t.unit.id && (
                 <span className={`terr-pin c-${u.color}`} aria-hidden>
-                  <small>{`${t.unit.appGrade} ${t.unit.level === "高" ? t.unit.grade : t.unit.unit}`}</small>
+                  <small>{`${gradeLabel(t.unit.appGrade)} ${t.unit.level === "高" ? gradeLabel(t.unit.grade) : t.unit.unit}`}</small>
                   {t.unit.topic}
                 </span>
               )}

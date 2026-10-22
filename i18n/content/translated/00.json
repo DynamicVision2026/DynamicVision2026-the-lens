@@ -1,0 +1,1502 @@
+{
+ "囲む": {
+  "en": "Enclose",
+  "zh-Hans": "围起来",
+  "zh-Hant": "圍起來"
+ },
+ "外側の長方形で囲んで、まわりを引く": {
+  "en": "Enclose it in an outer rectangle, then subtract the pieces around it",
+  "zh-Hans": "用外面的长方形围起来，再减去周围的部分",
+  "zh-Hant": "用外面的長方形圍起來，再減去周圍的部分"
+ },
+ "等積変形": {
+  "en": "Equal-Area Slide",
+  "zh-Hans": "等积变形",
+  "zh-Hant": "等積變形"
+ },
+ "平行な線にそって頂点を動かす": {
+  "en": "Move a vertex along a parallel line",
+  "zh-Hans": "沿着平行线移动顶点",
+  "zh-Hant": "沿著平行線移動頂點"
+ },
+ "展開": {
+  "en": "Unfold",
+  "zh-Hans": "展开",
+  "zh-Hant": "展開"
+ },
+ "立体を開いて平面にする": {
+  "en": "Open up the solid into a flat net",
+  "zh-Hans": "把立体图形展开成平面",
+  "zh-Hant": "把立體圖形展開成平面"
+ },
+ "止める": {
+  "en": "Freeze",
+  "zh-Hans": "定住一方",
+  "zh-Hant": "定住一方"
+ },
+ "片方を止めて、相対的な動きで考える": {
+  "en": "Freeze one side and think in terms of relative motion",
+  "zh-Hans": "先定住一方，用相对运动来思考",
+  "zh-Hant": "先定住一方，用相對運動來思考"
+ },
+ "てんびん": {
+  "en": "Balance",
+  "zh-Hans": "天平",
+  "zh-Hant": "天平"
+ },
+ "混ぜる問題を、てんびんのつり合いで考える": {
+  "en": "Think of mixing problems as a balance in equilibrium",
+  "zh-Hans": "把混合问题看成天平的平衡来思考",
+  "zh-Hant": "把混合問題看成天平的平衡來思考"
+ },
+ "面積図": {
+  "en": "Area Diagram",
+  "zh-Hans": "面积图",
+  "zh-Hant": "面積圖"
+ },
+ "2種類の数量を長方形の面積で表す": {
+  "en": "Show 2 kinds of quantities as rectangle areas",
+  "zh-Hans": "用长方形的面积表示2种数量",
+  "zh-Hant": "用長方形的面積表示2種數量"
+ },
+ "折り返す": {
+  "en": "Reflect",
+  "zh-Hans": "翻折",
+  "zh-Hant": "翻折"
+ },
+ "線で折り返して、まっすぐな道にする": {
+  "en": "Reflect across a line to turn the path into a straight one",
+  "zh-Hans": "沿着线翻折，把路线变成一条直线",
+  "zh-Hant": "沿著線翻折，把路線變成一條直線"
+ },
+ "和差一定": {
+  "en": "Constant Sum/Difference",
+  "zh-Hans": "和差不变",
+  "zh-Hant": "和差不變"
+ },
+ "変わらないものに目をつける": {
+  "en": "Look for what doesn't change",
+  "zh-Hans": "关注不变的量",
+  "zh-Hant": "關注不變的量"
+ },
+ "そのまま計算": {
+  "en": "Direct Calculation",
+  "zh-Hans": "直接计算",
+  "zh-Hant": "直接計算"
+ },
+ "レンズを使わず、公式でそのまま求める": {
+  "en": "Skip the lenses and solve directly with a formula",
+  "zh-Hans": "不用透镜，直接用公式求出",
+  "zh-Hant": "不用透鏡，直接用公式求出"
+ },
+ "中学受験パス": {
+  "en": "Middle-School Exam Pass",
+  "zh-Hans": "小升初通行证",
+  "zh-Hant": "國中入學通行證"
+ },
+ "小5〜小6・中学受験": {
+  "en": "Grade 5–6 · middle-school entrance exam",
+  "zh-Hans": "五年级～六年级・小升初考试",
+  "zh-Hant": "五年級～六年級・國中入學考試"
+ },
+ "基礎": {
+  "en": "Basic",
+  "zh-Hans": "基础",
+  "zh-Hant": "基礎"
+ },
+ "標準": {
+  "en": "Standard",
+  "zh-Hans": "标准",
+  "zh-Hant": "標準"
+ },
+ "応用": {
+  "en": "Applied",
+  "zh-Hans": "应用",
+  "zh-Hant": "應用"
+ },
+ "発展": {
+  "en": "Advanced",
+  "zh-Hans": "拓展",
+  "zh-Hant": "進階"
+ },
+ "頂点が囲みの内側に2つ以上あったら、囲まずに方眼の線で分ける。": {
+  "en": "If 2 or more vertices lie inside the enclosing rectangle, don't enclose — split along the grid lines instead.",
+  "zh-Hans": "如果有2个以上的顶点在围框里面，就不要围，改用方格线来分割。",
+  "zh-Hant": "如果有2個以上的頂點在圍框裡面，就不要圍，改用方格線來分割。"
+ },
+ "ななめの図形。面積は、どう出す？": {
+  "en": "A slanted shape. How do you find its area?",
+  "zh-Hans": "斜着的图形。面积怎么求？",
+  "zh-Hant": "斜斜的圖形。面積怎麼求？"
+ },
+ "ここで手が止まる…。どうする？": {
+  "en": "This is where you get stuck… What now?",
+  "zh-Hans": "到这里就卡住了…怎么办？",
+  "zh-Hant": "到這裡就卡住了…怎麼辦？"
+ },
+ "囲むレンズ！ 外わくで囲んでみよう": {
+  "en": "Enclose lens! Try boxing it in with an outer frame",
+  "zh-Hans": "围起来透镜！用外框把它围起来试试",
+  "zh-Hant": "圍起來透鏡！用外框把它圍起來試試"
+ },
+ "ゴーストの指をまねして、やってみよう": {
+  "en": "Copy the ghost finger and give it a try",
+  "zh-Hans": "跟着影子手指，试着做做看",
+  "zh-Hant": "跟著影子手指，試著做做看"
+ },
+ "ななめの長さは、はからなくていい": {
+  "en": "You don't need to measure the slanted lengths",
+  "zh-Hans": "斜边的长度不用量",
+  "zh-Hant": "斜邊的長度不用量"
+ },
+ "こんどは五角形。囲めるかな？": {
+  "en": "Now a pentagon. Can you enclose it?",
+  "zh-Hans": "这次是五边形。能围起来吗？",
+  "zh-Hant": "這次是五邊形。能圍起來嗎？"
+ },
+ "どんな形でも、囲んですみを引く": {
+  "en": "Any shape: enclose it, then subtract the corners",
+  "zh-Hans": "不管什么形状，都是围起来再减去角落",
+  "zh-Hant": "不管什麼形狀，都是圍起來再減去角落"
+ },
+ "でも注意！ こんなときは囲まない": {
+  "en": "But watch out! Don't enclose in cases like this",
+  "zh-Hans": "但是要注意！这种时候不要围",
+  "zh-Hant": "但是要注意！這種時候不要圍"
+ },
+ "手がかり → 道具 → ドラッグ。ヒントなしでね": {
+  "en": "Clue → tool → drag. No hints this time",
+  "zh-Hans": "线索 → 工具 → 拖动。这次没有提示哦",
+  "zh-Hant": "線索 → 工具 → 拖曳。這次沒有提示喔"
+ },
+ "準備OK！ 5問、ひとりでやってみよう": {
+  "en": "All set! Try 5 problems on your own",
+  "zh-Hans": "准备好了！自己试着做5道题吧",
+  "zh-Hant": "準備好了！自己試著做5題吧"
+ },
+ "1辺の長さを はかりたくなる": {
+  "en": "You want to measure each side",
+  "zh-Hans": "总想去量每条边的长度",
+  "zh-Hant": "總想去量每條邊的長度"
+ },
+ "囲んで、すみを引く": {
+  "en": "Enclose, then subtract the corners",
+  "zh-Hans": "围起来，再减去角落",
+  "zh-Hant": "圍起來，再減去角落"
+ },
+ "五角形も、囲んで引く": {
+  "en": "Pentagons too: enclose and subtract",
+  "zh-Hans": "五边形也是围起来再减",
+  "zh-Hant": "五邊形也是圍起來再減"
+ },
+ "このときは使わない": {
+  "en": "When not to use it",
+  "zh-Hans": "这种时候不用",
+  "zh-Hant": "這種時候不用"
+ },
+ "練習は3ステップ": {
+  "en": "Practice in 3 steps",
+  "zh-Hans": "练习分3步",
+  "zh-Hant": "練習分3步"
+ },
+ "動かさなくても、底辺と高さがもう見えている。": {
+  "en": "Even without moving anything, the base and height are already visible.",
+  "zh-Hans": "就算不移动，底和高也已经看得出来了。",
+  "zh-Hant": "就算不移動，底和高也已經看得出來了。"
+ },
+ "三角形がいくつも。面積の合計は？": {
+  "en": "Lots of triangles. What's their total area?",
+  "zh-Hans": "好多个三角形。面积加起来是多少？",
+  "zh-Hant": "好多個三角形。面積加起來是多少？"
+ },
+ "底辺が1つずつ分からない…。どうする？": {
+  "en": "You can't find each base one by one… What now?",
+  "zh-Hans": "每个三角形的底都不知道…怎么办？",
+  "zh-Hant": "每個三角形的底都不知道…怎麼辦？"
+ },
+ "等積変形レンズ！ 頂点を平行線にそって動かそう": {
+  "en": "Equal-Area Slide lens! Move the vertices along parallel lines",
+  "zh-Hans": "等积变形透镜！沿着平行线移动顶点",
+  "zh-Hant": "等積變形透鏡！沿著平行線移動頂點"
+ },
+ "頂点を1か所に集めてみよう": {
+  "en": "Try gathering the vertices at 1 point",
+  "zh-Hans": "试着把顶点集中到1个地方",
+  "zh-Hant": "試著把頂點集中到1個地方"
+ },
+ "高さが同じなら、面積は変わらない": {
+  "en": "Same height means the area doesn't change",
+  "zh-Hans": "高相同，面积就不变",
+  "zh-Hant": "高相同，面積就不變"
+ },
+ "こんどは三角形が5つ。同じ考え方で！": {
+  "en": "Now 5 triangles. Same idea!",
+  "zh-Hans": "这次有5个三角形。用同样的思路！",
+  "zh-Hant": "這次有5個三角形。用同樣的想法！"
+ },
+ "いくつあっても、1つにまとめられる": {
+  "en": "No matter how many, you can merge them into 1",
+  "zh-Hans": "不管有几个，都能合成1个",
+  "zh-Hant": "不管有幾個，都能合成1個"
+ },
+ "でも、もう底辺と高さが見えているなら…": {
+  "en": "But if you can already see the base and height…",
+  "zh-Hans": "但是，如果底和高已经看得出来…",
+  "zh-Hant": "但是，如果底和高已經看得出來…"
+ },
+ "1つずつの底辺を知りたくなる": {
+  "en": "You want to know each base, one by one",
+  "zh-Hans": "总想一个一个知道底是多少",
+  "zh-Hant": "總想一個一個知道底是多少"
+ },
+ "頂点をすべらせて、1つにまとめる": {
+  "en": "Slide the vertices and merge into 1",
+  "zh-Hans": "滑动顶点，合成1个",
+  "zh-Hant": "滑動頂點，合成1個"
+ },
+ "5つの三角形も、1つに": {
+  "en": "5 triangles become 1, too",
+  "zh-Hans": "5个三角形也能合成1个",
+  "zh-Hant": "5個三角形也能合成1個"
+ },
+ "全部の数ではなく「数の差」が分かるときは、面積図ではなく、多い分を取りのぞいて1組ずつにする。": {
+  "en": "When you know the \"difference in numbers\" rather than the totals, don't use an area diagram — remove the extra and pair them up 1 set at a time.",
+  "zh-Hans": "如果知道的不是总数而是“数量的差”，就不用面积图，而是先去掉多出来的部分，再1组1组地配对。",
+  "zh-Hant": "如果知道的不是總數而是「數量的差」，就不用面積圖，而是先去掉多出來的部分，再1組1組地配對。"
+ },
+ "2種類がまざっている。どう数える？": {
+  "en": "2 kinds are mixed together. How do you count them?",
+  "zh-Hans": "2种混在一起。怎么数？",
+  "zh-Hant": "2種混在一起。怎麼數？"
+ },
+ "表がどんどん長くなる…。どうする？": {
+  "en": "The table keeps getting longer… What now?",
+  "zh-Hans": "表格越列越长…怎么办？",
+  "zh-Hant": "表格越列越長…怎麼辦？"
+ },
+ "面積図レンズ！ 1枚あたり×枚数を長方形に": {
+  "en": "Area Diagram lens! Make \"amount per piece × number of pieces\" a rectangle",
+  "zh-Hans": "面积图透镜！把“每张的金额×张数”画成长方形",
+  "zh-Hant": "面積圖透鏡！把「每張的金額×張數」畫成長方形"
+ },
+ "点線をつかんで、下へ動かそう": {
+  "en": "Grab the dotted line and move it down",
+  "zh-Hans": "抓住虚线，往下移动",
+  "zh-Hant": "抓住虛線，往下移動"
+ },
+ "はみ出した部分だけで、答えが出る": {
+  "en": "The part that sticks out gives you the answer",
+  "zh-Hans": "只看多出来的部分，就能得出答案",
+  "zh-Hant": "只看多出來的部分，就能得出答案"
+ },
+ "こんどは平均の問題。これも面積図！": {
+  "en": "Now an average problem. Area diagram again!",
+  "zh-Hans": "这次是平均数问题。也用面积图！",
+  "zh-Hant": "這次是平均問題。也用面積圖！"
+ },
+ "はみ出しとへこみが、同じ広さ": {
+  "en": "The bump and the dip have the same area",
+  "zh-Hans": "多出来的和凹下去的，面积一样大",
+  "zh-Hant": "多出來的和凹下去的，面積一樣大"
+ },
+ "でも注意！ 全部の数が分からないときは…": {
+  "en": "But watch out! When you don't know the totals…",
+  "zh-Hans": "但是要注意！不知道总数的时候…",
+  "zh-Hant": "但是要注意！不知道總數的時候…"
+ },
+ "1枚ずつ表にしたくなる": {
+  "en": "You want to make a table, 1 piece at a time",
+  "zh-Hans": "总想1张1张地列表",
+  "zh-Hant": "總想1張1張地列表"
+ },
+ "長方形2つで、ちがいを見る": {
+  "en": "2 rectangles show the difference",
+  "zh-Hans": "用2个长方形看差别",
+  "zh-Hant": "用2個長方形看差別"
+ },
+ "平均も、面積図で": {
+  "en": "Averages, too, with an area diagram",
+  "zh-Hans": "平均数也用面积图",
+  "zh-Hant": "平均也用面積圖"
+ },
+ "1人と何人かの合計をくらべるときは、差は変わる（一定ではない）。1年にいくつちぢむかを見る。": {
+  "en": "When comparing 1 person with the total of several people, the difference changes (it isn't constant). Look at how much it shrinks each 1 year.",
+  "zh-Hans": "拿1个人和几个人的合计比较时，差会变（不是不变的）。要看每1年缩小多少。",
+  "zh-Hant": "拿1個人和幾個人的合計比較時，差會變（不是不變的）。要看每1年縮小多少。"
+ },
+ "何年後に3倍？ どう考える？": {
+  "en": "In how many years will it be 3 times? How do you think about it?",
+  "zh-Hans": "几年后变成3倍？怎么想？",
+  "zh-Hant": "幾年後變成3倍？怎麼想？"
+ },
+ "表が長くなる…。どうする？": {
+  "en": "The table gets long… What now?",
+  "zh-Hans": "表格变得好长…怎么办？",
+  "zh-Hant": "表格變得好長…怎麼辦？"
+ },
+ "和差一定レンズ！ 年れいの差はずっと同じ": {
+  "en": "Constant Sum/Difference lens! The age difference always stays the same",
+  "zh-Hans": "和差不变透镜！年龄差永远不变",
+  "zh-Hant": "和差不變透鏡！年齡差永遠不變"
+ },
+ "● を動かして、差を見よう": {
+  "en": "Move the ● and look at the difference",
+  "zh-Hans": "移动 ●，看看差",
+  "zh-Hant": "移動 ●，看看差"
+ },
+ "差を「何つ分」で見れば、わり算1回": {
+  "en": "See the difference as \"how many parts\" and it takes just 1 division",
+  "zh-Hans": "把差看成“几份”，只要做1次除法",
+  "zh-Hant": "把差看成「幾份」，只要做1次除法"
+ },
+ "こんどはお金。差は変わる？": {
+  "en": "Now it's money. Does the difference change?",
+  "zh-Hans": "这次是钱。差会变吗？",
+  "zh-Hant": "這次是錢。差會變嗎？"
+ },
+ "お金でも年れいでも、差は同じ": {
+  "en": "Money or age, the difference stays the same",
+  "zh-Hans": "不管是钱还是年龄，差都一样",
+  "zh-Hant": "不管是錢還是年齡，差都一樣"
+ },
+ "でも注意！ 1人と何人かの合計だと…": {
+  "en": "But watch out! With 1 person versus the total of several…",
+  "zh-Hans": "但是要注意！如果是1个人和几个人的合计…",
+  "zh-Hant": "但是要注意！如果是1個人和幾個人的合計…"
+ },
+ "1年ずつ表にしたくなる": {
+  "en": "You want to make a table, 1 year at a time",
+  "zh-Hans": "总想1年1年地列表",
+  "zh-Hant": "總想1年1年地列表"
+ },
+ "変わらない「差」に目をつける": {
+  "en": "Focus on the \"difference\" that doesn't change",
+  "zh-Hans": "关注不变的“差”",
+  "zh-Hant": "關注不變的「差」"
+ },
+ "お金の差も、変わらない": {
+  "en": "The money difference doesn't change either",
+  "zh-Hans": "钱的差也不变",
+  "zh-Hant": "錢的差也不變"
+ },
+ "水を蒸発させる問題は、てんびんではなく、変わらない食塩の量に目をつける。": {
+  "en": "For problems where water evaporates, don't use a balance — focus on the amount of salt, which doesn't change.",
+  "zh-Hans": "让水蒸发的问题，不用天平，而是关注不变的盐的量。",
+  "zh-Hant": "讓水蒸發的問題，不用天平，而是關注不變的鹽的量。"
+ },
+ "こさのちがう食塩水。何g混ぜる？": {
+  "en": "Salt water of different concentrations. How many g do you mix?",
+  "zh-Hans": "浓度不同的盐水。要混合多少g？",
+  "zh-Hant": "濃度不同的食鹽水。要混合多少g？"
+ },
+ "式が分数だらけ…。どうする？": {
+  "en": "The equation is full of fractions… What now?",
+  "zh-Hans": "算式里全是分数…怎么办？",
+  "zh-Hant": "算式裡全是分數…怎麼辦？"
+ },
+ "てんびんレンズ！ こさを位置、重さをおもりに": {
+  "en": "Balance lens! Concentration is the position, weight is the counterweight",
+  "zh-Hans": "天平透镜！浓度当位置，重量当砝码",
+  "zh-Hant": "天平透鏡！濃度當位置，重量當砝碼"
+ },
+ "おもりを動かして、水平にしよう": {
+  "en": "Move the weights to make it level",
+  "zh-Hans": "移动砝码，让天平保持水平",
+  "zh-Hant": "移動砝碼，讓天平保持水平"
+ },
+ "うでの長さの逆の比が、重さの比": {
+  "en": "The weight ratio is the inverse of the arm-length ratio",
+  "zh-Hans": "重量的比是臂长的反比",
+  "zh-Hant": "重量的比是臂長的反比"
+ },
+ "こんどは食塩を加える。てんびんは？": {
+  "en": "Now we add salt. What about the balance?",
+  "zh-Hans": "这次是加盐。天平会怎样？",
+  "zh-Hant": "這次是加鹽。天平會怎樣？"
+ },
+ "食塩は100%。てんびんの右はしへ": {
+  "en": "Salt is 100%. It goes at the right end of the balance",
+  "zh-Hans": "盐是100%。放在天平的最右端",
+  "zh-Hant": "鹽是100%。放在天平的最右端"
+ },
+ "でも注意！ 何も混ぜていないときは…": {
+  "en": "But watch out! When nothing is being mixed…",
+  "zh-Hans": "但是要注意！什么都没混合的时候…",
+  "zh-Hant": "但是要注意！什麼都沒混合的時候…"
+ },
+ "食塩の量の式を立てたくなる": {
+  "en": "You want to write an equation for the amount of salt",
+  "zh-Hans": "总想列关于盐的量的算式",
+  "zh-Hant": "總想列關於鹽的量的算式"
+ },
+ "てんびんのつり合いで考える": {
+  "en": "Think of it as a balance in equilibrium",
+  "zh-Hans": "用天平的平衡来思考",
+  "zh-Hant": "用天平的平衡來思考"
+ },
+ "食塩は100%の食塩水": {
+  "en": "Salt is 100% salt water",
+  "zh-Hans": "盐就是100%的盐水",
+  "zh-Hant": "鹽就是100%的食鹽水"
+ },
+ "1人がとちゅうで速さを変え、合計の時間と道のりが分かるときは、面積図にする。": {
+  "en": "When 1 person changes speed partway and you know the total time and distance, use an area diagram.",
+  "zh-Hans": "1个人中途改变速度，又知道总时间和总路程时，用面积图。",
+  "zh-Hant": "1個人中途改變速度，又知道總時間和總路程時，用面積圖。"
+ },
+ "2人が向かい合って歩く。いつ出会う？": {
+  "en": "2 people walk toward each other. When do they meet?",
+  "zh-Hans": "2个人相向而行。什么时候相遇？",
+  "zh-Hant": "2個人相向而行。什麼時候相遇？"
+ },
+ "まん中で出会う…とは限らない。どうする？": {
+  "en": "They won't necessarily meet in the middle. What now?",
+  "zh-Hans": "不一定在正中间相遇。怎么办？",
+  "zh-Hant": "不一定在正中間相遇。怎麼辦？"
+ },
+ "止めるレンズ！ 片方を止めてみよう": {
+  "en": "Freeze lens! Try freezing one of them",
+  "zh-Hans": "定住一方透镜！试着让其中一个人停下来",
+  "zh-Hant": "定住一方透鏡！試著讓其中一個人停下來"
+ },
+ "弟をタップして、止めてみよう！": {
+  "en": "Tap the little brother to freeze him!",
+  "zh-Hans": "点一下弟弟，让他停下来！",
+  "zh-Hant": "點一下弟弟，讓他停下來！"
+ },
+ "近づく速さで、きょりをわるだけ": {
+  "en": "Just divide the distance by the closing speed",
+  "zh-Hans": "只要用距离除以靠近的速度",
+  "zh-Hant": "只要用距離除以靠近的速度"
+ },
+ "こんどは列車のすれちがい！": {
+  "en": "Now, trains passing each other!",
+  "zh-Hans": "这次是火车错车！",
+  "zh-Hant": "這次是火車交會！"
+ },
+ "列車でも、片方を止めれば同じ": {
+  "en": "Trains too: freeze one and it's the same",
+  "zh-Hans": "火车也一样，定住一方就行",
+  "zh-Hant": "火車也一樣，定住一方就行"
+ },
+ "でも注意！ 動くのが1人だけなら…": {
+  "en": "But watch out! If only 1 person is moving…",
+  "zh-Hans": "但是要注意！如果只有1个人在动…",
+  "zh-Hant": "但是要注意！如果只有1個人在動…"
+ },
+ "2人を両方動かしたくなる": {
+  "en": "You want to move both people",
+  "zh-Hans": "总想让2个人都动起来",
+  "zh-Hant": "總想讓2個人都動起來"
+ },
+ "片方を止めて、近づく速さで考える": {
+  "en": "Freeze one and think with the closing speed",
+  "zh-Hans": "定住一方，用靠近的速度来思考",
+  "zh-Hant": "定住一方，用靠近的速度來思考"
+ },
+ "列車も、片方を止める": {
+  "en": "Trains too: freeze one",
+  "zh-Hans": "火车也定住一方",
+  "zh-Hant": "火車也定住一方"
+ },
+ "おしい。まっすぐにする発想は同じだが、ここでは直線で折り返すのではなく、立体の面を開く。": {
+  "en": "So close. The idea of making it straight is the same, but here you don't reflect across a line — you open up the faces of the solid.",
+  "zh-Hans": "可惜。把路线拉直的想法一样，但这里不是沿直线翻折，而是把立体的面展开。",
+  "zh-Hant": "可惜。把路線拉直的想法一樣，但這裡不是沿直線翻折，而是把立體的面展開。"
+ },
+ "川によって水をくむ。いちばん短い道は？": {
+  "en": "Stop by the river to fetch water. What's the shortest route?",
+  "zh-Hans": "顺路到河边打水。最短的路线是哪条？",
+  "zh-Hant": "順路到河邊打水。最短的路線是哪條？"
+ },
+ "まん中では最短にならない…。どうする？": {
+  "en": "The middle isn't the shortest… What now?",
+  "zh-Hans": "走正中间并不是最短…怎么办？",
+  "zh-Hant": "走正中間並不是最短…怎麼辦？"
+ },
+ "折り返すレンズ！ Qを川で折り返そう": {
+  "en": "Reflect lens! Reflect Q across the river",
+  "zh-Hans": "翻折透镜！把Q沿河翻折过去",
+  "zh-Hant": "翻折透鏡！把Q沿河翻折過去"
+ },
+ "点を川の反対がわへ折り返そう": {
+  "en": "Reflect the point to the other side of the river",
+  "zh-Hans": "把点翻折到河的另一边",
+  "zh-Hant": "把點翻折到河的另一邊"
+ },
+ "まっすぐな線が、いちばん短い": {
+  "en": "A straight line is the shortest",
+  "zh-Hans": "直线最短",
+  "zh-Hant": "直線最短"
+ },
+ "数が大きくなっても、同じ考え方": {
+  "en": "Even with bigger numbers, it's the same idea",
+  "zh-Hans": "数字变大了，思路也一样",
+  "zh-Hant": "數字變大了，想法也一樣"
+ },
+ "比をかんたんにしてから計算": {
+  "en": "Simplify the ratio first, then calculate",
+  "zh-Hans": "先化简比，再计算",
+  "zh-Hant": "先化簡比，再計算"
+ },
+ "でも、立体の表面の道なら…": {
+  "en": "But if the path is on the surface of a solid…",
+  "zh-Hans": "但是，如果是立体表面上的路线…",
+  "zh-Hant": "但是，如果是立體表面上的路線…"
+ },
+ "まん中によればいいと思いたくなる": {
+  "en": "You want to think going to the middle is best",
+  "zh-Hans": "总以为走正中间就好",
+  "zh-Hant": "總以為走正中間就好"
+ },
+ "折り返して、まっすぐ結ぶ": {
+  "en": "Reflect, then connect with a straight line",
+  "zh-Hans": "翻折过去，用直线连起来",
+  "zh-Hant": "翻折過去，用直線連起來"
+ },
+ "大きな数でも、折り返す": {
+  "en": "Big numbers too: reflect",
+  "zh-Hans": "数字再大也翻折",
+  "zh-Hant": "數字再大也翻折"
+ },
+ "おしい。まっすぐにする発想は同じだが、ここは平面。面を開くのではなく、直線で折り返す。": {
+  "en": "So close. The idea of making it straight is the same, but this is a flat plane. Don't open up faces — reflect across a line.",
+  "zh-Hans": "可惜。把路线拉直的想法一样，但这里是平面。不是展开面，而是沿直线翻折。",
+  "zh-Hant": "可惜。把路線拉直的想法一樣，但這裡是平面。不是展開面，而是沿直線翻折。"
+ },
+ "箱の表面に糸をかける。いちばん短いのは？": {
+  "en": "Wrap a string around the surface of a box. What's the shortest way?",
+  "zh-Hans": "在盒子表面绕一根线。怎样最短？",
+  "zh-Hant": "在盒子表面繞一條線。怎樣最短？"
+ },
+ "ななめの長さが計算できない…。どうする？": {
+  "en": "You can't calculate the slanted length… What now?",
+  "zh-Hans": "斜的长度算不出来…怎么办？",
+  "zh-Hant": "斜的長度算不出來…怎麼辦？"
+ },
+ "展開レンズ！ 2つの面を開いて平らに": {
+  "en": "Unfold lens! Open 2 faces and lay them flat",
+  "zh-Hans": "展开透镜！把2个面展开铺平",
+  "zh-Hant": "展開透鏡！把2個面展開攤平"
+ },
+ "面をつかんで、開いてみよう": {
+  "en": "Grab a face and open it up",
+  "zh-Hans": "抓住一个面，展开看看",
+  "zh-Hant": "抓住一個面，展開看看"
+ },
+ "開いても、糸の長さは変わらない": {
+  "en": "Opening it doesn't change the string's length",
+  "zh-Hans": "展开以后，线的长度也不变",
+  "zh-Hant": "展開以後，線的長度也不變"
+ },
+ "箱の大きさが変わっても、開けば同じ": {
+  "en": "Even if the box size changes, unfold it and it's the same",
+  "zh-Hans": "盒子大小变了，展开后也一样",
+  "zh-Hant": "盒子大小變了，展開後也一樣"
+ },
+ "開いて、同じ形の三角形を見る": {
+  "en": "Unfold it and look for similar triangles",
+  "zh-Hans": "展开后，找形状相同的三角形",
+  "zh-Hant": "展開後，找形狀相同的三角形"
+ },
+ "でも、平面の上の道なら…": {
+  "en": "But if the path is on a flat plane…",
+  "zh-Hans": "但是，如果是平面上的路线…",
+  "zh-Hant": "但是，如果是平面上的路線…"
+ },
+ "立体のまま長さを比べたくなる": {
+  "en": "You want to compare lengths on the solid as it is",
+  "zh-Hans": "总想直接在立体上比较长度",
+  "zh-Hant": "總想直接在立體上比較長度"
+ },
+ "面を開いて、まっすぐ結ぶ": {
+  "en": "Open the faces and connect with a straight line",
+  "zh-Hans": "展开面，用直线连起来",
+  "zh-Hant": "展開面，用直線連起來"
+ },
+ "どんな箱でも、開く": {
+  "en": "Any box: unfold it",
+  "zh-Hans": "不管什么盒子，都展开",
+  "zh-Hant": "不管什麼盒子，都展開"
+ },
+ "視点レンズ（The Lens）": {
+  "en": "The Lens",
+  "zh-Hans": "视角透镜（The Lens）",
+  "zh-Hant": "視角透鏡（The Lens）"
+ },
+ "中学受験算数 視点レンズ": {
+  "en": "The Lens: Middle-School Entrance Exam Math",
+  "zh-Hans": "小升初数学 视角透镜",
+  "zh-Hant": "國中入學考試數學 視角透鏡"
+ },
+ "解き始めを速くする8つのレンズ　4週間ワークブック": {
+  "en": "8 lenses for a faster start — a 4-week workbook",
+  "zh-Hans": "让你更快下笔的8个透镜　4周练习册",
+  "zh-Hant": "讓你更快下筆的8個透鏡　4週練習簿"
+ },
+ "Beyond Culture 獨步文化株式会社": {
+  "en": "Beyond Culture 獨步文化株式会社",
+  "zh-Hans": "Beyond Culture 獨步文化株式会社",
+  "zh-Hant": "Beyond Culture 獨步文化株式会社"
+ },
+ "算数の入試問題で時間がかかるのは、計算そのものより「どう解き始めるか」で手が止まる時間です。\nこの本は、図形と特殊算をまたいで使える8つの視点（レンズ）を、1つずつ身につけるための問題集です。\n各章では同じ問題を「くせでやると（わな）」と「レンズで見ると」の2通りで並べ、どこで遠回りになるかを見比べられるようにしました。": {
+  "en": "What takes time on math entrance-exam problems isn't the calculation itself — it's the time you spend stuck on \"how do I start?\"\nThis workbook helps you master, one at a time, 8 viewpoints (lenses) that work across both geometry and classic word-problem types.\nEach chapter shows the same problem 2 ways — \"by habit (the trap)\" and \"through the lens\" — so you can compare where the long way around happens.",
+  "zh-Hans": "数学升学考试题之所以花时间，往往不是计算本身，而是卡在“怎么开始解”上的时间。\n这本书是一本练习册，帮助你逐一掌握8个能跨越图形题和典型应用题使用的视角（透镜）。\n每一章都把同一道题按“凭习惯做（陷阱）”和“用透镜看”2种方法并排呈现，让你比较在哪里绕了远路。",
+  "zh-Hant": "數學入學考試題之所以花時間，往往不是計算本身，而是卡在「怎麼開始解」上的時間。\n這本書是一本練習簿，幫助你逐一掌握8個能跨越圖形題和典型應用題使用的視角（透鏡）。\n每一章都把同一道題按「憑習慣做（陷阱）」和「用透鏡看」2種方法並排呈現，讓你比較在哪裡繞了遠路。"
+ },
+ "章のはじめの例題で、左ページの「くせでやると」と右ページの「レンズで見ると」を見比べる": {
+  "en": "In the worked example at the start of each chapter, compare \"by habit\" on the left page with \"through the lens\" on the right page",
+  "zh-Hans": "在每章开头的例题中，对照左页的“凭习惯做”和右页的“用透镜看”",
+  "zh-Hant": "在每章開頭的例題中，對照左頁的「憑習慣做」和右頁的「用透鏡看」"
+ },
+ "「レンズが使えないとき」「ここは別のレンズ」で、そのレンズが向かない問題を知る": {
+  "en": "Use \"When the lens doesn't work\" and \"A different lens here\" to learn which problems the lens isn't suited for",
+  "zh-Hans": "通过“透镜用不上的时候”和“这里用别的透镜”，了解这个透镜不适合哪些题",
+  "zh-Hant": "透過「透鏡用不上的時候」和「這裡用別的透鏡」，了解這個透鏡不適合哪些題"
+ },
+ "練習問題は、解く前に「どのレンズ？」の□にレンズ名を書いてから解く": {
+  "en": "For practice problems, write the lens name in the \"Which lens?\" □ before you solve",
+  "zh-Hans": "做练习题时，先在“用哪个透镜？”的□里写上透镜名称再解题",
+  "zh-Hant": "做練習題時，先在「用哪個透鏡？」的□裡寫上透鏡名稱再解題"
+ },
+ "最後の「どのレンズ？」総まとめで、単元をまぜて選ぶ練習をする": {
+  "en": "In the final \"Which lens?\" review, practice choosing with units mixed together",
+  "zh-Hans": "在最后的“用哪个透镜？”总复习中，练习在混合单元里做选择",
+  "zh-Hant": "在最後的「用哪個透鏡？」總複習中，練習在混合單元裡做選擇"
+ },
+ "各章のQRコードから、同じ考え方を指で動かして確かめられます（Webアプリ「視点レンズ」）。": {
+  "en": "Scan the QR code in each chapter to try the same idea with your finger (web app \"The Lens\").",
+  "zh-Hans": "扫描各章的二维码，可以用手指拖动来验证同样的思路（网页应用“视角透镜”）。",
+  "zh-Hant": "掃描各章的QR Code，可以用手指拖曳來驗證同樣的想法（網頁應用程式「視角透鏡」）。"
+ },
+ "この本は点数を約束するものではありません。最初の一手を決めるまでの時間を短くするための練習帳です。": {
+  "en": "This book doesn't promise a score. It's a practice book for shortening the time it takes to decide your first move.",
+  "zh-Hans": "这本书不保证提高分数。它是一本缩短决定第一步所需时间的练习册。",
+  "zh-Hant": "這本書不保證提高分數。它是一本縮短決定第一步所需時間的練習簿。"
+ },
+ "おうちの方へ：1日1章の半分（15〜20分）が目安です。4週間の進め方は、Webアプリの「4週間完成スケジュール」をご覧ください。": {
+  "en": "For parents: aim for half a chapter a day (15–20 min). For a 4-week plan, see the \"4-Week Schedule\" in the web app.",
+  "zh-Hans": "致家长：每天半章（15～20分钟）为宜。4周的学习安排，请参阅网页应用中的“4周完成计划”。",
+  "zh-Hant": "致家長：每天半章（15～20分鐘）為宜。4週的學習安排，請參閱網頁應用程式中的「4週完成計畫」。"
+ },
+ "面積の加法性：大きな長方形から、まわりの直角三角形を引けば、残りの面積が求まる。": {
+  "en": "Areas add up: take a big rectangle, subtract the right triangles around it, and you get the remaining area.",
+  "zh-Hans": "面积可以相加减：从大长方形中减去周围的直角三角形，就能求出剩下的面积。",
+  "zh-Hant": "面積可以相加減：從大長方形中減去周圍的直角三角形，就能求出剩下的面積。"
+ },
+ "底辺と高さが同じ三角形は、形がちがっても面積が等しい。平行線の上で頂点を動かしても、高さは変わらない。": {
+  "en": "Triangles with the same base and height have equal areas, even if their shapes differ. Moving a vertex along a parallel line doesn't change the height.",
+  "zh-Hans": "底和高相同的三角形，即使形状不同，面积也相等。顶点在平行线上移动，高不会改变。",
+  "zh-Hant": "底和高相同的三角形，即使形狀不同，面積也相等。頂點在平行線上移動，高不會改變。"
+ },
+ "「1枚あたりの金額×枚数＝金額」は長方形の面積と同じ形。2種類を長方形2つでならべると、ちがいの部分だけが見える。": {
+  "en": "\"Amount per piece × number of pieces = total amount\" has the same form as a rectangle's area. Line up the 2 kinds as 2 rectangles, and only the difference stands out.",
+  "zh-Hans": "“每张的金额×张数＝金额”和长方形面积的形式相同。把2种并排画成2个长方形，就只看得见差别的部分。",
+  "zh-Hant": "「每張的金額×張數＝金額」和長方形面積的形式相同。把2種並排畫成2個長方形，就只看得見差別的部分。"
+ },
+ "2人は同じだけ年をとるので、年れいの差はずっと同じ。変わらないものに目をつけると、1回のわり算で答えが出る。": {
+  "en": "2 people get older by the same amount, so their age difference always stays the same. Focus on what doesn't change, and 1 division gives the answer.",
+  "zh-Hans": "2个人增长的岁数一样，所以年龄差永远不变。关注不变的量，做1次除法就能得出答案。",
+  "zh-Hant": "2個人增長的歲數一樣，所以年齡差永遠不變。關注不變的量，做1次除法就能得出答案。"
+ },
+ "混ぜたこさは、てんびんがつり合う点。うでの長さ×重さが左右で等しいので、重さの比はうでの長さの逆の比になる。": {
+  "en": "The mixed concentration is the point where the balance is level. Arm length × weight is equal on both sides, so the weight ratio is the inverse of the arm-length ratio.",
+  "zh-Hans": "混合后的浓度就是天平平衡的支点。左右两边的臂长×重量相等，所以重量的比是臂长的反比。",
+  "zh-Hant": "混合後的濃度就是天平平衡的支點。左右兩邊的臂長×重量相等，所以重量的比是臂長的反比。"
+ },
+ "相手を止めて見ると、自分は2人の速さの和で近づいて見える（相対速度）。動くものが1つになると、わり算1回で出会う時間が分かる。": {
+  "en": "If you freeze the other person, you appear to approach at the sum of the 2 speeds (relative speed). With only 1 thing moving, 1 division tells you when they meet.",
+  "zh-Hans": "把对方定住来看，自己就像以2人速度之和在靠近（相对速度）。动的东西只剩1个，做1次除法就知道相遇时间。",
+  "zh-Hant": "把對方定住來看，自己就像以2人速度之和在靠近（相對速度）。動的東西只剩1個，做1次除法就知道相遇時間。"
+ },
+ "2点を結ぶ線のうち、いちばん短いのはまっすぐな線。折り返しても長さは変わらないので、折り返した点とまっすぐ結べば最短になる。": {
+  "en": "Of all lines joining 2 points, the shortest is the straight one. Reflecting doesn't change length, so joining the reflected point with a straight line gives the shortest path.",
+  "zh-Hans": "连接2点的线中，最短的是直线。翻折后长度不变，所以把翻折后的点用直线连起来就是最短路线。",
+  "zh-Hant": "連接2點的線中，最短的是直線。翻折後長度不變，所以把翻折後的點用直線連起來就是最短路線。"
+ },
+ "立体の表面を通る道は、面を開いて平面にしても長さは変わらない。平面では、2点を結ぶいちばん短い線はまっすぐな線。": {
+  "en": "A path over the surface of a solid keeps its length when you open the faces into a flat net. On a flat plane, the shortest line joining 2 points is the straight one.",
+  "zh-Hans": "经过立体表面的路线，把面展开成平面后长度不变。在平面上，连接2点的最短线是直线。",
+  "zh-Hant": "經過立體表面的路線，把面展開成平面後長度不變。在平面上，連接2點的最短線是直線。"
+ },
+ "高校受験パス": {
+  "en": "High-School Exam Pass",
+  "zh-Hans": "中考通行证",
+  "zh-Hant": "高中入學通行證"
+ },
+ "中1〜中3・高校受験": {
+  "en": "Grade 7–9 · high-school entrance exam",
+  "zh-Hans": "初一～初三・中考",
+  "zh-Hant": "國一～國三・高中入學考試（會考）"
+ },
+ "対角線がy軸（x軸）の上にある四角形は、囲まずに対角線で2つの三角形に分ける。底辺は共通で、高さの和をかけて÷2。": {
+  "en": "For a quadrilateral whose diagonal lies on the y-axis (x-axis), don't enclose — split it along the diagonal into 2 triangles. They share a base, so multiply by the sum of the heights and ÷2.",
+  "zh-Hans": "对角线在y轴（x轴）上的四边形，不要围，而是沿对角线分成2个三角形。底是公共的，乘以高的和再÷2。",
+  "zh-Hant": "對角線在y軸（x軸）上的四邊形，不要圍，而是沿對角線分成2個三角形。底是共用的，乘以高的和再÷2。"
+ },
+ "座標の四角形。面積はどう出す？": {
+  "en": "A quadrilateral on coordinates. How do you find its area?",
+  "zh-Hans": "坐标上的四边形。面积怎么求？",
+  "zh-Hant": "座標上的四邊形。面積怎麼求？"
+ },
+ "辺も高さもななめ…。どうする？": {
+  "en": "The sides and heights are all slanted… What now?",
+  "zh-Hans": "边和高都是斜的…怎么办？",
+  "zh-Hant": "邊和高都是斜的…怎麼辦？"
+ },
+ "囲むレンズ！ 軸に平行な長方形で囲もう": {
+  "en": "Enclose lens! Box it in a rectangle parallel to the axes",
+  "zh-Hans": "围起来透镜！用平行于坐标轴的长方形围起来",
+  "zh-Hant": "圍起來透鏡！用平行於座標軸的長方形圍起來"
+ },
+ "ゴーストの指をまねして、囲んでみよう": {
+  "en": "Copy the ghost finger and enclose it",
+  "zh-Hans": "跟着影子手指，试着围起来",
+  "zh-Hant": "跟著影子手指，試著圍起來"
+ },
+ "すみの三角形は、座標の差で読める": {
+  "en": "Read the corner triangles from differences in coordinates",
+  "zh-Hans": "角落的三角形，用坐标的差就能读出来",
+  "zh-Hant": "角落的三角形，用座標的差就能讀出來"
+ },
+ "こんどは四角形。同じ手順でいける？": {
+  "en": "Now a quadrilateral. Will the same steps work?",
+  "zh-Hans": "这次是四边形。用同样的步骤行吗？",
+  "zh-Hant": "這次是四邊形。用同樣的步驟行嗎？"
+ },
+ "形が変わっても、囲んで引くだけ": {
+  "en": "Even if the shape changes, just enclose and subtract",
+  "zh-Hans": "形状变了，也只是围起来再减",
+  "zh-Hant": "形狀變了，也只是圍起來再減"
+ },
+ "でも、対角線が軸の上にあるなら…": {
+  "en": "But if a diagonal lies on an axis…",
+  "zh-Hans": "但是，如果对角线在坐标轴上…",
+  "zh-Hant": "但是，如果對角線在座標軸上…"
+ },
+ "手がかり → 道具 → ドラッグ。ヒントなしで": {
+  "en": "Clue → tool → drag. No hints",
+  "zh-Hans": "线索 → 工具 → 拖动。没有提示",
+  "zh-Hant": "線索 → 工具 → 拖曳。沒有提示"
+ },
+ "辺の長さを三平方で出したくなる": {
+  "en": "You want to find the side lengths with the Pythagorean theorem",
+  "zh-Hans": "总想用勾股定理求边长",
+  "zh-Hant": "總想用畢氏定理求邊長"
+ },
+ "座標でも、囲んですみを引く": {
+  "en": "On coordinates too: enclose and subtract the corners",
+  "zh-Hans": "在坐标上也是围起来，再减去角落",
+  "zh-Hant": "在座標上也是圍起來，再減去角落"
+ },
+ "どの辺もななめでも、同じ": {
+  "en": "Same even if every side is slanted",
+  "zh-Hans": "每条边都是斜的也一样",
+  "zh-Hant": "每條邊都是斜的也一樣"
+ },
+ "対角線が軸の上なら、分ける": {
+  "en": "If a diagonal lies on an axis, split",
+  "zh-Hans": "对角线在坐标轴上，就分割",
+  "zh-Hant": "對角線在座標軸上，就分割"
+ },
+ "頂点Pがy軸上で、面積の値が与えられたときは、三角形をy軸で2つに切る。y軸上の辺が共通の底辺、高さの和は左右のx座標の差。": {
+  "en": "When vertex P is on the y-axis and the area value is given, cut the triangle in 2 along the y-axis. The side on the y-axis is the shared base, and the sum of the heights is the difference of the x-coordinates on the left and right.",
+  "zh-Hans": "当顶点P在y轴上并且给出面积的值时，用y轴把三角形切成2个。y轴上的边是公共的底，高的和就是左右两边x坐标的差。",
+  "zh-Hant": "當頂點P在y軸上並且給出面積的值時，用y軸把三角形切成2個。y軸上的邊是共用的底，高的和就是左右兩邊x座標的差。"
+ },
+ "面積が等しくなる点P。どこにある？": {
+  "en": "Point P makes the areas equal. Where is it?",
+  "zh-Hans": "使面积相等的点P。在哪里？",
+  "zh-Hant": "使面積相等的點P。在哪裡？"
+ },
+ "方程式は場合分けで重い…。どうする？": {
+  "en": "Equations need case-by-case work and get heavy… What now?",
+  "zh-Hans": "列方程要分情况讨论，很麻烦…怎么办？",
+  "zh-Hant": "列方程式要分情況討論，很麻煩…怎麼辦？"
+ },
+ "等積変形レンズ！ 平行な直線をひこう": {
+  "en": "Equal-Area Slide lens! Draw a parallel line",
+  "zh-Hans": "等积变形透镜！画一条平行线",
+  "zh-Hant": "等積變形透鏡！畫一條平行線"
+ },
+ "Cを、ABに平行にすべらせてみよう": {
+  "en": "Slide C parallel to AB",
+  "zh-Hans": "把C沿着与AB平行的方向滑动",
+  "zh-Hant": "把C沿著與AB平行的方向滑動"
+ },
+ "底辺が同じで高さが同じなら、同じ面積": {
+  "en": "Same base and same height means the same area",
+  "zh-Hans": "底相同、高也相同，面积就相同",
+  "zh-Hant": "底相同、高也相同，面積就相同"
+ },
+ "ちがう座標でも、同じ考え方": {
+  "en": "Different coordinates, same idea",
+  "zh-Hans": "坐标不同，思路一样",
+  "zh-Hant": "座標不同，想法一樣"
+ },
+ "平行線の式を出せば、Pが決まる": {
+  "en": "Find the equation of the parallel line, and P is determined",
+  "zh-Hans": "求出平行线的解析式，P就确定了",
+  "zh-Hant": "求出平行線的方程式，P就確定了"
+ },
+ "でも、面積の値だけ分かるなら…": {
+  "en": "But if you only know the area value…",
+  "zh-Hans": "但是，如果只知道面积的值…",
+  "zh-Hant": "但是，如果只知道面積的值…"
+ },
+ "Pを(0, p)とおきたくなる": {
+  "en": "You want to set P as (0, p)",
+  "zh-Hans": "总想把P设为(0, p)",
+  "zh-Hant": "總想把P設為(0, p)"
+ },
+ "平行線の上なら、面積は同じ": {
+  "en": "On a parallel line, the area stays the same",
+  "zh-Hans": "在平行线上，面积就相同",
+  "zh-Hant": "在平行線上，面積就相同"
+ },
+ "傾きが変わっても、平行線": {
+  "en": "Even with a different slope, use a parallel line",
+  "zh-Hans": "斜率变了，还是用平行线",
+  "zh-Hant": "斜率變了，還是用平行線"
+ },
+ "そろえる相手がないときは": {
+  "en": "When there's nothing to match it to",
+  "zh-Hans": "没有可以对齐的对象时",
+  "zh-Hant": "沒有可以對齊的對象時"
+ },
+ "「長さの差がもっとも大きい」なら折り返さない。2点を結ぶ直線をのばして、軸との交点をとる。": {
+  "en": "If it's \"the greatest difference in lengths,\" don't reflect. Extend the straight line through the 2 points and take its intersection with the axis.",
+  "zh-Hans": "如果是“长度之差最大”，就不翻折。延长连接2点的直线，取它与坐标轴的交点。",
+  "zh-Hant": "如果是「長度之差最大」，就不翻折。延長連接2點的直線，取它與座標軸的交點。"
+ },
+ "AP＋PBが最短になるP。どこ？": {
+  "en": "Where is P so that AP＋PB is shortest?",
+  "zh-Hans": "使AP＋PB最短的P在哪里？",
+  "zh-Hant": "使AP＋PB最短的P在哪裡？"
+ },
+ "折り返すレンズ！ Bをx軸で折り返そう": {
+  "en": "Reflect lens! Reflect B across the x-axis",
+  "zh-Hans": "翻折透镜！把B沿x轴翻折过去",
+  "zh-Hant": "翻折透鏡！把B沿x軸翻折過去"
+ },
+ "BをB'に折り返して、Aとまっすぐ結ぼう": {
+  "en": "Reflect B to B', then join it to A with a straight line",
+  "zh-Hans": "把B翻折到B'，再用直线和A连起来",
+  "zh-Hant": "把B翻折到B'，再用直線和A連起來"
+ },
+ "まっすぐな線とx軸の交点がP": {
+  "en": "P is where the straight line crosses the x-axis",
+  "zh-Hans": "直线和x轴的交点就是P",
+  "zh-Hant": "直線和x軸的交點就是P"
+ },
+ "Pが決まったら、△ABPの面積も出せる": {
+  "en": "Once P is found, you can also get the area of △ABP",
+  "zh-Hans": "确定了P，就能求出△ABP的面积",
+  "zh-Hant": "確定了P，就能求出△ABP的面積"
+ },
+ "レンズは2つ続けて使える": {
+  "en": "You can use 2 lenses one after another",
+  "zh-Hans": "透镜可以连续用2个",
+  "zh-Hant": "透鏡可以連續用2個"
+ },
+ "でも、差が最大になる点なら…": {
+  "en": "But if it's the point where the difference is greatest…",
+  "zh-Hans": "但是，如果是差最大的点…",
+  "zh-Hant": "但是，如果是差最大的點…"
+ },
+ "AとBのまん中をとりたくなる": {
+  "en": "You want to take the midpoint of A and B",
+  "zh-Hans": "总想取A和B的正中间",
+  "zh-Hant": "總想取A和B的正中間"
+ },
+ "x軸で折り返して、まっすぐ": {
+  "en": "Reflect across the x-axis, then go straight",
+  "zh-Hans": "沿x轴翻折，再连直线",
+  "zh-Hant": "沿x軸翻折，再連直線"
+ },
+ "折り返したら、次は囲む": {
+  "en": "After reflecting, enclose next",
+  "zh-Hans": "翻折之后，接着围起来",
+  "zh-Hant": "翻折之後，接著圍起來"
+ },
+ "差の最大なら、折り返さない": {
+  "en": "For the greatest difference, don't reflect",
+  "zh-Hans": "求差的最大值，不翻折",
+  "zh-Hant": "求差的最大值，不翻折"
+ },
+ "大人と中学生、合わせて何人？": {
+  "en": "Adults and middle schoolers — how many in total?",
+  "zh-Hans": "大人和初中生，一共多少人？",
+  "zh-Hant": "大人和國中生，一共多少人？"
+ },
+ "xとyの式を2本…重い。どうする？": {
+  "en": "2 equations in x and y… that's heavy. What now?",
+  "zh-Hans": "列x和y的2个方程…好麻烦。怎么办？",
+  "zh-Hant": "列x和y的2個方程式…好麻煩。怎麼辦？"
+ },
+ "面積図レンズ！ 長方形2つでならべよう": {
+  "en": "Area Diagram lens! Line up 2 rectangles",
+  "zh-Hans": "面积图透镜！把2个长方形并排",
+  "zh-Hant": "面積圖透鏡！把2個長方形並排"
+ },
+ "全部中学生だとして、はみ出しを見よう": {
+  "en": "Pretend they're all middle schoolers, and look at what sticks out",
+  "zh-Hans": "假设全是初中生，看看多出来的部分",
+  "zh-Hant": "假設全是國中生，看看多出來的部分"
+ },
+ "はみ出した面積÷縦の差で、答え": {
+  "en": "Area sticking out ÷ difference in height = the answer",
+  "zh-Hans": "多出来的面积÷高的差，就是答案",
+  "zh-Hant": "多出來的面積÷高的差，就是答案"
+ },
+ "平均の線の上と下を比べてみよう": {
+  "en": "Compare above and below the average line",
+  "zh-Hans": "比较平均线的上面和下面",
+  "zh-Hant": "比較平均線的上面和下面"
+ },
+ "はみ出しとへこみは、同じ面積": {
+  "en": "The bump and the dip have the same area",
+  "zh-Hans": "多出来的和凹下去的，面积相同",
+  "zh-Hant": "多出來的和凹下去的，面積相同"
+ },
+ "でも、全体の数が分からないなら…": {
+  "en": "But if you don't know the total number…",
+  "zh-Hans": "但是，如果不知道总数…",
+  "zh-Hant": "但是，如果不知道總數…"
+ },
+ "連立方程式を立てたくなる": {
+  "en": "You want to set up simultaneous equations",
+  "zh-Hans": "总想列方程组",
+  "zh-Hant": "總想列聯立方程式"
+ },
+ "長方形2つで、差を読む": {
+  "en": "2 rectangles: read the difference",
+  "zh-Hans": "用2个长方形读出差",
+  "zh-Hant": "用2個長方形讀出差"
+ },
+ "全体の数がないときは": {
+  "en": "When there's no total",
+  "zh-Hans": "没有总数的时候",
+  "zh-Hant": "沒有總數的時候"
+ },
+ "母の年齢が5倍だったのは何年前？": {
+  "en": "How many years ago was Mom 5 times as old?",
+  "zh-Hans": "几年前妈妈的年龄是5倍？",
+  "zh-Hant": "幾年前媽媽的年齡是5倍？"
+ },
+ "式の向きで迷う…。どうする？": {
+  "en": "Which way should the equation go?… What now?",
+  "zh-Hans": "算式的方向搞不清…怎么办？",
+  "zh-Hant": "算式的方向搞不清楚…怎麼辦？"
+ },
+ "和差一定レンズ！ 年齢の差は変わらない": {
+  "en": "Constant Sum/Difference lens! The age difference doesn't change",
+  "zh-Hans": "和差不变透镜！年龄差不会变",
+  "zh-Hant": "和差不變透鏡！年齡差不會變"
+ },
+ "差のテープを、いくつ分に分けよう": {
+  "en": "Split the difference tape into equal parts",
+  "zh-Hans": "把表示差的线段分成几份",
+  "zh-Hant": "把表示差的線段分成幾份"
+ },
+ "差÷（倍−1）で、そのときの年齢": {
+  "en": "Difference ÷ (times − 1) gives the age at that time",
+  "zh-Hans": "差÷（倍数−1），就是那时的年龄",
+  "zh-Hant": "差÷（倍數−1），就是那時的年齡"
+ },
+ "同じ金額を使っても、差はそのまま": {
+  "en": "Even if they spend the same amount, the difference stays the same",
+  "zh-Hans": "花掉同样的钱，差也不变",
+  "zh-Hant": "花掉同樣的錢，差也不變"
+ },
+ "変わらないものを見つければ速い": {
+  "en": "Find what doesn't change, and it's fast",
+  "zh-Hans": "找到不变的量，就能很快解出",
+  "zh-Hant": "找到不變的量，就能很快解出"
+ },
+ "でも、3人の合計と比べるなら…": {
+  "en": "But if you compare with the total of 3 people…",
+  "zh-Hans": "但是，如果是和3个人的合计比较…",
+  "zh-Hant": "但是，如果是和3個人的合計比較…"
+ },
+ "x年前とおいて式を立てたくなる": {
+  "en": "You want to set \"x years ago\" and write an equation",
+  "zh-Hans": "总想设“x年前”来列方程",
+  "zh-Hant": "總想設「x年前」來列方程式"
+ },
+ "変わらない差を、いくつ分で見る": {
+  "en": "See the unchanging difference as equal parts",
+  "zh-Hans": "把不变的差看成几份",
+  "zh-Hant": "把不變的差看成幾份"
+ },
+ "お金でも、差は変わらない": {
+  "en": "With money too, the difference doesn't change",
+  "zh-Hans": "钱也一样，差不会变",
+  "zh-Hant": "錢也一樣，差不會變"
+ },
+ "差が変わるときは使わない": {
+  "en": "Don't use it when the difference changes",
+  "zh-Hans": "差会变的时候不用",
+  "zh-Hant": "差會變的時候不用"
+ },
+ "濃度のちがう食塩水。何g混ぜる？": {
+  "en": "Salt water of different concentrations. How many g do you mix?",
+  "zh-Hans": "浓度不同的盐水。要混合多少g？",
+  "zh-Hant": "濃度不同的食鹽水。要混合多少g？"
+ },
+ "%の式が長くなる…。どうする？": {
+  "en": "The % equation gets long… What now?",
+  "zh-Hans": "%的算式越来越长…怎么办？",
+  "zh-Hant": "%的算式越來越長…怎麼辦？"
+ },
+ "てんびんレンズ！ 濃度をうでにのせよう": {
+  "en": "Balance lens! Put the concentrations on the arm",
+  "zh-Hans": "天平透镜！把浓度放到天平臂上",
+  "zh-Hant": "天平透鏡！把濃度放到天平臂上"
+ },
+ "支点を混ぜたあとの濃度に合わせよう": {
+  "en": "Set the pivot at the concentration after mixing",
+  "zh-Hans": "把支点对准混合后的浓度",
+  "zh-Hant": "把支點對準混合後的濃度"
+ },
+ "重さの比は、うでの長さの逆の比": {
+  "en": "The weight ratio is the inverse of the arm-length ratio",
+  "zh-Hans": "重量的比是臂长的反比",
+  "zh-Hant": "重量的比是臂長的反比"
+ },
+ "食塩だけ加えるなら、100%とてんびん": {
+  "en": "If you only add salt, balance it against 100%",
+  "zh-Hans": "如果只加盐，就和100%放在天平上",
+  "zh-Hant": "如果只加鹽，就和100%放在天平上"
+ },
+ "水は0%、食塩は100%と考える": {
+  "en": "Think of water as 0% and salt as 100%",
+  "zh-Hans": "把水看成0%，盐看成100%",
+  "zh-Hant": "把水看成0%，鹽看成100%"
+ },
+ "でも、水を蒸発させるだけなら…": {
+  "en": "But if you're only evaporating water…",
+  "zh-Hans": "但是，如果只是让水蒸发…",
+  "zh-Hant": "但是，如果只是讓水蒸發…"
+ },
+ "食塩の重さで方程式を立てたくなる": {
+  "en": "You want to write an equation with the weight of salt",
+  "zh-Hans": "总想用盐的重量列方程",
+  "zh-Hant": "總想用鹽的重量列方程式"
+ },
+ "濃度をてんびんのうでにする": {
+  "en": "Make the concentrations the arm of the balance",
+  "zh-Hans": "把浓度当作天平的臂",
+  "zh-Hant": "把濃度當作天平的臂"
+ },
+ "何も混ぜないときは": {
+  "en": "When nothing is mixed",
+  "zh-Hans": "什么都不混合的时候",
+  "zh-Hant": "什麼都不混合的時候"
+ },
+ "1人が途中で速さを変え、合計の時間と道のりが分かるときは、面積図にする。": {
+  "en": "When 1 person changes speed partway and you know the total time and distance, use an area diagram.",
+  "zh-Hans": "1个人中途改变速度，又知道总时间和总路程时，用面积图。",
+  "zh-Hant": "1個人中途改變速度，又知道總時間和總路程時，用面積圖。"
+ },
+ "兄が弟に追いつくのは何分後？": {
+  "en": "In how many minutes does the big brother catch up with the little brother?",
+  "zh-Hans": "哥哥几分钟后追上弟弟？",
+  "zh-Hant": "哥哥幾分鐘後追上弟弟？"
+ },
+ "出発時刻がずれて迷う…。どうする？": {
+  "en": "They start at different times, which is confusing… What now?",
+  "zh-Hans": "出发时间不一样，搞不清楚…怎么办？",
+  "zh-Hant": "出發時間不一樣，搞不清楚…怎麼辦？"
+ },
+ "止めるレンズ！ 弟を止めてみよう": {
+  "en": "Freeze lens! Try freezing the little brother",
+  "zh-Hans": "定住一方透镜！试着让弟弟停下来",
+  "zh-Hant": "定住一方透鏡！試著讓弟弟停下來"
+ },
+ "近づく速さは、速さの差": {
+  "en": "The closing speed is the difference of the speeds",
+  "zh-Hans": "靠近的速度就是速度之差",
+  "zh-Hant": "靠近的速度就是速度之差"
+ },
+ "すれちがう列車も、片方を止める": {
+  "en": "Trains passing each other too: freeze one",
+  "zh-Hans": "错车的火车，也定住一方",
+  "zh-Hant": "交會的火車，也定住一方"
+ },
+ "長さの和を、速さの和で進む": {
+  "en": "Cover the sum of the lengths at the sum of the speeds",
+  "zh-Hans": "用速度之和走完长度之和",
+  "zh-Hant": "用速度之和走完長度之和"
+ },
+ "でも、1人が速さを変えるだけなら…": {
+  "en": "But if just 1 person changes speed…",
+  "zh-Hans": "但是，如果只有1个人改变速度…",
+  "zh-Hant": "但是，如果只有1個人改變速度…"
+ },
+ "x分後の位置を式にしたくなる": {
+  "en": "You want to write the position after x minutes as an expression",
+  "zh-Hans": "总想把x分钟后的位置写成式子",
+  "zh-Hant": "總想把x分鐘後的位置寫成式子"
+ },
+ "弟を止めて、差で近づく": {
+  "en": "Freeze the little brother and close in by the difference",
+  "zh-Hans": "定住弟弟，用速度差靠近",
+  "zh-Hant": "定住弟弟，用速度差靠近"
+ },
+ "動くのが1人なら使わない": {
+  "en": "Don't use it if only 1 person moves",
+  "zh-Hans": "只有1个人在动时不用",
+  "zh-Hant": "只有1個人在動時不用"
+ },
+ "聞かれているのが体積なら、展開しない。立体のまま、底面積×高さ（すいなら÷3）で考える。": {
+  "en": "If the question asks for volume, don't unfold. Keep it as a solid and use base area × height (÷3 for a pyramid or cone).",
+  "zh-Hans": "如果问的是体积，就不展开。直接看立体，用底面积×高（锥体再÷3）来思考。",
+  "zh-Hant": "如果問的是體積，就不展開。直接看立體，用底面積×高（錐體再÷3）來思考。"
+ },
+ "表面を通る最短の糸。Pはどこ？": {
+  "en": "The shortest string over the surface. Where is P?",
+  "zh-Hans": "经过表面的最短的线。P在哪里？",
+  "zh-Hant": "經過表面的最短的線。P在哪裡？"
+ },
+ "立体のままでは比べられない…。どうする？": {
+  "en": "You can't compare them on the solid as it is… What now?",
+  "zh-Hans": "直接在立体上没法比较…怎么办？",
+  "zh-Hant": "直接在立體上沒辦法比較…怎麼辦？"
+ },
+ "展開レンズ！ 面を開いて平らにしよう": {
+  "en": "Unfold lens! Open the faces and lay them flat",
+  "zh-Hans": "展开透镜！把面展开铺平",
+  "zh-Hant": "展開透鏡！把面展開攤平"
+ },
+ "2つの面を開いて、AとGを結ぼう": {
+  "en": "Open 2 faces and connect A and G",
+  "zh-Hans": "展开2个面，连接A和G",
+  "zh-Hant": "展開2個面，連接A和G"
+ },
+ "相似な三角形で、BPが出る": {
+  "en": "Similar triangles give you BP",
+  "zh-Hans": "用相似三角形求出BP",
+  "zh-Hant": "用相似三角形求出BP"
+ },
+ "こんどは3つの面。開いて1本の直線": {
+  "en": "Now 3 faces. Open them into 1 straight line",
+  "zh-Hans": "这次是3个面。展开成1条直线",
+  "zh-Hant": "這次是3個面。展開成1條直線"
+ },
+ "何面通っても、開けばまっすぐ": {
+  "en": "However many faces it crosses, unfold and it's straight",
+  "zh-Hans": "不管经过几个面，展开就是直线",
+  "zh-Hant": "不管經過幾個面，展開就是直線"
+ },
+ "でも、切り取った立体の体積なら…": {
+  "en": "But if it's the volume of a cut-off solid…",
+  "zh-Hans": "但是，如果是切下来的立体的体积…",
+  "zh-Hant": "但是，如果是切下來的立體的體積…"
+ },
+ "BFのまん中を通りたくなる": {
+  "en": "You want to pass through the midpoint of BF",
+  "zh-Hans": "总想经过BF的中点",
+  "zh-Hant": "總想經過BF的中點"
+ },
+ "3つの面も、開けば同じ": {
+  "en": "3 faces too: unfold and it's the same",
+  "zh-Hans": "3个面也一样，展开就行",
+  "zh-Hant": "3個面也一樣，展開就行"
+ },
+ "体積なら、開かない": {
+  "en": "For volume, don't unfold",
+  "zh-Hans": "求体积，就不展开",
+  "zh-Hant": "求體積，就不展開"
+ },
+ "高校入試数学 視点レンズ": {
+  "en": "The Lens: High-School Entrance Exam Math",
+  "zh-Hans": "中考数学 视角透镜",
+  "zh-Hant": "高中入學考試數學 視角透鏡"
+ },
+ "高校入試の数学は、1つの考え方では終わらず、2つの視点をつなげて解く問題が増えます。\nこの本では、中学受験でも使う8つの視点（レンズ）を、座標・図形・文章題の上で使い直します。\n「折り返して最短の点を出す→囲んで面積を出す」のように、レンズをつなぐ順番も練習します。": {
+  "en": "In high-school entrance exam math, more problems can't be finished with a single idea — you solve them by linking 2 viewpoints.\nThis book takes the 8 viewpoints (lenses) also used in middle-school entrance exams and applies them again to coordinates, geometry and word problems.\nYou'll also practice the order for linking lenses, such as \"reflect to find the shortest point → enclose to find the area.\"",
+  "zh-Hans": "中考数学中，光靠1种思路解不完、需要把2个视角连起来解的题越来越多。\n这本书把小升初也会用到的8个视角（透镜），重新用在坐标、图形和应用题上。\n像“翻折求出最短的点→围起来求面积”这样，也会练习连接透镜的顺序。",
+  "zh-Hant": "高中入學考試的數學，光靠1種想法解不完、需要把2個視角連起來解的題目越來越多。\n這本書把國中入學考試也會用到的8個視角（透鏡），重新用在座標、圖形和應用題上。\n像「翻折求出最短的點→圍起來求面積」這樣，也會練習連接透鏡的順序。"
+ },
+ "つなぐ問題では、1つ目のレンズで何が分かれば2つ目に進めるかを確かめる": {
+  "en": "In linked problems, check what the 1st lens must reveal before you can move on to the 2nd",
+  "zh-Hans": "在连接型题目中，确认第1个透镜要弄清什么，才能进入第2个",
+  "zh-Hant": "在連接型題目中，確認第1個透鏡要弄清什麼，才能進入第2個"
+ },
+ "おうちの方へ：1日1章の半分（20分）が目安です。週5日なら、約4週間で一周できます。": {
+  "en": "For parents: aim for half a chapter a day (20 min). At 5 days a week, you'll finish in about 4 weeks.",
+  "zh-Hans": "致家长：每天半章（20分钟）为宜。每周5天的话，大约4周可以学完一遍。",
+  "zh-Hant": "致家長：每天半章（20分鐘）為宜。每週5天的話，大約4週可以學完一遍。"
+ },
+ "座標平面でも、外わくの長方形の面積から、すみの直角三角形を引けばよい。直角三角形の辺は座標の差で読める。": {
+  "en": "On the coordinate plane too, take the area of the outer rectangle and subtract the corner right triangles. The sides of the right triangles can be read from differences in coordinates.",
+  "zh-Hans": "在坐标平面上，也是用外框长方形的面积减去角落的直角三角形。直角三角形的边长可以用坐标的差读出来。",
+  "zh-Hant": "在座標平面上，也是用外框長方形的面積減去角落的直角三角形。直角三角形的邊長可以用座標的差讀出來。"
+ },
+ "底辺ABが同じで、高さが同じなら面積は同じ。高さが同じ点は、ABに平行な直線の上にならぶ。": {
+  "en": "If the base AB is the same and the height is the same, the area is the same. Points with the same height line up on a line parallel to AB.",
+  "zh-Hans": "底AB相同、高也相同，面积就相同。高相同的点，都排在与AB平行的直线上。",
+  "zh-Hant": "底AB相同、高也相同，面積就相同。高相同的點，都排在與AB平行的直線上。"
+ },
+ "折り返しても長さは変わらないので、AとB'を結ぶまっすぐな線が最短。": {
+  "en": "Reflecting doesn't change length, so the straight line joining A and B' is the shortest.",
+  "zh-Hans": "翻折后长度不变，所以连接A和B'的直线最短。",
+  "zh-Hant": "翻折後長度不變，所以連接A和B'的直線最短。"
+ },
+ "1人あたりの入館料×人数は長方形の面積。全部を安いほうと考えると、はみ出した部分だけが残る。": {
+  "en": "Admission per person × number of people is a rectangle's area. If you assume everyone pays the cheaper price, only the part that sticks out remains.",
+  "zh-Hans": "每人的门票费×人数就是长方形的面积。假设全部都是便宜的那种，就只剩下多出来的部分。",
+  "zh-Hant": "每人的門票費×人數就是長方形的面積。假設全部都是便宜的那種，就只剩下多出來的部分。"
+ },
+ "何年前にさかのぼっても、2人の年齢の差は同じ。差を「いくつ分」で考えると、1回のわり算でそのときの年齢が出る。": {
+  "en": "However many years back you go, the 2 people's age difference is the same. Think of the difference as \"how many parts,\" and 1 division gives the age at that time.",
+  "zh-Hans": "不管往前推多少年，2个人的年龄差都一样。把差看成“几份”，做1次除法就能求出那时的年龄。",
+  "zh-Hant": "不管往前推多少年，2個人的年齡差都一樣。把差看成「幾份」，做1次除法就能求出那時的年齡。"
+ },
+ "混ぜた濃度は、てんびんがつり合う点。うでの長さ×重さが左右で等しいので、重さの比はうでの長さの逆の比になる。": {
+  "en": "The mixed concentration is the point where the balance is level. Arm length × weight is equal on both sides, so the weight ratio is the inverse of the arm-length ratio.",
+  "zh-Hans": "混合后的浓度就是天平平衡的支点。左右两边的臂长×重量相等，所以重量的比是臂长的反比。",
+  "zh-Hant": "混合後的濃度就是天平平衡的支點。左右兩邊的臂長×重量相等，所以重量的比是臂長的反比。"
+ },
+ "追いかける問題も、前を歩く人を止めて考えると、後ろの人は「速さの差」で近づく。": {
+  "en": "In catch-up problems too, if you freeze the person walking ahead, the person behind closes in at \"the difference of the speeds.\"",
+  "zh-Hans": "追及问题也一样，把走在前面的人定住来看，后面的人就以“速度之差”靠近。",
+  "zh-Hant": "追趕問題也一樣，把走在前面的人定住來看，後面的人就以「速度之差」靠近。"
+ },
+ "大学受験パス": {
+  "en": "University Exam Pass",
+  "zh-Hans": "高考通行证",
+  "zh-Hant": "大學入學通行證"
+ },
+ "高1〜高3・共通テスト／個別試験": {
+  "en": "Grade 10–12 · national common test / university-specific exams",
+  "zh-Hans": "高一～高三・高考统考／高校自主考试",
+  "zh-Hant": "高一～高三・學測／分科測驗"
+ },
+ "往復の平均の速さは、全体の道のり÷全体の時間。速さをそのまま平均しない。": {
+  "en": "For the average speed of a round trip, use total distance ÷ total time. Don't just average the speeds.",
+  "zh-Hans": "往返的平均速度是总路程÷总时间。不能直接把速度平均。",
+  "zh-Hant": "往返的平均速度是總路程÷總時間。不能直接把速度平均。"
+ },
+ "2本の線の交点P。AP:PDは？": {
+  "en": "P is where 2 lines cross. What is AP:PD?",
+  "zh-Hans": "2条线的交点P。AP:PD是多少？",
+  "zh-Hant": "2條線的交點P。AP:PD是多少？"
+ },
+ "ベクトルで解くと式が長い…。どうする？": {
+  "en": "Solving with vectors makes the equations long… What now?",
+  "zh-Hans": "用向量解，算式很长…怎么办？",
+  "zh-Hant": "用向量解，算式很長…怎麼辦？"
+ },
+ "てんびんレンズ！ 辺ごとにおもりをのせよう": {
+  "en": "Balance lens! Put weights on each side",
+  "zh-Hans": "天平透镜！在每条边上放砝码",
+  "zh-Hant": "天平透鏡！在每條邊上放砝碼"
+ },
+ "BとCのおもりを、比の逆でのせよう": {
+  "en": "Place weights on B and C in the inverse ratio",
+  "zh-Hans": "按比的反比，在B和C上放砝码",
+  "zh-Hant": "按比的反比，在B和C上放砝碼"
+ },
+ "Dに集まるおもりと、Aのおもりの比": {
+  "en": "The ratio of the weight gathered at D to the weight at A",
+  "zh-Hans": "聚到D的砝码和A的砝码之比",
+  "zh-Hant": "聚到D的砝碼和A的砝碼之比"
+ },
+ "こんどはBEの上の比。同じ考え方で": {
+  "en": "Now the ratio on BE. Same idea",
+  "zh-Hans": "这次是BE上的比。思路一样",
+  "zh-Hant": "這次是BE上的比。想法一樣"
+ },
+ "おもりをそろえれば、どの比も出る": {
+  "en": "Match up the weights, and you can get any ratio",
+  "zh-Hans": "把砝码统一起来，什么比都能求出",
+  "zh-Hant": "把砝碼統一起來，什麼比都能求出"
+ },
+ "でも、往復の平均の速さなら…": {
+  "en": "But if it's the average speed of a round trip…",
+  "zh-Hans": "但是，如果是往返的平均速度…",
+  "zh-Hant": "但是，如果是往返的平均速度…"
+ },
+ "座標やベクトルで交点を出したくなる": {
+  "en": "You want to find the intersection with coordinates or vectors",
+  "zh-Hans": "总想用坐标或向量求交点",
+  "zh-Hant": "總想用座標或向量求交點"
+ },
+ "辺ごとのてんびんをつなぐ": {
+  "en": "Link a balance on each side",
+  "zh-Hans": "把每条边上的天平连起来",
+  "zh-Hant": "把每條邊上的天平連起來"
+ },
+ "BP:PEも、おもりの逆": {
+  "en": "BP:PE too: the inverse of the weights",
+  "zh-Hans": "BP:PE也是砝码的反比",
+  "zh-Hant": "BP:PE也是砝碼的反比"
+ },
+ "速さの平均は、まん中ではない": {
+  "en": "The average of speeds isn't the middle",
+  "zh-Hans": "速度的平均，不是正中间",
+  "zh-Hant": "速度的平均，不是正中間"
+ },
+ "端が直線 x = p、x = q のときは、交点で囲まれていないので1/6公式は使えない。そのまま積分する。": {
+  "en": "When the ends are the lines x = p and x = q, the region isn't bounded by intersection points, so the 1/6 formula doesn't apply. Integrate directly.",
+  "zh-Hans": "当两端是直线 x = p、x = q 时，区域不是由交点围成的，不能用1/6公式。直接积分。",
+  "zh-Hant": "當兩端是直線 x = p、x = q 時，區域不是由交點圍成的，不能用1/6公式。直接積分。"
+ },
+ "放物線と直線で囲まれた面積は？": {
+  "en": "What's the area enclosed by the parabola and the line?",
+  "zh-Hans": "抛物线和直线围成的面积是多少？",
+  "zh-Hant": "拋物線和直線圍成的面積是多少？"
+ },
+ "3乗の計算が長い…。どうする？": {
+  "en": "Cubing takes a long time… What now?",
+  "zh-Hans": "3次方的计算很长…怎么办？",
+  "zh-Hant": "3次方的計算很長…怎麼辦？"
+ },
+ "囲むレンズ！ 交点のαとβだけ見よう": {
+  "en": "Enclose lens! Look only at the intersection points α and β",
+  "zh-Hans": "围起来透镜！只看交点α和β",
+  "zh-Hant": "圍起來透鏡！只看交點α和β"
+ },
+ "差をとって、交点のx座標を出そう": {
+  "en": "Take the difference and find the x-coordinates of the intersections",
+  "zh-Hans": "作差，求出交点的x坐标",
+  "zh-Hant": "作差，求出交點的x座標"
+ },
+ "|a|(β−α)³÷6 で、すぐ出る": {
+  "en": "|a|(β−α)³÷6 gives it right away",
+  "zh-Hans": "用 |a|(β−α)³÷6 马上就能求出",
+  "zh-Hant": "用 |a|(β−α)³÷6 馬上就能求出"
+ },
+ "放物線2つでも、差は2次式": {
+  "en": "Even with 2 parabolas, the difference is a quadratic",
+  "zh-Hans": "2条抛物线也一样，差是二次式",
+  "zh-Hant": "2條拋物線也一樣，差是二次式"
+ },
+ "x²の係数の差を使えばいい": {
+  "en": "Just use the difference of the x² coefficients",
+  "zh-Hans": "用x²系数的差就行",
+  "zh-Hant": "用x²係數的差就行"
+ },
+ "でも、交点で囲まれていないなら…": {
+  "en": "But if it isn't bounded by the intersection points…",
+  "zh-Hans": "但是，如果不是由交点围成的…",
+  "zh-Hant": "但是，如果不是由交點圍成的…"
+ },
+ "∫を展開して計算したくなる": {
+  "en": "You want to expand ∫ and calculate",
+  "zh-Hans": "总想把∫展开来计算",
+  "zh-Hant": "總想把∫展開來計算"
+ },
+ "交点だけで、面積が決まる": {
+  "en": "The intersection points alone determine the area",
+  "zh-Hans": "只靠交点就能确定面积",
+  "zh-Hant": "只靠交點就能確定面積"
+ },
+ "放物線どうしでも、1/6公式": {
+  "en": "Between 2 parabolas too: the 1/6 formula",
+  "zh-Hans": "2条抛物线之间也用1/6公式",
+  "zh-Hant": "2條拋物線之間也用1/6公式"
+ },
+ "端が x = p なら、そのまま積分": {
+  "en": "If an end is x = p, integrate directly",
+  "zh-Hans": "端点是 x = p 时，直接积分",
+  "zh-Hant": "端點是 x = p 時，直接積分"
+ },
+ "Pの動ける範囲に接点がないときは、平行線のレンズだけでは決まらない。範囲のはしを調べる。": {
+  "en": "When the tangent point isn't within P's allowed range, the parallel-line lens alone won't settle it. Check the ends of the range.",
+  "zh-Hans": "当P能移动的范围内没有切点时，只用平行线透镜确定不了。要检查范围的端点。",
+  "zh-Hant": "當P能移動的範圍內沒有切點時，只用平行線透鏡確定不了。要檢查範圍的端點。"
+ },
+ "放物線上のPで、△ABPの最大は？": {
+  "en": "For P on the parabola, what's the maximum of △ABP?",
+  "zh-Hans": "抛物线上的点P，△ABP的最大值是多少？",
+  "zh-Hant": "拋物線上的點P，△ABP的最大值是多少？"
+ },
+ "根号と絶対値で重い…。どうする？": {
+  "en": "Radicals and absolute values make it heavy… What now?",
+  "zh-Hans": "又是根号又是绝对值，好麻烦…怎么办？",
+  "zh-Hant": "又是根號又是絕對值，好麻煩…怎麼辦？"
+ },
+ "等積変形レンズ！ ABに平行な線を動かそう": {
+  "en": "Equal-Area Slide lens! Move a line parallel to AB",
+  "zh-Hans": "等积变形透镜！移动与AB平行的直线",
+  "zh-Hant": "等積變形透鏡！移動與AB平行的直線"
+ },
+ "平行線を、放物線にふれるまで動かそう": {
+  "en": "Move the parallel line until it touches the parabola",
+  "zh-Hans": "移动平行线，直到碰到抛物线",
+  "zh-Hant": "移動平行線，直到碰到拋物線"
+ },
+ "接点はAとBのまん中のx": {
+  "en": "The tangent point is at the x midway between A and B",
+  "zh-Hans": "切点的x就在A和B的正中间",
+  "zh-Hant": "切點的x就在A和B的正中間"
+ },
+ "Oを通る平行線の上なら、高さは同じ": {
+  "en": "On the parallel line through O, the height is the same",
+  "zh-Hans": "在过O的平行线上，高就相同",
+  "zh-Hant": "在過O的平行線上，高就相同"
+ },
+ "平行線と放物線の交点がP": {
+  "en": "P is where the parallel line meets the parabola",
+  "zh-Hans": "平行线和抛物线的交点就是P",
+  "zh-Hant": "平行線和拋物線的交點就是P"
+ },
+ "でも、Pの動ける範囲が決まっていたら…": {
+  "en": "But if P's allowed range is fixed…",
+  "zh-Hans": "但是，如果P能移动的范围是限定的…",
+  "zh-Hant": "但是，如果P能移動的範圍是限定的…"
+ },
+ "点と直線の距離で高さを出したくなる": {
+  "en": "You want to find the height with the point-to-line distance",
+  "zh-Hans": "总想用点到直线的距离求高",
+  "zh-Hant": "總想用點到直線的距離求高"
+ },
+ "ABに平行な接線で、高さが最大": {
+  "en": "The tangent parallel to AB gives the greatest height",
+  "zh-Hans": "与AB平行的切线，高最大",
+  "zh-Hant": "與AB平行的切線，高最大"
+ },
+ "Oを通る平行線で、等しい面積": {
+  "en": "The parallel line through O gives equal area",
+  "zh-Hans": "过O的平行线，面积相等",
+  "zh-Hant": "過O的平行線，面積相等"
+ },
+ "接点が範囲の外なら、はしで": {
+  "en": "If the tangent point is outside the range, use the ends",
+  "zh-Hans": "切点在范围外，就看端点",
+  "zh-Hant": "切點在範圍外，就看端點"
+ },
+ "差 |PA−PB| の最大は折り返さない。直線ABとℓの交点がP。": {
+  "en": "For the maximum of the difference |PA−PB|, don't reflect. P is where line AB meets ℓ.",
+  "zh-Hans": "求差 |PA−PB| 的最大值时不翻折。直线AB和ℓ的交点就是P。",
+  "zh-Hant": "求差 |PA−PB| 的最大值時不翻折。直線AB和ℓ的交點就是P。"
+ },
+ "直線上のPで、AP＋PBの最小は？": {
+  "en": "For P on a line, what's the minimum of AP＋PB?",
+  "zh-Hans": "直线上的点P，AP＋PB的最小值是多少？",
+  "zh-Hant": "直線上的點P，AP＋PB的最小值是多少？"
+ },
+ "根号の和は手ごわい…。どうする？": {
+  "en": "A sum of radicals is tough… What now?",
+  "zh-Hans": "根号的和很难对付…怎么办？",
+  "zh-Hant": "根號的和很難對付…怎麼辦？"
+ },
+ "折り返すレンズ！ Bを直線で折り返そう": {
+  "en": "Reflect lens! Reflect B across the line",
+  "zh-Hans": "翻折透镜！把B沿直线翻折过去",
+  "zh-Hant": "翻折透鏡！把B沿直線翻折過去"
+ },
+ "BをB'へ。中点がℓ上、BB'はℓと垂直": {
+  "en": "B goes to B'. The midpoint is on ℓ, and BB' is perpendicular to ℓ",
+  "zh-Hans": "把B翻到B'。中点在ℓ上，BB'与ℓ垂直",
+  "zh-Hant": "把B翻到B'。中點在ℓ上，BB'與ℓ垂直"
+ },
+ "最小値は、AB'の長さそのもの": {
+  "en": "The minimum is exactly the length of AB'",
+  "zh-Hans": "最小值就是AB'的长度",
+  "zh-Hant": "最小值就是AB'的長度"
+ }
+}

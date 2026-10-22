@@ -1,3 +1,8 @@
+import { LANG, type Lang } from './lang';
+import { en } from './en';
+import { zhHans } from './zh-Hans';
+import { zhHant } from './zh-Hant';
+
 // UI strings (ADR-002): components call t('key'); card text keeps coming from the bundle.
 // guide.*: copy owned by the Architect (WO-012 §3b), kept here and reviewed by the Architect (#46).
 // Shared lines are as written in §3b; per-lens play lines are the Founder MVP's.
@@ -262,7 +267,9 @@ export const ja = {
 
 export type Key = keyof typeof ja;
 
-/** The string for a key, with {name} placeholders filled. */
+const DICT: Record<Lang, Record<Key, string>> = { ja, en, 'zh-Hans': zhHans, 'zh-Hant': zhHant };
+
+/** The string for a key in the display language (日本語 if missing), with {name} placeholders filled. */
 export function t(key: Key, vars: Record<string, string | number> = {}): string {
-  return ja[key].replace(/\{(\w+)\}/g, (_, k: string) => String(vars[k] ?? `{${k}}`));
+  return (DICT[LANG][key] ?? ja[key]).replace(/\{(\w+)\}/g, (_, k: string) => String(vars[k] ?? `{${k}}`));
 }

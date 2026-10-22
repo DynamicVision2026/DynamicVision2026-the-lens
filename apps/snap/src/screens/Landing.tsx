@@ -1,6 +1,8 @@
+import { LangSwitch } from "../components/LangSwitch";
+import { gradeLabel } from "../curriculum";
 import { type FormEvent, useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { type HeroVariant, PRIVACY_PATH, copy } from "../copy";
+import { type HeroVariant, PRIVACY_PATH, copy, BRAND, MISC } from "../copy";
 import { normalizeSrc, resolveVariant, type Source } from "../lib/attribution";
 import { fetchPilotGate } from "../lib/pilot";
 import { BUY_URL, LEGAL_URL, LENS_COURSES_URL, lp } from "../lp-copy";
@@ -50,17 +52,18 @@ export function Landing() {
     <div className="lp">
       <header className="lp-bar">
         <div className="lp-wrap lp-bar-in">
-          <a href="#top" className="lp-logo" aria-label="つまずきマップ">
+          <a href="#top" className="lp-logo" aria-label={BRAND}>
             <HexMark />
-            つまずきマップ
+            {BRAND}
           </a>
-          <nav className="lp-nav" aria-label="ページ内リンク">
+          <nav className="lp-nav" aria-label={MISC.pageLinks}>
             {lp.nav.map((n) => (
               <a key={n.href} href={n.href}>
                 {n.label}
               </a>
             ))}
           </nav>
+          <LangSwitch className="lp-lang" />
           <Start />
         </div>
       </header>
@@ -325,13 +328,14 @@ export function Footer() {
           <HexMark />
           {f.brand}
         </div>
-        <nav className="lp-footer-links" aria-label="サイト情報">
+        <nav className="lp-footer-links" aria-label={MISC.siteInfo}>
           <a href={LEGAL_URL} target="_blank" rel="noopener noreferrer">
             {f.legal}
           </a>
           <Link to={PRIVACY_PATH}>{f.privacy}</Link>
           <Link to="/terms">{f.terms}</Link>
           <a href={f.familyUrl}>{f.family}</a>
+          <LangSwitch className="lp-lang" />
         </nav>
         <p>{f.operator}</p>
         <p>{f.copyright}</p>
@@ -392,7 +396,7 @@ function WaitlistForm({ variant, src }: { variant: HeroVariant; src: Source }) {
             <option value="">{w.gradePlaceholder}</option>
             {WAITLIST_GRADES.map((g) => (
               <option key={g} value={g}>
-                {g}
+                {gradeLabel(g)}
               </option>
             ))}
           </select>

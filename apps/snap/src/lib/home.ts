@@ -1,3 +1,4 @@
+import { LANG } from "./lang";
 import { app } from "../copy";
 import { type Grade, unitById } from "../curriculum";
 import type { SavedPage } from "./model";
@@ -114,5 +115,5 @@ export function savedToast(page: Pick<SavedPage, "problems">): string {
   if (wrong.length > 0) parts.push(t.wrong(wrong.length, shown, topics.length > shown.length));
   if (ok > 0) parts.push(t.ok(ok));
   if (none > 0 && parts.length > 0) parts.push(t.none(none));
-  return parts.length > 0 ? `${t.head(ps.length)}：${parts.join("・")}` : `${t.head(ps.length)}。`;
+  return parts.length > 0 ? `${t.head(ps.length)}${LANG === "en" ? ": " : "："}${parts.join(LANG === "en" ? " · " : "・")}` : `${t.head(ps.length)}${LANG === "en" ? "." : "。"}`;
 }

@@ -4,6 +4,8 @@
 // 3-day trial), parents and safety, purchased, FAQ, footer. Copy from launch/copy.ts; every colour and the
 // font from tokens.json (color.landing, lens colours, type.family_landing); sizes, times and the free
 // lenses from the bundle; Shopify links from launch.config.ts.
+import { LangSwitch } from '../i18n/LangSwitch';
+import { LANG } from '../i18n/lang';
 import { color, getCard, loadBundle, tokens, type LensId, type Pass } from '@lens/scenes';
 import { Fragment, useEffect, type CSSProperties } from 'react';
 import { LAUNCH } from '../launch.config';
@@ -46,9 +48,13 @@ const TRIAL_STEP_LENS: LensId[] = ['enclose', 'freeze', 'balance'];
 const WHAT_STEP_LENS: LensId[] = ['slide', 'mirror', 'constant'];
 const LESSON_STEP_LENS: LensId[] = ['enclose', 'slide', 'balance'];
 
-/** 「約4分」, 「約30秒」 from a card's time_cost_sec (whole minutes from a minute up). */
+/** 「約4分」, 「約30秒」 from a card's time_cost_sec (whole minutes from a minute up), in the display language. */
 export function aboutTime(sec: number): string {
-  return sec >= 60 ? `約${Math.round(sec / 60)}分` : `約${sec}秒`;
+  const m = Math.round(sec / 60);
+  if (LANG === 'en') return sec >= 60 ? `about ${m} min` : `about ${sec} s`;
+  if (LANG === 'zh-Hans') return sec >= 60 ? `约${m}分钟` : `约${sec}秒`;
+  if (LANG === 'zh-Hant') return sec >= 60 ? `約${m}分鐘` : `約${sec}秒`;
+  return sec >= 60 ? `約${m}分` : `約${sec}秒`;
 }
 
 /** The card the navy band quotes: chugaku_juken's enclose masterclass example 1. */
@@ -108,6 +114,7 @@ export function Landing() {
           <a href="#access" className="pill">
             {LANDING.nav.owned}
           </a>
+          <LangSwitch />
         </nav>
       </header>
 
@@ -264,9 +271,9 @@ export function Landing() {
               <div key={q} className="lp2-card">
                 <dt>{q}</dt>
                 <dd>
-                  {a.split('特定商取引法に基づく表記').map((part, i) => (
+                  {a.split(FOOTER.tokushoho).map((part, i) => (
                     <Fragment key={i}>
-                      {i > 0 && <a href={LAUNCH.tokushohoUrl}>特定商取引法に基づく表記</a>}
+                      {i > 0 && <a href={LAUNCH.tokushohoUrl}>{FOOTER.tokushoho}</a>}
                       {part}
                     </Fragment>
                   ))}
@@ -419,6 +426,7 @@ export function Footer() {
           <a href="/privacy">{FOOTER.privacy}</a>
           <a href="/external">{FOOTER.external}</a>
           <a href={LAUNCH.coverUrl}>{LANDING.top}</a>
+          <LangSwitch />
         </nav>
       </div>
     </footer>

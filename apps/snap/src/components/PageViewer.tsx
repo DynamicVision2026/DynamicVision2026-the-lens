@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { app } from "../copy";
+import { app, MISC } from "../copy";
 import type { SavedPage } from "../lib/model";
 import { pageView } from "../lib/unitsheet";
 import { usePhotoUrl } from "./PhotoThumb";
@@ -76,7 +76,7 @@ export function PageViewer({ page, unitId, onClose }: { page: SavedPage; unitId:
                 <p className="pv-q">{r.q}</p>
                 <p className="pv-a">
                   <span>
-                    {s.yourAnswer}：<span className="pv-ans">{r.answer || s.blank}</span>
+                    {s.yourAnswer}{MISC.colon}<span className="pv-ans">{r.answer || s.blank}</span>
                   </span>
                   {r.correctAnswer && <span className="pv-ai">{app.confirm.correctAnswer(r.correctAnswer)}</span>}
                 </p>

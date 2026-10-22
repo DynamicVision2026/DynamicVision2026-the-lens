@@ -1,0 +1,1502 @@
+{
+ "混ぜたこさから食塩の量にもどすので、遠回り": {
+  "en": "You go from the mixed concentration back to the amount of salt, so it's the long way around",
+  "zh-Hans": "要从混合后的浓度再倒推回盐的量，绕远路了",
+  "zh-Hant": "要從混合後的濃度再倒推回食鹽的量，繞遠路了"
+ },
+ "ここで約1分半": {
+  "en": "About 1 and a half minutes by this point",
+  "zh-Hans": "到这里大约1分半钟",
+  "zh-Hant": "到這裡大約1分半鐘"
+ },
+ "8%の方の食塩は 250×8÷100 = 20（g）": {
+  "en": "Salt in the 8% solution: 250×8÷100 = 20 (g)",
+  "zh-Hans": "8%的那份含盐 250×8÷100 = 20（g）",
+  "zh-Hant": "8%的那份含食鹽 250×8÷100 = 20（g）"
+ },
+ "5%の方の食塩は 200×5÷100 = 10（g）": {
+  "en": "Salt in the 5% solution: 200×5÷100 = 10 (g)",
+  "zh-Hans": "5%的那份含盐 200×5÷100 = 10（g）",
+  "zh-Hant": "5%的那份含食鹽 200×5÷100 = 10（g）"
+ },
+ "こさではなく食塩の量を聞いているときは、てんびんはいらない。それぞれかけて、たす。": {
+  "en": "When the question asks for the amount of salt, not the concentration, you don't need the balance. Multiply each one, then add.",
+  "zh-Hans": "问的不是浓度而是盐的量时，不需要天平。各自相乘，再相加。",
+  "zh-Hant": "問的不是濃度而是食鹽的量時，不需要天平。各自相乘，再相加。"
+ },
+ "てんびんでも出せるが、ここでは遠回り。こさではなく食塩の量を聞いている。": {
+  "en": "You can get it with the balance, but here it's the long way around. The question asks for the amount of salt, not the concentration.",
+  "zh-Hans": "用天平也能求，但这里是绕远路。问的是盐的量，不是浓度。",
+  "zh-Hant": "用天平也算得出來，但這裡是繞遠路。問的是食鹽的量，不是濃度。"
+ },
+ "変わらないものを使う問題ではない。": {
+  "en": "This isn't a problem about using something that stays the same.",
+  "zh-Hans": "这不是利用不变量的题。",
+  "zh-Hant": "這不是利用不變量的題目。"
+ },
+ "そのとおり。それぞれ 重さ×こさ÷100 で食塩の重さを出して、たすだけ。": {
+  "en": "That's right. Find each salt weight with weight × concentration ÷ 100, then just add.",
+  "zh-Hans": "没错。分别用 重量×浓度÷100 求出盐的重量，再相加就行。",
+  "zh-Hant": "沒錯。分別用 重量×濃度÷100 算出食鹽的重量，再相加就好。"
+ },
+ "6%の食塩水350gと、3%の食塩水100gにふくまれる食塩は、合わせて何gですか。": {
+  "en": "How many grams of salt are in 350 g of 6% salt water and 100 g of 3% salt water combined?",
+  "zh-Hans": "6%的盐水350g和3%的盐水100g中所含的盐，合计是多少g？",
+  "zh-Hant": "6%的食鹽水350g和3%的食鹽水100g中所含的食鹽，合計是多少g？"
+ },
+ "6%の方の食塩は 350×6÷100 = 21（g）": {
+  "en": "Salt in the 6% solution: 350×6÷100 = 21 (g)",
+  "zh-Hans": "6%的那份含盐 350×6÷100 = 21（g）",
+  "zh-Hant": "6%的那份含食鹽 350×6÷100 = 21（g）"
+ },
+ "3%の方の食塩は 100×3÷100 = 3（g）": {
+  "en": "Salt in the 3% solution: 100×3÷100 = 3 (g)",
+  "zh-Hans": "3%的那份含盐 100×3÷100 = 3（g）",
+  "zh-Hant": "3%的那份含食鹽 100×3÷100 = 3（g）"
+ },
+ "3%の食塩水300gと、4%の食塩水150gにふくまれる食塩は、合わせて何gですか。": {
+  "en": "How many grams of salt are in 300 g of 3% salt water and 150 g of 4% salt water combined?",
+  "zh-Hans": "3%的盐水300g和4%的盐水150g中所含的盐，合计是多少g？",
+  "zh-Hant": "3%的食鹽水300g和4%的食鹽水150g中所含的食鹽，合計是多少g？"
+ },
+ "3%の方の食塩は 300×3÷100 = 9（g）": {
+  "en": "Salt in the 3% solution: 300×3÷100 = 9 (g)",
+  "zh-Hans": "3%的那份含盐 300×3÷100 = 9（g）",
+  "zh-Hant": "3%的那份含食鹽 300×3÷100 = 9（g）"
+ },
+ "4%の方の食塩は 150×4÷100 = 6（g）": {
+  "en": "Salt in the 4% solution: 150×4÷100 = 6 (g)",
+  "zh-Hans": "4%的那份含盐 150×4÷100 = 6（g）",
+  "zh-Hant": "4%的那份含食鹽 150×4÷100 = 6（g）"
+ },
+ "7%の食塩水300gと、10%の食塩水300gにふくまれる食塩は、合わせて何gですか。": {
+  "en": "How many grams of salt are in 300 g of 7% salt water and 300 g of 10% salt water combined?",
+  "zh-Hans": "7%的盐水300g和10%的盐水300g中所含的盐，合计是多少g？",
+  "zh-Hant": "7%的食鹽水300g和10%的食鹽水300g中所含的食鹽，合計是多少g？"
+ },
+ "7%の方の食塩は 300×7÷100 = 21（g）": {
+  "en": "Salt in the 7% solution: 300×7÷100 = 21 (g)",
+  "zh-Hans": "7%的那份含盐 300×7÷100 = 21（g）",
+  "zh-Hant": "7%的那份含食鹽 300×7÷100 = 21（g）"
+ },
+ "10%の方の食塩は 300×10÷100 = 30（g）": {
+  "en": "Salt in the 10% solution: 300×10÷100 = 30 (g)",
+  "zh-Hans": "10%的那份含盐 300×10÷100 = 30（g）",
+  "zh-Hant": "10%的那份含食鹽 300×10÷100 = 30（g）"
+ },
+ "3%の食塩水200gと、4%の食塩水250gにふくまれる食塩は、合わせて何gですか。": {
+  "en": "How many grams of salt are in 200 g of 3% salt water and 250 g of 4% salt water combined?",
+  "zh-Hans": "3%的盐水200g和4%的盐水250g中所含的盐，合计是多少g？",
+  "zh-Hant": "3%的食鹽水200g和4%的食鹽水250g中所含的食鹽，合計是多少g？"
+ },
+ "3%の方の食塩は 200×3÷100 = 6（g）": {
+  "en": "Salt in the 3% solution: 200×3÷100 = 6 (g)",
+  "zh-Hans": "3%的那份含盐 200×3÷100 = 6（g）",
+  "zh-Hant": "3%的那份含食鹽 200×3÷100 = 6（g）"
+ },
+ "4%の方の食塩は 250×4÷100 = 10（g）": {
+  "en": "Salt in the 4% solution: 250×4÷100 = 10 (g)",
+  "zh-Hans": "4%的那份含盐 250×4÷100 = 10（g）",
+  "zh-Hant": "4%的那份含食鹽 250×4÷100 = 10（g）"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝2:3となるようにとり、辺CA上に点EをCE:EA＝1:2となるようにとります。ADとBEの交点をPとするとき、AP:PDを最も簡単な整数の比で求めなさい。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 2:3, and point E is on side CA so that CE:EA = 1:2. Let P be the intersection of AD and BE. Find AP:PD as the simplest whole-number ratio.",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝2:3；在边CA上取点E，使CE:EA＝1:2。设AD与BE的交点为P，求AP:PD的最简整数比。",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝2:3；在邊CA上取點E，使CE:EA＝1:2。設AD與BE的交點為P，求AP:PD的最簡整數比。"
+ },
+ "メネラウスの定理を使おうとして、どの三角形とどの直線を選ぶか迷う": {
+  "en": "You try to use Menelaus's theorem and get stuck choosing which triangle and which line",
+  "zh-Hans": "想用梅涅劳斯定理，却不知道该选哪个三角形和哪条直线",
+  "zh-Hant": "想用孟氏定理，卻不知道該選哪個三角形和哪條直線"
+ },
+ "比を書き間違えやすく、何度もやり直す": {
+  "en": "It's easy to write the ratios wrong, so you redo it again and again",
+  "zh-Hans": "比容易写错，一遍遍重来",
+  "zh-Hant": "比容易寫錯，一再重來"
+ },
+ "辺BCのてんびん：BD:DC＝2:3 なので、おもりは B:C＝3:2": {
+  "en": "Balance on side BC: BD:DC = 2:3, so the weights are B:C = 3:2",
+  "zh-Hans": "边BC上的天平：BD:DC＝2:3，所以砝码 B:C＝3:2",
+  "zh-Hant": "邊BC上的天平：BD:DC＝2:3，所以砝碼 B:C＝3:2"
+ },
+ "辺CAのてんびん：CE:EA＝1:2 なので、おもりは C:A＝2:1": {
+  "en": "Balance on side CA: CE:EA = 1:2, so the weights are C:A = 2:1",
+  "zh-Hans": "边CA上的天平：CE:EA＝1:2，所以砝码 C:A＝2:1",
+  "zh-Hant": "邊CA上的天平：CE:EA＝1:2，所以砝碼 C:A＝2:1"
+ },
+ "Cのおもりをそろえると A:B:C＝1:3:2": {
+  "en": "Match the weight at C: A:B:C = 1:3:2",
+  "zh-Hans": "把C的砝码统一，得 A:B:C＝1:3:2",
+  "zh-Hant": "把C的砝碼統一，得 A:B:C＝1:3:2"
+ },
+ "Dには B と C のおもりが集まる：3+2 = 5": {
+  "en": "D collects the weights of B and C: 3+2 = 5",
+  "zh-Hans": "D点汇集了B和C的砝码：3+2 = 5",
+  "zh-Hant": "D點匯集了B和C的砝碼：3+2 = 5"
+ },
+ "ADのてんびん：AP:PD は おもりの逆で 5:1": {
+  "en": "Balance on AD: AP:PD is the inverse of the weights, 5:1",
+  "zh-Hans": "AD上的天平：AP:PD 是砝码的反比，为 5:1",
+  "zh-Hant": "AD上的天平：AP:PD 是砝碼的反比，為 5:1"
+ },
+ "三角形の辺を分ける比が2つ分かり、交点で分ける比を聞かれたら、各頂点におもりをのせる。": {
+  "en": "When you know 2 ratios that split the sides of a triangle and are asked for the ratio at the intersection, put weights on each vertex.",
+  "zh-Hans": "已知三角形的边被分成的2个比，问交点分线段的比时，在各顶点放上砝码。",
+  "zh-Hant": "已知三角形的邊被分成的2個比，問交點分線段的比時，在各頂點放上砝碼。"
+ },
+ "そのとおり。辺ごとにてんびんを考えて、おもりをそろえる。": {
+  "en": "That's right. Think of a balance on each side, then match the weights.",
+  "zh-Hans": "没错。每条边都看成一个天平，再把砝码统一。",
+  "zh-Hant": "沒錯。每條邊都看成一個天平，再把砝碼統一。"
+ },
+ "面積比でも解けるが、比を何回もつなぐので遠回り。": {
+  "en": "You can solve it with area ratios, but you have to chain ratios many times, so it's the long way around.",
+  "zh-Hans": "用面积比也能解，但要把比连接好几次，绕远路。",
+  "zh-Hant": "用面積比也能解，但要把比串接好幾次，繞遠路。"
+ },
+ "平行な線を使う問題ではない。": {
+  "en": "This isn't a problem about using parallel lines.",
+  "zh-Hans": "这不是利用平行线的题。",
+  "zh-Hant": "這不是利用平行線的題目。"
+ },
+ "ベクトルや座標で交点を出すこともできるが、連立方程式が重い。": {
+  "en": "You could find the intersection with vectors or coordinates, but the simultaneous equations are heavy work.",
+  "zh-Hans": "也可以用向量或坐标求交点，但联立方程很繁琐。",
+  "zh-Hant": "也可以用向量或座標求交點，但聯立方程式很繁瑣。"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝4:3となるようにとり、辺CA上に点EをCE:EA＝5:3となるようにとります。ADとBEの交点をPとするとき、AP:PDを最も簡単な整数の比で求めなさい。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 4:3, and point E is on side CA so that CE:EA = 5:3. Let P be the intersection of AD and BE. Find AP:PD as the simplest whole-number ratio.",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝4:3；在边CA上取点E，使CE:EA＝5:3。设AD与BE的交点为P，求AP:PD的最简整数比。",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝4:3；在邊CA上取點E，使CE:EA＝5:3。設AD與BE的交點為P，求AP:PD的最簡整數比。"
+ },
+ "辺BCのてんびん：BD:DC＝4:3 なので、おもりは B:C＝3:4": {
+  "en": "Balance on side BC: BD:DC = 4:3, so the weights are B:C = 3:4",
+  "zh-Hans": "边BC上的天平：BD:DC＝4:3，所以砝码 B:C＝3:4",
+  "zh-Hant": "邊BC上的天平：BD:DC＝4:3，所以砝碼 B:C＝3:4"
+ },
+ "辺CAのてんびん：CE:EA＝5:3 なので、おもりは C:A＝3:5": {
+  "en": "Balance on side CA: CE:EA = 5:3, so the weights are C:A = 3:5",
+  "zh-Hans": "边CA上的天平：CE:EA＝5:3，所以砝码 C:A＝3:5",
+  "zh-Hant": "邊CA上的天平：CE:EA＝5:3，所以砝碼 C:A＝3:5"
+ },
+ "Cのおもりをそろえると A:B:C＝20:9:12": {
+  "en": "Match the weight at C: A:B:C = 20:9:12",
+  "zh-Hans": "把C的砝码统一，得 A:B:C＝20:9:12",
+  "zh-Hant": "把C的砝碼統一，得 A:B:C＝20:9:12"
+ },
+ "Dには B と C のおもりが集まる：9+12 = 21": {
+  "en": "D collects the weights of B and C: 9+12 = 21",
+  "zh-Hans": "D点汇集了B和C的砝码：9+12 = 21",
+  "zh-Hant": "D點匯集了B和C的砝碼：9+12 = 21"
+ },
+ "ADのてんびん：AP:PD は おもりの逆で 21:20": {
+  "en": "Balance on AD: AP:PD is the inverse of the weights, 21:20",
+  "zh-Hans": "AD上的天平：AP:PD 是砝码的反比，为 21:20",
+  "zh-Hant": "AD上的天平：AP:PD 是砝碼的反比，為 21:20"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝2:5となるようにとり、辺CA上に点EをCE:EA＝2:5となるようにとります。ADとBEの交点をPとするとき、AP:PDを最も簡単な整数の比で求めなさい。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 2:5, and point E is on side CA so that CE:EA = 2:5. Let P be the intersection of AD and BE. Find AP:PD as the simplest whole-number ratio.",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝2:5；在边CA上取点E，使CE:EA＝2:5。设AD与BE的交点为P，求AP:PD的最简整数比。",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝2:5；在邊CA上取點E，使CE:EA＝2:5。設AD與BE的交點為P，求AP:PD的最簡整數比。"
+ },
+ "辺BCのてんびん：BD:DC＝2:5 なので、おもりは B:C＝5:2": {
+  "en": "Balance on side BC: BD:DC = 2:5, so the weights are B:C = 5:2",
+  "zh-Hans": "边BC上的天平：BD:DC＝2:5，所以砝码 B:C＝5:2",
+  "zh-Hant": "邊BC上的天平：BD:DC＝2:5，所以砝碼 B:C＝5:2"
+ },
+ "辺CAのてんびん：CE:EA＝2:5 なので、おもりは C:A＝5:2": {
+  "en": "Balance on side CA: CE:EA = 2:5, so the weights are C:A = 5:2",
+  "zh-Hans": "边CA上的天平：CE:EA＝2:5，所以砝码 C:A＝5:2",
+  "zh-Hant": "邊CA上的天平：CE:EA＝2:5，所以砝碼 C:A＝5:2"
+ },
+ "Cのおもりをそろえると A:B:C＝4:25:10": {
+  "en": "Match the weight at C: A:B:C = 4:25:10",
+  "zh-Hans": "把C的砝码统一，得 A:B:C＝4:25:10",
+  "zh-Hant": "把C的砝碼統一，得 A:B:C＝4:25:10"
+ },
+ "Dには B と C のおもりが集まる：25+10 = 35": {
+  "en": "D collects the weights of B and C: 25+10 = 35",
+  "zh-Hans": "D点汇集了B和C的砝码：25+10 = 35",
+  "zh-Hant": "D點匯集了B和C的砝碼：25+10 = 35"
+ },
+ "ADのてんびん：AP:PD は おもりの逆で 35:4": {
+  "en": "Balance on AD: AP:PD is the inverse of the weights, 35:4",
+  "zh-Hans": "AD上的天平：AP:PD 是砝码的反比，为 35:4",
+  "zh-Hant": "AD上的天平：AP:PD 是砝碼的反比，為 35:4"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝1:5となるようにとり、辺CA上に点EをCE:EA＝1:3となるようにとります。ADとBEの交点をPとするとき、AP:PDを最も簡単な整数の比で求めなさい。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 1:5, and point E is on side CA so that CE:EA = 1:3. Let P be the intersection of AD and BE. Find AP:PD as the simplest whole-number ratio.",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝1:5；在边CA上取点E，使CE:EA＝1:3。设AD与BE的交点为P，求AP:PD的最简整数比。",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝1:5；在邊CA上取點E，使CE:EA＝1:3。設AD與BE的交點為P，求AP:PD的最簡整數比。"
+ },
+ "辺BCのてんびん：BD:DC＝1:5 なので、おもりは B:C＝5:1": {
+  "en": "Balance on side BC: BD:DC = 1:5, so the weights are B:C = 5:1",
+  "zh-Hans": "边BC上的天平：BD:DC＝1:5，所以砝码 B:C＝5:1",
+  "zh-Hant": "邊BC上的天平：BD:DC＝1:5，所以砝碼 B:C＝5:1"
+ },
+ "辺CAのてんびん：CE:EA＝1:3 なので、おもりは C:A＝3:1": {
+  "en": "Balance on side CA: CE:EA = 1:3, so the weights are C:A = 3:1",
+  "zh-Hans": "边CA上的天平：CE:EA＝1:3，所以砝码 C:A＝3:1",
+  "zh-Hant": "邊CA上的天平：CE:EA＝1:3，所以砝碼 C:A＝3:1"
+ },
+ "Cのおもりをそろえると A:B:C＝1:15:3": {
+  "en": "Match the weight at C: A:B:C = 1:15:3",
+  "zh-Hans": "把C的砝码统一，得 A:B:C＝1:15:3",
+  "zh-Hant": "把C的砝碼統一，得 A:B:C＝1:15:3"
+ },
+ "Dには B と C のおもりが集まる：15+3 = 18": {
+  "en": "D collects the weights of B and C: 15+3 = 18",
+  "zh-Hans": "D点汇集了B和C的砝码：15+3 = 18",
+  "zh-Hant": "D點匯集了B和C的砝碼：15+3 = 18"
+ },
+ "ADのてんびん：AP:PD は おもりの逆で 18:1": {
+  "en": "Balance on AD: AP:PD is the inverse of the weights, 18:1",
+  "zh-Hans": "AD上的天平：AP:PD 是砝码的反比，为 18:1",
+  "zh-Hant": "AD上的天平：AP:PD 是砝碼的反比，為 18:1"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝5:4となるようにとり、辺CA上に点EをCE:EA＝1:5となるようにとります。ADとBEの交点をPとするとき、AP:PDを最も簡単な整数の比で求めなさい。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 5:4, and point E is on side CA so that CE:EA = 1:5. Let P be the intersection of AD and BE. Find AP:PD as the simplest whole-number ratio.",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝5:4；在边CA上取点E，使CE:EA＝1:5。设AD与BE的交点为P，求AP:PD的最简整数比。",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝5:4；在邊CA上取點E，使CE:EA＝1:5。設AD與BE的交點為P，求AP:PD的最簡整數比。"
+ },
+ "辺BCのてんびん：BD:DC＝5:4 なので、おもりは B:C＝4:5": {
+  "en": "Balance on side BC: BD:DC = 5:4, so the weights are B:C = 4:5",
+  "zh-Hans": "边BC上的天平：BD:DC＝5:4，所以砝码 B:C＝4:5",
+  "zh-Hant": "邊BC上的天平：BD:DC＝5:4，所以砝碼 B:C＝4:5"
+ },
+ "辺CAのてんびん：CE:EA＝1:5 なので、おもりは C:A＝5:1": {
+  "en": "Balance on side CA: CE:EA = 1:5, so the weights are C:A = 5:1",
+  "zh-Hans": "边CA上的天平：CE:EA＝1:5，所以砝码 C:A＝5:1",
+  "zh-Hant": "邊CA上的天平：CE:EA＝1:5，所以砝碼 C:A＝5:1"
+ },
+ "Cのおもりをそろえると A:B:C＝1:4:5": {
+  "en": "Match the weight at C: A:B:C = 1:4:5",
+  "zh-Hans": "把C的砝码统一，得 A:B:C＝1:4:5",
+  "zh-Hant": "把C的砝碼統一，得 A:B:C＝1:4:5"
+ },
+ "Dには B と C のおもりが集まる：4+5 = 9": {
+  "en": "D collects the weights of B and C: 4+5 = 9",
+  "zh-Hans": "D点汇集了B和C的砝码：4+5 = 9",
+  "zh-Hant": "D點匯集了B和C的砝碼：4+5 = 9"
+ },
+ "ADのてんびん：AP:PD は おもりの逆で 9:1": {
+  "en": "Balance on AD: AP:PD is the inverse of the weights, 9:1",
+  "zh-Hans": "AD上的天平：AP:PD 是砝码的反比，为 9:1",
+  "zh-Hant": "AD上的天平：AP:PD 是砝碼的反比，為 9:1"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝3:4となるようにとり、辺CA上に点EをCE:EA＝2:5となるようにとります。ADとBEの交点をPとするとき、AP:PDを最も簡単な整数の比で求めなさい。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 3:4, and point E is on side CA so that CE:EA = 2:5. Let P be the intersection of AD and BE. Find AP:PD as the simplest whole-number ratio.",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝3:4；在边CA上取点E，使CE:EA＝2:5。设AD与BE的交点为P，求AP:PD的最简整数比。",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝3:4；在邊CA上取點E，使CE:EA＝2:5。設AD與BE的交點為P，求AP:PD的最簡整數比。"
+ },
+ "辺BCのてんびん：BD:DC＝3:4 なので、おもりは B:C＝4:3": {
+  "en": "Balance on side BC: BD:DC = 3:4, so the weights are B:C = 4:3",
+  "zh-Hans": "边BC上的天平：BD:DC＝3:4，所以砝码 B:C＝4:3",
+  "zh-Hant": "邊BC上的天平：BD:DC＝3:4，所以砝碼 B:C＝4:3"
+ },
+ "Cのおもりをそろえると A:B:C＝6:20:15": {
+  "en": "Match the weight at C: A:B:C = 6:20:15",
+  "zh-Hans": "把C的砝码统一，得 A:B:C＝6:20:15",
+  "zh-Hant": "把C的砝碼統一，得 A:B:C＝6:20:15"
+ },
+ "Dには B と C のおもりが集まる：20+15 = 35": {
+  "en": "D collects the weights of B and C: 20+15 = 35",
+  "zh-Hans": "D点汇集了B和C的砝码：20+15 = 35",
+  "zh-Hant": "D點匯集了B和C的砝碼：20+15 = 35"
+ },
+ "ADのてんびん：AP:PD は おもりの逆で 35:6": {
+  "en": "Balance on AD: AP:PD is the inverse of the weights, 35:6",
+  "zh-Hans": "AD上的天平：AP:PD 是砝码的反比，为 35:6",
+  "zh-Hant": "AD上的天平：AP:PD 是砝碼的反比，為 35:6"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝1:3となるようにとり、辺CA上に点EをCE:EA＝4:1となるようにとります。ADとBEの交点をPとするとき、AP:PDを最も簡単な整数の比で求めなさい。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 1:3, and point E is on side CA so that CE:EA = 4:1. Let P be the intersection of AD and BE. Find AP:PD as the simplest whole-number ratio.",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝1:3；在边CA上取点E，使CE:EA＝4:1。设AD与BE的交点为P，求AP:PD的最简整数比。",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝1:3；在邊CA上取點E，使CE:EA＝4:1。設AD與BE的交點為P，求AP:PD的最簡整數比。"
+ },
+ "辺BCのてんびん：BD:DC＝1:3 なので、おもりは B:C＝3:1": {
+  "en": "Balance on side BC: BD:DC = 1:3, so the weights are B:C = 3:1",
+  "zh-Hans": "边BC上的天平：BD:DC＝1:3，所以砝码 B:C＝3:1",
+  "zh-Hant": "邊BC上的天平：BD:DC＝1:3，所以砝碼 B:C＝3:1"
+ },
+ "辺CAのてんびん：CE:EA＝4:1 なので、おもりは C:A＝1:4": {
+  "en": "Balance on side CA: CE:EA = 4:1, so the weights are C:A = 1:4",
+  "zh-Hans": "边CA上的天平：CE:EA＝4:1，所以砝码 C:A＝1:4",
+  "zh-Hant": "邊CA上的天平：CE:EA＝4:1，所以砝碼 C:A＝1:4"
+ },
+ "Cのおもりをそろえると A:B:C＝4:3:1": {
+  "en": "Match the weight at C: A:B:C = 4:3:1",
+  "zh-Hans": "把C的砝码统一，得 A:B:C＝4:3:1",
+  "zh-Hant": "把C的砝碼統一，得 A:B:C＝4:3:1"
+ },
+ "Dには B と C のおもりが集まる：3+1 = 4": {
+  "en": "D collects the weights of B and C: 3+1 = 4",
+  "zh-Hans": "D点汇集了B和C的砝码：3+1 = 4",
+  "zh-Hant": "D點匯集了B和C的砝碼：3+1 = 4"
+ },
+ "ADのてんびん：AP:PD は おもりの逆で 4:4＝1:1": {
+  "en": "Balance on AD: AP:PD is the inverse of the weights, 4:4 = 1:1",
+  "zh-Hans": "AD上的天平：AP:PD 是砝码的反比，为 4:4＝1:1",
+  "zh-Hant": "AD上的天平：AP:PD 是砝碼的反比，為 4:4＝1:1"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝4:5となるようにとり、辺CA上に点EをCE:EA＝4:3となるようにとります。ADとBEの交点をPとするとき、AP:PDを最も簡単な整数の比で求めなさい。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 4:5, and point E is on side CA so that CE:EA = 4:3. Let P be the intersection of AD and BE. Find AP:PD as the simplest whole-number ratio.",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝4:5；在边CA上取点E，使CE:EA＝4:3。设AD与BE的交点为P，求AP:PD的最简整数比。",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝4:5；在邊CA上取點E，使CE:EA＝4:3。設AD與BE的交點為P，求AP:PD的最簡整數比。"
+ },
+ "辺BCのてんびん：BD:DC＝4:5 なので、おもりは B:C＝5:4": {
+  "en": "Balance on side BC: BD:DC = 4:5, so the weights are B:C = 5:4",
+  "zh-Hans": "边BC上的天平：BD:DC＝4:5，所以砝码 B:C＝5:4",
+  "zh-Hant": "邊BC上的天平：BD:DC＝4:5，所以砝碼 B:C＝5:4"
+ },
+ "辺CAのてんびん：CE:EA＝4:3 なので、おもりは C:A＝3:4": {
+  "en": "Balance on side CA: CE:EA = 4:3, so the weights are C:A = 3:4",
+  "zh-Hans": "边CA上的天平：CE:EA＝4:3，所以砝码 C:A＝3:4",
+  "zh-Hant": "邊CA上的天平：CE:EA＝4:3，所以砝碼 C:A＝3:4"
+ },
+ "Cのおもりをそろえると A:B:C＝16:15:12": {
+  "en": "Match the weight at C: A:B:C = 16:15:12",
+  "zh-Hans": "把C的砝码统一，得 A:B:C＝16:15:12",
+  "zh-Hant": "把C的砝碼統一，得 A:B:C＝16:15:12"
+ },
+ "Dには B と C のおもりが集まる：15+12 = 27": {
+  "en": "D collects the weights of B and C: 15+12 = 27",
+  "zh-Hans": "D点汇集了B和C的砝码：15+12 = 27",
+  "zh-Hant": "D點匯集了B和C的砝碼：15+12 = 27"
+ },
+ "ADのてんびん：AP:PD は おもりの逆で 27:16": {
+  "en": "Balance on AD: AP:PD is the inverse of the weights, 27:16",
+  "zh-Hans": "AD上的天平：AP:PD 是砝码的反比，为 27:16",
+  "zh-Hant": "AD上的天平：AP:PD 是砝碼的反比，為 27:16"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝4:5となるようにとり、辺CA上に点EをCE:EA＝3:1となるようにとります。ADとBEの交点をPとするとき、AP:PDを最も簡単な整数の比で求めなさい。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 4:5, and point E is on side CA so that CE:EA = 3:1. Let P be the intersection of AD and BE. Find AP:PD as the simplest whole-number ratio.",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝4:5；在边CA上取点E，使CE:EA＝3:1。设AD与BE的交点为P，求AP:PD的最简整数比。",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝4:5；在邊CA上取點E，使CE:EA＝3:1。設AD與BE的交點為P，求AP:PD的最簡整數比。"
+ },
+ "辺CAのてんびん：CE:EA＝3:1 なので、おもりは C:A＝1:3": {
+  "en": "Balance on side CA: CE:EA = 3:1, so the weights are C:A = 1:3",
+  "zh-Hans": "边CA上的天平：CE:EA＝3:1，所以砝码 C:A＝1:3",
+  "zh-Hant": "邊CA上的天平：CE:EA＝3:1，所以砝碼 C:A＝1:3"
+ },
+ "Cのおもりをそろえると A:B:C＝12:5:4": {
+  "en": "Match the weight at C: A:B:C = 12:5:4",
+  "zh-Hans": "把C的砝码统一，得 A:B:C＝12:5:4",
+  "zh-Hant": "把C的砝碼統一，得 A:B:C＝12:5:4"
+ },
+ "Dには B と C のおもりが集まる：5+4 = 9": {
+  "en": "D collects the weights of B and C: 5+4 = 9",
+  "zh-Hans": "D点汇集了B和C的砝码：5+4 = 9",
+  "zh-Hant": "D點匯集了B和C的砝碼：5+4 = 9"
+ },
+ "ADのてんびん：AP:PD は おもりの逆で 9:12＝3:4": {
+  "en": "Balance on AD: AP:PD is the inverse of the weights, 9:12 = 3:4",
+  "zh-Hans": "AD上的天平：AP:PD 是砝码的反比，为 9:12＝3:4",
+  "zh-Hant": "AD上的天平：AP:PD 是砝碼的反比，為 9:12＝3:4"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝4:3となるようにとり、辺CA上に点EをCE:EA＝4:1となるようにとります。ADとBEの交点をPとするとき、AP:PDを最も簡単な整数の比で求めなさい。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 4:3, and point E is on side CA so that CE:EA = 4:1. Let P be the intersection of AD and BE. Find AP:PD as the simplest whole-number ratio.",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝4:3；在边CA上取点E，使CE:EA＝4:1。设AD与BE的交点为P，求AP:PD的最简整数比。",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝4:3；在邊CA上取點E，使CE:EA＝4:1。設AD與BE的交點為P，求AP:PD的最簡整數比。"
+ },
+ "Cのおもりをそろえると A:B:C＝16:3:4": {
+  "en": "Match the weight at C: A:B:C = 16:3:4",
+  "zh-Hans": "把C的砝码统一，得 A:B:C＝16:3:4",
+  "zh-Hant": "把C的砝碼統一，得 A:B:C＝16:3:4"
+ },
+ "Dには B と C のおもりが集まる：3+4 = 7": {
+  "en": "D collects the weights of B and C: 3+4 = 7",
+  "zh-Hans": "D点汇集了B和C的砝码：3+4 = 7",
+  "zh-Hant": "D點匯集了B和C的砝碼：3+4 = 7"
+ },
+ "ADのてんびん：AP:PD は おもりの逆で 7:16": {
+  "en": "Balance on AD: AP:PD is the inverse of the weights, 7:16",
+  "zh-Hans": "AD上的天平：AP:PD 是砝码的反比，为 7:16",
+  "zh-Hant": "AD上的天平：AP:PD 是砝碼的反比，為 7:16"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝1:2となるようにとり、辺CA上に点EをCE:EA＝3:4となるようにとります。ADとBEの交点をPとするとき、BP:PEを最も簡単な整数の比で求めなさい。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 1:2, and point E is on side CA so that CE:EA = 3:4. Let P be the intersection of AD and BE. Find BP:PE as the simplest whole-number ratio.",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝1:2；在边CA上取点E，使CE:EA＝3:4。设AD与BE的交点为P，求BP:PE的最简整数比。",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝1:2；在邊CA上取點E，使CE:EA＝3:4。設AD與BE的交點為P，求BP:PE的最簡整數比。"
+ },
+ "メネラウスの定理を使おうとして、△BCEと直線ADか、△ABEと直線…と迷う": {
+  "en": "You try to use Menelaus's theorem and get stuck: △BCE with line AD, or △ABE with line…?",
+  "zh-Hans": "想用梅涅劳斯定理，纠结是用△BCE和直线AD，还是△ABE和直线……",
+  "zh-Hant": "想用孟氏定理，糾結是用△BCE和直線AD，還是△ABE和直線……"
+ },
+ "辺BCのてんびん：BD:DC＝1:2 なので、おもりは B:C＝2:1": {
+  "en": "Balance on side BC: BD:DC = 1:2, so the weights are B:C = 2:1",
+  "zh-Hans": "边BC上的天平：BD:DC＝1:2，所以砝码 B:C＝2:1",
+  "zh-Hant": "邊BC上的天平：BD:DC＝1:2，所以砝碼 B:C＝2:1"
+ },
+ "辺CAのてんびん：CE:EA＝3:4 なので、おもりは C:A＝4:3": {
+  "en": "Balance on side CA: CE:EA = 3:4, so the weights are C:A = 4:3",
+  "zh-Hans": "边CA上的天平：CE:EA＝3:4，所以砝码 C:A＝4:3",
+  "zh-Hant": "邊CA上的天平：CE:EA＝3:4，所以砝碼 C:A＝4:3"
+ },
+ "Cのおもりをそろえると A:B:C＝3:8:4": {
+  "en": "Match the weight at C: A:B:C = 3:8:4",
+  "zh-Hans": "把C的砝码统一，得 A:B:C＝3:8:4",
+  "zh-Hant": "把C的砝碼統一，得 A:B:C＝3:8:4"
+ },
+ "Eには C と A のおもりが集まる：4+3 = 7": {
+  "en": "E collects the weights of C and A: 4+3 = 7",
+  "zh-Hans": "E点汇集了C和A的砝码：4+3 = 7",
+  "zh-Hant": "E點匯集了C和A的砝碼：4+3 = 7"
+ },
+ "BEのてんびん：BP:PE は おもりの逆で 7:8": {
+  "en": "Balance on BE: BP:PE is the inverse of the weights, 7:8",
+  "zh-Hans": "BE上的天平：BP:PE 是砝码的反比，为 7:8",
+  "zh-Hant": "BE上的天平：BP:PE 是砝碼的反比，為 7:8"
+ },
+ "交点がもう一方の線分をどう分けるか聞かれても、同じおもりで、Eに集まる重さを見る。": {
+  "en": "Even when asked how the intersection splits the other segment, use the same weights and look at the weight gathered at E.",
+  "zh-Hans": "即使问的是交点怎样分另一条线段，也用同样的砝码，看汇集到E的重量。",
+  "zh-Hant": "即使問的是交點怎麼分另一條線段，也用同樣的砝碼，看匯集到E的重量。"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝1:5となるようにとり、辺CA上に点EをCE:EA＝2:3となるようにとります。ADとBEの交点をPとするとき、BP:PEを最も簡単な整数の比で求めなさい。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 1:5, and point E is on side CA so that CE:EA = 2:3. Let P be the intersection of AD and BE. Find BP:PE as the simplest whole-number ratio.",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝1:5；在边CA上取点E，使CE:EA＝2:3。设AD与BE的交点为P，求BP:PE的最简整数比。",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝1:5；在邊CA上取點E，使CE:EA＝2:3。設AD與BE的交點為P，求BP:PE的最簡整數比。"
+ },
+ "辺CAのてんびん：CE:EA＝2:3 なので、おもりは C:A＝3:2": {
+  "en": "Balance on side CA: CE:EA = 2:3, so the weights are C:A = 3:2",
+  "zh-Hans": "边CA上的天平：CE:EA＝2:3，所以砝码 C:A＝3:2",
+  "zh-Hant": "邊CA上的天平：CE:EA＝2:3，所以砝碼 C:A＝3:2"
+ },
+ "Cのおもりをそろえると A:B:C＝2:15:3": {
+  "en": "Match the weight at C: A:B:C = 2:15:3",
+  "zh-Hans": "把C的砝码统一，得 A:B:C＝2:15:3",
+  "zh-Hant": "把C的砝碼統一，得 A:B:C＝2:15:3"
+ },
+ "Eには C と A のおもりが集まる：3+2 = 5": {
+  "en": "E collects the weights of C and A: 3+2 = 5",
+  "zh-Hans": "E点汇集了C和A的砝码：3+2 = 5",
+  "zh-Hant": "E點匯集了C和A的砝碼：3+2 = 5"
+ },
+ "BEのてんびん：BP:PE は おもりの逆で 5:15＝1:3": {
+  "en": "Balance on BE: BP:PE is the inverse of the weights, 5:15 = 1:3",
+  "zh-Hans": "BE上的天平：BP:PE 是砝码的反比，为 5:15＝1:3",
+  "zh-Hant": "BE上的天平：BP:PE 是砝碼的反比，為 5:15＝1:3"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝1:3となるようにとり、辺CA上に点EをCE:EA＝1:4となるようにとります。ADとBEの交点をPとするとき、BP:PEを最も簡単な整数の比で求めなさい。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 1:3, and point E is on side CA so that CE:EA = 1:4. Let P be the intersection of AD and BE. Find BP:PE as the simplest whole-number ratio.",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝1:3；在边CA上取点E，使CE:EA＝1:4。设AD与BE的交点为P，求BP:PE的最简整数比。",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝1:3；在邊CA上取點E，使CE:EA＝1:4。設AD與BE的交點為P，求BP:PE的最簡整數比。"
+ },
+ "辺CAのてんびん：CE:EA＝1:4 なので、おもりは C:A＝4:1": {
+  "en": "Balance on side CA: CE:EA = 1:4, so the weights are C:A = 4:1",
+  "zh-Hans": "边CA上的天平：CE:EA＝1:4，所以砝码 C:A＝4:1",
+  "zh-Hant": "邊CA上的天平：CE:EA＝1:4，所以砝碼 C:A＝4:1"
+ },
+ "Cのおもりをそろえると A:B:C＝1:12:4": {
+  "en": "Match the weight at C: A:B:C = 1:12:4",
+  "zh-Hans": "把C的砝码统一，得 A:B:C＝1:12:4",
+  "zh-Hant": "把C的砝碼統一，得 A:B:C＝1:12:4"
+ },
+ "Eには C と A のおもりが集まる：4+1 = 5": {
+  "en": "E collects the weights of C and A: 4+1 = 5",
+  "zh-Hans": "E点汇集了C和A的砝码：4+1 = 5",
+  "zh-Hant": "E點匯集了C和A的砝碼：4+1 = 5"
+ },
+ "BEのてんびん：BP:PE は おもりの逆で 5:12": {
+  "en": "Balance on BE: BP:PE is the inverse of the weights, 5:12",
+  "zh-Hans": "BE上的天平：BP:PE 是砝码的反比，为 5:12",
+  "zh-Hant": "BE上的天平：BP:PE 是砝碼的反比，為 5:12"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝5:3となるようにとり、辺CA上に点EをCE:EA＝3:2となるようにとります。ADとBEの交点をPとするとき、BP:PEを最も簡単な整数の比で求めなさい。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 5:3, and point E is on side CA so that CE:EA = 3:2. Let P be the intersection of AD and BE. Find BP:PE as the simplest whole-number ratio.",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝5:3；在边CA上取点E，使CE:EA＝3:2。设AD与BE的交点为P，求BP:PE的最简整数比。",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝5:3；在邊CA上取點E，使CE:EA＝3:2。設AD與BE的交點為P，求BP:PE的最簡整數比。"
+ },
+ "辺BCのてんびん：BD:DC＝5:3 なので、おもりは B:C＝3:5": {
+  "en": "Balance on side BC: BD:DC = 5:3, so the weights are B:C = 3:5",
+  "zh-Hans": "边BC上的天平：BD:DC＝5:3，所以砝码 B:C＝3:5",
+  "zh-Hant": "邊BC上的天平：BD:DC＝5:3，所以砝碼 B:C＝3:5"
+ },
+ "辺CAのてんびん：CE:EA＝3:2 なので、おもりは C:A＝2:3": {
+  "en": "Balance on side CA: CE:EA = 3:2, so the weights are C:A = 2:3",
+  "zh-Hans": "边CA上的天平：CE:EA＝3:2，所以砝码 C:A＝2:3",
+  "zh-Hant": "邊CA上的天平：CE:EA＝3:2，所以砝碼 C:A＝2:3"
+ },
+ "Cのおもりをそろえると A:B:C＝15:6:10": {
+  "en": "Match the weight at C: A:B:C = 15:6:10",
+  "zh-Hans": "把C的砝码统一，得 A:B:C＝15:6:10",
+  "zh-Hant": "把C的砝碼統一，得 A:B:C＝15:6:10"
+ },
+ "Eには C と A のおもりが集まる：10+15 = 25": {
+  "en": "E collects the weights of C and A: 10+15 = 25",
+  "zh-Hans": "E点汇集了C和A的砝码：10+15 = 25",
+  "zh-Hant": "E點匯集了C和A的砝碼：10+15 = 25"
+ },
+ "BEのてんびん：BP:PE は おもりの逆で 25:6": {
+  "en": "Balance on BE: BP:PE is the inverse of the weights, 25:6",
+  "zh-Hans": "BE上的天平：BP:PE 是砝码的反比，为 25:6",
+  "zh-Hant": "BE上的天平：BP:PE 是砝碼的反比，為 25:6"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝5:3となるようにとり、辺CA上に点EをCE:EA＝4:1となるようにとります。ADとBEの交点をPとするとき、BP:PEを最も簡単な整数の比で求めなさい。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 5:3, and point E is on side CA so that CE:EA = 4:1. Let P be the intersection of AD and BE. Find BP:PE as the simplest whole-number ratio.",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝5:3；在边CA上取点E，使CE:EA＝4:1。设AD与BE的交点为P，求BP:PE的最简整数比。",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝5:3；在邊CA上取點E，使CE:EA＝4:1。設AD與BE的交點為P，求BP:PE的最簡整數比。"
+ },
+ "Cのおもりをそろえると A:B:C＝20:3:5": {
+  "en": "Match the weight at C: A:B:C = 20:3:5",
+  "zh-Hans": "把C的砝码统一，得 A:B:C＝20:3:5",
+  "zh-Hant": "把C的砝碼統一，得 A:B:C＝20:3:5"
+ },
+ "Eには C と A のおもりが集まる：5+20 = 25": {
+  "en": "E collects the weights of C and A: 5+20 = 25",
+  "zh-Hans": "E点汇集了C和A的砝码：5+20 = 25",
+  "zh-Hant": "E點匯集了C和A的砝碼：5+20 = 25"
+ },
+ "BEのてんびん：BP:PE は おもりの逆で 25:3": {
+  "en": "Balance on BE: BP:PE is the inverse of the weights, 25:3",
+  "zh-Hans": "BE上的天平：BP:PE 是砝码的反比，为 25:3",
+  "zh-Hant": "BE上的天平：BP:PE 是砝碼的反比，為 25:3"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝2:5となるようにとり、辺CA上に点EをCE:EA＝3:4となるようにとります。ADとBEの交点をPとするとき、△PBCの面積は△ABCの面積の何倍ですか。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 2:5, and point E is on side CA so that CE:EA = 3:4. Let P be the intersection of AD and BE. The area of △PBC is how many times the area of △ABC?",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝2:5；在边CA上取点E，使CE:EA＝3:4。设AD与BE的交点为P，△PBC的面积是△ABC面积的几倍？",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝2:5；在邊CA上取點E，使CE:EA＝3:4。設AD與BE的交點為P，△PBC的面積是△ABC面積的幾倍？"
+ },
+ "3/17倍": {
+  "en": "3/17 times",
+  "zh-Hans": "3/17倍",
+  "zh-Hant": "3/17倍"
+ },
+ "△PBCの面積を、いくつもの小さな三角形の比から順にたどろうとする": {
+  "en": "You try to reach the area of △PBC by tracing ratios through many small triangles, one by one",
+  "zh-Hans": "想从好几个小三角形的比一步步推出△PBC的面积",
+  "zh-Hant": "想從好幾個小三角形的比一步步推出△PBC的面積"
+ },
+ "Cのおもりをそろえると A:B:C＝3:10:4": {
+  "en": "Match the weight at C: A:B:C = 3:10:4",
+  "zh-Hans": "把C的砝码统一，得 A:B:C＝3:10:4",
+  "zh-Hant": "把C的砝碼統一，得 A:B:C＝3:10:4"
+ },
+ "Dには B と C のおもりが集まる：10+4 = 14": {
+  "en": "D collects the weights of B and C: 10+4 = 14",
+  "zh-Hans": "D点汇集了B和C的砝码：10+4 = 14",
+  "zh-Hant": "D點匯集了B和C的砝碼：10+4 = 14"
+ },
+ "ADのてんびん：AP:PD＝14:3 なので、PD は AD の 3/17": {
+  "en": "Balance on AD: AP:PD = 14:3, so PD is 3/17 of AD",
+  "zh-Hans": "AD上的天平：AP:PD＝14:3，所以 PD 是 AD 的 3/17",
+  "zh-Hant": "AD上的天平：AP:PD＝14:3，所以 PD 是 AD 的 3/17"
+ },
+ "△PBC と △ABC は底辺BCが共通。高さの比は PD:AD なので、面積は 3/17 倍": {
+  "en": "△PBC and △ABC share the base BC. Their heights are in the ratio PD:AD, so the area is 3/17 times as large",
+  "zh-Hans": "△PBC 与 △ABC 的底边BC相同。高之比为 PD:AD，所以面积是 3/17 倍",
+  "zh-Hant": "△PBC 與 △ABC 的底邊BC相同。高的比為 PD:AD，所以面積是 3/17 倍"
+ },
+ "交点でできる三角形の面積比を聞かれたら、まずおもりで AP:PD を出し、底辺が共通な三角形の高さの比にする。": {
+  "en": "When asked for the area ratio of a triangle made at the intersection, first find AP:PD with weights, then turn it into the ratio of heights of triangles that share a base.",
+  "zh-Hans": "问到由交点形成的三角形面积比时，先用砝码求出 AP:PD，再化为同底三角形的高之比。",
+  "zh-Hant": "問到由交點形成的三角形面積比時，先用砝碼求出 AP:PD，再化成同底三角形的高的比。"
+ },
+ "面積比を直接つなぐ方法もあるが、たどる三角形が多く遠回り。てんびんで AP:PD を出せば1回で済む。": {
+  "en": "You can also chain area ratios directly, but you go through many triangles, so it's the long way around. Find AP:PD with the balance and it takes just 1 step.",
+  "zh-Hans": "也可以直接连接面积比，但要经过的三角形很多，绕远路。用天平求出 AP:PD，1次就搞定。",
+  "zh-Hant": "也可以直接串接面積比，但要經過的三角形很多，繞遠路。用天平求出 AP:PD，1次就搞定。"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝4:1となるようにとり、辺CA上に点EをCE:EA＝4:3となるようにとります。ADとBEの交点をPとするとき、△PBCの面積は△ABCの面積の何倍ですか。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 4:1, and point E is on side CA so that CE:EA = 4:3. Let P be the intersection of AD and BE. The area of △PBC is how many times the area of △ABC?",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝4:1；在边CA上取点E，使CE:EA＝4:3。设AD与BE的交点为P，△PBC的面积是△ABC面积的几倍？",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝4:1；在邊CA上取點E，使CE:EA＝4:3。設AD與BE的交點為P，△PBC的面積是△ABC面積的幾倍？"
+ },
+ "辺BCのてんびん：BD:DC＝4:1 なので、おもりは B:C＝1:4": {
+  "en": "Balance on side BC: BD:DC = 4:1, so the weights are B:C = 1:4",
+  "zh-Hans": "边BC上的天平：BD:DC＝4:1，所以砝码 B:C＝1:4",
+  "zh-Hant": "邊BC上的天平：BD:DC＝4:1，所以砝碼 B:C＝1:4"
+ },
+ "Cのおもりをそろえると A:B:C＝16:3:12": {
+  "en": "Match the weight at C: A:B:C = 16:3:12",
+  "zh-Hans": "把C的砝码统一，得 A:B:C＝16:3:12",
+  "zh-Hant": "把C的砝碼統一，得 A:B:C＝16:3:12"
+ },
+ "Dには B と C のおもりが集まる：3+12 = 15": {
+  "en": "D collects the weights of B and C: 3+12 = 15",
+  "zh-Hans": "D点汇集了B和C的砝码：3+12 = 15",
+  "zh-Hant": "D點匯集了B和C的砝碼：3+12 = 15"
+ },
+ "ADのてんびん：AP:PD＝15:16 なので、PD は AD の 16/31": {
+  "en": "Balance on AD: AP:PD = 15:16, so PD is 16/31 of AD",
+  "zh-Hans": "AD上的天平：AP:PD＝15:16，所以 PD 是 AD 的 16/31",
+  "zh-Hant": "AD上的天平：AP:PD＝15:16，所以 PD 是 AD 的 16/31"
+ },
+ "△PBC と △ABC は底辺BCが共通。高さの比は PD:AD なので、面積は 16/31 倍": {
+  "en": "△PBC and △ABC share the base BC. Their heights are in the ratio PD:AD, so the area is 16/31 times as large",
+  "zh-Hans": "△PBC 与 △ABC 的底边BC相同。高之比为 PD:AD，所以面积是 16/31 倍",
+  "zh-Hant": "△PBC 與 △ABC 的底邊BC相同。高的比為 PD:AD，所以面積是 16/31 倍"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝4:3となるようにとり、辺CA上に点EをCE:EA＝4:5となるようにとります。ADとBEの交点をPとするとき、△PBCの面積は△ABCの面積の何倍ですか。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 4:3, and point E is on side CA so that CE:EA = 4:5. Let P be the intersection of AD and BE. The area of △PBC is how many times the area of △ABC?",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝4:3；在边CA上取点E，使CE:EA＝4:5。设AD与BE的交点为P，△PBC的面积是△ABC面积的几倍？",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝4:3；在邊CA上取點E，使CE:EA＝4:5。設AD與BE的交點為P，△PBC的面積是△ABC面積的幾倍？"
+ },
+ "辺CAのてんびん：CE:EA＝4:5 なので、おもりは C:A＝5:4": {
+  "en": "Balance on side CA: CE:EA = 4:5, so the weights are C:A = 5:4",
+  "zh-Hans": "边CA上的天平：CE:EA＝4:5，所以砝码 C:A＝5:4",
+  "zh-Hant": "邊CA上的天平：CE:EA＝4:5，所以砝碼 C:A＝5:4"
+ },
+ "Cのおもりをそろえると A:B:C＝16:15:20": {
+  "en": "Match the weight at C: A:B:C = 16:15:20",
+  "zh-Hans": "把C的砝码统一，得 A:B:C＝16:15:20",
+  "zh-Hant": "把C的砝碼統一，得 A:B:C＝16:15:20"
+ },
+ "Dには B と C のおもりが集まる：15+20 = 35": {
+  "en": "D collects the weights of B and C: 15+20 = 35",
+  "zh-Hans": "D点汇集了B和C的砝码：15+20 = 35",
+  "zh-Hant": "D點匯集了B和C的砝碼：15+20 = 35"
+ },
+ "ADのてんびん：AP:PD＝35:16 なので、PD は AD の 16/51": {
+  "en": "Balance on AD: AP:PD = 35:16, so PD is 16/51 of AD",
+  "zh-Hans": "AD上的天平：AP:PD＝35:16，所以 PD 是 AD 的 16/51",
+  "zh-Hant": "AD上的天平：AP:PD＝35:16，所以 PD 是 AD 的 16/51"
+ },
+ "△PBC と △ABC は底辺BCが共通。高さの比は PD:AD なので、面積は 16/51 倍": {
+  "en": "△PBC and △ABC share the base BC. Their heights are in the ratio PD:AD, so the area is 16/51 times as large",
+  "zh-Hans": "△PBC 与 △ABC 的底边BC相同。高之比为 PD:AD，所以面积是 16/51 倍",
+  "zh-Hant": "△PBC 與 △ABC 的底邊BC相同。高的比為 PD:AD，所以面積是 16/51 倍"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝1:3となるようにとり、辺CA上に点EをCE:EA＝3:1となるようにとります。ADとBEの交点をPとするとき、△PBCの面積は△ABCの面積の何倍ですか。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 1:3, and point E is on side CA so that CE:EA = 3:1. Let P be the intersection of AD and BE. The area of △PBC is how many times the area of △ABC?",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝1:3；在边CA上取点E，使CE:EA＝3:1。设AD与BE的交点为P，△PBC的面积是△ABC面积的几倍？",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝1:3；在邊CA上取點E，使CE:EA＝3:1。設AD與BE的交點為P，△PBC的面積是△ABC面積的幾倍？"
+ },
+ "Cのおもりをそろえると A:B:C＝3:3:1": {
+  "en": "Match the weight at C: A:B:C = 3:3:1",
+  "zh-Hans": "把C的砝码统一，得 A:B:C＝3:3:1",
+  "zh-Hant": "把C的砝碼統一，得 A:B:C＝3:3:1"
+ },
+ "ADのてんびん：AP:PD＝4:3 なので、PD は AD の 3/7": {
+  "en": "Balance on AD: AP:PD = 4:3, so PD is 3/7 of AD",
+  "zh-Hans": "AD上的天平：AP:PD＝4:3，所以 PD 是 AD 的 3/7",
+  "zh-Hant": "AD上的天平：AP:PD＝4:3，所以 PD 是 AD 的 3/7"
+ },
+ "△PBC と △ABC は底辺BCが共通。高さの比は PD:AD なので、面積は 3/7 倍": {
+  "en": "△PBC and △ABC share the base BC. Their heights are in the ratio PD:AD, so the area is 3/7 times as large",
+  "zh-Hans": "△PBC 与 △ABC 的底边BC相同。高之比为 PD:AD，所以面积是 3/7 倍",
+  "zh-Hant": "△PBC 與 △ABC 的底邊BC相同。高的比為 PD:AD，所以面積是 3/7 倍"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝5:1となるようにとり、辺CA上に点EをCE:EA＝4:5となるようにとります。ADとBEの交点をPとするとき、△PBCの面積は△ABCの面積の何倍ですか。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 5:1, and point E is on side CA so that CE:EA = 4:5. Let P be the intersection of AD and BE. The area of △PBC is how many times the area of △ABC?",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝5:1；在边CA上取点E，使CE:EA＝4:5。设AD与BE的交点为P，△PBC的面积是△ABC面积的几倍？",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝5:1；在邊CA上取點E，使CE:EA＝4:5。設AD與BE的交點為P，△PBC的面積是△ABC面積的幾倍？"
+ },
+ "辺BCのてんびん：BD:DC＝5:1 なので、おもりは B:C＝1:5": {
+  "en": "Balance on side BC: BD:DC = 5:1, so the weights are B:C = 1:5",
+  "zh-Hans": "边BC上的天平：BD:DC＝5:1，所以砝码 B:C＝1:5",
+  "zh-Hant": "邊BC上的天平：BD:DC＝5:1，所以砝碼 B:C＝1:5"
+ },
+ "Cのおもりをそろえると A:B:C＝4:1:5": {
+  "en": "Match the weight at C: A:B:C = 4:1:5",
+  "zh-Hans": "把C的砝码统一，得 A:B:C＝4:1:5",
+  "zh-Hant": "把C的砝碼統一，得 A:B:C＝4:1:5"
+ },
+ "Dには B と C のおもりが集まる：1+5 = 6": {
+  "en": "D collects the weights of B and C: 1+5 = 6",
+  "zh-Hans": "D点汇集了B和C的砝码：1+5 = 6",
+  "zh-Hant": "D點匯集了B和C的砝碼：1+5 = 6"
+ },
+ "ADのてんびん：AP:PD＝6:4 なので、PD は AD の 4/10": {
+  "en": "Balance on AD: AP:PD = 6:4, so PD is 4/10 of AD",
+  "zh-Hans": "AD上的天平：AP:PD＝6:4，所以 PD 是 AD 的 4/10",
+  "zh-Hant": "AD上的天平：AP:PD＝6:4，所以 PD 是 AD 的 4/10"
+ },
+ "△PBC と △ABC は底辺BCが共通。高さの比は PD:AD なので、面積は 2/5 倍": {
+  "en": "△PBC and △ABC share the base BC. Their heights are in the ratio PD:AD, so the area is 2/5 times as large",
+  "zh-Hans": "△PBC 与 △ABC 的底边BC相同。高之比为 PD:AD，所以面积是 2/5 倍",
+  "zh-Hant": "△PBC 與 △ABC 的底邊BC相同。高的比為 PD:AD，所以面積是 2/5 倍"
+ },
+ "平均は、何に対する平均かで重みが変わる。速さの平均は時間が重み。往復では遅い方に長くいるので、ちょうどまん中にはならない。": {
+  "en": "The weights in an average depend on what you are averaging over. For average speed, time is the weight. On a round trip you spend longer on the slower leg, so the answer is not exactly in the middle.",
+  "zh-Hans": "平均数的权重取决于对什么求平均。平均速度以时间为权重。往返时在慢的那一程花的时间更长，所以不会正好在中间。",
+  "zh-Hant": "平均數的權重取決於對什麼求平均。平均速率以時間為權重。往返時在慢的那一程待得比較久，所以不會剛好在正中間。"
+ },
+ "A地点とB地点の間を、行きは時速4km、帰りは時速6kmで往復しました。往復の平均の速さは時速何kmですか。": {
+  "en": "Someone made a round trip between point A and point B, going at 4 km/h and coming back at 6 km/h. What was the average speed for the whole round trip, in km/h?",
+  "zh-Hans": "在A地和B地之间往返一次，去时每小时行4千米，回来时每小时行6千米。往返的平均速度是每小时多少千米？",
+  "zh-Hant": "在A地和B地之間往返一次，去程時速4公里，回程時速6公里。往返的平均速率是時速幾公里？"
+ },
+ "km/時": {
+  "en": " km/h",
+  "zh-Hans": "千米/时",
+  "zh-Hant": "公里/小時"
+ },
+ "時速24/5km": {
+  "en": "24/5 km/h",
+  "zh-Hans": "每小时24/5千米",
+  "zh-Hant": "時速24/5公里"
+ },
+ "2つの速さをてんびんの両はしにおき、まん中を平均とする": {
+  "en": "Put the 2 speeds at the two ends of the balance and take the middle as the average",
+  "zh-Hans": "把2个速度放在天平两端，取中间作为平均",
+  "zh-Hant": "把2個速率放在天平兩端，取正中間當作平均"
+ },
+ "道のりは同じでも、かかる時間がちがうので、重みは同じではない": {
+  "en": "The distance is the same, but the time taken is different, so the weights are not equal",
+  "zh-Hans": "路程虽然相同，但用的时间不同，所以权重不一样",
+  "zh-Hant": "路程雖然相同，但花的時間不同，所以權重不一樣"
+ },
+ "まん中の値は答えにならない": {
+  "en": "The middle value is not the answer",
+  "zh-Hans": "中间的值不是答案",
+  "zh-Hant": "正中間的值不是答案"
+ },
+ "平均の速さ＝全体の道のり÷全体の時間。速さの平均 (4+6)÷2 ではない（遅い帰りの方が時間が長い）": {
+  "en": "Average speed = total distance ÷ total time. It is not the average of the two speeds, (4+6)÷2 (the slower leg takes more time)",
+  "zh-Hans": "平均速度＝总路程÷总时间。不是两个速度的平均数 (4+6)÷2（慢的那一程用时更长）",
+  "zh-Hant": "平均速率＝總路程÷總時間。不是兩個速率的平均 (4+6)÷2（慢的那一程花的時間比較長）"
+ },
+ "片道を4と6の最小公倍数 12km とすると、行き 12÷4 = 3時間、帰り 12÷6 = 2時間": {
+  "en": "Let one way be 12 km, the least common multiple of 4 and 6: going takes 12÷4 = 3 hours, coming back takes 12÷6 = 2 hours",
+  "zh-Hans": "把单程设为4和6的最小公倍数 12千米，去时 12÷4 = 3小时，回来 12÷6 = 2小时",
+  "zh-Hant": "把單程設為4和6的最小公倍數 12公里，去程 12÷4 = 3小時，回程 12÷6 = 2小時"
+ },
+ "往復 24km を 5 時間で進むので、24÷5 = 24/5（km/時）": {
+  "en": "The round trip is 24 km in 5 hours, so 24÷5 = 24/5 (km/h)",
+  "zh-Hans": "往返 24千米 用了 5 小时，所以 24÷5 = 24/5（千米/时）",
+  "zh-Hant": "往返 24公里 花了 5 小時，所以 24÷5 = 24/5（公里/小時）"
+ },
+ "おしい。てんびんの重みは時間。行きと帰りで時間がちがうので、まん中ではない。": {
+  "en": "Close. On the balance, the weight is time. Going and coming back take different times, so it isn't the middle.",
+  "zh-Hans": "很接近了。天平的权重是时间。去和回用的时间不同，所以不在中间。",
+  "zh-Hant": "很接近了。天平的權重是時間。去程和回程的時間不同，所以不在正中間。"
+ },
+ "さいころの表で数える問題ではない。": {
+  "en": "This isn't a problem where you count with a dice table.",
+  "zh-Hans": "这不是用骰子表来数的题。",
+  "zh-Hant": "這不是用骰子表來數的題目。"
+ },
+ "そのとおり。片道の道のりを決めて、全体の道のり÷全体の時間。": {
+  "en": "That's right. Pick a one-way distance, then total distance ÷ total time.",
+  "zh-Hans": "没错。先定好单程路程，再用 总路程÷总时间。",
+  "zh-Hant": "沒錯。先定好單程路程，再用 總路程÷總時間。"
+ },
+ "A地点とB地点の間を、行きは時速8km、帰りは時速40kmで往復しました。往復の平均の速さは時速何kmですか。": {
+  "en": "Someone made a round trip between point A and point B, going at 8 km/h and coming back at 40 km/h. What was the average speed for the whole round trip, in km/h?",
+  "zh-Hans": "在A地和B地之间往返一次，去时每小时行8千米，回来时每小时行40千米。往返的平均速度是每小时多少千米？",
+  "zh-Hant": "在A地和B地之間往返一次，去程時速8公里，回程時速40公里。往返的平均速率是時速幾公里？"
+ },
+ "平均の速さ＝全体の道のり÷全体の時間。速さの平均 (8+40)÷2 ではない（遅い帰りの方が時間が長い）": {
+  "en": "Average speed = total distance ÷ total time. It is not the average of the two speeds, (8+40)÷2 (the slower leg takes more time)",
+  "zh-Hans": "平均速度＝总路程÷总时间。不是两个速度的平均数 (8+40)÷2（慢的那一程用时更长）",
+  "zh-Hant": "平均速率＝總路程÷總時間。不是兩個速率的平均 (8+40)÷2（慢的那一程花的時間比較長）"
+ },
+ "片道を8と40の最小公倍数 40km とすると、行き 40÷8 = 5時間、帰り 40÷40 = 1時間": {
+  "en": "Let one way be 40 km, the least common multiple of 8 and 40: going takes 40÷8 = 5 hours, coming back takes 40÷40 = 1 hour",
+  "zh-Hans": "把单程设为8和40的最小公倍数 40千米，去时 40÷8 = 5小时，回来 40÷40 = 1小时",
+  "zh-Hant": "把單程設為8和40的最小公倍數 40公里，去程 40÷8 = 5小時，回程 40÷40 = 1小時"
+ },
+ "往復 80km を 6 時間で進むので、80÷6 = 40/3（km/時）": {
+  "en": "The round trip is 80 km in 6 hours, so 80÷6 = 40/3 (km/h)",
+  "zh-Hans": "往返 80千米 用了 6 小时，所以 80÷6 = 40/3（千米/时）",
+  "zh-Hant": "往返 80公里 花了 6 小時，所以 80÷6 = 40/3（公里/小時）"
+ },
+ "A地点とB地点の間を、行きは時速6km、帰りは時速3kmで往復しました。往復の平均の速さは時速何kmですか。": {
+  "en": "Someone made a round trip between point A and point B, going at 6 km/h and coming back at 3 km/h. What was the average speed for the whole round trip, in km/h?",
+  "zh-Hans": "在A地和B地之间往返一次，去时每小时行6千米，回来时每小时行3千米。往返的平均速度是每小时多少千米？",
+  "zh-Hant": "在A地和B地之間往返一次，去程時速6公里，回程時速3公里。往返的平均速率是時速幾公里？"
+ },
+ "平均の速さ＝全体の道のり÷全体の時間。速さの平均 (6+3)÷2 ではない（遅い帰りの方が時間が長い）": {
+  "en": "Average speed = total distance ÷ total time. It is not the average of the two speeds, (6+3)÷2 (the slower leg takes more time)",
+  "zh-Hans": "平均速度＝总路程÷总时间。不是两个速度的平均数 (6+3)÷2（慢的那一程用时更长）",
+  "zh-Hant": "平均速率＝總路程÷總時間。不是兩個速率的平均 (6+3)÷2（慢的那一程花的時間比較長）"
+ },
+ "片道を6と3の最小公倍数 6km とすると、行き 6÷6 = 1時間、帰り 6÷3 = 2時間": {
+  "en": "Let one way be 6 km, the least common multiple of 6 and 3: going takes 6÷6 = 1 hour, coming back takes 6÷3 = 2 hours",
+  "zh-Hans": "把单程设为6和3的最小公倍数 6千米，去时 6÷6 = 1小时，回来 6÷3 = 2小时",
+  "zh-Hant": "把單程設為6和3的最小公倍數 6公里，去程 6÷6 = 1小時，回程 6÷3 = 2小時"
+ },
+ "往復 12km を 3 時間で進むので、12÷3 = 4（km/時）": {
+  "en": "The round trip is 12 km in 3 hours, so 12÷3 = 4 (km/h)",
+  "zh-Hans": "往返 12千米 用了 3 小时，所以 12÷3 = 4（千米/时）",
+  "zh-Hant": "往返 12公里 花了 3 小時，所以 12÷3 = 4（公里/小時）"
+ },
+ "A地点とB地点の間を、行きは時速20km、帰りは時速12kmで往復しました。往復の平均の速さは時速何kmですか。": {
+  "en": "Someone made a round trip between point A and point B, going at 20 km/h and coming back at 12 km/h. What was the average speed for the whole round trip, in km/h?",
+  "zh-Hans": "在A地和B地之间往返一次，去时每小时行20千米，回来时每小时行12千米。往返的平均速度是每小时多少千米？",
+  "zh-Hant": "在A地和B地之間往返一次，去程時速20公里，回程時速12公里。往返的平均速率是時速幾公里？"
+ },
+ "平均の速さ＝全体の道のり÷全体の時間。速さの平均 (20+12)÷2 ではない（遅い帰りの方が時間が長い）": {
+  "en": "Average speed = total distance ÷ total time. It is not the average of the two speeds, (20+12)÷2 (the slower leg takes more time)",
+  "zh-Hans": "平均速度＝总路程÷总时间。不是两个速度的平均数 (20+12)÷2（慢的那一程用时更长）",
+  "zh-Hant": "平均速率＝總路程÷總時間。不是兩個速率的平均 (20+12)÷2（慢的那一程花的時間比較長）"
+ },
+ "片道を20と12の最小公倍数 60km とすると、行き 60÷20 = 3時間、帰り 60÷12 = 5時間": {
+  "en": "Let one way be 60 km, the least common multiple of 20 and 12: going takes 60÷20 = 3 hours, coming back takes 60÷12 = 5 hours",
+  "zh-Hans": "把单程设为20和12的最小公倍数 60千米，去时 60÷20 = 3小时，回来 60÷12 = 5小时",
+  "zh-Hant": "把單程設為20和12的最小公倍數 60公里，去程 60÷20 = 3小時，回程 60÷12 = 5小時"
+ },
+ "往復 120km を 8 時間で進むので、120÷8 = 15（km/時）": {
+  "en": "The round trip is 120 km in 8 hours, so 120÷8 = 15 (km/h)",
+  "zh-Hans": "往返 120千米 用了 8 小时，所以 120÷8 = 15（千米/时）",
+  "zh-Hant": "往返 120公里 花了 8 小時，所以 120÷8 = 15（公里/小時）"
+ },
+ "A地点とB地点の間を、行きは時速4km、帰りは時速12kmで往復しました。往復の平均の速さは時速何kmですか。": {
+  "en": "Someone made a round trip between point A and point B, going at 4 km/h and coming back at 12 km/h. What was the average speed for the whole round trip, in km/h?",
+  "zh-Hans": "在A地和B地之间往返一次，去时每小时行4千米，回来时每小时行12千米。往返的平均速度是每小时多少千米？",
+  "zh-Hant": "在A地和B地之間往返一次，去程時速4公里，回程時速12公里。往返的平均速率是時速幾公里？"
+ },
+ "平均の速さ＝全体の道のり÷全体の時間。速さの平均 (4+12)÷2 ではない（遅い帰りの方が時間が長い）": {
+  "en": "Average speed = total distance ÷ total time. It is not the average of the two speeds, (4+12)÷2 (the slower leg takes more time)",
+  "zh-Hans": "平均速度＝总路程÷总时间。不是两个速度的平均数 (4+12)÷2（慢的那一程用时更长）",
+  "zh-Hant": "平均速率＝總路程÷總時間。不是兩個速率的平均 (4+12)÷2（慢的那一程花的時間比較長）"
+ },
+ "片道を4と12の最小公倍数 12km とすると、行き 12÷4 = 3時間、帰り 12÷12 = 1時間": {
+  "en": "Let one way be 12 km, the least common multiple of 4 and 12: going takes 12÷4 = 3 hours, coming back takes 12÷12 = 1 hour",
+  "zh-Hans": "把单程设为4和12的最小公倍数 12千米，去时 12÷4 = 3小时，回来 12÷12 = 1小时",
+  "zh-Hant": "把單程設為4和12的最小公倍數 12公里，去程 12÷4 = 3小時，回程 12÷12 = 1小時"
+ },
+ "往復 24km を 4 時間で進むので、24÷4 = 6（km/時）": {
+  "en": "The round trip is 24 km in 4 hours, so 24÷4 = 6 (km/h)",
+  "zh-Hans": "往返 24千米 用了 4 小时，所以 24÷4 = 6（千米/时）",
+  "zh-Hant": "往返 24公里 花了 4 小時，所以 24÷4 = 6（公里/小時）"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝3:5となるようにとり、辺CA上に点EをCE:EA＝2:3となるようにとります。ADとBEの交点をPとするとき、△ABDの面積は△ABCの面積の何倍ですか。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 3:5, and point E is on side CA so that CE:EA = 2:3. Let P be the intersection of AD and BE. The area of △ABD is how many times the area of △ABC?",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝3:5；在边CA上取点E，使CE:EA＝2:3。设AD与BE的交点为P，△ABD的面积是△ABC面积的几倍？",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝3:5；在邊CA上取點E，使CE:EA＝2:3。設AD與BE的交點為P，△ABD的面積是△ABC面積的幾倍？"
+ },
+ "3/8倍": {
+  "en": "3/8 times",
+  "zh-Hans": "3/8倍",
+  "zh-Hant": "3/8倍"
+ },
+ "比が2つあるので、くせで各頂点におもりをのせ始める": {
+  "en": "There are 2 ratios, so out of habit you start putting weights on each vertex",
+  "zh-Hans": "因为有2个比，习惯性地开始在各顶点放砝码",
+  "zh-Hant": "因為有2個比，習慣性地開始在各頂點放砝碼"
+ },
+ "AP:PD まで出してから、△ABDとどうつながるか迷う": {
+  "en": "After working out AP:PD, you get stuck on how it connects to △ABD",
+  "zh-Hans": "求出 AP:PD 后，却不知道它和△ABD有什么关系",
+  "zh-Hant": "求出 AP:PD 後，卻不知道它和△ABD有什麼關係"
+ },
+ "△ABD と △ABC は、Aからの高さが共通（Pも点Eも使わない）": {
+  "en": "△ABD and △ABC have the same height from A (you don't need P or point E)",
+  "zh-Hans": "△ABD 与 △ABC 从A出发的高相同（P和点E都用不到）",
+  "zh-Hant": "△ABD 與 △ABC 從A出發的高相同（P和點E都用不到）"
+ },
+ "面積の比は底辺の比 BD:BC＝3:8 なので、3/8 倍": {
+  "en": "The area ratio equals the base ratio BD:BC = 3:8, so it is 3/8 times",
+  "zh-Hans": "面积之比等于底边之比 BD:BC＝3:8，所以是 3/8 倍",
+  "zh-Hant": "面積的比等於底邊的比 BD:BC＝3:8，所以是 3/8 倍"
+ },
+ "交点Pを使わない三角形の面積比なら、てんびんはいらない。高さが共通なら底辺の比。": {
+  "en": "If the triangle's area ratio doesn't involve intersection P, you don't need the balance. If the heights are the same, use the ratio of the bases.",
+  "zh-Hans": "如果三角形的面积比用不到交点P，就不需要天平。高相同，就看底边之比。",
+  "zh-Hant": "如果三角形的面積比用不到交點P，就不需要天平。高相同，就看底邊的比。"
+ },
+ "おもりでも出せるが、ここでは遠回り。△ABDは交点Pを使っていない。": {
+  "en": "You can get it with weights, but here it's the long way around. △ABD doesn't use intersection P.",
+  "zh-Hans": "用砝码也能求，但这里是绕远路。△ABD用不到交点P。",
+  "zh-Hant": "用砝碼也算得出來，但這裡是繞遠路。△ABD沒有用到交點P。"
+ },
+ "面積図（つるかめ算）の問題ではない。": {
+  "en": "This isn't an Area Diagram (chickens-and-rabbits) problem.",
+  "zh-Hans": "这不是面积图（鸡兔同笼）的题。",
+  "zh-Hant": "這不是面積圖（雞兔同籠）的題目。"
+ },
+ "平行な線で頂点を動かす問題ではない。": {
+  "en": "This isn't a problem about sliding a vertex along a parallel line.",
+  "zh-Hans": "这不是沿平行线移动顶点的题。",
+  "zh-Hant": "這不是沿平行線移動頂點的題目。"
+ },
+ "そのとおり。高さが共通なので、面積の比は底辺の比 BD:BC。": {
+  "en": "That's right. The heights are the same, so the area ratio is the base ratio BD:BC.",
+  "zh-Hans": "没错。高相同，所以面积之比就是底边之比 BD:BC。",
+  "zh-Hant": "沒錯。高相同，所以面積的比就是底邊的比 BD:BC。"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝1:5となるようにとり、辺CA上に点EをCE:EA＝4:1となるようにとります。ADとBEの交点をPとするとき、△ABDの面積は△ABCの面積の何倍ですか。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 1:5, and point E is on side CA so that CE:EA = 4:1. Let P be the intersection of AD and BE. The area of △ABD is how many times the area of △ABC?",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝1:5；在边CA上取点E，使CE:EA＝4:1。设AD与BE的交点为P，△ABD的面积是△ABC面积的几倍？",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝1:5；在邊CA上取點E，使CE:EA＝4:1。設AD與BE的交點為P，△ABD的面積是△ABC面積的幾倍？"
+ },
+ "面積の比は底辺の比 BD:BC＝1:6 なので、1/6 倍": {
+  "en": "The area ratio equals the base ratio BD:BC = 1:6, so it is 1/6 times",
+  "zh-Hans": "面积之比等于底边之比 BD:BC＝1:6，所以是 1/6 倍",
+  "zh-Hant": "面積的比等於底邊的比 BD:BC＝1:6，所以是 1/6 倍"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝2:5となるようにとり、辺CA上に点EをCE:EA＝3:5となるようにとります。ADとBEの交点をPとするとき、△ABDの面積は△ABCの面積の何倍ですか。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 2:5, and point E is on side CA so that CE:EA = 3:5. Let P be the intersection of AD and BE. The area of △ABD is how many times the area of △ABC?",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝2:5；在边CA上取点E，使CE:EA＝3:5。设AD与BE的交点为P，△ABD的面积是△ABC面积的几倍？",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝2:5；在邊CA上取點E，使CE:EA＝3:5。設AD與BE的交點為P，△ABD的面積是△ABC面積的幾倍？"
+ },
+ "面積の比は底辺の比 BD:BC＝2:7 なので、2/7 倍": {
+  "en": "The area ratio equals the base ratio BD:BC = 2:7, so it is 2/7 times",
+  "zh-Hans": "面积之比等于底边之比 BD:BC＝2:7，所以是 2/7 倍",
+  "zh-Hant": "面積的比等於底邊的比 BD:BC＝2:7，所以是 2/7 倍"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝5:1となるようにとり、辺CA上に点EをCE:EA＝4:1となるようにとります。ADとBEの交点をPとするとき、△ABDの面積は△ABCの面積の何倍ですか。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 5:1, and point E is on side CA so that CE:EA = 4:1. Let P be the intersection of AD and BE. The area of △ABD is how many times the area of △ABC?",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝5:1；在边CA上取点E，使CE:EA＝4:1。设AD与BE的交点为P，△ABD的面积是△ABC面积的几倍？",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝5:1；在邊CA上取點E，使CE:EA＝4:1。設AD與BE的交點為P，△ABD的面積是△ABC面積的幾倍？"
+ },
+ "面積の比は底辺の比 BD:BC＝5:6 なので、5/6 倍": {
+  "en": "The area ratio equals the base ratio BD:BC = 5:6, so it is 5/6 times",
+  "zh-Hans": "面积之比等于底边之比 BD:BC＝5:6，所以是 5/6 倍",
+  "zh-Hant": "面積的比等於底邊的比 BD:BC＝5:6，所以是 5/6 倍"
+ },
+ "△ABCで、辺BC上に点DをBD:DC＝3:4となるようにとり、辺CA上に点EをCE:EA＝4:3となるようにとります。ADとBEの交点をPとするとき、△ABDの面積は△ABCの面積の何倍ですか。": {
+  "en": "In △ABC, point D is on side BC so that BD:DC = 3:4, and point E is on side CA so that CE:EA = 4:3. Let P be the intersection of AD and BE. The area of △ABD is how many times the area of △ABC?",
+  "zh-Hans": "在△ABC中，在边BC上取点D，使BD:DC＝3:4；在边CA上取点E，使CE:EA＝4:3。设AD与BE的交点为P，△ABD的面积是△ABC面积的几倍？",
+  "zh-Hant": "在△ABC中，在邊BC上取點D，使BD:DC＝3:4；在邊CA上取點E，使CE:EA＝4:3。設AD與BE的交點為P，△ABD的面積是△ABC面積的幾倍？"
+ },
+ "面積の比は底辺の比 BD:BC＝3:7 なので、3/7 倍": {
+  "en": "The area ratio equals the base ratio BD:BC = 3:7, so it is 3/7 times",
+  "zh-Hans": "面积之比等于底边之比 BD:BC＝3:7，所以是 3/7 倍",
+  "zh-Hant": "面積的比等於底邊的比 BD:BC＝3:7，所以是 3/7 倍"
+ },
+ "8%の食塩水240gに水を何g加えると、6%の食塩水になりますか。": {
+  "en": "How many grams of water should be added to 240 g of 8% salt water to make 6% salt water?",
+  "zh-Hans": "在8%的盐水240g中加入多少g水，就能变成6%的盐水？",
+  "zh-Hant": "在8%的食鹽水240g中加入多少g的水，就會變成6%的食鹽水？"
+ },
+ "食塩の重さをxを使った式で表し、方程式を立てる": {
+  "en": "Write the weight of salt as an expression in x and set up an equation",
+  "zh-Hans": "用含x的式子表示盐的重量，列方程",
+  "zh-Hant": "用含x的式子表示食鹽的重量，列方程式"
+ },
+ "%を小数や分数に直すので、式が長くなる": {
+  "en": "You have to turn % into decimals or fractions, so the expression gets long",
+  "zh-Hans": "要把%化成小数或分数，式子变长",
+  "zh-Hant": "要把%化成小數或分數，式子變長"
+ },
+ "ここで約3分。分母をはらう計算でミスが出やすい": {
+  "en": "About 3 minutes by this point. Clearing the denominators is where mistakes creep in",
+  "zh-Hans": "到这里大约3分钟。去分母的计算容易出错",
+  "zh-Hant": "到這裡大約3分鐘。去分母的計算容易出錯"
+ },
+ "240g と 水xg の比は、うでの長さの逆の比 3:1": {
+  "en": "The ratio of 240 g to x g of water is the inverse ratio of the arm lengths: 3:1",
+  "zh-Hans": "240g 与 水xg 之比，是臂长的反比 3:1",
+  "zh-Hant": "240g 與 水xg 的比，是臂長的反比 3:1"
+ },
+ "そのとおり。水は濃度0%の食塩水。0%ともとの濃度のてんびんで、できた濃度が支点。": {
+  "en": "That's right. Water is 0% salt water. Make a balance with 0% and the original concentration; the new concentration is the fulcrum.",
+  "zh-Hans": "没错。水就是浓度0%的盐水。用0%和原浓度做天平，得到的浓度就是支点。",
+  "zh-Hant": "沒錯。水就是濃度0%的食鹽水。用0%和原濃度做天平，得到的濃度就是支點。"
+ },
+ "方程式を立てると分数の計算が出てきて、時間がかかる。": {
+  "en": "If you set up an equation, fraction calculations show up and it takes time.",
+  "zh-Hans": "列方程的话会出现分数计算，很花时间。",
+  "zh-Hant": "列方程式的話會出現分數計算，很花時間。"
+ },
+ "12%の食塩水200gに水を何g加えると、5%の食塩水になりますか。": {
+  "en": "How many grams of water should be added to 200 g of 12% salt water to make 5% salt water?",
+  "zh-Hans": "在12%的盐水200g中加入多少g水，就能变成5%的盐水？",
+  "zh-Hant": "在12%的食鹽水200g中加入多少g的水，就會變成5%的食鹽水？"
+ },
+ "水は「0%の食塩水」と考える。てんびんの両はしに12%と0%、支点に5%をおく": {
+  "en": "Think of water as \"0% salt water.\" Put 12% and 0% at the two ends of the balance, and 5% at the fulcrum",
+  "zh-Hans": "把水看成“0%的盐水”。在天平两端放12%和0%，支点放5%",
+  "zh-Hant": "把水看成「0%的食鹽水」。在天平兩端放12%和0%，支點放5%"
+ },
+ "うでの長さは 12−5 = 7 と 5−0 = 5": {
+  "en": "The arm lengths are 12−5 = 7 and 5−0 = 5",
+  "zh-Hans": "臂长分别是 12−5 = 7 和 5−0 = 5",
+  "zh-Hant": "臂長分別是 12−5 = 7 和 5−0 = 5"
+ },
+ "200g と 水xg の比は、うでの長さの逆の比 5:7": {
+  "en": "The ratio of 200 g to x g of water is the inverse ratio of the arm lengths: 5:7",
+  "zh-Hans": "200g 与 水xg 之比，是臂长的反比 5:7",
+  "zh-Hant": "200g 與 水xg 的比，是臂長的反比 5:7"
+ },
+ "9%の食塩水150gに水を何g加えると、5%の食塩水になりますか。": {
+  "en": "How many grams of water should be added to 150 g of 9% salt water to make 5% salt water?",
+  "zh-Hans": "在9%的盐水150g中加入多少g水，就能变成5%的盐水？",
+  "zh-Hant": "在9%的食鹽水150g中加入多少g的水，就會變成5%的食鹽水？"
+ },
+ "水は「0%の食塩水」と考える。てんびんの両はしに9%と0%、支点に5%をおく": {
+  "en": "Think of water as \"0% salt water.\" Put 9% and 0% at the two ends of the balance, and 5% at the fulcrum",
+  "zh-Hans": "把水看成“0%的盐水”。在天平两端放9%和0%，支点放5%",
+  "zh-Hant": "把水看成「0%的食鹽水」。在天平兩端放9%和0%，支點放5%"
+ },
+ "うでの長さは 9−5 = 4 と 5−0 = 5": {
+  "en": "The arm lengths are 9−5 = 4 and 5−0 = 5",
+  "zh-Hans": "臂长分别是 9−5 = 4 和 5−0 = 5",
+  "zh-Hant": "臂長分別是 9−5 = 4 和 5−0 = 5"
+ },
+ "150g と 水xg の比は、うでの長さの逆の比 5:4": {
+  "en": "The ratio of 150 g to x g of water is the inverse ratio of the arm lengths: 5:4",
+  "zh-Hans": "150g 与 水xg 之比，是臂长的反比 5:4",
+  "zh-Hant": "150g 與 水xg 的比，是臂長的反比 5:4"
+ },
+ "300g と 水xg の比は、うでの長さの逆の比 3:2": {
+  "en": "The ratio of 300 g to x g of water is the inverse ratio of the arm lengths: 3:2",
+  "zh-Hans": "300g 与 水xg 之比，是臂长的反比 3:2",
+  "zh-Hant": "300g 與 水xg 的比，是臂長的反比 3:2"
+ },
+ "6%の食塩水400gに水を何g加えると、2%の食塩水になりますか。": {
+  "en": "How many grams of water should be added to 400 g of 6% salt water to make 2% salt water?",
+  "zh-Hans": "在6%的盐水400g中加入多少g水，就能变成2%的盐水？",
+  "zh-Hant": "在6%的食鹽水400g中加入多少g的水，就會變成2%的食鹽水？"
+ },
+ "水は「0%の食塩水」と考える。てんびんの両はしに6%と0%、支点に2%をおく": {
+  "en": "Think of water as \"0% salt water.\" Put 6% and 0% at the two ends of the balance, and 2% at the fulcrum",
+  "zh-Hans": "把水看成“0%的盐水”。在天平两端放6%和0%，支点放2%",
+  "zh-Hant": "把水看成「0%的食鹽水」。在天平兩端放6%和0%，支點放2%"
+ },
+ "うでの長さは 6−2 = 4 と 2−0 = 2": {
+  "en": "The arm lengths are 6−2 = 4 and 2−0 = 2",
+  "zh-Hans": "臂长分别是 6−2 = 4 和 2−0 = 2",
+  "zh-Hant": "臂長分別是 6−2 = 4 和 2−0 = 2"
+ },
+ "400g と 水xg の比は、うでの長さの逆の比 1:2": {
+  "en": "The ratio of 400 g to x g of water is the inverse ratio of the arm lengths: 1:2",
+  "zh-Hans": "400g 与 水xg 之比，是臂长的反比 1:2",
+  "zh-Hant": "400g 與 水xg 的比，是臂長的反比 1:2"
+ },
+ "4%の食塩水300gに、12%の食塩水を何g混ぜると、9%の食塩水になりますか。": {
+  "en": "How many grams of 12% salt water should be mixed with 300 g of 4% salt water to make 9% salt water?",
+  "zh-Hans": "在4%的盐水300g中，混入多少g浓度为12%的盐水，就能变成9%的盐水？",
+  "zh-Hant": "在4%的食鹽水300g中，混入多少g濃度12%的食鹽水，就會變成9%的食鹽水？"
+ },
+ "てんびんの左はしに4%、右はしに12%、支点に9%をおく": {
+  "en": "Put 4% at the left end of the balance, 12% at the right end, and 9% at the fulcrum",
+  "zh-Hans": "在天平左端放4%，右端放12%，支点放9%",
+  "zh-Hant": "在天平左端放4%，右端放12%，支點放9%"
+ },
+ "300g と xg の比は、うでの長さの逆の比 3:5": {
+  "en": "The ratio of 300 g to x g is the inverse ratio of the arm lengths: 3:5",
+  "zh-Hans": "300g 与 xg 之比，是臂长的反比 3:5",
+  "zh-Hant": "300g 與 xg 的比，是臂長的反比 3:5"
+ },
+ "濃度のちがう2つを混ぜる問題は、濃度をてんびんのうでにして、重さの比を逆にする。": {
+  "en": "When you mix 2 solutions of different concentrations, make the concentrations the arms of the balance and flip the ratio to get the weights.",
+  "zh-Hans": "混合2种浓度不同的盐水时，把浓度当作天平的臂，重量之比取反比。",
+  "zh-Hant": "混合2種濃度不同的食鹽水時，把濃度當作天平的臂，重量的比取反比。"
+ },
+ "そのとおり。混ぜた濃度が支点。うでの長さの逆の比が、重さの比になる。": {
+  "en": "That's right. The mixed concentration is the fulcrum. The inverse ratio of the arm lengths is the ratio of the weights.",
+  "zh-Hans": "没错。混合后的浓度是支点。臂长的反比就是重量之比。",
+  "zh-Hant": "沒錯。混合後的濃度是支點。臂長的反比就是重量的比。"
+ },
+ "2種類の「数と合計」ではなく、「濃度」を混ぜる問題。": {
+  "en": "This isn't about 2 kinds of \"count and total\"; it's about mixing \"concentrations.\"",
+  "zh-Hans": "这不是2种东西的“数量与总和”，而是混合“浓度”的题。",
+  "zh-Hant": "這不是2種東西的「數量與總和」，而是混合「濃度」的題目。"
+ },
+ "食塩の重さで方程式を立てると、%の計算で式が長くなる。": {
+  "en": "If you set up an equation with the weight of salt, the % calculations make it long.",
+  "zh-Hans": "用盐的重量列方程，%的计算会让式子变长。",
+  "zh-Hant": "用食鹽的重量列方程式，%的計算會讓式子變長。"
+ },
+ "7%の食塩水400gに、13%の食塩水を何g混ぜると、11%の食塩水になりますか。": {
+  "en": "How many grams of 13% salt water should be mixed with 400 g of 7% salt water to make 11% salt water?",
+  "zh-Hans": "在7%的盐水400g中，混入多少g浓度为13%的盐水，就能变成11%的盐水？",
+  "zh-Hant": "在7%的食鹽水400g中，混入多少g濃度13%的食鹽水，就會變成11%的食鹽水？"
+ },
+ "てんびんの左はしに7%、右はしに13%、支点に11%をおく": {
+  "en": "Put 7% at the left end of the balance, 13% at the right end, and 11% at the fulcrum",
+  "zh-Hans": "在天平左端放7%，右端放13%，支点放11%",
+  "zh-Hant": "在天平左端放7%，右端放13%，支點放11%"
+ },
+ "うでの長さは 11−7 = 4 と 13−11 = 2": {
+  "en": "The arm lengths are 11−7 = 4 and 13−11 = 2",
+  "zh-Hans": "臂长分别是 11−7 = 4 和 13−11 = 2",
+  "zh-Hant": "臂長分別是 11−7 = 4 和 13−11 = 2"
+ },
+ "400g と xg の比は、うでの長さの逆の比 1:2": {
+  "en": "The ratio of 400 g to x g is the inverse ratio of the arm lengths: 1:2",
+  "zh-Hans": "400g 与 xg 之比，是臂长的反比 1:2",
+  "zh-Hant": "400g 與 xg 的比，是臂長的反比 1:2"
+ },
+ "7%の食塩水200gに、16%の食塩水を何g混ぜると、12%の食塩水になりますか。": {
+  "en": "How many grams of 16% salt water should be mixed with 200 g of 7% salt water to make 12% salt water?",
+  "zh-Hans": "在7%的盐水200g中，混入多少g浓度为16%的盐水，就能变成12%的盐水？",
+  "zh-Hant": "在7%的食鹽水200g中，混入多少g濃度16%的食鹽水，就會變成12%的食鹽水？"
+ },
+ "てんびんの左はしに7%、右はしに16%、支点に12%をおく": {
+  "en": "Put 7% at the left end of the balance, 16% at the right end, and 12% at the fulcrum",
+  "zh-Hans": "在天平左端放7%，右端放16%，支点放12%",
+  "zh-Hant": "在天平左端放7%，右端放16%，支點放12%"
+ },
+ "うでの長さは 12−7 = 5 と 16−12 = 4": {
+  "en": "The arm lengths are 12−7 = 5 and 16−12 = 4",
+  "zh-Hans": "臂长分别是 12−7 = 5 和 16−12 = 4",
+  "zh-Hant": "臂長分別是 12−7 = 5 和 16−12 = 4"
+ },
+ "200g と xg の比は、うでの長さの逆の比 4:5": {
+  "en": "The ratio of 200 g to x g is the inverse ratio of the arm lengths: 4:5",
+  "zh-Hans": "200g 与 xg 之比，是臂长的反比 4:5",
+  "zh-Hant": "200g 與 xg 的比，是臂長的反比 4:5"
+ },
+ "6%の食塩水300gに、19%の食塩水を何g混ぜると、13%の食塩水になりますか。": {
+  "en": "How many grams of 19% salt water should be mixed with 300 g of 6% salt water to make 13% salt water?",
+  "zh-Hans": "在6%的盐水300g中，混入多少g浓度为19%的盐水，就能变成13%的盐水？",
+  "zh-Hant": "在6%的食鹽水300g中，混入多少g濃度19%的食鹽水，就會變成13%的食鹽水？"
+ },
+ "てんびんの左はしに6%、右はしに19%、支点に13%をおく": {
+  "en": "Put 6% at the left end of the balance, 19% at the right end, and 13% at the fulcrum",
+  "zh-Hans": "在天平左端放6%，右端放19%，支点放13%",
+  "zh-Hant": "在天平左端放6%，右端放19%，支點放13%"
+ },
+ "うでの長さは 13−6 = 7 と 19−13 = 6": {
+  "en": "The arm lengths are 13−6 = 7 and 19−13 = 6",
+  "zh-Hans": "臂长分别是 13−6 = 7 和 19−13 = 6",
+  "zh-Hant": "臂長分別是 13−6 = 7 和 19−13 = 6"
+ },
+ "300g と xg の比は、うでの長さの逆の比 6:7": {
+  "en": "The ratio of 300 g to x g is the inverse ratio of the arm lengths: 6:7",
+  "zh-Hans": "300g 与 xg 之比，是臂长的反比 6:7",
+  "zh-Hant": "300g 與 xg 的比，是臂長的反比 6:7"
+ },
+ "6%の食塩水300gに、14%の食塩水を何g混ぜると、9%の食塩水になりますか。": {
+  "en": "How many grams of 14% salt water should be mixed with 300 g of 6% salt water to make 9% salt water?",
+  "zh-Hans": "在6%的盐水300g中，混入多少g浓度为14%的盐水，就能变成9%的盐水？",
+  "zh-Hant": "在6%的食鹽水300g中，混入多少g濃度14%的食鹽水，就會變成9%的食鹽水？"
+ },
+ "てんびんの左はしに6%、右はしに14%、支点に9%をおく": {
+  "en": "Put 6% at the left end of the balance, 14% at the right end, and 9% at the fulcrum",
+  "zh-Hans": "在天平左端放6%，右端放14%，支点放9%",
+  "zh-Hant": "在天平左端放6%，右端放14%，支點放9%"
+ },
+ "うでの長さは 9−6 = 3 と 14−9 = 5": {
+  "en": "The arm lengths are 9−6 = 3 and 14−9 = 5",
+  "zh-Hans": "臂长分别是 9−6 = 3 和 14−9 = 5",
+  "zh-Hant": "臂長分別是 9−6 = 3 和 14−9 = 5"
+ },
+ "300g と xg の比は、うでの長さの逆の比 5:3": {
+  "en": "The ratio of 300 g to x g is the inverse ratio of the arm lengths: 5:3",
+  "zh-Hans": "300g 与 xg 之比，是臂长的反比 5:3",
+  "zh-Hant": "300g 與 xg 的比，是臂長的反比 5:3"
+ },
+ "5%の食塩水380gに食塩を何g加えると、24%の食塩水になりますか。": {
+  "en": "How many grams of salt should be added to 380 g of 5% salt water to make 24% salt water?",
+  "zh-Hans": "在5%的盐水380g中加入多少g盐，就能变成24%的盐水？",
+  "zh-Hant": "在5%的食鹽水380g中加入多少g的食鹽，就會變成24%的食鹽水？"
+ },
+ "380g と 食塩xg の比は、うでの長さの逆の比 4:1": {
+  "en": "The ratio of 380 g to x g of salt is the inverse ratio of the arm lengths: 4:1",
+  "zh-Hans": "380g 与 盐xg 之比，是臂长的反比 4:1",
+  "zh-Hant": "380g 與 食鹽xg 的比，是臂長的反比 4:1"
+ },
+ "そのとおり。食塩は濃度100%の食塩水。もとの濃度と100%のてんびんで、できた濃度が支点。": {
+  "en": "That's right. Salt is 100% salt water. Make a balance with the original concentration and 100%; the new concentration is the fulcrum.",
+  "zh-Hans": "没错。盐就是浓度100%的盐水。用原浓度和100%做天平，得到的浓度就是支点。",
+  "zh-Hant": "沒錯。食鹽就是濃度100%的食鹽水。用原濃度和100%做天平，得到的濃度就是支點。"
+ },
+ "xが分母にも入る方程式になり、時間がかかる。": {
+  "en": "You get an equation with x in the denominator too, and it takes time.",
+  "zh-Hans": "会得到分母里也有x的方程，很花时间。",
+  "zh-Hant": "會得到分母裡也有x的方程式，很花時間。"
+ },
+ "10%の食塩水190gに食塩を何g加えると、25%の食塩水になりますか。": {
+  "en": "How many grams of salt should be added to 190 g of 10% salt water to make 25% salt water?",
+  "zh-Hans": "在10%的盐水190g中加入多少g盐，就能变成25%的盐水？",
+  "zh-Hant": "在10%的食鹽水190g中加入多少g的食鹽，就會變成25%的食鹽水？"
+ },
+ "190g と 食塩xg の比は、うでの長さの逆の比 5:1": {
+  "en": "The ratio of 190 g to x g of salt is the inverse ratio of the arm lengths: 5:1",
+  "zh-Hans": "190g 与 盐xg 之比，是臂长的反比 5:1",
+  "zh-Hant": "190g 與 食鹽xg 的比，是臂長的反比 5:1"
+ },
+ "12%の食塩水170gに食塩を何g加えると、20%の食塩水になりますか。": {
+  "en": "How many grams of salt should be added to 170 g of 12% salt water to make 20% salt water?",
+  "zh-Hans": "在12%的盐水170g中加入多少g盐，就能变成20%的盐水？",
+  "zh-Hant": "在12%的食鹽水170g中加入多少g的食鹽，就會變成20%的食鹽水？"
+ },
+ "食塩は「100%の食塩水」と考える。てんびんの両はしに12%と100%、支点に20%をおく": {
+  "en": "Think of salt as \"100% salt water.\" Put 12% and 100% at the two ends of the balance, and 20% at the fulcrum",
+  "zh-Hans": "把盐看成“100%的盐水”。在天平两端放12%和100%，支点放20%",
+  "zh-Hant": "把食鹽看成「100%的食鹽水」。在天平兩端放12%和100%，支點放20%"
+ },
+ "うでの長さは 20−12 = 8 と 100−20 = 80": {
+  "en": "The arm lengths are 20−12 = 8 and 100−20 = 80",
+  "zh-Hans": "臂长分别是 20−12 = 8 和 100−20 = 80",
+  "zh-Hant": "臂長分別是 20−12 = 8 和 100−20 = 80"
+ },
+ "170g と 食塩xg の比は、うでの長さの逆の比 10:1": {
+  "en": "The ratio of 170 g to x g of salt is the inverse ratio of the arm lengths: 10:1",
+  "zh-Hans": "170g 与 盐xg 之比，是臂长的反比 10:1",
+  "zh-Hant": "170g 與 食鹽xg 的比，是臂長的反比 10:1"
+ },
+ "9%の食塩水80gに食塩を何g加えると、20%の食塩水になりますか。": {
+  "en": "How many grams of salt should be added to 80 g of 9% salt water to make 20% salt water?",
+  "zh-Hans": "在9%的盐水80g中加入多少g盐，就能变成20%的盐水？",
+  "zh-Hant": "在9%的食鹽水80g中加入多少g的食鹽，就會變成20%的食鹽水？"
+ },
+ "食塩は「100%の食塩水」と考える。てんびんの両はしに9%と100%、支点に20%をおく": {
+  "en": "Think of salt as \"100% salt water.\" Put 9% and 100% at the two ends of the balance, and 20% at the fulcrum",
+  "zh-Hans": "把盐看成“100%的盐水”。在天平两端放9%和100%，支点放20%",
+  "zh-Hant": "把食鹽看成「100%的食鹽水」。在天平兩端放9%和100%，支點放20%"
+ },
+ "うでの長さは 20−9 = 11 と 100−20 = 80": {
+  "en": "The arm lengths are 20−9 = 11 and 100−20 = 80",
+  "zh-Hans": "臂长分别是 20−9 = 11 和 100−20 = 80",
+  "zh-Hant": "臂長分別是 20−9 = 11 和 100−20 = 80"
+ },
+ "80g と 食塩xg の比は、うでの長さの逆の比 80:11": {
+  "en": "The ratio of 80 g to x g of salt is the inverse ratio of the arm lengths: 80:11",
+  "zh-Hans": "80g 与 盐xg 之比，是臂长的反比 80:11",
+  "zh-Hant": "80g 與 食鹽xg 的比，是臂長的反比 80:11"
+ },
+ "4%の食塩水270gに食塩を何g加えると、19%の食塩水になりますか。": {
+  "en": "How many grams of salt should be added to 270 g of 4% salt water to make 19% salt water?",
+  "zh-Hans": "在4%的盐水270g中加入多少g盐，就能变成19%的盐水？",
+  "zh-Hant": "在4%的食鹽水270g中加入多少g的食鹽，就會變成19%的食鹽水？"
+ },
+ "食塩は「100%の食塩水」と考える。てんびんの両はしに4%と100%、支点に19%をおく": {
+  "en": "Think of salt as \"100% salt water.\" Put 4% and 100% at the two ends of the balance, and 19% at the fulcrum",
+  "zh-Hans": "把盐看成“100%的盐水”。在天平两端放4%和100%，支点放19%",
+  "zh-Hant": "把食鹽看成「100%的食鹽水」。在天平兩端放4%和100%，支點放19%"
+ },
+ "うでの長さは 19−4 = 15 と 100−19 = 81": {
+  "en": "The arm lengths are 19−4 = 15 and 100−19 = 81",
+  "zh-Hans": "臂长分别是 19−4 = 15 和 100−19 = 81",
+  "zh-Hant": "臂長分別是 19−4 = 15 和 100−19 = 81"
+ },
+ "270g と 食塩xg の比は、うでの長さの逆の比 27:5": {
+  "en": "The ratio of 270 g to x g of salt is the inverse ratio of the arm lengths: 27:5",
+  "zh-Hans": "270g 与 盐xg 之比，是臂长的反比 27:5",
+  "zh-Hant": "270g 與 食鹽xg 的比，是臂長的反比 27:5"
+ },
+ "てんびんは何回でも使える。1回目で混ぜた濃度を出し、2回目で水（0%）とのてんびんにする。": {
+  "en": "You can use the balance as many times as you like. The 1st time, find the mixed concentration; the 2nd time, make a balance with water (0%).",
+  "zh-Hans": "天平可以用好几次。第1次求出混合后的浓度，第2次再和水（0%）做天平。",
+  "zh-Hant": "天平可以用好幾次。第1次求出混合後的濃度，第2次再和水（0%）做天平。"
+ },
+ "6%の食塩水200gと11%の食塩水300gを混ぜ、さらに水を加えて5%の食塩水にします。水を何g加えればよいですか。": {
+  "en": "Mix 200 g of 6% salt water with 300 g of 11% salt water, then add water to make 5% salt water. How many grams of water should be added?",
+  "zh-Hans": "把6%的盐水200g和11%的盐水300g混合，再加水变成5%的盐水。需要加多少g水？",
+  "zh-Hant": "把6%的食鹽水200g和11%的食鹽水300g混合，再加水變成5%的食鹽水。要加多少g的水？"
+ },
+ "まず6%と11%をてんびんで混ぜる。重さの比 200:300 = 2:3 なので、うでの長さの比は 3:2": {
+  "en": "First mix 6% and 11% on the balance. The weight ratio is 200:300 = 2:3, so the arm-length ratio is 3:2",
+  "zh-Hans": "先用天平混合6%和11%。重量比 200:300 = 2:3，所以臂长比是 3:2",
+  "zh-Hant": "先用天平混合6%和11%。重量比 200:300 = 2:3，所以臂長比是 3:2"
+ },
+ "うでの長さ 11−6 = 5 を 3:2 に分ける。6%からのうでは 5÷5×3 = 3": {
+  "en": "Split the arm length 11−6 = 5 in the ratio 3:2. The arm from 6% is 5÷5×3 = 3",
+  "zh-Hans": "把臂长 11−6 = 5 按 3:2 分。从6%算起的那段臂长是 5÷5×3 = 3",
+  "zh-Hant": "把臂長 11−6 = 5 按 3:2 分。從6%算起的那段臂長是 5÷5×3 = 3"
+ },
+ "混ぜた食塩水は 6+3 = 9%、重さは 200+300 = 500g": {
+  "en": "The mixed salt water is 6+3 = 9%, and it weighs 200+300 = 500 g",
+  "zh-Hans": "混合后的盐水浓度是 6+3 = 9%，重量是 200+300 = 500g",
+  "zh-Hant": "混合後的食鹽水濃度是 6+3 = 9%，重量是 200+300 = 500g"
+ },
+ "500g と 水xg の比は 5:4。水 = 500×4÷5 = 400（g）": {
+  "en": "The ratio of 500 g to x g of water is 5:4. Water = 500×4÷5 = 400 (g)",
+  "zh-Hans": "500g 与 水xg 之比是 5:4。水 = 500×4÷5 = 400（g）",
+  "zh-Hant": "500g 與 水xg 的比是 5:4。水 = 500×4÷5 = 400（g）"
+ },
+ "そのとおり。1回目のてんびんで混ぜたあとの濃度、2回目はその濃度と0%のてんびん。": {
+  "en": "That's right. The 1st balance gives the concentration after mixing; the 2nd is a balance between that concentration and 0%.",
+  "zh-Hans": "没错。第1次天平求混合后的浓度，第2次是这个浓度和0%的天平。",
+  "zh-Hant": "沒錯。第1次天平求混合後的濃度，第2次是這個濃度和0%的天平。"
+ },
+ "方程式を1本で立てると、間違えやすい。": {
+  "en": "Setting it all up as 1 equation makes mistakes easy.",
+  "zh-Hans": "只列1个方程的话，容易出错。",
+  "zh-Hant": "只列1個方程式的話，容易出錯。"
+ },
+ "8%の食塩水200gと12%の食塩水600gを混ぜ、さらに水を加えて2%の食塩水にします。水を何g加えればよいですか。": {
+  "en": "Mix 200 g of 8% salt water with 600 g of 12% salt water, then add water to make 2% salt water. How many grams of water should be added?",
+  "zh-Hans": "把8%的盐水200g和12%的盐水600g混合，再加水变成2%的盐水。需要加多少g水？",
+  "zh-Hant": "把8%的食鹽水200g和12%的食鹽水600g混合，再加水變成2%的食鹽水。要加多少g的水？"
+ },
+ "まず8%と12%をてんびんで混ぜる。重さの比 200:600 = 1:3 なので、うでの長さの比は 3:1": {
+  "en": "First mix 8% and 12% on the balance. The weight ratio is 200:600 = 1:3, so the arm-length ratio is 3:1",
+  "zh-Hans": "先用天平混合8%和12%。重量比 200:600 = 1:3，所以臂长比是 3:1",
+  "zh-Hant": "先用天平混合8%和12%。重量比 200:600 = 1:3，所以臂長比是 3:1"
+ },
+ "うでの長さ 12−8 = 4 を 3:1 に分ける。8%からのうでは 4÷4×3 = 3": {
+  "en": "Split the arm length 12−8 = 4 in the ratio 3:1. The arm from 8% is 4÷4×3 = 3",
+  "zh-Hans": "把臂长 12−8 = 4 按 3:1 分。从8%算起的那段臂长是 4÷4×3 = 3",
+  "zh-Hant": "把臂長 12−8 = 4 按 3:1 分。從8%算起的那段臂長是 4÷4×3 = 3"
+ },
+ "混ぜた食塩水は 8+3 = 11%、重さは 200+600 = 800g": {
+  "en": "The mixed salt water is 8+3 = 11%, and it weighs 200+600 = 800 g",
+  "zh-Hans": "混合后的盐水浓度是 8+3 = 11%，重量是 200+600 = 800g",
+  "zh-Hant": "混合後的食鹽水濃度是 8+3 = 11%，重量是 200+600 = 800g"
+ },
+ "次に水（0%）を混ぜる。うでの長さは 11−2 = 9 と 2−0 = 2": {
+  "en": "Next, mix in water (0%). The arm lengths are 11−2 = 9 and 2−0 = 2",
+  "zh-Hans": "接着混入水（0%）。臂长分别是 11−2 = 9 和 2−0 = 2",
+  "zh-Hant": "接著混入水（0%）。臂長分別是 11−2 = 9 和 2−0 = 2"
+ },
+ "800g と 水xg の比は 2:9。水 = 800×9÷2 = 3600（g）": {
+  "en": "The ratio of 800 g to x g of water is 2:9. Water = 800×9÷2 = 3600 (g)",
+  "zh-Hans": "800g 与 水xg 之比是 2:9。水 = 800×9÷2 = 3600（g）",
+  "zh-Hant": "800g 與 水xg 的比是 2:9。水 = 800×9÷2 = 3600（g）"
+ },
+ "4%の食塩水400gと13%の食塩水200gを混ぜ、さらに水を加えて6%の食塩水にします。水を何g加えればよいですか。": {
+  "en": "Mix 400 g of 4% salt water with 200 g of 13% salt water, then add water to make 6% salt water. How many grams of water should be added?",
+  "zh-Hans": "把4%的盐水400g和13%的盐水200g混合，再加水变成6%的盐水。需要加多少g水？",
+  "zh-Hant": "把4%的食鹽水400g和13%的食鹽水200g混合，再加水變成6%的食鹽水。要加多少g的水？"
+ },
+ "まず4%と13%をてんびんで混ぜる。重さの比 400:200 = 2:1 なので、うでの長さの比は 1:2": {
+  "en": "First mix 4% and 13% on the balance. The weight ratio is 400:200 = 2:1, so the arm-length ratio is 1:2",
+  "zh-Hans": "先用天平混合4%和13%。重量比 400:200 = 2:1，所以臂长比是 1:2",
+  "zh-Hant": "先用天平混合4%和13%。重量比 400:200 = 2:1，所以臂長比是 1:2"
+ },
+ "うでの長さ 13−4 = 9 を 1:2 に分ける。4%からのうでは 9÷3×1 = 3": {
+  "en": "Split the arm length 13−4 = 9 in the ratio 1:2. The arm from 4% is 9÷3×1 = 3",
+  "zh-Hans": "把臂长 13−4 = 9 按 1:2 分。从4%算起的那段臂长是 9÷3×1 = 3",
+  "zh-Hant": "把臂長 13−4 = 9 按 1:2 分。從4%算起的那段臂長是 9÷3×1 = 3"
+ },
+ "混ぜた食塩水は 4+3 = 7%、重さは 400+200 = 600g": {
+  "en": "The mixed salt water is 4+3 = 7%, and it weighs 400+200 = 600 g",
+  "zh-Hans": "混合后的盐水浓度是 4+3 = 7%，重量是 400+200 = 600g",
+  "zh-Hant": "混合後的食鹽水濃度是 4+3 = 7%，重量是 400+200 = 600g"
+ },
+ "次に水（0%）を混ぜる。うでの長さは 7−6 = 1 と 6−0 = 6": {
+  "en": "Next, mix in water (0%). The arm lengths are 7−6 = 1 and 6−0 = 6",
+  "zh-Hans": "接着混入水（0%）。臂长分别是 7−6 = 1 和 6−0 = 6",
+  "zh-Hant": "接著混入水（0%）。臂長分別是 7−6 = 1 和 6−0 = 6"
+ },
+ "600g と 水xg の比は 6:1。水 = 600×1÷6 = 100（g）": {
+  "en": "The ratio of 600 g to x g of water is 6:1. Water = 600×1÷6 = 100 (g)",
+  "zh-Hans": "600g 与 水xg 之比是 6:1。水 = 600×1÷6 = 100（g）",
+  "zh-Hant": "600g 與 水xg 的比是 6:1。水 = 600×1÷6 = 100（g）"
+ },
+ "8%の食塩水200gと12%の食塩水600gを混ぜ、さらに水を加えて10%の食塩水にします。水を何g加えればよいですか。": {
+  "en": "Mix 200 g of 8% salt water with 600 g of 12% salt water, then add water to make 10% salt water. How many grams of water should be added?",
+  "zh-Hans": "把8%的盐水200g和12%的盐水600g混合，再加水变成10%的盐水。需要加多少g水？",
+  "zh-Hant": "把8%的食鹽水200g和12%的食鹽水600g混合，再加水變成10%的食鹽水。要加多少g的水？"
+ },
+ "次に水（0%）を混ぜる。うでの長さは 11−10 = 1 と 10−0 = 10": {
+  "en": "Next, mix in water (0%). The arm lengths are 11−10 = 1 and 10−0 = 10",
+  "zh-Hans": "接着混入水（0%）。臂长分别是 11−10 = 1 和 10−0 = 10",
+  "zh-Hant": "接著混入水（0%）。臂長分別是 11−10 = 1 和 10−0 = 10"
+ },
+ "800g と 水xg の比は 10:1。水 = 800×1÷10 = 80（g）": {
+  "en": "The ratio of 800 g to x g of water is 10:1. Water = 800×1÷10 = 80 (g)",
+  "zh-Hans": "800g 与 水xg 之比是 10:1。水 = 800×1÷10 = 80（g）",
+  "zh-Hant": "800g 與 水xg 的比是 10:1。水 = 800×1÷10 = 80（g）"
+ },
+ "6%の食塩水300gと11%の食塩水200gを混ぜ、さらに水を加えて2%の食塩水にします。水を何g加えればよいですか。": {
+  "en": "Mix 300 g of 6% salt water with 200 g of 11% salt water, then add water to make 2% salt water. How many grams of water should be added?",
+  "zh-Hans": "把6%的盐水300g和11%的盐水200g混合，再加水变成2%的盐水。需要加多少g水？",
+  "zh-Hant": "把6%的食鹽水300g和11%的食鹽水200g混合，再加水變成2%的食鹽水。要加多少g的水？"
+ },
+ "まず6%と11%をてんびんで混ぜる。重さの比 300:200 = 3:2 なので、うでの長さの比は 2:3": {
+  "en": "First mix 6% and 11% on the balance. The weight ratio is 300:200 = 3:2, so the arm-length ratio is 2:3",
+  "zh-Hans": "先用天平混合6%和11%。重量比 300:200 = 3:2，所以臂长比是 2:3",
+  "zh-Hant": "先用天平混合6%和11%。重量比 300:200 = 3:2，所以臂長比是 2:3"
+ },
+ "うでの長さ 11−6 = 5 を 2:3 に分ける。6%からのうでは 5÷5×2 = 2": {
+  "en": "Split the arm length 11−6 = 5 in the ratio 2:3. The arm from 6% is 5÷5×2 = 2",
+  "zh-Hans": "把臂长 11−6 = 5 按 2:3 分。从6%算起的那段臂长是 5÷5×2 = 2",
+  "zh-Hant": "把臂長 11−6 = 5 按 2:3 分。從6%算起的那段臂長是 5÷5×2 = 2"
+ },
+ "混ぜた食塩水は 6+2 = 8%、重さは 300+200 = 500g": {
+  "en": "The mixed salt water is 6+2 = 8%, and it weighs 300+200 = 500 g",
+  "zh-Hans": "混合后的盐水浓度是 6+2 = 8%，重量是 300+200 = 500g",
+  "zh-Hant": "混合後的食鹽水濃度是 6+2 = 8%，重量是 300+200 = 500g"
+ },
+ "次に水（0%）を混ぜる。うでの長さは 8−2 = 6 と 2−0 = 2": {
+  "en": "Next, mix in water (0%). The arm lengths are 8−2 = 6 and 2−0 = 2",
+  "zh-Hans": "接着混入水（0%）。臂长分别是 8−2 = 6 和 2−0 = 2",
+  "zh-Hant": "接著混入水（0%）。臂長分別是 8−2 = 6 和 2−0 = 2"
+ },
+ "500g と 水xg の比は 1:3。水 = 500×3 = 1500（g）": {
+  "en": "The ratio of 500 g to x g of water is 1:3. Water = 500×3 = 1500 (g)",
+  "zh-Hans": "500g 与 水xg 之比是 1:3。水 = 500×3 = 1500（g）",
+  "zh-Hant": "500g 與 水xg 的比是 1:3。水 = 500×3 = 1500（g）"
+ },
+ "4%の食塩水450gから水を何g蒸発させると、9%の食塩水になりますか。": {
+  "en": "How many grams of water must evaporate from 450 g of 4% salt water to make 9% salt water?",
+  "zh-Hans": "从4%的盐水450g中蒸发掉多少g水，就能变成9%的盐水？",
+  "zh-Hant": "從4%的食鹽水450g中蒸發掉多少g的水，就會變成9%的食鹽水？"
+ },
+ "そのとおり。水を蒸発させても食塩の重さは変わらない。その重さとあとの濃度から、全体の重さが出る。": {
+  "en": "That's right. Evaporating water doesn't change the weight of salt. From that weight and the new concentration, you get the total weight.",
+  "zh-Hans": "没错。水蒸发了，盐的重量也不变。由这个重量和之后的浓度，就能求出总重量。",
+  "zh-Hant": "沒錯。水蒸發了，食鹽的重量也不變。由這個重量和之後的濃度，就能算出總重量。"
+ },
+ "xを使った方程式でも解けるが、変わらない食塩の量を見る方が速い。": {
+  "en": "You can solve it with an equation in x, but looking at the amount of salt that stays the same is faster.",
+  "zh-Hans": "用含x的方程也能解，但看不变的盐量更快。",
+  "zh-Hant": "用含x的方程式也能解，但看不變的食鹽量比較快。"
+ },
+ "8%の食塩水350gから水を何g蒸発させると、16%の食塩水になりますか。": {
+  "en": "How many grams of water must evaporate from 350 g of 8% salt water to make 16% salt water?",
+  "zh-Hans": "从8%的盐水350g中蒸发掉多少g水，就能变成16%的盐水？",
+  "zh-Hant": "從8%的食鹽水350g中蒸發掉多少g的水，就會變成16%的食鹽水？"
+ },
+ "食塩は 350×8÷100 = 28（g）": {
+  "en": "Salt: 350×8÷100 = 28 (g)",
+  "zh-Hans": "盐有 350×8÷100 = 28（g）",
+  "zh-Hant": "食鹽有 350×8÷100 = 28（g）"
+ },
+ "16%で食塩が28gなら、食塩水は 28÷16×100 = 175（g）": {
+  "en": "If 28 g of salt makes 16%, the salt water weighs 28÷16×100 = 175 (g)",
+  "zh-Hans": "浓度16%时盐是28g，那么盐水是 28÷16×100 = 175（g）",
+  "zh-Hant": "濃度16%時食鹽是28g，那麼食鹽水是 28÷16×100 = 175（g）"
+ },
+ "10%の食塩水200gから水を何g蒸発させると、16%の食塩水になりますか。": {
+  "en": "How many grams of water must evaporate from 200 g of 10% salt water to make 16% salt water?",
+  "zh-Hans": "从10%的盐水200g中蒸发掉多少g水，就能变成16%的盐水？",
+  "zh-Hant": "從10%的食鹽水200g中蒸發掉多少g的水，就會變成16%的食鹽水？"
+ },
+ "食塩は 200×10÷100 = 20（g）": {
+  "en": "Salt: 200×10÷100 = 20 (g)",
+  "zh-Hans": "盐有 200×10÷100 = 20（g）",
+  "zh-Hant": "食鹽有 200×10÷100 = 20（g）"
+ },
+ "16%で食塩が20gなら、食塩水は 20÷16×100 = 125（g）": {
+  "en": "If 20 g of salt makes 16%, the salt water weighs 20÷16×100 = 125 (g)",
+  "zh-Hans": "浓度16%时盐是20g，那么盐水是 20÷16×100 = 125（g）",
+  "zh-Hant": "濃度16%時食鹽是20g，那麼食鹽水是 20÷16×100 = 125（g）"
+ },
+ "9%の食塩水500gから水を何g蒸発させると、15%の食塩水になりますか。": {
+  "en": "How many grams of water must evaporate from 500 g of 9% salt water to make 15% salt water?",
+  "zh-Hans": "从9%的盐水500g中蒸发掉多少g水，就能变成15%的盐水？",
+  "zh-Hant": "從9%的食鹽水500g中蒸發掉多少g的水，就會變成15%的食鹽水？"
+ },
+ "食塩は 500×9÷100 = 45（g）": {
+  "en": "Salt: 500×9÷100 = 45 (g)",
+  "zh-Hans": "盐有 500×9÷100 = 45（g）",
+  "zh-Hant": "食鹽有 500×9÷100 = 45（g）"
+ },
+ "15%で食塩が45gなら、食塩水は 45÷15×100 = 300（g）": {
+  "en": "If 45 g of salt makes 15%, the salt water weighs 45÷15×100 = 300 (g)",
+  "zh-Hans": "浓度15%时盐是45g，那么盐水是 45÷15×100 = 300（g）",
+  "zh-Hant": "濃度15%時食鹽是45g，那麼食鹽水是 45÷15×100 = 300（g）"
+ },
+ "2%の食塩水450gから水を何g蒸発させると、12%の食塩水になりますか。": {
+  "en": "How many grams of water must evaporate from 450 g of 2% salt water to make 12% salt water?",
+  "zh-Hans": "从2%的盐水450g中蒸发掉多少g水，就能变成12%的盐水？",
+  "zh-Hant": "從2%的食鹽水450g中蒸發掉多少g的水，就會變成12%的食鹽水？"
+ },
+ "食塩は 450×2÷100 = 9（g）": {
+  "en": "Salt: 450×2÷100 = 9 (g)",
+  "zh-Hans": "盐有 450×2÷100 = 9（g）",
+  "zh-Hant": "食鹽有 450×2÷100 = 9（g）"
+ },
+ "12%で食塩が9gなら、食塩水は 9÷12×100 = 75（g）": {
+  "en": "If 9 g of salt makes 12%, the salt water weighs 9÷12×100 = 75 (g)",
+  "zh-Hans": "浓度12%时盐是9g，那么盐水是 9÷12×100 = 75（g）",
+  "zh-Hant": "濃度12%時食鹽是9g，那麼食鹽水是 9÷12×100 = 75（g）"
+ },
+ "食塩の量は「食塩水の重さ×濃度」。濃度を聞いていなければ、てんびんはいらない。": {
+  "en": "Amount of salt = \"weight of salt water × concentration.\" If the question doesn't ask for a concentration, you don't need the balance.",
+  "zh-Hans": "盐的量是“盐水的重量×浓度”。如果没问浓度，就不需要天平。",
+  "zh-Hant": "食鹽的量是「食鹽水的重量×濃度」。如果沒問濃度，就不需要天平。"
+ },
+ "6%の食塩水250gと、8%の食塩水350gにふくまれる食塩は、合わせて何gですか。": {
+  "en": "How many grams of salt are in 250 g of 6% salt water and 350 g of 8% salt water combined?",
+  "zh-Hans": "6%的盐水250g和8%的盐水350g中所含的盐，合计是多少g？",
+  "zh-Hant": "6%的食鹽水250g和8%的食鹽水350g中所含的食鹽，合計是多少g？"
+ },
+ "6%の方の食塩は 250×6÷100 = 15（g）": {
+  "en": "Salt in the 6% solution: 250×6÷100 = 15 (g)",
+  "zh-Hans": "6%的那份含盐 250×6÷100 = 15（g）",
+  "zh-Hant": "6%的那份含食鹽 250×6÷100 = 15（g）"
+ },
+ "8%の方の食塩は 350×8÷100 = 28（g）": {
+  "en": "Salt in the 8% solution: 350×8÷100 = 28 (g)",
+  "zh-Hans": "8%的那份含盐 350×8÷100 = 28（g）",
+  "zh-Hant": "8%的那份含食鹽 350×8÷100 = 28（g）"
+ },
+ "濃度ではなく食塩の量を聞いているときは、てんびんはいらない。それぞれかけて、たす。": {
+  "en": "When the question asks for the amount of salt, not the concentration, you don't need the balance. Multiply each one, then add.",
+  "zh-Hans": "问的不是浓度而是盐的量时，不需要天平。各自相乘，再相加。",
+  "zh-Hant": "問的不是濃度而是食鹽的量時，不需要天平。各自相乘，再相加。"
+ }
+}

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { PhotoThumb } from "../components/PhotoThumb";
 import { VideoLink } from "../components/VideoLink";
 import { useSheetDrag } from "../components/useSheetDrag";
-import { app } from "../copy";
+import { app, MISC } from "../copy";
 import { unitById } from "../curriculum";
 import {
   type ExamPlan,
@@ -364,7 +364,7 @@ export function PlanCard({ it, showUnit, onTick, onOpenPage }: { it: PlanItem; s
           </button>
         )}
         <p className="up-a">
-          {s.yourAnswer}：<span className="up-ans">{pr.answer || s.blank}</span>
+          {s.yourAnswer}{MISC.colon}<span className="up-ans">{pr.answer || s.blank}</span>
         </p>
         <div className="up-mark">
           <span className={`pv-mark mk-${mk}`}>{it.mark ?? "—"}</span>

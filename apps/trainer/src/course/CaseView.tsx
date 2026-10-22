@@ -1,6 +1,7 @@
 // /pass/:passId — the lens case: one tile per lesson (lens icon, name, hint, problem dots).
 // Everything from bundle.passes. A Pass not unlocked on this device (WO-024 access link) shows its
 // lessons locked, with the way to buy or open it.
+import { LangSwitch } from '../i18n/LangSwitch';
 import { LensIcon, loadBundle, tokens, type LensOrDirect } from '@lens/scenes';
 import { t } from '../i18n/ja';
 import { track } from '../launch/analytics';
@@ -38,6 +39,7 @@ export function CaseView({ passId }: { passId: string }) {
     <main className="course">
       <div className="brand">
         <h1>{t('case.title')}</h1>
+        <LangSwitch className="case-lang" />
         <span className="tag">{pass.title_ja}</span>
       </div>
       {open ? <p className="lede">{t('case.lede')}</p> : <Locked passId={pass.id} trial={trial} />}

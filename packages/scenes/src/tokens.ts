@@ -41,9 +41,16 @@ export function lensColor(t: Tokens, lens: LensOrDirect, mode: RenderMode = 'scr
   return color(t.color.lens[lens], mode);
 }
 
+/** Fonts tried before family_ja for the display language (e.g. Chinese system fonts); set once at startup. */
+let scriptFonts: string[] = [];
+export function setScriptFonts(families: string[]): void {
+  scriptFonts = families;
+}
+const lead = () => scriptFonts.map((f) => `"${f}", `).join('');
+
 export function fontFamily(t: Tokens, scale: TypeScaleToken | undefined, fallback: 'family_ja' | 'family_num' = 'family_ja'): string {
   const key = scale?.family ?? fallback;
-  return `"${t.type[key]}", ${key === 'family_hand' ? 'cursive' : 'sans-serif'}`;
+  return `${key === 'family_ja' ? lead() : ''}"${t.type[key]}", ${key === 'family_hand' ? 'cursive' : 'sans-serif'}`;
 }
 
 /** Point size for a type scale step; on screen never below `type.screen_min_px`. */
@@ -69,7 +76,7 @@ export function cssVars(t: Tokens = tokens, mode: RenderMode = 'screen'): Record
     '--correct': color(t.color.correct, mode),
     '--miss': color(t.color.miss, mode),
     '--lens-tint-opacity': String(t.color.lens_tint_opacity),
-    '--font-ja': `"${t.type.family_ja}", sans-serif`,
+    '--font-ja': `${lead()}"${t.type.family_ja}", sans-serif`,
     '--font-num': `"${t.type.family_num}", sans-serif`,
     '--font-hand': `"${t.type.family_hand}", cursive`,
     '--easing': t.motion.easing,

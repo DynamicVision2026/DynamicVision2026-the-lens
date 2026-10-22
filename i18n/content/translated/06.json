@@ -1,0 +1,1502 @@
+{
+ "38+9 = 47（才）": {
+  "en": "38+9 = 47 (years old)",
+  "zh-Hans": "38+9 = 47（岁）",
+  "zh-Hant": "38+9 = 47（歲）"
+ },
+ "いま、姉は32才、妹は6才です。3年後、2人の年れいの和は何才ですか。": {
+  "en": "Right now, the older sister is 32 and the younger sister is 6. In 3 years, what will be the sum of their 2 ages?",
+  "zh-Hans": "现在姐姐32岁，妹妹6岁。3年后，两人的年龄和是多少岁？",
+  "zh-Hant": "現在姊姊32歲，妹妹6歲。3年後，兩人的年齡和是幾歲？"
+ },
+ "3年後の姉は 32+3 = 35": {
+  "en": "In 3 years, the older sister is 32+3 = 35",
+  "zh-Hans": "3年后姐姐是 32+3 = 35",
+  "zh-Hant": "3年後姊姊是 32+3 = 35"
+ },
+ "3年後の妹は 6+3 = 9": {
+  "en": "In 3 years, the younger sister is 6+3 = 9",
+  "zh-Hans": "3年后妹妹是 6+3 = 9",
+  "zh-Hant": "3年後妹妹是 6+3 = 9"
+ },
+ "35+9 = 44（才）": {
+  "en": "35+9 = 44 (years old)",
+  "zh-Hans": "35+9 = 44（岁）",
+  "zh-Hant": "35+9 = 44（歲）"
+ },
+ "いま、姉は41才、妹は7才です。4年後、2人の年れいの和は何才ですか。": {
+  "en": "Right now, the older sister is 41 and the younger sister is 7. In 4 years, what will be the sum of their 2 ages?",
+  "zh-Hans": "现在姐姐41岁，妹妹7岁。4年后，两人的年龄和是多少岁？",
+  "zh-Hant": "現在姊姊41歲，妹妹7歲。4年後，兩人的年齡和是幾歲？"
+ },
+ "4年後の姉は 41+4 = 45": {
+  "en": "In 4 years, the older sister is 41+4 = 45",
+  "zh-Hans": "4年后姐姐是 41+4 = 45",
+  "zh-Hant": "4年後姊姊是 41+4 = 45"
+ },
+ "4年後の妹は 7+4 = 11": {
+  "en": "In 4 years, the younger sister is 7+4 = 11",
+  "zh-Hans": "4年后妹妹是 7+4 = 11",
+  "zh-Hant": "4年後妹妹是 7+4 = 11"
+ },
+ "45+11 = 56（才）": {
+  "en": "45+11 = 56 (years old)",
+  "zh-Hans": "45+11 = 56（岁）",
+  "zh-Hant": "45+11 = 56（歲）"
+ },
+ "いま、姉は36才、妹は8才です。3年後、2人の年れいの和は何才ですか。": {
+  "en": "Right now, the older sister is 36 and the younger sister is 8. In 3 years, what will be the sum of their 2 ages?",
+  "zh-Hans": "现在姐姐36岁，妹妹8岁。3年后，两人的年龄和是多少岁？",
+  "zh-Hant": "現在姊姊36歲，妹妹8歲。3年後，兩人的年齡和是幾歲？"
+ },
+ "3年後の姉は 36+3 = 39": {
+  "en": "In 3 years, the older sister is 36+3 = 39",
+  "zh-Hans": "3年后姐姐是 36+3 = 39",
+  "zh-Hant": "3年後姊姊是 36+3 = 39"
+ },
+ "3年後の妹は 8+3 = 11": {
+  "en": "In 3 years, the younger sister is 8+3 = 11",
+  "zh-Hans": "3年后妹妹是 8+3 = 11",
+  "zh-Hant": "3年後妹妹是 8+3 = 11"
+ },
+ "39+11 = 50（才）": {
+  "en": "39+11 = 50 (years old)",
+  "zh-Hans": "39+11 = 50（岁）",
+  "zh-Hant": "39+11 = 50（歲）"
+ },
+ "x + y = 10、x＞0、y＞0 のとき、xy の最大値を求めなさい。": {
+  "en": "If x + y = 10, x＞0 and y＞0, find the maximum value of xy.",
+  "zh-Hans": "已知 x + y = 10，x＞0，y＞0，求 xy 的最大值。",
+  "zh-Hant": "已知 x + y = 10，x＞0，y＞0，求 xy 的最大值。"
+ },
+ "yを消去して、xだけの式にする": {
+  "en": "Eliminate y to get an expression in x only",
+  "zh-Hans": "消去y，化成只含x的式子",
+  "zh-Hant": "消去y，化成只含x的式子"
+ },
+ "平方完成して、最大（最小）を求める": {
+  "en": "Complete the square to find the maximum (minimum)",
+  "zh-Hans": "配方，求出最大值（最小值）",
+  "zh-Hant": "配方，求出最大值（最小值）"
+ },
+ "ここで約2分。形が見えないまま計算する": {
+  "en": "About 2 minutes in. You're calculating without seeing the shape",
+  "zh-Hans": "到这里约2分钟。看不出结构，只是硬算",
+  "zh-Hant": "到這裡約2分鐘。看不出結構，只是硬算"
+ },
+ "和 x+y = 10 は一定。まん中 5 からのずれを t として x = 5+t、y = 5−t": {
+  "en": "The sum x+y = 10 is constant. Let t be the shift from the middle 5: x = 5+t, y = 5−t",
+  "zh-Hans": "和 x+y = 10 不变。设离中间值 5 的偏差为 t，则 x = 5+t，y = 5−t",
+  "zh-Hant": "和 x+y = 10 不變。設與中間值 5 的差距為 t，則 x = 5+t，y = 5−t"
+ },
+ "xy = 5² − t²。t = 0 のとき最大": {
+  "en": "xy = 5² − t². Largest when t = 0",
+  "zh-Hans": "xy = 5² − t²。t = 0 时最大",
+  "zh-Hant": "xy = 5² − t²。t = 0 時最大"
+ },
+ "文字の値によらない点を求める問題ではない。": {
+  "en": "This isn't a problem about finding a point that doesn't depend on the variable's value.",
+  "zh-Hans": "这不是求与字母取值无关的定点的问题。",
+  "zh-Hant": "這不是求與字母取值無關的定點的問題。"
+ },
+ "そのとおり。和が一定なので、まん中からのずれtで考える。": {
+  "en": "That's right. The sum is constant, so think in terms of the shift t from the middle.",
+  "zh-Hans": "没错。和不变，所以用离中间值的偏差t来思考。",
+  "zh-Hant": "沒錯。和不變，所以用與中間值的差距t來思考。"
+ },
+ "yを消去して平方完成しても出るが、まん中からのずれを見る方が速い。": {
+  "en": "Eliminating y and completing the square also works, but looking at the shift from the middle is faster.",
+  "zh-Hans": "消去y再配方也能求出，但看离中间值的偏差更快。",
+  "zh-Hant": "消去y再配方也能求出，但看與中間值的差距更快。"
+ },
+ "x + y = 13、x＞0、y＞0 のとき、xy の最大値を求めなさい。": {
+  "en": "If x + y = 13, x＞0 and y＞0, find the maximum value of xy.",
+  "zh-Hans": "已知 x + y = 13，x＞0，y＞0，求 xy 的最大值。",
+  "zh-Hant": "已知 x + y = 13，x＞0，y＞0，求 xy 的最大值。"
+ },
+ "和 x+y = 13 は一定。まん中 13/2 からのずれを t として x = 13/2+t、y = 13/2−t": {
+  "en": "The sum x+y = 13 is constant. Let t be the shift from the middle 13/2: x = 13/2+t, y = 13/2−t",
+  "zh-Hans": "和 x+y = 13 不变。设离中间值 13/2 的偏差为 t，则 x = 13/2+t，y = 13/2−t",
+  "zh-Hant": "和 x+y = 13 不變。設與中間值 13/2 的差距為 t，則 x = 13/2+t，y = 13/2−t"
+ },
+ "xy = (13/2)² − t²。t = 0 のとき最大": {
+  "en": "xy = (13/2)² − t². Largest when t = 0",
+  "zh-Hans": "xy = (13/2)² − t²。t = 0 时最大",
+  "zh-Hant": "xy = (13/2)² − t²。t = 0 時最大"
+ },
+ "x + y = 14、x＞0、y＞0 のとき、xy の最大値を求めなさい。": {
+  "en": "If x + y = 14, x＞0 and y＞0, find the maximum value of xy.",
+  "zh-Hans": "已知 x + y = 14，x＞0，y＞0，求 xy 的最大值。",
+  "zh-Hant": "已知 x + y = 14，x＞0，y＞0，求 xy 的最大值。"
+ },
+ "和 x+y = 14 は一定。まん中 7 からのずれを t として x = 7+t、y = 7−t": {
+  "en": "The sum x+y = 14 is constant. Let t be the shift from the middle 7: x = 7+t, y = 7−t",
+  "zh-Hans": "和 x+y = 14 不变。设离中间值 7 的偏差为 t，则 x = 7+t，y = 7−t",
+  "zh-Hant": "和 x+y = 14 不變。設與中間值 7 的差距為 t，則 x = 7+t，y = 7−t"
+ },
+ "xy = 7² − t²。t = 0 のとき最大": {
+  "en": "xy = 7² − t². Largest when t = 0",
+  "zh-Hans": "xy = 7² − t²。t = 0 时最大",
+  "zh-Hant": "xy = 7² − t²。t = 0 時最大"
+ },
+ "x + y = 9、x＞0、y＞0 のとき、xy の最大値を求めなさい。": {
+  "en": "If x + y = 9, x＞0 and y＞0, find the maximum value of xy.",
+  "zh-Hans": "已知 x + y = 9，x＞0，y＞0，求 xy 的最大值。",
+  "zh-Hant": "已知 x + y = 9，x＞0，y＞0，求 xy 的最大值。"
+ },
+ "和 x+y = 9 は一定。まん中 9/2 からのずれを t として x = 9/2+t、y = 9/2−t": {
+  "en": "The sum x+y = 9 is constant. Let t be the shift from the middle 9/2: x = 9/2+t, y = 9/2−t",
+  "zh-Hans": "和 x+y = 9 不变。设离中间值 9/2 的偏差为 t，则 x = 9/2+t，y = 9/2−t",
+  "zh-Hant": "和 x+y = 9 不變。設與中間值 9/2 的差距為 t，則 x = 9/2+t，y = 9/2−t"
+ },
+ "xy = (9/2)² − t²。t = 0 のとき最大": {
+  "en": "xy = (9/2)² − t². Largest when t = 0",
+  "zh-Hans": "xy = (9/2)² − t²。t = 0 时最大",
+  "zh-Hant": "xy = (9/2)² − t²。t = 0 時最大"
+ },
+ "x + y = 12、x＞0、y＞0 のとき、xy の最大値を求めなさい。": {
+  "en": "If x + y = 12, x＞0 and y＞0, find the maximum value of xy.",
+  "zh-Hans": "已知 x + y = 12，x＞0，y＞0，求 xy 的最大值。",
+  "zh-Hant": "已知 x + y = 12，x＞0，y＞0，求 xy 的最大值。"
+ },
+ "和 x+y = 12 は一定。まん中 6 からのずれを t として x = 6+t、y = 6−t": {
+  "en": "The sum x+y = 12 is constant. Let t be the shift from the middle 6: x = 6+t, y = 6−t",
+  "zh-Hans": "和 x+y = 12 不变。设离中间值 6 的偏差为 t，则 x = 6+t，y = 6−t",
+  "zh-Hant": "和 x+y = 12 不變。設與中間值 6 的差距為 t，則 x = 6+t，y = 6−t"
+ },
+ "xy = 6² − t²。t = 0 のとき最大": {
+  "en": "xy = 6² − t². Largest when t = 0",
+  "zh-Hans": "xy = 6² − t²。t = 0 时最大",
+  "zh-Hant": "xy = 6² − t²。t = 0 時最大"
+ },
+ "x + y = 8、x＞0、y＞0 のとき、x² + y² の最小値を求めなさい。": {
+  "en": "If x + y = 8, x＞0 and y＞0, find the minimum value of x² + y².",
+  "zh-Hans": "已知 x + y = 8，x＞0，y＞0，求 x² + y² 的最小值。",
+  "zh-Hant": "已知 x + y = 8，x＞0，y＞0，求 x² + y² 的最小值。"
+ },
+ "和 x+y = 8 は一定。まん中 4 からのずれを t として x = 4+t、y = 4−t": {
+  "en": "The sum x+y = 8 is constant. Let t be the shift from the middle 4: x = 4+t, y = 4−t",
+  "zh-Hans": "和 x+y = 8 不变。设离中间值 4 的偏差为 t，则 x = 4+t，y = 4−t",
+  "zh-Hant": "和 x+y = 8 不變。設與中間值 4 的差距為 t，則 x = 4+t，y = 4−t"
+ },
+ "x² + y² = 2×4² + 2t²。t = 0 のとき最小": {
+  "en": "x² + y² = 2×4² + 2t². Smallest when t = 0",
+  "zh-Hans": "x² + y² = 2×4² + 2t²。t = 0 时最小",
+  "zh-Hant": "x² + y² = 2×4² + 2t²。t = 0 時最小"
+ },
+ "x + y = 13、x＞0、y＞0 のとき、x² + y² の最小値を求めなさい。": {
+  "en": "If x + y = 13, x＞0 and y＞0, find the minimum value of x² + y².",
+  "zh-Hans": "已知 x + y = 13，x＞0，y＞0，求 x² + y² 的最小值。",
+  "zh-Hant": "已知 x + y = 13，x＞0，y＞0，求 x² + y² 的最小值。"
+ },
+ "x² + y² = 2×(13/2)² + 2t²。t = 0 のとき最小": {
+  "en": "x² + y² = 2×(13/2)² + 2t². Smallest when t = 0",
+  "zh-Hans": "x² + y² = 2×(13/2)² + 2t²。t = 0 时最小",
+  "zh-Hant": "x² + y² = 2×(13/2)² + 2t²。t = 0 時最小"
+ },
+ "x + y = 4、x＞0、y＞0 のとき、x² + y² の最小値を求めなさい。": {
+  "en": "If x + y = 4, x＞0 and y＞0, find the minimum value of x² + y².",
+  "zh-Hans": "已知 x + y = 4，x＞0，y＞0，求 x² + y² 的最小值。",
+  "zh-Hant": "已知 x + y = 4，x＞0，y＞0，求 x² + y² 的最小值。"
+ },
+ "和 x+y = 4 は一定。まん中 2 からのずれを t として x = 2+t、y = 2−t": {
+  "en": "The sum x+y = 4 is constant. Let t be the shift from the middle 2: x = 2+t, y = 2−t",
+  "zh-Hans": "和 x+y = 4 不变。设离中间值 2 的偏差为 t，则 x = 2+t，y = 2−t",
+  "zh-Hant": "和 x+y = 4 不變。設與中間值 2 的差距為 t，則 x = 2+t，y = 2−t"
+ },
+ "x² + y² = 2×2² + 2t²。t = 0 のとき最小": {
+  "en": "x² + y² = 2×2² + 2t². Smallest when t = 0",
+  "zh-Hans": "x² + y² = 2×2² + 2t²。t = 0 时最小",
+  "zh-Hant": "x² + y² = 2×2² + 2t²。t = 0 時最小"
+ },
+ "x + y = 15、x＞0、y＞0 のとき、x² + y² の最小値を求めなさい。": {
+  "en": "If x + y = 15, x＞0 and y＞0, find the minimum value of x² + y².",
+  "zh-Hans": "已知 x + y = 15，x＞0，y＞0，求 x² + y² 的最小值。",
+  "zh-Hant": "已知 x + y = 15，x＞0，y＞0，求 x² + y² 的最小值。"
+ },
+ "和 x+y = 15 は一定。まん中 15/2 からのずれを t として x = 15/2+t、y = 15/2−t": {
+  "en": "The sum x+y = 15 is constant. Let t be the shift from the middle 15/2: x = 15/2+t, y = 15/2−t",
+  "zh-Hans": "和 x+y = 15 不变。设离中间值 15/2 的偏差为 t，则 x = 15/2+t，y = 15/2−t",
+  "zh-Hant": "和 x+y = 15 不變。設與中間值 15/2 的差距為 t，則 x = 15/2+t，y = 15/2−t"
+ },
+ "x² + y² = 2×(15/2)² + 2t²。t = 0 のとき最小": {
+  "en": "x² + y² = 2×(15/2)² + 2t². Smallest when t = 0",
+  "zh-Hans": "x² + y² = 2×(15/2)² + 2t²。t = 0 时最小",
+  "zh-Hant": "x² + y² = 2×(15/2)² + 2t²。t = 0 時最小"
+ },
+ "x + y = 9、x＞0、y＞0 のとき、x² + y² の最小値を求めなさい。": {
+  "en": "If x + y = 9, x＞0 and y＞0, find the minimum value of x² + y².",
+  "zh-Hans": "已知 x + y = 9，x＞0，y＞0，求 x² + y² 的最小值。",
+  "zh-Hant": "已知 x + y = 9，x＞0，y＞0，求 x² + y² 的最小值。"
+ },
+ "x² + y² = 2×(9/2)² + 2t²。t = 0 のとき最小": {
+  "en": "x² + y² = 2×(9/2)² + 2t². Smallest when t = 0",
+  "zh-Hans": "x² + y² = 2×(9/2)² + 2t²。t = 0 时最小",
+  "zh-Hant": "x² + y² = 2×(9/2)² + 2t²。t = 0 時最小"
+ },
+ "2x + y = 12、x＞0、y＞0 のとき、xy の最大値を求めなさい。": {
+  "en": "If 2x + y = 12, x＞0 and y＞0, find the maximum value of xy.",
+  "zh-Hans": "已知 2x + y = 12，x＞0，y＞0，求 xy 的最大值。",
+  "zh-Hant": "已知 2x + y = 12，x＞0，y＞0，求 xy 的最大值。"
+ },
+ "2x と y の和が 12 で一定。まん中 6 ずつで、2つの積が最大": {
+  "en": "The sum of 2x and y is constant at 12. When each is the middle value 6, the product of the 2 is largest",
+  "zh-Hans": "2x 与 y 的和为 12，保持不变。各取中间值 6 时，2个数的积最大",
+  "zh-Hant": "2x 與 y 的和為 12，保持不變。各取中間值 6 時，2個數的積最大"
+ },
+ "2x = 6、y = 6 のとき、2x×y = 36 が最大": {
+  "en": "When 2x = 6 and y = 6, 2x×y = 36 is the maximum",
+  "zh-Hans": "当 2x = 6，y = 6 时，2x×y = 36 最大",
+  "zh-Hant": "當 2x = 6，y = 6 時，2x×y = 36 最大"
+ },
+ "xy の最大値 = 36÷2 = 18": {
+  "en": "Maximum value of xy = 36÷2 = 18",
+  "zh-Hans": "xy 的最大值 = 36÷2 = 18",
+  "zh-Hant": "xy 的最大值 = 36÷2 = 18"
+ },
+ "x + 2y = 13、x＞0、y＞0 のとき、xy の最大値を求めなさい。": {
+  "en": "If x + 2y = 13, x＞0 and y＞0, find the maximum value of xy.",
+  "zh-Hans": "已知 x + 2y = 13，x＞0，y＞0，求 xy 的最大值。",
+  "zh-Hant": "已知 x + 2y = 13，x＞0，y＞0，求 xy 的最大值。"
+ },
+ "x と 2y の和が 13 で一定。まん中 13/2 ずつで、2つの積が最大": {
+  "en": "The sum of x and 2y is constant at 13. When each is the middle value 13/2, the product of the 2 is largest",
+  "zh-Hans": "x 与 2y 的和为 13，保持不变。各取中间值 13/2 时，2个数的积最大",
+  "zh-Hant": "x 與 2y 的和為 13，保持不變。各取中間值 13/2 時，2個數的積最大"
+ },
+ "x = 13/2、2y = 13/2 のとき、x×2y = 169/4 が最大": {
+  "en": "When x = 13/2 and 2y = 13/2, x×2y = 169/4 is the maximum",
+  "zh-Hans": "当 x = 13/2，2y = 13/2 时，x×2y = 169/4 最大",
+  "zh-Hant": "當 x = 13/2，2y = 13/2 時，x×2y = 169/4 最大"
+ },
+ "xy の最大値 = 169/4÷2 = 169/8": {
+  "en": "Maximum value of xy = 169/4÷2 = 169/8",
+  "zh-Hans": "xy 的最大值 = 169/4÷2 = 169/8",
+  "zh-Hant": "xy 的最大值 = 169/4÷2 = 169/8"
+ },
+ "2x + y = 11、x＞0、y＞0 のとき、xy の最大値を求めなさい。": {
+  "en": "If 2x + y = 11, x＞0 and y＞0, find the maximum value of xy.",
+  "zh-Hans": "已知 2x + y = 11，x＞0，y＞0，求 xy 的最大值。",
+  "zh-Hant": "已知 2x + y = 11，x＞0，y＞0，求 xy 的最大值。"
+ },
+ "2x と y の和が 11 で一定。まん中 11/2 ずつで、2つの積が最大": {
+  "en": "The sum of 2x and y is constant at 11. When each is the middle value 11/2, the product of the 2 is largest",
+  "zh-Hans": "2x 与 y 的和为 11，保持不变。各取中间值 11/2 时，2个数的积最大",
+  "zh-Hant": "2x 與 y 的和為 11，保持不變。各取中間值 11/2 時，2個數的積最大"
+ },
+ "2x = 11/2、y = 11/2 のとき、2x×y = 121/4 が最大": {
+  "en": "When 2x = 11/2 and y = 11/2, 2x×y = 121/4 is the maximum",
+  "zh-Hans": "当 2x = 11/2，y = 11/2 时，2x×y = 121/4 最大",
+  "zh-Hant": "當 2x = 11/2，y = 11/2 時，2x×y = 121/4 最大"
+ },
+ "xy の最大値 = 121/4÷2 = 121/8": {
+  "en": "Maximum value of xy = 121/4÷2 = 121/8",
+  "zh-Hans": "xy 的最大值 = 121/4÷2 = 121/8",
+  "zh-Hant": "xy 的最大值 = 121/4÷2 = 121/8"
+ },
+ "2x + y = 8、x＞0、y＞0 のとき、xy の最大値を求めなさい。": {
+  "en": "If 2x + y = 8, x＞0 and y＞0, find the maximum value of xy.",
+  "zh-Hans": "已知 2x + y = 8，x＞0，y＞0，求 xy 的最大值。",
+  "zh-Hant": "已知 2x + y = 8，x＞0，y＞0，求 xy 的最大值。"
+ },
+ "2x と y の和が 8 で一定。まん中 4 ずつで、2つの積が最大": {
+  "en": "The sum of 2x and y is constant at 8. When each is the middle value 4, the product of the 2 is largest",
+  "zh-Hans": "2x 与 y 的和为 8，保持不变。各取中间值 4 时，2个数的积最大",
+  "zh-Hant": "2x 與 y 的和為 8，保持不變。各取中間值 4 時，2個數的積最大"
+ },
+ "2x = 4、y = 4 のとき、2x×y = 16 が最大": {
+  "en": "When 2x = 4 and y = 4, 2x×y = 16 is the maximum",
+  "zh-Hans": "当 2x = 4，y = 4 时，2x×y = 16 最大",
+  "zh-Hant": "當 2x = 4，y = 4 時，2x×y = 16 最大"
+ },
+ "xy の最大値 = 16÷2 = 8": {
+  "en": "Maximum value of xy = 16÷2 = 8",
+  "zh-Hans": "xy 的最大值 = 16÷2 = 8",
+  "zh-Hant": "xy 的最大值 = 16÷2 = 8"
+ },
+ "x + 2y = 5、x＞0、y＞0 のとき、xy の最大値を求めなさい。": {
+  "en": "If x + 2y = 5, x＞0 and y＞0, find the maximum value of xy.",
+  "zh-Hans": "已知 x + 2y = 5，x＞0，y＞0，求 xy 的最大值。",
+  "zh-Hant": "已知 x + 2y = 5，x＞0，y＞0，求 xy 的最大值。"
+ },
+ "x と 2y の和が 5 で一定。まん中 5/2 ずつで、2つの積が最大": {
+  "en": "The sum of x and 2y is constant at 5. When each is the middle value 5/2, the product of the 2 is largest",
+  "zh-Hans": "x 与 2y 的和为 5，保持不变。各取中间值 5/2 时，2个数的积最大",
+  "zh-Hant": "x 與 2y 的和為 5，保持不變。各取中間值 5/2 時，2個數的積最大"
+ },
+ "x = 5/2、2y = 5/2 のとき、x×2y = 25/4 が最大": {
+  "en": "When x = 5/2 and 2y = 5/2, x×2y = 25/4 is the maximum",
+  "zh-Hans": "当 x = 5/2，2y = 5/2 时，x×2y = 25/4 最大",
+  "zh-Hant": "當 x = 5/2，2y = 5/2 時，x×2y = 25/4 最大"
+ },
+ "xy の最大値 = 25/4÷2 = 25/8": {
+  "en": "Maximum value of xy = 25/4÷2 = 25/8",
+  "zh-Hans": "xy 的最大值 = 25/4÷2 = 25/8",
+  "zh-Hant": "xy 的最大值 = 25/4÷2 = 25/8"
+ },
+ "x + y = 10、x＞0、y＞0 のとき、(x + 2)(y + 3) の最大値を求めなさい。": {
+  "en": "If x + y = 10, x＞0 and y＞0, find the maximum value of (x + 2)(y + 3).",
+  "zh-Hans": "已知 x + y = 10，x＞0，y＞0，求 (x + 2)(y + 3) 的最大值。",
+  "zh-Hant": "已知 x + y = 10，x＞0，y＞0，求 (x + 2)(y + 3) 的最大值。"
+ },
+ "X = x+2、Y = y+3 とおくと、X+Y = 10+2+3 = 15 で一定": {
+  "en": "Let X = x+2, Y = y+3. Then X+Y = 10+2+3 = 15 is constant",
+  "zh-Hans": "设 X = x+2，Y = y+3，则 X+Y = 10+2+3 = 15 不变",
+  "zh-Hant": "設 X = x+2，Y = y+3，則 X+Y = 10+2+3 = 15 不變"
+ },
+ "和が一定なら、まん中 X = Y = 15/2 で積が最大（x = 11/2、y = 9/2 はどちらも正）": {
+  "en": "When the sum is constant, the product is largest at the middle, X = Y = 15/2 (x = 11/2 and y = 9/2 are both positive)",
+  "zh-Hans": "和不变时，取中间值 X = Y = 15/2，积最大（x = 11/2，y = 9/2 都是正数）",
+  "zh-Hant": "和不變時，取中間值 X = Y = 15/2，積最大（x = 11/2，y = 9/2 都是正數）"
+ },
+ "x + y = 12、x＞0、y＞0 のとき、(x + 2)(y + 2) の最大値を求めなさい。": {
+  "en": "If x + y = 12, x＞0 and y＞0, find the maximum value of (x + 2)(y + 2).",
+  "zh-Hans": "已知 x + y = 12，x＞0，y＞0，求 (x + 2)(y + 2) 的最大值。",
+  "zh-Hant": "已知 x + y = 12，x＞0，y＞0，求 (x + 2)(y + 2) 的最大值。"
+ },
+ "X = x+2、Y = y+2 とおくと、X+Y = 12+2+2 = 16 で一定": {
+  "en": "Let X = x+2, Y = y+2. Then X+Y = 12+2+2 = 16 is constant",
+  "zh-Hans": "设 X = x+2，Y = y+2，则 X+Y = 12+2+2 = 16 不变",
+  "zh-Hant": "設 X = x+2，Y = y+2，則 X+Y = 12+2+2 = 16 不變"
+ },
+ "和が一定なら、まん中 X = Y = 8 で積が最大（x = 6、y = 6 はどちらも正）": {
+  "en": "When the sum is constant, the product is largest at the middle, X = Y = 8 (x = 6 and y = 6 are both positive)",
+  "zh-Hans": "和不变时，取中间值 X = Y = 8，积最大（x = 6，y = 6 都是正数）",
+  "zh-Hant": "和不變時，取中間值 X = Y = 8，積最大（x = 6，y = 6 都是正數）"
+ },
+ "x + y = 16、x＞0、y＞0 のとき、(x + 1)(y + 1) の最大値を求めなさい。": {
+  "en": "If x + y = 16, x＞0 and y＞0, find the maximum value of (x + 1)(y + 1).",
+  "zh-Hans": "已知 x + y = 16，x＞0，y＞0，求 (x + 1)(y + 1) 的最大值。",
+  "zh-Hant": "已知 x + y = 16，x＞0，y＞0，求 (x + 1)(y + 1) 的最大值。"
+ },
+ "X = x+1、Y = y+1 とおくと、X+Y = 16+1+1 = 18 で一定": {
+  "en": "Let X = x+1, Y = y+1. Then X+Y = 16+1+1 = 18 is constant",
+  "zh-Hans": "设 X = x+1，Y = y+1，则 X+Y = 16+1+1 = 18 不变",
+  "zh-Hant": "設 X = x+1，Y = y+1，則 X+Y = 16+1+1 = 18 不變"
+ },
+ "和が一定なら、まん中 X = Y = 9 で積が最大（x = 8、y = 8 はどちらも正）": {
+  "en": "When the sum is constant, the product is largest at the middle, X = Y = 9 (x = 8 and y = 8 are both positive)",
+  "zh-Hans": "和不变时，取中间值 X = Y = 9，积最大（x = 8，y = 8 都是正数）",
+  "zh-Hant": "和不變時，取中間值 X = Y = 9，積最大（x = 8，y = 8 都是正數）"
+ },
+ "x + y = 16、x＞0、y＞0 のとき、(x + 4)(y + 2) の最大値を求めなさい。": {
+  "en": "If x + y = 16, x＞0 and y＞0, find the maximum value of (x + 4)(y + 2).",
+  "zh-Hans": "已知 x + y = 16，x＞0，y＞0，求 (x + 4)(y + 2) 的最大值。",
+  "zh-Hant": "已知 x + y = 16，x＞0，y＞0，求 (x + 4)(y + 2) 的最大值。"
+ },
+ "X = x+4、Y = y+2 とおくと、X+Y = 16+4+2 = 22 で一定": {
+  "en": "Let X = x+4, Y = y+2. Then X+Y = 16+4+2 = 22 is constant",
+  "zh-Hans": "设 X = x+4，Y = y+2，则 X+Y = 16+4+2 = 22 不变",
+  "zh-Hant": "設 X = x+4，Y = y+2，則 X+Y = 16+4+2 = 22 不變"
+ },
+ "和が一定なら、まん中 X = Y = 11 で積が最大（x = 7、y = 9 はどちらも正）": {
+  "en": "When the sum is constant, the product is largest at the middle, X = Y = 11 (x = 7 and y = 9 are both positive)",
+  "zh-Hans": "和不变时，取中间值 X = Y = 11，积最大（x = 7，y = 9 都是正数）",
+  "zh-Hant": "和不變時，取中間值 X = Y = 11，積最大（x = 7，y = 9 都是正數）"
+ },
+ "x + y = 10、x＞0、y＞0 のとき、(x + 3)(y + 1) の最大値を求めなさい。": {
+  "en": "If x + y = 10, x＞0 and y＞0, find the maximum value of (x + 3)(y + 1).",
+  "zh-Hans": "已知 x + y = 10，x＞0，y＞0，求 (x + 3)(y + 1) 的最大值。",
+  "zh-Hant": "已知 x + y = 10，x＞0，y＞0，求 (x + 3)(y + 1) 的最大值。"
+ },
+ "X = x+3、Y = y+1 とおくと、X+Y = 10+3+1 = 14 で一定": {
+  "en": "Let X = x+3, Y = y+1. Then X+Y = 10+3+1 = 14 is constant",
+  "zh-Hans": "设 X = x+3，Y = y+1，则 X+Y = 10+3+1 = 14 不变",
+  "zh-Hant": "設 X = x+3，Y = y+1，則 X+Y = 10+3+1 = 14 不變"
+ },
+ "和が一定なら、まん中 X = Y = 7 で積が最大（x = 4、y = 6 はどちらも正）": {
+  "en": "When the sum is constant, the product is largest at the middle, X = Y = 7 (x = 4 and y = 6 are both positive)",
+  "zh-Hans": "和不变时，取中间值 X = Y = 7，积最大（x = 4，y = 6 都是正数）",
+  "zh-Hant": "和不變時，取中間值 X = Y = 7，積最大（x = 4，y = 6 都是正數）"
+ },
+ "x + y = 10、x ≧ 8、y＞0 のとき、xy の最大値を求めなさい。": {
+  "en": "If x + y = 10, x ≧ 8 and y＞0, find the maximum value of xy.",
+  "zh-Hans": "已知 x + y = 10，x ≧ 8，y＞0，求 xy 的最大值。",
+  "zh-Hant": "已知 x + y = 10，x ≧ 8，y＞0，求 xy 的最大值。"
+ },
+ "和が一定なので、まん中で最大と考える": {
+  "en": "The sum is constant, so you assume the maximum is at the middle",
+  "zh-Hans": "和不变，所以认为取中间值时最大",
+  "zh-Hant": "和不變，所以認為取中間值時最大"
+ },
+ "まん中の値は、決められた範囲に入っていない": {
+  "en": "The middle value is not inside the allowed range",
+  "zh-Hans": "中间值不在规定的范围内",
+  "zh-Hant": "中間值不在規定的範圍內"
+ },
+ "ここで約1分半。答えが範囲の外": {
+  "en": "About 1 and a half minutes in. The answer is outside the range",
+  "zh-Hans": "到这里约1分半钟。答案在范围之外",
+  "zh-Hant": "到這裡約1分半鐘。答案在範圍之外"
+ },
+ "和が一定なら、まん中 x = 5 で積が最大。でも x ≧ 8 なので、まん中は使えない": {
+  "en": "With a constant sum, the product is largest at the middle, x = 5. But x ≧ 8, so the middle can't be used",
+  "zh-Hans": "和不变时，取中间值 x = 5 积最大。但 x ≧ 8，所以不能用中间值",
+  "zh-Hant": "和不變時，取中間值 x = 5 積最大。但 x ≧ 8，所以不能用中間值"
+ },
+ "まん中から遠ざかるほど積は小さくなる。いちばん近いのは x = 8": {
+  "en": "The farther from the middle, the smaller the product. The closest allowed value is x = 8",
+  "zh-Hans": "离中间越远，积越小。最接近中间的是 x = 8",
+  "zh-Hant": "離中間越遠，積越小。最接近中間的是 x = 8"
+ },
+ "おしい。和は一定だが、まん中は範囲の外。まん中では最大にならない。": {
+  "en": "Close. The sum is constant, but the middle is outside the range, so the maximum isn't at the middle.",
+  "zh-Hans": "差一点。和是不变的，但中间值在范围之外。在中间取不到最大值。",
+  "zh-Hant": "差一點。和是不變的，但中間值在範圍之外。在中間取不到最大值。"
+ },
+ "そのとおり。まん中が範囲の外なので、範囲のはしで最大になる。": {
+  "en": "That's right. The middle is outside the range, so the maximum is at the edge of the range.",
+  "zh-Hans": "没错。中间值在范围之外，所以在范围的端点取最大值。",
+  "zh-Hant": "沒錯。中間值在範圍之外，所以在範圍的端點取最大值。"
+ },
+ "x + y = 6、x ≧ 4、y＞0 のとき、xy の最大値を求めなさい。": {
+  "en": "If x + y = 6, x ≧ 4 and y＞0, find the maximum value of xy.",
+  "zh-Hans": "已知 x + y = 6，x ≧ 4，y＞0，求 xy 的最大值。",
+  "zh-Hant": "已知 x + y = 6，x ≧ 4，y＞0，求 xy 的最大值。"
+ },
+ "和が一定なら、まん中 x = 3 で積が最大。でも x ≧ 4 なので、まん中は使えない": {
+  "en": "With a constant sum, the product is largest at the middle, x = 3. But x ≧ 4, so the middle can't be used",
+  "zh-Hans": "和不变时，取中间值 x = 3 积最大。但 x ≧ 4，所以不能用中间值",
+  "zh-Hant": "和不變時，取中間值 x = 3 積最大。但 x ≧ 4，所以不能用中間值"
+ },
+ "まん中から遠ざかるほど積は小さくなる。いちばん近いのは x = 4": {
+  "en": "The farther from the middle, the smaller the product. The closest allowed value is x = 4",
+  "zh-Hans": "离中间越远，积越小。最接近中间的是 x = 4",
+  "zh-Hant": "離中間越遠，積越小。最接近中間的是 x = 4"
+ },
+ "x + y = 16、x ≧ 9、y＞0 のとき、xy の最大値を求めなさい。": {
+  "en": "If x + y = 16, x ≧ 9 and y＞0, find the maximum value of xy.",
+  "zh-Hans": "已知 x + y = 16，x ≧ 9，y＞0，求 xy 的最大值。",
+  "zh-Hant": "已知 x + y = 16，x ≧ 9，y＞0，求 xy 的最大值。"
+ },
+ "和が一定なら、まん中 x = 8 で積が最大。でも x ≧ 9 なので、まん中は使えない": {
+  "en": "With a constant sum, the product is largest at the middle, x = 8. But x ≧ 9, so the middle can't be used",
+  "zh-Hans": "和不变时，取中间值 x = 8 积最大。但 x ≧ 9，所以不能用中间值",
+  "zh-Hant": "和不變時，取中間值 x = 8 積最大。但 x ≧ 9，所以不能用中間值"
+ },
+ "まん中から遠ざかるほど積は小さくなる。いちばん近いのは x = 9": {
+  "en": "The farther from the middle, the smaller the product. The closest allowed value is x = 9",
+  "zh-Hans": "离中间越远，积越小。最接近中间的是 x = 9",
+  "zh-Hant": "離中間越遠，積越小。最接近中間的是 x = 9"
+ },
+ "x + y = 13、x ≧ 8、y＞0 のとき、xy の最大値を求めなさい。": {
+  "en": "If x + y = 13, x ≧ 8 and y＞0, find the maximum value of xy.",
+  "zh-Hans": "已知 x + y = 13，x ≧ 8，y＞0，求 xy 的最大值。",
+  "zh-Hant": "已知 x + y = 13，x ≧ 8，y＞0，求 xy 的最大值。"
+ },
+ "和が一定なら、まん中 x = 13/2 で積が最大。でも x ≧ 8 なので、まん中は使えない": {
+  "en": "With a constant sum, the product is largest at the middle, x = 13/2. But x ≧ 8, so the middle can't be used",
+  "zh-Hans": "和不变时，取中间值 x = 13/2 积最大。但 x ≧ 8，所以不能用中间值",
+  "zh-Hant": "和不變時，取中間值 x = 13/2 積最大。但 x ≧ 8，所以不能用中間值"
+ },
+ "x + y = 8、x ≧ 5、y＞0 のとき、xy の最大値を求めなさい。": {
+  "en": "If x + y = 8, x ≧ 5 and y＞0, find the maximum value of xy.",
+  "zh-Hans": "已知 x + y = 8，x ≧ 5，y＞0，求 xy 的最大值。",
+  "zh-Hant": "已知 x + y = 8，x ≧ 5，y＞0，求 xy 的最大值。"
+ },
+ "和が一定なら、まん中 x = 4 で積が最大。でも x ≧ 5 なので、まん中は使えない": {
+  "en": "With a constant sum, the product is largest at the middle, x = 4. But x ≧ 5, so the middle can't be used",
+  "zh-Hans": "和不变时，取中间值 x = 4 积最大。但 x ≧ 5，所以不能用中间值",
+  "zh-Hant": "和不變時，取中間值 x = 4 積最大。但 x ≧ 5，所以不能用中間值"
+ },
+ "まん中から遠ざかるほど積は小さくなる。いちばん近いのは x = 5": {
+  "en": "The farther from the middle, the smaller the product. The closest allowed value is x = 5",
+  "zh-Hans": "离中间越远，积越小。最接近中间的是 x = 5",
+  "zh-Hant": "離中間越遠，積越小。最接近中間的是 x = 5"
+ },
+ "x + y = 10、x − y = 4 のとき、xy の値を求めなさい。": {
+  "en": "If x + y = 10 and x − y = 4, find the value of xy.",
+  "zh-Hans": "已知 x + y = 10，x − y = 4，求 xy 的值。",
+  "zh-Hant": "已知 x + y = 10，x − y = 4，求 xy 的值。"
+ },
+ "和と差が両方分かっているので、xとyが決まる。動かす必要はない": {
+  "en": "You know both the sum and the difference, so x and y are fixed. No need to move anything",
+  "zh-Hans": "和与差都知道，所以x和y是确定的。不需要变动",
+  "zh-Hant": "和與差都知道，所以x和y是確定的。不需要變動"
+ },
+ "和と差が両方分かっていれば、xとyはすぐ決まる。最大・最小を考える問題ではない。": {
+  "en": "If you know both the sum and the difference, x and y are found right away. It isn't a maximum/minimum problem.",
+  "zh-Hans": "如果和与差都知道，x和y马上就能确定。这不是求最大、最小的问题。",
+  "zh-Hant": "如果和與差都知道，x和y馬上就能確定。這不是求最大、最小的問題。"
+ },
+ "和は一定だが、差も決まっているので、動かす必要がない。": {
+  "en": "The sum is constant, but the difference is fixed too, so there's nothing to move.",
+  "zh-Hans": "和虽然不变，但差也是确定的，所以不需要变动。",
+  "zh-Hant": "和雖然不變，但差也是確定的，所以不需要變動。"
+ },
+ "そのとおり。和と差が分かっているので、xとyがすぐ決まる。": {
+  "en": "That's right. You know the sum and the difference, so x and y are found right away.",
+  "zh-Hans": "没错。知道和与差，x和y马上就能确定。",
+  "zh-Hant": "沒錯。知道和與差，x和y馬上就能確定。"
+ },
+ "x + y = 8、x − y = 2 のとき、xy の値を求めなさい。": {
+  "en": "If x + y = 8 and x − y = 2, find the value of xy.",
+  "zh-Hans": "已知 x + y = 8，x − y = 2，求 xy 的值。",
+  "zh-Hant": "已知 x + y = 8，x − y = 2，求 xy 的值。"
+ },
+ "x + y = 14、x − y = 8 のとき、xy の値を求めなさい。": {
+  "en": "If x + y = 14 and x − y = 8, find the value of xy.",
+  "zh-Hans": "已知 x + y = 14，x − y = 8，求 xy 的值。",
+  "zh-Hant": "已知 x + y = 14，x − y = 8，求 xy 的值。"
+ },
+ "x + y = 10、x − y = 8 のとき、xy の値を求めなさい。": {
+  "en": "If x + y = 10 and x − y = 8, find the value of xy.",
+  "zh-Hans": "已知 x + y = 10，x − y = 8，求 xy 的值。",
+  "zh-Hant": "已知 x + y = 10，x − y = 8，求 xy 的值。"
+ },
+ "x + y = 14、x − y = 10 のとき、xy の値を求めなさい。": {
+  "en": "If x + y = 14 and x − y = 10, find the value of xy.",
+  "zh-Hans": "已知 x + y = 14，x − y = 10，求 xy 的值。",
+  "zh-Hant": "已知 x + y = 14，x − y = 10，求 xy 的值。"
+ },
+ "2人は同じだけ年をとるので、年齢の差はずっと同じ。変わらないものに目をつけると、1回のわり算で答えが出る。": {
+  "en": "The 2 people get older by the same amount, so the age difference always stays the same. Focus on what doesn't change, and 1 division gives you the answer.",
+  "zh-Hans": "两人增长的岁数一样，所以年龄差始终不变。抓住不变的量，只要做1次除法就能得出答案。",
+  "zh-Hant": "兩人增加的歲數一樣，所以年齡差始終不變。抓住不變的量，只要做1次除法就能得出答案。"
+ },
+ "現在、父は44歳、健太は12歳です。父の年齢が健太の年齢の3倍になるのは何年後ですか。": {
+  "en": "Right now, Dad is 44 and Kenta is 12. In how many years will Dad's age be 3 times Kenta's age?",
+  "zh-Hans": "现在爸爸44岁，健太12岁。几年后爸爸的年龄是健太年龄的3倍？",
+  "zh-Hant": "現在爸爸44歲，健太12歲。幾年後爸爸的年齡會是健太年齡的3倍？"
+ },
+ "父": {
+  "en": "Dad",
+  "zh-Hans": "爸爸",
+  "zh-Hant": "爸爸"
+ },
+ "健太": {
+  "en": "Kenta",
+  "zh-Hans": "健太",
+  "zh-Hant": "健太"
+ },
+ "4年後": {
+  "en": "in 4 years",
+  "zh-Hans": "4年后",
+  "zh-Hant": "4年後"
+ },
+ "現在からx年後（前）として、両方の量をxの式で表す": {
+  "en": "Call it x years from now (or ago), and write both amounts as expressions in x",
+  "zh-Hans": "设从现在起x年后（前），把两个量都用含x的式子表示",
+  "zh-Hant": "設從現在起x年後（前），把兩個量都用含x的式子表示"
+ },
+ "「何倍」の関係から方程式を立て、かっこをはずして解く": {
+  "en": "Set up an equation from the \"times as old\" relation, expand the brackets and solve",
+  "zh-Hans": "根据“几倍”的关系列方程，去括号求解",
+  "zh-Hant": "根據「幾倍」的關係列方程式，去括號求解"
+ },
+ "ここで約2分半。式の立て方で迷いやすい": {
+  "en": "About 2 and a half minutes in. It's easy to get stuck setting up the equation",
+  "zh-Hans": "到这里约2分半钟。列式时容易卡住",
+  "zh-Hant": "到這裡約2分半鐘。列式時容易卡住"
+ },
+ "年齢の差は 44−12 = 32 で、何年たっても変わらない": {
+  "en": "The age difference is 44−12 = 32, and it never changes no matter how many years pass",
+  "zh-Hans": "年龄差是 44−12 = 32，过多少年都不变",
+  "zh-Hant": "年齡差是 44−12 = 32，過幾年都不變"
+ },
+ "父が健太の3倍のとき、差の32は健太の 3−1 = 2 つ分": {
+  "en": "When Dad is 3 times as old as Kenta, the difference 32 is 3−1 = 2 units of Kenta's age",
+  "zh-Hans": "当爸爸是健太的3倍时，差32相当于健太的 3−1 = 2 份",
+  "zh-Hant": "當爸爸是健太的3倍時，差32相當於健太的 3−1 = 2 份"
+ },
+ "そのときの健太は 32÷2 = 16 歳": {
+  "en": "At that time, Kenta is 32÷2 = 16 years old",
+  "zh-Hans": "那时健太 32÷2 = 16 岁",
+  "zh-Hant": "那時健太 32÷2 = 16 歲"
+ },
+ "16−12 = 4（年後）": {
+  "en": "16−12 = 4 (years later)",
+  "zh-Hans": "16−12 = 4（年后）",
+  "zh-Hant": "16−12 = 4（年後）"
+ },
+ "2人の年齢が同じだけふえるときは、変わらない「差」に目をつける。": {
+  "en": "When 2 people's ages go up by the same amount, focus on the \"difference\", which doesn't change.",
+  "zh-Hans": "两人的年龄增加同样多时，要抓住不变的“差”。",
+  "zh-Hant": "兩人的年齡增加同樣多時，要抓住不變的「差」。"
+ },
+ "そのとおり。年齢の差はずっと同じなので、その差を「いくつ分」で考えられる。": {
+  "en": "That's right. The age difference always stays the same, so you can think of it as \"how many units\".",
+  "zh-Hans": "没错。年龄差始终不变，所以可以把这个差看成“几份”。",
+  "zh-Hant": "沒錯。年齡差始終不變，所以可以把這個差看成「幾份」。"
+ },
+ "x年後として方程式を立てても解けるが、差を見ればかけ算とわり算だけ。": {
+  "en": "You can also solve it with an equation for x years later, but if you look at the difference, it's just multiplication and division.",
+  "zh-Hans": "设x年后列方程也能解，但看差的话只需要乘法和除法。",
+  "zh-Hant": "設x年後列方程式也能解，但看差的話只需要乘法和除法。"
+ },
+ "現在、父は41歳、健太は9歳です。父の年齢が健太の年齢の3倍になるのは何年後ですか。": {
+  "en": "Right now, Dad is 41 and Kenta is 9. In how many years will Dad's age be 3 times Kenta's age?",
+  "zh-Hans": "现在爸爸41岁，健太9岁。几年后爸爸的年龄是健太年龄的3倍？",
+  "zh-Hant": "現在爸爸41歲，健太9歲。幾年後爸爸的年齡會是健太年齡的3倍？"
+ },
+ "年齢の差は 41−9 = 32 で、何年たっても変わらない": {
+  "en": "The age difference is 41−9 = 32, and it never changes no matter how many years pass",
+  "zh-Hans": "年龄差是 41−9 = 32，过多少年都不变",
+  "zh-Hant": "年齡差是 41−9 = 32，過幾年都不變"
+ },
+ "16−9 = 7（年後）": {
+  "en": "16−9 = 7 (years later)",
+  "zh-Hans": "16−9 = 7（年后）",
+  "zh-Hant": "16−9 = 7（年後）"
+ },
+ "現在、父は37歳、健太は11歳です。父の年齢が健太の年齢の3倍になるのは何年後ですか。": {
+  "en": "Right now, Dad is 37 and Kenta is 11. In how many years will Dad's age be 3 times Kenta's age?",
+  "zh-Hans": "现在爸爸37岁，健太11岁。几年后爸爸的年龄是健太年龄的3倍？",
+  "zh-Hant": "現在爸爸37歲，健太11歲。幾年後爸爸的年齡會是健太年齡的3倍？"
+ },
+ "年齢の差は 37−11 = 26 で、何年たっても変わらない": {
+  "en": "The age difference is 37−11 = 26, and it never changes no matter how many years pass",
+  "zh-Hans": "年龄差是 37−11 = 26，过多少年都不变",
+  "zh-Hant": "年齡差是 37−11 = 26，過幾年都不變"
+ },
+ "父が健太の3倍のとき、差の26は健太の 3−1 = 2 つ分": {
+  "en": "When Dad is 3 times as old as Kenta, the difference 26 is 3−1 = 2 units of Kenta's age",
+  "zh-Hans": "当爸爸是健太的3倍时，差26相当于健太的 3−1 = 2 份",
+  "zh-Hant": "當爸爸是健太的3倍時，差26相當於健太的 3−1 = 2 份"
+ },
+ "そのときの健太は 26÷2 = 13 歳": {
+  "en": "At that time, Kenta is 26÷2 = 13 years old",
+  "zh-Hans": "那时健太 26÷2 = 13 岁",
+  "zh-Hant": "那時健太 26÷2 = 13 歲"
+ },
+ "13−11 = 2（年後）": {
+  "en": "13−11 = 2 (years later)",
+  "zh-Hans": "13−11 = 2（年后）",
+  "zh-Hant": "13−11 = 2（年後）"
+ },
+ "現在、父は27歳、健太は5歳です。父の年齢が健太の年齢の3倍になるのは何年後ですか。": {
+  "en": "Right now, Dad is 27 and Kenta is 5. In how many years will Dad's age be 3 times Kenta's age?",
+  "zh-Hans": "现在爸爸27岁，健太5岁。几年后爸爸的年龄是健太年龄的3倍？",
+  "zh-Hant": "現在爸爸27歲，健太5歲。幾年後爸爸的年齡會是健太年齡的3倍？"
+ },
+ "年齢の差は 27−5 = 22 で、何年たっても変わらない": {
+  "en": "The age difference is 27−5 = 22, and it never changes no matter how many years pass",
+  "zh-Hans": "年龄差是 27−5 = 22，过多少年都不变",
+  "zh-Hant": "年齡差是 27−5 = 22，過幾年都不變"
+ },
+ "父が健太の3倍のとき、差の22は健太の 3−1 = 2 つ分": {
+  "en": "When Dad is 3 times as old as Kenta, the difference 22 is 3−1 = 2 units of Kenta's age",
+  "zh-Hans": "当爸爸是健太的3倍时，差22相当于健太的 3−1 = 2 份",
+  "zh-Hant": "當爸爸是健太的3倍時，差22相當於健太的 3−1 = 2 份"
+ },
+ "そのときの健太は 22÷2 = 11 歳": {
+  "en": "At that time, Kenta is 22÷2 = 11 years old",
+  "zh-Hans": "那时健太 22÷2 = 11 岁",
+  "zh-Hant": "那時健太 22÷2 = 11 歲"
+ },
+ "11−5 = 6（年後）": {
+  "en": "11−5 = 6 (years later)",
+  "zh-Hans": "11−5 = 6（年后）",
+  "zh-Hant": "11−5 = 6（年後）"
+ },
+ "現在、父は46歳、健太は8歳です。父の年齢が健太の年齢の3倍になるのは何年後ですか。": {
+  "en": "Right now, Dad is 46 and Kenta is 8. In how many years will Dad's age be 3 times Kenta's age?",
+  "zh-Hans": "现在爸爸46岁，健太8岁。几年后爸爸的年龄是健太年龄的3倍？",
+  "zh-Hant": "現在爸爸46歲，健太8歲。幾年後爸爸的年齡會是健太年齡的3倍？"
+ },
+ "年齢の差は 46−8 = 38 で、何年たっても変わらない": {
+  "en": "The age difference is 46−8 = 38, and it never changes no matter how many years pass",
+  "zh-Hans": "年龄差是 46−8 = 38，过多少年都不变",
+  "zh-Hant": "年齡差是 46−8 = 38，過幾年都不變"
+ },
+ "父が健太の3倍のとき、差の38は健太の 3−1 = 2 つ分": {
+  "en": "When Dad is 3 times as old as Kenta, the difference 38 is 3−1 = 2 units of Kenta's age",
+  "zh-Hans": "当爸爸是健太的3倍时，差38相当于健太的 3−1 = 2 份",
+  "zh-Hant": "當爸爸是健太的3倍時，差38相當於健太的 3−1 = 2 份"
+ },
+ "そのときの健太は 38÷2 = 19 歳": {
+  "en": "At that time, Kenta is 38÷2 = 19 years old",
+  "zh-Hans": "那时健太 38÷2 = 19 岁",
+  "zh-Hant": "那時健太 38÷2 = 19 歲"
+ },
+ "19−8 = 11（年後）": {
+  "en": "19−8 = 11 (years later)",
+  "zh-Hans": "19−8 = 11（年后）",
+  "zh-Hant": "19−8 = 11（年後）"
+ },
+ "現在、母は46歳、美咲は18歳です。母の年齢が美咲の年齢の5倍だったのは何年前ですか。": {
+  "en": "Right now, Mom is 46 and Misaki is 18. How many years ago was Mom's age 5 times Misaki's age?",
+  "zh-Hans": "现在妈妈46岁，美咲18岁。几年前妈妈的年龄是美咲年龄的5倍？",
+  "zh-Hant": "現在媽媽46歲，美咲18歲。幾年前媽媽的年齡是美咲年齡的5倍？"
+ },
+ "母": {
+  "en": "Mom",
+  "zh-Hans": "妈妈",
+  "zh-Hant": "媽媽"
+ },
+ "美咲": {
+  "en": "Misaki",
+  "zh-Hans": "美咲",
+  "zh-Hant": "美咲"
+ },
+ "11年前": {
+  "en": "11 years ago",
+  "zh-Hans": "11年前",
+  "zh-Hant": "11年前"
+ },
+ "年齢の差は 46−18 = 28 で、何年前でも変わらない": {
+  "en": "The age difference is 46−18 = 28, and it was the same any number of years ago",
+  "zh-Hans": "年龄差是 46−18 = 28，几年前也一样",
+  "zh-Hant": "年齡差是 46−18 = 28，幾年前也一樣"
+ },
+ "母が美咲の5倍のとき、差の28は美咲の 5−1 = 4 つ分": {
+  "en": "When Mom is 5 times as old as Misaki, the difference 28 is 5−1 = 4 units of Misaki's age",
+  "zh-Hans": "当妈妈是美咲的5倍时，差28相当于美咲的 5−1 = 4 份",
+  "zh-Hant": "當媽媽是美咲的5倍時，差28相當於美咲的 5−1 = 4 份"
+ },
+ "そのときの美咲は 28÷4 = 7 歳": {
+  "en": "At that time, Misaki is 28÷4 = 7 years old",
+  "zh-Hans": "那时美咲 28÷4 = 7 岁",
+  "zh-Hant": "那時美咲 28÷4 = 7 歲"
+ },
+ "18−7 = 11（年前）": {
+  "en": "18−7 = 11 (years ago)",
+  "zh-Hans": "18−7 = 11（年前）",
+  "zh-Hant": "18−7 = 11（年前）"
+ },
+ "2人の年齢が同じだけ変わるときは、変わらない「差」に目をつける。前にさかのぼっても同じ。": {
+  "en": "When 2 people's ages change by the same amount, focus on the \"difference\", which doesn't change. It works going back in time, too.",
+  "zh-Hans": "两人的年龄变化同样多时，要抓住不变的“差”。往前推也一样。",
+  "zh-Hant": "兩人的年齡變化同樣多時，要抓住不變的「差」。往前推也一樣。"
+ },
+ "そのとおり。年齢の差は、何年前でも同じ。": {
+  "en": "That's right. The age difference was the same any number of years ago.",
+  "zh-Hans": "没错。年龄差不管几年前都一样。",
+  "zh-Hant": "沒錯。年齡差不管幾年前都一樣。"
+ },
+ "x年前として方程式を立てると、引き算の向きを間違えやすい。": {
+  "en": "If you set up an equation for x years ago, it's easy to subtract in the wrong direction.",
+  "zh-Hans": "设x年前列方程的话，容易把减法的方向弄错。",
+  "zh-Hant": "設x年前列方程式的話，容易把減法的方向弄錯。"
+ },
+ "現在、母は50歳、美咲は14歳です。母の年齢が美咲の年齢の5倍だったのは何年前ですか。": {
+  "en": "Right now, Mom is 50 and Misaki is 14. How many years ago was Mom's age 5 times Misaki's age?",
+  "zh-Hans": "现在妈妈50岁，美咲14岁。几年前妈妈的年龄是美咲年龄的5倍？",
+  "zh-Hant": "現在媽媽50歲，美咲14歲。幾年前媽媽的年齡是美咲年齡的5倍？"
+ },
+ "年齢の差は 50−14 = 36 で、何年前でも変わらない": {
+  "en": "The age difference is 50−14 = 36, and it was the same any number of years ago",
+  "zh-Hans": "年龄差是 50−14 = 36，几年前也一样",
+  "zh-Hant": "年齡差是 50−14 = 36，幾年前也一樣"
+ },
+ "母が美咲の5倍のとき、差の36は美咲の 5−1 = 4 つ分": {
+  "en": "When Mom is 5 times as old as Misaki, the difference 36 is 5−1 = 4 units of Misaki's age",
+  "zh-Hans": "当妈妈是美咲的5倍时，差36相当于美咲的 5−1 = 4 份",
+  "zh-Hant": "當媽媽是美咲的5倍時，差36相當於美咲的 5−1 = 4 份"
+ },
+ "そのときの美咲は 36÷4 = 9 歳": {
+  "en": "At that time, Misaki is 36÷4 = 9 years old",
+  "zh-Hans": "那时美咲 36÷4 = 9 岁",
+  "zh-Hant": "那時美咲 36÷4 = 9 歲"
+ },
+ "14−9 = 5（年前）": {
+  "en": "14−9 = 5 (years ago)",
+  "zh-Hans": "14−9 = 5（年前）",
+  "zh-Hant": "14−9 = 5（年前）"
+ },
+ "現在、母は43歳、美咲は16歳です。母の年齢が美咲の年齢の4倍だったのは何年前ですか。": {
+  "en": "Right now, Mom is 43 and Misaki is 16. How many years ago was Mom's age 4 times Misaki's age?",
+  "zh-Hans": "现在妈妈43岁，美咲16岁。几年前妈妈的年龄是美咲年龄的4倍？",
+  "zh-Hant": "現在媽媽43歲，美咲16歲。幾年前媽媽的年齡是美咲年齡的4倍？"
+ },
+ "年齢の差は 43−16 = 27 で、何年前でも変わらない": {
+  "en": "The age difference is 43−16 = 27, and it was the same any number of years ago",
+  "zh-Hans": "年龄差是 43−16 = 27，几年前也一样",
+  "zh-Hant": "年齡差是 43−16 = 27，幾年前也一樣"
+ },
+ "母が美咲の4倍のとき、差の27は美咲の 4−1 = 3 つ分": {
+  "en": "When Mom is 4 times as old as Misaki, the difference 27 is 4−1 = 3 units of Misaki's age",
+  "zh-Hans": "当妈妈是美咲的4倍时，差27相当于美咲的 4−1 = 3 份",
+  "zh-Hant": "當媽媽是美咲的4倍時，差27相當於美咲的 4−1 = 3 份"
+ },
+ "そのときの美咲は 27÷3 = 9 歳": {
+  "en": "At that time, Misaki is 27÷3 = 9 years old",
+  "zh-Hans": "那时美咲 27÷3 = 9 岁",
+  "zh-Hant": "那時美咲 27÷3 = 9 歲"
+ },
+ "16−9 = 7（年前）": {
+  "en": "16−9 = 7 (years ago)",
+  "zh-Hans": "16−9 = 7（年前）",
+  "zh-Hant": "16−9 = 7（年前）"
+ },
+ "現在、母は40歳、美咲は13歳です。母の年齢が美咲の年齢の4倍だったのは何年前ですか。": {
+  "en": "Right now, Mom is 40 and Misaki is 13. How many years ago was Mom's age 4 times Misaki's age?",
+  "zh-Hans": "现在妈妈40岁，美咲13岁。几年前妈妈的年龄是美咲年龄的4倍？",
+  "zh-Hant": "現在媽媽40歲，美咲13歲。幾年前媽媽的年齡是美咲年齡的4倍？"
+ },
+ "年齢の差は 40−13 = 27 で、何年前でも変わらない": {
+  "en": "The age difference is 40−13 = 27, and it was the same any number of years ago",
+  "zh-Hans": "年龄差是 40−13 = 27，几年前也一样",
+  "zh-Hant": "年齡差是 40−13 = 27，幾年前也一樣"
+ },
+ "13−9 = 4（年前）": {
+  "en": "13−9 = 4 (years ago)",
+  "zh-Hans": "13−9 = 4（年前）",
+  "zh-Hant": "13−9 = 4（年前）"
+ },
+ "現在、母は30歳、美咲は9歳です。母の年齢が美咲の年齢の4倍だったのは何年前ですか。": {
+  "en": "Right now, Mom is 30 and Misaki is 9. How many years ago was Mom's age 4 times Misaki's age?",
+  "zh-Hans": "现在妈妈30岁，美咲9岁。几年前妈妈的年龄是美咲年龄的4倍？",
+  "zh-Hant": "現在媽媽30歲，美咲9歲。幾年前媽媽的年齡是美咲年齡的4倍？"
+ },
+ "年齢の差は 30−9 = 21 で、何年前でも変わらない": {
+  "en": "The age difference is 30−9 = 21, and it was the same any number of years ago",
+  "zh-Hans": "年龄差是 30−9 = 21，几年前也一样",
+  "zh-Hant": "年齡差是 30−9 = 21，幾年前也一樣"
+ },
+ "母が美咲の4倍のとき、差の21は美咲の 4−1 = 3 つ分": {
+  "en": "When Mom is 4 times as old as Misaki, the difference 21 is 4−1 = 3 units of Misaki's age",
+  "zh-Hans": "当妈妈是美咲的4倍时，差21相当于美咲的 4−1 = 3 份",
+  "zh-Hant": "當媽媽是美咲的4倍時，差21相當於美咲的 4−1 = 3 份"
+ },
+ "そのときの美咲は 21÷3 = 7 歳": {
+  "en": "At that time, Misaki is 21÷3 = 7 years old",
+  "zh-Hans": "那时美咲 21÷3 = 7 岁",
+  "zh-Hant": "那時美咲 21÷3 = 7 歲"
+ },
+ "9−7 = 2（年前）": {
+  "en": "9−7 = 2 (years ago)",
+  "zh-Hans": "9−7 = 2（年前）",
+  "zh-Hant": "9−7 = 2（年前）"
+ },
+ "2人が同じ金額ずつ使うと、2人のお金の差は変わらない。年齢の問題と同じ形になる。": {
+  "en": "When 2 people each spend the same amount, the difference between their money doesn't change. It has the same shape as the age problems.",
+  "zh-Hans": "两人各花同样多的钱，两人钱数的差就不变。和年龄问题是同一种类型。",
+  "zh-Hant": "兩人各花同樣多的錢，兩人錢數的差就不變。和年齡問題是同一種類型。"
+ },
+ "姉は3800円、妹は1800円持っています。2人が同じ金額ずつ使ったところ、姉の残りは妹の残りの3倍になりました。1人何円使いましたか。": {
+  "en": "The older sister has 3800 yen and the younger sister has 1800 yen. The 2 of them each spent the same amount, and then the older sister had 3 times as much left as the younger sister. How many yen did each 1 of them spend?",
+  "zh-Hans": "姐姐有3800日元，妹妹有1800日元。两人各花了同样多的钱后，姐姐剩下的钱是妹妹剩下的3倍。每人花了多少日元？",
+  "zh-Hant": "姊姊有3800日圓，妹妹有1800日圓。兩人各花了同樣多的錢後，姊姊剩下的錢是妹妹剩下的3倍。每人花了多少日圓？"
+ },
+ "800円": {
+  "en": "800 yen",
+  "zh-Hans": "800日元",
+  "zh-Hant": "800日圓"
+ },
+ "2人が同じ金額を使っても、お金の差 3800−1800 = 2000 は変わらない": {
+  "en": "Even when the 2 of them spend the same amount, the difference in money, 3800−1800 = 2000, stays the same",
+  "zh-Hans": "两人花同样多的钱，钱数的差 3800−1800 = 2000 也不变",
+  "zh-Hant": "兩人花同樣多的錢，錢數的差 3800−1800 = 2000 也不變"
+ },
+ "姉が妹の3倍のとき、差の2000は妹の 3−1 = 2 つ分": {
+  "en": "When the older sister has 3 times as much as the younger sister, the difference 2000 is 3−1 = 2 units of the younger sister's money",
+  "zh-Hans": "当姐姐是妹妹的3倍时，差2000相当于妹妹的 3−1 = 2 份",
+  "zh-Hant": "當姊姊是妹妹的3倍時，差2000相當於妹妹的 3−1 = 2 份"
+ },
+ "妹の残りは 2000÷2 = 1000 円": {
+  "en": "The younger sister has 2000÷2 = 1000 yen left",
+  "zh-Hans": "妹妹剩下 2000÷2 = 1000 日元",
+  "zh-Hant": "妹妹剩下 2000÷2 = 1000 日圓"
+ },
+ "1800−1000 = 800（円）": {
+  "en": "1800−1000 = 800 (yen)",
+  "zh-Hans": "1800−1000 = 800（日元）",
+  "zh-Hant": "1800−1000 = 800（日圓）"
+ },
+ "そのとおり。同じ金額を使うので、2人の金額の差はずっと同じ。": {
+  "en": "That's right. They spend the same amount, so the difference between the 2 amounts always stays the same.",
+  "zh-Hans": "没错。花的钱一样多，所以两人钱数的差始终不变。",
+  "zh-Hant": "沒錯。花的錢一樣多，所以兩人錢數的差始終不變。"
+ },
+ "使った金額をxとして方程式を立てても解けるが、差を見る方が速い。": {
+  "en": "You can solve it with an equation by calling the amount spent x, but looking at the difference is faster.",
+  "zh-Hans": "设花的钱为x列方程也能解，但看差更快。",
+  "zh-Hant": "設花的錢為x列方程式也能解，但看差更快。"
+ },
+ "姉は3400円、妹は1800円持っています。2人が同じ金額ずつ使ったところ、姉の残りは妹の残りの3倍になりました。1人何円使いましたか。": {
+  "en": "The older sister has 3400 yen and the younger sister has 1800 yen. The 2 of them each spent the same amount, and then the older sister had 3 times as much left as the younger sister. How many yen did each 1 of them spend?",
+  "zh-Hans": "姐姐有3400日元，妹妹有1800日元。两人各花了同样多的钱后，姐姐剩下的钱是妹妹剩下的3倍。每人花了多少日元？",
+  "zh-Hant": "姊姊有3400日圓，妹妹有1800日圓。兩人各花了同樣多的錢後，姊姊剩下的錢是妹妹剩下的3倍。每人花了多少日圓？"
+ },
+ "2人が同じ金額を使っても、お金の差 3400−1800 = 1600 は変わらない": {
+  "en": "Even when the 2 of them spend the same amount, the difference in money, 3400−1800 = 1600, stays the same",
+  "zh-Hans": "两人花同样多的钱，钱数的差 3400−1800 = 1600 也不变",
+  "zh-Hant": "兩人花同樣多的錢，錢數的差 3400−1800 = 1600 也不變"
+ },
+ "姉が妹の3倍のとき、差の1600は妹の 3−1 = 2 つ分": {
+  "en": "When the older sister has 3 times as much as the younger sister, the difference 1600 is 3−1 = 2 units of the younger sister's money",
+  "zh-Hans": "当姐姐是妹妹的3倍时，差1600相当于妹妹的 3−1 = 2 份",
+  "zh-Hant": "當姊姊是妹妹的3倍時，差1600相當於妹妹的 3−1 = 2 份"
+ },
+ "妹の残りは 1600÷2 = 800 円": {
+  "en": "The younger sister has 1600÷2 = 800 yen left",
+  "zh-Hans": "妹妹剩下 1600÷2 = 800 日元",
+  "zh-Hant": "妹妹剩下 1600÷2 = 800 日圓"
+ },
+ "1800−800 = 1000（円）": {
+  "en": "1800−800 = 1000 (yen)",
+  "zh-Hans": "1800−800 = 1000（日元）",
+  "zh-Hant": "1800−800 = 1000（日圓）"
+ },
+ "姉は2400円、妹は1500円持っています。2人が同じ金額ずつ使ったところ、姉の残りは妹の残りの2倍になりました。1人何円使いましたか。": {
+  "en": "The older sister has 2400 yen and the younger sister has 1500 yen. The 2 of them each spent the same amount, and then the older sister had 2 times as much left as the younger sister. How many yen did each 1 of them spend?",
+  "zh-Hans": "姐姐有2400日元，妹妹有1500日元。两人各花了同样多的钱后，姐姐剩下的钱是妹妹剩下的2倍。每人花了多少日元？",
+  "zh-Hant": "姊姊有2400日圓，妹妹有1500日圓。兩人各花了同樣多的錢後，姊姊剩下的錢是妹妹剩下的2倍。每人花了多少日圓？"
+ },
+ "2人が同じ金額を使っても、お金の差 2400−1500 = 900 は変わらない": {
+  "en": "Even when the 2 of them spend the same amount, the difference in money, 2400−1500 = 900, stays the same",
+  "zh-Hans": "两人花同样多的钱，钱数的差 2400−1500 = 900 也不变",
+  "zh-Hant": "兩人花同樣多的錢，錢數的差 2400−1500 = 900 也不變"
+ },
+ "姉が妹の2倍のとき、差の900は妹の 2−1 = 1 つ分": {
+  "en": "When the older sister has 2 times as much as the younger sister, the difference 900 is 2−1 = 1 units of the younger sister's money",
+  "zh-Hans": "当姐姐是妹妹的2倍时，差900相当于妹妹的 2−1 = 1 份",
+  "zh-Hant": "當姊姊是妹妹的2倍時，差900相當於妹妹的 2−1 = 1 份"
+ },
+ "妹の残りは 900÷1 = 900 円": {
+  "en": "The younger sister has 900÷1 = 900 yen left",
+  "zh-Hans": "妹妹剩下 900÷1 = 900 日元",
+  "zh-Hant": "妹妹剩下 900÷1 = 900 日圓"
+ },
+ "1500−900 = 600（円）": {
+  "en": "1500−900 = 600 (yen)",
+  "zh-Hans": "1500−900 = 600（日元）",
+  "zh-Hant": "1500−900 = 600（日圓）"
+ },
+ "姉は1200円、妹は700円持っています。2人が同じ金額ずつ使ったところ、姉の残りは妹の残りの2倍になりました。1人何円使いましたか。": {
+  "en": "The older sister has 1200 yen and the younger sister has 700 yen. The 2 of them each spent the same amount, and then the older sister had 2 times as much left as the younger sister. How many yen did each 1 of them spend?",
+  "zh-Hans": "姐姐有1200日元，妹妹有700日元。两人各花了同样多的钱后，姐姐剩下的钱是妹妹剩下的2倍。每人花了多少日元？",
+  "zh-Hant": "姊姊有1200日圓，妹妹有700日圓。兩人各花了同樣多的錢後，姊姊剩下的錢是妹妹剩下的2倍。每人花了多少日圓？"
+ },
+ "2人が同じ金額を使っても、お金の差 1200−700 = 500 は変わらない": {
+  "en": "Even when the 2 of them spend the same amount, the difference in money, 1200−700 = 500, stays the same",
+  "zh-Hans": "两人花同样多的钱，钱数的差 1200−700 = 500 也不变",
+  "zh-Hant": "兩人花同樣多的錢，錢數的差 1200−700 = 500 也不變"
+ },
+ "姉が妹の2倍のとき、差の500は妹の 2−1 = 1 つ分": {
+  "en": "When the older sister has 2 times as much as the younger sister, the difference 500 is 2−1 = 1 units of the younger sister's money",
+  "zh-Hans": "当姐姐是妹妹的2倍时，差500相当于妹妹的 2−1 = 1 份",
+  "zh-Hant": "當姊姊是妹妹的2倍時，差500相當於妹妹的 2−1 = 1 份"
+ },
+ "妹の残りは 500÷1 = 500 円": {
+  "en": "The younger sister has 500÷1 = 500 yen left",
+  "zh-Hans": "妹妹剩下 500÷1 = 500 日元",
+  "zh-Hant": "妹妹剩下 500÷1 = 500 日圓"
+ },
+ "700−500 = 200（円）": {
+  "en": "700−500 = 200 (yen)",
+  "zh-Hans": "700−500 = 200（日元）",
+  "zh-Hant": "700−500 = 200（日圓）"
+ },
+ "姉は2200円、妹は1700円持っています。2人が同じ金額ずつ使ったところ、姉の残りは妹の残りの2倍になりました。1人何円使いましたか。": {
+  "en": "The older sister has 2200 yen and the younger sister has 1700 yen. The 2 of them each spent the same amount, and then the older sister had 2 times as much left as the younger sister. How many yen did each 1 of them spend?",
+  "zh-Hans": "姐姐有2200日元，妹妹有1700日元。两人各花了同样多的钱后，姐姐剩下的钱是妹妹剩下的2倍。每人花了多少日元？",
+  "zh-Hant": "姊姊有2200日圓，妹妹有1700日圓。兩人各花了同樣多的錢後，姊姊剩下的錢是妹妹剩下的2倍。每人花了多少日圓？"
+ },
+ "2人が同じ金額を使っても、お金の差 2200−1700 = 500 は変わらない": {
+  "en": "Even when the 2 of them spend the same amount, the difference in money, 2200−1700 = 500, stays the same",
+  "zh-Hans": "两人花同样多的钱，钱数的差 2200−1700 = 500 也不变",
+  "zh-Hant": "兩人花同樣多的錢，錢數的差 2200−1700 = 500 也不變"
+ },
+ "1700−500 = 1200（円）": {
+  "en": "1700−500 = 1200 (yen)",
+  "zh-Hans": "1700−500 = 1200（日元）",
+  "zh-Hant": "1700−500 = 1200（日圓）"
+ },
+ "年齢の差は何年たっても同じ。2つの比を、差が同じ数になるようにそろえると、1つ分の大きさが分かる。": {
+  "en": "The age difference stays the same however many years pass. Adjust the 2 ratios so the difference is the same number, and you find the size of 1 unit.",
+  "zh-Hans": "年龄差不管过多少年都一样。把2个比调整到差是相同的数，就能知道1份的大小。",
+  "zh-Hant": "年齡差不管過幾年都一樣。把2個比調整到差是相同的數，就能知道1份的大小。"
+ },
+ "現在、姉と妹の年齢の比は7:3です。10年後には、姉と妹の年齢の比は3:2になります。現在、姉は何歳ですか。": {
+  "en": "Right now, the ratio of the older sister's age to the younger sister's age is 7:3. In 10 years, the ratio will be 3:2. How old is the older sister now?",
+  "zh-Hans": "现在姐姐和妹妹的年龄比是7:3。10年后，姐姐和妹妹的年龄比将变为3:2。现在姐姐几岁？",
+  "zh-Hant": "現在姊姊和妹妹的年齡比是7:3。10年後，姊姊和妹妹的年齡比會變成3:2。現在姊姊幾歲？"
+ },
+ "歳": {
+  "en": " years old",
+  "zh-Hans": "岁",
+  "zh-Hant": "歲"
+ },
+ "14歳": {
+  "en": "14 years old",
+  "zh-Hans": "14岁",
+  "zh-Hant": "14歲"
+ },
+ "年齢の差は変わらない。差は、現在の比で 7−3 = 4、10年後の比で 3−2 = 1": {
+  "en": "The age difference doesn't change. The difference is 7−3 = 4 in the current ratio and 3−2 = 1 in the ratio 10 years later",
+  "zh-Hans": "年龄差不变。差在现在的比中是 7−3 = 4，在10年后的比中是 3−2 = 1",
+  "zh-Hant": "年齡差不變。差在現在的比中是 7−3 = 4，在10年後的比中是 3−2 = 1"
+ },
+ "差が同じ数になるように比をそろえる。現在 7:3、10年後 3:2 → 12:8": {
+  "en": "Adjust the ratios so the difference is the same number. Now 7:3; in 10 years 3:2 → 12:8",
+  "zh-Hans": "调整比，使差变成相同的数。现在 7:3，10年后 3:2 → 12:8",
+  "zh-Hant": "調整比，使差變成相同的數。現在 7:3，10年後 3:2 → 12:8"
+ },
+ "姉は 7 から 12 へ、12−7 = 5 つ分ふえた。それが10年なので、1つ分は 10÷5 = 2": {
+  "en": "The older sister went from 7 to 12, up 12−7 = 5 units. That took 10 years, so 1 unit is 10÷5 = 2",
+  "zh-Hans": "姐姐从 7 变成 12，增加了 12−7 = 5 份。这相当于10年，所以1份是 10÷5 = 2",
+  "zh-Hant": "姊姊從 7 變成 12，增加了 12−7 = 5 份。這相當於10年，所以1份是 10÷5 = 2"
+ },
+ "現在の姉 = 2×7 = 14（歳）": {
+  "en": "Older sister now = 2×7 = 14 (years old)",
+  "zh-Hans": "现在的姐姐 = 2×7 = 14（岁）",
+  "zh-Hant": "現在的姊姊 = 2×7 = 14（歲）"
+ },
+ "比は出てくるが、濃度や平均を混ぜる問題ではない。": {
+  "en": "Ratios appear, but this isn't a problem about mixing concentrations or averages.",
+  "zh-Hans": "虽然出现了比，但这不是混合浓度或平均数的问题。",
+  "zh-Hant": "雖然出現了比，但這不是混合濃度或平均數的問題。"
+ },
+ "現在の年齢をxとおくと、分数の方程式になり時間がかかる。": {
+  "en": "If you let the current age be x, you get an equation with fractions, which takes time.",
+  "zh-Hans": "设现在的年龄为x，会变成分数方程，很费时间。",
+  "zh-Hant": "設現在的年齡為x，會變成分數方程式，很花時間。"
+ },
+ "現在、姉と妹の年齢の比は5:2です。6年後には、姉と妹の年齢の比は2:1になります。現在、姉は何歳ですか。": {
+  "en": "Right now, the ratio of the older sister's age to the younger sister's age is 5:2. In 6 years, the ratio will be 2:1. How old is the older sister now?",
+  "zh-Hans": "现在姐姐和妹妹的年龄比是5:2。6年后，姐姐和妹妹的年龄比将变为2:1。现在姐姐几岁？",
+  "zh-Hant": "現在姊姊和妹妹的年齡比是5:2。6年後，姊姊和妹妹的年齡比會變成2:1。現在姊姊幾歲？"
+ },
+ "年齢の差は変わらない。差は、現在の比で 5−2 = 3、6年後の比で 2−1 = 1": {
+  "en": "The age difference doesn't change. The difference is 5−2 = 3 in the current ratio and 2−1 = 1 in the ratio 6 years later",
+  "zh-Hans": "年龄差不变。差在现在的比中是 5−2 = 3，在6年后的比中是 2−1 = 1",
+  "zh-Hant": "年齡差不變。差在現在的比中是 5−2 = 3，在6年後的比中是 2−1 = 1"
+ },
+ "差が同じ数になるように比をそろえる。現在 5:2、6年後 2:1 → 6:3": {
+  "en": "Adjust the ratios so the difference is the same number. Now 5:2; in 6 years 2:1 → 6:3",
+  "zh-Hans": "调整比，使差变成相同的数。现在 5:2，6年后 2:1 → 6:3",
+  "zh-Hant": "調整比，使差變成相同的數。現在 5:2，6年後 2:1 → 6:3"
+ },
+ "姉は 5 から 6 へ、6−5 = 1 つ分ふえた。それが6年なので、1つ分は 6÷1 = 6": {
+  "en": "The older sister went from 5 to 6, up 6−5 = 1 units. That took 6 years, so 1 unit is 6÷1 = 6",
+  "zh-Hans": "姐姐从 5 变成 6，增加了 6−5 = 1 份。这相当于6年，所以1份是 6÷1 = 6",
+  "zh-Hant": "姊姊從 5 變成 6，增加了 6−5 = 1 份。這相當於6年，所以1份是 6÷1 = 6"
+ },
+ "現在の姉 = 6×5 = 30（歳）": {
+  "en": "Older sister now = 6×5 = 30 (years old)",
+  "zh-Hans": "现在的姐姐 = 6×5 = 30（岁）",
+  "zh-Hant": "現在的姊姊 = 6×5 = 30（歲）"
+ },
+ "現在、姉と妹の年齢の比は7:3です。5年後には、姉と妹の年齢の比は2:1になります。現在、姉は何歳ですか。": {
+  "en": "Right now, the ratio of the older sister's age to the younger sister's age is 7:3. In 5 years, the ratio will be 2:1. How old is the older sister now?",
+  "zh-Hans": "现在姐姐和妹妹的年龄比是7:3。5年后，姐姐和妹妹的年龄比将变为2:1。现在姐姐几岁？",
+  "zh-Hant": "現在姊姊和妹妹的年齡比是7:3。5年後，姊姊和妹妹的年齡比會變成2:1。現在姊姊幾歲？"
+ },
+ "年齢の差は変わらない。差は、現在の比で 7−3 = 4、5年後の比で 2−1 = 1": {
+  "en": "The age difference doesn't change. The difference is 7−3 = 4 in the current ratio and 2−1 = 1 in the ratio 5 years later",
+  "zh-Hans": "年龄差不变。差在现在的比中是 7−3 = 4，在5年后的比中是 2−1 = 1",
+  "zh-Hant": "年齡差不變。差在現在的比中是 7−3 = 4，在5年後的比中是 2−1 = 1"
+ },
+ "差が同じ数になるように比をそろえる。現在 7:3、5年後 2:1 → 8:4": {
+  "en": "Adjust the ratios so the difference is the same number. Now 7:3; in 5 years 2:1 → 8:4",
+  "zh-Hans": "调整比，使差变成相同的数。现在 7:3，5年后 2:1 → 8:4",
+  "zh-Hant": "調整比，使差變成相同的數。現在 7:3，5年後 2:1 → 8:4"
+ },
+ "姉は 7 から 8 へ、8−7 = 1 つ分ふえた。それが5年なので、1つ分は 5÷1 = 5": {
+  "en": "The older sister went from 7 to 8, up 8−7 = 1 units. That took 5 years, so 1 unit is 5÷1 = 5",
+  "zh-Hans": "姐姐从 7 变成 8，增加了 8−7 = 1 份。这相当于5年，所以1份是 5÷1 = 5",
+  "zh-Hant": "姊姊從 7 變成 8，增加了 8−7 = 1 份。這相當於5年，所以1份是 5÷1 = 5"
+ },
+ "現在の姉 = 5×7 = 35（歳）": {
+  "en": "Older sister now = 5×7 = 35 (years old)",
+  "zh-Hans": "现在的姐姐 = 5×7 = 35（岁）",
+  "zh-Hant": "現在的姊姊 = 5×7 = 35（歲）"
+ },
+ "現在、姉と妹の年齢の比は7:3です。15年後には、姉と妹の年齢の比は3:2になります。現在、姉は何歳ですか。": {
+  "en": "Right now, the ratio of the older sister's age to the younger sister's age is 7:3. In 15 years, the ratio will be 3:2. How old is the older sister now?",
+  "zh-Hans": "现在姐姐和妹妹的年龄比是7:3。15年后，姐姐和妹妹的年龄比将变为3:2。现在姐姐几岁？",
+  "zh-Hant": "現在姊姊和妹妹的年齡比是7:3。15年後，姊姊和妹妹的年齡比會變成3:2。現在姊姊幾歲？"
+ },
+ "年齢の差は変わらない。差は、現在の比で 7−3 = 4、15年後の比で 3−2 = 1": {
+  "en": "The age difference doesn't change. The difference is 7−3 = 4 in the current ratio and 3−2 = 1 in the ratio 15 years later",
+  "zh-Hans": "年龄差不变。差在现在的比中是 7−3 = 4，在15年后的比中是 3−2 = 1",
+  "zh-Hant": "年齡差不變。差在現在的比中是 7−3 = 4，在15年後的比中是 3−2 = 1"
+ },
+ "差が同じ数になるように比をそろえる。現在 7:3、15年後 3:2 → 12:8": {
+  "en": "Adjust the ratios so the difference is the same number. Now 7:3; in 15 years 3:2 → 12:8",
+  "zh-Hans": "调整比，使差变成相同的数。现在 7:3，15年后 3:2 → 12:8",
+  "zh-Hant": "調整比，使差變成相同的數。現在 7:3，15年後 3:2 → 12:8"
+ },
+ "姉は 7 から 12 へ、12−7 = 5 つ分ふえた。それが15年なので、1つ分は 15÷5 = 3": {
+  "en": "The older sister went from 7 to 12, up 12−7 = 5 units. That took 15 years, so 1 unit is 15÷5 = 3",
+  "zh-Hans": "姐姐从 7 变成 12，增加了 12−7 = 5 份。这相当于15年，所以1份是 15÷5 = 3",
+  "zh-Hant": "姊姊從 7 變成 12，增加了 12−7 = 5 份。這相當於15年，所以1份是 15÷5 = 3"
+ },
+ "現在の姉 = 3×7 = 21（歳）": {
+  "en": "Older sister now = 3×7 = 21 (years old)",
+  "zh-Hans": "现在的姐姐 = 3×7 = 21（岁）",
+  "zh-Hant": "現在的姊姊 = 3×7 = 21（歲）"
+ },
+ "現在、姉と妹の年齢の比は5:2です。20年後には、姉と妹の年齢の比は3:2になります。現在、姉は何歳ですか。": {
+  "en": "Right now, the ratio of the older sister's age to the younger sister's age is 5:2. In 20 years, the ratio will be 3:2. How old is the older sister now?",
+  "zh-Hans": "现在姐姐和妹妹的年龄比是5:2。20年后，姐姐和妹妹的年龄比将变为3:2。现在姐姐几岁？",
+  "zh-Hant": "現在姊姊和妹妹的年齡比是5:2。20年後，姊姊和妹妹的年齡比會變成3:2。現在姊姊幾歲？"
+ },
+ "年齢の差は変わらない。差は、現在の比で 5−2 = 3、20年後の比で 3−2 = 1": {
+  "en": "The age difference doesn't change. The difference is 5−2 = 3 in the current ratio and 3−2 = 1 in the ratio 20 years later",
+  "zh-Hans": "年龄差不变。差在现在的比中是 5−2 = 3，在20年后的比中是 3−2 = 1",
+  "zh-Hant": "年齡差不變。差在現在的比中是 5−2 = 3，在20年後的比中是 3−2 = 1"
+ },
+ "差が同じ数になるように比をそろえる。現在 5:2、20年後 3:2 → 9:6": {
+  "en": "Adjust the ratios so the difference is the same number. Now 5:2; in 20 years 3:2 → 9:6",
+  "zh-Hans": "调整比，使差变成相同的数。现在 5:2，20年后 3:2 → 9:6",
+  "zh-Hant": "調整比，使差變成相同的數。現在 5:2，20年後 3:2 → 9:6"
+ },
+ "姉は 5 から 9 へ、9−5 = 4 つ分ふえた。それが20年なので、1つ分は 20÷4 = 5": {
+  "en": "The older sister went from 5 to 9, up 9−5 = 4 units. That took 20 years, so 1 unit is 20÷4 = 5",
+  "zh-Hans": "姐姐从 5 变成 9，增加了 9−5 = 4 份。这相当于20年，所以1份是 20÷4 = 5",
+  "zh-Hant": "姊姊從 5 變成 9，增加了 9−5 = 4 份。這相當於20年，所以1份是 20÷4 = 5"
+ },
+ "現在の姉 = 5×5 = 25（歳）": {
+  "en": "Older sister now = 5×5 = 25 (years old)",
+  "zh-Hans": "现在的姐姐 = 5×5 = 25（岁）",
+  "zh-Hant": "現在的姊姊 = 5×5 = 25（歲）"
+ },
+ "3人の和は1年に3歳、1人は1歳ふえるので、差は変わらないのではなく、1年に2ずつちぢむ。ちぢむ速さで割ればよい。": {
+  "en": "In 1 year the total for the 3 children goes up by 3 while 1 person goes up by 1, so the difference doesn't stay the same: it shrinks by 2 in 1 year. Just divide by how fast it shrinks.",
+  "zh-Hans": "3人的年龄和1年增加3岁，1个人只增加1岁，所以差不是不变，而是1年缩小2。用缩小的速度去除就行。",
+  "zh-Hant": "3人的年齡和1年增加3歲，1個人只增加1歲，所以差不是不變，而是1年縮小2。用縮小的速度去除就可以了。"
+ },
+ "現在、お父さんは46歳で、3人の子どもは13歳、10歳、7歳です。お父さんの年齢が、子ども3人の年齢の和と等しくなるのは何年後ですか。": {
+  "en": "Right now, Dad is 46, and his 3 children are 13, 10 and 7. In how many years will Dad's age equal the sum of the 3 children's ages?",
+  "zh-Hans": "现在爸爸46岁，3个孩子分别是13岁、10岁、7岁。几年后爸爸的年龄等于3个孩子的年龄和？",
+  "zh-Hant": "現在爸爸46歲，3個孩子分別是13歲、10歲、7歲。幾年後爸爸的年齡會等於3個孩子的年齡和？"
+ },
+ "8年後": {
+  "en": "in 8 years",
+  "zh-Hans": "8年后",
+  "zh-Hant": "8年後"
+ },
+ "子ども3人の年齢の和は 13+10+7 = 30": {
+  "en": "The sum of the 3 children's ages is 13+10+7 = 30",
+  "zh-Hans": "3个孩子的年龄和是 13+10+7 = 30",
+  "zh-Hant": "3個孩子的年齡和是 13+10+7 = 30"
+ },
+ "お父さんとの差は 46−30 = 16": {
+  "en": "The difference from Dad's age is 46−30 = 16",
+  "zh-Hans": "和爸爸的差是 46−30 = 16",
+  "zh-Hant": "和爸爸的差是 46−30 = 16"
+ },
+ "1年で、子ども3人の和は3歳、お父さんは1歳ふえる。差は1年に 3−1 = 2 ずつちぢむ": {
+  "en": "In 1 year, the 3 children's total goes up by 3 and Dad goes up by 1. So in 1 year the difference shrinks by 3−1 = 2",
+  "zh-Hans": "1年里，3个孩子的年龄和增加3岁，爸爸增加1岁。差每1年缩小 3−1 = 2",
+  "zh-Hant": "1年裡，3個孩子的年齡和增加3歲，爸爸增加1歲。差每1年縮小 3−1 = 2"
+ },
+ "16÷2 = 8（年後）": {
+  "en": "16÷2 = 8 (years later)",
+  "zh-Hans": "16÷2 = 8（年后）",
+  "zh-Hant": "16÷2 = 8（年後）"
+ },
+ "おしい。2人どうしなら差は変わらないが、ここは1人と3人の合計。差は毎年ちぢむ。": {
+  "en": "Close. Between 2 people the difference doesn't change, but here it's 1 person versus the total of 3. The difference shrinks every year.",
+  "zh-Hans": "差一点。如果是2个人之间，差不变；但这里是1个人和3个人的总和。差每年都在缩小。",
+  "zh-Hant": "差一點。如果是2個人之間，差不變；但這裡是1個人和3個人的總和。差每年都在縮小。"
+ },
+ "そのとおり。父を止めて考えると、子ども3人の和は1年に「人数−1」ずつ近づいてくる。": {
+  "en": "That's right. If you freeze Dad, the 3 children's total gets closer by \"number of children − 1\" in 1 year.",
+  "zh-Hans": "没错。把爸爸定住来看，3个孩子的年龄和1年靠近“人数−1”。",
+  "zh-Hant": "沒錯。把爸爸定住來看，3個孩子的年齡和1年靠近「人數−1」。"
+ },
+ "x年後として方程式を立てれば解けるが、近づく速さを見る方が速い。": {
+  "en": "You can solve it with an equation for x years later, but looking at how fast they get closer is quicker.",
+  "zh-Hans": "设x年后列方程能解，但看靠近的速度更快。",
+  "zh-Hant": "設x年後列方程式能解，但看靠近的速度更快。"
+ },
+ "現在、お父さんは38歳で、3人の子どもは8歳、7歳、5歳です。お父さんの年齢が、子ども3人の年齢の和と等しくなるのは何年後ですか。": {
+  "en": "Right now, Dad is 38, and his 3 children are 8, 7 and 5. In how many years will Dad's age equal the sum of the 3 children's ages?",
+  "zh-Hans": "现在爸爸38岁，3个孩子分别是8岁、7岁、5岁。几年后爸爸的年龄等于3个孩子的年龄和？",
+  "zh-Hant": "現在爸爸38歲，3個孩子分別是8歲、7歲、5歲。幾年後爸爸的年齡會等於3個孩子的年齡和？"
+ },
+ "子ども3人の年齢の和は 8+7+5 = 20": {
+  "en": "The sum of the 3 children's ages is 8+7+5 = 20",
+  "zh-Hans": "3个孩子的年龄和是 8+7+5 = 20",
+  "zh-Hant": "3個孩子的年齡和是 8+7+5 = 20"
+ },
+ "お父さんとの差は 38−20 = 18": {
+  "en": "The difference from Dad's age is 38−20 = 18",
+  "zh-Hans": "和爸爸的差是 38−20 = 18",
+  "zh-Hant": "和爸爸的差是 38−20 = 18"
+ },
+ "18÷2 = 9（年後）": {
+  "en": "18÷2 = 9 (years later)",
+  "zh-Hans": "18÷2 = 9（年后）",
+  "zh-Hant": "18÷2 = 9（年後）"
+ },
+ "現在、お父さんは48歳で、3人の子どもは9歳、6歳、5歳です。お父さんの年齢が、子ども3人の年齢の和と等しくなるのは何年後ですか。": {
+  "en": "Right now, Dad is 48, and his 3 children are 9, 6 and 5. In how many years will Dad's age equal the sum of the 3 children's ages?",
+  "zh-Hans": "现在爸爸48岁，3个孩子分别是9岁、6岁、5岁。几年后爸爸的年龄等于3个孩子的年龄和？",
+  "zh-Hant": "現在爸爸48歲，3個孩子分別是9歲、6歲、5歲。幾年後爸爸的年齡會等於3個孩子的年齡和？"
+ },
+ "子ども3人の年齢の和は 9+6+5 = 20": {
+  "en": "The sum of the 3 children's ages is 9+6+5 = 20",
+  "zh-Hans": "3个孩子的年龄和是 9+6+5 = 20",
+  "zh-Hant": "3個孩子的年齡和是 9+6+5 = 20"
+ },
+ "お父さんとの差は 48−20 = 28": {
+  "en": "The difference from Dad's age is 48−20 = 28",
+  "zh-Hans": "和爸爸的差是 48−20 = 28",
+  "zh-Hant": "和爸爸的差是 48−20 = 28"
+ },
+ "現在、お父さんは39歳で、3人の子どもは8歳、6歳、3歳です。お父さんの年齢が、子ども3人の年齢の和と等しくなるのは何年後ですか。": {
+  "en": "Right now, Dad is 39, and his 3 children are 8, 6 and 3. In how many years will Dad's age equal the sum of the 3 children's ages?",
+  "zh-Hans": "现在爸爸39岁，3个孩子分别是8岁、6岁、3岁。几年后爸爸的年龄等于3个孩子的年龄和？",
+  "zh-Hant": "現在爸爸39歲，3個孩子分別是8歲、6歲、3歲。幾年後爸爸的年齡會等於3個孩子的年齡和？"
+ },
+ "子ども3人の年齢の和は 8+6+3 = 17": {
+  "en": "The sum of the 3 children's ages is 8+6+3 = 17",
+  "zh-Hans": "3个孩子的年龄和是 8+6+3 = 17",
+  "zh-Hant": "3個孩子的年齡和是 8+6+3 = 17"
+ },
+ "お父さんとの差は 39−17 = 22": {
+  "en": "The difference from Dad's age is 39−17 = 22",
+  "zh-Hans": "和爸爸的差是 39−17 = 22",
+  "zh-Hant": "和爸爸的差是 39−17 = 22"
+ },
+ "現在、お父さんは33歳で、3人の子どもは10歳、7歳、6歳です。お父さんの年齢が、子ども3人の年齢の和と等しくなるのは何年後ですか。": {
+  "en": "Right now, Dad is 33, and his 3 children are 10, 7 and 6. In how many years will Dad's age equal the sum of the 3 children's ages?",
+  "zh-Hans": "现在爸爸33岁，3个孩子分别是10岁、7岁、6岁。几年后爸爸的年龄等于3个孩子的年龄和？",
+  "zh-Hant": "現在爸爸33歲，3個孩子分別是10歲、7歲、6歲。幾年後爸爸的年齡會等於3個孩子的年齡和？"
+ },
+ "子ども3人の年齢の和は 10+7+6 = 23": {
+  "en": "The sum of the 3 children's ages is 10+7+6 = 23",
+  "zh-Hans": "3个孩子的年龄和是 10+7+6 = 23",
+  "zh-Hant": "3個孩子的年齡和是 10+7+6 = 23"
+ },
+ "お父さんとの差は 33−23 = 10": {
+  "en": "The difference from Dad's age is 33−23 = 10",
+  "zh-Hans": "和爸爸的差是 33−23 = 10",
+  "zh-Hant": "和爸爸的差是 33−23 = 10"
+ },
+ "10÷2 = 5（年後）": {
+  "en": "10÷2 = 5 (years later)",
+  "zh-Hans": "10÷2 = 5（年后）",
+  "zh-Hant": "10÷2 = 5（年後）"
+ },
+ "「何倍」を聞いていなければ、差を使う必要はない。それぞれの年齢に年数をたすだけ。": {
+  "en": "If the question doesn't ask \"how many times\", you don't need the difference. Just add the years to each age.",
+  "zh-Hans": "如果没有问“几倍”，就不需要用差。只要给各自的年龄加上年数。",
+  "zh-Hant": "如果沒有問「幾倍」，就不需要用差。只要把各自的年齡加上年數。"
+ },
+ "現在、父は45歳、拓海は15歳です。6年後、2人の年齢の和は何歳ですか。": {
+  "en": "Right now, Dad is 45 and Takumi is 15. In 6 years, what will be the sum of their 2 ages?",
+  "zh-Hans": "现在爸爸45岁，拓海15岁。6年后，两人的年龄和是多少岁？",
+  "zh-Hant": "現在爸爸45歲，拓海15歲。6年後，兩人的年齡和是幾歲？"
+ },
+ "拓海": {
+  "en": "Takumi",
+  "zh-Hans": "拓海",
+  "zh-Hant": "拓海"
+ },
+ "72歳": {
+  "en": "72 years old",
+  "zh-Hans": "72岁",
+  "zh-Hant": "72歲"
+ },
+ "6年後の父は 45+6 = 51": {
+  "en": "In 6 years, Dad is 45+6 = 51",
+  "zh-Hans": "6年后爸爸是 45+6 = 51",
+  "zh-Hant": "6年後爸爸是 45+6 = 51"
+ },
+ "6年後の拓海は 15+6 = 21": {
+  "en": "In 6 years, Takumi is 15+6 = 21",
+  "zh-Hans": "6年后拓海是 15+6 = 21",
+  "zh-Hant": "6年後拓海是 15+6 = 21"
+ },
+ "51+21 = 72（歳）": {
+  "en": "51+21 = 72 (years old)",
+  "zh-Hans": "51+21 = 72（岁）",
+  "zh-Hant": "51+21 = 72（歲）"
+ },
+ "そのとおり。何年後の2人の年齢をそれぞれ出して、たすだけ。": {
+  "en": "That's right. Just find each person's age that many years later and add them.",
+  "zh-Hans": "没错。分别算出几年后两人的年龄，再相加就行。",
+  "zh-Hant": "沒錯。分別算出幾年後兩人的年齡，再相加就可以了。"
+ },
+ "現在、父は33歳、拓海は9歳です。4年後、2人の年齢の和は何歳ですか。": {
+  "en": "Right now, Dad is 33 and Takumi is 9. In 4 years, what will be the sum of their 2 ages?",
+  "zh-Hans": "现在爸爸33岁，拓海9岁。4年后，两人的年龄和是多少岁？",
+  "zh-Hant": "現在爸爸33歲，拓海9歲。4年後，兩人的年齡和是幾歲？"
+ },
+ "4年後の父は 33+4 = 37": {
+  "en": "In 4 years, Dad is 33+4 = 37",
+  "zh-Hans": "4年后爸爸是 33+4 = 37",
+  "zh-Hant": "4年後爸爸是 33+4 = 37"
+ },
+ "4年後の拓海は 9+4 = 13": {
+  "en": "In 4 years, Takumi is 9+4 = 13",
+  "zh-Hans": "4年后拓海是 9+4 = 13",
+  "zh-Hant": "4年後拓海是 9+4 = 13"
+ },
+ "37+13 = 50（歳）": {
+  "en": "37+13 = 50 (years old)",
+  "zh-Hans": "37+13 = 50（岁）",
+  "zh-Hant": "37+13 = 50（歲）"
+ },
+ "現在、父は44歳、拓海は9歳です。5年後、2人の年齢の和は何歳ですか。": {
+  "en": "Right now, Dad is 44 and Takumi is 9. In 5 years, what will be the sum of their 2 ages?",
+  "zh-Hans": "现在爸爸44岁，拓海9岁。5年后，两人的年龄和是多少岁？",
+  "zh-Hant": "現在爸爸44歲，拓海9歲。5年後，兩人的年齡和是幾歲？"
+ },
+ "5年後の父は 44+5 = 49": {
+  "en": "In 5 years, Dad is 44+5 = 49",
+  "zh-Hans": "5年后爸爸是 44+5 = 49",
+  "zh-Hant": "5年後爸爸是 44+5 = 49"
+ },
+ "5年後の拓海は 9+5 = 14": {
+  "en": "In 5 years, Takumi is 9+5 = 14",
+  "zh-Hans": "5年后拓海是 9+5 = 14",
+  "zh-Hant": "5年後拓海是 9+5 = 14"
+ },
+ "49+14 = 63（歳）": {
+  "en": "49+14 = 63 (years old)",
+  "zh-Hans": "49+14 = 63（岁）",
+  "zh-Hant": "49+14 = 63（歲）"
+ },
+ "現在、父は43歳、拓海は12歳です。3年後、2人の年齢の和は何歳ですか。": {
+  "en": "Right now, Dad is 43 and Takumi is 12. In 3 years, what will be the sum of their 2 ages?",
+  "zh-Hans": "现在爸爸43岁，拓海12岁。3年后，两人的年龄和是多少岁？",
+  "zh-Hant": "現在爸爸43歲，拓海12歲。3年後，兩人的年齡和是幾歲？"
+ },
+ "3年後の父は 43+3 = 46": {
+  "en": "In 3 years, Dad is 43+3 = 46",
+  "zh-Hans": "3年后爸爸是 43+3 = 46",
+  "zh-Hant": "3年後爸爸是 43+3 = 46"
+ },
+ "3年後の拓海は 12+3 = 15": {
+  "en": "In 3 years, Takumi is 12+3 = 15",
+  "zh-Hans": "3年后拓海是 12+3 = 15",
+  "zh-Hant": "3年後拓海是 12+3 = 15"
+ },
+ "46+15 = 61（歳）": {
+  "en": "46+15 = 61 (years old)",
+  "zh-Hans": "46+15 = 61（岁）",
+  "zh-Hant": "46+15 = 61（歲）"
+ },
+ "現在、父は45歳、拓海は12歳です。8年後、2人の年齢の和は何歳ですか。": {
+  "en": "Right now, Dad is 45 and Takumi is 12. In 8 years, what will be the sum of their 2 ages?",
+  "zh-Hans": "现在爸爸45岁，拓海12岁。8年后，两人的年龄和是多少岁？",
+  "zh-Hant": "現在爸爸45歲，拓海12歲。8年後，兩人的年齡和是幾歲？"
+ },
+ "8年後の父は 45+8 = 53": {
+  "en": "In 8 years, Dad is 45+8 = 53",
+  "zh-Hans": "8年后爸爸是 45+8 = 53",
+  "zh-Hant": "8年後爸爸是 45+8 = 53"
+ },
+ "8年後の拓海は 12+8 = 20": {
+  "en": "In 8 years, Takumi is 12+8 = 20",
+  "zh-Hans": "8年后拓海是 12+8 = 20",
+  "zh-Hant": "8年後拓海是 12+8 = 20"
+ },
+ "53+20 = 73（歳）": {
+  "en": "53+20 = 73 (years old)",
+  "zh-Hans": "53+20 = 73（岁）",
+  "zh-Hant": "53+20 = 73（歲）"
+ },
+ "放物線 y = x² − 4 と x軸で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the parabola y = x² − 4 and the x-axis.",
+  "zh-Hans": "求抛物线 y = x² − 4 与 x轴所围成部分的面积。",
+  "zh-Hant": "求拋物線 y = x² − 4 與 x軸所圍成部分的面積。"
+ },
+ "2つのグラフの交点を求め、∫(上−下)dx を展開して計算する": {
+  "en": "Find where the 2 graphs intersect, then expand and compute ∫(top−bottom)dx",
+  "zh-Hans": "求出2个图像的交点，把 ∫(上−下)dx 展开计算",
+  "zh-Hant": "求出2個圖形的交點，把 ∫(上−下)dx 展開計算"
+ },
+ "3乗の代入で、分数の計算が長くなる": {
+  "en": "Plugging into the 3rd powers makes the fraction arithmetic long",
+  "zh-Hans": "代入3次方，分数计算变得很长",
+  "zh-Hant": "代入3次方，分數計算變得很長"
+ },
+ "ここで約3分。符号ミスが出やすい": {
+  "en": "About 3 minutes in. Sign mistakes are easy to make",
+  "zh-Hans": "到这里约3分钟。容易出现符号错误",
+  "zh-Hant": "到這裡約3分鐘。容易出現正負號錯誤"
+ },
+ "y = x² − 4 = (x + 2)(x − 2)。交点のx座標は −2 と 2": {
+  "en": "y = x² − 4 = (x + 2)(x − 2). The x-coordinates of the intersection points are −2 and 2",
+  "zh-Hans": "y = x² − 4 = (x + 2)(x − 2)。交点的x坐标是 −2 和 2",
+  "zh-Hant": "y = x² − 4 = (x + 2)(x − 2)。交點的x坐標是 −2 和 2"
+ },
+ "放物線と直線（放物線）で囲まれた部分は 1/6公式：|x²の係数|×(β−α)³÷6": {
+  "en": "For a region enclosed by a parabola and a line (or parabola), use the 1/6 formula: |coefficient of x²|×(β−α)³÷6",
+  "zh-Hans": "抛物线与直线（抛物线）围成的部分用1/6公式：|x²的系数|×(β−α)³÷6",
+  "zh-Hant": "拋物線與直線（拋物線）圍成的部分用1/6公式：|x²的係數|×(β−α)³÷6"
+ },
+ "そのとおり。交点のx座標だけで、1/6公式から面積が出る。": {
+  "en": "That's right. With just the x-coordinates of the intersection points, the 1/6 formula gives the area.",
+  "zh-Hans": "没错。只要有交点的x坐标，就能用1/6公式求出面积。",
+  "zh-Hant": "沒錯。只要有交點的x坐標，就能用1/6公式求出面積。"
+ },
+ "交点を出して ∫(上−下)dx を展開しても出るが、3乗の計算が長くなる。": {
+  "en": "You can also find the intersection points and expand ∫(top−bottom)dx, but the 3rd-power calculations get long.",
+  "zh-Hans": "求出交点再展开 ∫(上−下)dx 也能算出，但3次方的计算会很长。",
+  "zh-Hant": "求出交點再展開 ∫(上−下)dx 也能算出，但3次方的計算會很長。"
+ },
+ "放物線 y = 2x² − 8x と x軸で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the parabola y = 2x² − 8x and the x-axis.",
+  "zh-Hans": "求抛物线 y = 2x² − 8x 与 x轴所围成部分的面积。",
+  "zh-Hant": "求拋物線 y = 2x² − 8x 與 x軸所圍成部分的面積。"
+ },
+ "y = 2x² − 8x = 2x(x − 4)。交点のx座標は 0 と 4": {
+  "en": "y = 2x² − 8x = 2x(x − 4). The x-coordinates of the intersection points are 0 and 4",
+  "zh-Hans": "y = 2x² − 8x = 2x(x − 4)。交点的x坐标是 0 和 4",
+  "zh-Hant": "y = 2x² − 8x = 2x(x − 4)。交點的x坐標是 0 和 4"
+ },
+ "放物線 y = 2x² + 2x − 12 と x軸で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the parabola y = 2x² + 2x − 12 and the x-axis.",
+  "zh-Hans": "求抛物线 y = 2x² + 2x − 12 与 x轴所围成部分的面积。",
+  "zh-Hant": "求拋物線 y = 2x² + 2x − 12 與 x軸所圍成部分的面積。"
+ },
+ "y = 2x² + 2x − 12 = 2(x + 3)(x − 2)。交点のx座標は −3 と 2": {
+  "en": "y = 2x² + 2x − 12 = 2(x + 3)(x − 2). The x-coordinates of the intersection points are −3 and 2",
+  "zh-Hans": "y = 2x² + 2x − 12 = 2(x + 3)(x − 2)。交点的x坐标是 −3 和 2",
+  "zh-Hant": "y = 2x² + 2x − 12 = 2(x + 3)(x − 2)。交點的x坐標是 −3 和 2"
+ },
+ "放物線 y = −x² + 7x − 6 と x軸で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the parabola y = −x² + 7x − 6 and the x-axis.",
+  "zh-Hans": "求抛物线 y = −x² + 7x − 6 与 x轴所围成部分的面积。",
+  "zh-Hant": "求拋物線 y = −x² + 7x − 6 與 x軸所圍成部分的面積。"
+ },
+ "y = −x² + 7x − 6 = −(x − 1)(x − 6)。交点のx座標は 1 と 6": {
+  "en": "y = −x² + 7x − 6 = −(x − 1)(x − 6). The x-coordinates of the intersection points are 1 and 6",
+  "zh-Hans": "y = −x² + 7x − 6 = −(x − 1)(x − 6)。交点的x坐标是 1 和 6",
+  "zh-Hant": "y = −x² + 7x − 6 = −(x − 1)(x − 6)。交點的x坐標是 1 和 6"
+ },
+ "放物線 y = −2x² − 6x と x軸で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the parabola y = −2x² − 6x and the x-axis.",
+  "zh-Hans": "求抛物线 y = −2x² − 6x 与 x轴所围成部分的面积。",
+  "zh-Hant": "求拋物線 y = −2x² − 6x 與 x軸所圍成部分的面積。"
+ },
+ "y = −2x² − 6x = −2(x + 3)x。交点のx座標は −3 と 0": {
+  "en": "y = −2x² − 6x = −2(x + 3)x. The x-coordinates of the intersection points are −3 and 0",
+  "zh-Hans": "y = −2x² − 6x = −2(x + 3)x。交点的x坐标是 −3 和 0",
+  "zh-Hant": "y = −2x² − 6x = −2(x + 3)x。交點的x坐標是 −3 和 0"
+ },
+ "放物線 y = x² − 2x − 3 と直線 y = x + 1 で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the parabola y = x² − 2x − 3 and the line y = x + 1.",
+  "zh-Hans": "求抛物线 y = x² − 2x − 3 与直线 y = x + 1 所围成部分的面积。",
+  "zh-Hant": "求拋物線 y = x² − 2x − 3 與直線 y = x + 1 所圍成部分的面積。"
+ },
+ "差をとると x² − 3x − 4 = (x + 1)(x − 4)。交点のx座標は −1 と 4": {
+  "en": "Taking the difference: x² − 3x − 4 = (x + 1)(x − 4). The x-coordinates of the intersection points are −1 and 4",
+  "zh-Hans": "取差得 x² − 3x − 4 = (x + 1)(x − 4)。交点的x坐标是 −1 和 4",
+  "zh-Hant": "取差得 x² − 3x − 4 = (x + 1)(x − 4)。交點的x坐標是 −1 和 4"
+ },
+ "放物線 y = 3x² + 17x + 21 と直線 y = −x − 3 で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the parabola y = 3x² + 17x + 21 and the line y = −x − 3.",
+  "zh-Hans": "求抛物线 y = 3x² + 17x + 21 与直线 y = −x − 3 所围成部分的面积。",
+  "zh-Hant": "求拋物線 y = 3x² + 17x + 21 與直線 y = −x − 3 所圍成部分的面積。"
+ },
+ "差をとると 3x² + 18x + 24 = 3(x + 4)(x + 2)。交点のx座標は −4 と −2": {
+  "en": "Taking the difference: 3x² + 18x + 24 = 3(x + 4)(x + 2). The x-coordinates of the intersection points are −4 and −2",
+  "zh-Hans": "取差得 3x² + 18x + 24 = 3(x + 4)(x + 2)。交点的x坐标是 −4 和 −2",
+  "zh-Hant": "取差得 3x² + 18x + 24 = 3(x + 4)(x + 2)。交點的x坐標是 −4 和 −2"
+ },
+ "放物線 y = 2x² − 8 と直線 y = 2x + 4 で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the parabola y = 2x² − 8 and the line y = 2x + 4.",
+  "zh-Hans": "求抛物线 y = 2x² − 8 与直线 y = 2x + 4 所围成部分的面积。",
+  "zh-Hant": "求拋物線 y = 2x² − 8 與直線 y = 2x + 4 所圍成部分的面積。"
+ },
+ "差をとると 2x² − 2x − 12 = 2(x + 2)(x − 3)。交点のx座標は −2 と 3": {
+  "en": "Taking the difference: 2x² − 2x − 12 = 2(x + 2)(x − 3). The x-coordinates of the intersection points are −2 and 3",
+  "zh-Hans": "取差得 2x² − 2x − 12 = 2(x + 2)(x − 3)。交点的x坐标是 −2 和 3",
+  "zh-Hant": "取差得 2x² − 2x − 12 = 2(x + 2)(x − 3)。交點的x坐標是 −2 和 3"
+ },
+ "放物線 y = x² − x と直線 y = 3x − 3 で囲まれた部分の面積を求めなさい。": {
+  "en": "Find the area of the region enclosed by the parabola y = x² − x and the line y = 3x − 3.",
+  "zh-Hans": "求抛物线 y = x² − x 与直线 y = 3x − 3 所围成部分的面积。",
+  "zh-Hant": "求拋物線 y = x² − x 與直線 y = 3x − 3 所圍成部分的面積。"
+ }
+}

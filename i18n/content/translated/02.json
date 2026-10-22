@@ -1,0 +1,1502 @@
+{
+ "入館料": {
+  "en": "Admission",
+  "zh-Hans": "门票费",
+  "zh-Hant": "門票費"
+ },
+ "8人": {
+  "en": "8 people",
+  "zh-Hans": "8人",
+  "zh-Hant": "8人"
+ },
+ "大人が1人、2人…のときの合計を表にして、1つずつ調べる": {
+  "en": "Make a table of the total when there is 1 adult, 2 adults… and check them 1 at a time",
+  "zh-Hans": "列表算出大人有1人、2人…时的总额，每次检查1个",
+  "zh-Hant": "列表算出大人有1人、2人…時的總額，每次檢查1個"
+ },
+ "24通りまであり、計算が多い": {
+  "en": "There are up to 24 cases, so there is a lot to calculate",
+  "zh-Hans": "最多有24种情况，计算量很大",
+  "zh-Hant": "最多有24種情況，計算量很大"
+ },
+ "たて＝1人あたりの入館料、横＝人数の長方形2つで表す（面積＝入館料）": {
+  "en": "Draw 2 rectangles with height = admission for 1 person and width = number of people (area = admission)",
+  "zh-Hans": "用2个长方形表示：高＝每1人的门票费，宽＝人数（面积＝门票费）",
+  "zh-Hant": "用2個長方形表示：高＝每1人的門票費，寬＝人數（面積＝門票費）"
+ },
+ "全部子どもだとすると 800×24 = 19200": {
+  "en": "If everyone were a child: 800×24 = 19200",
+  "zh-Hans": "假设全部是儿童：800×24 = 19200",
+  "zh-Hant": "假設全部是兒童：800×24 = 19200"
+ },
+ "本当の入館料との差 22400−19200 = 3200 が、上にはみ出した長方形の面積": {
+  "en": "The difference from the real admission, 22400−19200 = 3200, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际门票费的差 22400−19200 = 3200，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際門票費的差 22400−19200 = 3200，就是上面多出來的長方形的面積"
+ },
+ "その長方形のたては 1200−800 = 400": {
+  "en": "The height of that rectangle is 1200−800 = 400",
+  "zh-Hans": "那个长方形的高是 1200−800 = 400",
+  "zh-Hant": "那個長方形的高是 1200−800 = 400"
+ },
+ "大人の数 = 3200÷400 = 8": {
+  "en": "Number of adults = 3200÷400 = 8",
+  "zh-Hans": "大人的人数 = 3200÷400 = 8",
+  "zh-Hant": "大人的人數 = 3200÷400 = 8"
+ },
+ "2種類がまざっていて、全部の人数と合計金額だけ分かるときは、長方形2つの面積図にする。": {
+  "en": "When 2 kinds are mixed and you only know the total number of people and the total cost, draw an area diagram with 2 rectangles.",
+  "zh-Hans": "当2种混在一起，只知道总人数和总金额时，就画由2个长方形组成的面积图。",
+  "zh-Hant": "當2種混在一起，只知道總人數和總金額時，就畫由2個長方形組成的面積圖。"
+ },
+ "そのとおり。全部子どもとして計算し、実際の合計との差の分だけ大人がいる。": {
+  "en": "That's right. Calculate as if everyone were a child; the difference from the real total tells you how many adults there are.",
+  "zh-Hans": "没错。先假设全部是儿童来计算，和实际总额的差额就对应大人的人数。",
+  "zh-Hant": "沒錯。先假設全部是兒童來計算，和實際總額的差額就對應大人的人數。"
+ },
+ "1人ずつ表にすると、何行も書くことになる。": {
+  "en": "If you make a table 1 person at a time, you end up writing many rows.",
+  "zh-Hans": "如果每次列1人，就要写很多行。",
+  "zh-Hant": "如果每次列1人，就要寫很多行。"
+ },
+ "ある博物館の入館料は、大人1人1500円、子ども1人700円です。大人と子ども合わせて10人で入館し、入館料は合計12600円でした。大人は何人ですか。": {
+  "en": "At a museum, admission is 1500 yen for 1 adult and 700 yen for 1 child. A group of 10 adults and children went in, and the total admission was 12600 yen. How many adults were there?",
+  "zh-Hans": "某博物馆的门票费是大人1人1500日元，儿童1人700日元。大人和儿童一共10人入馆，门票费总共12600日元。大人有几人？",
+  "zh-Hant": "某博物館的門票費是大人1人1500日圓，兒童1人700日圓。大人和兒童一共10人入館，門票費總共12600日圓。大人有幾人？"
+ },
+ "全部子どもだとすると 700×10 = 7000": {
+  "en": "If everyone were a child: 700×10 = 7000",
+  "zh-Hans": "假设全部是儿童：700×10 = 7000",
+  "zh-Hant": "假設全部是兒童：700×10 = 7000"
+ },
+ "本当の入館料との差 12600−7000 = 5600 が、上にはみ出した長方形の面積": {
+  "en": "The difference from the real admission, 12600−7000 = 5600, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际门票费的差 12600−7000 = 5600，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際門票費的差 12600−7000 = 5600，就是上面多出來的長方形的面積"
+ },
+ "その長方形のたては 1500−700 = 800": {
+  "en": "The height of that rectangle is 1500−700 = 800",
+  "zh-Hans": "那个长方形的高是 1500−700 = 800",
+  "zh-Hant": "那個長方形的高是 1500−700 = 800"
+ },
+ "大人の数 = 5600÷800 = 7": {
+  "en": "Number of adults = 5600÷800 = 7",
+  "zh-Hans": "大人的人数 = 5600÷800 = 7",
+  "zh-Hant": "大人的人數 = 5600÷800 = 7"
+ },
+ "ある博物館の入館料は、大人1人1200円、子ども1人800円です。大人と子ども合わせて20人で入館し、入館料は合計22400円でした。大人は何人ですか。": {
+  "en": "At a museum, admission is 1200 yen for 1 adult and 800 yen for 1 child. A group of 20 adults and children went in, and the total admission was 22400 yen. How many adults were there?",
+  "zh-Hans": "某博物馆的门票费是大人1人1200日元，儿童1人800日元。大人和儿童一共20人入馆，门票费总共22400日元。大人有几人？",
+  "zh-Hant": "某博物館的門票費是大人1人1200日圓，兒童1人800日圓。大人和兒童一共20人入館，門票費總共22400日圓。大人有幾人？"
+ },
+ "全部子どもだとすると 800×20 = 16000": {
+  "en": "If everyone were a child: 800×20 = 16000",
+  "zh-Hans": "假设全部是儿童：800×20 = 16000",
+  "zh-Hant": "假設全部是兒童：800×20 = 16000"
+ },
+ "本当の入館料との差 22400−16000 = 6400 が、上にはみ出した長方形の面積": {
+  "en": "The difference from the real admission, 22400−16000 = 6400, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际门票费的差 22400−16000 = 6400，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際門票費的差 22400−16000 = 6400，就是上面多出來的長方形的面積"
+ },
+ "大人の数 = 6400÷400 = 16": {
+  "en": "Number of adults = 6400÷400 = 16",
+  "zh-Hans": "大人的人数 = 6400÷400 = 16",
+  "zh-Hant": "大人的人數 = 6400÷400 = 16"
+ },
+ "ある博物館の入館料は、大人1人1200円、子ども1人800円です。大人と子ども合わせて13人で入館し、入館料は合計12800円でした。大人は何人ですか。": {
+  "en": "At a museum, admission is 1200 yen for 1 adult and 800 yen for 1 child. A group of 13 adults and children went in, and the total admission was 12800 yen. How many adults were there?",
+  "zh-Hans": "某博物馆的门票费是大人1人1200日元，儿童1人800日元。大人和儿童一共13人入馆，门票费总共12800日元。大人有几人？",
+  "zh-Hant": "某博物館的門票費是大人1人1200日圓，兒童1人800日圓。大人和兒童一共13人入館，門票費總共12800日圓。大人有幾人？"
+ },
+ "全部子どもだとすると 800×13 = 10400": {
+  "en": "If everyone were a child: 800×13 = 10400",
+  "zh-Hans": "假设全部是儿童：800×13 = 10400",
+  "zh-Hant": "假設全部是兒童：800×13 = 10400"
+ },
+ "本当の入館料との差 12800−10400 = 2400 が、上にはみ出した長方形の面積": {
+  "en": "The difference from the real admission, 12800−10400 = 2400, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际门票费的差 12800−10400 = 2400，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際門票費的差 12800−10400 = 2400，就是上面多出來的長方形的面積"
+ },
+ "大人の数 = 2400÷400 = 6": {
+  "en": "Number of adults = 2400÷400 = 6",
+  "zh-Hans": "大人的人数 = 2400÷400 = 6",
+  "zh-Hant": "大人的人數 = 2400÷400 = 6"
+ },
+ "ある博物館の入館料は、大人1人800円、子ども1人300円です。大人と子ども合わせて30人で入館し、入館料は合計14500円でした。大人は何人ですか。": {
+  "en": "At a museum, admission is 800 yen for 1 adult and 300 yen for 1 child. A group of 30 adults and children went in, and the total admission was 14500 yen. How many adults were there?",
+  "zh-Hans": "某博物馆的门票费是大人1人800日元，儿童1人300日元。大人和儿童一共30人入馆，门票费总共14500日元。大人有几人？",
+  "zh-Hant": "某博物館的門票費是大人1人800日圓，兒童1人300日圓。大人和兒童一共30人入館，門票費總共14500日圓。大人有幾人？"
+ },
+ "全部子どもだとすると 300×30 = 9000": {
+  "en": "If everyone were a child: 300×30 = 9000",
+  "zh-Hans": "假设全部是儿童：300×30 = 9000",
+  "zh-Hant": "假設全部是兒童：300×30 = 9000"
+ },
+ "本当の入館料との差 14500−9000 = 5500 が、上にはみ出した長方形の面積": {
+  "en": "The difference from the real admission, 14500−9000 = 5500, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际门票费的差 14500−9000 = 5500，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際門票費的差 14500−9000 = 5500，就是上面多出來的長方形的面積"
+ },
+ "その長方形のたては 800−300 = 500": {
+  "en": "The height of that rectangle is 800−300 = 500",
+  "zh-Hans": "那个长方形的高是 800−300 = 500",
+  "zh-Hant": "那個長方形的高是 800−300 = 500"
+ },
+ "大人の数 = 5500÷500 = 11": {
+  "en": "Number of adults = 5500÷500 = 11",
+  "zh-Hans": "大人的人数 = 5500÷500 = 11",
+  "zh-Hant": "大人的人數 = 5500÷500 = 11"
+ },
+ "全部正解と考えて、本当の得点との差を見る。1問まちがえるごとにへる点は、もらえない点＋へらされる点。": {
+  "en": "Pretend every answer is correct, then look at the difference from the real score. For every 1 wrong answer, you lose the points you don't get + the points taken away.",
+  "zh-Hans": "先假设全部答对，再看和实际得分的差。每答错1题减少的分数＝得不到的分＋被扣的分。",
+  "zh-Hant": "先假設全部答對，再看和實際得分的差。每答錯1題減少的分數＝得不到的分＋被扣的分。"
+ },
+ "20問のクイズで、1問正解すると5点もらえ、まちがえると2点へらされます。全部の問題に答えて、得点は72点でした。正解した問題は何問ですか。": {
+  "en": "In a quiz with 20 questions, you get 5 points for 1 correct answer and lose 2 points for a wrong one. You answered every question and scored 72 points. How many questions did you get right?",
+  "zh-Hans": "在一个有20道题的问答中，答对1题得5分，答错扣2分。所有题目都作答了，得分是72分。答对了几道题？",
+  "zh-Hant": "在一個有20道題的問答中，答對1題得5分，答錯扣2分。所有題目都作答了，得分是72分。答對了幾道題？"
+ },
+ "問": {
+  "en": " questions",
+  "zh-Hans": "题",
+  "zh-Hant": "題"
+ },
+ "16問": {
+  "en": "16 questions",
+  "zh-Hans": "16题",
+  "zh-Hant": "16題"
+ },
+ "正解が10問、11問…のときの得点を1つずつ計算する": {
+  "en": "Calculate the score for 10 correct, 11 correct… 1 at a time",
+  "zh-Hans": "答对10题、11题…时的得分，每次算1个",
+  "zh-Hant": "答對10題、11題…時的得分，每次算1個"
+ },
+ "まちがえたときに点がへるので、計算がややこしい": {
+  "en": "Points are taken away for wrong answers, so the calculation gets confusing",
+  "zh-Hans": "答错会扣分，所以计算很麻烦",
+  "zh-Hant": "答錯會扣分，所以計算很麻煩"
+ },
+ "全部正解なら 5×20 = 100 点": {
+  "en": "If all were correct: 5×20 = 100 points",
+  "zh-Hans": "如果全部答对：5×20 = 100 分",
+  "zh-Hant": "如果全部答對：5×20 = 100 分"
+ },
+ "本当の得点との差 100−72 = 28 点": {
+  "en": "Difference from the real score: 100−72 = 28 points",
+  "zh-Hans": "与实际得分的差 100−72 = 28 分",
+  "zh-Hant": "與實際得分的差 100−72 = 28 分"
+ },
+ "1問まちがえるごとに、5点もらえず2点へるので 5+2 = 7 点ずつへる": {
+  "en": "For every 1 wrong answer, you miss 5 points and lose 2 points, so the score drops by 5+2 = 7 points each time",
+  "zh-Hans": "每答错1题，得不到5分还要扣2分，所以每次减少 5+2 = 7 分",
+  "zh-Hant": "每答錯1題，得不到5分還要扣2分，所以每次減少 5+2 = 7 分"
+ },
+ "まちがえた数 = 28÷7 = 4（問）": {
+  "en": "Wrong answers = 28÷7 = 4 (questions)",
+  "zh-Hans": "答错的题数 = 28÷7 = 4（题）",
+  "zh-Hant": "答錯的題數 = 28÷7 = 4（題）"
+ },
+ "正解 = 20−4 = 16（問）": {
+  "en": "Correct = 20−4 = 16 (questions)",
+  "zh-Hans": "答对 = 20−4 = 16（题）",
+  "zh-Hant": "答對 = 20−4 = 16（題）"
+ },
+ "全部の数と合計が分かり、まちがえると点がへるときは、「全部正解なら」から考える。": {
+  "en": "When you know the total number and the total score, and wrong answers lose points, start from \"if all were correct.\"",
+  "zh-Hans": "知道总题数和总分，而且答错会扣分时，就从“如果全部答对”开始想。",
+  "zh-Hant": "知道總題數和總分，而且答錯會扣分時，就從「如果全部答對」開始想。"
+ },
+ "そのとおり。全部正解としたときの点数から考える。1問まちがえるごとに、もらえない点とひかれる点の両方がへる。": {
+  "en": "That's right. Start from the score if every answer were correct. For every 1 wrong answer, you lose both the points you don't get and the points taken away.",
+  "zh-Hans": "没错。从全部答对时的分数开始想。每答错1题，得不到的分和被扣的分都要减掉。",
+  "zh-Hant": "沒錯。從全部答對時的分數開始想。每答錯1題，得不到的分和被扣的分都要減掉。"
+ },
+ "1問ずつためすと、20通りの計算が必要になる。": {
+  "en": "Trying 1 question at a time means doing 20 calculations.",
+  "zh-Hans": "每次试1题，需要计算20种情况。",
+  "zh-Hant": "每次試1題，需要計算20種情況。"
+ },
+ "13問のクイズで、1問正解すると5点もらえ、まちがえると3点へらされます。全部の問題に答えて、得点は33点でした。正解した問題は何問ですか。": {
+  "en": "In a quiz with 13 questions, you get 5 points for 1 correct answer and lose 3 points for a wrong one. You answered every question and scored 33 points. How many questions did you get right?",
+  "zh-Hans": "在一个有13道题的问答中，答对1题得5分，答错扣3分。所有题目都作答了，得分是33分。答对了几道题？",
+  "zh-Hant": "在一個有13道題的問答中，答對1題得5分，答錯扣3分。所有題目都作答了，得分是33分。答對了幾道題？"
+ },
+ "全部正解なら 5×13 = 65 点": {
+  "en": "If all were correct: 5×13 = 65 points",
+  "zh-Hans": "如果全部答对：5×13 = 65 分",
+  "zh-Hant": "如果全部答對：5×13 = 65 分"
+ },
+ "本当の得点との差 65−33 = 32 点": {
+  "en": "Difference from the real score: 65−33 = 32 points",
+  "zh-Hans": "与实际得分的差 65−33 = 32 分",
+  "zh-Hant": "與實際得分的差 65−33 = 32 分"
+ },
+ "1問まちがえるごとに、5点もらえず3点へるので 5+3 = 8 点ずつへる": {
+  "en": "For every 1 wrong answer, you miss 5 points and lose 3 points, so the score drops by 5+3 = 8 points each time",
+  "zh-Hans": "每答错1题，得不到5分还要扣3分，所以每次减少 5+3 = 8 分",
+  "zh-Hant": "每答錯1題，得不到5分還要扣3分，所以每次減少 5+3 = 8 分"
+ },
+ "まちがえた数 = 32÷8 = 4（問）": {
+  "en": "Wrong answers = 32÷8 = 4 (questions)",
+  "zh-Hans": "答错的题数 = 32÷8 = 4（题）",
+  "zh-Hant": "答錯的題數 = 32÷8 = 4（題）"
+ },
+ "正解 = 13−4 = 9（問）": {
+  "en": "Correct = 13−4 = 9 (questions)",
+  "zh-Hans": "答对 = 13−4 = 9（题）",
+  "zh-Hant": "答對 = 13−4 = 9（題）"
+ },
+ "22問のクイズで、1問正解すると10点もらえ、まちがえると5点へらされます。全部の問題に答えて、得点は160点でした。正解した問題は何問ですか。": {
+  "en": "In a quiz with 22 questions, you get 10 points for 1 correct answer and lose 5 points for a wrong one. You answered every question and scored 160 points. How many questions did you get right?",
+  "zh-Hans": "在一个有22道题的问答中，答对1题得10分，答错扣5分。所有题目都作答了，得分是160分。答对了几道题？",
+  "zh-Hant": "在一個有22道題的問答中，答對1題得10分，答錯扣5分。所有題目都作答了，得分是160分。答對了幾道題？"
+ },
+ "全部正解なら 10×22 = 220 点": {
+  "en": "If all were correct: 10×22 = 220 points",
+  "zh-Hans": "如果全部答对：10×22 = 220 分",
+  "zh-Hant": "如果全部答對：10×22 = 220 分"
+ },
+ "本当の得点との差 220−160 = 60 点": {
+  "en": "Difference from the real score: 220−160 = 60 points",
+  "zh-Hans": "与实际得分的差 220−160 = 60 分",
+  "zh-Hant": "與實際得分的差 220−160 = 60 分"
+ },
+ "1問まちがえるごとに、10点もらえず5点へるので 10+5 = 15 点ずつへる": {
+  "en": "For every 1 wrong answer, you miss 10 points and lose 5 points, so the score drops by 10+5 = 15 points each time",
+  "zh-Hans": "每答错1题，得不到10分还要扣5分，所以每次减少 10+5 = 15 分",
+  "zh-Hant": "每答錯1題，得不到10分還要扣5分，所以每次減少 10+5 = 15 分"
+ },
+ "まちがえた数 = 60÷15 = 4（問）": {
+  "en": "Wrong answers = 60÷15 = 4 (questions)",
+  "zh-Hans": "答错的题数 = 60÷15 = 4（题）",
+  "zh-Hant": "答錯的題數 = 60÷15 = 4（題）"
+ },
+ "正解 = 22−4 = 18（問）": {
+  "en": "Correct = 22−4 = 18 (questions)",
+  "zh-Hans": "答对 = 22−4 = 18（题）",
+  "zh-Hant": "答對 = 22−4 = 18（題）"
+ },
+ "24問のクイズで、1問正解すると6点もらえ、まちがえると2点へらされます。全部の問題に答えて、得点は120点でした。正解した問題は何問ですか。": {
+  "en": "In a quiz with 24 questions, you get 6 points for 1 correct answer and lose 2 points for a wrong one. You answered every question and scored 120 points. How many questions did you get right?",
+  "zh-Hans": "在一个有24道题的问答中，答对1题得6分，答错扣2分。所有题目都作答了，得分是120分。答对了几道题？",
+  "zh-Hant": "在一個有24道題的問答中，答對1題得6分，答錯扣2分。所有題目都作答了，得分是120分。答對了幾道題？"
+ },
+ "全部正解なら 6×24 = 144 点": {
+  "en": "If all were correct: 6×24 = 144 points",
+  "zh-Hans": "如果全部答对：6×24 = 144 分",
+  "zh-Hant": "如果全部答對：6×24 = 144 分"
+ },
+ "本当の得点との差 144−120 = 24 点": {
+  "en": "Difference from the real score: 144−120 = 24 points",
+  "zh-Hans": "与实际得分的差 144−120 = 24 分",
+  "zh-Hant": "與實際得分的差 144−120 = 24 分"
+ },
+ "1問まちがえるごとに、6点もらえず2点へるので 6+2 = 8 点ずつへる": {
+  "en": "For every 1 wrong answer, you miss 6 points and lose 2 points, so the score drops by 6+2 = 8 points each time",
+  "zh-Hans": "每答错1题，得不到6分还要扣2分，所以每次减少 6+2 = 8 分",
+  "zh-Hant": "每答錯1題，得不到6分還要扣2分，所以每次減少 6+2 = 8 分"
+ },
+ "まちがえた数 = 24÷8 = 3（問）": {
+  "en": "Wrong answers = 24÷8 = 3 (questions)",
+  "zh-Hans": "答错的题数 = 24÷8 = 3（题）",
+  "zh-Hant": "答錯的題數 = 24÷8 = 3（題）"
+ },
+ "正解 = 24−3 = 21（問）": {
+  "en": "Correct = 24−3 = 21 (questions)",
+  "zh-Hans": "答对 = 24−3 = 21（题）",
+  "zh-Hant": "答對 = 24−3 = 21（題）"
+ },
+ "20問のクイズで、1問正解すると6点もらえ、まちがえると2点へらされます。全部の問題に答えて、得点は72点でした。正解した問題は何問ですか。": {
+  "en": "In a quiz with 20 questions, you get 6 points for 1 correct answer and lose 2 points for a wrong one. You answered every question and scored 72 points. How many questions did you get right?",
+  "zh-Hans": "在一个有20道题的问答中，答对1题得6分，答错扣2分。所有题目都作答了，得分是72分。答对了几道题？",
+  "zh-Hant": "在一個有20道題的問答中，答對1題得6分，答錯扣2分。所有題目都作答了，得分是72分。答對了幾道題？"
+ },
+ "全部正解なら 6×20 = 120 点": {
+  "en": "If all were correct: 6×20 = 120 points",
+  "zh-Hans": "如果全部答对：6×20 = 120 分",
+  "zh-Hant": "如果全部答對：6×20 = 120 分"
+ },
+ "本当の得点との差 120−72 = 48 点": {
+  "en": "Difference from the real score: 120−72 = 48 points",
+  "zh-Hans": "与实际得分的差 120−72 = 48 分",
+  "zh-Hant": "與實際得分的差 120−72 = 48 分"
+ },
+ "まちがえた数 = 48÷8 = 6（問）": {
+  "en": "Wrong answers = 48÷8 = 6 (questions)",
+  "zh-Hans": "答错的题数 = 48÷8 = 6（题）",
+  "zh-Hant": "答錯的題數 = 48÷8 = 6（題）"
+ },
+ "正解 = 20−6 = 14（問）": {
+  "en": "Correct = 20−6 = 14 (questions)",
+  "zh-Hans": "答对 = 20−6 = 14（题）",
+  "zh-Hant": "答對 = 20−6 = 14（題）"
+ },
+ "全部の数が分からないと、面積図の横の長さが決まらない。多い分を先に取りのぞけば、残りは「1組ずつ」になる。": {
+  "en": "If you don't know the total number, you can't fix the width of the area diagram. Take away the extra ones first, and the rest becomes \"1 pair at a time.\"",
+  "zh-Hans": "不知道总数，面积图的宽就定不下来。先把多出的部分去掉，剩下的就是“每次1组”了。",
+  "zh-Hant": "不知道總數，面積圖的寬就定不下來。先把多出的部分去掉，剩下的就是「每次1組」了。"
+ },
+ "1個120円のりんごと1個70円のみかんを買いました。りんごはみかんより3個多く、代金は合わせて1500円でした。みかんは何個買いましたか。": {
+  "en": "You bought apples at 120 yen for 1 and mandarins at 70 yen for 1. You bought 3 more apples than mandarins, and the total cost was 1500 yen. How many mandarins did you buy?",
+  "zh-Hans": "买了1个120日元的苹果和1个70日元的橘子。苹果比橘子多3个，一共花了1500日元。橘子买了几个？",
+  "zh-Hant": "買了1個120日圓的蘋果和1個70日圓的橘子。蘋果比橘子多3個，一共花了1500日圓。橘子買了幾個？"
+ },
+ "りんご": {
+  "en": "Apples",
+  "zh-Hans": "苹果",
+  "zh-Hant": "蘋果"
+ },
+ "みかん": {
+  "en": "Mandarins",
+  "zh-Hans": "橘子",
+  "zh-Hant": "橘子"
+ },
+ "6個": {
+  "en": "6 mandarins",
+  "zh-Hans": "6个",
+  "zh-Hant": "6個"
+ },
+ "2種類がまざっているので、くせで面積図をかこうとする": {
+  "en": "2 kinds are mixed, so out of habit you try to draw an area diagram",
+  "zh-Hans": "因为是2种混在一起，习惯性地想画面积图",
+  "zh-Hant": "因為是2種混在一起，習慣性地想畫面積圖"
+ },
+ "全部の個数が分からないので、横の長さが決まらない": {
+  "en": "You don't know the total count, so the width can't be fixed",
+  "zh-Hans": "不知道总个数，所以宽定不下来",
+  "zh-Hant": "不知道總個數，所以寬定不下來"
+ },
+ "「全部みかんだったら」の計算ができず、約3分止まる": {
+  "en": "You can't do the \"if they were all mandarins\" calculation and get stuck for about 3 min",
+  "zh-Hans": "没法算“如果全部是橘子”，卡住约3分钟",
+  "zh-Hant": "沒辦法算「如果全部是橘子」，卡住約3分鐘"
+ },
+ "りんごの多い3個分 120×3 = 360 を先に取りのぞく": {
+  "en": "First take away the 3 extra apples: 120×3 = 360",
+  "zh-Hans": "先去掉苹果多出的3个：120×3 = 360",
+  "zh-Hant": "先去掉蘋果多出的3個：120×3 = 360"
+ },
+ "残り 1500−360 = 1140 は、りんごとみかんが同じ数": {
+  "en": "The rest, 1500−360 = 1140, has the same number of apples and mandarins",
+  "zh-Hans": "剩下的 1500−360 = 1140 里，苹果和橘子数量相同",
+  "zh-Hant": "剩下的 1500−360 = 1140 裡，蘋果和橘子數量相同"
+ },
+ "りんご1個とみかん1個の組は 120+70 = 190 円": {
+  "en": "1 apple and 1 mandarin together cost 120+70 = 190 yen",
+  "zh-Hans": "1个苹果和1个橘子为一组：120+70 = 190 日元",
+  "zh-Hant": "1個蘋果和1個橘子為一組：120+70 = 190 日圓"
+ },
+ "みかんの数 = 1140÷190 = 6（個）": {
+  "en": "Number of mandarins = 1140÷190 = 6 (mandarins)",
+  "zh-Hans": "橘子的个数 = 1140÷190 = 6（个）",
+  "zh-Hant": "橘子的個數 = 1140÷190 = 6（個）"
+ },
+ "おしい。2種類がまざっているが、全部の個数が分からないので、面積図の横の長さが決まらない。": {
+  "en": "Close. 2 kinds are mixed, but you don't know the total count, so the width of the area diagram can't be fixed.",
+  "zh-Hans": "可惜。虽然是2种混在一起，但不知道总个数，面积图的宽就定不下来。",
+  "zh-Hant": "可惜。雖然是2種混在一起，但不知道總個數，面積圖的寬就定不下來。"
+ },
+ "差は出てくるが、時間で変わらない差を使う問題ではない。": {
+  "en": "A difference does appear, but this isn't a problem about a difference that stays the same over time.",
+  "zh-Hans": "虽然出现了差，但这不是利用随时间不变的差的题目。",
+  "zh-Hant": "雖然出現了差，但這不是利用隨時間不變的差的題目。"
+ },
+ "そのとおり。多い分を先に取りのぞくと、残りはりんごとみかんが同じ数ずつの組になる。": {
+  "en": "That's right. Take away the extra ones first, and the rest is pairs with the same number of apples and mandarins.",
+  "zh-Hans": "没错。先把多出的部分去掉，剩下的就是苹果和橘子数量相同的组。",
+  "zh-Hant": "沒錯。先把多出的部分去掉，剩下的就是蘋果和橘子數量相同的組。"
+ },
+ "1個110円のりんごと1個60円のみかんを買いました。りんごはみかんより3個多く、代金は合わせて2200円でした。みかんは何個買いましたか。": {
+  "en": "You bought apples at 110 yen for 1 and mandarins at 60 yen for 1. You bought 3 more apples than mandarins, and the total cost was 2200 yen. How many mandarins did you buy?",
+  "zh-Hans": "买了1个110日元的苹果和1个60日元的橘子。苹果比橘子多3个，一共花了2200日元。橘子买了几个？",
+  "zh-Hant": "買了1個110日圓的蘋果和1個60日圓的橘子。蘋果比橘子多3個，一共花了2200日圓。橘子買了幾個？"
+ },
+ "りんごの多い3個分 110×3 = 330 を先に取りのぞく": {
+  "en": "First take away the 3 extra apples: 110×3 = 330",
+  "zh-Hans": "先去掉苹果多出的3个：110×3 = 330",
+  "zh-Hant": "先去掉蘋果多出的3個：110×3 = 330"
+ },
+ "残り 2200−330 = 1870 は、りんごとみかんが同じ数": {
+  "en": "The rest, 2200−330 = 1870, has the same number of apples and mandarins",
+  "zh-Hans": "剩下的 2200−330 = 1870 里，苹果和橘子数量相同",
+  "zh-Hant": "剩下的 2200−330 = 1870 裡，蘋果和橘子數量相同"
+ },
+ "りんご1個とみかん1個の組は 110+60 = 170 円": {
+  "en": "1 apple and 1 mandarin together cost 110+60 = 170 yen",
+  "zh-Hans": "1个苹果和1个橘子为一组：110+60 = 170 日元",
+  "zh-Hant": "1個蘋果和1個橘子為一組：110+60 = 170 日圓"
+ },
+ "みかんの数 = 1870÷170 = 11（個）": {
+  "en": "Number of mandarins = 1870÷170 = 11 (mandarins)",
+  "zh-Hans": "橘子的个数 = 1870÷170 = 11（个）",
+  "zh-Hant": "橘子的個數 = 1870÷170 = 11（個）"
+ },
+ "1個150円のりんごと1個90円のみかんを買いました。りんごはみかんより5個多く、代金は合わせて1950円でした。みかんは何個買いましたか。": {
+  "en": "You bought apples at 150 yen for 1 and mandarins at 90 yen for 1. You bought 5 more apples than mandarins, and the total cost was 1950 yen. How many mandarins did you buy?",
+  "zh-Hans": "买了1个150日元的苹果和1个90日元的橘子。苹果比橘子多5个，一共花了1950日元。橘子买了几个？",
+  "zh-Hant": "買了1個150日圓的蘋果和1個90日圓的橘子。蘋果比橘子多5個，一共花了1950日圓。橘子買了幾個？"
+ },
+ "りんごの多い5個分 150×5 = 750 を先に取りのぞく": {
+  "en": "First take away the 5 extra apples: 150×5 = 750",
+  "zh-Hans": "先去掉苹果多出的5个：150×5 = 750",
+  "zh-Hant": "先去掉蘋果多出的5個：150×5 = 750"
+ },
+ "残り 1950−750 = 1200 は、りんごとみかんが同じ数": {
+  "en": "The rest, 1950−750 = 1200, has the same number of apples and mandarins",
+  "zh-Hans": "剩下的 1950−750 = 1200 里，苹果和橘子数量相同",
+  "zh-Hant": "剩下的 1950−750 = 1200 裡，蘋果和橘子數量相同"
+ },
+ "りんご1個とみかん1個の組は 150+90 = 240 円": {
+  "en": "1 apple and 1 mandarin together cost 150+90 = 240 yen",
+  "zh-Hans": "1个苹果和1个橘子为一组：150+90 = 240 日元",
+  "zh-Hant": "1個蘋果和1個橘子為一組：150+90 = 240 日圓"
+ },
+ "みかんの数 = 1200÷240 = 5（個）": {
+  "en": "Number of mandarins = 1200÷240 = 5 (mandarins)",
+  "zh-Hans": "橘子的个数 = 1200÷240 = 5（个）",
+  "zh-Hant": "橘子的個數 = 1200÷240 = 5（個）"
+ },
+ "1個140円のりんごと1個50円のみかんを買いました。りんごはみかんより6個多く、代金は合わせて1600円でした。みかんは何個買いましたか。": {
+  "en": "You bought apples at 140 yen for 1 and mandarins at 50 yen for 1. You bought 6 more apples than mandarins, and the total cost was 1600 yen. How many mandarins did you buy?",
+  "zh-Hans": "买了1个140日元的苹果和1个50日元的橘子。苹果比橘子多6个，一共花了1600日元。橘子买了几个？",
+  "zh-Hant": "買了1個140日圓的蘋果和1個50日圓的橘子。蘋果比橘子多6個，一共花了1600日圓。橘子買了幾個？"
+ },
+ "りんごの多い6個分 140×6 = 840 を先に取りのぞく": {
+  "en": "First take away the 6 extra apples: 140×6 = 840",
+  "zh-Hans": "先去掉苹果多出的6个：140×6 = 840",
+  "zh-Hant": "先去掉蘋果多出的6個：140×6 = 840"
+ },
+ "残り 1600−840 = 760 は、りんごとみかんが同じ数": {
+  "en": "The rest, 1600−840 = 760, has the same number of apples and mandarins",
+  "zh-Hans": "剩下的 1600−840 = 760 里，苹果和橘子数量相同",
+  "zh-Hant": "剩下的 1600−840 = 760 裡，蘋果和橘子數量相同"
+ },
+ "りんご1個とみかん1個の組は 140+50 = 190 円": {
+  "en": "1 apple and 1 mandarin together cost 140+50 = 190 yen",
+  "zh-Hans": "1个苹果和1个橘子为一组：140+50 = 190 日元",
+  "zh-Hant": "1個蘋果和1個橘子為一組：140+50 = 190 日圓"
+ },
+ "みかんの数 = 760÷190 = 4（個）": {
+  "en": "Number of mandarins = 760÷190 = 4 (mandarins)",
+  "zh-Hans": "橘子的个数 = 760÷190 = 4（个）",
+  "zh-Hant": "橘子的個數 = 760÷190 = 4（個）"
+ },
+ "1個120円のりんごと1個70円のみかんを買いました。りんごはみかんより2個多く、代金は合わせて1950円でした。みかんは何個買いましたか。": {
+  "en": "You bought apples at 120 yen for 1 and mandarins at 70 yen for 1. You bought 2 more apples than mandarins, and the total cost was 1950 yen. How many mandarins did you buy?",
+  "zh-Hans": "买了1个120日元的苹果和1个70日元的橘子。苹果比橘子多2个，一共花了1950日元。橘子买了几个？",
+  "zh-Hant": "買了1個120日圓的蘋果和1個70日圓的橘子。蘋果比橘子多2個，一共花了1950日圓。橘子買了幾個？"
+ },
+ "りんごの多い2個分 120×2 = 240 を先に取りのぞく": {
+  "en": "First take away the 2 extra apples: 120×2 = 240",
+  "zh-Hans": "先去掉苹果多出的2个：120×2 = 240",
+  "zh-Hant": "先去掉蘋果多出的2個：120×2 = 240"
+ },
+ "残り 1950−240 = 1710 は、りんごとみかんが同じ数": {
+  "en": "The rest, 1950−240 = 1710, has the same number of apples and mandarins",
+  "zh-Hans": "剩下的 1950−240 = 1710 里，苹果和橘子数量相同",
+  "zh-Hant": "剩下的 1950−240 = 1710 裡，蘋果和橘子數量相同"
+ },
+ "みかんの数 = 1710÷190 = 9（個）": {
+  "en": "Number of mandarins = 1710÷190 = 9 (mandarins)",
+  "zh-Hans": "橘子的个数 = 1710÷190 = 9（个）",
+  "zh-Hant": "橘子的個數 = 1710÷190 = 9（個）"
+ },
+ "それぞれの数が分かっていれば、「1枚あたり×枚数」をたすだけ。面積図はいらない。": {
+  "en": "If you know how many of each there are, just add up \"value of 1 coin × number of coins.\" No area diagram needed.",
+  "zh-Hans": "如果知道各自的数量，只要把“1枚的金额×枚数”加起来就行。不需要面积图。",
+  "zh-Hant": "如果知道各自的數量，只要把「1枚的金額×枚數」加起來就行。不需要面積圖。"
+ },
+ "50円玉と10円玉が合わせて20枚あり、そのうち50円玉は7枚です。合計金額は何円ですか。": {
+  "en": "There are 20 coins in all, 50-yen and 10-yen coins, and 7 of them are 50-yen coins. What is the total amount in yen?",
+  "zh-Hans": "50日元硬币和10日元硬币一共有20枚，其中50日元硬币有7枚。总金额是多少日元？",
+  "zh-Hant": "50日圓硬幣和10日圓硬幣一共有20枚，其中50日圓硬幣有7枚。總金額是多少日圓？"
+ },
+ "480円": {
+  "en": "480 yen",
+  "zh-Hans": "480日元",
+  "zh-Hant": "480日圓"
+ },
+ "2種類がまざっているので、くせで面積図をかく": {
+  "en": "2 kinds are mixed, so out of habit you draw an area diagram",
+  "zh-Hans": "因为是2种混在一起，习惯性地画了面积图",
+  "zh-Hant": "因為是2種混在一起，習慣性地畫了面積圖"
+ },
+ "「全部が安い方の硬貨だったら」から始めるが、答えは同じなのに手順が多い": {
+  "en": "You start from \"if all were the cheaper coin\"; you get the same answer, but with many more steps",
+  "zh-Hans": "从“如果全部是面额小的硬币”开始，答案虽然一样，步骤却很多",
+  "zh-Hant": "從「如果全部是面額小的硬幣」開始，答案雖然一樣，步驟卻很多"
+ },
+ "ここで約1分半。遠回り": {
+  "en": "That takes about 1 and a half minutes. A detour",
+  "zh-Hans": "这里花了约1分半钟。绕远路了",
+  "zh-Hant": "這裡花了約1分半鐘。繞遠路了"
+ },
+ "10円玉の数は 20−7 = 13（枚）": {
+  "en": "Number of 10-yen coins: 20−7 = 13 (coins)",
+  "zh-Hans": "10日元硬币的枚数是 20−7 = 13（枚）",
+  "zh-Hant": "10日圓硬幣的枚數是 20−7 = 13（枚）"
+ },
+ "50円玉は 50×7 = 350、10円玉は 10×13 = 130": {
+  "en": "50-yen coins: 50×7 = 350; 10-yen coins: 10×13 = 130",
+  "zh-Hans": "50日元硬币是 50×7 = 350，10日元硬币是 10×13 = 130",
+  "zh-Hant": "50日圓硬幣是 50×7 = 350，10日圓硬幣是 10×13 = 130"
+ },
+ "350+130 = 480（円）": {
+  "en": "350+130 = 480 (yen)",
+  "zh-Hans": "350+130 = 480（日元）",
+  "zh-Hant": "350+130 = 480（日圓）"
+ },
+ "それぞれの数がもう分かっていたら、面積図はいらない。かけてたすだけ。": {
+  "en": "If you already know how many of each there are, you don't need an area diagram. Just multiply and add.",
+  "zh-Hans": "如果已经知道各自的数量，就不需要面积图。乘一乘再加起来就行。",
+  "zh-Hant": "如果已經知道各自的數量，就不需要面積圖。乘一乘再加起來就行。"
+ },
+ "面積図でも答えは出るが、ここでは遠回り。それぞれの枚数がもう分かっている。": {
+  "en": "An area diagram also gives the answer, but here it's a detour. You already know how many of each coin there are.",
+  "zh-Hans": "用面积图也能算出答案，但这里是绕远路。各自的枚数已经知道了。",
+  "zh-Hant": "用面積圖也能算出答案，但這裡是繞遠路。各自的枚數已經知道了。"
+ },
+ "そのとおり。どちらの枚数も分かっているので、かけてたすだけ。": {
+  "en": "That's right. You know how many of both coins there are, so just multiply and add.",
+  "zh-Hans": "没错。两种硬币的枚数都知道，乘一乘再加起来就行。",
+  "zh-Hant": "沒錯。兩種硬幣的枚數都知道，乘一乘再加起來就行。"
+ },
+ "100円玉と50円玉が合わせて13枚あり、そのうち100円玉は9枚です。合計金額は何円ですか。": {
+  "en": "There are 13 coins in all, 100-yen and 50-yen coins, and 9 of them are 100-yen coins. What is the total amount in yen?",
+  "zh-Hans": "100日元硬币和50日元硬币一共有13枚，其中100日元硬币有9枚。总金额是多少日元？",
+  "zh-Hant": "100日圓硬幣和50日圓硬幣一共有13枚，其中100日圓硬幣有9枚。總金額是多少日圓？"
+ },
+ "50円玉の数は 13−9 = 4（枚）": {
+  "en": "Number of 50-yen coins: 13−9 = 4 (coins)",
+  "zh-Hans": "50日元硬币的枚数是 13−9 = 4（枚）",
+  "zh-Hant": "50日圓硬幣的枚數是 13−9 = 4（枚）"
+ },
+ "100円玉は 100×9 = 900、50円玉は 50×4 = 200": {
+  "en": "100-yen coins: 100×9 = 900; 50-yen coins: 50×4 = 200",
+  "zh-Hans": "100日元硬币是 100×9 = 900，50日元硬币是 50×4 = 200",
+  "zh-Hant": "100日圓硬幣是 100×9 = 900，50日圓硬幣是 50×4 = 200"
+ },
+ "900+200 = 1100（円）": {
+  "en": "900+200 = 1100 (yen)",
+  "zh-Hans": "900+200 = 1100（日元）",
+  "zh-Hant": "900+200 = 1100（日圓）"
+ },
+ "50円玉と10円玉が合わせて15枚あり、そのうち50円玉は10枚です。合計金額は何円ですか。": {
+  "en": "There are 15 coins in all, 50-yen and 10-yen coins, and 10 of them are 50-yen coins. What is the total amount in yen?",
+  "zh-Hans": "50日元硬币和10日元硬币一共有15枚，其中50日元硬币有10枚。总金额是多少日元？",
+  "zh-Hant": "50日圓硬幣和10日圓硬幣一共有15枚，其中50日圓硬幣有10枚。總金額是多少日圓？"
+ },
+ "10円玉の数は 15−10 = 5（枚）": {
+  "en": "Number of 10-yen coins: 15−10 = 5 (coins)",
+  "zh-Hans": "10日元硬币的枚数是 15−10 = 5（枚）",
+  "zh-Hant": "10日圓硬幣的枚數是 15−10 = 5（枚）"
+ },
+ "50円玉は 50×10 = 500、10円玉は 10×5 = 50": {
+  "en": "50-yen coins: 50×10 = 500; 10-yen coins: 10×5 = 50",
+  "zh-Hans": "50日元硬币是 50×10 = 500，10日元硬币是 10×5 = 50",
+  "zh-Hant": "50日圓硬幣是 50×10 = 500，10日圓硬幣是 10×5 = 50"
+ },
+ "500+50 = 550（円）": {
+  "en": "500+50 = 550 (yen)",
+  "zh-Hans": "500+50 = 550（日元）",
+  "zh-Hant": "500+50 = 550（日圓）"
+ },
+ "10円玉と5円玉が合わせて12枚あり、そのうち10円玉は10枚です。合計金額は何円ですか。": {
+  "en": "There are 12 coins in all, 10-yen and 5-yen coins, and 10 of them are 10-yen coins. What is the total amount in yen?",
+  "zh-Hans": "10日元硬币和5日元硬币一共有12枚，其中10日元硬币有10枚。总金额是多少日元？",
+  "zh-Hant": "10日圓硬幣和5日圓硬幣一共有12枚，其中10日圓硬幣有10枚。總金額是多少日圓？"
+ },
+ "5円玉の数は 12−10 = 2（枚）": {
+  "en": "Number of 5-yen coins: 12−10 = 2 (coins)",
+  "zh-Hans": "5日元硬币的枚数是 12−10 = 2（枚）",
+  "zh-Hant": "5日圓硬幣的枚數是 12−10 = 2（枚）"
+ },
+ "10円玉は 10×10 = 100、5円玉は 5×2 = 10": {
+  "en": "10-yen coins: 10×10 = 100; 5-yen coins: 5×2 = 10",
+  "zh-Hans": "10日元硬币是 10×10 = 100，5日元硬币是 5×2 = 10",
+  "zh-Hant": "10日圓硬幣是 10×10 = 100，5日圓硬幣是 5×2 = 10"
+ },
+ "100+10 = 110（円）": {
+  "en": "100+10 = 110 (yen)",
+  "zh-Hans": "100+10 = 110（日元）",
+  "zh-Hant": "100+10 = 110（日圓）"
+ },
+ "100円玉と50円玉が合わせて17枚あり、そのうち100円玉は3枚です。合計金額は何円ですか。": {
+  "en": "There are 17 coins in all, 100-yen and 50-yen coins, and 3 of them are 100-yen coins. What is the total amount in yen?",
+  "zh-Hans": "100日元硬币和50日元硬币一共有17枚，其中100日元硬币有3枚。总金额是多少日元？",
+  "zh-Hant": "100日圓硬幣和50日圓硬幣一共有17枚，其中100日圓硬幣有3枚。總金額是多少日圓？"
+ },
+ "50円玉の数は 17−3 = 14（枚）": {
+  "en": "Number of 50-yen coins: 17−3 = 14 (coins)",
+  "zh-Hans": "50日元硬币的枚数是 17−3 = 14（枚）",
+  "zh-Hant": "50日圓硬幣的枚數是 17−3 = 14（枚）"
+ },
+ "100円玉は 100×3 = 300、50円玉は 50×14 = 700": {
+  "en": "100-yen coins: 100×3 = 300; 50-yen coins: 50×14 = 700",
+  "zh-Hans": "100日元硬币是 100×3 = 300，50日元硬币是 50×14 = 700",
+  "zh-Hant": "100日圓硬幣是 100×3 = 300，50日圓硬幣是 50×14 = 700"
+ },
+ "300+700 = 1000（円）": {
+  "en": "300+700 = 1000 (yen)",
+  "zh-Hans": "300+700 = 1000（日元）",
+  "zh-Hant": "300+700 = 1000（日圓）"
+ },
+ "大小2個のさいころを同時に投げるとき、出た目の和が4以下になる確率を求めなさい。": {
+  "en": "When you throw 2 dice, one large and one small, at the same time, find the probability that the sum of the numbers rolled is 4 or less.",
+  "zh-Hans": "同时掷大、小2颗骰子，求掷出点数的和在4以下的概率。",
+  "zh-Hant": "同時擲大、小2顆骰子，求擲出點數的和在4以下的機率。"
+ },
+ "36通りをすべて書き出して、条件に合うものに印をつける": {
+  "en": "Write out all 36 outcomes and mark the ones that fit the condition",
+  "zh-Hans": "把36种情况全部写出来，给符合条件的做记号",
+  "zh-Hant": "把36種情況全部寫出來，給符合條件的做記號"
+ },
+ "書きもらしや重なりが出やすい": {
+  "en": "It's easy to miss some or count some twice",
+  "zh-Hans": "容易漏写或重复",
+  "zh-Hant": "容易漏寫或重複"
+ },
+ "大を横、小を縦にした6×6の表（36マス）で考える。条件をみたすマスの面積を数える": {
+  "en": "Use a 6×6 table (36 squares) with the large die across and the small die down. Count the area of the squares that meet the condition",
+  "zh-Hans": "用大骰子为横、小骰子为纵的6×6表格（36格）来想。数出满足条件的格子面积",
+  "zh-Hant": "用大骰子為橫、小骰子為縱的6×6表格（36格）來想。數出滿足條件的格子面積"
+ },
+ "和が一定の目は、表のななめ1列。和が2：1、和が3：2、和が4：3（マス） = 6マス": {
+  "en": "Rolls with the same sum form 1 diagonal line of the table. sum 2: 1, sum 3: 2, sum 4: 3 (squares) = 6 squares",
+  "zh-Hans": "和相同的点数在表格里排成1条斜线。和为2：1，和为3：2，和为4：3（格） = 6格",
+  "zh-Hant": "和相同的點數在表格裡排成1條斜線。和為2：1，和為3：2，和為4：3（格） = 6格"
+ },
+ "和が一定のものを使う問題ではない。": {
+  "en": "This isn't a problem about something whose sum stays constant.",
+  "zh-Hans": "这不是利用和不变的题目。",
+  "zh-Hant": "這不是利用和不變的題目。"
+ },
+ "比や平均を混ぜる問題ではない。": {
+  "en": "This isn't a problem about mixing ratios or averages.",
+  "zh-Hans": "这不是混合比或平均数的题目。",
+  "zh-Hant": "這不是混合比或平均數的題目。"
+ },
+ "そのとおり。さいころ2個の表で、条件をみたすマスをまとめて数える。": {
+  "en": "That's right. In the table for 2 dice, count the squares that meet the condition all together.",
+  "zh-Hans": "没错。在2颗骰子的表格里，把满足条件的格子一起数出来。",
+  "zh-Hant": "沒錯。在2顆骰子的表格裡，把滿足條件的格子一起數出來。"
+ },
+ "全部書き出しても出るが、36通りでもれやすい。": {
+  "en": "Writing them all out works too, but with 36 outcomes it's easy to miss some.",
+  "zh-Hans": "全部写出来也能算出，但有36种情况，容易漏掉。",
+  "zh-Hant": "全部寫出來也能算出，但有36種情況，容易漏掉。"
+ },
+ "大小2個のさいころを同時に投げるとき、出た目の和が7以下になる確率を求めなさい。": {
+  "en": "When you throw 2 dice, one large and one small, at the same time, find the probability that the sum of the numbers rolled is 7 or less.",
+  "zh-Hans": "同时掷大、小2颗骰子，求掷出点数的和在7以下的概率。",
+  "zh-Hant": "同時擲大、小2顆骰子，求擲出點數的和在7以下的機率。"
+ },
+ "和が一定の目は、表のななめ1列。和が2：1、和が3：2、和が4：3、和が5：4、和が6：5、和が7：6（マス） = 21マス": {
+  "en": "Rolls with the same sum form 1 diagonal line of the table. sum 2: 1, sum 3: 2, sum 4: 3, sum 5: 4, sum 6: 5, sum 7: 6 (squares) = 21 squares",
+  "zh-Hans": "和相同的点数在表格里排成1条斜线。和为2：1，和为3：2，和为4：3，和为5：4，和为6：5，和为7：6（格） = 21格",
+  "zh-Hant": "和相同的點數在表格裡排成1條斜線。和為2：1，和為3：2，和為4：3，和為5：4，和為6：5，和為7：6（格） = 21格"
+ },
+ "大小2個のさいころを同時に投げるとき、出た目の積が2の倍数になる確率を求めなさい。": {
+  "en": "When you throw 2 dice, one large and one small, at the same time, find the probability that the product of the numbers rolled is a multiple of 2.",
+  "zh-Hans": "同时掷大、小2颗骰子，求掷出点数的积是2的倍数的概率。",
+  "zh-Hant": "同時擲大、小2顆骰子，求擲出點數的積是2的倍數的機率。"
+ },
+ "余事象：どちらも2の倍数でない目は3通りずつ。3×3 = 9マスを36マスから引く：36−9 = 27マス": {
+  "en": "Complement: each die has 3 numbers that are not multiples of 2. Subtract 3×3 = 9 squares from 36 squares: 36−9 = 27 squares",
+  "zh-Hans": "对立事件：两颗都不是2的倍数的点数各有3种。从36格中减去3×3 = 9格：36−9 = 27格",
+  "zh-Hant": "餘事件：兩顆都不是2的倍數的點數各有3種。從36格中減去3×3 = 9格：36−9 = 27格"
+ },
+ "大小2個のさいころを同時に投げるとき、出た目の和が3以下になる確率を求めなさい。": {
+  "en": "When you throw 2 dice, one large and one small, at the same time, find the probability that the sum of the numbers rolled is 3 or less.",
+  "zh-Hans": "同时掷大、小2颗骰子，求掷出点数的和在3以下的概率。",
+  "zh-Hant": "同時擲大、小2顆骰子，求擲出點數的和在3以下的機率。"
+ },
+ "和が一定の目は、表のななめ1列。和が2：1、和が3：2（マス） = 3マス": {
+  "en": "Rolls with the same sum form 1 diagonal line of the table. sum 2: 1, sum 3: 2 (squares) = 3 squares",
+  "zh-Hans": "和相同的点数在表格里排成1条斜线。和为2：1，和为3：2（格） = 3格",
+  "zh-Hant": "和相同的點數在表格裡排成1條斜線。和為2：1，和為3：2（格） = 3格"
+ },
+ "大小2個のさいころを同時に投げるとき、出た目の積が3の倍数になる確率を求めなさい。": {
+  "en": "When you throw 2 dice, one large and one small, at the same time, find the probability that the product of the numbers rolled is a multiple of 3.",
+  "zh-Hans": "同时掷大、小2颗骰子，求掷出点数的积是3的倍数的概率。",
+  "zh-Hant": "同時擲大、小2顆骰子，求擲出點數的積是3的倍數的機率。"
+ },
+ "余事象：どちらも3の倍数でない目は4通りずつ。4×4 = 16マスを36マスから引く：36−16 = 20マス": {
+  "en": "Complement: each die has 4 numbers that are not multiples of 3. Subtract 4×4 = 16 squares from 36 squares: 36−16 = 20 squares",
+  "zh-Hans": "对立事件：两颗都不是3的倍数的点数各有4种。从36格中减去4×4 = 16格：36−16 = 20格",
+  "zh-Hant": "餘事件：兩顆都不是3的倍數的點數各有4種。從36格中減去4×4 = 16格：36−16 = 20格"
+ },
+ "大小2個のさいころを同時に投げるとき、出た目の差が3以上になる確率を求めなさい。": {
+  "en": "When you throw 2 dice, one large and one small, at the same time, find the probability that the difference of the numbers rolled is 3 or more.",
+  "zh-Hans": "同时掷大、小2颗骰子，求掷出点数的差在3以上的概率。",
+  "zh-Hant": "同時擲大、小2顆骰子，求擲出點數的差在3以上的機率。"
+ },
+ "差が3以上のマスは、対角線から3本以上はなれた左下と右上の三角形：6+6 = 12マス": {
+  "en": "The squares with a difference of 3 or more are the lower-left and upper-right triangles, 3 or more lines away from the diagonal: 6+6 = 12 squares",
+  "zh-Hans": "差在3以上的格子，是离对角线3条以上的左下和右上两个三角形：6+6 = 12格",
+  "zh-Hant": "差在3以上的格子，是離對角線3條以上的左下和右上兩個三角形：6+6 = 12格"
+ },
+ "大小2個のさいころを同時に投げるとき、出た目の差が2以上になる確率を求めなさい。": {
+  "en": "When you throw 2 dice, one large and one small, at the same time, find the probability that the difference of the numbers rolled is 2 or more.",
+  "zh-Hans": "同时掷大、小2颗骰子，求掷出点数的差在2以上的概率。",
+  "zh-Hant": "同時擲大、小2顆骰子，求擲出點數的差在2以上的機率。"
+ },
+ "差が2以上のマスは、対角線から2本以上はなれた左下と右上の三角形：10+10 = 20マス": {
+  "en": "The squares with a difference of 2 or more are the lower-left and upper-right triangles, 2 or more lines away from the diagonal: 10+10 = 20 squares",
+  "zh-Hans": "差在2以上的格子，是离对角线2条以上的左下和右上两个三角形：10+10 = 20格",
+  "zh-Hant": "差在2以上的格子，是離對角線2條以上的左下和右上兩個三角形：10+10 = 20格"
+ },
+ "大小2個のさいころを同時に投げるとき、出た目の積が5の倍数になる確率を求めなさい。": {
+  "en": "When you throw 2 dice, one large and one small, at the same time, find the probability that the product of the numbers rolled is a multiple of 5.",
+  "zh-Hans": "同时掷大、小2颗骰子，求掷出点数的积是5的倍数的概率。",
+  "zh-Hant": "同時擲大、小2顆骰子，求擲出點數的積是5的倍數的機率。"
+ },
+ "余事象：どちらも5の倍数でない目は5通りずつ。5×5 = 25マスを36マスから引く：36−25 = 11マス": {
+  "en": "Complement: each die has 5 numbers that are not multiples of 5. Subtract 5×5 = 25 squares from 36 squares: 36−25 = 11 squares",
+  "zh-Hans": "对立事件：两颗都不是5的倍数的点数各有5种。从36格中减去5×5 = 25格：36−25 = 11格",
+  "zh-Hant": "餘事件：兩顆都不是5的倍數的點數各有5種。從36格中減去5×5 = 25格：36−25 = 11格"
+ },
+ "大小2個のさいころを同時に投げるとき、出た目の差が4以上になる確率を求めなさい。": {
+  "en": "When you throw 2 dice, one large and one small, at the same time, find the probability that the difference of the numbers rolled is 4 or more.",
+  "zh-Hans": "同时掷大、小2颗骰子，求掷出点数的差在4以上的概率。",
+  "zh-Hant": "同時擲大、小2顆骰子，求擲出點數的差在4以上的機率。"
+ },
+ "差が4以上のマスは、対角線から4本以上はなれた左下と右上の三角形：3+3 = 6マス": {
+  "en": "The squares with a difference of 4 or more are the lower-left and upper-right triangles, 4 or more lines away from the diagonal: 3+3 = 6 squares",
+  "zh-Hans": "差在4以上的格子，是离对角线4条以上的左下和右上两个三角形：3+3 = 6格",
+  "zh-Hant": "差在4以上的格子，是離對角線4條以上的左下和右上兩個三角形：3+3 = 6格"
+ },
+ "大小2個のさいころを同時に投げるとき、出た目の積が6以下になる確率を求めなさい。": {
+  "en": "When you throw 2 dice, one large and one small, at the same time, find the probability that the product of the numbers rolled is 6 or less.",
+  "zh-Hans": "同时掷大、小2颗骰子，求掷出点数的积在6以下的概率。",
+  "zh-Hant": "同時擲大、小2顆骰子，求擲出點數的積在6以下的機率。"
+ },
+ "大の目ごとに、小の目が何マス入るか：6+3+2+1+1+1 = 14マス": {
+  "en": "For each number on the large die, how many squares the small die fills: 6+3+2+1+1+1 = 14 squares",
+  "zh-Hans": "按大骰子的每个点数，数小骰子有几格符合：6+3+2+1+1+1 = 14格",
+  "zh-Hant": "按大骰子的每個點數，數小骰子有幾格符合：6+3+2+1+1+1 = 14格"
+ },
+ "大小2個のさいころを同時に投げるとき、出た目の積が9以下になる確率を求めなさい。": {
+  "en": "When you throw 2 dice, one large and one small, at the same time, find the probability that the product of the numbers rolled is 9 or less.",
+  "zh-Hans": "同时掷大、小2颗骰子，求掷出点数的积在9以下的概率。",
+  "zh-Hant": "同時擲大、小2顆骰子，求擲出點數的積在9以下的機率。"
+ },
+ "大の目ごとに、小の目が何マス入るか：6+4+3+2+1+1 = 17マス": {
+  "en": "For each number on the large die, how many squares the small die fills: 6+4+3+2+1+1 = 17 squares",
+  "zh-Hans": "按大骰子的每个点数，数小骰子有几格符合：6+4+3+2+1+1 = 17格",
+  "zh-Hant": "按大骰子的每個點數，數小骰子有幾格符合：6+4+3+2+1+1 = 17格"
+ },
+ "大小2個のさいころを同時に投げるとき、出た目の和が5になる確率を求めなさい。": {
+  "en": "When you throw 2 dice, one large and one small, at the same time, find the probability that the sum of the numbers rolled is 5.",
+  "zh-Hans": "同时掷大、小2颗骰子，求掷出点数的和是5的概率。",
+  "zh-Hant": "同時擲大、小2顆骰子，求擲出點數的和是5的機率。"
+ },
+ "和が5のマスは、表のななめ1列だけ：4マス = 4マス": {
+  "en": "The squares with sum 5 are just 1 diagonal line of the table: 4 squares = 4 squares",
+  "zh-Hans": "和为5的格子只有表格里的1条斜线：4格 = 4格",
+  "zh-Hant": "和為5的格子只有表格裡的1條斜線：4格 = 4格"
+ },
+ "大小2個のさいころを同時に投げるとき、出た目の積が7以下になる確率を求めなさい。": {
+  "en": "When you throw 2 dice, one large and one small, at the same time, find the probability that the product of the numbers rolled is 7 or less.",
+  "zh-Hans": "同时掷大、小2颗骰子，求掷出点数的积在7以下的概率。",
+  "zh-Hant": "同時擲大、小2顆骰子，求擲出點數的積在7以下的機率。"
+ },
+ "大小2個のさいころを同時に投げるとき、出た目の和が5以下になる確率を求めなさい。": {
+  "en": "When you throw 2 dice, one large and one small, at the same time, find the probability that the sum of the numbers rolled is 5 or less.",
+  "zh-Hans": "同时掷大、小2颗骰子，求掷出点数的和在5以下的概率。",
+  "zh-Hant": "同時擲大、小2顆骰子，求擲出點數的和在5以下的機率。"
+ },
+ "和が一定の目は、表のななめ1列。和が2：1、和が3：2、和が4：3、和が5：4（マス） = 10マス": {
+  "en": "Rolls with the same sum form 1 diagonal line of the table. sum 2: 1, sum 3: 2, sum 4: 3, sum 5: 4 (squares) = 10 squares",
+  "zh-Hans": "和相同的点数在表格里排成1条斜线。和为2：1，和为3：2，和为4：3，和为5：4（格） = 10格",
+  "zh-Hant": "和相同的點數在表格裡排成1條斜線。和為2：1，和為3：2，和為4：3，和為5：4（格） = 10格"
+ },
+ "大中小3個のさいころを同時に投げるとき、出た目の和が10になる確率を求めなさい。": {
+  "en": "When you throw 3 dice, one large, one medium and one small, at the same time, find the probability that the sum of the numbers rolled is 10.",
+  "zh-Hans": "同时掷大、中、小3颗骰子，求掷出点数的和是10的概率。",
+  "zh-Hant": "同時擲大、中、小3顆骰子，求擲出點數的和是10的機率。"
+ },
+ "6×6の表をかこうとする": {
+  "en": "You try to draw a 6×6 table",
+  "zh-Hans": "想画6×6的表格",
+  "zh-Hant": "想畫6×6的表格"
+ },
+ "3個目の目を入れる場所がない": {
+  "en": "There's no place to put the 3rd die",
+  "zh-Hans": "第3颗骰子的点数没有地方放",
+  "zh-Hant": "第3顆骰子的點數沒有地方放"
+ },
+ "ここで約1分半。表が使えないと気づく": {
+  "en": "That takes about 1 and a half minutes before you notice the table doesn't work",
+  "zh-Hans": "这里花了约1分半钟，才发现表格用不了",
+  "zh-Hant": "這裡花了約1分半鐘，才發現表格用不了"
+ },
+ "3個なので、6×6の表（平面）にはならない。大の目を決めて、残り2個の和で場合分けする": {
+  "en": "With 3 dice, it doesn't fit in a 6×6 table (a flat plane). Fix the large die, then split into cases by the sum of the other 2",
+  "zh-Hans": "有3颗，就不能用6×6的表格（平面）了。先确定大骰子的点数，再按剩下2颗的和分情况讨论",
+  "zh-Hant": "有3顆，就不能用6×6的表格（平面）了。先確定大骰子的點數，再按剩下2顆的和分情況討論"
+ },
+ "大が1〜6のとき、中+小が 10−1〜10−6 になる数を順に数えて、合計 27 通り": {
+  "en": "For large = 1 to 6, count in order the ways medium + small makes 10−1 to 10−6: 27 ways in total",
+  "zh-Hans": "大骰子为1～6时，依次数出中+小等于 10−1～10−6 的情况，共 27 种",
+  "zh-Hant": "大骰子為1～6時，依序數出中+小等於 10−1～10−6 的情況，共 27 種"
+ },
+ "おしい。6×6の表は2個のときだけ。3個では立体になる。": {
+  "en": "Close. A 6×6 table only works for 2 dice. With 3, it becomes a solid.",
+  "zh-Hans": "可惜。6×6的表格只适用于2颗骰子。3颗就变成立体的了。",
+  "zh-Hant": "可惜。6×6的表格只適用於2顆骰子。3顆就變成立體的了。"
+ },
+ "そのとおり。3個なので平面の表にならない。大の目を決めて、残り2個を数える。": {
+  "en": "That's right. With 3 dice it isn't a flat table. Fix the large die, then count the other 2.",
+  "zh-Hans": "没错。有3颗，就不是平面表格了。先确定大骰子的点数，再数剩下的2颗。",
+  "zh-Hant": "沒錯。有3顆，就不是平面表格了。先確定大骰子的點數，再數剩下的2顆。"
+ },
+ "大中小3個のさいころを同時に投げるとき、出た目の和が6になる確率を求めなさい。": {
+  "en": "When you throw 3 dice, one large, one medium and one small, at the same time, find the probability that the sum of the numbers rolled is 6.",
+  "zh-Hans": "同时掷大、中、小3颗骰子，求掷出点数的和是6的概率。",
+  "zh-Hant": "同時擲大、中、小3顆骰子，求擲出點數的和是6的機率。"
+ },
+ "大が1〜6のとき、中+小が 6−1〜6−6 になる数を順に数えて、合計 10 通り": {
+  "en": "For large = 1 to 6, count in order the ways medium + small makes 6−1 to 6−6: 10 ways in total",
+  "zh-Hans": "大骰子为1～6时，依次数出中+小等于 6−1～6−6 的情况，共 10 种",
+  "zh-Hant": "大骰子為1～6時，依序數出中+小等於 6−1～6−6 的情況，共 10 種"
+ },
+ "大中小3個のさいころを同時に投げるとき、出た目の和が5になる確率を求めなさい。": {
+  "en": "When you throw 3 dice, one large, one medium and one small, at the same time, find the probability that the sum of the numbers rolled is 5.",
+  "zh-Hans": "同时掷大、中、小3颗骰子，求掷出点数的和是5的概率。",
+  "zh-Hant": "同時擲大、中、小3顆骰子，求擲出點數的和是5的機率。"
+ },
+ "大が1〜6のとき、中+小が 5−1〜5−6 になる数を順に数えて、合計 6 通り": {
+  "en": "For large = 1 to 6, count in order the ways medium + small makes 5−1 to 5−6: 6 ways in total",
+  "zh-Hans": "大骰子为1～6时，依次数出中+小等于 5−1～5−6 的情况，共 6 种",
+  "zh-Hant": "大骰子為1～6時，依序數出中+小等於 5−1～5−6 的情況，共 6 種"
+ },
+ "大中小3個のさいころを同時に投げるとき、出た目の和が14になる確率を求めなさい。": {
+  "en": "When you throw 3 dice, one large, one medium and one small, at the same time, find the probability that the sum of the numbers rolled is 14.",
+  "zh-Hans": "同时掷大、中、小3颗骰子，求掷出点数的和是14的概率。",
+  "zh-Hant": "同時擲大、中、小3顆骰子，求擲出點數的和是14的機率。"
+ },
+ "大が1〜6のとき、中+小が 14−1〜14−6 になる数を順に数えて、合計 15 通り": {
+  "en": "For large = 1 to 6, count in order the ways medium + small makes 14−1 to 14−6: 15 ways in total",
+  "zh-Hans": "大骰子为1～6时，依次数出中+小等于 14−1～14−6 的情况，共 15 种",
+  "zh-Hant": "大骰子為1～6時，依序數出中+小等於 14−1～14−6 的情況，共 15 種"
+ },
+ "大中小3個のさいころを同時に投げるとき、出た目の和が9になる確率を求めなさい。": {
+  "en": "When you throw 3 dice, one large, one medium and one small, at the same time, find the probability that the sum of the numbers rolled is 9.",
+  "zh-Hans": "同时掷大、中、小3颗骰子，求掷出点数的和是9的概率。",
+  "zh-Hant": "同時擲大、中、小3顆骰子，求擲出點數的和是9的機率。"
+ },
+ "大が1〜6のとき、中+小が 9−1〜9−6 になる数を順に数えて、合計 25 通り": {
+  "en": "For large = 1 to 6, count in order the ways medium + small makes 9−1 to 9−6: 25 ways in total",
+  "zh-Hans": "大骰子为1～6时，依次数出中+小等于 9−1～9−6 的情况，共 25 种",
+  "zh-Hant": "大骰子為1～6時，依序數出中+小等於 9−1～9−6 的情況，共 25 種"
+ },
+ "大小2個のさいころを同時に投げるとき、2個とも偶数の目になる確率を求めなさい。": {
+  "en": "When you throw 2 dice, one large and one small, at the same time, find the probability that both of the 2 dice show an even number.",
+  "zh-Hans": "同时掷大、小2颗骰子，求2颗都掷出偶数的概率。",
+  "zh-Hant": "同時擲大、小2顆骰子，求2顆都擲出偶數的機率。"
+ },
+ "大と小は別々に決まる（独立）。表をかかなくても、確率をかければよい": {
+  "en": "The large and small dice don't affect each other (independent). No table needed; just multiply the probabilities",
+  "zh-Hans": "大骰子和小骰子互不影响（独立）。不用画表格，把概率相乘就行",
+  "zh-Hant": "大骰子和小骰子互不影響（獨立）。不用畫表格，把機率相乘就行"
+ },
+ "2つの条件が大と小で別々なら、確率をかけるだけ。表をかかなくてよい。": {
+  "en": "If the 2 conditions are separate for the large and small dice, just multiply the probabilities. No table needed.",
+  "zh-Hans": "如果2个条件分别针对大骰子和小骰子，只要把概率相乘。不用画表格。",
+  "zh-Hant": "如果2個條件分別針對大骰子和小骰子，只要把機率相乘。不用畫表格。"
+ },
+ "表でも数えられるが、大と小で条件が分かれているので、かけ算の方が速い。": {
+  "en": "You can count with a table too, but the conditions are separate for the large and small dice, so multiplying is faster.",
+  "zh-Hans": "用表格也能数，但条件是大骰子和小骰子分开的，用乘法更快。",
+  "zh-Hant": "用表格也能數，但條件是大骰子和小骰子分開的，用乘法更快。"
+ },
+ "そのとおり。大と小は独立なので、それぞれの確率をかけるだけ。": {
+  "en": "That's right. The large and small dice are independent, so just multiply their probabilities.",
+  "zh-Hans": "没错。大骰子和小骰子是独立的，只要把各自的概率相乘。",
+  "zh-Hant": "沒錯。大骰子和小骰子是獨立的，只要把各自的機率相乘。"
+ },
+ "大小2個のさいころを同時に投げるとき、大が偶数の目、小が5以下の目になる確率を求めなさい。": {
+  "en": "When you throw 2 dice, one large and one small, at the same time, find the probability that the large die shows an even number and the small die shows 5 or less.",
+  "zh-Hans": "同时掷大、小2颗骰子，求大骰子掷出偶数、小骰子掷出5以下的点数的概率。",
+  "zh-Hant": "同時擲大、小2顆骰子，求大骰子擲出偶數、小骰子擲出5以下的點數的機率。"
+ },
+ "大小2個のさいころを同時に投げるとき、2個とも5以下の目になる確率を求めなさい。": {
+  "en": "When you throw 2 dice, one large and one small, at the same time, find the probability that both of the 2 dice show 5 or less.",
+  "zh-Hans": "同时掷大、小2颗骰子，求2颗都掷出5以下的点数的概率。",
+  "zh-Hant": "同時擲大、小2顆骰子，求2顆都擲出5以下的點數的機率。"
+ },
+ "大小2個のさいころを同時に投げるとき、2個とも3以上の目になる確率を求めなさい。": {
+  "en": "When you throw 2 dice, one large and one small, at the same time, find the probability that both of the 2 dice show 3 or more.",
+  "zh-Hans": "同时掷大、小2颗骰子，求2颗都掷出3以上的点数的概率。",
+  "zh-Hant": "同時擲大、小2顆骰子，求2顆都擲出3以上的點數的機率。"
+ },
+ "大小2個のさいころを同時に投げるとき、2個とも2以下の目になる確率を求めなさい。": {
+  "en": "When you throw 2 dice, one large and one small, at the same time, find the probability that both of the 2 dice show 2 or less.",
+  "zh-Hans": "同时掷大、小2颗骰子，求2颗都掷出2以下的点数的概率。",
+  "zh-Hant": "同時擲大、小2顆骰子，求2顆都擲出2以下的點數的機率。"
+ },
+ "クモとカブトムシが合わせて15匹あり、足の数は合わせて104本です。クモは何匹ありますか。": {
+  "en": "There are 15 spiders and beetles in all, with 104 legs in total. How many spiders are there?",
+  "zh-Hans": "蜘蛛和独角仙一共有15只，腿一共有104条。蜘蛛有几只？",
+  "zh-Hant": "蜘蛛和獨角仙一共有15隻，腳一共有104隻。蜘蛛有幾隻？"
+ },
+ "匹": {
+  "en": " spiders",
+  "zh-Hans": "只",
+  "zh-Hant": "隻"
+ },
+ "クモ": {
+  "en": "Spiders",
+  "zh-Hans": "蜘蛛",
+  "zh-Hant": "蜘蛛"
+ },
+ "カブトムシ": {
+  "en": "Beetles",
+  "zh-Hans": "独角仙",
+  "zh-Hant": "獨角仙"
+ },
+ "足": {
+  "en": "Legs",
+  "zh-Hans": "腿",
+  "zh-Hant": "腳"
+ },
+ "足の数": {
+  "en": "Number of legs",
+  "zh-Hans": "腿数",
+  "zh-Hant": "腳數"
+ },
+ "7匹": {
+  "en": "7 spiders",
+  "zh-Hans": "7只",
+  "zh-Hant": "7隻"
+ },
+ "xとyを使って、個数の式と合計の式の2本を立てる": {
+  "en": "Use x and y to set up 2 equations: one for the count and one for the total",
+  "zh-Hans": "用x和y列出个数和总数的2个方程",
+  "zh-Hant": "用x和y列出個數和總數的2個方程式"
+ },
+ "加減法でyを消そうとするが、係数が大きくて計算がふくらむ": {
+  "en": "You try to eliminate y by adding/subtracting, but the coefficients are large and the calculation balloons",
+  "zh-Hans": "想用加减消元法消去y，但系数大，计算变得很繁琐",
+  "zh-Hant": "想用加減消去法消去y，但係數大，計算變得很繁瑣"
+ },
+ "ここで約3分。符号や桁のミスが出やすい": {
+  "en": "That takes about 3 min. Sign and place-value mistakes are common",
+  "zh-Hans": "这里花了约3分钟。容易出现符号或位数的错误",
+  "zh-Hant": "這裡花了約3分鐘。容易出現符號或位數的錯誤"
+ },
+ "縦＝1匹あたりの足の数、横＝匹数の長方形2つで表す（面積＝足の数）": {
+  "en": "Draw 2 rectangles with height = legs on 1 animal and width = number of animals (area = number of legs)",
+  "zh-Hans": "用2个长方形表示：高＝每1只的腿数，宽＝只数（面积＝腿数）",
+  "zh-Hant": "用2個長方形表示：高＝每1隻的腳數，寬＝隻數（面積＝腳數）"
+ },
+ "全部カブトムシだとすると 6×15 = 90": {
+  "en": "If all were beetles: 6×15 = 90",
+  "zh-Hans": "假设全部是独角仙：6×15 = 90",
+  "zh-Hant": "假設全部是獨角仙：6×15 = 90"
+ },
+ "本当の足の数との差 104−90 = 14 が、上にはみ出した長方形の面積": {
+  "en": "The difference from the real number of legs, 104−90 = 14, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际腿数的差 104−90 = 14，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際腳數的差 104−90 = 14，就是上面多出來的長方形的面積"
+ },
+ "その長方形の縦は 8−6 = 2": {
+  "en": "The height of that rectangle is 8−6 = 2",
+  "zh-Hans": "那个长方形的高是 8−6 = 2",
+  "zh-Hant": "那個長方形的高是 8−6 = 2"
+ },
+ "クモの数 = 14÷2 = 7": {
+  "en": "Number of spiders = 14÷2 = 7",
+  "zh-Hans": "蜘蛛的只数 = 14÷2 = 7",
+  "zh-Hant": "蜘蛛的隻數 = 14÷2 = 7"
+ },
+ "そのとおり。1匹あたりの足の数×匹数を長方形で表すと、はみ出した部分だけで答えが出る。": {
+  "en": "That's right. Show legs on 1 animal × number of animals as rectangles, and the part that sticks out alone gives the answer.",
+  "zh-Hans": "没错。用长方形表示每1只的腿数×只数，只看多出来的部分就能得出答案。",
+  "zh-Hant": "沒錯。用長方形表示每1隻的腳數×隻數，只看多出來的部分就能得出答案。"
+ },
+ "濃度や平均を混ぜる問題ではない。": {
+  "en": "This isn't a problem about mixing concentrations or averages.",
+  "zh-Hans": "这不是混合浓度或平均数的题目。",
+  "zh-Hant": "這不是混合濃度或平均數的題目。"
+ },
+ "連立方程式でも解けるが、2本の式を立てて消去するより、面積図の方が速い。": {
+  "en": "A system of equations works too, but an area diagram is faster than setting up 2 equations and eliminating.",
+  "zh-Hans": "用方程组也能解，但比起列2个方程再消元，面积图更快。",
+  "zh-Hant": "用聯立方程式也能解，但比起列2個方程式再消去，面積圖更快。"
+ },
+ "クモとカブトムシが合わせて28匹あり、足の数は合わせて210本です。クモは何匹ありますか。": {
+  "en": "There are 28 spiders and beetles in all, with 210 legs in total. How many spiders are there?",
+  "zh-Hans": "蜘蛛和独角仙一共有28只，腿一共有210条。蜘蛛有几只？",
+  "zh-Hant": "蜘蛛和獨角仙一共有28隻，腳一共有210隻。蜘蛛有幾隻？"
+ },
+ "全部カブトムシだとすると 6×28 = 168": {
+  "en": "If all were beetles: 6×28 = 168",
+  "zh-Hans": "假设全部是独角仙：6×28 = 168",
+  "zh-Hant": "假設全部是獨角仙：6×28 = 168"
+ },
+ "本当の足の数との差 210−168 = 42 が、上にはみ出した長方形の面積": {
+  "en": "The difference from the real number of legs, 210−168 = 42, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际腿数的差 210−168 = 42，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際腳數的差 210−168 = 42，就是上面多出來的長方形的面積"
+ },
+ "その長方形のたては 8−6 = 2": {
+  "en": "The height of that rectangle is 8−6 = 2",
+  "zh-Hans": "那个长方形的高是 8−6 = 2",
+  "zh-Hant": "那個長方形的高是 8−6 = 2"
+ },
+ "クモの数 = 42÷2 = 21": {
+  "en": "Number of spiders = 42÷2 = 21",
+  "zh-Hans": "蜘蛛的只数 = 42÷2 = 21",
+  "zh-Hant": "蜘蛛的隻數 = 42÷2 = 21"
+ },
+ "クモとカブトムシが合わせて16匹あり、足の数は合わせて108本です。クモは何匹ありますか。": {
+  "en": "There are 16 spiders and beetles in all, with 108 legs in total. How many spiders are there?",
+  "zh-Hans": "蜘蛛和独角仙一共有16只，腿一共有108条。蜘蛛有几只？",
+  "zh-Hant": "蜘蛛和獨角仙一共有16隻，腳一共有108隻。蜘蛛有幾隻？"
+ },
+ "全部カブトムシだとすると 6×16 = 96": {
+  "en": "If all were beetles: 6×16 = 96",
+  "zh-Hans": "假设全部是独角仙：6×16 = 96",
+  "zh-Hant": "假設全部是獨角仙：6×16 = 96"
+ },
+ "本当の足の数との差 108−96 = 12 が、上にはみ出した長方形の面積": {
+  "en": "The difference from the real number of legs, 108−96 = 12, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际腿数的差 108−96 = 12，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際腳數的差 108−96 = 12，就是上面多出來的長方形的面積"
+ },
+ "クモの数 = 12÷2 = 6": {
+  "en": "Number of spiders = 12÷2 = 6",
+  "zh-Hans": "蜘蛛的只数 = 12÷2 = 6",
+  "zh-Hant": "蜘蛛的隻數 = 12÷2 = 6"
+ },
+ "クモとカブトムシが合わせて22匹あり、足の数は合わせて140本です。クモは何匹ありますか。": {
+  "en": "There are 22 spiders and beetles in all, with 140 legs in total. How many spiders are there?",
+  "zh-Hans": "蜘蛛和独角仙一共有22只，腿一共有140条。蜘蛛有几只？",
+  "zh-Hant": "蜘蛛和獨角仙一共有22隻，腳一共有140隻。蜘蛛有幾隻？"
+ },
+ "全部カブトムシだとすると 6×22 = 132": {
+  "en": "If all were beetles: 6×22 = 132",
+  "zh-Hans": "假设全部是独角仙：6×22 = 132",
+  "zh-Hant": "假設全部是獨角仙：6×22 = 132"
+ },
+ "本当の足の数との差 140−132 = 8 が、上にはみ出した長方形の面積": {
+  "en": "The difference from the real number of legs, 140−132 = 8, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际腿数的差 140−132 = 8，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際腳數的差 140−132 = 8，就是上面多出來的長方形的面積"
+ },
+ "クモの数 = 8÷2 = 4": {
+  "en": "Number of spiders = 8÷2 = 4",
+  "zh-Hans": "蜘蛛的只数 = 8÷2 = 4",
+  "zh-Hant": "蜘蛛的隻數 = 8÷2 = 4"
+ },
+ "クモとカブトムシが合わせて17匹あり、足の数は合わせて112本です。クモは何匹ありますか。": {
+  "en": "There are 17 spiders and beetles in all, with 112 legs in total. How many spiders are there?",
+  "zh-Hans": "蜘蛛和独角仙一共有17只，腿一共有112条。蜘蛛有几只？",
+  "zh-Hant": "蜘蛛和獨角仙一共有17隻，腳一共有112隻。蜘蛛有幾隻？"
+ },
+ "全部カブトムシだとすると 6×17 = 102": {
+  "en": "If all were beetles: 6×17 = 102",
+  "zh-Hans": "假设全部是独角仙：6×17 = 102",
+  "zh-Hant": "假設全部是獨角仙：6×17 = 102"
+ },
+ "本当の足の数との差 112−102 = 10 が、上にはみ出した長方形の面積": {
+  "en": "The difference from the real number of legs, 112−102 = 10, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际腿数的差 112−102 = 10，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際腳數的差 112−102 = 10，就是上面多出來的長方形的面積"
+ },
+ "クモの数 = 10÷2 = 5": {
+  "en": "Number of spiders = 10÷2 = 5",
+  "zh-Hans": "蜘蛛的只数 = 10÷2 = 5",
+  "zh-Hant": "蜘蛛的隻數 = 10÷2 = 5"
+ },
+ "ある博物館の入館料は、大人1人900円、中学生1人500円です。大人と中学生合わせて24人で入館し、入館料は合計15600円でした。大人は何人ですか。": {
+  "en": "At a museum, admission is 900 yen for 1 adult and 500 yen for 1 middle schooler. A group of 24 adults and middle schoolers went in, and the total admission was 15600 yen. How many adults were there?",
+  "zh-Hans": "某博物馆的门票费是大人1人900日元，初中生1人500日元。大人和初中生一共24人入馆，门票费总共15600日元。大人有几人？",
+  "zh-Hant": "某博物館的門票費是大人1人900日圓，國中生1人500日圓。大人和國中生一共24人入館，門票費總共15600日圓。大人有幾人？"
+ },
+ "中学生": {
+  "en": "Middle schoolers",
+  "zh-Hans": "初中生",
+  "zh-Hant": "國中生"
+ },
+ "9人": {
+  "en": "9 people",
+  "zh-Hans": "9人",
+  "zh-Hant": "9人"
+ },
+ "縦＝1人あたりの入館料、横＝人数の長方形2つで表す（面積＝入館料）": {
+  "en": "Draw 2 rectangles with height = admission for 1 person and width = number of people (area = admission)",
+  "zh-Hans": "用2个长方形表示：高＝每1人的门票费，宽＝人数（面积＝门票费）",
+  "zh-Hant": "用2個長方形表示：高＝每1人的門票費，寬＝人數（面積＝門票費）"
+ },
+ "全部中学生だとすると 500×24 = 12000": {
+  "en": "If everyone were a middle schooler: 500×24 = 12000",
+  "zh-Hans": "假设全部是初中生：500×24 = 12000",
+  "zh-Hant": "假設全部是國中生：500×24 = 12000"
+ },
+ "本当の入館料との差 15600−12000 = 3600 が、上にはみ出した長方形の面積": {
+  "en": "The difference from the real admission, 15600−12000 = 3600, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际门票费的差 15600−12000 = 3600，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際門票費的差 15600−12000 = 3600，就是上面多出來的長方形的面積"
+ },
+ "その長方形の縦は 900−500 = 400": {
+  "en": "The height of that rectangle is 900−500 = 400",
+  "zh-Hans": "那个长方形的高是 900−500 = 400",
+  "zh-Hant": "那個長方形的高是 900−500 = 400"
+ },
+ "大人の数 = 3600÷400 = 9": {
+  "en": "Number of adults = 3600÷400 = 9",
+  "zh-Hans": "大人的人数 = 3600÷400 = 9",
+  "zh-Hant": "大人的人數 = 3600÷400 = 9"
+ },
+ "そのとおり。全員を中学生として計算し、実際の合計との差の分だけ大人がいる。": {
+  "en": "That's right. Calculate as if everyone were a middle schooler; the difference from the real total tells you how many adults there are.",
+  "zh-Hans": "没错。先假设全部是初中生来计算，和实际总额的差额就对应大人的人数。",
+  "zh-Hant": "沒錯。先假設全部是國中生來計算，和實際總額的差額就對應大人的人數。"
+ },
+ "連立方程式でも解けるが、係数が大きく、加減法の計算が重い。": {
+  "en": "A system of equations works too, but the coefficients are large and the elimination is heavy.",
+  "zh-Hans": "用方程组也能解，但系数大，加减消元的计算很繁重。",
+  "zh-Hant": "用聯立方程式也能解，但係數大，加減消去的計算很繁重。"
+ },
+ "ある博物館の入館料は、大人1人800円、中学生1人300円です。大人と中学生合わせて28人で入館し、入館料は合計18400円でした。大人は何人ですか。": {
+  "en": "At a museum, admission is 800 yen for 1 adult and 300 yen for 1 middle schooler. A group of 28 adults and middle schoolers went in, and the total admission was 18400 yen. How many adults were there?",
+  "zh-Hans": "某博物馆的门票费是大人1人800日元，初中生1人300日元。大人和初中生一共28人入馆，门票费总共18400日元。大人有几人？",
+  "zh-Hant": "某博物館的門票費是大人1人800日圓，國中生1人300日圓。大人和國中生一共28人入館，門票費總共18400日圓。大人有幾人？"
+ },
+ "全部中学生だとすると 300×28 = 8400": {
+  "en": "If everyone were a middle schooler: 300×28 = 8400",
+  "zh-Hans": "假设全部是初中生：300×28 = 8400",
+  "zh-Hant": "假設全部是國中生：300×28 = 8400"
+ },
+ "本当の入館料との差 18400−8400 = 10000 が、上にはみ出した長方形の面積": {
+  "en": "The difference from the real admission, 18400−8400 = 10000, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际门票费的差 18400−8400 = 10000，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際門票費的差 18400−8400 = 10000，就是上面多出來的長方形的面積"
+ },
+ "大人の数 = 10000÷500 = 20": {
+  "en": "Number of adults = 10000÷500 = 20",
+  "zh-Hans": "大人的人数 = 10000÷500 = 20",
+  "zh-Hant": "大人的人數 = 10000÷500 = 20"
+ },
+ "ある博物館の入館料は、大人1人900円、中学生1人500円です。大人と中学生合わせて18人で入館し、入館料は合計14200円でした。大人は何人ですか。": {
+  "en": "At a museum, admission is 900 yen for 1 adult and 500 yen for 1 middle schooler. A group of 18 adults and middle schoolers went in, and the total admission was 14200 yen. How many adults were there?",
+  "zh-Hans": "某博物馆的门票费是大人1人900日元，初中生1人500日元。大人和初中生一共18人入馆，门票费总共14200日元。大人有几人？",
+  "zh-Hant": "某博物館的門票費是大人1人900日圓，國中生1人500日圓。大人和國中生一共18人入館，門票費總共14200日圓。大人有幾人？"
+ },
+ "全部中学生だとすると 500×18 = 9000": {
+  "en": "If everyone were a middle schooler: 500×18 = 9000",
+  "zh-Hans": "假设全部是初中生：500×18 = 9000",
+  "zh-Hant": "假設全部是國中生：500×18 = 9000"
+ },
+ "本当の入館料との差 14200−9000 = 5200 が、上にはみ出した長方形の面積": {
+  "en": "The difference from the real admission, 14200−9000 = 5200, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际门票费的差 14200−9000 = 5200，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際門票費的差 14200−9000 = 5200，就是上面多出來的長方形的面積"
+ },
+ "その長方形のたては 900−500 = 400": {
+  "en": "The height of that rectangle is 900−500 = 400",
+  "zh-Hans": "那个长方形的高是 900−500 = 400",
+  "zh-Hant": "那個長方形的高是 900−500 = 400"
+ },
+ "大人の数 = 5200÷400 = 13": {
+  "en": "Number of adults = 5200÷400 = 13",
+  "zh-Hans": "大人的人数 = 5200÷400 = 13",
+  "zh-Hant": "大人的人數 = 5200÷400 = 13"
+ },
+ "ある博物館の入館料は、大人1人1000円、中学生1人600円です。大人と中学生合わせて18人で入館し、入館料は合計12400円でした。大人は何人ですか。": {
+  "en": "At a museum, admission is 1000 yen for 1 adult and 600 yen for 1 middle schooler. A group of 18 adults and middle schoolers went in, and the total admission was 12400 yen. How many adults were there?",
+  "zh-Hans": "某博物馆的门票费是大人1人1000日元，初中生1人600日元。大人和初中生一共18人入馆，门票费总共12400日元。大人有几人？",
+  "zh-Hant": "某博物館的門票費是大人1人1000日圓，國中生1人600日圓。大人和國中生一共18人入館，門票費總共12400日圓。大人有幾人？"
+ },
+ "全部中学生だとすると 600×18 = 10800": {
+  "en": "If everyone were a middle schooler: 600×18 = 10800",
+  "zh-Hans": "假设全部是初中生：600×18 = 10800",
+  "zh-Hant": "假設全部是國中生：600×18 = 10800"
+ },
+ "本当の入館料との差 12400−10800 = 1600 が、上にはみ出した長方形の面積": {
+  "en": "The difference from the real admission, 12400−10800 = 1600, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际门票费的差 12400−10800 = 1600，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際門票費的差 12400−10800 = 1600，就是上面多出來的長方形的面積"
+ },
+ "その長方形のたては 1000−600 = 400": {
+  "en": "The height of that rectangle is 1000−600 = 400",
+  "zh-Hans": "那个长方形的高是 1000−600 = 400",
+  "zh-Hant": "那個長方形的高是 1000−600 = 400"
+ },
+ "大人の数 = 1600÷400 = 4": {
+  "en": "Number of adults = 1600÷400 = 4",
+  "zh-Hans": "大人的人数 = 1600÷400 = 4",
+  "zh-Hant": "大人的人數 = 1600÷400 = 4"
+ },
+ "ある博物館の入館料は、大人1人1200円、中学生1人800円です。大人と中学生合わせて20人で入館し、入館料は合計20400円でした。大人は何人ですか。": {
+  "en": "At a museum, admission is 1200 yen for 1 adult and 800 yen for 1 middle schooler. A group of 20 adults and middle schoolers went in, and the total admission was 20400 yen. How many adults were there?",
+  "zh-Hans": "某博物馆的门票费是大人1人1200日元，初中生1人800日元。大人和初中生一共20人入馆，门票费总共20400日元。大人有几人？",
+  "zh-Hant": "某博物館的門票費是大人1人1200日圓，國中生1人800日圓。大人和國中生一共20人入館，門票費總共20400日圓。大人有幾人？"
+ },
+ "全部中学生だとすると 800×20 = 16000": {
+  "en": "If everyone were a middle schooler: 800×20 = 16000",
+  "zh-Hans": "假设全部是初中生：800×20 = 16000",
+  "zh-Hant": "假設全部是國中生：800×20 = 16000"
+ },
+ "本当の入館料との差 20400−16000 = 4400 が、上にはみ出した長方形の面積": {
+  "en": "The difference from the real admission, 20400−16000 = 4400, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际门票费的差 20400−16000 = 4400，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際門票費的差 20400−16000 = 4400，就是上面多出來的長方形的面積"
+ },
+ "大人の数 = 4400÷400 = 11": {
+  "en": "Number of adults = 4400÷400 = 11",
+  "zh-Hans": "大人的人数 = 4400÷400 = 11",
+  "zh-Hant": "大人的人數 = 4400÷400 = 11"
+ },
+ "1組28人のテストの平均点は71点、2組の平均点は60点で、2つの組を合わせた平均点は67点でした。2組は何人ですか。": {
+  "en": "On a test, Class 1 has 28 students with an average score of 71 points, and Class 2 has an average of 60 points. The average for the 2 classes together was 67 points. How many students are in Class 2?",
+  "zh-Hans": "一次测验中，1班28人的平均分是71分，2班的平均分是60分，2个班合起来的平均分是67分。2班有几人？",
+  "zh-Hant": "一次測驗中，1班28人的平均分是71分，2班的平均分是60分，2個班合起來的平均分是67分。2班有幾人？"
+ },
+ "16人": {
+  "en": "16 people",
+  "zh-Hans": "16人",
+  "zh-Hant": "16人"
+ },
+ "縦＝平均点、横＝人数の長方形2つをならべる（面積＝合計点）": {
+  "en": "Line up 2 rectangles with height = average score and width = number of students (area = total score)",
+  "zh-Hans": "把2个长方形排在一起：高＝平均分，宽＝人数（面积＝总分）",
+  "zh-Hant": "把2個長方形排在一起：高＝平均分，寬＝人數（面積＝總分）"
+ },
+ "全体の平均67点の線を引く。1組がはみ出す部分の縦は 71−67 = 4、面積は 28×4 = 112": {
+  "en": "Draw a line at the overall average of 67 points. The part of Class 1 sticking out has height 71−67 = 4 and area 28×4 = 112",
+  "zh-Hans": "在总平均分67分处画一条线。1班多出来部分的高是 71−67 = 4，面积是 28×4 = 112",
+  "zh-Hant": "在總平均分67分處畫一條線。1班多出來部分的高是 71−67 = 4，面積是 28×4 = 112"
+ },
+ "2組の、線より下のへこみも同じ面積。へこみの縦は 67−60 = 7": {
+  "en": "Class 2's gap below the line has the same area. The height of the gap is 67−60 = 7",
+  "zh-Hans": "2班在线下方凹进去的部分面积相同。凹进部分的高是 67−60 = 7",
+  "zh-Hant": "2班在線下方凹進去的部分面積相同。凹進部分的高是 67−60 = 7"
+ },
+ "2組の人数 = 112÷7 = 16（人）": {
+  "en": "Students in Class 2 = 112÷7 = 16 (students)",
+  "zh-Hans": "2班的人数 = 112÷7 = 16（人）",
+  "zh-Hant": "2班的人數 = 112÷7 = 16（人）"
+ },
+ "人数をxとおくと、合計点の方程式になる。解けるが、面積図なら引き算とわり算だけ。": {
+  "en": "If you let the number of students be x, you get an equation for the total score. It works, but with an area diagram it's just subtraction and division.",
+  "zh-Hans": "设人数为x，可以列出总分的方程。能解，但用面积图只需要减法和除法。",
+  "zh-Hant": "設人數為x，可以列出總分的方程式。能解，但用面積圖只需要減法和除法。"
+ },
+ "1組34人のテストの平均点は80点、2組の平均点は71点で、2つの組を合わせた平均点は77点でした。2組は何人ですか。": {
+  "en": "On a test, Class 1 has 34 students with an average score of 80 points, and Class 2 has an average of 71 points. The average for the 2 classes together was 77 points. How many students are in Class 2?",
+  "zh-Hans": "一次测验中，1班34人的平均分是80分，2班的平均分是71分，2个班合起来的平均分是77分。2班有几人？",
+  "zh-Hant": "一次測驗中，1班34人的平均分是80分，2班的平均分是71分，2個班合起來的平均分是77分。2班有幾人？"
+ },
+ "全体の平均77点の線を引く。1組がはみ出す部分のたては 80−77 = 3、面積は 34×3 = 102": {
+  "en": "Draw a line at the overall average of 77 points. The part of Class 1 sticking out has height 80−77 = 3 and area 34×3 = 102",
+  "zh-Hans": "在总平均分77分处画一条线。1班多出来部分的高是 80−77 = 3，面积是 34×3 = 102",
+  "zh-Hant": "在總平均分77分處畫一條線。1班多出來部分的高是 80−77 = 3，面積是 34×3 = 102"
+ },
+ "2組の、線より下のへこみも同じ面積。へこみのたては 77−71 = 6": {
+  "en": "Class 2's gap below the line has the same area. The height of the gap is 77−71 = 6",
+  "zh-Hans": "2班在线下方凹进去的部分面积相同。凹进部分的高是 77−71 = 6",
+  "zh-Hant": "2班在線下方凹進去的部分面積相同。凹進部分的高是 77−71 = 6"
+ },
+ "2組の人数 = 102÷6 = 17（人）": {
+  "en": "Students in Class 2 = 102÷6 = 17 (students)",
+  "zh-Hans": "2班的人数 = 102÷6 = 17（人）",
+  "zh-Hant": "2班的人數 = 102÷6 = 17（人）"
+ },
+ "1組30人のテストの平均点は81点、2組の平均点は74点で、2つの組を合わせた平均点は79点でした。2組は何人ですか。": {
+  "en": "On a test, Class 1 has 30 students with an average score of 81 points, and Class 2 has an average of 74 points. The average for the 2 classes together was 79 points. How many students are in Class 2?",
+  "zh-Hans": "一次测验中，1班30人的平均分是81分，2班的平均分是74分，2个班合起来的平均分是79分。2班有几人？",
+  "zh-Hant": "一次測驗中，1班30人的平均分是81分，2班的平均分是74分，2個班合起來的平均分是79分。2班有幾人？"
+ },
+ "全体の平均79点の線を引く。1組がはみ出す部分のたては 81−79 = 2、面積は 30×2 = 60": {
+  "en": "Draw a line at the overall average of 79 points. The part of Class 1 sticking out has height 81−79 = 2 and area 30×2 = 60",
+  "zh-Hans": "在总平均分79分处画一条线。1班多出来部分的高是 81−79 = 2，面积是 30×2 = 60",
+  "zh-Hant": "在總平均分79分處畫一條線。1班多出來部分的高是 81−79 = 2，面積是 30×2 = 60"
+ },
+ "2組の、線より下のへこみも同じ面積。へこみのたては 79−74 = 5": {
+  "en": "Class 2's gap below the line has the same area. The height of the gap is 79−74 = 5",
+  "zh-Hans": "2班在线下方凹进去的部分面积相同。凹进部分的高是 79−74 = 5",
+  "zh-Hant": "2班在線下方凹進去的部分面積相同。凹進部分的高是 79−74 = 5"
+ },
+ "2組の人数 = 60÷5 = 12（人）": {
+  "en": "Students in Class 2 = 60÷5 = 12 (students)",
+  "zh-Hans": "2班的人数 = 60÷5 = 12（人）",
+  "zh-Hant": "2班的人數 = 60÷5 = 12（人）"
+ },
+ "1組35人のテストの平均点は76点、2組の平均点は68点で、2つの組を合わせた平均点は73点でした。2組は何人ですか。": {
+  "en": "On a test, Class 1 has 35 students with an average score of 76 points, and Class 2 has an average of 68 points. The average for the 2 classes together was 73 points. How many students are in Class 2?",
+  "zh-Hans": "一次测验中，1班35人的平均分是76分，2班的平均分是68分，2个班合起来的平均分是73分。2班有几人？",
+  "zh-Hant": "一次測驗中，1班35人的平均分是76分，2班的平均分是68分，2個班合起來的平均分是73分。2班有幾人？"
+ },
+ "全体の平均73点の線を引く。1組がはみ出す部分のたては 76−73 = 3、面積は 35×3 = 105": {
+  "en": "Draw a line at the overall average of 73 points. The part of Class 1 sticking out has height 76−73 = 3 and area 35×3 = 105",
+  "zh-Hans": "在总平均分73分处画一条线。1班多出来部分的高是 76−73 = 3，面积是 35×3 = 105",
+  "zh-Hant": "在總平均分73分處畫一條線。1班多出來部分的高是 76−73 = 3，面積是 35×3 = 105"
+ },
+ "2組の、線より下のへこみも同じ面積。へこみのたては 73−68 = 5": {
+  "en": "Class 2's gap below the line has the same area. The height of the gap is 73−68 = 5",
+  "zh-Hans": "2班在线下方凹进去的部分面积相同。凹进部分的高是 73−68 = 5",
+  "zh-Hant": "2班在線下方凹進去的部分面積相同。凹進部分的高是 73−68 = 5"
+ },
+ "2組の人数 = 105÷5 = 21（人）": {
+  "en": "Students in Class 2 = 105÷5 = 21 (students)",
+  "zh-Hans": "2班的人数 = 105÷5 = 21（人）",
+  "zh-Hant": "2班的人數 = 105÷5 = 21（人）"
+ },
+ "1組24人のテストの平均点は77点、2組の平均点は72点で、2つの組を合わせた平均点は74点でした。2組は何人ですか。": {
+  "en": "On a test, Class 1 has 24 students with an average score of 77 points, and Class 2 has an average of 72 points. The average for the 2 classes together was 74 points. How many students are in Class 2?",
+  "zh-Hans": "一次测验中，1班24人的平均分是77分，2班的平均分是72分，2个班合起来的平均分是74分。2班有几人？",
+  "zh-Hant": "一次測驗中，1班24人的平均分是77分，2班的平均分是72分，2個班合起來的平均分是74分。2班有幾人？"
+ },
+ "全体の平均74点の線を引く。1組がはみ出す部分のたては 77−74 = 3、面積は 24×3 = 72": {
+  "en": "Draw a line at the overall average of 74 points. The part of Class 1 sticking out has height 77−74 = 3 and area 24×3 = 72",
+  "zh-Hans": "在总平均分74分处画一条线。1班多出来部分的高是 77−74 = 3，面积是 24×3 = 72",
+  "zh-Hant": "在總平均分74分處畫一條線。1班多出來部分的高是 77−74 = 3，面積是 24×3 = 72"
+ },
+ "2組の、線より下のへこみも同じ面積。へこみのたては 74−72 = 2": {
+  "en": "Class 2's gap below the line has the same area. The height of the gap is 74−72 = 2",
+  "zh-Hans": "2班在线下方凹进去的部分面积相同。凹进部分的高是 74−72 = 2",
+  "zh-Hant": "2班在線下方凹進去的部分面積相同。凹進部分的高是 74−72 = 2"
+ },
+ "2組の人数 = 72÷2 = 36（人）": {
+  "en": "Students in Class 2 = 72÷2 = 36 (students)",
+  "zh-Hans": "2班的人数 = 72÷2 = 36（人）",
+  "zh-Hant": "2班的人數 = 72÷2 = 36（人）"
+ },
+ "全部正解と考えて、本当の得点との差を見る。1問間違えるごとにへる点は、もらえない点＋へらされる点。": {
+  "en": "Pretend every answer is correct, then look at the difference from the real score. For every 1 wrong answer, you lose the points you don't get + the points taken away.",
+  "zh-Hans": "先假设全部答对，再看和实际得分的差。每答错1题减少的分数＝得不到的分＋被扣的分。",
+  "zh-Hant": "先假設全部答對，再看和實際得分的差。每答錯1題減少的分數＝得不到的分＋被扣的分。"
+ },
+ "30問のクイズで、1問正解すると5点もらえ、間違えると3点減点されます。全部の問題に答えて、得点は94点でした。正解した問題は何問ですか。": {
+  "en": "In a quiz with 30 questions, you get 5 points for 1 correct answer and lose 3 points for a wrong one. You answered every question and scored 94 points. How many questions did you get right?",
+  "zh-Hans": "在一个有30道题的问答中，答对1题得5分，答错扣3分。所有题目都作答了，得分是94分。答对了几道题？",
+  "zh-Hant": "在一個有30道題的問答中，答對1題得5分，答錯扣3分。所有題目都作答了，得分是94分。答對了幾道題？"
+ },
+ "23問": {
+  "en": "23 questions",
+  "zh-Hans": "23题",
+  "zh-Hant": "23題"
+ },
+ "全部正解なら 5×30 = 150 点": {
+  "en": "If all were correct: 5×30 = 150 points",
+  "zh-Hans": "如果全部答对：5×30 = 150 分",
+  "zh-Hant": "如果全部答對：5×30 = 150 分"
+ },
+ "本当の得点との差 150−94 = 56 点": {
+  "en": "Difference from the real score: 150−94 = 56 points",
+  "zh-Hans": "与实际得分的差 150−94 = 56 分",
+  "zh-Hant": "與實際得分的差 150−94 = 56 分"
+ },
+ "1問間違えるごとに、5点もらえず3点へるので 5+3 = 8 点ずつへる": {
+  "en": "For every 1 wrong answer, you miss 5 points and lose 3 points, so the score drops by 5+3 = 8 points each time",
+  "zh-Hans": "每答错1题，得不到5分还要扣3分，所以每次减少 5+3 = 8 分",
+  "zh-Hant": "每答錯1題，得不到5分還要扣3分，所以每次減少 5+3 = 8 分"
+ },
+ "間違えた数 = 56÷8 = 7（問）": {
+  "en": "Wrong answers = 56÷8 = 7 (questions)",
+  "zh-Hans": "答错的题数 = 56÷8 = 7（题）",
+  "zh-Hant": "答錯的題數 = 56÷8 = 7（題）"
+ },
+ "正解 = 30−7 = 23（問）": {
+  "en": "Correct = 30−7 = 23 (questions)",
+  "zh-Hans": "答对 = 30−7 = 23（题）",
+  "zh-Hant": "答對 = 30−7 = 23（題）"
+ },
+ "全部の数と合計が分かり、間違えると点がへるときは、「全部正解なら」から考える。": {
+  "en": "When you know the total number and the total score, and wrong answers lose points, start from \"if all were correct.\"",
+  "zh-Hans": "知道总题数和总分，而且答错会扣分时，就从“如果全部答对”开始想。",
+  "zh-Hant": "知道總題數和總分，而且答錯會扣分時，就從「如果全部答對」開始想。"
+ },
+ "そのとおり。全問正解としたときの点数から考える。1問間違えるごとに、もらえない点と引かれる点の両方が減る。": {
+  "en": "That's right. Start from the score if every answer were correct. For every 1 wrong answer, you lose both the points you don't get and the points taken away.",
+  "zh-Hans": "没错。从全部答对时的分数开始想。每答错1题，得不到的分和被扣的分都要减掉。",
+  "zh-Hant": "沒錯。從全部答對時的分數開始想。每答錯1題，得不到的分和被扣的分都要減掉。"
+ },
+ "正解をx問として方程式を立てると、かっこと符号の処理でミスが出やすい。": {
+  "en": "If you set up an equation with x correct answers, it's easy to make mistakes with brackets and signs.",
+  "zh-Hans": "设答对x题列方程，容易在括号和正负号的处理上出错。",
+  "zh-Hant": "設答對x題列方程式，容易在括號和正負號的處理上出錯。"
+ },
+ "24問のクイズで、1問正解すると4点もらえ、間違えると1点減点されます。全部の問題に答えて、得点は46点でした。正解した問題は何問ですか。": {
+  "en": "In a quiz with 24 questions, you get 4 points for 1 correct answer and lose 1 points for a wrong one. You answered every question and scored 46 points. How many questions did you get right?",
+  "zh-Hans": "在一个有24道题的问答中，答对1题得4分，答错扣1分。所有题目都作答了，得分是46分。答对了几道题？",
+  "zh-Hant": "在一個有24道題的問答中，答對1題得4分，答錯扣1分。所有題目都作答了，得分是46分。答對了幾道題？"
+ },
+ "全部正解なら 4×24 = 96 点": {
+  "en": "If all were correct: 4×24 = 96 points",
+  "zh-Hans": "如果全部答对：4×24 = 96 分",
+  "zh-Hant": "如果全部答對：4×24 = 96 分"
+ },
+ "本当の得点との差 96−46 = 50 点": {
+  "en": "Difference from the real score: 96−46 = 50 points",
+  "zh-Hans": "与实际得分的差 96−46 = 50 分",
+  "zh-Hant": "與實際得分的差 96−46 = 50 分"
+ },
+ "1問間違えるごとに、4点もらえず1点へるので 4+1 = 5 点ずつへる": {
+  "en": "For every 1 wrong answer, you miss 4 points and lose 1 point, so the score drops by 4+1 = 5 points each time",
+  "zh-Hans": "每答错1题，得不到4分还要扣1分，所以每次减少 4+1 = 5 分",
+  "zh-Hant": "每答錯1題，得不到4分還要扣1分，所以每次減少 4+1 = 5 分"
+ },
+ "間違えた数 = 50÷5 = 10（問）": {
+  "en": "Wrong answers = 50÷5 = 10 (questions)",
+  "zh-Hans": "答错的题数 = 50÷5 = 10（题）",
+  "zh-Hant": "答錯的題數 = 50÷5 = 10（題）"
+ },
+ "正解 = 24−10 = 14（問）": {
+  "en": "Correct = 24−10 = 14 (questions)",
+  "zh-Hans": "答对 = 24−10 = 14（题）",
+  "zh-Hant": "答對 = 24−10 = 14（題）"
+ },
+ "25問のクイズで、1問正解すると4点もらえ、間違えると1点減点されます。全部の問題に答えて、得点は60点でした。正解した問題は何問ですか。": {
+  "en": "In a quiz with 25 questions, you get 4 points for 1 correct answer and lose 1 points for a wrong one. You answered every question and scored 60 points. How many questions did you get right?",
+  "zh-Hans": "在一个有25道题的问答中，答对1题得4分，答错扣1分。所有题目都作答了，得分是60分。答对了几道题？",
+  "zh-Hant": "在一個有25道題的問答中，答對1題得4分，答錯扣1分。所有題目都作答了，得分是60分。答對了幾道題？"
+ },
+ "全部正解なら 4×25 = 100 点": {
+  "en": "If all were correct: 4×25 = 100 points",
+  "zh-Hans": "如果全部答对：4×25 = 100 分",
+  "zh-Hant": "如果全部答對：4×25 = 100 分"
+ },
+ "本当の得点との差 100−60 = 40 点": {
+  "en": "Difference from the real score: 100−60 = 40 points",
+  "zh-Hans": "与实际得分的差 100−60 = 40 分",
+  "zh-Hant": "與實際得分的差 100−60 = 40 分"
+ },
+ "間違えた数 = 40÷5 = 8（問）": {
+  "en": "Wrong answers = 40÷5 = 8 (questions)",
+  "zh-Hans": "答错的题数 = 40÷5 = 8（题）",
+  "zh-Hant": "答錯的題數 = 40÷5 = 8（題）"
+ },
+ "正解 = 25−8 = 17（問）": {
+  "en": "Correct = 25−8 = 17 (questions)",
+  "zh-Hans": "答对 = 25−8 = 17（题）",
+  "zh-Hant": "答對 = 25−8 = 17（題）"
+ },
+ "17問のクイズで、1問正解すると4点もらえ、間違えると1点減点されます。全部の問題に答えて、得点は48点でした。正解した問題は何問ですか。": {
+  "en": "In a quiz with 17 questions, you get 4 points for 1 correct answer and lose 1 points for a wrong one. You answered every question and scored 48 points. How many questions did you get right?",
+  "zh-Hans": "在一个有17道题的问答中，答对1题得4分，答错扣1分。所有题目都作答了，得分是48分。答对了几道题？",
+  "zh-Hant": "在一個有17道題的問答中，答對1題得4分，答錯扣1分。所有題目都作答了，得分是48分。答對了幾道題？"
+ },
+ "全部正解なら 4×17 = 68 点": {
+  "en": "If all were correct: 4×17 = 68 points",
+  "zh-Hans": "如果全部答对：4×17 = 68 分",
+  "zh-Hant": "如果全部答對：4×17 = 68 分"
+ },
+ "本当の得点との差 68−48 = 20 点": {
+  "en": "Difference from the real score: 68−48 = 20 points",
+  "zh-Hans": "与实际得分的差 68−48 = 20 分",
+  "zh-Hant": "與實際得分的差 68−48 = 20 分"
+ },
+ "間違えた数 = 20÷5 = 4（問）": {
+  "en": "Wrong answers = 20÷5 = 4 (questions)",
+  "zh-Hans": "答错的题数 = 20÷5 = 4（题）",
+  "zh-Hant": "答錯的題數 = 20÷5 = 4（題）"
+ }
+}

@@ -1,0 +1,1502 @@
+{
+ "同じ向きに進むので、出会う（追いつく）までに近づくきょりは池1周の600m": {
+  "en": "They go in the same direction, so the distance to close before meeting (catching up) is 1 lap of the pond, 600 m",
+  "zh-Hans": "因为同向而行，到相遇（追上）为止要缩短的距离是绕池塘1圈的600m",
+  "zh-Hant": "因為同向而行，到相遇（追上）為止要縮短的距離是繞池塘1圈的600m"
+ },
+ "600÷30 = 20（分後）": {
+  "en": "600÷30 = 20 (minutes later)",
+  "zh-Hans": "600÷30 = 20（分钟后）",
+  "zh-Hant": "600÷30 = 20（分鐘後）"
+ },
+ "長さ140mで秒速27mの列車Aが、同じ向きに走る長さ130mで秒速17mの列車Bに、うしろから追いつきました。Aの先頭がBの最後尾に追いついてから、AがBを完全に追いこすまで、何秒かかりますか。": {
+  "en": "Train A, 140 m long and going 27 m per second, catches up from behind with Train B, 130 m long and going 17 m per second in the same direction. How many seconds does it take from when the front of A reaches the back of B until A has completely passed B?",
+  "zh-Hans": "长140m、每秒行驶27m的列车A，从后面追上了同向行驶、长130m、每秒行驶17m的列车B。从A的车头追上B的车尾，到A完全超过B，需要多少秒？",
+  "zh-Hant": "長140m、每秒行駛27m的列車A，從後面追上了同向行駛、長130m、每秒行駛17m的列車B。從A的車頭追上B的車尾，到A完全超過B，需要幾秒？"
+ },
+ "27秒": {
+  "en": "27 seconds",
+  "zh-Hans": "27秒",
+  "zh-Hant": "27秒"
+ },
+ "追いこすまでに進むのは、2つの列車の長さの和 140+130 = 270m": {
+  "en": "To pass, A must cover the sum of the 2 train lengths: 140+130 = 270 m",
+  "zh-Hans": "超过对方要多走的距离，是2列车长度之和 140+130 = 270m",
+  "zh-Hant": "超過對方要多走的距離，是2列車長度之和 140+130 = 270m"
+ },
+ "270÷10 = 27（秒）": {
+  "en": "270÷10 = 27 (s)",
+  "zh-Hans": "270÷10 = 27（秒）",
+  "zh-Hant": "270÷10 = 27（秒）"
+ },
+ "長さ190mで秒速28mの列車Aが、同じ向きに走る長さ90mで秒速18mの列車Bに、うしろから追いつきました。Aの先頭がBの最後尾に追いついてから、AがBを完全に追いこすまで、何秒かかりますか。": {
+  "en": "Train A, 190 m long and going 28 m per second, catches up from behind with Train B, 90 m long and going 18 m per second in the same direction. How many seconds does it take from when the front of A reaches the back of B until A has completely passed B?",
+  "zh-Hans": "长190m、每秒行驶28m的列车A，从后面追上了同向行驶、长90m、每秒行驶18m的列车B。从A的车头追上B的车尾，到A完全超过B，需要多少秒？",
+  "zh-Hant": "長190m、每秒行駛28m的列車A，從後面追上了同向行駛、長90m、每秒行駛18m的列車B。從A的車頭追上B的車尾，到A完全超過B，需要幾秒？"
+ },
+ "追いこすまでに進むのは、2つの列車の長さの和 190+90 = 280m": {
+  "en": "To pass, A must cover the sum of the 2 train lengths: 190+90 = 280 m",
+  "zh-Hans": "超过对方要多走的距离，是2列车长度之和 190+90 = 280m",
+  "zh-Hant": "超過對方要多走的距離，是2列車長度之和 190+90 = 280m"
+ },
+ "280÷10 = 28（秒）": {
+  "en": "280÷10 = 28 (s)",
+  "zh-Hans": "280÷10 = 28（秒）",
+  "zh-Hant": "280÷10 = 28（秒）"
+ },
+ "長さ240mで秒速26mの列車Aが、同じ向きに走る長さ200mで秒速16mの列車Bに、うしろから追いつきました。Aの先頭がBの最後尾に追いついてから、AがBを完全に追いこすまで、何秒かかりますか。": {
+  "en": "Train A, 240 m long and going 26 m per second, catches up from behind with Train B, 200 m long and going 16 m per second in the same direction. How many seconds does it take from when the front of A reaches the back of B until A has completely passed B?",
+  "zh-Hans": "长240m、每秒行驶26m的列车A，从后面追上了同向行驶、长200m、每秒行驶16m的列车B。从A的车头追上B的车尾，到A完全超过B，需要多少秒？",
+  "zh-Hant": "長240m、每秒行駛26m的列車A，從後面追上了同向行駛、長200m、每秒行駛16m的列車B。從A的車頭追上B的車尾，到A完全超過B，需要幾秒？"
+ },
+ "列車Bを止めて考えると、列車Aは秒速 26−16 = 10m で近づく": {
+  "en": "Freeze Train B: then Train A comes closer at 26−16 = 10 m per second",
+  "zh-Hans": "把列车B定住来看，列车A以每秒 26−16 = 10m 的速度靠近",
+  "zh-Hant": "把列車B定住來看，列車A以每秒 26−16 = 10m 的速度靠近"
+ },
+ "追いこすまでに進むのは、2つの列車の長さの和 240+200 = 440m": {
+  "en": "To pass, A must cover the sum of the 2 train lengths: 240+200 = 440 m",
+  "zh-Hans": "超过对方要多走的距离，是2列车长度之和 240+200 = 440m",
+  "zh-Hant": "超過對方要多走的距離，是2列車長度之和 240+200 = 440m"
+ },
+ "440÷10 = 44（秒）": {
+  "en": "440÷10 = 44 (s)",
+  "zh-Hans": "440÷10 = 44（秒）",
+  "zh-Hant": "440÷10 = 44（秒）"
+ },
+ "長さ140mで秒速21mの列車Aが、同じ向きに走る長さ100mで秒速16mの列車Bに、うしろから追いつきました。Aの先頭がBの最後尾に追いついてから、AがBを完全に追いこすまで、何秒かかりますか。": {
+  "en": "Train A, 140 m long and going 21 m per second, catches up from behind with Train B, 100 m long and going 16 m per second in the same direction. How many seconds does it take from when the front of A reaches the back of B until A has completely passed B?",
+  "zh-Hans": "长140m、每秒行驶21m的列车A，从后面追上了同向行驶、长100m、每秒行驶16m的列车B。从A的车头追上B的车尾，到A完全超过B，需要多少秒？",
+  "zh-Hant": "長140m、每秒行駛21m的列車A，從後面追上了同向行駛、長100m、每秒行駛16m的列車B。從A的車頭追上B的車尾，到A完全超過B，需要幾秒？"
+ },
+ "列車Bを止めて考えると、列車Aは秒速 21−16 = 5m で近づく": {
+  "en": "Freeze Train B: then Train A comes closer at 21−16 = 5 m per second",
+  "zh-Hans": "把列车B定住来看，列车A以每秒 21−16 = 5m 的速度靠近",
+  "zh-Hant": "把列車B定住來看，列車A以每秒 21−16 = 5m 的速度靠近"
+ },
+ "追いこすまでに進むのは、2つの列車の長さの和 140+100 = 240m": {
+  "en": "To pass, A must cover the sum of the 2 train lengths: 140+100 = 240 m",
+  "zh-Hans": "超过对方要多走的距离，是2列车长度之和 140+100 = 240m",
+  "zh-Hant": "超過對方要多走的距離，是2列車長度之和 140+100 = 240m"
+ },
+ "240÷5 = 48（秒）": {
+  "en": "240÷5 = 48 (s)",
+  "zh-Hans": "240÷5 = 48（秒）",
+  "zh-Hant": "240÷5 = 48（秒）"
+ },
+ "長さ220mで秒速27mの列車Aが、同じ向きに走る長さ120mで秒速17mの列車Bに、うしろから追いつきました。Aの先頭がBの最後尾に追いついてから、AがBを完全に追いこすまで、何秒かかりますか。": {
+  "en": "Train A, 220 m long and going 27 m per second, catches up from behind with Train B, 120 m long and going 17 m per second in the same direction. How many seconds does it take from when the front of A reaches the back of B until A has completely passed B?",
+  "zh-Hans": "长220m、每秒行驶27m的列车A，从后面追上了同向行驶、长120m、每秒行驶17m的列车B。从A的车头追上B的车尾，到A完全超过B，需要多少秒？",
+  "zh-Hant": "長220m、每秒行駛27m的列車A，從後面追上了同向行駛、長120m、每秒行駛17m的列車B。從A的車頭追上B的車尾，到A完全超過B，需要幾秒？"
+ },
+ "追いこすまでに進むのは、2つの列車の長さの和 220+120 = 340m": {
+  "en": "To pass, A must cover the sum of the 2 train lengths: 220+120 = 340 m",
+  "zh-Hans": "超过对方要多走的距离，是2列车长度之和 220+120 = 340m",
+  "zh-Hant": "超過對方要多走的距離，是2列車長度之和 220+120 = 340m"
+ },
+ "速さ×時間＝道のりは長方形の面積。2つの速さを長方形2つでならべると、つるかめ算と同じになる。": {
+  "en": "Speed × time ＝ distance is the area of a rectangle. Put the 2 speeds side by side as 2 rectangles, and it becomes the same as a chickens-and-rabbits problem.",
+  "zh-Hans": "速度×时间＝路程，就是长方形的面积。把2种速度画成2个并排的长方形，就和鸡兔同笼问题一样了。",
+  "zh-Hant": "速度×時間＝路程，就是長方形的面積。把2種速度畫成2個並排的長方形，就和雞兔同籠問題一樣了。"
+ },
+ "家から2000mはなれた公園まで行きます。はじめは分速100mで走り、とちゅうから分速60mで歩いたところ、全部で24分かかりました。分速100mで走ったのは何分間ですか。": {
+  "en": "You go to a park 2000 m from home. First you run at 100 m per minute, then partway you switch to walking at 60 m per minute, and it takes 24 minutes in all. For how many minutes did you run at 100 m per minute?",
+  "zh-Hans": "从家去离家2000m的公园。一开始以每分钟100m的速度跑，中途改为以每分钟60m的速度走，一共用了24分钟。以每分钟100m的速度跑了几分钟？",
+  "zh-Hant": "從家去離家2000m的公園。一開始以每分鐘100m的速度跑，途中改成以每分鐘60m的速度走，總共花了24分鐘。以每分鐘100m的速度跑了幾分鐘？"
+ },
+ "14分": {
+  "en": "14 minutes",
+  "zh-Hans": "14分钟",
+  "zh-Hant": "14分鐘"
+ },
+ "速さの問題なので、くせで「止める」を使おうとする": {
+  "en": "It's a speed problem, so out of habit you try to use \"Freeze\"",
+  "zh-Hans": "因为是速度问题，习惯性地想用“定住一方”",
+  "zh-Hant": "因為是速度問題，習慣性地想用「定住一方」"
+ },
+ "動く人が1人しかいないので、止める相手がいない": {
+  "en": "Only 1 person is moving, so there is no one to freeze",
+  "zh-Hans": "移动的只有1个人，没有可以定住的另一方",
+  "zh-Hant": "移動的只有1個人，沒有可以定住的另一方"
+ },
+ "たて＝速さ、横＝時間の長方形2つで表す（面積＝道のり）": {
+  "en": "Draw 2 rectangles with height ＝ speed and width ＝ time (area ＝ distance)",
+  "zh-Hans": "用2个高＝速度、宽＝时间的长方形来表示（面积＝路程）",
+  "zh-Hant": "用2個高＝速度、寬＝時間的長方形來表示（面積＝路程）"
+ },
+ "全部歩いたとすると 60×24 = 1440": {
+  "en": "If you had walked the whole time: 60×24 = 1440",
+  "zh-Hans": "假设全程都在走：60×24 = 1440",
+  "zh-Hant": "假設全程都用走的：60×24 = 1440"
+ },
+ "本当の道のりとの差 2000−1440 = 560 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real distance, 2000−1440 = 560, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际路程的差 2000−1440 = 560，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際路程的差 2000−1440 = 560，就是上面多出來的長方形的面積"
+ },
+ "走った時間 = 560÷40 = 14（分）": {
+  "en": "Running time = 560÷40 = 14 (min)",
+  "zh-Hans": "跑步的时间 = 560÷40 = 14（分钟）",
+  "zh-Hant": "跑步的時間 = 560÷40 = 14（分鐘）"
+ },
+ "おしい。速さの問題だが、動くのは1人だけ。止める相手がいない。": {
+  "en": "Close! It's a speed problem, but only 1 person moves. There's no one to freeze.",
+  "zh-Hans": "差一点。虽然是速度问题，但移动的只有1个人，没有可以定住的另一方。",
+  "zh-Hant": "差一點。雖然是速度問題，但移動的只有1個人，沒有可以定住的另一方。"
+ },
+ "そのとおり。たて＝速さ、横＝時間。全部歩いたら1440m、差の560mがはみ出した部分。": {
+  "en": "That's right. Height ＝ speed, width ＝ time. Walking the whole time gives 1440 m, and the 560 m difference is the part sticking out.",
+  "zh-Hans": "没错。高＝速度，宽＝时间。全程都走是1440m，相差的560m就是多出来的部分。",
+  "zh-Hant": "沒錯。高＝速度，寬＝時間。全程都用走的是1440m，相差的560m就是多出來的部分。"
+ },
+ "1分ずつためすと、24通り調べることになる。": {
+  "en": "If you try it 1 minute at a time, you'd have to check 24 cases.",
+  "zh-Hans": "如果每次1分钟地试，就要检查24种情况。",
+  "zh-Hant": "如果每次1分鐘地試，就要檢查24種情況。"
+ },
+ "家から2000mはなれた公園まで行きます。はじめは分速140mで走り、とちゅうから分速60mで歩いたところ、全部で28分かかりました。分速140mで走ったのは何分間ですか。": {
+  "en": "You go to a park 2000 m from home. First you run at 140 m per minute, then partway you switch to walking at 60 m per minute, and it takes 28 minutes in all. For how many minutes did you run at 140 m per minute?",
+  "zh-Hans": "从家去离家2000m的公园。一开始以每分钟140m的速度跑，中途改为以每分钟60m的速度走，一共用了28分钟。以每分钟140m的速度跑了几分钟？",
+  "zh-Hant": "從家去離家2000m的公園。一開始以每分鐘140m的速度跑，途中改成以每分鐘60m的速度走，總共花了28分鐘。以每分鐘140m的速度跑了幾分鐘？"
+ },
+ "全部歩いたとすると 60×28 = 1680": {
+  "en": "If you had walked the whole time: 60×28 = 1680",
+  "zh-Hans": "假设全程都在走：60×28 = 1680",
+  "zh-Hant": "假設全程都用走的：60×28 = 1680"
+ },
+ "本当の道のりとの差 2000−1680 = 320 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real distance, 2000−1680 = 320, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际路程的差 2000−1680 = 320，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際路程的差 2000−1680 = 320，就是上面多出來的長方形的面積"
+ },
+ "その長方形のたては 140−60 = 80": {
+  "en": "That rectangle's height is 140−60 = 80",
+  "zh-Hans": "这个长方形的高是 140−60 = 80",
+  "zh-Hant": "這個長方形的高是 140−60 = 80"
+ },
+ "走った時間 = 320÷80 = 4（分）": {
+  "en": "Running time = 320÷80 = 4 (min)",
+  "zh-Hans": "跑步的时间 = 320÷80 = 4（分钟）",
+  "zh-Hant": "跑步的時間 = 320÷80 = 4（分鐘）"
+ },
+ "家から2600mはなれた公園まで行きます。はじめは分速100mで走り、とちゅうから分速50mで歩いたところ、全部で30分かかりました。分速100mで走ったのは何分間ですか。": {
+  "en": "You go to a park 2600 m from home. First you run at 100 m per minute, then partway you switch to walking at 50 m per minute, and it takes 30 minutes in all. For how many minutes did you run at 100 m per minute?",
+  "zh-Hans": "从家去离家2600m的公园。一开始以每分钟100m的速度跑，中途改为以每分钟50m的速度走，一共用了30分钟。以每分钟100m的速度跑了几分钟？",
+  "zh-Hant": "從家去離家2600m的公園。一開始以每分鐘100m的速度跑，途中改成以每分鐘50m的速度走，總共花了30分鐘。以每分鐘100m的速度跑了幾分鐘？"
+ },
+ "全部歩いたとすると 50×30 = 1500": {
+  "en": "If you had walked the whole time: 50×30 = 1500",
+  "zh-Hans": "假设全程都在走：50×30 = 1500",
+  "zh-Hant": "假設全程都用走的：50×30 = 1500"
+ },
+ "本当の道のりとの差 2600−1500 = 1100 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real distance, 2600−1500 = 1100, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际路程的差 2600−1500 = 1100，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際路程的差 2600−1500 = 1100，就是上面多出來的長方形的面積"
+ },
+ "走った時間 = 1100÷50 = 22（分）": {
+  "en": "Running time = 1100÷50 = 22 (min)",
+  "zh-Hans": "跑步的时间 = 1100÷50 = 22（分钟）",
+  "zh-Hant": "跑步的時間 = 1100÷50 = 22（分鐘）"
+ },
+ "家から2160mはなれた公園まで行きます。はじめは分速110mで走り、とちゅうから分速60mで歩いたところ、全部で26分かかりました。分速110mで走ったのは何分間ですか。": {
+  "en": "You go to a park 2160 m from home. First you run at 110 m per minute, then partway you switch to walking at 60 m per minute, and it takes 26 minutes in all. For how many minutes did you run at 110 m per minute?",
+  "zh-Hans": "从家去离家2160m的公园。一开始以每分钟110m的速度跑，中途改为以每分钟60m的速度走，一共用了26分钟。以每分钟110m的速度跑了几分钟？",
+  "zh-Hant": "從家去離家2160m的公園。一開始以每分鐘110m的速度跑，途中改成以每分鐘60m的速度走，總共花了26分鐘。以每分鐘110m的速度跑了幾分鐘？"
+ },
+ "全部歩いたとすると 60×26 = 1560": {
+  "en": "If you had walked the whole time: 60×26 = 1560",
+  "zh-Hans": "假设全程都在走：60×26 = 1560",
+  "zh-Hant": "假設全程都用走的：60×26 = 1560"
+ },
+ "本当の道のりとの差 2160−1560 = 600 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real distance, 2160−1560 = 600, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际路程的差 2160−1560 = 600，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際路程的差 2160−1560 = 600，就是上面多出來的長方形的面積"
+ },
+ "走った時間 = 600÷50 = 12（分）": {
+  "en": "Running time = 600÷50 = 12 (min)",
+  "zh-Hans": "跑步的时间 = 600÷50 = 12（分钟）",
+  "zh-Hant": "跑步的時間 = 600÷50 = 12（分鐘）"
+ },
+ "家から1740mはなれた公園まで行きます。はじめは分速110mで走り、とちゅうから分速80mで歩いたところ、全部で18分かかりました。分速110mで走ったのは何分間ですか。": {
+  "en": "You go to a park 1740 m from home. First you run at 110 m per minute, then partway you switch to walking at 80 m per minute, and it takes 18 minutes in all. For how many minutes did you run at 110 m per minute?",
+  "zh-Hans": "从家去离家1740m的公园。一开始以每分钟110m的速度跑，中途改为以每分钟80m的速度走，一共用了18分钟。以每分钟110m的速度跑了几分钟？",
+  "zh-Hant": "從家去離家1740m的公園。一開始以每分鐘110m的速度跑，途中改成以每分鐘80m的速度走，總共花了18分鐘。以每分鐘110m的速度跑了幾分鐘？"
+ },
+ "全部歩いたとすると 80×18 = 1440": {
+  "en": "If you had walked the whole time: 80×18 = 1440",
+  "zh-Hans": "假设全程都在走：80×18 = 1440",
+  "zh-Hant": "假設全程都用走的：80×18 = 1440"
+ },
+ "本当の道のりとの差 1740−1440 = 300 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real distance, 1740−1440 = 300, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际路程的差 1740−1440 = 300，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際路程的差 1740−1440 = 300，就是上面多出來的長方形的面積"
+ },
+ "その長方形のたては 110−80 = 30": {
+  "en": "That rectangle's height is 110−80 = 30",
+  "zh-Hans": "这个长方形的高是 110−80 = 30",
+  "zh-Hant": "這個長方形的高是 110−80 = 30"
+ },
+ "走った時間 = 300÷30 = 10（分）": {
+  "en": "Running time = 300÷30 = 10 (min)",
+  "zh-Hans": "跑步的时间 = 300÷30 = 10（分钟）",
+  "zh-Hant": "跑步的時間 = 300÷30 = 10（分鐘）"
+ },
+ "2人が出会ったり追いついたりしないなら、相対的な速さはいらない。それぞれの時間を出して引く。": {
+  "en": "If the 2 people never meet or catch up, you don't need relative speed. Find each person's time and subtract.",
+  "zh-Hans": "如果2人既不相遇也不追及，就不需要相对速度。分别求出各自的时间再相减。",
+  "zh-Hant": "如果2人既不相遇也不追及，就不需要相對速度。分別求出各自的時間再相減。"
+ },
+ "兄は分速90m、弟は分速60mで、家から1800mはなれた駅に向かって、同時に家を出ました。兄は弟より何分早く駅に着きますか。": {
+  "en": "The older brother walks at 90 m per minute and the younger brother at 60 m per minute. They leave home at the same time, heading for a station 1800 m away. How many minutes earlier does the older brother reach the station than the younger brother?",
+  "zh-Hans": "哥哥每分钟走90m，弟弟每分钟走60m，两人同时从家出发，前往离家1800m的车站。哥哥比弟弟早几分钟到达车站？",
+  "zh-Hant": "哥哥每分鐘走90m，弟弟每分鐘走60m，兩人同時從家出發，前往離家1800m的車站。哥哥比弟弟早幾分鐘到達車站？"
+ },
+ "10分": {
+  "en": "10 minutes",
+  "zh-Hans": "10分钟",
+  "zh-Hant": "10分鐘"
+ },
+ "くせで弟を止め、2人の速さの差を出す": {
+  "en": "Out of habit, you freeze the younger brother and find the difference of the 2 speeds",
+  "zh-Hans": "习惯性地把弟弟定住，求出2人的速度差",
+  "zh-Hant": "習慣性地把弟弟定住，求出2人的速度差"
+ },
+ "道のりを速さの差でわっても、何の時間でもない": {
+  "en": "Dividing the distance by the speed difference doesn't give the time of anything",
+  "zh-Hans": "用路程除以速度差，得到的并不是任何有意义的时间",
+  "zh-Hant": "用路程除以速度差，得到的並不是任何有意義的時間"
+ },
+ "遠回りで約1分半": {
+  "en": "A detour that costs about 1 and a half minutes",
+  "zh-Hans": "绕了远路，大约多花1分半钟",
+  "zh-Hant": "繞了遠路，大約多花1分半鐘"
+ },
+ "兄がかかる時間は 1800÷90 = 20（分）": {
+  "en": "Time for the older brother: 1800÷90 = 20 (min)",
+  "zh-Hans": "哥哥所需的时间是 1800÷90 = 20（分钟）",
+  "zh-Hant": "哥哥所需的時間是 1800÷90 = 20（分鐘）"
+ },
+ "弟がかかる時間は 1800÷60 = 30（分）": {
+  "en": "Time for the younger brother: 1800÷60 = 30 (min)",
+  "zh-Hans": "弟弟所需的时间是 1800÷60 = 30（分钟）",
+  "zh-Hant": "弟弟所需的時間是 1800÷60 = 30（分鐘）"
+ },
+ "30−20 = 10（分）": {
+  "en": "30−20 = 10 (min)",
+  "zh-Hans": "30−20 = 10（分钟）",
+  "zh-Hant": "30−20 = 10（分鐘）"
+ },
+ "出会う・追いつくではなく、それぞれの時間を聞いているときは、止めなくていい。": {
+  "en": "When the question asks for each person's time, not about meeting or catching up, you don't need to freeze anyone.",
+  "zh-Hans": "题目问的不是相遇或追及，而是各自的时间时，不需要定住一方。",
+  "zh-Hant": "題目問的不是相遇或追及，而是各自的時間時，不需要定住一方。"
+ },
+ "速さの差を出しても、ここでは使い道がない。2人は追いかけっこをしていない。": {
+  "en": "Finding the speed difference is no use here. The 2 of them aren't chasing each other.",
+  "zh-Hans": "求出速度差，在这里也派不上用场。2人并没有在互相追赶。",
+  "zh-Hant": "求出速度差，在這裡也派不上用場。2人並沒有在互相追趕。"
+ },
+ "そのとおり。兄は20分、弟は30分。ちがいは10分。": {
+  "en": "That's right. The older brother takes 20 minutes, the younger brother 30 minutes. The difference is 10 minutes.",
+  "zh-Hans": "没错。哥哥要20分钟，弟弟要30分钟，相差10分钟。",
+  "zh-Hant": "沒錯。哥哥要20分鐘，弟弟要30分鐘，相差10分鐘。"
+ },
+ "兄は分速110m、弟は分速80mで、家から2640mはなれた駅に向かって、同時に家を出ました。兄は弟より何分早く駅に着きますか。": {
+  "en": "The older brother walks at 110 m per minute and the younger brother at 80 m per minute. They leave home at the same time, heading for a station 2640 m away. How many minutes earlier does the older brother reach the station than the younger brother?",
+  "zh-Hans": "哥哥每分钟走110m，弟弟每分钟走80m，两人同时从家出发，前往离家2640m的车站。哥哥比弟弟早几分钟到达车站？",
+  "zh-Hant": "哥哥每分鐘走110m，弟弟每分鐘走80m，兩人同時從家出發，前往離家2640m的車站。哥哥比弟弟早幾分鐘到達車站？"
+ },
+ "兄がかかる時間は 2640÷110 = 24（分）": {
+  "en": "Time for the older brother: 2640÷110 = 24 (min)",
+  "zh-Hans": "哥哥所需的时间是 2640÷110 = 24（分钟）",
+  "zh-Hant": "哥哥所需的時間是 2640÷110 = 24（分鐘）"
+ },
+ "弟がかかる時間は 2640÷80 = 33（分）": {
+  "en": "Time for the younger brother: 2640÷80 = 33 (min)",
+  "zh-Hans": "弟弟所需的时间是 2640÷80 = 33（分钟）",
+  "zh-Hant": "弟弟所需的時間是 2640÷80 = 33（分鐘）"
+ },
+ "33−24 = 9（分）": {
+  "en": "33−24 = 9 (min)",
+  "zh-Hans": "33−24 = 9（分钟）",
+  "zh-Hant": "33−24 = 9（分鐘）"
+ },
+ "兄は分速90m、弟は分速70mで、家から1260mはなれた駅に向かって、同時に家を出ました。兄は弟より何分早く駅に着きますか。": {
+  "en": "The older brother walks at 90 m per minute and the younger brother at 70 m per minute. They leave home at the same time, heading for a station 1260 m away. How many minutes earlier does the older brother reach the station than the younger brother?",
+  "zh-Hans": "哥哥每分钟走90m，弟弟每分钟走70m，两人同时从家出发，前往离家1260m的车站。哥哥比弟弟早几分钟到达车站？",
+  "zh-Hant": "哥哥每分鐘走90m，弟弟每分鐘走70m，兩人同時從家出發，前往離家1260m的車站。哥哥比弟弟早幾分鐘到達車站？"
+ },
+ "兄がかかる時間は 1260÷90 = 14（分）": {
+  "en": "Time for the older brother: 1260÷90 = 14 (min)",
+  "zh-Hans": "哥哥所需的时间是 1260÷90 = 14（分钟）",
+  "zh-Hant": "哥哥所需的時間是 1260÷90 = 14（分鐘）"
+ },
+ "弟がかかる時間は 1260÷70 = 18（分）": {
+  "en": "Time for the younger brother: 1260÷70 = 18 (min)",
+  "zh-Hans": "弟弟所需的时间是 1260÷70 = 18（分钟）",
+  "zh-Hant": "弟弟所需的時間是 1260÷70 = 18（分鐘）"
+ },
+ "18−14 = 4（分）": {
+  "en": "18−14 = 4 (min)",
+  "zh-Hans": "18−14 = 4（分钟）",
+  "zh-Hant": "18−14 = 4（分鐘）"
+ },
+ "兄は分速90m、弟は分速50mで、家から1350mはなれた駅に向かって、同時に家を出ました。兄は弟より何分早く駅に着きますか。": {
+  "en": "The older brother walks at 90 m per minute and the younger brother at 50 m per minute. They leave home at the same time, heading for a station 1350 m away. How many minutes earlier does the older brother reach the station than the younger brother?",
+  "zh-Hans": "哥哥每分钟走90m，弟弟每分钟走50m，两人同时从家出发，前往离家1350m的车站。哥哥比弟弟早几分钟到达车站？",
+  "zh-Hant": "哥哥每分鐘走90m，弟弟每分鐘走50m，兩人同時從家出發，前往離家1350m的車站。哥哥比弟弟早幾分鐘到達車站？"
+ },
+ "兄がかかる時間は 1350÷90 = 15（分）": {
+  "en": "Time for the older brother: 1350÷90 = 15 (min)",
+  "zh-Hans": "哥哥所需的时间是 1350÷90 = 15（分钟）",
+  "zh-Hant": "哥哥所需的時間是 1350÷90 = 15（分鐘）"
+ },
+ "弟がかかる時間は 1350÷50 = 27（分）": {
+  "en": "Time for the younger brother: 1350÷50 = 27 (min)",
+  "zh-Hans": "弟弟所需的时间是 1350÷50 = 27（分钟）",
+  "zh-Hant": "弟弟所需的時間是 1350÷50 = 27（分鐘）"
+ },
+ "27−15 = 12（分）": {
+  "en": "27−15 = 12 (min)",
+  "zh-Hans": "27−15 = 12（分钟）",
+  "zh-Hant": "27−15 = 12（分鐘）"
+ },
+ "兄は分速110m、弟は分速70mで、家から3080mはなれた駅に向かって、同時に家を出ました。兄は弟より何分早く駅に着きますか。": {
+  "en": "The older brother walks at 110 m per minute and the younger brother at 70 m per minute. They leave home at the same time, heading for a station 3080 m away. How many minutes earlier does the older brother reach the station than the younger brother?",
+  "zh-Hans": "哥哥每分钟走110m，弟弟每分钟走70m，两人同时从家出发，前往离家3080m的车站。哥哥比弟弟早几分钟到达车站？",
+  "zh-Hant": "哥哥每分鐘走110m，弟弟每分鐘走70m，兩人同時從家出發，前往離家3080m的車站。哥哥比弟弟早幾分鐘到達車站？"
+ },
+ "兄がかかる時間は 3080÷110 = 28（分）": {
+  "en": "Time for the older brother: 3080÷110 = 28 (min)",
+  "zh-Hans": "哥哥所需的时间是 3080÷110 = 28（分钟）",
+  "zh-Hant": "哥哥所需的時間是 3080÷110 = 28（分鐘）"
+ },
+ "弟がかかる時間は 3080÷70 = 44（分）": {
+  "en": "Time for the younger brother: 3080÷70 = 44 (min)",
+  "zh-Hans": "弟弟所需的时间是 3080÷70 = 44（分钟）",
+  "zh-Hant": "弟弟所需的時間是 3080÷70 = 44（分鐘）"
+ },
+ "44−28 = 16（分）": {
+  "en": "44−28 = 16 (min)",
+  "zh-Hans": "44−28 = 16（分钟）",
+  "zh-Hant": "44−28 = 16（分鐘）"
+ },
+ "3600m離れた道の両はしから、健太は分速90m、陽菜は分速60mで、向かい合って同時に歩き始めます。2人が出会うのは何分後ですか。": {
+  "en": "Kenta and Hina start from the two ends of a road 3600 m long and walk toward each other at the same time, Kenta at 90 m per minute and Hina at 60 m per minute. In how many minutes will the 2 of them meet?",
+  "zh-Hans": "健太和阳菜从相距3600m的道路两端同时出发，相向而行，健太每分钟走90m，阳菜每分钟走60m。2人几分钟后相遇？",
+  "zh-Hant": "健太和陽菜從相距3600m的道路兩端同時出發，相向而行，健太每分鐘走90m，陽菜每分鐘走60m。2人幾分鐘後相遇？"
+ },
+ "陽菜": {
+  "en": "Hina",
+  "zh-Hans": "阳菜",
+  "zh-Hant": "陽菜"
+ },
+ "24分後": {
+  "en": "24 minutes later",
+  "zh-Hans": "24分钟后",
+  "zh-Hant": "24分鐘後"
+ },
+ "出会う（追いつく）時間をx分として、2人の進んだ距離をxの式で表す": {
+  "en": "Let the time until they meet (catch up) be x minutes, and write the distance each of the 2 walked as an expression in x",
+  "zh-Hans": "设相遇（追上）的时间为x分钟，用含x的式子表示2人走过的距离",
+  "zh-Hant": "設相遇（追上）的時間為x分鐘，用含x的式子表示2人走過的距離"
+ },
+ "2人の位置関係を図にかき直して、距離の方程式を立てる": {
+  "en": "Redraw where the 2 of them are in a diagram and set up an equation for the distances",
+  "zh-Hans": "把2人的位置关系重新画成图，列出关于距离的方程",
+  "zh-Hant": "把2人的位置關係重新畫成圖，列出關於距離的方程式"
+ },
+ "ここで約2分半。どの距離を足すのか引くのかで迷う": {
+  "en": "About 2 and a half minutes gone here, stuck on which distances to add and which to subtract",
+  "zh-Hans": "到这里已经用了约2分半钟。纠结哪段距离该加、哪段该减",
+  "zh-Hant": "到這裡已經用了約2分半鐘。糾結哪段距離該加、哪段該減"
+ },
+ "陽菜を止めて考えると、健太は1分に 90+60 = 150m ずつ近づく": {
+  "en": "Freeze Hina: then Kenta gets 90+60 = 150 m closer every 1 minute",
+  "zh-Hans": "把阳菜定住来看，健太每1分钟靠近 90+60 = 150m",
+  "zh-Hant": "把陽菜定住來看，健太每1分鐘靠近 90+60 = 150m"
+ },
+ "はじめの距離は3600m": {
+  "en": "The starting distance is 3600 m",
+  "zh-Hans": "一开始的距离是3600m",
+  "zh-Hant": "一開始的距離是3600m"
+ },
+ "3600÷150 = 24（分後）": {
+  "en": "3600÷150 = 24 (minutes later)",
+  "zh-Hans": "3600÷150 = 24（分钟后）",
+  "zh-Hant": "3600÷150 = 24（分鐘後）"
+ },
+ "そのとおり。一方を止めると、もう一方が速さの和で近づくだけになる。": {
+  "en": "That's right. Freeze one of them, and the other just comes closer at the sum of the speeds.",
+  "zh-Hans": "没错。定住一方，另一方就只是以速度和靠近。",
+  "zh-Hant": "沒錯。定住一方，另一方就只是以速度和靠近。"
+ },
+ "年齢の差のように、変わらない差を使う問題ではない。": {
+  "en": "This isn't a problem about a difference that stays the same, like an age difference.",
+  "zh-Hans": "这不是像年龄差那样利用不变的差的问题。",
+  "zh-Hant": "這不是像年齡差那樣利用不變的差的問題。"
+ },
+ "x分後として距離の方程式を立てても解けるが、止めて考えればわり算1回。": {
+  "en": "You can solve it with a distance equation for x minutes later, but if you freeze one, it's just 1 division.",
+  "zh-Hans": "设x分钟后列距离方程也能解，但定住一方来想，只要做1次除法。",
+  "zh-Hant": "設x分鐘後列距離方程式也能解，但定住一方來想，只要做1次除法。"
+ },
+ "910m離れた道の両はしから、健太は分速80m、陽菜は分速50mで、向かい合って同時に歩き始めます。2人が出会うのは何分後ですか。": {
+  "en": "Kenta and Hina start from the two ends of a road 910 m long and walk toward each other at the same time, Kenta at 80 m per minute and Hina at 50 m per minute. In how many minutes will the 2 of them meet?",
+  "zh-Hans": "健太和阳菜从相距910m的道路两端同时出发，相向而行，健太每分钟走80m，阳菜每分钟走50m。2人几分钟后相遇？",
+  "zh-Hant": "健太和陽菜從相距910m的道路兩端同時出發，相向而行，健太每分鐘走80m，陽菜每分鐘走50m。2人幾分鐘後相遇？"
+ },
+ "陽菜を止めて考えると、健太は1分に 80+50 = 130m ずつ近づく": {
+  "en": "Freeze Hina: then Kenta gets 80+50 = 130 m closer every 1 minute",
+  "zh-Hans": "把阳菜定住来看，健太每1分钟靠近 80+50 = 130m",
+  "zh-Hant": "把陽菜定住來看，健太每1分鐘靠近 80+50 = 130m"
+ },
+ "はじめの距離は910m": {
+  "en": "The starting distance is 910 m",
+  "zh-Hans": "一开始的距离是910m",
+  "zh-Hant": "一開始的距離是910m"
+ },
+ "910÷130 = 7（分後）": {
+  "en": "910÷130 = 7 (minutes later)",
+  "zh-Hans": "910÷130 = 7（分钟后）",
+  "zh-Hant": "910÷130 = 7（分鐘後）"
+ },
+ "2400m離れた道の両はしから、健太は分速100m、陽菜は分速60mで、向かい合って同時に歩き始めます。2人が出会うのは何分後ですか。": {
+  "en": "Kenta and Hina start from the two ends of a road 2400 m long and walk toward each other at the same time, Kenta at 100 m per minute and Hina at 60 m per minute. In how many minutes will the 2 of them meet?",
+  "zh-Hans": "健太和阳菜从相距2400m的道路两端同时出发，相向而行，健太每分钟走100m，阳菜每分钟走60m。2人几分钟后相遇？",
+  "zh-Hant": "健太和陽菜從相距2400m的道路兩端同時出發，相向而行，健太每分鐘走100m，陽菜每分鐘走60m。2人幾分鐘後相遇？"
+ },
+ "陽菜を止めて考えると、健太は1分に 100+60 = 160m ずつ近づく": {
+  "en": "Freeze Hina: then Kenta gets 100+60 = 160 m closer every 1 minute",
+  "zh-Hans": "把阳菜定住来看，健太每1分钟靠近 100+60 = 160m",
+  "zh-Hant": "把陽菜定住來看，健太每1分鐘靠近 100+60 = 160m"
+ },
+ "はじめの距離は2400m": {
+  "en": "The starting distance is 2400 m",
+  "zh-Hans": "一开始的距离是2400m",
+  "zh-Hant": "一開始的距離是2400m"
+ },
+ "2400÷160 = 15（分後）": {
+  "en": "2400÷160 = 15 (minutes later)",
+  "zh-Hans": "2400÷160 = 15（分钟后）",
+  "zh-Hant": "2400÷160 = 15（分鐘後）"
+ },
+ "1430m離れた道の両はしから、健太は分速80m、陽菜は分速50mで、向かい合って同時に歩き始めます。2人が出会うのは何分後ですか。": {
+  "en": "Kenta and Hina start from the two ends of a road 1430 m long and walk toward each other at the same time, Kenta at 80 m per minute and Hina at 50 m per minute. In how many minutes will the 2 of them meet?",
+  "zh-Hans": "健太和阳菜从相距1430m的道路两端同时出发，相向而行，健太每分钟走80m，阳菜每分钟走50m。2人几分钟后相遇？",
+  "zh-Hant": "健太和陽菜從相距1430m的道路兩端同時出發，相向而行，健太每分鐘走80m，陽菜每分鐘走50m。2人幾分鐘後相遇？"
+ },
+ "はじめの距離は1430m": {
+  "en": "The starting distance is 1430 m",
+  "zh-Hans": "一开始的距离是1430m",
+  "zh-Hant": "一開始的距離是1430m"
+ },
+ "960m離れた道の両はしから、健太は分速80m、陽菜は分速40mで、向かい合って同時に歩き始めます。2人が出会うのは何分後ですか。": {
+  "en": "Kenta and Hina start from the two ends of a road 960 m long and walk toward each other at the same time, Kenta at 80 m per minute and Hina at 40 m per minute. In how many minutes will the 2 of them meet?",
+  "zh-Hans": "健太和阳菜从相距960m的道路两端同时出发，相向而行，健太每分钟走80m，阳菜每分钟走40m。2人几分钟后相遇？",
+  "zh-Hant": "健太和陽菜從相距960m的道路兩端同時出發，相向而行，健太每分鐘走80m，陽菜每分鐘走40m。2人幾分鐘後相遇？"
+ },
+ "陽菜を止めて考えると、健太は1分に 80+40 = 120m ずつ近づく": {
+  "en": "Freeze Hina: then Kenta gets 80+40 = 120 m closer every 1 minute",
+  "zh-Hans": "把阳菜定住来看，健太每1分钟靠近 80+40 = 120m",
+  "zh-Hant": "把陽菜定住來看，健太每1分鐘靠近 80+40 = 120m"
+ },
+ "はじめの距離は960m": {
+  "en": "The starting distance is 960 m",
+  "zh-Hans": "一开始的距离是960m",
+  "zh-Hant": "一開始的距離是960m"
+ },
+ "960÷120 = 8（分後）": {
+  "en": "960÷120 = 8 (minutes later)",
+  "zh-Hans": "960÷120 = 8（分钟后）",
+  "zh-Hant": "960÷120 = 8（分鐘後）"
+ },
+ "弟が家を出て、分速70mで歩き始めました。その12分後に、兄が家を出て、分速190mで同じ道を追いかけます。兄が弟に追いつくのは、兄が家を出てから何分後ですか。": {
+  "en": "The younger brother leaves home and starts walking at 70 m per minute. 12 minutes later, the older brother leaves home and chases him along the same road at 190 m per minute. How many minutes after leaving home does the older brother catch up with the younger brother?",
+  "zh-Hans": "弟弟从家出发，以每分钟70m的速度开始步行。12分钟后，哥哥从家出发，以每分钟190m的速度沿同一条路追赶。哥哥离家几分钟后追上弟弟？",
+  "zh-Hant": "弟弟從家出發，以每分鐘70m的速度開始步行。12分鐘後，哥哥從家出發，以每分鐘190m的速度沿同一條路追趕。哥哥離家幾分鐘後追上弟弟？"
+ },
+ "7分後": {
+  "en": "7 minutes later",
+  "zh-Hans": "7分钟后",
+  "zh-Hant": "7分鐘後"
+ },
+ "弟を止めて考えると、兄は1分に 190−70 = 120m ずつ近づく": {
+  "en": "Freeze the younger brother: then the older brother gets 190−70 = 120 m closer every 1 minute",
+  "zh-Hans": "把弟弟定住来看，哥哥每1分钟靠近 190−70 = 120m",
+  "zh-Hant": "把弟弟定住來看，哥哥每1分鐘靠近 190−70 = 120m"
+ },
+ "兄が家を出るとき、弟は 70×12 = 840m 先にいる": {
+  "en": "When the older brother leaves home, the younger brother is already 70×12 = 840 m ahead",
+  "zh-Hans": "哥哥出发时，弟弟已经在前面 70×12 = 840m 处",
+  "zh-Hant": "哥哥出發時，弟弟已經在前面 70×12 = 840m 處"
+ },
+ "840÷120 = 7（分後）": {
+  "en": "840÷120 = 7 (minutes later)",
+  "zh-Hans": "840÷120 = 7（分钟后）",
+  "zh-Hant": "840÷120 = 7（分鐘後）"
+ },
+ "そのとおり。弟を止めると、兄は速さの差で近づく。はじめの差は、弟が先に進んだ距離。": {
+  "en": "That's right. Freeze the younger brother, and the older brother comes closer at the difference of the speeds. The starting gap is the distance the younger brother went ahead.",
+  "zh-Hans": "没错。把弟弟定住，哥哥就以速度差靠近。一开始的差距，就是弟弟先走的距离。",
+  "zh-Hant": "沒錯。把弟弟定住，哥哥就以速度差靠近。一開始的差距，就是弟弟先走的距離。"
+ },
+ "年齢の問題ではない。2人の間の距離は変わる。": {
+  "en": "This isn't an age problem. The distance between the 2 of them changes.",
+  "zh-Hans": "这不是年龄问题。2人之间的距离是会变的。",
+  "zh-Hant": "這不是年齡問題。2人之間的距離是會變的。"
+ },
+ "x分後として方程式を立てると、出発時刻のずれでミスが出やすい。": {
+  "en": "If you set up an equation for x minutes later, it's easy to slip up on the difference in start times.",
+  "zh-Hans": "设x分钟后来列方程，容易在出发时间的差上出错。",
+  "zh-Hant": "設x分鐘後來列方程式，容易在出發時間的差上出錯。"
+ },
+ "弟が家を出て、分速70mで歩き始めました。その10分後に、兄が家を出て、分速120mで同じ道を追いかけます。兄が弟に追いつくのは、兄が家を出てから何分後ですか。": {
+  "en": "The younger brother leaves home and starts walking at 70 m per minute. 10 minutes later, the older brother leaves home and chases him along the same road at 120 m per minute. How many minutes after leaving home does the older brother catch up with the younger brother?",
+  "zh-Hans": "弟弟从家出发，以每分钟70m的速度开始步行。10分钟后，哥哥从家出发，以每分钟120m的速度沿同一条路追赶。哥哥离家几分钟后追上弟弟？",
+  "zh-Hant": "弟弟從家出發，以每分鐘70m的速度開始步行。10分鐘後，哥哥從家出發，以每分鐘120m的速度沿同一條路追趕。哥哥離家幾分鐘後追上弟弟？"
+ },
+ "弟を止めて考えると、兄は1分に 120−70 = 50m ずつ近づく": {
+  "en": "Freeze the younger brother: then the older brother gets 120−70 = 50 m closer every 1 minute",
+  "zh-Hans": "把弟弟定住来看，哥哥每1分钟靠近 120−70 = 50m",
+  "zh-Hant": "把弟弟定住來看，哥哥每1分鐘靠近 120−70 = 50m"
+ },
+ "兄が家を出るとき、弟は 70×10 = 700m 先にいる": {
+  "en": "When the older brother leaves home, the younger brother is already 70×10 = 700 m ahead",
+  "zh-Hans": "哥哥出发时，弟弟已经在前面 70×10 = 700m 处",
+  "zh-Hant": "哥哥出發時，弟弟已經在前面 70×10 = 700m 處"
+ },
+ "700÷50 = 14（分後）": {
+  "en": "700÷50 = 14 (minutes later)",
+  "zh-Hans": "700÷50 = 14（分钟后）",
+  "zh-Hant": "700÷50 = 14（分鐘後）"
+ },
+ "弟が家を出て、分速80mで歩き始めました。その6分後に、兄が家を出て、分速120mで同じ道を追いかけます。兄が弟に追いつくのは、兄が家を出てから何分後ですか。": {
+  "en": "The younger brother leaves home and starts walking at 80 m per minute. 6 minutes later, the older brother leaves home and chases him along the same road at 120 m per minute. How many minutes after leaving home does the older brother catch up with the younger brother?",
+  "zh-Hans": "弟弟从家出发，以每分钟80m的速度开始步行。6分钟后，哥哥从家出发，以每分钟120m的速度沿同一条路追赶。哥哥离家几分钟后追上弟弟？",
+  "zh-Hant": "弟弟從家出發，以每分鐘80m的速度開始步行。6分鐘後，哥哥從家出發，以每分鐘120m的速度沿同一條路追趕。哥哥離家幾分鐘後追上弟弟？"
+ },
+ "弟を止めて考えると、兄は1分に 120−80 = 40m ずつ近づく": {
+  "en": "Freeze the younger brother: then the older brother gets 120−80 = 40 m closer every 1 minute",
+  "zh-Hans": "把弟弟定住来看，哥哥每1分钟靠近 120−80 = 40m",
+  "zh-Hant": "把弟弟定住來看，哥哥每1分鐘靠近 120−80 = 40m"
+ },
+ "480÷40 = 12（分後）": {
+  "en": "480÷40 = 12 (minutes later)",
+  "zh-Hans": "480÷40 = 12（分钟后）",
+  "zh-Hant": "480÷40 = 12（分鐘後）"
+ },
+ "弟が家を出て、分速50mで歩き始めました。その8分後に、兄が家を出て、分速90mで同じ道を追いかけます。兄が弟に追いつくのは、兄が家を出てから何分後ですか。": {
+  "en": "The younger brother leaves home and starts walking at 50 m per minute. 8 minutes later, the older brother leaves home and chases him along the same road at 90 m per minute. How many minutes after leaving home does the older brother catch up with the younger brother?",
+  "zh-Hans": "弟弟从家出发，以每分钟50m的速度开始步行。8分钟后，哥哥从家出发，以每分钟90m的速度沿同一条路追赶。哥哥离家几分钟后追上弟弟？",
+  "zh-Hant": "弟弟從家出發，以每分鐘50m的速度開始步行。8分鐘後，哥哥從家出發，以每分鐘90m的速度沿同一條路追趕。哥哥離家幾分鐘後追上弟弟？"
+ },
+ "弟を止めて考えると、兄は1分に 90−50 = 40m ずつ近づく": {
+  "en": "Freeze the younger brother: then the older brother gets 90−50 = 40 m closer every 1 minute",
+  "zh-Hans": "把弟弟定住来看，哥哥每1分钟靠近 90−50 = 40m",
+  "zh-Hant": "把弟弟定住來看，哥哥每1分鐘靠近 90−50 = 40m"
+ },
+ "兄が家を出るとき、弟は 50×8 = 400m 先にいる": {
+  "en": "When the older brother leaves home, the younger brother is already 50×8 = 400 m ahead",
+  "zh-Hans": "哥哥出发时，弟弟已经在前面 50×8 = 400m 处",
+  "zh-Hant": "哥哥出發時，弟弟已經在前面 50×8 = 400m 處"
+ },
+ "400÷40 = 10（分後）": {
+  "en": "400÷40 = 10 (minutes later)",
+  "zh-Hans": "400÷40 = 10（分钟后）",
+  "zh-Hant": "400÷40 = 10（分鐘後）"
+ },
+ "弟が家を出て、分速60mで歩き始めました。その5分後に、兄が家を出て、分速70mで同じ道を追いかけます。兄が弟に追いつくのは、兄が家を出てから何分後ですか。": {
+  "en": "The younger brother leaves home and starts walking at 60 m per minute. 5 minutes later, the older brother leaves home and chases him along the same road at 70 m per minute. How many minutes after leaving home does the older brother catch up with the younger brother?",
+  "zh-Hans": "弟弟从家出发，以每分钟60m的速度开始步行。5分钟后，哥哥从家出发，以每分钟70m的速度沿同一条路追赶。哥哥离家几分钟后追上弟弟？",
+  "zh-Hant": "弟弟從家出發，以每分鐘60m的速度開始步行。5分鐘後，哥哥從家出發，以每分鐘70m的速度沿同一條路追趕。哥哥離家幾分鐘後追上弟弟？"
+ },
+ "弟を止めて考えると、兄は1分に 70−60 = 10m ずつ近づく": {
+  "en": "Freeze the younger brother: then the older brother gets 70−60 = 10 m closer every 1 minute",
+  "zh-Hans": "把弟弟定住来看，哥哥每1分钟靠近 70−60 = 10m",
+  "zh-Hant": "把弟弟定住來看，哥哥每1分鐘靠近 70−60 = 10m"
+ },
+ "兄が家を出るとき、弟は 60×5 = 300m 先にいる": {
+  "en": "When the older brother leaves home, the younger brother is already 60×5 = 300 m ahead",
+  "zh-Hans": "哥哥出发时，弟弟已经在前面 60×5 = 300m 处",
+  "zh-Hant": "哥哥出發時，弟弟已經在前面 60×5 = 300m 處"
+ },
+ "300÷10 = 30（分後）": {
+  "en": "300÷10 = 30 (minutes later)",
+  "zh-Hans": "300÷10 = 30（分钟后）",
+  "zh-Hant": "300÷10 = 30（分鐘後）"
+ },
+ "片方の列車を止めると、もう片方は速さの和で進み、2つの長さの和だけ進めば離れる。": {
+  "en": "Freeze one train, and the other moves at the sum of the speeds; once it has covered the sum of the 2 lengths, they are apart.",
+  "zh-Hans": "把其中一列车定住，另一列车就以速度和前进，走完2列车长度之和就错开了。",
+  "zh-Hant": "把其中一列車定住，另一列車就以速度和前進，走完2列車長度之和就錯開了。"
+ },
+ "長さ180mで秒速22mの列車Aと、長さ140mで秒速18mの列車Bが、向かい合って走っています。2つの列車が出会ってから完全に離れるまで、何秒かかりますか。": {
+  "en": "Train A, 180 m long and going 22 m per second, and Train B, 140 m long and going 18 m per second, are running toward each other. How many seconds does it take from when the 2 trains meet until they have completely passed each other?",
+  "zh-Hans": "长180m、每秒行驶22m的列车A，和长140m、每秒行驶18m的列车B相向行驶。2列车从相遇到完全错开，需要多少秒？",
+  "zh-Hant": "長180m、每秒行駛22m的列車A，和長140m、每秒行駛18m的列車B相向行駛。2列車從相遇到完全錯開，需要幾秒？"
+ },
+ "8秒": {
+  "en": "8 seconds",
+  "zh-Hans": "8秒",
+  "zh-Hant": "8秒"
+ },
+ "列車Bを止めて考えると、列車Aは秒速 22+18 = 40m で近づく": {
+  "en": "Freeze Train B: then Train A comes closer at 22+18 = 40 m per second",
+  "zh-Hans": "把列车B定住来看，列车A以每秒 22+18 = 40m 的速度靠近",
+  "zh-Hant": "把列車B定住來看，列車A以每秒 22+18 = 40m 的速度靠近"
+ },
+ "出会ってから離れるまでに進むのは、2つの列車の長さの和 180+140 = 320m": {
+  "en": "From meeting to fully passing, the distance covered is the sum of the 2 train lengths: 180+140 = 320 m",
+  "zh-Hans": "从相遇到完全错开要走的距离，是2列车长度之和 180+140 = 320m",
+  "zh-Hant": "從相遇到完全錯開要走的距離，是2列車長度之和 180+140 = 320m"
+ },
+ "320÷40 = 8（秒）": {
+  "en": "320÷40 = 8 (s)",
+  "zh-Hans": "320÷40 = 8（秒）",
+  "zh-Hant": "320÷40 = 8（秒）"
+ },
+ "そのとおり。Bを止めると、Aは2つの速さの和で進み、2つの列車の長さの和だけ進めば離れる。": {
+  "en": "That's right. Freeze B, and A moves at the sum of the 2 speeds; once it has covered the sum of the 2 train lengths, they are apart.",
+  "zh-Hans": "没错。把B定住，A就以2个速度之和前进，走完2列车长度之和就错开了。",
+  "zh-Hant": "沒錯。把B定住，A就以2個速度之和前進，走完2列車長度之和就錯開了。"
+ },
+ "両方動かしたまま方程式を立てると、どの長さを足すかで迷う。": {
+  "en": "If you set up an equation with both trains still moving, it's confusing which lengths to add.",
+  "zh-Hans": "两列车都在动的情况下列方程，容易纠结该加哪些长度。",
+  "zh-Hant": "兩列車都在動的情況下列方程式，容易糾結該加哪些長度。"
+ },
+ "長さ250mで秒速17mの列車Aと、長さ100mで秒速18mの列車Bが、向かい合って走っています。2つの列車が出会ってから完全に離れるまで、何秒かかりますか。": {
+  "en": "Train A, 250 m long and going 17 m per second, and Train B, 100 m long and going 18 m per second, are running toward each other. How many seconds does it take from when the 2 trains meet until they have completely passed each other?",
+  "zh-Hans": "长250m、每秒行驶17m的列车A，和长100m、每秒行驶18m的列车B相向行驶。2列车从相遇到完全错开，需要多少秒？",
+  "zh-Hant": "長250m、每秒行駛17m的列車A，和長100m、每秒行駛18m的列車B相向行駛。2列車從相遇到完全錯開，需要幾秒？"
+ },
+ "列車Bを止めて考えると、列車Aは秒速 17+18 = 35m で近づく": {
+  "en": "Freeze Train B: then Train A comes closer at 17+18 = 35 m per second",
+  "zh-Hans": "把列车B定住来看，列车A以每秒 17+18 = 35m 的速度靠近",
+  "zh-Hant": "把列車B定住來看，列車A以每秒 17+18 = 35m 的速度靠近"
+ },
+ "出会ってから離れるまでに進むのは、2つの列車の長さの和 250+100 = 350m": {
+  "en": "From meeting to fully passing, the distance covered is the sum of the 2 train lengths: 250+100 = 350 m",
+  "zh-Hans": "从相遇到完全错开要走的距离，是2列车长度之和 250+100 = 350m",
+  "zh-Hant": "從相遇到完全錯開要走的距離，是2列車長度之和 250+100 = 350m"
+ },
+ "長さ250mで秒速12mの列車Aと、長さ140mで秒速18mの列車Bが、向かい合って走っています。2つの列車が出会ってから完全に離れるまで、何秒かかりますか。": {
+  "en": "Train A, 250 m long and going 12 m per second, and Train B, 140 m long and going 18 m per second, are running toward each other. How many seconds does it take from when the 2 trains meet until they have completely passed each other?",
+  "zh-Hans": "长250m、每秒行驶12m的列车A，和长140m、每秒行驶18m的列车B相向行驶。2列车从相遇到完全错开，需要多少秒？",
+  "zh-Hant": "長250m、每秒行駛12m的列車A，和長140m、每秒行駛18m的列車B相向行駛。2列車從相遇到完全錯開，需要幾秒？"
+ },
+ "列車Bを止めて考えると、列車Aは秒速 12+18 = 30m で近づく": {
+  "en": "Freeze Train B: then Train A comes closer at 12+18 = 30 m per second",
+  "zh-Hans": "把列车B定住来看，列车A以每秒 12+18 = 30m 的速度靠近",
+  "zh-Hant": "把列車B定住來看，列車A以每秒 12+18 = 30m 的速度靠近"
+ },
+ "出会ってから離れるまでに進むのは、2つの列車の長さの和 250+140 = 390m": {
+  "en": "From meeting to fully passing, the distance covered is the sum of the 2 train lengths: 250+140 = 390 m",
+  "zh-Hans": "从相遇到完全错开要走的距离，是2列车长度之和 250+140 = 390m",
+  "zh-Hant": "從相遇到完全錯開要走的距離，是2列車長度之和 250+140 = 390m"
+ },
+ "390÷30 = 13（秒）": {
+  "en": "390÷30 = 13 (s)",
+  "zh-Hans": "390÷30 = 13（秒）",
+  "zh-Hant": "390÷30 = 13（秒）"
+ },
+ "長さ270mで秒速19mの列車Aと、長さ170mで秒速21mの列車Bが、向かい合って走っています。2つの列車が出会ってから完全に離れるまで、何秒かかりますか。": {
+  "en": "Train A, 270 m long and going 19 m per second, and Train B, 170 m long and going 21 m per second, are running toward each other. How many seconds does it take from when the 2 trains meet until they have completely passed each other?",
+  "zh-Hans": "长270m、每秒行驶19m的列车A，和长170m、每秒行驶21m的列车B相向行驶。2列车从相遇到完全错开，需要多少秒？",
+  "zh-Hant": "長270m、每秒行駛19m的列車A，和長170m、每秒行駛21m的列車B相向行駛。2列車從相遇到完全錯開，需要幾秒？"
+ },
+ "列車Bを止めて考えると、列車Aは秒速 19+21 = 40m で近づく": {
+  "en": "Freeze Train B: then Train A comes closer at 19+21 = 40 m per second",
+  "zh-Hans": "把列车B定住来看，列车A以每秒 19+21 = 40m 的速度靠近",
+  "zh-Hant": "把列車B定住來看，列車A以每秒 19+21 = 40m 的速度靠近"
+ },
+ "出会ってから離れるまでに進むのは、2つの列車の長さの和 270+170 = 440m": {
+  "en": "From meeting to fully passing, the distance covered is the sum of the 2 train lengths: 270+170 = 440 m",
+  "zh-Hans": "从相遇到完全错开要走的距离，是2列车长度之和 270+170 = 440m",
+  "zh-Hant": "從相遇到完全錯開要走的距離，是2列車長度之和 270+170 = 440m"
+ },
+ "440÷40 = 11（秒）": {
+  "en": "440÷40 = 11 (s)",
+  "zh-Hans": "440÷40 = 11（秒）",
+  "zh-Hant": "440÷40 = 11（秒）"
+ },
+ "長さ280mで秒速21mの列車Aと、長さ230mで秒速13mの列車Bが、向かい合って走っています。2つの列車が出会ってから完全に離れるまで、何秒かかりますか。": {
+  "en": "Train A, 280 m long and going 21 m per second, and Train B, 230 m long and going 13 m per second, are running toward each other. How many seconds does it take from when the 2 trains meet until they have completely passed each other?",
+  "zh-Hans": "长280m、每秒行驶21m的列车A，和长230m、每秒行驶13m的列车B相向行驶。2列车从相遇到完全错开，需要多少秒？",
+  "zh-Hant": "長280m、每秒行駛21m的列車A，和長230m、每秒行駛13m的列車B相向行駛。2列車從相遇到完全錯開，需要幾秒？"
+ },
+ "列車Bを止めて考えると、列車Aは秒速 21+13 = 34m で近づく": {
+  "en": "Freeze Train B: then Train A comes closer at 21+13 = 34 m per second",
+  "zh-Hans": "把列车B定住来看，列车A以每秒 21+13 = 34m 的速度靠近",
+  "zh-Hant": "把列車B定住來看，列車A以每秒 21+13 = 34m 的速度靠近"
+ },
+ "出会ってから離れるまでに進むのは、2つの列車の長さの和 280+230 = 510m": {
+  "en": "From meeting to fully passing, the distance covered is the sum of the 2 train lengths: 280+230 = 510 m",
+  "zh-Hans": "从相遇到完全错开要走的距离，是2列车长度之和 280+230 = 510m",
+  "zh-Hant": "從相遇到完全錯開要走的距離，是2列車長度之和 280+230 = 510m"
+ },
+ "510÷34 = 15（秒）": {
+  "en": "510÷34 = 15 (s)",
+  "zh-Hans": "510÷34 = 15（秒）",
+  "zh-Hant": "510÷34 = 15（秒）"
+ },
+ "4時と5時の間で、時計の長針と短針が重なるのは、4時何分ですか。": {
+  "en": "Between 4 o'clock and 5 o'clock, at how many minutes past 4 do the minute hand and the hour hand of a clock overlap?",
+  "zh-Hans": "在4点和5点之间，时钟的分针和时针在4点几分重合？",
+  "zh-Hant": "在4點和5點之間，時鐘的分針和時針在4點幾分重合？"
+ },
+ "4時21と9/11分": {
+  "en": "21 9/11 minutes past 4",
+  "zh-Hans": "4点21又9/11分",
+  "zh-Hant": "4點21又9/11分"
+ },
+ "4時ちょうどのとき、長針は短針より 4×30 = 120 度うしろにいる": {
+  "en": "At exactly 4 o'clock, the minute hand is 4×30 = 120 degrees behind the hour hand",
+  "zh-Hans": "4点整时，分针落后时针 4×30 = 120 度",
+  "zh-Hant": "4點整時，分針落後時針 4×30 = 120 度"
+ },
+ "120÷5.5 = 21と9/11（分）": {
+  "en": "120÷5.5 = 21 9/11 (min)",
+  "zh-Hans": "120÷5.5 = 21又9/11（分钟）",
+  "zh-Hant": "120÷5.5 = 21又9/11（分鐘）"
+ },
+ "10時と11時の間で、時計の長針と短針が重なるのは、10時何分ですか。": {
+  "en": "Between 10 o'clock and 11 o'clock, at how many minutes past 10 do the minute hand and the hour hand of a clock overlap?",
+  "zh-Hans": "在10点和11点之间，时钟的分针和时针在10点几分重合？",
+  "zh-Hant": "在10點和11點之間，時鐘的分針和時針在10點幾分重合？"
+ },
+ "10時ちょうどのとき、長針は短針より 10×30 = 300 度うしろにいる": {
+  "en": "At exactly 10 o'clock, the minute hand is 10×30 = 300 degrees behind the hour hand",
+  "zh-Hans": "10点整时，分针落后时针 10×30 = 300 度",
+  "zh-Hant": "10點整時，分針落後時針 10×30 = 300 度"
+ },
+ "300÷5.5 = 54と6/11（分）": {
+  "en": "300÷5.5 = 54 6/11 (min)",
+  "zh-Hans": "300÷5.5 = 54又6/11（分钟）",
+  "zh-Hant": "300÷5.5 = 54又6/11（分鐘）"
+ },
+ "10時54と6/11分": {
+  "en": "54 6/11 minutes past 10",
+  "zh-Hans": "10点54又6/11分",
+  "zh-Hant": "10點54又6/11分"
+ },
+ "家から3000m離れた公園まで行きます。はじめは分速150mで走り、途中から分速60mで歩いたところ、全部で32分かかりました。分速150mで走ったのは何分間ですか。": {
+  "en": "You go to a park 3000 m from home. First you run at 150 m per minute, then partway you switch to walking at 60 m per minute, and it takes 32 minutes in all. For how many minutes did you run at 150 m per minute?",
+  "zh-Hans": "从家去离家3000m的公园。一开始以每分钟150m的速度跑，中途改为以每分钟60m的速度走，一共用了32分钟。以每分钟150m的速度跑了几分钟？",
+  "zh-Hant": "從家去離家3000m的公園。一開始以每分鐘150m的速度跑，途中改成以每分鐘60m的速度走，總共花了32分鐘。以每分鐘150m的速度跑了幾分鐘？"
+ },
+ "12分": {
+  "en": "12 minutes",
+  "zh-Hans": "12分钟",
+  "zh-Hant": "12分鐘"
+ },
+ "縦＝速さ、横＝時間の長方形2つで表す（面積＝道のり）": {
+  "en": "Draw 2 rectangles with height ＝ speed and width ＝ time (area ＝ distance)",
+  "zh-Hans": "用2个高＝速度、宽＝时间的长方形表示（面积＝路程）",
+  "zh-Hant": "用2個高＝速度、寬＝時間的長方形表示（面積＝路程）"
+ },
+ "全部歩いたとすると 60×32 = 1920": {
+  "en": "If you had walked the whole time: 60×32 = 1920",
+  "zh-Hans": "假设全程都在走：60×32 = 1920",
+  "zh-Hant": "假設全程都用走的：60×32 = 1920"
+ },
+ "本当の道のりとの差 3000−1920 = 1080 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real distance, 3000−1920 = 1080, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际路程的差 3000−1920 = 1080，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際路程的差 3000−1920 = 1080，就是上面多出來的長方形的面積"
+ },
+ "その長方形の縦は 150−60 = 90": {
+  "en": "That rectangle's height is 150−60 = 90",
+  "zh-Hans": "这个长方形的高是 150−60 = 90",
+  "zh-Hant": "這個長方形的高是 150−60 = 90"
+ },
+ "走った時間 = 1080÷90 = 12（分）": {
+  "en": "Running time = 1080÷90 = 12 (min)",
+  "zh-Hans": "跑步的时间 = 1080÷90 = 12（分钟）",
+  "zh-Hant": "跑步的時間 = 1080÷90 = 12（分鐘）"
+ },
+ "そのとおり。縦＝速さ、横＝時間。全部歩いたとした距離と、実際の距離の差がはみ出した部分。": {
+  "en": "That's right. Height ＝ speed, width ＝ time. The gap between the walk-the-whole-time distance and the real distance is the part sticking out.",
+  "zh-Hans": "没错。高＝速度，宽＝时间。假设全程都走的距离与实际距离之差，就是多出来的部分。",
+  "zh-Hant": "沒錯。高＝速度，寬＝時間。假設全程都用走的距離與實際距離之差，就是多出來的部分。"
+ },
+ "連立方程式でも解けるが、面積図なら引き算とわり算だけ。": {
+  "en": "You can solve it with simultaneous equations too, but with an Area Diagram it's just subtraction and division.",
+  "zh-Hans": "用方程组也能解，但用面积图只需要减法和除法。",
+  "zh-Hant": "用聯立方程式也能解，但用面積圖只需要減法和除法。"
+ },
+ "家から3560m離れた公園まで行きます。はじめは分速140mで走り、途中から分速50mで歩いたところ、全部で28分かかりました。分速140mで走ったのは何分間ですか。": {
+  "en": "You go to a park 3560 m from home. First you run at 140 m per minute, then partway you switch to walking at 50 m per minute, and it takes 28 minutes in all. For how many minutes did you run at 140 m per minute?",
+  "zh-Hans": "从家去离家3560m的公园。一开始以每分钟140m的速度跑，中途改为以每分钟50m的速度走，一共用了28分钟。以每分钟140m的速度跑了几分钟？",
+  "zh-Hant": "從家去離家3560m的公園。一開始以每分鐘140m的速度跑，途中改成以每分鐘50m的速度走，總共花了28分鐘。以每分鐘140m的速度跑了幾分鐘？"
+ },
+ "全部歩いたとすると 50×28 = 1400": {
+  "en": "If you had walked the whole time: 50×28 = 1400",
+  "zh-Hans": "假设全程都在走：50×28 = 1400",
+  "zh-Hant": "假設全程都用走的：50×28 = 1400"
+ },
+ "本当の道のりとの差 3560−1400 = 2160 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real distance, 3560−1400 = 2160, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际路程的差 3560−1400 = 2160，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際路程的差 3560−1400 = 2160，就是上面多出來的長方形的面積"
+ },
+ "その長方形のたては 140−50 = 90": {
+  "en": "That rectangle's height is 140−50 = 90",
+  "zh-Hans": "这个长方形的高是 140−50 = 90",
+  "zh-Hant": "這個長方形的高是 140−50 = 90"
+ },
+ "走った時間 = 2160÷90 = 24（分）": {
+  "en": "Running time = 2160÷90 = 24 (min)",
+  "zh-Hans": "跑步的时间 = 2160÷90 = 24（分钟）",
+  "zh-Hant": "跑步的時間 = 2160÷90 = 24（分鐘）"
+ },
+ "家から1480m離れた公園まで行きます。はじめは分速100mで走り、途中から分速60mで歩いたところ、全部で18分かかりました。分速100mで走ったのは何分間ですか。": {
+  "en": "You go to a park 1480 m from home. First you run at 100 m per minute, then partway you switch to walking at 60 m per minute, and it takes 18 minutes in all. For how many minutes did you run at 100 m per minute?",
+  "zh-Hans": "从家去离家1480m的公园。一开始以每分钟100m的速度跑，中途改为以每分钟60m的速度走，一共用了18分钟。以每分钟100m的速度跑了几分钟？",
+  "zh-Hant": "從家去離家1480m的公園。一開始以每分鐘100m的速度跑，途中改成以每分鐘60m的速度走，總共花了18分鐘。以每分鐘100m的速度跑了幾分鐘？"
+ },
+ "全部歩いたとすると 60×18 = 1080": {
+  "en": "If you had walked the whole time: 60×18 = 1080",
+  "zh-Hans": "假设全程都在走：60×18 = 1080",
+  "zh-Hant": "假設全程都用走的：60×18 = 1080"
+ },
+ "本当の道のりとの差 1480−1080 = 400 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real distance, 1480−1080 = 400, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际路程的差 1480−1080 = 400，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際路程的差 1480−1080 = 400，就是上面多出來的長方形的面積"
+ },
+ "走った時間 = 400÷40 = 10（分）": {
+  "en": "Running time = 400÷40 = 10 (min)",
+  "zh-Hans": "跑步的时间 = 400÷40 = 10（分钟）",
+  "zh-Hant": "跑步的時間 = 400÷40 = 10（分鐘）"
+ },
+ "家から1400m離れた公園まで行きます。はじめは分速150mで走り、途中から分速50mで歩いたところ、全部で16分かかりました。分速150mで走ったのは何分間ですか。": {
+  "en": "You go to a park 1400 m from home. First you run at 150 m per minute, then partway you switch to walking at 50 m per minute, and it takes 16 minutes in all. For how many minutes did you run at 150 m per minute?",
+  "zh-Hans": "从家去离家1400m的公园。一开始以每分钟150m的速度跑，中途改为以每分钟50m的速度走，一共用了16分钟。以每分钟150m的速度跑了几分钟？",
+  "zh-Hant": "從家去離家1400m的公園。一開始以每分鐘150m的速度跑，途中改成以每分鐘50m的速度走，總共花了16分鐘。以每分鐘150m的速度跑了幾分鐘？"
+ },
+ "全部歩いたとすると 50×16 = 800": {
+  "en": "If you had walked the whole time: 50×16 = 800",
+  "zh-Hans": "假设全程都在走：50×16 = 800",
+  "zh-Hant": "假設全程都用走的：50×16 = 800"
+ },
+ "本当の道のりとの差 1400−800 = 600 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real distance, 1400−800 = 600, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际路程的差 1400−800 = 600，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際路程的差 1400−800 = 600，就是上面多出來的長方形的面積"
+ },
+ "その長方形のたては 150−50 = 100": {
+  "en": "That rectangle's height is 150−50 = 100",
+  "zh-Hans": "这个长方形的高是 150−50 = 100",
+  "zh-Hant": "這個長方形的高是 150−50 = 100"
+ },
+ "走った時間 = 600÷100 = 6（分）": {
+  "en": "Running time = 600÷100 = 6 (min)",
+  "zh-Hans": "跑步的时间 = 600÷100 = 6（分钟）",
+  "zh-Hant": "跑步的時間 = 600÷100 = 6（分鐘）"
+ },
+ "家から2260m離れた公園まで行きます。はじめは分速140mで走り、途中から分速80mで歩いたところ、全部で20分かかりました。分速140mで走ったのは何分間ですか。": {
+  "en": "You go to a park 2260 m from home. First you run at 140 m per minute, then partway you switch to walking at 80 m per minute, and it takes 20 minutes in all. For how many minutes did you run at 140 m per minute?",
+  "zh-Hans": "从家去离家2260m的公园。一开始以每分钟140m的速度跑，中途改为以每分钟80m的速度走，一共用了20分钟。以每分钟140m的速度跑了几分钟？",
+  "zh-Hant": "從家去離家2260m的公園。一開始以每分鐘140m的速度跑，途中改成以每分鐘80m的速度走，總共花了20分鐘。以每分鐘140m的速度跑了幾分鐘？"
+ },
+ "全部歩いたとすると 80×20 = 1600": {
+  "en": "If you had walked the whole time: 80×20 = 1600",
+  "zh-Hans": "假设全程都在走：80×20 = 1600",
+  "zh-Hant": "假設全程都用走的：80×20 = 1600"
+ },
+ "本当の道のりとの差 2260−1600 = 660 が、上にはみ出した長方形の面積": {
+  "en": "The gap from the real distance, 2260−1600 = 660, is the area of the rectangle sticking out on top",
+  "zh-Hans": "与实际路程的差 2260−1600 = 660，就是上面多出来的长方形的面积",
+  "zh-Hant": "與實際路程的差 2260−1600 = 660，就是上面多出來的長方形的面積"
+ },
+ "その長方形のたては 140−80 = 60": {
+  "en": "That rectangle's height is 140−80 = 60",
+  "zh-Hans": "这个长方形的高是 140−80 = 60",
+  "zh-Hant": "這個長方形的高是 140−80 = 60"
+ },
+ "走った時間 = 660÷60 = 11（分）": {
+  "en": "Running time = 660÷60 = 11 (min)",
+  "zh-Hans": "跑步的时间 = 660÷60 = 11（分钟）",
+  "zh-Hant": "跑步的時間 = 660÷60 = 11（分鐘）"
+ },
+ "姉は分速90m、妹は分速60mで、家から1800m離れた駅に向かって、同時に家を出ました。姉は妹より何分早く駅に着きますか。": {
+  "en": "The older sister walks at 90 m per minute and the younger sister at 60 m per minute. They leave home at the same time, heading for a station 1800 m away. How many minutes earlier does the older sister reach the station than the younger sister?",
+  "zh-Hans": "姐姐每分钟走90m，妹妹每分钟走60m，两人同时从家出发，前往离家1800m的车站。姐姐比妹妹早几分钟到达车站？",
+  "zh-Hant": "姐姐每分鐘走90m，妹妹每分鐘走60m，兩人同時從家出發，前往離家1800m的車站。姐姐比妹妹早幾分鐘到達車站？"
+ },
+ "姉がかかる時間は 1800÷90 = 20（分）": {
+  "en": "Time for the older sister: 1800÷90 = 20 (min)",
+  "zh-Hans": "姐姐所需的时间是 1800÷90 = 20（分钟）",
+  "zh-Hant": "姐姐所需的時間是 1800÷90 = 20（分鐘）"
+ },
+ "妹がかかる時間は 1800÷60 = 30（分）": {
+  "en": "Time for the younger sister: 1800÷60 = 30 (min)",
+  "zh-Hans": "妹妹所需的时间是 1800÷60 = 30（分钟）",
+  "zh-Hant": "妹妹所需的時間是 1800÷60 = 30（分鐘）"
+ },
+ "そのとおり。それぞれ距離÷速さで時間を出して、引くだけ。": {
+  "en": "That's right. Find each time with distance ÷ speed, then just subtract.",
+  "zh-Hans": "没错。分别用距离÷速度求出时间，再相减就好。",
+  "zh-Hant": "沒錯。分別用距離÷速度求出時間，再相減就好。"
+ },
+ "姉は分速90m、妹は分速70mで、家から1890m離れた駅に向かって、同時に家を出ました。姉は妹より何分早く駅に着きますか。": {
+  "en": "The older sister walks at 90 m per minute and the younger sister at 70 m per minute. They leave home at the same time, heading for a station 1890 m away. How many minutes earlier does the older sister reach the station than the younger sister?",
+  "zh-Hans": "姐姐每分钟走90m，妹妹每分钟走70m，两人同时从家出发，前往离家1890m的车站。姐姐比妹妹早几分钟到达车站？",
+  "zh-Hant": "姐姐每分鐘走90m，妹妹每分鐘走70m，兩人同時從家出發，前往離家1890m的車站。姐姐比妹妹早幾分鐘到達車站？"
+ },
+ "姉がかかる時間は 1890÷90 = 21（分）": {
+  "en": "Time for the older sister: 1890÷90 = 21 (min)",
+  "zh-Hans": "姐姐所需的时间是 1890÷90 = 21（分钟）",
+  "zh-Hant": "姐姐所需的時間是 1890÷90 = 21（分鐘）"
+ },
+ "妹がかかる時間は 1890÷70 = 27（分）": {
+  "en": "Time for the younger sister: 1890÷70 = 27 (min)",
+  "zh-Hans": "妹妹所需的时间是 1890÷70 = 27（分钟）",
+  "zh-Hant": "妹妹所需的時間是 1890÷70 = 27（分鐘）"
+ },
+ "27−21 = 6（分）": {
+  "en": "27−21 = 6 (min)",
+  "zh-Hans": "27−21 = 6（分钟）",
+  "zh-Hant": "27−21 = 6（分鐘）"
+ },
+ "姉は分速100m、妹は分速60mで、家から600m離れた駅に向かって、同時に家を出ました。姉は妹より何分早く駅に着きますか。": {
+  "en": "The older sister walks at 100 m per minute and the younger sister at 60 m per minute. They leave home at the same time, heading for a station 600 m away. How many minutes earlier does the older sister reach the station than the younger sister?",
+  "zh-Hans": "姐姐每分钟走100m，妹妹每分钟走60m，两人同时从家出发，前往离家600m的车站。姐姐比妹妹早几分钟到达车站？",
+  "zh-Hant": "姐姐每分鐘走100m，妹妹每分鐘走60m，兩人同時從家出發，前往離家600m的車站。姐姐比妹妹早幾分鐘到達車站？"
+ },
+ "姉がかかる時間は 600÷100 = 6（分）": {
+  "en": "Time for the older sister: 600÷100 = 6 (min)",
+  "zh-Hans": "姐姐所需的时间是 600÷100 = 6（分钟）",
+  "zh-Hant": "姐姐所需的時間是 600÷100 = 6（分鐘）"
+ },
+ "妹がかかる時間は 600÷60 = 10（分）": {
+  "en": "Time for the younger sister: 600÷60 = 10 (min)",
+  "zh-Hans": "妹妹所需的时间是 600÷60 = 10（分钟）",
+  "zh-Hant": "妹妹所需的時間是 600÷60 = 10（分鐘）"
+ },
+ "10−6 = 4（分）": {
+  "en": "10−6 = 4 (min)",
+  "zh-Hans": "10−6 = 4（分钟）",
+  "zh-Hant": "10−6 = 4（分鐘）"
+ },
+ "姉は分速90m、妹は分速80mで、家から1440m離れた駅に向かって、同時に家を出ました。姉は妹より何分早く駅に着きますか。": {
+  "en": "The older sister walks at 90 m per minute and the younger sister at 80 m per minute. They leave home at the same time, heading for a station 1440 m away. How many minutes earlier does the older sister reach the station than the younger sister?",
+  "zh-Hans": "姐姐每分钟走90m，妹妹每分钟走80m，两人同时从家出发，前往离家1440m的车站。姐姐比妹妹早几分钟到达车站？",
+  "zh-Hant": "姐姐每分鐘走90m，妹妹每分鐘走80m，兩人同時從家出發，前往離家1440m的車站。姐姐比妹妹早幾分鐘到達車站？"
+ },
+ "姉がかかる時間は 1440÷90 = 16（分）": {
+  "en": "Time for the older sister: 1440÷90 = 16 (min)",
+  "zh-Hans": "姐姐所需的时间是 1440÷90 = 16（分钟）",
+  "zh-Hant": "姐姐所需的時間是 1440÷90 = 16（分鐘）"
+ },
+ "妹がかかる時間は 1440÷80 = 18（分）": {
+  "en": "Time for the younger sister: 1440÷80 = 18 (min)",
+  "zh-Hans": "妹妹所需的时间是 1440÷80 = 18（分钟）",
+  "zh-Hant": "妹妹所需的時間是 1440÷80 = 18（分鐘）"
+ },
+ "18−16 = 2（分）": {
+  "en": "18−16 = 2 (min)",
+  "zh-Hans": "18−16 = 2（分钟）",
+  "zh-Hant": "18−16 = 2（分鐘）"
+ },
+ "姉は分速80m、妹は分速60mで、家から720m離れた駅に向かって、同時に家を出ました。姉は妹より何分早く駅に着きますか。": {
+  "en": "The older sister walks at 80 m per minute and the younger sister at 60 m per minute. They leave home at the same time, heading for a station 720 m away. How many minutes earlier does the older sister reach the station than the younger sister?",
+  "zh-Hans": "姐姐每分钟走80m，妹妹每分钟走60m，两人同时从家出发，前往离家720m的车站。姐姐比妹妹早几分钟到达车站？",
+  "zh-Hant": "姐姐每分鐘走80m，妹妹每分鐘走60m，兩人同時從家出發，前往離家720m的車站。姐姐比妹妹早幾分鐘到達車站？"
+ },
+ "姉がかかる時間は 720÷80 = 9（分）": {
+  "en": "Time for the older sister: 720÷80 = 9 (min)",
+  "zh-Hans": "姐姐所需的时间是 720÷80 = 9（分钟）",
+  "zh-Hant": "姐姐所需的時間是 720÷80 = 9（分鐘）"
+ },
+ "妹がかかる時間は 720÷60 = 12（分）": {
+  "en": "Time for the younger sister: 720÷60 = 12 (min)",
+  "zh-Hans": "妹妹所需的时间是 720÷60 = 12（分钟）",
+  "zh-Hant": "妹妹所需的時間是 720÷60 = 12（分鐘）"
+ },
+ "12−9 = 3（分）": {
+  "en": "12−9 = 3 (min)",
+  "zh-Hans": "12−9 = 3（分钟）",
+  "zh-Hant": "12−9 = 3（分鐘）"
+ },
+ "直線 ℓ: y = x と、2点A(1, 4)、B(2, 5)があります。ℓ上に点Pをとり、AP+PB がもっとも小さくなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "There is a line ℓ: y = x and 2 points A(1, 4) and B(2, 5). Take a point P on ℓ so that AP+PB is as small as possible. Find the x-coordinate of P.",
+  "zh-Hans": "已知直线 ℓ: y = x 和2点A(1, 4)、B(2, 5)。在ℓ上取点P，使 AP+PB 最小。求此时点P的横坐标。",
+  "zh-Hant": "已知直線 ℓ: y = x 與2點A(1, 4)、B(2, 5)。在ℓ上取一點P，使 AP+PB 最小。求此時點P的x坐標。"
+ },
+ "Pを(t, mt＋k)とおき、AP＋PBを根号2つの和で表す": {
+  "en": "Let P be (t, mt＋k) and write AP＋PB as the sum of 2 square roots",
+  "zh-Hans": "设P为(t, mt＋k)，把AP＋PB表示成2个根式之和",
+  "zh-Hant": "設P為(t, mt＋k)，把AP＋PB表示成2個根式之和"
+ },
+ "根号の和の最小は、平方完成でも微分でも出しにくい": {
+  "en": "The minimum of a sum of square roots is hard to find, whether by completing the square or by differentiation",
+  "zh-Hans": "根式之和的最小值，无论用配方还是求导都很难求",
+  "zh-Hant": "根式之和的最小值，不論用配方法還是微分都很難求"
+ },
+ "ここで約4分。手が止まる": {
+  "en": "About 4 minutes in, and you're stuck",
+  "zh-Hans": "到这里约4分钟，卡住了",
+  "zh-Hant": "到這裡約4分鐘，卡住了"
+ },
+ "Bをℓで折り返した点B'をとる（PB＝PB'）。BB'の中点がℓ上、BB'⊥ℓ から B'(5, 2)": {
+  "en": "Reflect B across ℓ to get point B' (PB＝PB'). The midpoint of BB' lies on ℓ and BB'⊥ℓ, so B'(5, 2)",
+  "zh-Hans": "把B沿ℓ翻折，得到点B'（PB＝PB'）。由BB'的中点在ℓ上、BB'⊥ℓ，得 B'(5, 2)",
+  "zh-Hant": "把B沿ℓ翻折，得到點B'（PB＝PB'）。由BB'的中點在ℓ上、BB'⊥ℓ，得 B'(5, 2)"
+ },
+ "AとB'をまっすぐ結んだ線分が、AP+PBの最小": {
+  "en": "The straight segment joining A and B' gives the minimum of AP+PB",
+  "zh-Hans": "连接A和B'的线段长，就是AP+PB的最小值",
+  "zh-Hant": "連接A和B'的線段長，就是AP+PB的最小值"
+ },
+ "直線AB'とℓを連立すると、Pのx座標 = 3": {
+  "en": "Solving line AB' and ℓ together, the x-coordinate of P = 3",
+  "zh-Hans": "联立直线AB'与ℓ，得P的横坐标 = 3",
+  "zh-Hant": "聯立直線AB'與ℓ，得P的x坐標 = 3"
+ },
+ "そのとおり。Bを直線ℓで折り返し、AとB'をまっすぐ結ぶ。": {
+  "en": "That's right. Reflect B across line ℓ, then join A and B' with a straight line.",
+  "zh-Hans": "没错。把B沿直线ℓ翻折，再把A和B'用直线连起来。",
+  "zh-Hant": "沒錯。把B沿直線ℓ翻折，再把A和B'用直線連起來。"
+ },
+ "Pを文字でおいて根号の和の最小を求めるのは、計算がとても重い。": {
+  "en": "Letting P be a variable and minimizing a sum of square roots takes very heavy calculation.",
+  "zh-Hans": "用字母设出P再求根式之和的最小值，计算量非常大。",
+  "zh-Hant": "用文字設出P再求根式之和的最小值，計算量非常大。"
+ },
+ "直線 ℓ: y = 2x + 1 と、2点A(2, 4)、B(1, −2)があります。ℓ上に点Pをとり、AP+PB がもっとも小さくなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "There is a line ℓ: y = 2x + 1 and 2 points A(2, 4) and B(1, −2). Take a point P on ℓ so that AP+PB is as small as possible. Find the x-coordinate of P.",
+  "zh-Hans": "已知直线 ℓ: y = 2x + 1 和2点A(2, 4)、B(1, −2)。在ℓ上取点P，使 AP+PB 最小。求此时点P的横坐标。",
+  "zh-Hant": "已知直線 ℓ: y = 2x + 1 與2點A(2, 4)、B(1, −2)。在ℓ上取一點P，使 AP+PB 最小。求此時點P的x坐標。"
+ },
+ "Bをℓで折り返した点B'をとる（PB＝PB'）。BB'の中点がℓ上、BB'⊥ℓ から B'(−3, 0)": {
+  "en": "Reflect B across ℓ to get point B' (PB＝PB'). The midpoint of BB' lies on ℓ and BB'⊥ℓ, so B'(−3, 0)",
+  "zh-Hans": "把B沿ℓ翻折，得到点B'（PB＝PB'）。由BB'的中点在ℓ上、BB'⊥ℓ，得 B'(−3, 0)",
+  "zh-Hant": "把B沿ℓ翻折，得到點B'（PB＝PB'）。由BB'的中點在ℓ上、BB'⊥ℓ，得 B'(−3, 0)"
+ },
+ "直線AB'とℓを連立すると、Pのx座標 = 7/6": {
+  "en": "Solving line AB' and ℓ together, the x-coordinate of P = 7/6",
+  "zh-Hans": "联立直线AB'与ℓ，得P的横坐标 = 7/6",
+  "zh-Hant": "聯立直線AB'與ℓ，得P的x坐標 = 7/6"
+ },
+ "直線 ℓ: y = −x − 3 と、2点A(−4, 4)、B(1, 1)があります。ℓ上に点Pをとり、AP+PB がもっとも小さくなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "There is a line ℓ: y = −x − 3 and 2 points A(−4, 4) and B(1, 1). Take a point P on ℓ so that AP+PB is as small as possible. Find the x-coordinate of P.",
+  "zh-Hans": "已知直线 ℓ: y = −x − 3 和2点A(−4, 4)、B(1, 1)。在ℓ上取点P，使 AP+PB 最小。求此时点P的横坐标。",
+  "zh-Hant": "已知直線 ℓ: y = −x − 3 與2點A(−4, 4)、B(1, 1)。在ℓ上取一點P，使 AP+PB 最小。求此時點P的x坐標。"
+ },
+ "Bをℓで折り返した点B'をとる（PB＝PB'）。BB'の中点がℓ上、BB'⊥ℓ から B'(−4, −4)": {
+  "en": "Reflect B across ℓ to get point B' (PB＝PB'). The midpoint of BB' lies on ℓ and BB'⊥ℓ, so B'(−4, −4)",
+  "zh-Hans": "把B沿ℓ翻折，得到点B'（PB＝PB'）。由BB'的中点在ℓ上、BB'⊥ℓ，得 B'(−4, −4)",
+  "zh-Hant": "把B沿ℓ翻折，得到點B'（PB＝PB'）。由BB'的中點在ℓ上、BB'⊥ℓ，得 B'(−4, −4)"
+ },
+ "直線AB'とℓを連立すると、Pのx座標 = −4": {
+  "en": "Solving line AB' and ℓ together, the x-coordinate of P = −4",
+  "zh-Hans": "联立直线AB'与ℓ，得P的横坐标 = −4",
+  "zh-Hant": "聯立直線AB'與ℓ，得P的x坐標 = −4"
+ },
+ "直線 ℓ: y = x + 2 と、2点A(−2, 2)、B(−4, 2)があります。ℓ上に点Pをとり、AP+PB がもっとも小さくなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "There is a line ℓ: y = x + 2 and 2 points A(−2, 2) and B(−4, 2). Take a point P on ℓ so that AP+PB is as small as possible. Find the x-coordinate of P.",
+  "zh-Hans": "已知直线 ℓ: y = x + 2 和2点A(−2, 2)、B(−4, 2)。在ℓ上取点P，使 AP+PB 最小。求此时点P的横坐标。",
+  "zh-Hant": "已知直線 ℓ: y = x + 2 與2點A(−2, 2)、B(−4, 2)。在ℓ上取一點P，使 AP+PB 最小。求此時點P的x坐標。"
+ },
+ "Bをℓで折り返した点B'をとる（PB＝PB'）。BB'の中点がℓ上、BB'⊥ℓ から B'(0, −2)": {
+  "en": "Reflect B across ℓ to get point B' (PB＝PB'). The midpoint of BB' lies on ℓ and BB'⊥ℓ, so B'(0, −2)",
+  "zh-Hans": "把B沿ℓ翻折，得到点B'（PB＝PB'）。由BB'的中点在ℓ上、BB'⊥ℓ，得 B'(0, −2)",
+  "zh-Hant": "把B沿ℓ翻折，得到點B'（PB＝PB'）。由BB'的中點在ℓ上、BB'⊥ℓ，得 B'(0, −2)"
+ },
+ "直線AB'とℓを連立すると、Pのx座標 = −4/3": {
+  "en": "Solving line AB' and ℓ together, the x-coordinate of P = −4/3",
+  "zh-Hans": "联立直线AB'与ℓ，得P的横坐标 = −4/3",
+  "zh-Hant": "聯立直線AB'與ℓ，得P的x坐標 = −4/3"
+ },
+ "直線 ℓ: y = x − 2 と、2点A(2, 4)、B(2, 6)があります。ℓ上に点Pをとり、AP+PB がもっとも小さくなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "There is a line ℓ: y = x − 2 and 2 points A(2, 4) and B(2, 6). Take a point P on ℓ so that AP+PB is as small as possible. Find the x-coordinate of P.",
+  "zh-Hans": "已知直线 ℓ: y = x − 2 和2点A(2, 4)、B(2, 6)。在ℓ上取点P，使 AP+PB 最小。求此时点P的横坐标。",
+  "zh-Hant": "已知直線 ℓ: y = x − 2 與2點A(2, 4)、B(2, 6)。在ℓ上取一點P，使 AP+PB 最小。求此時點P的x坐標。"
+ },
+ "Bをℓで折り返した点B'をとる（PB＝PB'）。BB'の中点がℓ上、BB'⊥ℓ から B'(8, 0)": {
+  "en": "Reflect B across ℓ to get point B' (PB＝PB'). The midpoint of BB' lies on ℓ and BB'⊥ℓ, so B'(8, 0)",
+  "zh-Hans": "把B沿ℓ翻折，得到点B'（PB＝PB'）。由BB'的中点在ℓ上、BB'⊥ℓ，得 B'(8, 0)",
+  "zh-Hant": "把B沿ℓ翻折，得到點B'（PB＝PB'）。由BB'的中點在ℓ上、BB'⊥ℓ，得 B'(8, 0)"
+ },
+ "直線AB'とℓを連立すると、Pのx座標 = 22/5": {
+  "en": "Solving line AB' and ℓ together, the x-coordinate of P = 22/5",
+  "zh-Hans": "联立直线AB'与ℓ，得P的横坐标 = 22/5",
+  "zh-Hant": "聯立直線AB'與ℓ，得P的x坐標 = 22/5"
+ },
+ "直線 ℓ: y = x と、2点A(1, 5)、B(3, 6)があります。ℓ上に点Pをとるとき、AP+PB の最小値を求めなさい。": {
+  "en": "There is a line ℓ: y = x and 2 points A(1, 5) and B(3, 6). For a point P on ℓ, find the minimum value of AP+PB.",
+  "zh-Hans": "已知直线 ℓ: y = x 和2点A(1, 5)、B(3, 6)。点P在ℓ上，求 AP+PB 的最小值。",
+  "zh-Hant": "已知直線 ℓ: y = x 與2點A(1, 5)、B(3, 6)。點P在ℓ上，求 AP+PB 的最小值。"
+ },
+ "Bをℓで折り返した点B'をとる（PB＝PB'）。BB'の中点がℓ上、BB'⊥ℓ から B'(6, 3)": {
+  "en": "Reflect B across ℓ to get point B' (PB＝PB'). The midpoint of BB' lies on ℓ and BB'⊥ℓ, so B'(6, 3)",
+  "zh-Hans": "把B沿ℓ翻折，得到点B'（PB＝PB'）。由BB'的中点在ℓ上、BB'⊥ℓ，得 B'(6, 3)",
+  "zh-Hant": "把B沿ℓ翻折，得到點B'（PB＝PB'）。由BB'的中點在ℓ上、BB'⊥ℓ，得 B'(6, 3)"
+ },
+ "最小値 = AB' = √(5² + (−2)²) = √29": {
+  "en": "Minimum value = AB' = √(5² + (−2)²) = √29",
+  "zh-Hans": "最小值 = AB' = √(5² + (−2)²) = √29",
+  "zh-Hant": "最小值 = AB' = √(5² + (−2)²) = √29"
+ },
+ "直線 ℓ: y = x − 3 と、2点A(−4, 0)、B(−2, 1)があります。ℓ上に点Pをとるとき、AP+PB の最小値を求めなさい。": {
+  "en": "There is a line ℓ: y = x − 3 and 2 points A(−4, 0) and B(−2, 1). For a point P on ℓ, find the minimum value of AP+PB.",
+  "zh-Hans": "已知直线 ℓ: y = x − 3 和2点A(−4, 0)、B(−2, 1)。点P在ℓ上，求 AP+PB 的最小值。",
+  "zh-Hant": "已知直線 ℓ: y = x − 3 與2點A(−4, 0)、B(−2, 1)。點P在ℓ上，求 AP+PB 的最小值。"
+ },
+ "Bをℓで折り返した点B'をとる（PB＝PB'）。BB'の中点がℓ上、BB'⊥ℓ から B'(4, −5)": {
+  "en": "Reflect B across ℓ to get point B' (PB＝PB'). The midpoint of BB' lies on ℓ and BB'⊥ℓ, so B'(4, −5)",
+  "zh-Hans": "把B沿ℓ翻折，得到点B'（PB＝PB'）。由BB'的中点在ℓ上、BB'⊥ℓ，得 B'(4, −5)",
+  "zh-Hant": "把B沿ℓ翻折，得到點B'（PB＝PB'）。由BB'的中點在ℓ上、BB'⊥ℓ，得 B'(4, −5)"
+ },
+ "最小値 = AB' = √(8² + (−5)²) = √89": {
+  "en": "Minimum value = AB' = √(8² + (−5)²) = √89",
+  "zh-Hans": "最小值 = AB' = √(8² + (−5)²) = √89",
+  "zh-Hant": "最小值 = AB' = √(8² + (−5)²) = √89"
+ },
+ "直線 ℓ: y = 2x − 2 と、2点A(0, 6)、B(−1, 1)があります。ℓ上に点Pをとるとき、AP+PB の最小値を求めなさい。": {
+  "en": "There is a line ℓ: y = 2x − 2 and 2 points A(0, 6) and B(−1, 1). For a point P on ℓ, find the minimum value of AP+PB.",
+  "zh-Hans": "已知直线 ℓ: y = 2x − 2 和2点A(0, 6)、B(−1, 1)。点P在ℓ上，求 AP+PB 的最小值。",
+  "zh-Hant": "已知直線 ℓ: y = 2x − 2 與2點A(0, 6)、B(−1, 1)。點P在ℓ上，求 AP+PB 的最小值。"
+ },
+ "Bをℓで折り返した点B'をとる（PB＝PB'）。BB'の中点がℓ上、BB'⊥ℓ から B'(3, −1)": {
+  "en": "Reflect B across ℓ to get point B' (PB＝PB'). The midpoint of BB' lies on ℓ and BB'⊥ℓ, so B'(3, −1)",
+  "zh-Hans": "把B沿ℓ翻折，得到点B'（PB＝PB'）。由BB'的中点在ℓ上、BB'⊥ℓ，得 B'(3, −1)",
+  "zh-Hant": "把B沿ℓ翻折，得到點B'（PB＝PB'）。由BB'的中點在ℓ上、BB'⊥ℓ，得 B'(3, −1)"
+ },
+ "最小値 = AB' = √(3² + (−7)²) = √58": {
+  "en": "Minimum value = AB' = √(3² + (−7)²) = √58",
+  "zh-Hans": "最小值 = AB' = √(3² + (−7)²) = √58",
+  "zh-Hant": "最小值 = AB' = √(3² + (−7)²) = √58"
+ },
+ "直線 ℓ: y = x + 3 と、2点A(1, −2)、B(3, −2)があります。ℓ上に点Pをとるとき、AP+PB の最小値を求めなさい。": {
+  "en": "There is a line ℓ: y = x + 3 and 2 points A(1, −2) and B(3, −2). For a point P on ℓ, find the minimum value of AP+PB.",
+  "zh-Hans": "已知直线 ℓ: y = x + 3 和2点A(1, −2)、B(3, −2)。点P在ℓ上，求 AP+PB 的最小值。",
+  "zh-Hant": "已知直線 ℓ: y = x + 3 與2點A(1, −2)、B(3, −2)。點P在ℓ上，求 AP+PB 的最小值。"
+ },
+ "Bをℓで折り返した点B'をとる（PB＝PB'）。BB'の中点がℓ上、BB'⊥ℓ から B'(−5, 6)": {
+  "en": "Reflect B across ℓ to get point B' (PB＝PB'). The midpoint of BB' lies on ℓ and BB'⊥ℓ, so B'(−5, 6)",
+  "zh-Hans": "把B沿ℓ翻折，得到点B'（PB＝PB'）。由BB'的中点在ℓ上、BB'⊥ℓ，得 B'(−5, 6)",
+  "zh-Hant": "把B沿ℓ翻折，得到點B'（PB＝PB'）。由BB'的中點在ℓ上、BB'⊥ℓ，得 B'(−5, 6)"
+ },
+ "最小値 = AB' = √((−6)² + 8²) = √100 = 10": {
+  "en": "Minimum value = AB' = √((−6)² + 8²) = √100 = 10",
+  "zh-Hans": "最小值 = AB' = √((−6)² + 8²) = √100 = 10",
+  "zh-Hant": "最小值 = AB' = √((−6)² + 8²) = √100 = 10"
+ },
+ "直線 ℓ: y = x − 1 と、2点A(2, 0)、B(0, −2)があります。ℓ上に点Pをとるとき、AP+PB の最小値を求めなさい。": {
+  "en": "There is a line ℓ: y = x − 1 and 2 points A(2, 0) and B(0, −2). For a point P on ℓ, find the minimum value of AP+PB.",
+  "zh-Hans": "已知直线 ℓ: y = x − 1 和2点A(2, 0)、B(0, −2)。点P在ℓ上，求 AP+PB 的最小值。",
+  "zh-Hant": "已知直線 ℓ: y = x − 1 與2點A(2, 0)、B(0, −2)。點P在ℓ上，求 AP+PB 的最小值。"
+ },
+ "Bをℓで折り返した点B'をとる（PB＝PB'）。BB'の中点がℓ上、BB'⊥ℓ から B'(−1, −1)": {
+  "en": "Reflect B across ℓ to get point B' (PB＝PB'). The midpoint of BB' lies on ℓ and BB'⊥ℓ, so B'(−1, −1)",
+  "zh-Hans": "把B沿ℓ翻折，得到点B'（PB＝PB'）。由BB'的中点在ℓ上、BB'⊥ℓ，得 B'(−1, −1)",
+  "zh-Hant": "把B沿ℓ翻折，得到點B'（PB＝PB'）。由BB'的中點在ℓ上、BB'⊥ℓ，得 B'(−1, −1)"
+ },
+ "最小値 = AB' = √((−3)² + (−1)²) = √10": {
+  "en": "Minimum value = AB' = √((−3)² + (−1)²) = √10",
+  "zh-Hans": "最小值 = AB' = √((−3)² + (−1)²) = √10",
+  "zh-Hant": "最小值 = AB' = √((−3)² + (−1)²) = √10"
+ },
+ "直線 ℓ: y = −x + 4 と、2点A(−3, −1)、B(0, 2)があります。ℓ上に点Pをとり、AP+PB がもっとも小さくなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "There is a line ℓ: y = −x + 4 and 2 points A(−3, −1) and B(0, 2). Take a point P on ℓ so that AP+PB is as small as possible. Find the x-coordinate of P.",
+  "zh-Hans": "已知直线 ℓ: y = −x + 4 和2点A(−3, −1)、B(0, 2)。在ℓ上取点P，使 AP+PB 最小。求此时点P的横坐标。",
+  "zh-Hant": "已知直線 ℓ: y = −x + 4 與2點A(−3, −1)、B(0, 2)。在ℓ上取一點P，使 AP+PB 最小。求此時點P的x坐標。"
+ },
+ "Bをℓで折り返した点B'をとる（PB＝PB'）。BB'の中点がℓ上、BB'⊥ℓ から B'(2, 4)": {
+  "en": "Reflect B across ℓ to get point B' (PB＝PB'). The midpoint of BB' lies on ℓ and BB'⊥ℓ, so B'(2, 4)",
+  "zh-Hans": "把B沿ℓ翻折，得到点B'（PB＝PB'）。由BB'的中点在ℓ上、BB'⊥ℓ，得 B'(2, 4)",
+  "zh-Hant": "把B沿ℓ翻折，得到點B'（PB＝PB'）。由BB'的中點在ℓ上、BB'⊥ℓ，得 B'(2, 4)"
+ },
+ "直線AB'とℓを連立すると、Pのx座標 = 1": {
+  "en": "Solving line AB' and ℓ together, the x-coordinate of P = 1",
+  "zh-Hans": "联立直线AB'与ℓ，得P的横坐标 = 1",
+  "zh-Hant": "聯立直線AB'與ℓ，得P的x坐標 = 1"
+ },
+ "直線 ℓ: y = −2x + 2 と、2点A(2, 4)、B(2, 0)があります。ℓ上に点Pをとり、AP+PB がもっとも小さくなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "There is a line ℓ: y = −2x + 2 and 2 points A(2, 4) and B(2, 0). Take a point P on ℓ so that AP+PB is as small as possible. Find the x-coordinate of P.",
+  "zh-Hans": "已知直线 ℓ: y = −2x + 2 和2点A(2, 4)、B(2, 0)。在ℓ上取点P，使 AP+PB 最小。求此时点P的横坐标。",
+  "zh-Hant": "已知直線 ℓ: y = −2x + 2 與2點A(2, 4)、B(2, 0)。在ℓ上取一點P，使 AP+PB 最小。求此時點P的x坐標。"
+ },
+ "Bをℓで折り返した点B'をとる（PB＝PB'）。BB'の中点がℓ上、BB'⊥ℓ から B'(2/5, −4/5)": {
+  "en": "Reflect B across ℓ to get point B' (PB＝PB'). The midpoint of BB' lies on ℓ and BB'⊥ℓ, so B'(2/5, −4/5)",
+  "zh-Hans": "把B沿ℓ翻折，得到点B'（PB＝PB'）。由BB'的中点在ℓ上、BB'⊥ℓ，得 B'(2/5, −4/5)",
+  "zh-Hant": "把B沿ℓ翻折，得到點B'（PB＝PB'）。由BB'的中點在ℓ上、BB'⊥ℓ，得 B'(2/5, −4/5)"
+ },
+ "直線AB'とℓを連立すると、Pのx座標 = 4/5": {
+  "en": "Solving line AB' and ℓ together, the x-coordinate of P = 4/5",
+  "zh-Hans": "联立直线AB'与ℓ，得P的横坐标 = 4/5",
+  "zh-Hant": "聯立直線AB'與ℓ，得P的x坐標 = 4/5"
+ },
+ "直線 ℓ: y = −2x と、2点A(1, 0)、B(4, 2)があります。ℓ上に点Pをとり、AP+PB がもっとも小さくなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "There is a line ℓ: y = −2x and 2 points A(1, 0) and B(4, 2). Take a point P on ℓ so that AP+PB is as small as possible. Find the x-coordinate of P.",
+  "zh-Hans": "已知直线 ℓ: y = −2x 和2点A(1, 0)、B(4, 2)。在ℓ上取点P，使 AP+PB 最小。求此时点P的横坐标。",
+  "zh-Hant": "已知直線 ℓ: y = −2x 與2點A(1, 0)、B(4, 2)。在ℓ上取一點P，使 AP+PB 最小。求此時點P的x坐標。"
+ },
+ "Bをℓで折り返した点B'をとる（PB＝PB'）。BB'の中点がℓ上、BB'⊥ℓ から B'(−4, −2)": {
+  "en": "Reflect B across ℓ to get point B' (PB＝PB'). The midpoint of BB' lies on ℓ and BB'⊥ℓ, so B'(−4, −2)",
+  "zh-Hans": "把B沿ℓ翻折，得到点B'（PB＝PB'）。由BB'的中点在ℓ上、BB'⊥ℓ，得 B'(−4, −2)",
+  "zh-Hant": "把B沿ℓ翻折，得到點B'（PB＝PB'）。由BB'的中點在ℓ上、BB'⊥ℓ，得 B'(−4, −2)"
+ },
+ "直線AB'とℓを連立すると、Pのx座標 = 1/6": {
+  "en": "Solving line AB' and ℓ together, the x-coordinate of P = 1/6",
+  "zh-Hans": "联立直线AB'与ℓ，得P的横坐标 = 1/6",
+  "zh-Hant": "聯立直線AB'與ℓ，得P的x坐標 = 1/6"
+ },
+ "直線 ℓ: y = −x + 2 と、2点A(−1, 0)、B(3, −2)があります。ℓ上に点Pをとり、AP+PB がもっとも小さくなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "There is a line ℓ: y = −x + 2 and 2 points A(−1, 0) and B(3, −2). Take a point P on ℓ so that AP+PB is as small as possible. Find the x-coordinate of P.",
+  "zh-Hans": "已知直线 ℓ: y = −x + 2 和2点A(−1, 0)、B(3, −2)。在ℓ上取点P，使 AP+PB 最小。求此时点P的横坐标。",
+  "zh-Hant": "已知直線 ℓ: y = −x + 2 與2點A(−1, 0)、B(3, −2)。在ℓ上取一點P，使 AP+PB 最小。求此時點P的x坐標。"
+ },
+ "Bをℓで折り返した点B'をとる（PB＝PB'）。BB'の中点がℓ上、BB'⊥ℓ から B'(4, −1)": {
+  "en": "Reflect B across ℓ to get point B' (PB＝PB'). The midpoint of BB' lies on ℓ and BB'⊥ℓ, so B'(4, −1)",
+  "zh-Hans": "把B沿ℓ翻折，得到点B'（PB＝PB'）。由BB'的中点在ℓ上、BB'⊥ℓ，得 B'(4, −1)",
+  "zh-Hant": "把B沿ℓ翻折，得到點B'（PB＝PB'）。由BB'的中點在ℓ上、BB'⊥ℓ，得 B'(4, −1)"
+ },
+ "直線AB'とℓを連立すると、Pのx座標 = 11/4": {
+  "en": "Solving line AB' and ℓ together, the x-coordinate of P = 11/4",
+  "zh-Hans": "联立直线AB'与ℓ，得P的横坐标 = 11/4",
+  "zh-Hant": "聯立直線AB'與ℓ，得P的x坐標 = 11/4"
+ },
+ "直線 ℓ: y = −x + 2 と、2点A(1, −2)、B(2, −2)があります。ℓ上に点Pをとり、AP+PB がもっとも小さくなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "There is a line ℓ: y = −x + 2 and 2 points A(1, −2) and B(2, −2). Take a point P on ℓ so that AP+PB is as small as possible. Find the x-coordinate of P.",
+  "zh-Hans": "已知直线 ℓ: y = −x + 2 和2点A(1, −2)、B(2, −2)。在ℓ上取点P，使 AP+PB 最小。求此时点P的横坐标。",
+  "zh-Hant": "已知直線 ℓ: y = −x + 2 與2點A(1, −2)、B(2, −2)。在ℓ上取一點P，使 AP+PB 最小。求此時點P的x坐標。"
+ },
+ "Bをℓで折り返した点B'をとる（PB＝PB'）。BB'の中点がℓ上、BB'⊥ℓ から B'(4, 0)": {
+  "en": "Reflect B across ℓ to get point B' (PB＝PB'). The midpoint of BB' lies on ℓ and BB'⊥ℓ, so B'(4, 0)",
+  "zh-Hans": "把B沿ℓ翻折，得到点B'（PB＝PB'）。由BB'的中点在ℓ上、BB'⊥ℓ，得 B'(4, 0)",
+  "zh-Hant": "把B沿ℓ翻折，得到點B'（PB＝PB'）。由BB'的中點在ℓ上、BB'⊥ℓ，得 B'(4, 0)"
+ },
+ "直線AB'とℓを連立すると、Pのx座標 = 14/5": {
+  "en": "Solving line AB' and ℓ together, the x-coordinate of P = 14/5",
+  "zh-Hans": "联立直线AB'与ℓ，得P的横坐标 = 14/5",
+  "zh-Hant": "聯立直線AB'與ℓ，得P的x坐標 = 14/5"
+ },
+ "直線 ℓ: y = 2x と、2点A(−2, 1)、B(0, 5)があります。ℓ上に点Pをとるとき、AP+PB の最小値を求めなさい。": {
+  "en": "There is a line ℓ: y = 2x and 2 points A(−2, 1) and B(0, 5). For a point P on ℓ, find the minimum value of AP+PB.",
+  "zh-Hans": "已知直线 ℓ: y = 2x 和2点A(−2, 1)、B(0, 5)。点P在ℓ上，求 AP+PB 的最小值。",
+  "zh-Hant": "已知直線 ℓ: y = 2x 與2點A(−2, 1)、B(0, 5)。點P在ℓ上，求 AP+PB 的最小值。"
+ },
+ "Bをℓで折り返した点B'をとる（PB＝PB'）。BB'の中点がℓ上、BB'⊥ℓ から B'(4, 3)": {
+  "en": "Reflect B across ℓ to get point B' (PB＝PB'). The midpoint of BB' lies on ℓ and BB'⊥ℓ, so B'(4, 3)",
+  "zh-Hans": "把B沿ℓ翻折，得到点B'（PB＝PB'）。由BB'的中点在ℓ上、BB'⊥ℓ，得 B'(4, 3)",
+  "zh-Hant": "把B沿ℓ翻折，得到點B'（PB＝PB'）。由BB'的中點在ℓ上、BB'⊥ℓ，得 B'(4, 3)"
+ },
+ "最小値 = AB' = √(6² + 2²) = √40 = 2√10": {
+  "en": "Minimum value = AB' = √(6² + 2²) = √40 = 2√10",
+  "zh-Hans": "最小值 = AB' = √(6² + 2²) = √40 = 2√10",
+  "zh-Hant": "最小值 = AB' = √(6² + 2²) = √40 = 2√10"
+ },
+ "直線 ℓ: y = 2x + 3 と、2点A(−2, −3)、B(6, 0)があります。ℓ上に点Pをとるとき、AP+PB の最小値を求めなさい。": {
+  "en": "There is a line ℓ: y = 2x + 3 and 2 points A(−2, −3) and B(6, 0). For a point P on ℓ, find the minimum value of AP+PB.",
+  "zh-Hans": "已知直线 ℓ: y = 2x + 3 和2点A(−2, −3)、B(6, 0)。点P在ℓ上，求 AP+PB 的最小值。",
+  "zh-Hant": "已知直線 ℓ: y = 2x + 3 與2點A(−2, −3)、B(6, 0)。點P在ℓ上，求 AP+PB 的最小值。"
+ },
+ "Bをℓで折り返した点B'をとる（PB＝PB'）。BB'の中点がℓ上、BB'⊥ℓ から B'(−6, 6)": {
+  "en": "Reflect B across ℓ to get point B' (PB＝PB'). The midpoint of BB' lies on ℓ and BB'⊥ℓ, so B'(−6, 6)",
+  "zh-Hans": "把B沿ℓ翻折，得到点B'（PB＝PB'）。由BB'的中点在ℓ上、BB'⊥ℓ，得 B'(−6, 6)",
+  "zh-Hant": "把B沿ℓ翻折，得到點B'（PB＝PB'）。由BB'的中點在ℓ上、BB'⊥ℓ，得 B'(−6, 6)"
+ },
+ "最小値 = AB' = √((−4)² + 9²) = √97": {
+  "en": "Minimum value = AB' = √((−4)² + 9²) = √97",
+  "zh-Hans": "最小值 = AB' = √((−4)² + 9²) = √97",
+  "zh-Hant": "最小值 = AB' = √((−4)² + 9²) = √97"
+ },
+ "直線 ℓ: y = 2x + 3 と、2点A(3, 4)、B(4, 6)があります。ℓ上に点Pをとるとき、AP+PB の最小値を求めなさい。": {
+  "en": "There is a line ℓ: y = 2x + 3 and 2 points A(3, 4) and B(4, 6). For a point P on ℓ, find the minimum value of AP+PB.",
+  "zh-Hans": "已知直线 ℓ: y = 2x + 3 和2点A(3, 4)、B(4, 6)。点P在ℓ上，求 AP+PB 的最小值。",
+  "zh-Hant": "已知直線 ℓ: y = 2x + 3 與2點A(3, 4)、B(4, 6)。點P在ℓ上，求 AP+PB 的最小值。"
+ },
+ "Bをℓで折り返した点B'をとる（PB＝PB'）。BB'の中点がℓ上、BB'⊥ℓ から B'(0, 8)": {
+  "en": "Reflect B across ℓ to get point B' (PB＝PB'). The midpoint of BB' lies on ℓ and BB'⊥ℓ, so B'(0, 8)",
+  "zh-Hans": "把B沿ℓ翻折，得到点B'（PB＝PB'）。由BB'的中点在ℓ上、BB'⊥ℓ，得 B'(0, 8)",
+  "zh-Hant": "把B沿ℓ翻折，得到點B'（PB＝PB'）。由BB'的中點在ℓ上、BB'⊥ℓ，得 B'(0, 8)"
+ },
+ "最小値 = AB' = √((−3)² + 4²) = √25 = 5": {
+  "en": "Minimum value = AB' = √((−3)² + 4²) = √25 = 5",
+  "zh-Hans": "最小值 = AB' = √((−3)² + 4²) = √25 = 5",
+  "zh-Hant": "最小值 = AB' = √((−3)² + 4²) = √25 = 5"
+ },
+ "直線 ℓ: y = 2x と、2点A(−4, 3)、B(0, 5)があります。ℓ上に点Pをとるとき、AP+PB の最小値を求めなさい。": {
+  "en": "There is a line ℓ: y = 2x and 2 points A(−4, 3) and B(0, 5). For a point P on ℓ, find the minimum value of AP+PB.",
+  "zh-Hans": "已知直线 ℓ: y = 2x 和2点A(−4, 3)、B(0, 5)。点P在ℓ上，求 AP+PB 的最小值。",
+  "zh-Hant": "已知直線 ℓ: y = 2x 與2點A(−4, 3)、B(0, 5)。點P在ℓ上，求 AP+PB 的最小值。"
+ },
+ "最小値 = AB' = √(8² + 0²) = √64 = 8": {
+  "en": "Minimum value = AB' = √(8² + 0²) = √64 = 8",
+  "zh-Hans": "最小值 = AB' = √(8² + 0²) = √64 = 8",
+  "zh-Hant": "最小值 = AB' = √(8² + 0²) = √64 = 8"
+ },
+ "直線 ℓ: y = 2x + 2 と、2点A(−3, −3)、B(−1, 5)があります。ℓ上に点Pをとるとき、AP+PB の最小値を求めなさい。": {
+  "en": "There is a line ℓ: y = 2x + 2 and 2 points A(−3, −3) and B(−1, 5). For a point P on ℓ, find the minimum value of AP+PB.",
+  "zh-Hans": "已知直线 ℓ: y = 2x + 2 和2点A(−3, −3)、B(−1, 5)。点P在ℓ上，求 AP+PB 的最小值。",
+  "zh-Hant": "已知直線 ℓ: y = 2x + 2 與2點A(−3, −3)、B(−1, 5)。點P在ℓ上，求 AP+PB 的最小值。"
+ },
+ "Bをℓで折り返した点B'をとる（PB＝PB'）。BB'の中点がℓ上、BB'⊥ℓ から B'(3, 3)": {
+  "en": "Reflect B across ℓ to get point B' (PB＝PB'). The midpoint of BB' lies on ℓ and BB'⊥ℓ, so B'(3, 3)",
+  "zh-Hans": "把B沿ℓ翻折，得到点B'（PB＝PB'）。由BB'的中点在ℓ上、BB'⊥ℓ，得 B'(3, 3)",
+  "zh-Hant": "把B沿ℓ翻折，得到點B'（PB＝PB'）。由BB'的中點在ℓ上、BB'⊥ℓ，得 B'(3, 3)"
+ },
+ "最小値 = AB' = √(6² + 6²) = √72 = 6√2": {
+  "en": "Minimum value = AB' = √(6² + 6²) = √72 = 6√2",
+  "zh-Hans": "最小值 = AB' = √(6² + 6²) = √72 = 6√2",
+  "zh-Hant": "最小值 = AB' = √(6² + 6²) = √72 = 6√2"
+ },
+ "直線 ℓ: y = x と、2点A(0, 3)、B(1, 5)があります。ℓ上に点Pをとり、|PA − PB| がもっとも大きくなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "There is a line ℓ: y = x and 2 points A(0, 3) and B(1, 5). Take a point P on ℓ so that |PA − PB| is as large as possible. Find the x-coordinate of P.",
+  "zh-Hans": "已知直线 ℓ: y = x 和2点A(0, 3)、B(1, 5)。在ℓ上取点P，使 |PA − PB| 最大。求此时点P的横坐标。",
+  "zh-Hant": "已知直線 ℓ: y = x 與2點A(0, 3)、B(1, 5)。在ℓ上取一點P，使 |PA − PB| 最大。求此時點P的x坐標。"
+ },
+ "和の最小と同じように、Bをℓで折り返す": {
+  "en": "Just like for the minimum of a sum, you reflect B across ℓ",
+  "zh-Hans": "和求和的最小值一样，把B沿ℓ翻折",
+  "zh-Hant": "和求和的最小值一樣，把B沿ℓ翻折"
+ },
+ "折り返して得た点では、差は最大にならない": {
+  "en": "The point you get by reflecting does not make the difference largest",
+  "zh-Hans": "翻折后得到的点，并不能让差最大",
+  "zh-Hant": "翻折後得到的點，並不能讓差最大"
+ },
+ "ここで約2分。答えがずれる": {
+  "en": "About 2 minutes in, and the answer comes out wrong",
+  "zh-Hans": "到这里约2分钟，答案却不对",
+  "zh-Hant": "到這裡約2分鐘，答案卻不對"
+ },
+ "和ではなく差の最大。折り返さない。|PA−PB| ≦ AB で、P・A・Bが一直線にならぶとき等号": {
+  "en": "It's the maximum of a difference, not a sum. Don't reflect. |PA−PB| ≦ AB, with equality when P, A and B line up in a straight line",
+  "zh-Hans": "求的不是和而是差的最大值，不翻折。|PA−PB| ≦ AB，当P、A、B在同一条直线上时取等号",
+  "zh-Hant": "求的不是和而是差的最大值，不翻折。|PA−PB| ≦ AB，當P、A、B在同一條直線上時等號成立"
+ },
+ "直線ABとℓの交点がP。AB：傾き (5−3)÷(1−0)、ℓと連立して x = −3": {
+  "en": "P is where line AB meets ℓ. AB: slope (5−3)÷(1−0); solving with ℓ gives x = −3",
+  "zh-Hans": "直线AB与ℓ的交点就是P。AB：斜率 (5−3)÷(1−0)，与ℓ联立得 x = −3",
+  "zh-Hant": "直線AB與ℓ的交點就是P。AB：斜率 (5−3)÷(1−0)，與ℓ聯立得 x = −3"
+ },
+ "おしい。折り返すのは和の最小のとき。差の最大では折り返さない。": {
+  "en": "Close! You reflect for the minimum of a sum. For the maximum of a difference, you don't reflect.",
+  "zh-Hans": "差一点。翻折用在求和的最小值时。求差的最大值时不翻折。",
+  "zh-Hant": "差一點。翻折用在求和的最小值時。求差的最大值時不翻折。"
+ },
+ "そのとおり。差の最大は、P・A・Bが一直線にならぶとき。直線ABとℓの交点を求める。": {
+  "en": "That's right. The difference is largest when P, A and B line up in a straight line. Find where line AB meets ℓ.",
+  "zh-Hans": "没错。差最大是在P、A、B共线时。求直线AB与ℓ的交点。",
+  "zh-Hant": "沒錯。差最大是在P、A、B共線時。求直線AB與ℓ的交點。"
+ },
+ "直線 ℓ: y = x − 1 と、2点A(−4, −2)、B(−1, 5)があります。ℓ上に点Pをとり、|PA − PB| がもっとも大きくなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "There is a line ℓ: y = x − 1 and 2 points A(−4, −2) and B(−1, 5). Take a point P on ℓ so that |PA − PB| is as large as possible. Find the x-coordinate of P.",
+  "zh-Hans": "已知直线 ℓ: y = x − 1 和2点A(−4, −2)、B(−1, 5)。在ℓ上取点P，使 |PA − PB| 最大。求此时点P的横坐标。",
+  "zh-Hant": "已知直線 ℓ: y = x − 1 與2點A(−4, −2)、B(−1, 5)。在ℓ上取一點P，使 |PA − PB| 最大。求此時點P的x坐標。"
+ },
+ "直線ABとℓの交点がP。AB：傾き (5−(−2))÷((−1)−(−4))、ℓと連立して x = −25/4": {
+  "en": "P is where line AB meets ℓ. AB: slope (5−(−2))÷((−1)−(−4)); solving with ℓ gives x = −25/4",
+  "zh-Hans": "直线AB与ℓ的交点就是P。AB：斜率 (5−(−2))÷((−1)−(−4))，与ℓ联立得 x = −25/4",
+  "zh-Hant": "直線AB與ℓ的交點就是P。AB：斜率 (5−(−2))÷((−1)−(−4))，與ℓ聯立得 x = −25/4"
+ },
+ "直線 ℓ: y = x − 2 と、2点A(4, 4)、B(−3, −1)があります。ℓ上に点Pをとり、|PA − PB| がもっとも大きくなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "There is a line ℓ: y = x − 2 and 2 points A(4, 4) and B(−3, −1). Take a point P on ℓ so that |PA − PB| is as large as possible. Find the x-coordinate of P.",
+  "zh-Hans": "已知直线 ℓ: y = x − 2 和2点A(4, 4)、B(−3, −1)。在ℓ上取点P，使 |PA − PB| 最大。求此时点P的横坐标。",
+  "zh-Hant": "已知直線 ℓ: y = x − 2 與2點A(4, 4)、B(−3, −1)。在ℓ上取一點P，使 |PA − PB| 最大。求此時點P的x坐標。"
+ },
+ "直線ABとℓの交点がP。AB：傾き ((−1)−4)÷((−3)−4)、ℓと連立して x = 11": {
+  "en": "P is where line AB meets ℓ. AB: slope ((−1)−4)÷((−3)−4); solving with ℓ gives x = 11",
+  "zh-Hans": "直线AB与ℓ的交点就是P。AB：斜率 ((−1)−4)÷((−3)−4)，与ℓ联立得 x = 11",
+  "zh-Hant": "直線AB與ℓ的交點就是P。AB：斜率 ((−1)−4)÷((−3)−4)，與ℓ聯立得 x = 11"
+ },
+ "直線 ℓ: y = x − 3 と、2点A(3, 5)、B(0, 1)があります。ℓ上に点Pをとり、|PA − PB| がもっとも大きくなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "There is a line ℓ: y = x − 3 and 2 points A(3, 5) and B(0, 1). Take a point P on ℓ so that |PA − PB| is as large as possible. Find the x-coordinate of P.",
+  "zh-Hans": "已知直线 ℓ: y = x − 3 和2点A(3, 5)、B(0, 1)。在ℓ上取点P，使 |PA − PB| 最大。求此时点P的横坐标。",
+  "zh-Hant": "已知直線 ℓ: y = x − 3 與2點A(3, 5)、B(0, 1)。在ℓ上取一點P，使 |PA − PB| 最大。求此時點P的x坐標。"
+ },
+ "直線ABとℓの交点がP。AB：傾き (1−5)÷(0−3)、ℓと連立して x = −12": {
+  "en": "P is where line AB meets ℓ. AB: slope (1−5)÷(0−3); solving with ℓ gives x = −12",
+  "zh-Hans": "直线AB与ℓ的交点就是P。AB：斜率 (1−5)÷(0−3)，与ℓ联立得 x = −12",
+  "zh-Hant": "直線AB與ℓ的交點就是P。AB：斜率 (1−5)÷(0−3)，與ℓ聯立得 x = −12"
+ },
+ "直線 ℓ: y = −x − 2 と、2点A(4, −1)、B(0, 4)があります。ℓ上に点Pをとり、|PA − PB| がもっとも大きくなるようにします。このとき、点Pのx座標を求めなさい。": {
+  "en": "There is a line ℓ: y = −x − 2 and 2 points A(4, −1) and B(0, 4). Take a point P on ℓ so that |PA − PB| is as large as possible. Find the x-coordinate of P.",
+  "zh-Hans": "已知直线 ℓ: y = −x − 2 和2点A(4, −1)、B(0, 4)。在ℓ上取点P，使 |PA − PB| 最大。求此时点P的横坐标。",
+  "zh-Hant": "已知直線 ℓ: y = −x − 2 與2點A(4, −1)、B(0, 4)。在ℓ上取一點P，使 |PA − PB| 最大。求此時點P的x坐標。"
+ },
+ "直線ABとℓの交点がP。AB：傾き (4−(−1))÷(0−4)、ℓと連立して x = 24": {
+  "en": "P is where line AB meets ℓ. AB: slope (4−(−1))÷(0−4); solving with ℓ gives x = 24",
+  "zh-Hans": "直线AB与ℓ的交点就是P。AB：斜率 (4−(−1))÷(0−4)，与ℓ联立得 x = 24",
+  "zh-Hant": "直線AB與ℓ的交點就是P。AB：斜率 (4−(−1))÷(0−4)，與ℓ聯立得 x = 24"
+ },
+ "直線 ℓ: y = x と、2点A(0, 3)、B(4, 1)があります。ℓ上に点Pをとるとき、AP+PB の最小値を求めなさい。": {
+  "en": "There is a line ℓ: y = x and 2 points A(0, 3) and B(4, 1). For a point P on ℓ, find the minimum value of AP+PB.",
+  "zh-Hans": "已知直线 ℓ: y = x 和2点A(0, 3)、B(4, 1)。点P在ℓ上，求 AP+PB 的最小值。",
+  "zh-Hant": "已知直線 ℓ: y = x 與2點A(0, 3)、B(4, 1)。點P在ℓ上，求 AP+PB 的最小值。"
+ },
+ "AとBはℓをはさんで反対側にある。折り返さずに、AとBをまっすぐ結ぶ": {
+  "en": "A and B are on opposite sides of ℓ. Don't reflect; just join A and B with a straight line",
+  "zh-Hans": "A和B在ℓ的两侧。不用翻折，直接把A和B连起来",
+  "zh-Hant": "A和B在ℓ的兩側。不用翻折，直接把A和B連起來"
+ },
+ "最小値 = AB = √(4² + (−2)²) = √20 = 2√5": {
+  "en": "Minimum value = AB = √(4² + (−2)²) = √20 = 2√5",
+  "zh-Hans": "最小值 = AB = √(4² + (−2)²) = √20 = 2√5",
+  "zh-Hant": "最小值 = AB = √(4² + (−2)²) = √20 = 2√5"
+ },
+ "2点が直線をはさんで反対側にあるときは、折り返さずにそのまま結ぶ。": {
+  "en": "When the 2 points are on opposite sides of the line, don't reflect; just join them directly.",
+  "zh-Hans": "当2点在直线两侧时，不用翻折，直接连起来。",
+  "zh-Hant": "當2點在直線兩側時，不用翻折，直接連起來。"
+ },
+ "折り返す必要はない。AとBはすでにℓの反対側にある。": {
+  "en": "No need to reflect. A and B are already on opposite sides of ℓ.",
+  "zh-Hans": "不需要翻折。A和B已经在ℓ的两侧了。",
+  "zh-Hant": "不需要翻折。A和B已經在ℓ的兩側了。"
+ },
+ "そのとおり。AとBはℓをはさんで反対側。ABをまっすぐ結べば、それが最短。": {
+  "en": "That's right. A and B are on opposite sides of ℓ. The straight segment AB is the shortest path.",
+  "zh-Hans": "没错。A和B在ℓ的两侧。直接连接AB，就是最短的。",
+  "zh-Hant": "沒錯。A和B在ℓ的兩側。直接連接AB，就是最短的。"
+ },
+ "直線 ℓ: y = x − 1 と、2点A(−3, −3)、B(2, 0)があります。ℓ上に点Pをとるとき、AP+PB の最小値を求めなさい。": {
+  "en": "There is a line ℓ: y = x − 1 and 2 points A(−3, −3) and B(2, 0). For a point P on ℓ, find the minimum value of AP+PB.",
+  "zh-Hans": "已知直线 ℓ: y = x − 1 和2点A(−3, −3)、B(2, 0)。点P在ℓ上，求 AP+PB 的最小值。",
+  "zh-Hant": "已知直線 ℓ: y = x − 1 與2點A(−3, −3)、B(2, 0)。點P在ℓ上，求 AP+PB 的最小值。"
+ },
+ "最小値 = AB = √(5² + 3²) = √34": {
+  "en": "Minimum value = AB = √(5² + 3²) = √34",
+  "zh-Hans": "最小值 = AB = √(5² + 3²) = √34",
+  "zh-Hant": "最小值 = AB = √(5² + 3²) = √34"
+ },
+ "直線 ℓ: y = x − 1 と、2点A(2, −3)、B(3, 4)があります。ℓ上に点Pをとるとき、AP+PB の最小値を求めなさい。": {
+  "en": "There is a line ℓ: y = x − 1 and 2 points A(2, −3) and B(3, 4). For a point P on ℓ, find the minimum value of AP+PB.",
+  "zh-Hans": "已知直线 ℓ: y = x − 1 和2点A(2, −3)、B(3, 4)。点P在ℓ上，求 AP+PB 的最小值。",
+  "zh-Hant": "已知直線 ℓ: y = x − 1 與2點A(2, −3)、B(3, 4)。點P在ℓ上，求 AP+PB 的最小值。"
+ },
+ "最小値 = AB = √(1² + 7²) = √50 = 5√2": {
+  "en": "Minimum value = AB = √(1² + 7²) = √50 = 5√2",
+  "zh-Hans": "最小值 = AB = √(1² + 7²) = √50 = 5√2",
+  "zh-Hant": "最小值 = AB = √(1² + 7²) = √50 = 5√2"
+ },
+ "直線 ℓ: y = 2x + 3 と、2点A(4, −1)、B(−4, −2)があります。ℓ上に点Pをとるとき、AP+PB の最小値を求めなさい。": {
+  "en": "There is a line ℓ: y = 2x + 3 and 2 points A(4, −1) and B(−4, −2). For a point P on ℓ, find the minimum value of AP+PB.",
+  "zh-Hans": "已知直线 ℓ: y = 2x + 3 和2点A(4, −1)、B(−4, −2)。点P在ℓ上，求 AP+PB 的最小值。",
+  "zh-Hant": "已知直線 ℓ: y = 2x + 3 與2點A(4, −1)、B(−4, −2)。點P在ℓ上，求 AP+PB 的最小值。"
+ },
+ "最小値 = AB = √((−8)² + (−1)²) = √65": {
+  "en": "Minimum value = AB = √((−8)² + (−1)²) = √65",
+  "zh-Hans": "最小值 = AB = √((−8)² + (−1)²) = √65",
+  "zh-Hant": "最小值 = AB = √((−8)² + (−1)²) = √65"
+ },
+ "直線 ℓ: y = x − 1 と、2点A(2, −2)、B(−2, −2)があります。ℓ上に点Pをとるとき、AP+PB の最小値を求めなさい。": {
+  "en": "There is a line ℓ: y = x − 1 and 2 points A(2, −2) and B(−2, −2). For a point P on ℓ, find the minimum value of AP+PB.",
+  "zh-Hans": "已知直线 ℓ: y = x − 1 和2点A(2, −2)、B(−2, −2)。点P在ℓ上，求 AP+PB 的最小值。",
+  "zh-Hant": "已知直線 ℓ: y = x − 1 與2點A(2, −2)、B(−2, −2)。點P在ℓ上，求 AP+PB 的最小值。"
+ },
+ "最小値 = AB = √((−4)² + 0²) = √16 = 4": {
+  "en": "Minimum value = AB = √((−4)² + 0²) = √16 = 4",
+  "zh-Hans": "最小值 = AB = √((−4)² + 0²) = √16 = 4",
+  "zh-Hant": "最小值 = AB = √((−4)² + 0²) = √16 = 4"
+ }
+}

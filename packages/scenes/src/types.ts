@@ -27,6 +27,8 @@ export type StepDetail =
 
 export interface Step {
   ja: string;
+  /** the Japanese text, kept when `ja` is swapped for a translation (figures read numbers from it) */
+  ja_orig?: string;
   value?: ExactNumber;
   op?: StepOp;
   detail?: StepDetail;

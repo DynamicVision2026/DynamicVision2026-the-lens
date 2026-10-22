@@ -1,0 +1,2816 @@
+[
+  {
+    "topic_ja": "数の構成と表し方",
+    "en": {
+      "topic": "Numbers & Place Value",
+      "covers": [
+        "Comparing and counting quantities",
+        "Size and order",
+        "Number line",
+        "Seeing numbers as sums or differences",
+        "2-digit numbers",
+        "Simple 3-digit numbers",
+        "Seeing tens as a unit",
+        "Counting in groups"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "数的组成与表示",
+      "covers": [
+        "比较和数数量",
+        "大小与顺序",
+        "数轴",
+        "看作和或差",
+        "两位数",
+        "简单的三位数",
+        "以十为单位来看",
+        "成组地数"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "數的組成與表示",
+      "covers": [
+        "比較與數數量",
+        "大小與順序",
+        "數線",
+        "看成和或差",
+        "二位數",
+        "簡單的三位數",
+        "以十為單位來看",
+        "成組地數"
+      ]
+    }
+  },
+  {
+    "topic_ja": "加法・減法",
+    "en": {
+      "topic": "Addition & Subtraction",
+      "covers": [
+        "Meaning",
+        "Writing and reading expressions",
+        "1-digit calculations",
+        "Simple 2-digit calculations"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "加法与减法",
+      "covers": [
+        "意义",
+        "列式与读式",
+        "一位数的计算",
+        "简单的两位数计算"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "加法與減法",
+      "covers": [
+        "意義",
+        "列式與讀式",
+        "一位數的計算",
+        "簡單的二位數計算"
+      ]
+    }
+  },
+  {
+    "topic_ja": "身の回りのものの形",
+    "en": {
+      "topic": "Shapes Around Us",
+      "covers": [
+        "Features of shapes",
+        "Making and taking apart shapes",
+        "Describing position"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "身边物体的形状",
+      "covers": [
+        "形状的特征",
+        "拼搭与分解图形",
+        "位置的表示"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "生活中的形狀",
+      "covers": [
+        "形狀的特徵",
+        "組合與分解形狀",
+        "位置的表示"
+      ]
+    }
+  },
+  {
+    "topic_ja": "ものの大きさ比べ",
+    "en": {
+      "topic": "Comparing Sizes",
+      "covers": [
+        "Directly comparing length, area and capacity",
+        "Comparing using everyday objects as units"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "比较大小",
+      "covers": [
+        "直接比较长短、面积和容量",
+        "以身边物体为单位比较"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "比較大小",
+      "covers": [
+        "直接比較長度、面積和容量",
+        "以身邊物品為單位比較"
+      ]
+    }
+  },
+  {
+    "topic_ja": "時刻",
+    "en": {
+      "topic": "Telling Time",
+      "covers": [
+        "Reading the clock"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "认识钟表",
+      "covers": [
+        "读出时刻"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "認識時刻",
+      "covers": [
+        "報讀時刻"
+      ]
+    }
+  },
+  {
+    "topic_ja": "数量の整理",
+    "en": {
+      "topic": "Organizing Quantities",
+      "covers": [
+        "Showing and reading counts with pictures and diagrams"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "整理数量",
+      "covers": [
+        "用图画表示和读取个数"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "整理數量",
+      "covers": [
+        "用圖畫表示與報讀個數"
+      ]
+    }
+  },
+  {
+    "topic_ja": "数の構成と表し方",
+    "en": {
+      "topic": "Numbers & Place Value",
+      "covers": [
+        "Counting in groups",
+        "Place value up to 4 digits",
+        "Relative size of numbers",
+        "Seeing numbers as products",
+        "Sorting and organizing",
+        "Fractions like 1/2 and 1/3"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "数的组成与表示",
+      "covers": [
+        "成组地数",
+        "四位数以内的十进制数位",
+        "数的相对大小",
+        "看作乘积",
+        "分类整理",
+        "1/2、1/3等分数"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "數的組成與表示",
+      "covers": [
+        "成組地數",
+        "四位數以內的十進位",
+        "數的相對大小",
+        "看成乘積",
+        "分類整理",
+        "1/2、1/3等分數"
+      ]
+    }
+  },
+  {
+    "topic_ja": "加法・減法",
+    "en": {
+      "topic": "Addition & Subtraction",
+      "covers": [
+        "Column method for 2-digit numbers",
+        "Simple 3-digit numbers",
+        "Properties of operations",
+        "How addition and subtraction relate"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "加法与减法",
+      "covers": [
+        "两位数的竖式计算",
+        "简单的三位数",
+        "运算性质",
+        "加法与减法的关系"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "加法與減法",
+      "covers": [
+        "二位數的直式計算",
+        "簡單的三位數",
+        "運算性質",
+        "加法與減法的關係"
+      ]
+    }
+  },
+  {
+    "topic_ja": "乗法",
+    "en": {
+      "topic": "Multiplication",
+      "covers": [
+        "Meaning",
+        "Writing and reading expressions",
+        "Properties",
+        "Times tables",
+        "Simple 2-digit × 1-digit"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "乘法",
+      "covers": [
+        "意义",
+        "列式与读式",
+        "性质",
+        "九九乘法表",
+        "简单的两位数×一位数"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "乘法",
+      "covers": [
+        "意義",
+        "列式與讀式",
+        "性質",
+        "九九乘法",
+        "簡單的二位數×一位數"
+      ]
+    }
+  },
+  {
+    "topic_ja": "三角形・四角形",
+    "en": {
+      "topic": "Triangles & Quadrilaterals",
+      "covers": [
+        "Triangles and quadrilaterals",
+        "Squares, rectangles and right triangles",
+        "Box shapes"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "三角形与四边形",
+      "covers": [
+        "三角形与四边形",
+        "正方形、长方形与直角三角形",
+        "箱子的形状"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "三角形與四邊形",
+      "covers": [
+        "三角形與四邊形",
+        "正方形、長方形與直角三角形",
+        "箱子的形狀"
+      ]
+    }
+  },
+  {
+    "topic_ja": "量の単位と測定",
+    "en": {
+      "topic": "Units & Measurement",
+      "covers": [
+        "Length (mm, cm, m) and capacity (mL, dL, L)",
+        "Choosing units to measure"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "量的单位与测量",
+      "covers": [
+        "长度 (mm, cm, m) 与容量 (mL, dL, L)",
+        "选择单位进行测量"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "量的單位與測量",
+      "covers": [
+        "長度 (mm, cm, m) 與容量 (mL, dL, L)",
+        "選擇單位來測量"
+      ]
+    }
+  },
+  {
+    "topic_ja": "時刻と時間",
+    "en": {
+      "topic": "Time & Duration",
+      "covers": [
+        "Days, hours and minutes"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "时刻与时间",
+      "covers": [
+        "日、时、分的关系"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "時刻與時間",
+      "covers": [
+        "日、時、分的關係"
+      ]
+    }
+  },
+  {
+    "topic_ja": "データの分析",
+    "en": {
+      "topic": "Data Analysis",
+      "covers": [
+        "Simple tables and graphs"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "数据分析",
+      "covers": [
+        "简单的统计表和统计图"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "資料分析",
+      "covers": [
+        "簡單的統計表與統計圖"
+      ]
+    }
+  },
+  {
+    "topic_ja": "整数の表し方",
+    "en": {
+      "topic": "Whole Numbers",
+      "covers": [
+        "Ten-thousands",
+        "×10, ×100, ×1000 and 1/10",
+        "Relative size of numbers"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "整数的表示",
+      "covers": [
+        "万级数",
+        "10倍、100倍、1000倍与1/10",
+        "数的相对大小"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "整數的表示",
+      "covers": [
+        "萬位數",
+        "10倍、100倍、1000倍與1/10",
+        "數的相對大小"
+      ]
+    }
+  },
+  {
+    "topic_ja": "加法・減法",
+    "en": {
+      "topic": "Addition & Subtraction",
+      "covers": [
+        "Column method for 3- and 4-digit numbers",
+        "Calculating accurately and using it"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "加法与减法",
+      "covers": [
+        "三位数、四位数的竖式计算",
+        "准确计算并运用"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "加法與減法",
+      "covers": [
+        "三位數、四位數的直式計算",
+        "正確計算並應用"
+      ]
+    }
+  },
+  {
+    "topic_ja": "乗法",
+    "en": {
+      "topic": "Multiplication",
+      "covers": [
+        "Column method for 2–3-digit × 1–2-digit",
+        "Calculating accurately and using it",
+        "Properties"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "乘法",
+      "covers": [
+        "两三位数×一两位数的竖式计算",
+        "准确计算并运用",
+        "性质"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "乘法",
+      "covers": [
+        "二、三位數×一、二位數的直式計算",
+        "正確計算並應用",
+        "性質"
+      ]
+    }
+  },
+  {
+    "topic_ja": "除法",
+    "en": {
+      "topic": "Division",
+      "covers": [
+        "Meaning and remainders",
+        "Writing and reading expressions",
+        "Links to multiplication and subtraction",
+        "Basic division",
+        "Simple division with 2-digit quotients"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "除法",
+      "covers": [
+        "意义与余数",
+        "列式与读式",
+        "与乘法、减法的关系",
+        "基本除法",
+        "商是两位数的简单除法"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "除法",
+      "covers": [
+        "意義與餘數",
+        "列式與讀式",
+        "與乘法、減法的關係",
+        "基本除法",
+        "商為二位數的簡單除法"
+      ]
+    }
+  },
+  {
+    "topic_ja": "小数",
+    "en": {
+      "topic": "Decimals",
+      "covers": [
+        "The tenths place",
+        "Adding and subtracting decimals"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "小数",
+      "covers": [
+        "十分位",
+        "小数加减法"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "小數",
+      "covers": [
+        "十分位",
+        "小數的加減"
+      ]
+    }
+  },
+  {
+    "topic_ja": "分数",
+    "en": {
+      "topic": "Fractions",
+      "covers": [
+        "Expressing with fractions",
+        "Multiples of unit fractions",
+        "Simple addition and subtraction"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "分数",
+      "covers": [
+        "用分数表示",
+        "几个单位分数",
+        "简单的加减法"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "分數",
+      "covers": [
+        "用分數表示",
+        "單位分數的幾倍",
+        "簡單的加減"
+      ]
+    }
+  },
+  {
+    "topic_ja": "数量の関係を表す式",
+    "en": {
+      "topic": "Expressions for Relationships",
+      "covers": [
+        "Expressions using □"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "表示数量关系的式子",
+      "covers": [
+        "用□表示的式子"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "表示數量關係的算式",
+      "covers": [
+        "用□表示的算式"
+      ]
+    }
+  },
+  {
+    "topic_ja": "そろばん",
+    "en": {
+      "topic": "Abacus",
+      "covers": [
+        "Showing numbers",
+        "Simple addition and subtraction"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "算盘",
+      "covers": [
+        "数的表示",
+        "简单的加减法"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "算盤",
+      "covers": [
+        "數的表示",
+        "簡單的加減"
+      ]
+    }
+  },
+  {
+    "topic_ja": "二等辺三角形・正三角形、角、円と球",
+    "en": {
+      "topic": "Triangles, Angles, Circles & Spheres",
+      "covers": [
+        "Isosceles and equilateral triangles",
+        "Angles",
+        "Center, radius and diameter of circles, and spheres"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "等腰/等边三角形、角、圆与球",
+      "covers": [
+        "等腰三角形与等边三角形",
+        "角",
+        "圆的圆心、半径、直径与球"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "等腰/正三角形、角、圓與球",
+      "covers": [
+        "等腰三角形與正三角形",
+        "角",
+        "圓的圓心、半徑、直徑與球"
+      ]
+    }
+  },
+  {
+    "topic_ja": "量の単位と測定",
+    "en": {
+      "topic": "Units & Measurement",
+      "covers": [
+        "Length (km) and weight (g, kg)",
+        "Choosing suitable units and instruments"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "量的单位与测量",
+      "covers": [
+        "长度 (km) 与质量 (g, kg)",
+        "选择合适的单位和工具"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "量的單位與測量",
+      "covers": [
+        "長度 (km) 與重量 (g, kg)",
+        "選擇適當的單位與工具"
+      ]
+    }
+  },
+  {
+    "topic_ja": "時刻と時間",
+    "en": {
+      "topic": "Time & Duration",
+      "covers": [
+        "Seconds",
+        "Finding times and durations"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "时刻与时间",
+      "covers": [
+        "秒",
+        "求时刻和经过的时间"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "時刻與時間",
+      "covers": [
+        "秒",
+        "求時刻與經過時間"
+      ]
+    }
+  },
+  {
+    "topic_ja": "データの分析",
+    "en": {
+      "topic": "Data Analysis",
+      "covers": [
+        "Organizing data in tables",
+        "Bar graphs"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "数据分析",
+      "covers": [
+        "用表格整理",
+        "条形统计图"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "資料分析",
+      "covers": [
+        "用表格整理",
+        "長條圖"
+      ]
+    }
+  },
+  {
+    "topic_ja": "整数の表し方",
+    "en": {
+      "topic": "Whole Numbers",
+      "covers": [
+        "Hundred millions and trillions"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "整数的表示",
+      "covers": [
+        "亿和万亿"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "整數的表示",
+      "covers": [
+        "億和兆"
+      ]
+    }
+  },
+  {
+    "topic_ja": "概数",
+    "en": {
+      "topic": "Rounding & Estimation",
+      "covers": [
+        "When to use approximate numbers",
+        "Rounding off",
+        "Estimating results"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "近似数",
+      "covers": [
+        "使用近似数的场合",
+        "四舍五入",
+        "估算计算结果"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "概數",
+      "covers": [
+        "使用概數的時機",
+        "四捨五入",
+        "估算計算結果"
+      ]
+    }
+  },
+  {
+    "topic_ja": "整数の除法",
+    "en": {
+      "topic": "Division of Whole Numbers",
+      "covers": [
+        "Column method (long division)",
+        "Calculating accurately and using it",
+        "Dividend = divisor × quotient + remainder",
+        "Properties"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "整数除法",
+      "covers": [
+        "竖式计算",
+        "准确计算并运用",
+        "被除数 = 除数 × 商 + 余数",
+        "性质"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "整數的除法",
+      "covers": [
+        "直式計算",
+        "正確計算並應用",
+        "被除數 = 除數 × 商 + 餘數",
+        "性質"
+      ]
+    }
+  },
+  {
+    "topic_ja": "小数とその計算",
+    "en": {
+      "topic": "Decimals & Calculation",
+      "covers": [
+        "Expressing \"how many times\" with decimals",
+        "How decimals work",
+        "Addition and subtraction",
+        "Multiplying and dividing by whole numbers"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "小数及其计算",
+      "covers": [
+        "用小数表示倍数",
+        "小数的组成",
+        "加减法",
+        "乘以整数与除以整数"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "小數及其計算",
+      "covers": [
+        "用小數表示倍數",
+        "小數的結構",
+        "加減",
+        "乘以整數與除以整數"
+      ]
+    }
+  },
+  {
+    "topic_ja": "分数とその加法・減法",
+    "en": {
+      "topic": "Fractions: Addition & Subtraction",
+      "covers": [
+        "Equivalent fractions",
+        "Adding and subtracting like denominators"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "分数及其加减法",
+      "covers": [
+        "大小相等的分数",
+        "同分母分数加减法"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "分數及其加減",
+      "covers": [
+        "等值分數",
+        "同分母分數的加減"
+      ]
+    }
+  },
+  {
+    "topic_ja": "数量の関係を表す式",
+    "en": {
+      "topic": "Expressions for Relationships",
+      "covers": [
+        "Mixed operations and expressions with ( )",
+        "Formulas",
+        "Expressions using □ and △"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "表示数量关系的式子",
+      "covers": [
+        "四则混合运算与带括号的式子",
+        "公式",
+        "用□和△表示的式子"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "表示數量關係的算式",
+      "covers": [
+        "四則混合與括號算式",
+        "公式",
+        "用□和△表示的算式"
+      ]
+    }
+  },
+  {
+    "topic_ja": "計算の性質",
+    "en": {
+      "topic": "Properties of Operations",
+      "covers": [
+        "Properties of the four operations"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "运算性质",
+      "covers": [
+        "四则运算的性质"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "運算性質",
+      "covers": [
+        "四則運算的性質"
+      ]
+    }
+  },
+  {
+    "topic_ja": "そろばん",
+    "en": {
+      "topic": "Abacus",
+      "covers": [
+        "Addition and subtraction"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "算盘",
+      "covers": [
+        "加法与减法"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "算盤",
+      "covers": [
+        "加法與減法"
+      ]
+    }
+  },
+  {
+    "topic_ja": "平面図形",
+    "en": {
+      "topic": "Plane Figures",
+      "covers": [
+        "Parallel and perpendicular lines",
+        "Parallelograms, rhombuses and trapezoids"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "平面图形",
+      "covers": [
+        "平行与垂直",
+        "平行四边形、菱形与梯形"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "平面圖形",
+      "covers": [
+        "平行與垂直",
+        "平行四邊形、菱形與梯形"
+      ]
+    }
+  },
+  {
+    "topic_ja": "立体図形",
+    "en": {
+      "topic": "Solid Figures",
+      "covers": [
+        "Cubes and rectangular prisms",
+        "Parallel and perpendicular lines and planes",
+        "Sketches and nets"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "立体图形",
+      "covers": [
+        "正方体与长方体",
+        "直线和平面的平行与垂直",
+        "立体图与展开图"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "立體圖形",
+      "covers": [
+        "正方體與長方體",
+        "直線與平面的平行、垂直",
+        "透視圖與展開圖"
+      ]
+    }
+  },
+  {
+    "topic_ja": "ものの位置",
+    "en": {
+      "topic": "Position",
+      "covers": [
+        "Describing position"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "物体的位置",
+      "covers": [
+        "位置的表示"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "物體的位置",
+      "covers": [
+        "位置的表示"
+      ]
+    }
+  },
+  {
+    "topic_ja": "平面図形の面積",
+    "en": {
+      "topic": "Area of Plane Figures",
+      "covers": [
+        "Units of area",
+        "Area of squares and rectangles"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "平面图形的面积",
+      "covers": [
+        "面积单位",
+        "正方形与长方形的面积"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "平面圖形的面積",
+      "covers": [
+        "面積單位",
+        "正方形與長方形的面積"
+      ]
+    }
+  },
+  {
+    "topic_ja": "角の大きさ",
+    "en": {
+      "topic": "Angle Size",
+      "covers": [
+        "Angles as amounts of turn",
+        "Degrees (°) and measuring"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "角的大小",
+      "covers": [
+        "角是旋转的大小",
+        "度 (°) 与测量"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "角的大小",
+      "covers": [
+        "角是旋轉量",
+        "度 (°) 與測量"
+      ]
+    }
+  },
+  {
+    "topic_ja": "伴って変わる二つの数量",
+    "en": {
+      "topic": "Quantities That Change Together",
+      "covers": [
+        "Showing change with tables, expressions and line graphs"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "一起变化的两个量",
+      "covers": [
+        "用表格、式子和折线统计图表示变化"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "一起變化的兩個量",
+      "covers": [
+        "用表格、算式和折線圖表示變化"
+      ]
+    }
+  },
+  {
+    "topic_ja": "簡単な割合",
+    "en": {
+      "topic": "Simple Ratios",
+      "covers": [
+        "Sometimes we compare using ratios"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "简单的比率",
+      "covers": [
+        "有时用比率来比较"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "簡單的比率",
+      "covers": [
+        "有時用比率來比較"
+      ]
+    }
+  },
+  {
+    "topic_ja": "データの収集と分析",
+    "en": {
+      "topic": "Collecting & Analyzing Data",
+      "covers": [
+        "Sorting by two criteria",
+        "Line graphs"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "数据的收集与分析",
+      "covers": [
+        "按两个角度分类整理",
+        "折线统计图"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "資料的蒐集與分析",
+      "covers": [
+        "依兩個面向分類整理",
+        "折線圖"
+      ]
+    }
+  },
+  {
+    "topic_ja": "整数の性質",
+    "en": {
+      "topic": "Properties of Whole Numbers",
+      "covers": [
+        "Even and odd numbers",
+        "Factors and multiples"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "整数的性质",
+      "covers": [
+        "偶数与奇数",
+        "因数与倍数"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "整數的性質",
+      "covers": [
+        "偶數與奇數",
+        "因數與倍數"
+      ]
+    }
+  },
+  {
+    "topic_ja": "整数・小数の表し方",
+    "en": {
+      "topic": "Whole Numbers & Decimals",
+      "covers": [
+        "Moving the decimal point for ×10, 1/10, etc."
+      ]
+    },
+    "zh-Hans": {
+      "topic": "整数与小数的表示",
+      "covers": [
+        "移动小数点得到10倍、1/10等"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "整數與小數的表示",
+      "covers": [
+        "移動小數點得到10倍、1/10等"
+      ]
+    }
+  },
+  {
+    "topic_ja": "小数の乗法・除法",
+    "en": {
+      "topic": "Multiplying & Dividing Decimals",
+      "covers": [
+        "Meaning of multiplying and dividing by decimals",
+        "Calculation and remainders",
+        "Same rules as whole numbers"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "小数乘除法",
+      "covers": [
+        "乘以小数、除以小数的意义",
+        "计算与余数",
+        "与整数相同的运算律"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "小數的乘除",
+      "covers": [
+        "乘以小數、除以小數的意義",
+        "計算與餘數",
+        "與整數相同的運算規律"
+      ]
+    }
+  },
+  {
+    "topic_ja": "分数",
+    "en": {
+      "topic": "Fractions",
+      "covers": [
+        "Converting with whole numbers and decimals",
+        "Division results as fractions",
+        "Properties of fractions",
+        "Equality and comparison"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "分数",
+      "covers": [
+        "与整数、小数的互化",
+        "用分数表示除法的结果",
+        "分数的基本性质",
+        "相等与大小比较"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "分數",
+      "covers": [
+        "與整數、小數的互換",
+        "用分數表示除法的結果",
+        "分數的性質",
+        "相等與大小比較"
+      ]
+    }
+  },
+  {
+    "topic_ja": "分数の加法・減法",
+    "en": {
+      "topic": "Adding & Subtracting Fractions",
+      "covers": [
+        "Unlike denominators"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "分数加减法",
+      "covers": [
+        "异分母分数加减法"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "分數的加減",
+      "covers": [
+        "異分母分數的加減"
+      ]
+    }
+  },
+  {
+    "topic_ja": "数量の関係を表す式",
+    "en": {
+      "topic": "Expressions for Relationships",
+      "covers": [
+        "Deepening understanding of expressions"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "表示数量关系的式子",
+      "covers": [
+        "加深对式子的理解"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "表示數量關係的算式",
+      "covers": [
+        "加深對算式的理解"
+      ]
+    }
+  },
+  {
+    "topic_ja": "平面図形",
+    "en": {
+      "topic": "Plane Figures",
+      "covers": [
+        "Congruence",
+        "Properties of polygons",
+        "Regular polygons",
+        "Pi"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "平面图形",
+      "covers": [
+        "全等",
+        "多边形的性质",
+        "正多边形",
+        "圆周率"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "平面圖形",
+      "covers": [
+        "全等",
+        "多邊形的性質",
+        "正多邊形",
+        "圓周率"
+      ]
+    }
+  },
+  {
+    "topic_ja": "立体図形",
+    "en": {
+      "topic": "Solid Figures",
+      "covers": [
+        "Prisms and cylinders"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "立体图形",
+      "covers": [
+        "棱柱与圆柱"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "立體圖形",
+      "covers": [
+        "角柱與圓柱"
+      ]
+    }
+  },
+  {
+    "topic_ja": "平面図形の面積",
+    "en": {
+      "topic": "Area of Plane Figures",
+      "covers": [
+        "Area of triangles, parallelograms, rhombuses and trapezoids"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "平面图形的面积",
+      "covers": [
+        "三角形、平行四边形、菱形与梯形的面积"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "平面圖形的面積",
+      "covers": [
+        "三角形、平行四邊形、菱形與梯形的面積"
+      ]
+    }
+  },
+  {
+    "topic_ja": "立体図形の体積",
+    "en": {
+      "topic": "Volume of Solids",
+      "covers": [
+        "Units of volume",
+        "Volume of cubes and rectangular prisms"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "立体图形的体积",
+      "covers": [
+        "体积单位",
+        "正方体与长方体的体积"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "立體圖形的體積",
+      "covers": [
+        "體積單位",
+        "正方體與長方體的體積"
+      ]
+    }
+  },
+  {
+    "topic_ja": "伴って変わる二つの数量",
+    "en": {
+      "topic": "Quantities That Change Together",
+      "covers": [
+        "Simple proportion"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "一起变化的两个量",
+      "covers": [
+        "简单的正比例"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "一起變化的兩個量",
+      "covers": [
+        "簡單的正比"
+      ]
+    }
+  },
+  {
+    "topic_ja": "異種の二つの量の割合",
+    "en": {
+      "topic": "Per-Unit Quantities & Speed",
+      "covers": [
+        "Speed and other amounts per unit"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "单位量与速度",
+      "covers": [
+        "速度等单位量的大小"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "單位量與速率",
+      "covers": [
+        "速率等單位量的大小"
+      ]
+    }
+  },
+  {
+    "topic_ja": "割合",
+    "en": {
+      "topic": "Ratios & Percent",
+      "covers": [
+        "Comparing with ratios",
+        "Percentages"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "比率与百分数",
+      "covers": [
+        "用比率比较",
+        "百分数"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "比率與百分率",
+      "covers": [
+        "用比率比較",
+        "百分率"
+      ]
+    }
+  },
+  {
+    "topic_ja": "データの収集と分析",
+    "en": {
+      "topic": "Collecting & Analyzing Data",
+      "covers": [
+        "Pie charts and band graphs",
+        "Statistical problem solving"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "数据的收集与分析",
+      "covers": [
+        "扇形统计图与百分比条形图",
+        "用统计解决问题的方法"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "資料的蒐集與分析",
+      "covers": [
+        "圓形圖與帶狀圖",
+        "以統計解決問題的方法"
+      ]
+    }
+  },
+  {
+    "topic_ja": "平均",
+    "en": {
+      "topic": "Mean (Average)",
+      "covers": [
+        "What the mean is"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "平均数",
+      "covers": [
+        "平均数的意义"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "平均數",
+      "covers": [
+        "平均數的意義"
+      ]
+    }
+  },
+  {
+    "topic_ja": "分数の乗法・除法",
+    "en": {
+      "topic": "Multiplying & Dividing Fractions",
+      "covers": [
+        "Meaning",
+        "Calculation",
+        "Same rules as whole numbers"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "分数乘除法",
+      "covers": [
+        "意义",
+        "计算",
+        "与整数相同的运算律"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "分數的乘除",
+      "covers": [
+        "意義",
+        "計算",
+        "與整數相同的運算規律"
+      ]
+    }
+  },
+  {
+    "topic_ja": "文字を用いた式",
+    "en": {
+      "topic": "Expressions with Letters",
+      "covers": [
+        "Expressions using letters such as a and x"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "用字母表示的式子",
+      "covers": [
+        "用a、x等字母表示的式子"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "用文字符號表示的算式",
+      "covers": [
+        "用a、x等文字符號表示的算式"
+      ]
+    }
+  },
+  {
+    "topic_ja": "平面図形",
+    "en": {
+      "topic": "Plane Figures",
+      "covers": [
+        "Scale drawings and enlargements",
+        "Symmetric figures"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "平面图形",
+      "covers": [
+        "缩小图与放大图",
+        "对称图形"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "平面圖形",
+      "covers": [
+        "縮圖與放大圖",
+        "對稱圖形"
+      ]
+    }
+  },
+  {
+    "topic_ja": "概形とおよその面積",
+    "en": {
+      "topic": "Approximate Area",
+      "covers": [
+        "Estimating area from the rough shape"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "估算面积",
+      "covers": [
+        "把握大致形状来估算面积"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "估算面積",
+      "covers": [
+        "掌握概略形狀來估算面積"
+      ]
+    }
+  },
+  {
+    "topic_ja": "円の面積",
+    "en": {
+      "topic": "Area of a Circle",
+      "covers": [
+        "How to find the area of a circle"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "圆的面积",
+      "covers": [
+        "圆面积的求法"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "圓的面積",
+      "covers": [
+        "圓面積的求法"
+      ]
+    }
+  },
+  {
+    "topic_ja": "角柱・円柱の体積",
+    "en": {
+      "topic": "Volume of Prisms & Cylinders",
+      "covers": [
+        "How to find the volume of prisms and cylinders"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "棱柱与圆柱的体积",
+      "covers": [
+        "棱柱与圆柱体积的求法"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "角柱與圓柱的體積",
+      "covers": [
+        "角柱與圓柱體積的求法"
+      ]
+    }
+  },
+  {
+    "topic_ja": "比例と反比例",
+    "en": {
+      "topic": "Direct & Inverse Proportion",
+      "covers": [
+        "Meaning and properties of proportion",
+        "Solving problems with proportion",
+        "Inverse proportion"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "正比例与反比例",
+      "covers": [
+        "正比例的意义与性质",
+        "用正比例解决问题",
+        "反比例"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "正比與反比",
+      "covers": [
+        "正比的意義與性質",
+        "用正比解決問題",
+        "反比"
+      ]
+    }
+  },
+  {
+    "topic_ja": "比",
+    "en": {
+      "topic": "Ratio",
+      "covers": [
+        "Meaning of ratios and equal ratios"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "比",
+      "covers": [
+        "比的意义与相等的比"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "比",
+      "covers": [
+        "比的意義與相等的比"
+      ]
+    }
+  },
+  {
+    "topic_ja": "データの収集と分析",
+    "en": {
+      "topic": "Collecting & Analyzing Data",
+      "covers": [
+        "Representative values",
+        "Frequency tables and graphs",
+        "Statistical problem solving"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "数据的收集与分析",
+      "covers": [
+        "代表值",
+        "频数分布表与统计图",
+        "用统计解决问题的方法"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "資料的蒐集與分析",
+      "covers": [
+        "代表值",
+        "次數分配表與統計圖",
+        "以統計解決問題的方法"
+      ]
+    }
+  },
+  {
+    "topic_ja": "起こり得る場合",
+    "en": {
+      "topic": "Possible Outcomes",
+      "covers": [
+        "Diagrams and tables for listing in order"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "可能的情况",
+      "covers": [
+        "有序整理的图和表"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "可能的情形",
+      "covers": [
+        "有條理整理的圖表"
+      ]
+    }
+  },
+  {
+    "topic_ja": "正の数と負の数",
+    "en": {
+      "topic": "Positive & Negative Numbers",
+      "covers": [
+        "Why they are needed and what they mean",
+        "Four operations",
+        "Using them in real situations"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "正数和负数",
+      "covers": [
+        "必要性与意义",
+        "四则运算",
+        "在具体情境中的运用"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "正數與負數",
+      "covers": [
+        "必要性與意義",
+        "四則運算",
+        "在具體情境中的應用"
+      ]
+    }
+  },
+  {
+    "topic_ja": "文字を用いた式",
+    "en": {
+      "topic": "Algebraic Expressions",
+      "covers": [
+        "Why we use letters",
+        "Writing multiplication and division",
+        "Adding and subtracting linear expressions",
+        "Writing and reading relationships (including inequalities)"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "代数式",
+      "covers": [
+        "用字母的意义",
+        "乘除的书写规则",
+        "一次式的加减",
+        "用式子表示和解读数量关系 (含不等式)"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "代數式",
+      "covers": [
+        "使用文字符號的意義",
+        "乘除的記法",
+        "一次式的加減",
+        "用式子表示與解讀數量關係 (含不等式)"
+      ]
+    }
+  },
+  {
+    "topic_ja": "一元一次方程式",
+    "en": {
+      "topic": "Linear Equations",
+      "covers": [
+        "Equations and solutions",
+        "How to solve (including proportions)"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "一元一次方程",
+      "covers": [
+        "方程与解的意义",
+        "解法 (含比例式)"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "一元一次方程式",
+      "covers": [
+        "方程式與解的意義",
+        "解法 (含比例式)"
+      ]
+    }
+  },
+  {
+    "topic_ja": "平面図形",
+    "en": {
+      "topic": "Plane Figures",
+      "covers": [
+        "Basic constructions",
+        "Translation, reflection and rotation"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "平面图形",
+      "covers": [
+        "基本尺规作图",
+        "平移、轴对称与旋转"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "平面圖形",
+      "covers": [
+        "基本尺規作圖",
+        "平移、線對稱與旋轉"
+      ]
+    }
+  },
+  {
+    "topic_ja": "空間図形",
+    "en": {
+      "topic": "Solid Geometry",
+      "covers": [
+        "Positions of lines and planes",
+        "Measuring sectors, prisms/cylinders, pyramids/cones and spheres"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "空间图形",
+      "covers": [
+        "直线与平面的位置关系",
+        "扇形、柱体、锥体、球的计算"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "空間圖形",
+      "covers": [
+        "直線與平面的位置關係",
+        "扇形、柱體、錐體、球的計算"
+      ]
+    }
+  },
+  {
+    "topic_ja": "比例・反比例",
+    "en": {
+      "topic": "Direct & Inverse Proportion",
+      "covers": [
+        "What a function is",
+        "Direct and inverse proportion",
+        "Coordinates",
+        "Tables, equations and graphs"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "正比例与反比例",
+      "covers": [
+        "函数关系的意义",
+        "正比例与反比例",
+        "坐标",
+        "表格、解析式与图象"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "正比與反比",
+      "covers": [
+        "函數關係的意義",
+        "正比與反比",
+        "坐標",
+        "表格、式子與圖形"
+      ]
+    }
+  },
+  {
+    "topic_ja": "データの分布",
+    "en": {
+      "topic": "Data Distribution",
+      "covers": [
+        "Histograms and relative frequency",
+        "Organizing data in tables and graphs"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "数据的分布",
+      "covers": [
+        "直方图与频率",
+        "用表格和图表整理数据"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "資料的分布",
+      "covers": [
+        "直方圖與相對次數",
+        "用表格與圖表整理資料"
+      ]
+    }
+  },
+  {
+    "topic_ja": "不確定な事象の起こりやすさ",
+    "en": {
+      "topic": "Likelihood & Probability",
+      "covers": [
+        "Probability from many trials"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "可能性与概率",
+      "covers": [
+        "通过大量试验估计概率"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "可能性與機率",
+      "covers": [
+        "由多次試驗求機率"
+      ]
+    }
+  },
+  {
+    "topic_ja": "文字を用いた式",
+    "en": {
+      "topic": "Algebraic Expressions",
+      "covers": [
+        "Adding/subtracting polynomials and multiplying/dividing monomials",
+        "Writing and reading expressions",
+        "Explaining with algebra",
+        "Rearranging formulas"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "整式的运算",
+      "covers": [
+        "整式的加减与单项式的乘除",
+        "用式子表示与解读",
+        "用含字母的式子说明",
+        "等式的变形"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "代數式的運算",
+      "covers": [
+        "多項式的加減與單項式的乘除",
+        "用式子表示與解讀",
+        "用代數式說明",
+        "式子的變形"
+      ]
+    }
+  },
+  {
+    "topic_ja": "連立二元一次方程式",
+    "en": {
+      "topic": "Simultaneous Linear Equations",
+      "covers": [
+        "Linear equations in two variables and their solutions",
+        "What simultaneous equations are",
+        "How to solve"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "二元一次方程组",
+      "covers": [
+        "二元一次方程及其解",
+        "方程组的意义",
+        "解法"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "二元一次聯立方程式",
+      "covers": [
+        "二元一次方程式及其解",
+        "聯立方程式的意義",
+        "解法"
+      ]
+    }
+  },
+  {
+    "topic_ja": "平面図形の性質",
+    "en": {
+      "topic": "Properties of Plane Figures",
+      "covers": [
+        "Parallel lines and angles",
+        "Angles of polygons"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "平面图形的性质",
+      "covers": [
+        "平行线与角",
+        "多边形的角"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "平面圖形的性質",
+      "covers": [
+        "平行線與角",
+        "多邊形的角"
+      ]
+    }
+  },
+  {
+    "topic_ja": "図形の合同",
+    "en": {
+      "topic": "Congruence",
+      "covers": [
+        "Congruence and congruence conditions for triangles",
+        "Proofs"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "图形的全等",
+      "covers": [
+        "全等与三角形全等的判定",
+        "证明"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "圖形的全等",
+      "covers": [
+        "全等與三角形全等性質",
+        "證明"
+      ]
+    }
+  },
+  {
+    "topic_ja": "一次関数",
+    "en": {
+      "topic": "Linear Functions",
+      "covers": [
+        "Understanding linear functions",
+        "Seeing situations as linear functions",
+        "Linear equations in two variables as functions"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "一次函数",
+      "covers": [
+        "理解一次函数",
+        "用一次函数描述现象",
+        "把二元一次方程看作函数"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "一次函數",
+      "covers": [
+        "理解一次函數",
+        "將現象視為一次函數",
+        "將二元一次方程式視為函數"
+      ]
+    }
+  },
+  {
+    "topic_ja": "データの分布",
+    "en": {
+      "topic": "Data Distribution",
+      "covers": [
+        "Interquartile range and box plots",
+        "Organizing data"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "数据的分布",
+      "covers": [
+        "四分位距与箱线图",
+        "数据整理"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "資料的分布",
+      "covers": [
+        "四分位距與盒狀圖",
+        "資料整理"
+      ]
+    }
+  },
+  {
+    "topic_ja": "不確定な事象の起こりやすさ",
+    "en": {
+      "topic": "Likelihood & Probability",
+      "covers": [
+        "Probability based on counting outcomes",
+        "Finding simple probabilities"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "可能性与概率",
+      "covers": [
+        "基于情况数的概率意义",
+        "求简单事件的概率"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "可能性與機率",
+      "covers": [
+        "以情形數為基礎的機率意義",
+        "求簡單的機率"
+      ]
+    }
+  },
+  {
+    "topic_ja": "平方根",
+    "en": {
+      "topic": "Square Roots",
+      "covers": [
+        "Why they are needed and what they mean",
+        "Calculating with square roots",
+        "Using them in real situations"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "平方根",
+      "covers": [
+        "必要性与意义",
+        "含平方根的式子的计算",
+        "在具体情境中的运用"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "平方根",
+      "covers": [
+        "必要性與意義",
+        "含平方根式子的計算",
+        "在具體情境中的應用"
+      ]
+    }
+  },
+  {
+    "topic_ja": "多項式",
+    "en": {
+      "topic": "Polynomials",
+      "covers": [
+        "Multiplying and dividing monomials and polynomials",
+        "Expanding and factoring"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "多项式",
+      "covers": [
+        "单项式与多项式的乘除",
+        "展开与因式分解"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "多項式",
+      "covers": [
+        "單項式與多項式的乘除",
+        "展開與因式分解"
+      ]
+    }
+  },
+  {
+    "topic_ja": "二次方程式",
+    "en": {
+      "topic": "Quadratic Equations",
+      "covers": [
+        "Quadratic equations and solutions",
+        "Solving by factoring or completing the square",
+        "The quadratic formula"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "一元二次方程",
+      "covers": [
+        "一元二次方程与解的意义",
+        "用因式分解或配方法求解",
+        "求根公式"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "一元二次方程式",
+      "covers": [
+        "一元二次方程式與解的意義",
+        "以因式分解或配方法求解",
+        "公式解"
+      ]
+    }
+  },
+  {
+    "topic_ja": "図形の相似",
+    "en": {
+      "topic": "Similarity",
+      "covers": [
+        "Similarity and similarity conditions for triangles",
+        "Similarity ratio, area ratio and volume ratio"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "图形的相似",
+      "covers": [
+        "相似与三角形相似的判定",
+        "相似比与面积比、体积比"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "圖形的相似",
+      "covers": [
+        "相似與三角形相似性質",
+        "相似比與面積比、體積比"
+      ]
+    }
+  },
+  {
+    "topic_ja": "円周角と中心角",
+    "en": {
+      "topic": "Inscribed & Central Angles",
+      "covers": [
+        "Their relationship and its proof"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "圆周角与圆心角",
+      "covers": [
+        "关系的意义与证明"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "圓周角與圓心角",
+      "covers": [
+        "關係的意義與證明"
+      ]
+    }
+  },
+  {
+    "topic_ja": "三平方の定理",
+    "en": {
+      "topic": "Pythagorean Theorem",
+      "covers": [
+        "Meaning and proof"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "勾股定理",
+      "covers": [
+        "定理的意义与证明"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "畢氏定理",
+      "covers": [
+        "定理的意義與證明"
+      ]
+    }
+  },
+  {
+    "topic_ja": "関数 y = ax²",
+    "en": {
+      "topic": "Function y = ax²",
+      "covers": [
+        "Understanding y = ax²",
+        "Seeing situations as y = ax²",
+        "Various functional relationships"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "函数 y = ax²",
+      "covers": [
+        "理解 y = ax²",
+        "用 y = ax² 描述现象",
+        "各种函数关系"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "函數 y = ax²",
+      "covers": [
+        "理解 y = ax²",
+        "將現象視為 y = ax²",
+        "各種函數關係"
+      ]
+    }
+  },
+  {
+    "topic_ja": "標本調査",
+    "en": {
+      "topic": "Sampling",
+      "covers": [
+        "What sampling is",
+        "Random sampling and organizing results"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "抽样调查",
+      "covers": [
+        "抽样调查的意义",
+        "随机抽取样本并整理"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "抽樣調查",
+      "covers": [
+        "抽樣調查的意義",
+        "隨機抽取樣本並整理"
+      ]
+    }
+  },
+  {
+    "topic_ja": "数と式",
+    "en": {
+      "topic": "Numbers & Expressions",
+      "covers": [
+        "Calculating with real and irrational numbers",
+        "Sets and propositions",
+        "Quadratic expansion formulas and factoring",
+        "Linear inequalities"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "数与式",
+      "covers": [
+        "实数与无理数的运算",
+        "集合与命题",
+        "二次乘法公式与因式分解",
+        "一元一次不等式"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "數與式",
+      "covers": [
+        "實數與無理數的運算",
+        "集合與命題",
+        "二次乘法公式與因式分解",
+        "一次不等式"
+      ]
+    }
+  },
+  {
+    "topic_ja": "図形と計量",
+    "en": {
+      "topic": "Trigonometry & Measurement",
+      "covers": [
+        "Trig ratios of acute angles",
+        "Extending to obtuse angles",
+        "Law of sines and law of cosines"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "三角函数与解三角形",
+      "covers": [
+        "锐角三角函数",
+        "推广到钝角",
+        "正弦定理与余弦定理"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "三角比與測量",
+      "covers": [
+        "銳角三角比",
+        "推廣到鈍角",
+        "正弦定理與餘弦定理"
+      ]
+    }
+  },
+  {
+    "topic_ja": "二次関数",
+    "en": {
+      "topic": "Quadratic Functions",
+      "covers": [
+        "Features of the graph",
+        "Maximum and minimum",
+        "Links to quadratic equations and inequalities"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "二次函数",
+      "covers": [
+        "图象的特征",
+        "最大值与最小值",
+        "与一元二次方程、不等式的关系"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "二次函數",
+      "covers": [
+        "圖形的特徵",
+        "最大值與最小值",
+        "與一元二次方程式、不等式的關係"
+      ]
+    }
+  },
+  {
+    "topic_ja": "データの分析",
+    "en": {
+      "topic": "Data Analysis",
+      "covers": [
+        "Variance, standard deviation, scatter plots, correlation coefficient",
+        "Organizing data with computers",
+        "Idea of hypothesis testing"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "数据分析",
+      "covers": [
+        "方差、标准差、散点图、相关系数",
+        "用计算机整理数据",
+        "假设检验的思想"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "資料分析",
+      "covers": [
+        "變異數、標準差、散布圖、相關係數",
+        "用電腦整理資料",
+        "假設檢定的概念"
+      ]
+    }
+  },
+  {
+    "topic_ja": "いろいろな式",
+    "en": {
+      "topic": "Expressions & Equations",
+      "covers": [
+        "Cubic expansion formulas",
+        "Polynomial division and rational expressions",
+        "Complex numbers",
+        "Discriminant and relations between roots and coefficients",
+        "Factor theorem and higher-degree equations"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "式与方程",
+      "covers": [
+        "三次乘法公式",
+        "多项式除法与分式",
+        "复数",
+        "判别式与根与系数的关系",
+        "因式定理与高次方程"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "式與方程式",
+      "covers": [
+        "三次乘法公式",
+        "多項式除法與分式",
+        "複數",
+        "判別式與根與係數關係",
+        "因式定理與高次方程式"
+      ]
+    }
+  },
+  {
+    "topic_ja": "図形と方程式",
+    "en": {
+      "topic": "Coordinate Geometry",
+      "covers": [
+        "Internal/external division points and distance",
+        "Equations of lines and circles",
+        "Loci",
+        "Regions defined by inequalities"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "平面解析几何",
+      "covers": [
+        "内分点、外分点与距离",
+        "直线与圆的方程",
+        "轨迹",
+        "不等式表示的区域"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "坐標幾何",
+      "covers": [
+        "內分點、外分點與距離",
+        "直線與圓的方程式",
+        "軌跡",
+        "不等式所表示的區域"
+      ]
+    }
+  },
+  {
+    "topic_ja": "指数関数・対数関数",
+    "en": {
+      "topic": "Exponential & Logarithmic Functions",
+      "covers": [
+        "Extending exponents and exponent laws",
+        "Graphs of exponential functions",
+        "Meaning and properties of logarithms",
+        "Graphs of logarithmic functions"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "指数函数与对数函数",
+      "covers": [
+        "指数的推广与运算法则",
+        "指数函数的图象",
+        "对数的意义与性质",
+        "对数函数的图象"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "指數函數與對數函數",
+      "covers": [
+        "指數的推廣與指數律",
+        "指數函數的圖形",
+        "對數的意義與性質",
+        "對數函數的圖形"
+      ]
+    }
+  },
+  {
+    "topic_ja": "三角関数",
+    "en": {
+      "topic": "Trigonometric Functions",
+      "covers": [
+        "General angles and radians",
+        "Features of the graphs",
+        "Basic identities",
+        "Addition, double-angle and combining sin & cos"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "三角函数",
+      "covers": [
+        "任意角与弧度制",
+        "图象的特征",
+        "同角三角函数关系",
+        "和角公式、二倍角公式与辅助角公式"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "三角函數",
+      "covers": [
+        "廣義角與弧度",
+        "圖形的特徵",
+        "基本關係",
+        "和角公式、二倍角公式與疊合"
+      ]
+    }
+  },
+  {
+    "topic_ja": "微分・積分の考え",
+    "en": {
+      "topic": "Intro to Calculus",
+      "covers": [
+        "Derivative at a point and derivative function",
+        "Increase/decrease, extrema and graphs",
+        "Indefinite and definite integrals"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "导数与积分初步",
+      "covers": [
+        "导数与导函数",
+        "单调性、极值与图象",
+        "不定积分与定积分"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "微積分初步",
+      "covers": [
+        "導數與導函數",
+        "遞增遞減、極值與圖形",
+        "不定積分與定積分"
+      ]
+    }
+  },
+  {
+    "topic_ja": "極限",
+    "en": {
+      "topic": "Limits",
+      "covers": [
+        "Limits of sequences",
+        "Infinite series",
+        "Rational and irrational functions",
+        "Composite and inverse functions",
+        "Limits of functions"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "极限",
+      "covers": [
+        "数列的极限",
+        "无穷级数",
+        "分式函数与无理函数",
+        "复合函数与反函数",
+        "函数的极限"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "極限",
+      "covers": [
+        "數列的極限",
+        "無窮級數",
+        "分式函數與無理函數",
+        "合成函數與反函數",
+        "函數的極限"
+      ]
+    }
+  },
+  {
+    "topic_ja": "微分法",
+    "en": {
+      "topic": "Differentiation",
+      "covers": [
+        "Product and quotient rules",
+        "Chain rule",
+        "Derivatives of trig, exponential and log functions",
+        "Tangents, extrema and concavity"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "导数及其应用",
+      "covers": [
+        "积与商的导数",
+        "复合函数的导数",
+        "三角、指数、对数函数的导数",
+        "切线、极值与凹凸性"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "微分",
+      "covers": [
+        "積與商的微分",
+        "合成函數的微分",
+        "三角、指數、對數函數的導函數",
+        "切線、極值與凹凸性"
+      ]
+    }
+  },
+  {
+    "topic_ja": "積分法",
+    "en": {
+      "topic": "Integration",
+      "covers": [
+        "Properties and calculation",
+        "Substitution and integration by parts",
+        "Area, volume and arc length"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "积分",
+      "covers": [
+        "积分的性质与计算",
+        "换元积分法与分部积分法",
+        "面积、体积与曲线长"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "積分",
+      "covers": [
+        "積分的性質與計算",
+        "變數變換與分部積分",
+        "面積、體積與曲線長"
+      ]
+    }
+  },
+  {
+    "topic_ja": "図形の性質",
+    "en": {
+      "topic": "Properties of Figures",
+      "covers": [
+        "Properties of triangles",
+        "Properties of circles",
+        "Properties of solid figures"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "图形的性质",
+      "covers": [
+        "三角形的性质",
+        "圆的性质",
+        "空间图形的性质"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "圖形的性質",
+      "covers": [
+        "三角形的性質",
+        "圓的性質",
+        "空間圖形的性質"
+      ]
+    }
+  },
+  {
+    "topic_ja": "場合の数と確率",
+    "en": {
+      "topic": "Counting & Probability",
+      "covers": [
+        "Counting principles",
+        "Permutations and combinations",
+        "Probability and expected value",
+        "Independent trials",
+        "Conditional probability"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "计数原理与概率",
+      "covers": [
+        "计数原理",
+        "排列与组合",
+        "概率与期望",
+        "独立重复试验",
+        "条件概率"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "排列組合與機率",
+      "covers": [
+        "計數原理",
+        "排列與組合",
+        "機率與期望值",
+        "獨立試驗",
+        "條件機率"
+      ]
+    }
+  },
+  {
+    "topic_ja": "数学と人間の活動",
+    "en": {
+      "topic": "Math & Human Activity",
+      "covers": [
+        "Numbers, shapes and human activity (factors and multiples, Euclidean algorithm, binary, etc.)",
+        "History of math, games and puzzles"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "数学与人类活动",
+      "covers": [
+        "数量、图形与人类活动（因数与倍数、辗转相除法、二进制等）",
+        "数学史与游戏、谜题"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "數學與人類活動",
+      "covers": [
+        "數量、圖形與人類活動（因數與倍數、輾轉相除法、二進位等）",
+        "數學史與遊戲、謎題"
+      ]
+    }
+  },
+  {
+    "topic_ja": "数列",
+    "en": {
+      "topic": "Sequences",
+      "covers": [
+        "Arithmetic and geometric sequences",
+        "Other sequences",
+        "Recurrence relations",
+        "Mathematical induction"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "数列",
+      "covers": [
+        "等差数列与等比数列",
+        "各种数列",
+        "递推关系",
+        "数学归纳法"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "數列",
+      "covers": [
+        "等差數列與等比數列",
+        "各種數列",
+        "遞迴關係",
+        "數學歸納法"
+      ]
+    }
+  },
+  {
+    "topic_ja": "統計的な推測",
+    "en": {
+      "topic": "Statistical Inference",
+      "covers": [
+        "Sampling",
+        "Random variables and probability distributions",
+        "Binomial and normal distributions",
+        "Interval estimation and hypothesis testing"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "统计推断",
+      "covers": [
+        "抽样调查",
+        "随机变量与概率分布",
+        "二项分布与正态分布",
+        "区间估计与假设检验"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "統計推論",
+      "covers": [
+        "抽樣調查",
+        "隨機變數與機率分布",
+        "二項分布與常態分布",
+        "區間估計與假設檢定"
+      ]
+    }
+  },
+  {
+    "topic_ja": "数学と社会生活",
+    "en": {
+      "topic": "Math in Society",
+      "covers": [
+        "Why we solve real-life problems with math",
+        "Turning situations into math to solve them"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "数学与社会生活",
+      "covers": [
+        "用数学解决社会生活问题的意义",
+        "将现象数学化并解决的方法"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "數學與社會生活",
+      "covers": [
+        "用數學解決社會生活問題的意義",
+        "將現象數學化來解決的方法"
+      ]
+    }
+  },
+  {
+    "topic_ja": "ベクトル",
+    "en": {
+      "topic": "Vectors",
+      "covers": [
+        "Plane vectors",
+        "Dot product",
+        "Extension to space"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "向量",
+      "covers": [
+        "平面向量",
+        "数量积",
+        "推广到空间"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "向量",
+      "covers": [
+        "平面向量",
+        "內積",
+        "推廣到空間"
+      ]
+    }
+  },
+  {
+    "topic_ja": "平面上の曲線と複素数平面",
+    "en": {
+      "topic": "Curves & the Complex Plane",
+      "covers": [
+        "Conic sections",
+        "Parametric equations",
+        "Polar coordinates",
+        "Complex plane and polar form",
+        "De Moivre's theorem"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "平面曲线与复平面",
+      "covers": [
+        "圆锥曲线",
+        "参数方程",
+        "极坐标",
+        "复平面与三角形式",
+        "棣莫弗定理"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "平面曲線與複數平面",
+      "covers": [
+        "二次曲線",
+        "參數式",
+        "極坐標",
+        "複數平面與極式",
+        "棣美弗定理"
+      ]
+    }
+  },
+  {
+    "topic_ja": "数学的な表現の工夫",
+    "en": {
+      "topic": "Mathematical Representation",
+      "covers": [
+        "Using diagrams, tables and statistical graphs",
+        "Discrete graphs and matrices"
+      ]
+    },
+    "zh-Hans": {
+      "topic": "数学表达的技巧",
+      "covers": [
+        "用图、表和统计图表示",
+        "用离散图与矩阵表示"
+      ]
+    },
+    "zh-Hant": {
+      "topic": "數學表達的技巧",
+      "covers": [
+        "用圖、表與統計圖表示",
+        "用離散圖與矩陣表示"
+      ]
+    }
+  }
+]

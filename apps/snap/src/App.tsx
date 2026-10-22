@@ -1,8 +1,9 @@
+import { gradeLabel } from "./curriculum";
 import { InstallAsk } from "./components/InstallAsk";
 import { ClaimLink } from "./screens/ClaimLink";
 import type { ReactElement } from "react";
 import { Link, NavLink, Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import { app } from "./copy";
+import { app, BRAND, BRAND_LINES } from "./copy";
 import type { Grade } from "./curriculum";
 import { CameraGlyph } from "./components/SnapFab";
 import { APP_TABS, type TabKey, activeTab, homePath, showsBackToMap } from "./lib/home";
@@ -46,14 +47,14 @@ function AppArea() {
   if (!grade) return <Onboarding onChoose={choose} />;
   const chip = (
     <NavLink to="/app/grade" className={`grade-chip${gradeCheck ? " is-check" : ""}`} aria-label={app.grade.change} data-testid="grade-chip">
-      {grade}
+      {gradeLabel(grade)}
     </NavLink>
   );
   return (
     <div className={`shell${rail ? " has-rail" : ""}`}>
       {!rail && (
         <header className="topbar">
-          <a href="/" className="brand">つまずきマップ</a>
+          <a href="/" className="brand">{BRAND}</a>
           {chip}
         </header>
       )}
@@ -124,9 +125,9 @@ function TabBar({ rail }: { rail: ReactElement | null }) {
     <nav className={`tabbar${rail ? " tabbar-rail" : ""}`} data-testid={rail ? "nav-rail" : undefined}>
       {rail && (
         <div className="rail-head">
-          <a href="/" className="brand rail-brand" aria-label="つまずきマップ">
-            <span aria-hidden>つまずき</span>
-            <span aria-hidden>マップ</span>
+          <a href="/" className="brand rail-brand" aria-label={BRAND}>
+            <span aria-hidden>{BRAND_LINES[0]}</span>
+            <span aria-hidden>{BRAND_LINES[1]}</span>
           </a>
           {rail}
         </div>

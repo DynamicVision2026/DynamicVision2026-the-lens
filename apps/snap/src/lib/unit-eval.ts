@@ -96,7 +96,7 @@ export function summarize(results: UnitEvalResult[]): UnitEvalSummary {
 const pct = (a: number, b: number) => (b === 0 ? "—" : `${((a / b) * 100).toFixed(1)}%`);
 const name = (id: string | null) => {
   const u = unitById(id);
-  return u ? `${id} ${u.grade}${u.topic}` : String(id);
+  return u ? `${id} ${u.grade}${u.topicJa}` : String(id);
 };
 
 export function formatSummary(s: UnitEvalSummary, readerName: string, gradeOrder: readonly string[]): string {
@@ -129,7 +129,7 @@ export function keywordTag(text: string, grade: Grade): string | null {
   let best: { id: string; score: number } | null = null;
   for (const u of readerUnitsForGrade(grade)) {
     let score = 0;
-    for (const w of words(`${u.topic} ${u.covers.join(" ")}`)) if ([...t].some((x) => x.includes(w) || w.includes(x))) score++;
+    for (const w of words(`${u.topicJa} ${u.coversJa.join(" ")}`)) if ([...t].some((x) => x.includes(w) || w.includes(x))) score++;
     if (u.appGrade === grade) score += 0.1;
     if (!best || score > best.score) best = { id: u.id, score };
   }
