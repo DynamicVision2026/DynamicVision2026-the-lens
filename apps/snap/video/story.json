@@ -23,6 +23,15 @@
    "intonationScale": 1.25,
    "postPhonemeLength": 0.15,
    "credit": "白上虎太郎"
+  },
+  "a": {
+   "character": "No.7",
+   "style": "アナウンス",
+   "speedScale": 0.95,
+   "pitchScale": 0.0,
+   "intonationScale": 1.0,
+   "postPhonemeLength": 0.3,
+   "credit": "No.7"
   }
  },
  "lines": [
@@ -170,6 +179,18 @@
    "v": "n",
    "text": "つまずきマップ。30枚まで無料。",
    "say": "つまずきマップ。さんじゅうまいまで無料。"
+  },
+  {
+   "id": "a01",
+   "v": "a",
+   "text": "中2のまちがいは、小5で生まれていました。",
+   "say": "ちゅうにのまちがいは、しょうごで生まれていました。"
+  },
+  {
+   "id": "a02",
+   "v": "a",
+   "text": "テスト前に解くのは、中2の問題じゃない。",
+   "say": "テスト前に解くのは、ちゅうにの問題じゃない。"
   }
  ]
 }

@@ -1,4 +1,6 @@
 import { Composition } from "remotion";
+import { CHAT_DEFAULT, Chat, chatFrames, type ChatProps } from "./shorts/Chat";
+import { TREE_DEFAULT, Tree, treeFrames, type TreeProps } from "./shorts/Tree";
 import { SHORT_TOTAL, Short } from "./short/Short";
 import { STORY_TOTAL, Story } from "./story/Story";
 import { STORY_SHORT_TOTAL, StoryShort } from "./story/StoryShort";
@@ -11,6 +13,8 @@ export function Root() {
       <Composition id="Short" component={Short} durationInFrames={SHORT_TOTAL} fps={30} width={1080} height={1920} />
       <Composition id="Story" component={Story} durationInFrames={STORY_TOTAL} fps={30} width={1920} height={1080} />
       <Composition id="StoryShort" component={StoryShort} durationInFrames={STORY_SHORT_TOTAL} fps={30} width={1080} height={1920} />
+      <Composition id="ShortB-Chat" component={Chat} defaultProps={CHAT_DEFAULT} calculateMetadata={({ props }: { props: ChatProps }) => ({ durationInFrames: chatFrames(props) })} durationInFrames={chatFrames(CHAT_DEFAULT)} fps={30} width={1080} height={1920} />
+      <Composition id="ShortA-Tree" component={Tree} defaultProps={TREE_DEFAULT} calculateMetadata={({ props }: { props: TreeProps }) => ({ durationInFrames: treeFrames(props) })} durationInFrames={treeFrames(TREE_DEFAULT)} fps={30} width={1080} height={1920} />
     </>
   );
 }
