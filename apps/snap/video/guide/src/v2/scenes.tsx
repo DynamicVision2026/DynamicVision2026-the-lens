@@ -1,5 +1,5 @@
 import { AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame } from "remotion";
-import { grade, tr, trk, trParts, VOICE_CREDIT } from "../vlang";
+import { IS_JA, grade, tr, trk, trParts, VOICE_CREDIT } from "../vlang";
 import { Backdrop, C, Callout, FONT, FPS, Fade, Hex, Kicker, Rich, Screen, type Seg, Sfx, Slam, clamp, ease, useIn, usePop } from "./kit";
 
 export type Line = { id: string; text: string; from: number; dur: number };
@@ -93,6 +93,7 @@ export function Title({ sc }: { sc: Scene }) {
         <div style={{ marginTop: 26, opacity: useIn(30, 20), fontFamily: FONT, fontSize: 50, fontWeight: 800, color: C.muted }}>
           <Rich text={tr("撮るだけで、[復習すること]がわかる。")} color={C.text} />
         </div>
+        {!IS_JA && <div style={{ marginTop: 22, opacity: useIn(44, 20), fontFamily: FONT, fontSize: 34, fontWeight: 800, color: C.gold }}>{trk("", "origin")}</div>}
       </div>
       <Sfx at={0} src="hit" volume={0.55} />
       <Sfx at={30} src="chime" volume={0.3} />
@@ -640,6 +641,7 @@ export function PlansScene({ sc }: { sc: Scene }) {
           </div>
           <div style={{ marginTop: 56, display: "inline-block", padding: "14px 60px", borderRadius: 999, background: C.gold, color: "#0b1830", fontSize: 66, fontWeight: 900, letterSpacing: "0.04em" }}>domo-ai.com</div>
           <div style={{ marginTop: 18, fontSize: 32, fontWeight: 800, color: C.muted }}>{tr("登録不要 ・ 30枚まで無料でお試し")}</div>
+          {!IS_JA && <div style={{ marginTop: 12, fontSize: 30, fontWeight: 800, color: C.gold }}>{trk("", "origin")}</div>}
         </div>
         <div style={{ position: "absolute", right: 40, bottom: 26, fontFamily: FONT, fontSize: 20, color: "rgba(200,210,230,0.6)" }}>{VOICE_CREDIT}</div>
       </AbsoluteFill>
