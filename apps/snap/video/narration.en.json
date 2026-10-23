@@ -1,0 +1,32 @@
+{
+ "lines": [
+  {"id": "s01", "text": "Daily math review."},
+  {"id": "s02", "text": "And the big review before a test."},
+  {"id": "s03", "text": "Either way, the same question: \"What should I review?\""},
+  {"id": "s04", "text": "Stumble Map is an app that shows you what to review. Just snap a photo."},
+  {"id": "s05", "text": "Every day, just snap the worksheets that come back. Before a test, see tonight's to-do list at a glance."},
+  {"id": "s06", "text": "First, snap. Homework, workbooks, tests: the whole page in one shot."},
+  {"id": "s07", "text": "AI reads the problems one by one, works out which unit each one belongs to, and records ○ and ✕.", "say": "AI reads the problems one by one, works out which unit each one belongs to, and records right and wrong."},
+  {"id": "s08", "text": "If the teacher has marked it, that mark is used. Unmarked homework is judged by AI. You can check it all before saving."},
+  {"id": "s09", "text": "Save, and that unit rises up on the map."},
+  {"id": "s10", "text": "From Grade 1 to Grade 12, all 110 math units on one continent. The higher the grade, the higher and steeper the land."},
+  {"id": "s11", "text": "Colors show the stage of understanding: Not yet, Trying, Reviewed, Mastered. Solve it again two weeks later, and it's Locked in.", "say": "Colors show the stage of understanding. Not yet. Trying. Reviewed. Mastered. Solve it again two weeks later, and it's Locked in."},
+  {"id": "s12", "text": "A red flag is a ✕ you haven't redone yet. Tap it to jump straight back to the problem and its photo.", "say": "A red flag is a mistake you haven't redone yet. Tap it to jump straight back to the problem and its photo."},
+  {"id": "s13", "text": "Sometimes a stumble starts in an earlier grade. Stumble on Grade 5 \"Mean\", and the map traces it back to the Grade 4 unit it builds on.", "say": "Sometimes a stumble starts in an earlier grade. Stumble on Grade 5, Mean, and the map traces it back to the Grade 4 unit it builds on."},
+  {"id": "s14", "text": "Daily review is this loop: Snap. Redo. Check. Bit by bit, the map turns your color.", "say": "Daily review is this loop. Snap. Redo. Check. Bit by bit, the map turns your color."},
+  {"id": "s15", "text": "Then, before the test. Just pick the test date and the range, and tonight's plan is ready."},
+  {"id": "s16", "text": "Problems to redo first. The roots of your stumbles. A final check. With time estimates, so it's clear what to do.", "say": "Problems to redo first. The roots of your stumbles. A final check. With time estimates, so it's clear what to do."},
+  {"id": "s17", "text": "Check answers on the spot, and tick each one off once it's redone. Parents can get it all on one shareable page."},
+  {"id": "s18", "text": "Photos are saved only on your own device. Works on smartphones and iPads."},
+  {"id": "s19", "text": "Try 30 photos free. The Annual Plan gives you up to 200 photos a month. The Lens courses include one year.", "say": "Try thirty photos free. The Annual Plan gives you up to two hundred photos a month. The Lens courses include one year."},
+  {"id": "s20", "text": "For daily review, and before tests. Just snap a photo, and know what to review. Stumble Map."},
+  {"id": "k01", "text": "Test coming up. Where do I start?"},
+  {"id": "k02", "text": "Homework or tests: just snap."},
+  {"id": "k03", "text": "AI sorts each problem by unit\nand records ○✕.", "say": "AI sorts each problem by unit, and records right and wrong."},
+  {"id": "k04", "text": "See the units you're stuck on\nat a glance, on the map.", "say": "See the units you're stuck on at a glance, on the map."},
+  {"id": "k05", "text": "Before a test,\na list of just tonight's problems.", "say": "Before a test, a list of just tonight's problems."},
+  {"id": "k06", "text": "Stumble Map.\nTry 30 photos free.", "say": "Stumble Map. Try thirty photos free."},
+  {"id": "a01", "text": "A Grade 8 mistake\nstarted back in Grade 5.", "say": "A Grade 8 mistake started back in Grade 5."},
+  {"id": "a02", "text": "What to solve before the test\nisn't the Grade 8 problem.", "say": "What to solve before the test isn't the Grade 8 problem."}
+ ]
+}
