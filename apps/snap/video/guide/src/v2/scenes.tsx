@@ -375,7 +375,7 @@ export function LadderScene({ sc }: { sc: Scene }) {
       <Backdrop tint={LADDER[step][1]} />
       <div style={{ position: "absolute", left: 110, top: 100 }}>
         <Kicker color={C.gold}>5 STEPS</Kicker>
-        <Slam parts={trParts(["色は、", "理解の段階。"])} start={4} size={74} style={{ marginTop: 18 }} />
+        <Slam parts={trParts(["色は、", "理解の段階。"])} start={4} size={74} style={{ marginTop: 18, maxWidth: 680 }} />
       </div>
       <div style={{ position: "absolute", left: 960 - 160 - split * 300, top: 270, transform: `scale(${1 - split * 0.3})`, transformOrigin: "left top", opacity: 1 - split }}>
         <div style={{ transform: `scale(${morph})` }}>
@@ -609,7 +609,7 @@ export function PlansScene({ sc }: { sc: Scene }) {
               <div style={{ fontSize: 36, fontWeight: 900, color: x.c, letterSpacing: "0.1em" }}>{x.k}</div>
               <div style={{ marginTop: 18, whiteSpace: "nowrap", fontSize: 108, fontWeight: 900, color: C.text, lineHeight: 1 }}>
                 {x.p}
-                <span style={{ fontSize: 34, color: C.muted }}>{x.u}</span>
+                <span style={{ fontSize: 34, color: C.muted, display: x.u.length > 8 ? "block" : "inline", marginTop: x.u.length > 8 ? 10 : 0 }}>{x.u}</span>
               </div>
               <div style={{ marginTop: 24, fontSize: 40, fontWeight: 800, color: C.text }}>{x.d}</div>
             </div>

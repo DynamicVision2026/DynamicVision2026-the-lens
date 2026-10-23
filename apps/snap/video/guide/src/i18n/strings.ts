@@ -52,7 +52,7 @@ const en: Dict = {
   "D(2) 平均": "Mean (Average)",
   "C(3) 割合": "Ratios & Percent",
   // 5 map
-  "算数・数学の|単元が、|ひとつの大陸に。": ["All", " math units", "on one continent."],
+  "算数・数学の|単元が、|ひとつの大陸に。": ["All", " math units,", "one continent."],
   "海岸線": "Coastline",
   "平原": "Plains",
   "深い森林帯": "Deep Forest",
