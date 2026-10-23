@@ -11,6 +11,7 @@ Writes <out-dir>/<clip>.mp4 (constant 30 fps) and <clip>.json: {"w","h" (CSS px)
 """
 import base64
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -29,6 +30,14 @@ src = (ROOT / "scripts" / "screens.py").read_text().split("OUT = ROOT")[0]
 ns = {"__file__": str(ROOT / "scripts" / "screens.py")}
 exec(src, ns)
 SEEDS = [ns["SEED_JS"], ns["exam_seed_js"]()]
+# Display language of the recording (VLANG=ja|en|zh-Hant): the app's language switch + its labels for the locators.
+VLANG = os.environ.get("VLANG", "ja")
+LOCALE = {"ja": "ja-JP", "en": "en-US", "zh-Hant": "zh-TW"}[VLANG]
+LABEL = {
+    "ja": {"snap": "撮る", "list": "テスト前", "camera": "カメラで撮る", "confirm": "読み取り結果の確認", "save": "保存する"},
+    "en": {"snap": "Snap", "list": "Pre-Test", "camera": "Take a photo", "confirm": "Check the results", "save": "Save"},
+    "zh-Hant": {"snap": "拍照", "list": "考前", "camera": "用相機拍", "confirm": "確認辨識結果", "save": "儲存"},
+}[VLANG]
 IPAD = {"width": 1366, "height": 1024}
 PHONE = {"width": 390, "height": 844}
 
@@ -140,12 +149,12 @@ def session(browser, name, vp, scale, fn, path="/app/map"):
     tmpv = OUT / f"_v_{name}"
     shutil.rmtree(tmpv, ignore_errors=True)
     extra = {"record_video_dir": str(tmpv), "record_video_size": vp} if mode == "video" else {}
-    ctx = browser.new_context(viewport=vp, device_scale_factor=2 if mode == "shot" else 1, locale="ja-JP", is_mobile=vp["width"] < 900, has_touch=True, **extra)
+    ctx = browser.new_context(viewport=vp, device_scale_factor=2 if mode == "shot" else 1, locale=LOCALE, is_mobile=vp["width"] < 900, has_touch=True, **extra)
     ctx.add_init_script("navigator.share = (d) => Promise.resolve();")
     pg = ctx.new_page()
     page_t0 = time.time()
     pg.goto(BASE + "/app")
-    pg.evaluate("localStorage.setItem('lens-snap:grade', '小5'); localStorage.setItem('lens-snap:install-tip', 'closed');")
+    pg.evaluate("localStorage.setItem('lens-snap:grade', '小5'); localStorage.setItem('lens-snap:install-tip', 'closed');" + f"localStorage.setItem('lens-snap:lang', '{VLANG}');")
     for s in SEEDS:
         pg.evaluate(s)
     pg.goto(BASE + path)
@@ -173,10 +182,10 @@ def tab(pg, label):
 
 def snap_phone(pg, r):
     r.hold(900)
-    r.tap(tab(pg, "撮る"), 1200)
-    r.focus(pg.get_by_role("button", name="カメラで撮る"), 700)
+    r.tap(tab(pg, LABEL["snap"]), 1200)
+    r.focus(pg.get_by_role("button", name=LABEL["camera"]), 700)
     pg.get_by_test_id("file-input").set_input_files(PHOTO)
-    r.until(pg.get_by_role("heading", name="読み取り結果の確認"))
+    r.until(pg.get_by_role("heading", name=LABEL["confirm"]))
     r.hold(900)
     cards = pg.get_by_test_id("problem-card")
     r.focus(cards.nth(0).locator("select"), 1600)
@@ -185,7 +194,7 @@ def snap_phone(pg, r):
     r.focus(cards.nth(3), 1200)
     pg.evaluate("window.scrollTo({top: 0, behavior: 'smooth'})")  # recorded by the hold below
     r.hold(700)
-    r.tap(pg.get_by_role("button", name="保存する"), 600)
+    r.tap(pg.get_by_role("button", name=LABEL["save"]), 600)
     r.hold(900)
     lit = pg.locator("button.terr-unit.is-lit").first
     r.focus(lit, 3200)
@@ -228,7 +237,7 @@ def roots_ipad(pg, r):
 
 def exam_ipad(pg, r):
     r.hold(800)
-    r.tap(tab(pg, "テスト前"), 1600)
+    r.tap(tab(pg, LABEL["list"]), 1600)
     r.tap(pg.get_by_test_id("exam-tomorrow"), 2400)
     r.focus(pg.get_by_test_id("exam-rangebar"), 1200)
     r.tap(pg.get_by_test_id("exam-decide"), 2600)

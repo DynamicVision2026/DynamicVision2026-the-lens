@@ -1,10 +1,15 @@
 import type { ReactElement } from "react";
 import { AbsoluteFill, Audio, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
 import timeline from "../timeline2.json";
+import timelineEn from "../timeline2.en.json";
+import timelineZh from "../timeline2.zh-Hant.json";
+import { VLANG, lfile } from "../vlang";
 import { C, FONT, Sfx, clamp } from "./kit";
 import { DailyScene, ExamScene, Hook, LadderScene, type Line, MapScene, PlansScene, RootsScene, type Scene, SnapScene, Title, TrustScene, UseCases } from "./scenes";
 
-export const TL = timeline as { fps: number; total: number; scenes: Scene[] };
+type TLine = { fps: number; total: number; scenes: Scene[] };
+/** The edit for this language: its narration lengths decide every scene's length (build_timeline.py). */
+export const TL = ({ ja: timeline, en: timelineEn, "zh-Hant": timelineZh } as Record<string, TLine>)[VLANG];
 
 const VIEW: Record<string, (p: { sc: Scene }) => ReactElement> = {
   hook: Hook,
@@ -99,11 +104,11 @@ export function Guide2() {
       <Sfx at={TL.scenes[1].from - 66} src="riser" volume={0.25} />
       {lines.map((l) => (
         <Sequence key={l.id} from={l.from} durationInFrames={l.dur + 12} name={`voice ${l.id}`}>
-          <Audio src={staticFile(`audio2/${l.id}.wav`)} volume={1} />
+          <Audio src={staticFile(lfile(`audio2/${l.id}.wav`))} volume={1} />
           <Subtitle line={l} />
         </Sequence>
       ))}
-      <Audio src={staticFile("music.wav")} volume={(fr) => duck(fr) * (f >= 0 ? 1 : 1)} />
+      <Audio src={staticFile(lfile("music.wav"))} volume={(fr) => duck(fr) * (f >= 0 ? 1 : 1)} />
     </AbsoluteFill>
   );
 }

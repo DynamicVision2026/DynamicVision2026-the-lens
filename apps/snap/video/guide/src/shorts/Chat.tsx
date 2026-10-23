@@ -1,6 +1,7 @@
 import { AbsoluteFill, Img, Sequence, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { Stack } from "../story/art";
 import { FONT, Sfx, clamp, ease } from "../v2/kit";
+import { IS_JA, lfile, tr } from "../vlang";
 import { H, MapEndCard, SAFE_BOTTOM, W, s } from "./common";
 
 /**
@@ -31,26 +32,26 @@ export type ChatProps = {
 };
 
 export const CHAT_DEFAULT: ChatProps = {
-  name: "ゆうと",
+  name: tr("ゆうと"),
   clock: "22:14",
   battery: 23,
   shrinkAt: 21.9,
   endAt: 24.3,
   script: [
-    { t: 0.5, who: "kid", text: "ママ、明日テスト", typing: false },
-    { t: 2.0, who: "mom", text: "どこやるの？" },
-    { t: 3.4, who: "kid", text: "わかんない" },
-    { t: 4.8, who: "mom", text: "どこ間違えたっけ" },
+    { t: 0.5, who: "kid", text: tr("ママ、明日テスト"), typing: false },
+    { t: 2.0, who: "mom", text: tr("どこやるの？") },
+    { t: 3.4, who: "kid", text: tr("わかんない") },
+    { t: 4.8, who: "mom", text: tr("どこ間違えたっけ") },
     { t: 6.4, who: "kid", text: "……", sfx: null },
-    { t: 8.0, who: "mom", text: "まちがいノート見せて" },
-    { t: 9.4, who: "kid", text: "どれ？" },
+    { t: 8.0, who: "mom", text: tr("まちがいノート見せて") },
+    { t: 9.4, who: "kid", text: tr("どれ？") },
     { t: 9.8, who: "kid", img: "notebooks", typing: false },
     { t: 11.2, who: "mom", text: "……", sfx: null },
     { t: 12.6, who: "mom", img: "sheet", typing: false, sfx: "shutter" },
     // 2.5 s of silence, no typing dots: the wait is the joke
-    { t: 15.1, who: "mom", img: "plan", typing: false, sfx: "chime", wide: true, zoom: { after: 0.5, hold: 1.5, fx: 0.4, fy: 0.652, z: 1.55 } },
-    { t: 18.3, who: "kid", text: "それだけ？" },
-    { t: 19.7, who: "mom", text: "それだけ。" },
+    { t: 15.1, who: "mom", img: "plan", typing: false, sfx: "chime", wide: true, zoom: { after: 0.5, hold: 1.5, fx: IS_JA ? 0.4 : 0.47, fy: 0.652, z: IS_JA ? 1.55 : 1.25 } },
+    { t: 18.3, who: "kid", text: tr("それだけ？") },
+    { t: 19.7, who: "mom", text: tr("それだけ。") },
     { t: 21.1, who: "kid", text: "👍" },
   ],
 };
@@ -131,7 +132,7 @@ function Bubble({ row, at }: { row: Row; at: number }) {
             </div>
           )}
           {it.img === "sheet" && <Img src={staticFile("sheet.jpg")} style={{ width: d.w, height: d.h, objectFit: "cover" }} />}
-          {it.img === "plan" && <Img src={staticFile("shorts/plan-crop.png")} style={{ width: d.w, height: d.h, objectFit: "cover" }} />}
+          {it.img === "plan" && <Img src={staticFile(lfile("shorts/plan-crop.png"))} style={{ width: d.w, height: d.h, objectFit: "cover" }} />}
         </div>
       </div>
     );
@@ -230,7 +231,7 @@ export function Chat(p: ChatProps) {
     <AbsoluteFill style={{ background: "#000" }}>
       {/* the real map rises behind the shrinking chat */}
       <AbsoluteFill style={{ opacity: sh, transform: `translateY(${(1 - sh) * 260}px)` }}>
-        <Img src={staticFile("shorts/map.png")} style={{ width: W, height: (W * 2532) / 1170, marginTop: -200 }} />
+        <Img src={staticFile(lfile("shorts/map.png"))} style={{ width: W, height: (W * 2532) / 1170, marginTop: -200 }} />
       </AbsoluteFill>
       <AbsoluteFill style={{ transform: `scale(${1 - 0.4 * sh})`, transformOrigin: "50% 42%", borderRadius: 40 * sh, overflow: "hidden", boxShadow: sh > 0 ? `0 40px 120px rgba(0,0,0,${0.55 * sh})` : undefined }}>
         <AbsoluteFill style={{ transformOrigin: "0 0", transform: `translate(${W / 2}px, ${H / 2 - 120 * (cam.z - 1)}px) scale(${cam.z}) translate(${-cam.x}px, ${-cam.y}px)` }}>

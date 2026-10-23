@@ -1,0 +1,203 @@
+{
+ "fps": 30,
+ "total": 4856,
+ "scenes": [
+  {
+   "id": "hook",
+   "from": 0,
+   "dur": 351,
+   "lines": [
+    {
+     "id": "s01",
+     "text": "Daily math review.",
+     "from": 45,
+     "dur": 41
+    },
+    {
+     "id": "s02",
+     "text": "And the big review before a test.",
+     "from": 109,
+     "dur": 65
+    },
+    {
+     "id": "s03",
+     "text": "Either way, the same question: \"What should I review?\"",
+     "from": 196,
+     "dur": 103
+    }
+   ]
+  },
+  {
+   "id": "title",
+   "from": 351,
+   "dur": 220,
+   "lines": [
+    {
+     "id": "s04",
+     "text": "Stumble Map is an app that shows you what to review. Just snap a photo.",
+     "from": 384,
+     "dur": 130
+    }
+   ]
+  },
+  {
+   "id": "usecases",
+   "from": 571,
+   "dur": 286,
+   "lines": [
+    {
+     "id": "s05",
+     "text": "Every day, just snap the worksheets that come back. Before a test, see tonight's to-do list at a glance.",
+     "from": 604,
+     "dur": 202
+    }
+   ]
+  },
+  {
+   "id": "snap",
+   "from": 857,
+   "dur": 871,
+   "lines": [
+    {
+     "id": "s06",
+     "text": "First, snap. Homework, workbooks, tests: the whole page in one shot.",
+     "from": 890,
+     "dur": 194
+    },
+    {
+     "id": "s07",
+     "text": "AI reads the problems one by one, works out which unit each one belongs to, and records ○ and ✕.",
+     "from": 1106,
+     "dur": 211
+    },
+    {
+     "id": "s08",
+     "text": "If the teacher has marked it, that mark is used. Unmarked homework is judged by AI. You can check it all before saving.",
+     "from": 1339,
+     "dur": 224
+    },
+    {
+     "id": "s09",
+     "text": "Save, and that unit rises up on the map.",
+     "from": 1586,
+     "dur": 85
+    }
+   ]
+  },
+  {
+   "id": "map",
+   "from": 1728,
+   "dur": 330,
+   "lines": [
+    {
+     "id": "s10",
+     "text": "From Grade 1 to Grade 12, all 110 math units on one continent. The higher the grade, the higher and steeper the land.",
+     "from": 1761,
+     "dur": 252
+    }
+   ]
+  },
+  {
+   "id": "ladder",
+   "from": 2058,
+   "dur": 559,
+   "lines": [
+    {
+     "id": "s11",
+     "text": "Colors show the stage of understanding: Not yet, Trying, Reviewed, Mastered. Solve it again two weeks later, and it's Locked in.",
+     "from": 2091,
+     "dur": 268
+    },
+    {
+     "id": "s12",
+     "text": "A red flag is a ✕ you haven't redone yet. Tap it to jump straight back to the problem and its photo.",
+     "from": 2382,
+     "dur": 190
+    }
+   ]
+  },
+  {
+   "id": "roots",
+   "from": 2617,
+   "dur": 345,
+   "lines": [
+    {
+     "id": "s13",
+     "text": "Sometimes a stumble starts in an earlier grade. Stumble on Grade 5 \"Mean\", and the map traces it back to the Grade 4 unit it builds on.",
+     "from": 2650,
+     "dur": 268
+    }
+   ]
+  },
+  {
+   "id": "daily",
+   "from": 2962,
+   "dur": 277,
+   "lines": [
+    {
+     "id": "s14",
+     "text": "Daily review is this loop: Snap. Redo. Check. Bit by bit, the map turns your color.",
+     "from": 2995,
+     "dur": 199
+    }
+   ]
+  },
+  {
+   "id": "exam",
+   "from": 3239,
+   "dur": 751,
+   "lines": [
+    {
+     "id": "s15",
+     "text": "Then, before the test. Just pick the test date and the range, and tonight's plan is ready.",
+     "from": 3272,
+     "dur": 178
+    },
+    {
+     "id": "s16",
+     "text": "Problems to redo first. The roots of your stumbles. A final check. With time estimates, so it's clear what to do.",
+     "from": 3473,
+     "dur": 230
+    },
+    {
+     "id": "s17",
+     "text": "Check answers on the spot, and tick each one off once it's redone. Parents can get it all on one shareable page.",
+     "from": 3726,
+     "dur": 214
+    }
+   ]
+  },
+  {
+   "id": "trust",
+   "from": 3990,
+   "dur": 225,
+   "lines": [
+    {
+     "id": "s18",
+     "text": "Photos are saved only on your own device. Works on smartphones and iPads.",
+     "from": 4023,
+     "dur": 147
+    }
+   ]
+  },
+  {
+   "id": "plans",
+   "from": 4215,
+   "dur": 641,
+   "lines": [
+    {
+     "id": "s19",
+     "text": "Try 30 photos free. The Annual Plan gives you up to 200 photos a month. The Lens courses include one year.",
+     "from": 4248,
+     "dur": 227
+    },
+    {
+     "id": "s20",
+     "text": "For daily review, and before tests. Just snap a photo, and know what to review. Stumble Map.",
+     "from": 4498,
+     "dur": 193
+    }
+   ]
+  }
+ ]
+}

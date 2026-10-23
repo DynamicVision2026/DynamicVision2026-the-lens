@@ -3,14 +3,21 @@
 sections (energy per scene, snapped to bars by music.py) → music-sections.json.
 
   python3 build_timeline.py && python3 ../music.py public <total> music-sections.json
+  python3 build_timeline.py en && python3 ../music.py public/en <total> music-sections.en.json   (en | zh-Hant)
+
+Another language reads its narration (../narration.<lang>.json) and its voice lengths (src/durations2.<lang>.json,
+from ../audio-i18n/<lang>/durations.json) and writes src/timeline2.<lang>.json and music-sections.<lang>.json.
 """
 import json
+import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 FPS = 30
-dur = json.loads((HERE / "src" / "durations2.json").read_text())
-narr = {l["id"]: l["text"] for l in json.loads((HERE.parent / "narration.json").read_text())["lines"]}
+LANG = sys.argv[1] if len(sys.argv) > 1 else "ja"
+SUF = "" if LANG == "ja" else f".{LANG}"
+dur = json.loads((HERE / "src" / f"durations2{SUF}.json").read_text())
+narr = {l["id"]: l["text"] for l in json.loads((HERE.parent / f"narration{SUF}.json").read_text())["lines"]}
 
 LEAD, GAP, SCENE_GAP, TAIL = 1.5, 0.75, 2.2, 5.5
 # scene, lines, music energy (0 pad … 3 full), extra seconds after the scene's last line
@@ -44,8 +51,8 @@ for i, (sid, ids, energy, extra) in enumerate(SCENES):
 total = scenes[-1]["from"] + scenes[-1]["dur"]
 music[0][1] = 0  # the very start: pad only, the hook builds into the title
 music.insert(1, [round(scenes[0]["lines"][1]["from"] / FPS, 2), 1])
-(HERE / "src" / "timeline2.json").write_text(json.dumps({"fps": FPS, "total": total, "scenes": scenes}, ensure_ascii=False, indent=1))
-(HERE / "music-sections.json").write_text(json.dumps(music))
+(HERE / "src" / f"timeline2{SUF}.json").write_text(json.dumps({"fps": FPS, "total": total, "scenes": scenes}, ensure_ascii=False, indent=1))
+(HERE / f"music-sections{SUF}.json").write_text(json.dumps(music))
 print("total", round(total / FPS, 1), "s")
 for s in scenes:
     print(f"{s['id']:9s} {s['from'] / FPS:6.1f}  {s['dur'] / FPS:5.1f}s")

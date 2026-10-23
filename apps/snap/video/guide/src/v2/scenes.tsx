@@ -1,5 +1,6 @@
 import { AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame } from "remotion";
-import { Backdrop, C, Callout, FONT, FPS, Fade, Hex, Kicker, Screen, type Seg, Sfx, Slam, clamp, ease, useIn, usePop } from "./kit";
+import { grade, tr, trk, trParts, VOICE_CREDIT } from "../vlang";
+import { Backdrop, C, Callout, FONT, FPS, Fade, Hex, Kicker, Rich, Screen, type Seg, Sfx, Slam, clamp, ease, useIn, usePop } from "./kit";
 
 export type Line = { id: string; text: string; from: number; dur: number };
 export type Scene = { id: string; from: number; dur: number; lines: Line[] };
@@ -46,15 +47,15 @@ export function Hook({ sc }: { sc: Scene }) {
       </AbsoluteFill>
       <AbsoluteFill style={{ background: `rgba(4,8,18,${0.35 + chaos * 0.35})` }} />
       <div style={{ position: "absolute", left: 0, right: 0, top: 330, textAlign: "center", opacity: a }}>
-        <Slam parts={["毎日の、", "算数・数学の", "復習。"]} start={6} size={110} colors={[undefined, C.cyan, undefined]} style={{ textShadow: "0 10px 50px rgba(0,0,0,0.8)" }} />
+        <Slam parts={trParts(["毎日の、", "算数・数学の", "復習。"])} start={6} size={110} colors={[undefined, C.cyan, undefined]} style={{ textShadow: "0 10px 50px rgba(0,0,0,0.8)" }} />
       </div>
       <div style={{ position: "absolute", left: 0, right: 0, top: 330, textAlign: "center", opacity: b }}>
-        <Slam parts={["そして、", "テスト前の", "総復習。"]} start={s2} size={110} colors={[undefined, C.accent, undefined]} style={{ textShadow: "0 10px 50px rgba(0,0,0,0.8)" }} />
+        <Slam parts={trParts(["そして、", "テスト前の", "総復習。"])} start={s2} size={110} colors={[undefined, C.accent, undefined]} style={{ textShadow: "0 10px 50px rgba(0,0,0,0.8)" }} />
       </div>
       <div style={{ position: "absolute", left: 0, right: 0, top: 300, textAlign: "center", opacity: q, transform: `scale(${(0.8 + 0.2 * q) * qPulse})` }}>
-        <div style={{ fontFamily: FONT, fontSize: 52, fontWeight: 800, color: C.muted, marginBottom: 18 }}>どちらも、悩みはこれ。</div>
+        <div style={{ fontFamily: FONT, fontSize: 52, fontWeight: 800, color: C.muted, marginBottom: 18 }}>{tr("どちらも、悩みはこれ。")}</div>
         <div style={{ fontFamily: FONT, fontSize: 132, fontWeight: 900, color: C.text, textShadow: `0 0 60px ${C.accent}66, 0 10px 50px rgba(0,0,0,0.8)` }}>
-          何を<span style={{ color: C.accent }}>復習</span>すればいい？
+          <Rich text={tr("何を[復習]すればいい？")} color={C.accent} />
         </div>
       </div>
       <Sfx at={6} src="whoosh" volume={0.35} />
@@ -86,11 +87,11 @@ export function Title({ sc }: { sc: Scene }) {
       })}
       <div style={{ position: "absolute", left: 0, right: 0, top: 340, textAlign: "center" }}>
         <div style={{ position: "relative", display: "inline-block" }}>
-          <Slam parts={["つ", "ま", "ず", "き", "マ", "ッ", "プ"]} start={6} size={168} style={{ letterSpacing: "0.06em", textShadow: `0 0 70px ${C.cyan}55` }} />
+          <Slam parts={trParts(["つ", "ま", "ず", "き", "マ", "ッ", "プ"])} start={6} size={168} style={{ letterSpacing: "0.06em", textShadow: `0 0 70px ${C.cyan}55` }} />
           <div style={{ position: "absolute", inset: 0, background: `linear-gradient(105deg, transparent ${shine - 12}%, rgba(255,255,255,0.55) ${shine}%, transparent ${shine + 12}%)`, mixBlendMode: "overlay" }} />
         </div>
         <div style={{ marginTop: 26, opacity: useIn(30, 20), fontFamily: FONT, fontSize: 50, fontWeight: 800, color: C.muted }}>
-          撮るだけで、<span style={{ color: C.text }}>復習すること</span>がわかる。
+          <Rich text={tr("撮るだけで、[復習すること]がわかる。")} color={C.text} />
         </div>
       </div>
       <Sfx at={0} src="hit" volume={0.55} />
@@ -103,7 +104,7 @@ export function Title({ sc }: { sc: Scene }) {
 
 function DailyIcon({ start }: { start: number }) {
   const f = useCurrentFrame();
-  const days = ["月", "火", "水", "木", "金"];
+  const days = trParts(["月", "火", "水", "木", "金"]);
   return (
     <div style={{ display: "flex", gap: 14 }}>
       {days.map((d, i) => {
@@ -132,7 +133,7 @@ function ExamIcon({ start }: { start: number }) {
           <circle cx="75" cy="75" r="64" fill="none" stroke={C.accent} strokeWidth="6" strokeDasharray={`${402 * ring} 402`} strokeLinecap="round" transform="rotate(-90 75 75)" />
         </svg>
       </div>
-      <div style={{ fontSize: 46, fontWeight: 900, color: C.accent }}>あと{n}日</div>
+      <div style={{ fontSize: 46, fontWeight: 900, color: C.accent }}>{tr("あと{n}日").replace("{n}", String(n))}</div>
     </div>
   );
 }
@@ -146,13 +147,13 @@ export function UseCases({ sc }: { sc: Scene }) {
       <Backdrop tint={C.accent} />
       <div style={{ position: "absolute", left: 0, right: 0, top: 110, textAlign: "center" }}>
         <Kicker color={C.gold} style={{ justifyContent: "center" }}>
-          ふたつの場面で
+          {tr("ふたつの場面で")}
         </Kicker>
       </div>
       <div style={{ position: "absolute", left: 0, right: 0, top: 230, display: "flex", justifyContent: "center", gap: 70 }}>
         {[
-          { k: "毎日", t: "返ってきたプリントを撮るだけ", c: C.cyan, icon: <DailyIcon start={4} />, p: a, dir: -1 },
-          { k: "テスト前", t: "今夜やることがひと目でわかる", c: C.accent, icon: <ExamIcon start={L(sc, 0) + Math.round(sc.lines[0].dur * 0.45)} />, p: b, dir: 1 },
+          { k: tr("毎日"), t: tr("返ってきたプリントを撮るだけ"), c: C.cyan, icon: <DailyIcon start={4} />, p: a, dir: -1 },
+          { k: tr("テスト前"), t: tr("今夜やることがひと目でわかる"), c: C.accent, icon: <ExamIcon start={L(sc, 0) + Math.round(sc.lines[0].dur * 0.45)} />, p: b, dir: 1 },
         ].map((x) => (
           <div key={x.k} style={{ width: 720, height: 520, borderRadius: 34, padding: "50px 54px", background: "rgba(12,24,48,0.88)", border: `3px solid ${x.c}`, boxShadow: `0 0 70px ${x.c}33`, ...card(x.p, x.dir), fontFamily: FONT }}>
             <div style={{ fontSize: 72, fontWeight: 900, color: x.c }}>{x.k}</div>
@@ -170,10 +171,10 @@ export function UseCases({ sc }: { sc: Scene }) {
 // ================================================================ 4. 撮る → AI → 確認 → 地図
 
 const PROBLEMS = [
-  { q: "平行四辺形の面積", unit: "B(3) 平面図形の面積", mark: "○" },
-  { q: "平均点を求める（表なし）", unit: "D(2) 平均", mark: "✕" },
-  { q: "平均点を求める（表）", unit: "D(2) 平均", mark: "✕" },
-  { q: "15%引きの値引き額", unit: "C(3) 割合", mark: "○" },
+  { q: tr("平行四辺形の面積"), unit: tr("B(3) 平面図形の面積"), mark: "○" },
+  { q: tr("平均点を求める（表なし）"), unit: tr("D(2) 平均"), mark: "✕" },
+  { q: tr("平均点を求める（表）"), unit: tr("D(2) 平均"), mark: "✕" },
+  { q: tr("15%引きの値引き額"), unit: tr("C(3) 割合"), mark: "○" },
 ];
 
 function Pipeline({ start }: { start: number }) {
@@ -200,7 +201,7 @@ function Pipeline({ start }: { start: number }) {
         const stamp = usePop(start + 100 + i * 8, 9);
         return (
           <div key={i} style={{ position: "absolute", left: 830, top: 300 + i * 150, width: 960, height: 120, borderRadius: 20, background: "rgba(12,24,48,0.92)", border: `2px solid ${C.line}`, display: "flex", alignItems: "center", gap: 26, padding: "0 30px", opacity: Math.min(1, p), transform: `translateX(${(1 - p) * 80}px)`, fontFamily: FONT }}>
-            <span style={{ fontSize: 30, fontWeight: 900, color: C.muted, width: 70 }}>問{i + 1}</span>
+            <span style={{ fontSize: 30, fontWeight: 900, color: C.muted, minWidth: 70, whiteSpace: "nowrap" }}>{tr("問{n}").replace("{n}", String(i + 1))}</span>
             <span style={{ fontSize: 34, fontWeight: 800, color: C.text, flex: 1 }}>{pr.q}</span>
             <span style={{ padding: "8px 18px", borderRadius: 12, background: C.gold, color: "#10182a", fontSize: 26, fontWeight: 900, transform: `scale(${tag})`, opacity: Math.min(1, tag) }}>{pr.unit}</span>
             <span style={{ width: 74, height: 74, borderRadius: "50%", display: "grid", placeItems: "center", fontSize: 50, fontWeight: 900, color: "#fff", background: pr.mark === "○" ? C.green : C.red, transform: `scale(${stamp * (1.6 - 0.6 * Math.min(1, stamp))})`, opacity: Math.min(1, stamp) }}>{pr.mark}</span>
@@ -229,17 +230,17 @@ export function SnapScene({ sc }: { sc: Scene }) {
   ];
   const flash = interpolate(f, [s7 - 14, s7 - 10, s7 - 2], [0, 0.85, 0], clamp);
   const steps = [
-    { n: "1", t: "1枚まるごと撮る", at: 0 },
-    { n: "2", t: "単元を見分ける", at: s7 },
-    { n: "3", t: "○✕を記録・確認", at: s8 },
-    { n: "4", t: "地図に反映", at: s9 },
+    { n: "1", t: tr("1枚まるごと撮る"), at: 0 },
+    { n: "2", t: tr("単元を見分ける"), at: s7 },
+    { n: "3", t: tr("○✕を記録・確認"), at: s8 },
+    { n: "4", t: tr("地図に反映"), at: s9 },
   ];
   const active = steps.filter((x) => f >= x.at - 4).length - 1;
   return (
     <Fade dur={sc.dur + 12}>
       <Backdrop />
       <div style={{ position: "absolute", left: 110, top: 90 }}>
-        <Kicker color={C.accent}>使い方</Kicker>
+        <Kicker color={C.accent}>{tr("使い方")}</Kicker>
         <div style={{ marginTop: 22, display: "flex", gap: 14 }}>
           {steps.map((x, i) => (
             <div key={x.n} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 16px", borderRadius: 999, background: i === active ? C.accent : "rgba(20,34,62,0.8)", color: i === active ? "#1b0f08" : i < active ? C.text : C.muted, fontFamily: FONT, fontSize: 24, fontWeight: 900 }}>
@@ -252,29 +253,29 @@ export function SnapScene({ sc }: { sc: Scene }) {
       <div style={{ opacity: phoneOn }}>
         <Screen clip="snap_phone" segs={segs} width={430} style={{ left: 1260, top: 110, transform: `translateY(${(1 - useIn(0, 22)) * 120}px)` }} glow="rgba(255,138,92,0.25)" />
         <div style={{ position: "absolute", left: 110, top: 300, width: 900, opacity: interpolate(f, [0, 14, s7 - 14, s7 - 4], [0, 1, 1, 0], clamp) }}>
-          <Slam parts={["宿題・ドリル・テストを、", "1枚まるごと。"]} start={6} size={74} />
+          <Slam parts={trParts(["宿題・ドリル・テストを、", "1枚まるごと。"])} start={6} size={74} />
           <div style={{ marginTop: 40, width: 560, borderRadius: 14, overflow: "hidden", boxShadow: "0 30px 80px rgba(0,0,0,0.55)", transform: `rotate(-3deg) scale(${0.9 + 0.1 * useIn(16, 20)})`, opacity: useIn(16, 20) }}>
             <Img src={staticFile("sheet.jpg")} style={{ width: "100%", display: "block" }} />
           </div>
         </div>
         <div style={{ position: "absolute", left: 110, top: 300, width: 900, opacity: interpolate(f, [s8, s8 + 14, s9 - 10, s9], [0, 1, 1, 0], clamp) }}>
-          <Slam parts={["先生の丸つけを優先。", "印がなければAIが判定。"]} start={s8 + 4} size={60} />
-          <div style={{ marginTop: 30, fontFamily: FONT, fontSize: 38, fontWeight: 800, color: C.muted }}>保存の前に、内容を確かめられます。</div>
+          <Slam parts={trParts(["先生の丸つけを優先。", "印がなければAIが判定。"])} start={s8 + 4} size={60} />
+          <div style={{ marginTop: 30, fontFamily: FONT, fontSize: 38, fontWeight: 800, color: C.muted }}>{tr("保存の前に、内容を確かめられます。")}</div>
         </div>
         <div style={{ position: "absolute", left: 110, top: 300, width: 900, opacity: interpolate(f, [s9, s9 + 14], [0, 1], clamp) }}>
-          <Slam parts={["保存すると、", "地図の上に", "立ち上がる。"]} start={s9 + 4} size={78} colors={[undefined, C.gold, undefined]} />
+          <Slam parts={trParts(["保存すると、", "地図の上に", "立ち上がる。"])} start={s9 + 4} size={78} colors={[undefined, C.gold, undefined]} />
         </div>
       </div>
       {f >= s8 && f < s9 && (
         <>
           <Callout at={s8 + s(0.9)} color={C.gold} style={{ left: 640, top: 620 }}>
-            単元を自動で判定
+            {tr("単元を自動で判定")}
           </Callout>
           <Callout at={s8 + s(3.0)} color={C.green} style={{ left: 640, top: 720 }}>
-            AI判定 ○
+            {tr("AI判定 ○")}
           </Callout>
           <Callout at={s8 + s(5.0)} color={C.red} style={{ left: 640, top: 820 }}>
-            空欄 → ✕
+            {tr("空欄 → ✕")}
           </Callout>
         </>
       )}
@@ -282,7 +283,7 @@ export function SnapScene({ sc }: { sc: Scene }) {
         <Backdrop tint={C.gold} />
         <div style={{ position: "absolute", left: 120, top: 90 }}>
           <Kicker color={C.gold}>AI</Kicker>
-          <Slam parts={["1問ずつ読み取り、", "単元と○✕を記録。"]} start={s7} size={62} style={{ marginTop: 18 }} />
+          <Slam parts={trParts(["1問ずつ読み取り、", "単元と○✕を記録。"])} start={s7} size={62} style={{ marginTop: 18 }} />
         </div>
         {f >= s7 - 8 && <Pipeline start={s7} />}
       </AbsoluteFill>
@@ -307,6 +308,8 @@ const ZONES: [string, string, number][] = [
   ["高3", "山頂", 3776],
 ];
 
+const MAP_TITLE = trParts(["算数・数学の", "単元が、", "ひとつの大陸に。"]);
+
 export function MapScene({ sc }: { sc: Scene }) {
   const f = useCurrentFrame();
   const n = Math.round(interpolate(f, [10, 70], [0, 110], { ...clamp, easing: ease }));
@@ -321,11 +324,12 @@ export function MapScene({ sc }: { sc: Scene }) {
       <div style={{ position: "absolute", left: 110, top: 100, width: 620 }}>
         <Kicker color={C.green}>MAP</Kicker>
         <div style={{ marginTop: 20, fontFamily: FONT, fontWeight: 900, color: C.text, fontSize: 70, lineHeight: 1.2 }}>
-          算数・数学の
+          {MAP_TITLE[0]}
           <br />
-          <span style={{ color: C.gold, fontSize: 120 }}>{n}</span>単元が、
+          <span style={{ color: C.gold, fontSize: 120 }}>{n}</span>
+          {MAP_TITLE[1]}
           <br />
-          ひとつの大陸に。
+          {MAP_TITLE[2]}
         </div>
         <div style={{ marginTop: 34, position: "relative", height: 420 }}>
           <div style={{ position: "absolute", left: 18, top: 0, bottom: 0, width: 4, background: `linear-gradient(${C.gold}, ${C.green}, ${C.cyan})`, borderRadius: 2 }} />
@@ -336,9 +340,9 @@ export function MapScene({ sc }: { sc: Scene }) {
               return (
                 <div key={g} style={{ position: "absolute", left: 0, top: i * 60, display: "flex", alignItems: "center", gap: 16, opacity: p, transform: `translateX(${(1 - p) * -30}px)`, fontFamily: FONT }}>
                   <span style={{ width: 40, height: 40, borderRadius: "50%", background: C.bg0, border: `3px solid ${C.gold}`, display: "grid", placeItems: "center" }} />
-                  <span style={{ width: 70, textAlign: "center", padding: "4px 0", borderRadius: 8, background: C.gold, color: "#10182a", fontWeight: 900, fontSize: 24 }}>{g}</span>
-                  <span style={{ fontSize: 30, fontWeight: 800, color: C.text }}>{z}</span>
-                  <span style={{ fontSize: 24, color: C.muted }}>標高 {h.toLocaleString()}m</span>
+                  <span style={{ minWidth: 70, textAlign: "center", padding: "4px 10px", borderRadius: 8, background: C.gold, color: "#10182a", fontWeight: 900, fontSize: 24, whiteSpace: "nowrap" }}>{grade(g)}</span>
+                  <span style={{ fontSize: 30, fontWeight: 800, color: C.text, whiteSpace: "nowrap" }}>{tr(z)}</span>
+                  <span style={{ fontSize: 24, color: C.muted, whiteSpace: "nowrap" }}>{tr("標高 {h}m").replace("{h}", h.toLocaleString())}</span>
                 </div>
               );
             })}
@@ -352,11 +356,11 @@ export function MapScene({ sc }: { sc: Scene }) {
 // ================================================================ 6. the 5-step ladder
 
 const LADDER: [string, string, string][] = [
-  ["まだ", C.grey, ""],
-  ["挑戦中", C.red, ""],
-  ["復習ずみ", C.green, ""],
-  ["マスター", C.gold, "★"],
-  ["定着", C.purple, ""],
+  [tr("まだ"), C.grey, ""],
+  [tr("挑戦中"), C.red, ""],
+  [tr("復習ずみ"), C.green, ""],
+  [tr("マスター"), C.gold, "★"],
+  [tr("定着"), C.purple, ""],
 ];
 
 export function LadderScene({ sc }: { sc: Scene }) {
@@ -371,14 +375,14 @@ export function LadderScene({ sc }: { sc: Scene }) {
       <Backdrop tint={LADDER[step][1]} />
       <div style={{ position: "absolute", left: 110, top: 100 }}>
         <Kicker color={C.gold}>5 STEPS</Kicker>
-        <Slam parts={["色は、", "理解の段階。"]} start={4} size={74} style={{ marginTop: 18 }} />
+        <Slam parts={trParts(["色は、", "理解の段階。"])} start={4} size={74} style={{ marginTop: 18, maxWidth: 780 }} />
       </div>
       <div style={{ position: "absolute", left: 960 - 160 - split * 300, top: 270, transform: `scale(${1 - split * 0.3})`, transformOrigin: "left top", opacity: 1 - split }}>
         <div style={{ transform: `scale(${morph})` }}>
           <Hex color={LADDER[step][1]} size={320} label={LADDER[step][2]} />
         </div>
-        <div style={{ marginTop: 20, textAlign: "center", width: 320, fontFamily: FONT, fontSize: 64, fontWeight: 900, color: C.text }}>{LADDER[step][0]}</div>
-        {step === 4 && <div style={{ textAlign: "center", width: 320, fontFamily: FONT, fontSize: 30, color: C.muted }}>2週間後も ○</div>}
+        <div style={{ marginTop: 20, textAlign: "center", width: 320, fontFamily: FONT, fontSize: 64, fontWeight: 900, color: C.text, whiteSpace: "nowrap" }}>{LADDER[step][0]}</div>
+        {step === 4 && <div style={{ textAlign: "center", width: 320, fontFamily: FONT, fontSize: 30, color: C.muted }}>{tr("2週間後も ○")}</div>}
       </div>
       <div style={{ position: "absolute", left: 360 - split * 250, top: 880 - split * 600, display: "flex", flexWrap: "wrap", width: 1200 - split * 560, gap: 14 }}>
         {LADDER.map(([name, c], i) => (
@@ -391,10 +395,10 @@ export function LadderScene({ sc }: { sc: Scene }) {
       <div style={{ opacity: split }}>
         <Screen clip="sheet_ipad" segs={[{ from: s12 - 14, to: sc.dur + 12, a: 0.6, b: 11.2 }]} width={1000} style={{ left: 820, top: 200, transform: `translateX(${(1 - split) * 200}px)` }} />
         <Callout at={s12 + 10} color={C.red} style={{ left: 110, top: 470 }}>
-          🚩 赤い旗 ＝ まだ解き直していない✕
+          {tr("🚩 赤い旗 ＝ まだ解き直していない✕")}
         </Callout>
         <Callout at={s12 + s(3.2)} color={C.cyan} style={{ left: 110, top: 570 }}>
-          間違えた問題と写真に、すぐ戻れる
+          {tr("間違えた問題と写真に、すぐ戻れる")}
         </Callout>
       </div>
       {LADDER.map((_, i) => (
@@ -416,7 +420,7 @@ export function RootsScene({ sc }: { sc: Scene }) {
       <Screen clip="roots_ipad" segs={[{ from: 0, to: sc.dur + 12, a: 0.5, b: 10.8 }]} width={1040} style={{ left: 790, top: 160, opacity: tab, transform: `translateY(${(1 - tab) * 100}px)` }} glow="rgba(169,141,255,0.28)" />
       <div style={{ position: "absolute", left: 110, top: 110, width: 640 }}>
         <Kicker color={C.purple}>ROOTS</Kicker>
-        <Slam parts={["つまずきの", "もとは、", "前の学年に。"]} start={4} size={70} style={{ marginTop: 18 }} />
+        <Slam parts={trParts(["つまずきの", "もとは、", "前の学年に。"])} start={4} size={70} style={{ marginTop: 18 }} />
       </div>
       <svg width={700} height={460} style={{ position: "absolute", left: 90, top: 520 }}>
         <defs>
@@ -430,15 +434,15 @@ export function RootsScene({ sc }: { sc: Scene }) {
       <div style={{ position: "absolute", left: 120, top: 540, display: "flex", alignItems: "center", gap: 18, fontFamily: FONT, opacity: useIn(s(1.2), 14) }}>
         <Hex color={C.red} size={80} />
         <div>
-          <div style={{ fontSize: 26, color: C.muted, fontWeight: 800 }}>5年</div>
-          <div style={{ fontSize: 42, color: C.text, fontWeight: 900 }}>平均</div>
+          <div style={{ fontSize: 26, color: C.muted, fontWeight: 800 }}>{tr("5年")}</div>
+          <div style={{ fontSize: 42, color: C.text, fontWeight: 900 }}>{tr("平均")}</div>
         </div>
       </div>
       <div style={{ position: "absolute", left: 360, top: 800, display: "flex", alignItems: "center", gap: 18, fontFamily: FONT, opacity: path, transform: `scale(${0.8 + 0.2 * path})` }}>
         <Hex color={C.purple} size={80} />
         <div>
-          <div style={{ fontSize: 26, color: C.muted, fontWeight: 800 }}>4年</div>
-          <div style={{ fontSize: 38, color: C.text, fontWeight: 900 }}>データの収集と分析</div>
+          <div style={{ fontSize: 26, color: C.muted, fontWeight: 800 }}>{tr("4年")}</div>
+          <div style={{ fontSize: 38, color: C.text, fontWeight: 900 }}>{tr("データの収集と分析")}</div>
         </div>
       </div>
       <Sfx at={s(4.4)} src="chime" volume={0.25} />
@@ -450,7 +454,7 @@ export function RootsScene({ sc }: { sc: Scene }) {
 
 export function DailyScene({ sc }: { sc: Scene }) {
   const f = useCurrentFrame();
-  const words = ["撮る", "解き直す", "チェック"];
+  const words = trParts(["撮る", "解き直す", "チェック"]);
   const colors = [C.cyan, C.accent, C.green];
   const per = Math.round(sc.lines[0].dur * 0.22);
   const startW = Math.round(sc.lines[0].dur * 0.22);
@@ -461,8 +465,8 @@ export function DailyScene({ sc }: { sc: Scene }) {
     <Fade dur={sc.dur + 12}>
       <Backdrop tint={C.cyan} />
       <div style={{ position: "absolute", left: 110, top: 100 }}>
-        <Kicker color={C.cyan}>毎日</Kicker>
-        <Slam parts={["毎日の復習は、", "このくり返し。"]} start={4} size={66} style={{ marginTop: 18 }} />
+        <Kicker color={C.cyan}>{trk("毎日", "kicker:daily")}</Kicker>
+        <Slam parts={trParts(["毎日の復習は、", "このくり返し。"])} start={4} size={66} style={{ marginTop: 18 }} />
       </div>
       <div style={{ position: "absolute", left: 160, top: 360, width: 560, height: 560 }}>
         <svg width={560} height={560} style={{ position: "absolute", transform: `rotate(${spin}deg)` }}>
@@ -503,9 +507,9 @@ export function ExamScene({ sc }: { sc: Scene }) {
     { from: s17, to: sc.dur + 12, a: 13.2, b: 23.6 },
   ];
   const rows: [string, string, string][] = [
-    ["①", "まず解き直す", C.red],
-    ["②", "つまずきのもと", C.accent],
-    ["③", "念のため", C.gold],
+    ["①", tr("まず解き直す"), C.red],
+    ["②", tr("つまずきのもと"), C.accent],
+    ["③", tr("念のため"), C.gold],
   ];
   const mins = Math.round(interpolate(f, [s16 + s(3.2), s16 + s(4.6)], [0, 20], clamp));
   return (
@@ -513,8 +517,8 @@ export function ExamScene({ sc }: { sc: Scene }) {
       <Backdrop tint={C.accent} />
       <Screen clip="exam_ipad" segs={segs} width={1060} style={{ left: 760, top: 150 }} glow="rgba(255,138,92,0.26)" />
       <div style={{ position: "absolute", left: 100, top: 100, width: 620 }}>
-        <Kicker color={C.accent}>テスト前</Kicker>
-        <Slam parts={["日付と範囲で、", "今夜の作戦。"]} start={4} size={70} style={{ marginTop: 18 }} />
+        <Kicker color={C.accent}>{trk("テスト前", "kicker:pretest")}</Kicker>
+        <Slam parts={trParts(["日付と範囲で、", "今夜の作戦。"])} start={4} size={70} style={{ marginTop: 18 }} />
         <div style={{ marginTop: 50, display: "grid", gap: 16, opacity: interpolate(f, [s17 - 6, s17 + 8], [1, 0], clamp) }}>
           {rows.map(([n, t, c], i) => {
             const p = usePop(s16 + i * s(0.9), 13);
@@ -526,22 +530,22 @@ export function ExamScene({ sc }: { sc: Scene }) {
             );
           })}
           <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginTop: 10, opacity: useIn(s16 + s(3.2), 12), fontFamily: FONT }}>
-            <span style={{ fontSize: 34, fontWeight: 800, color: C.muted }}>めやす 約</span>
+            <span style={{ fontSize: 34, fontWeight: 800, color: C.muted }}>{tr("めやす 約")}</span>
             <span style={{ fontSize: 76, fontWeight: 900, color: C.gold }}>{mins}</span>
-            <span style={{ fontSize: 34, fontWeight: 800, color: C.muted }}>分</span>
+            <span style={{ fontSize: 34, fontWeight: 800, color: C.muted }}>{tr("分")}</span>
           </div>
         </div>
       </div>
       {f >= s17 && (
         <>
           <Callout at={s17 + s(0.6)} color={C.cyan} style={{ left: 100, top: 400 }}>
-            答えをその場で確かめる
+            {tr("答えをその場で確かめる")}
           </Callout>
           <Callout at={s17 + s(2.6)} color={C.green} style={{ left: 100, top: 500 }}>
-            ✓ 解き直したらチェック
+            {tr("✓ 解き直したらチェック")}
           </Callout>
           <Callout at={s17 + s(4.8)} color={C.gold} style={{ left: 100, top: 600 }}>
-            保護者に1枚で共有
+            {tr("保護者に1枚で共有")}
           </Callout>
         </>
       )}
@@ -571,9 +575,9 @@ export function TrustScene({ sc }: { sc: Scene }) {
           <path d="M42 4 L78 18 V48 C78 72 60 86 42 92 C24 86 6 72 6 48 V18 Z" fill={`${C.green}33`} stroke={C.green} strokeWidth="5" />
           <path d="M26 50 L38 62 L60 36" fill="none" stroke={C.green} strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="60" strokeDashoffset={60 * (1 - Math.min(1, lock))} />
         </svg>
-        <Slam parts={["写真は、", "端末の中だけ", "に保存。"]} start={6} size={64} colors={[undefined, C.green, undefined]} />
+        <Slam parts={trParts(["写真は、", "端末の中だけ", "に保存。"])} start={6} size={64} colors={[undefined, C.green, undefined]} />
       </div>
-      <div style={{ position: "absolute", left: 220, top: 210, fontFamily: FONT, fontSize: 34, fontWeight: 800, color: C.muted, opacity: useIn(24, 16) }}>スマートフォン ・ iPad（縦・横）</div>
+      <div style={{ position: "absolute", left: 220, top: 210, fontFamily: FONT, fontSize: 34, fontWeight: 800, color: C.muted, opacity: useIn(24, 16) }}>{tr("スマートフォン ・ iPad（縦・横）")}</div>
       <Sfx at={10} src="chime" volume={0.25} />
     </Fade>
   );
@@ -598,25 +602,25 @@ export function PlansScene({ sc }: { sc: Scene }) {
         </div>
         <div style={{ position: "absolute", left: 0, right: 0, top: 220, display: "flex", justifyContent: "center", gap: 60, fontFamily: FONT }}>
           {[
-            { k: "無料のお試し", p: "¥0", u: "", d: "30枚まで（1回かぎり）", c: C.cyan, t: pa },
-            { k: "年間プラン", p: `¥${price.toLocaleString()}`, u: " ／年（税込）", d: "毎月200枚まで", c: C.gold, t: pb },
+            { k: tr("無料のお試し"), p: "¥0", u: "", d: tr("30枚まで（1回かぎり）"), c: C.cyan, t: pa },
+            { k: tr("年間プラン"), p: `¥${price.toLocaleString()}`, u: tr(" ／年（税込）"), d: tr("毎月200枚まで"), c: C.gold, t: pb },
           ].map((x) => (
             <div key={x.k} style={{ width: 640, padding: "52px 50px", borderRadius: 34, background: "rgba(12,24,48,0.92)", border: `3px solid ${x.c}`, boxShadow: `0 0 70px ${x.c}33`, opacity: x.t, transform: `translateY(${(1 - x.t) * 70}px)` }}>
               <div style={{ fontSize: 36, fontWeight: 900, color: x.c, letterSpacing: "0.1em" }}>{x.k}</div>
               <div style={{ marginTop: 18, whiteSpace: "nowrap", fontSize: 108, fontWeight: 900, color: C.text, lineHeight: 1 }}>
                 {x.p}
-                <span style={{ fontSize: 34, color: C.muted }}>{x.u}</span>
+                <span style={{ fontSize: 34, color: C.muted, display: x.u.length > 8 ? "block" : "inline", marginTop: x.u.length > 8 ? 10 : 0 }}>{x.u}</span>
               </div>
               <div style={{ marginTop: 24, fontSize: 40, fontWeight: 800, color: C.text }}>{x.d}</div>
             </div>
           ))}
         </div>
         <div style={{ position: "absolute", left: 0, right: 0, top: 740, textAlign: "center", fontFamily: FONT, fontSize: 30, color: C.muted, opacity: useIn(s(2.6), 16) }}>
-          年間プランは1年分の一括払い・自動更新なし ・ 家族の端末3台まで
+          {tr("年間プランは1年分の一括払い・自動更新なし ・ 家族の端末3台まで")}
         </div>
         <div style={{ position: "absolute", left: 0, right: 0, top: 810, display: "flex", justifyContent: "center", opacity: useIn(s(6.2), 18) }}>
           <div style={{ padding: "14px 34px", borderRadius: 999, border: `2px solid ${C.cyan}`, background: "rgba(12,24,48,0.85)", fontFamily: FONT, fontSize: 34, fontWeight: 800, color: C.text }}>
-            視点レンズの講座には、<span style={{ color: C.cyan }}>年間プラン1年分</span>つき
+            <Rich text={tr("視点レンズの講座には、[年間プラン1年分]つき")} color={C.cyan} />
           </div>
         </div>
       </AbsoluteFill>
@@ -629,15 +633,15 @@ export function PlansScene({ sc }: { sc: Scene }) {
           ))}
         </div>
         <div style={{ position: "absolute", left: 0, right: 0, top: 215, textAlign: "center", fontFamily: FONT }}>
-          <div style={{ fontSize: 50, fontWeight: 800, color: C.muted }}>毎日の復習も、テスト前も。</div>
-          <div style={{ marginTop: 18, fontSize: 160, fontWeight: 900, color: C.text, letterSpacing: "0.06em", textShadow: `0 0 70px ${C.cyan}55`, transform: `scale(${0.94 + 0.06 * logo})` }}>つまずきマップ</div>
+          <div style={{ fontSize: 50, fontWeight: 800, color: C.muted }}>{tr("毎日の復習も、テスト前も。")}</div>
+          <div style={{ marginTop: 18, fontSize: 160, fontWeight: 900, color: C.text, letterSpacing: "0.06em", textShadow: `0 0 70px ${C.cyan}55`, transform: `scale(${0.94 + 0.06 * logo})` }}>{tr("つまずきマップ")}</div>
           <div style={{ marginTop: 18, fontSize: 52, fontWeight: 800, color: C.text }}>
-            撮るだけで、<span style={{ color: C.gold }}>何を復習すればいいか</span>がわかる。
+            <Rich text={tr("撮るだけで、[何を復習すればいいか]がわかる。")} />
           </div>
           <div style={{ marginTop: 56, display: "inline-block", padding: "14px 60px", borderRadius: 999, background: C.gold, color: "#0b1830", fontSize: 66, fontWeight: 900, letterSpacing: "0.04em" }}>domo-ai.com</div>
-          <div style={{ marginTop: 18, fontSize: 32, fontWeight: 800, color: C.muted }}>登録不要 ・ 30枚まで無料でお試し</div>
+          <div style={{ marginTop: 18, fontSize: 32, fontWeight: 800, color: C.muted }}>{tr("登録不要 ・ 30枚まで無料でお試し")}</div>
         </div>
-        <div style={{ position: "absolute", right: 40, bottom: 26, fontFamily: FONT, fontSize: 20, color: "rgba(200,210,230,0.6)" }}>VOICEVOX:No.7</div>
+        <div style={{ position: "absolute", right: 40, bottom: 26, fontFamily: FONT, fontSize: 20, color: "rgba(200,210,230,0.6)" }}>{VOICE_CREDIT}</div>
       </AbsoluteFill>
       <Sfx at={4} src="pop" volume={0.3} />
       <Sfx at={s(1.4)} src="pop" volume={0.3} />

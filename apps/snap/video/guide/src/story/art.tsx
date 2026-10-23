@@ -1,4 +1,5 @@
 import "@fontsource/klee-one/600.css";
+import { tr } from "../vlang";
 import type { CSSProperties, ReactNode } from "react";
 import { interpolate, useCurrentFrame } from "remotion";
 import { C, FONT, clamp, ease } from "../v2/kit";
@@ -242,7 +243,7 @@ export function Stack({ x, y, n, bw = 380, bh = 52, sway = 0 }: { x: number; y: 
         return (
           <div key={i} style={{ position: "absolute", left: -bw / 2 + dx, top: -bh * (i + 1) + drop, width: bw, height: bh - 4, borderRadius: 6, background: BOOK[i % BOOK.length], transform: `rotate(${tilt}deg)`, opacity: op, boxShadow: "0 6px 12px rgba(0,0,0,0.35)", display: "flex", alignItems: "center", paddingLeft: 18, fontFamily: HAND, fontWeight: 600, fontSize: bh * 0.46, color: "rgba(255,255,255,0.95)" }}>
             <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: bw * 0.12, background: "rgba(255,255,255,0.85)", borderRadius: "0 6px 6px 0" }} />
-            まちがいノート {NUM[i % NUM.length]}
+            {tr("まちがいノート")} {NUM[i % NUM.length]}
           </div>
         );
       })}
