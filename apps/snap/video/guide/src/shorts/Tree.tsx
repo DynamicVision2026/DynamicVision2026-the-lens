@@ -67,7 +67,9 @@ function Caption({ text, from, to, big = false }: { text: string; from: number; 
   const o = interpolate(f, [from, from + 6, to - 4, to], [0, 1, 1, 0], clamp);
   if (o <= 0) return null;
   const two = text.includes("\n");
-  const size = big ? 120 : 60;
+  // 60 px, smaller when a translated line would not fit the caption width
+  const em = Math.max(...text.split("\n").map((l) => [...l].reduce((a, ch) => a + (ch.charCodeAt(0) < 0x2000 ? 0.56 : 1), 0)));
+  const size = big ? 120 : Math.min(60, Math.floor((SAFE_RIGHT - 120) / Math.max(1, em)));
   return (
     <div style={{ position: "absolute", left: 60, width: SAFE_RIGHT - 120, top: big ? 1250 : two ? 1262 : 1300, textAlign: "center", fontFamily: FONT, fontSize: size, fontWeight: 900, color: big ? C.red : C.text, lineHeight: 1.3, whiteSpace: "pre-line", opacity: o, transform: big ? `scale(${0.85 + 0.15 * o})` : undefined, textShadow: "0 4px 18px rgba(0,0,0,0.6)" }}>
       {text}
@@ -145,7 +147,7 @@ function Label({ k, n, at, dim, text, years }: { k: number; n: number; at: numbe
           {grade(text.grade)}
           <span style={{ marginLeft: 18, padding: "2px 16px", borderRadius: 999, background: years === 0 ? "rgba(239,97,82,0.25)" : "rgba(246,196,83,0.18)", color: years === 0 ? C.red : C.gold, fontSize: 36 }}>{yearsLabel(years)}</span>
         </div>
-        <div style={{ fontSize: topicSize(tr(text.topic), 1080 - (x + HEX / 2 + 40) - 30), fontWeight: 900, color: C.text, whiteSpace: "nowrap" }}>{tr(text.topic)}</div>
+        <div style={{ fontSize: topicSize(tr(text.topic), (1080 - (x + HEX / 2 + 40)) / 1.2 - 30), fontWeight: 900, color: C.text, whiteSpace: "nowrap" }}>{tr(text.topic)}</div>
       </div>
     </div>
   );

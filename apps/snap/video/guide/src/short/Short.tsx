@@ -70,7 +70,7 @@ function Hook() {
       <Backdrop w={1080} h={1920} tint={C.accent} />
       <div style={{ position: "absolute", left: 80, right: 80, top: 430, textAlign: "center" }}>
         <Kicker color={C.accent} style={{ justifyContent: "center" }}>{tr("テスト前のあなたへ")}</Kicker>
-        <Slam parts={trParts(["テスト前、", "何から", "復習する？"])} start={2} size={118} colors={[undefined, C.gold, undefined]} style={{ marginTop: 40 }} />
+        <Slam parts={trParts(["テスト前、", "何から", "復習する？"])} start={2} size={VLANG === "en" ? 92 : 118} colors={[undefined, C.gold, undefined]} style={{ marginTop: 40 }} />
       </div>
       <div style={{ position: "absolute", left: 0, right: 0, top: 960, display: "flex", justifyContent: "center", gap: 26 }}>
         {trParts(["プリント", "ドリル", "テスト"]).map((t, i) => {

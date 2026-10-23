@@ -1,7 +1,7 @@
 import { AbsoluteFill, Img, Sequence, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { Stack } from "../story/art";
 import { FONT, Sfx, clamp, ease } from "../v2/kit";
-import { lfile, tr } from "../vlang";
+import { IS_JA, lfile, tr } from "../vlang";
 import { H, MapEndCard, SAFE_BOTTOM, W, s } from "./common";
 
 /**
@@ -49,7 +49,7 @@ export const CHAT_DEFAULT: ChatProps = {
     { t: 11.2, who: "mom", text: "……", sfx: null },
     { t: 12.6, who: "mom", img: "sheet", typing: false, sfx: "shutter" },
     // 2.5 s of silence, no typing dots: the wait is the joke
-    { t: 15.1, who: "mom", img: "plan", typing: false, sfx: "chime", wide: true, zoom: { after: 0.5, hold: 1.5, fx: 0.4, fy: 0.652, z: 1.55 } },
+    { t: 15.1, who: "mom", img: "plan", typing: false, sfx: "chime", wide: true, zoom: { after: 0.5, hold: 1.5, fx: IS_JA ? 0.4 : 0.47, fy: 0.652, z: IS_JA ? 1.55 : 1.25 } },
     { t: 18.3, who: "kid", text: tr("それだけ？") },
     { t: 19.7, who: "mom", text: tr("それだけ。") },
     { t: 21.1, who: "kid", text: "👍" },
