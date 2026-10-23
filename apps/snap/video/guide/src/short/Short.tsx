@@ -5,7 +5,7 @@ import narrZh from "../../../narration.zh-Hant.json";
 import durations from "../durations2.json";
 import durationsEn from "../durations2.en.json";
 import durationsZh from "../durations2.zh-Hant.json";
-import { IS_JA, VLANG, VOICE_CREDIT, lfile, tr, trParts } from "../vlang";
+import { IS_JA, VLANG, VOICE_CREDIT, lfile, tr, trk, trParts } from "../vlang";
 import { Backdrop, C, FONT, Fade, Hex, Kicker, Rich, Screen, Sfx, Slam, clamp, ease, useIn, usePop } from "../v2/kit";
 
 /**
@@ -159,7 +159,7 @@ function EndCard() {
         </div>
         <div style={{ marginTop: 60, display: "inline-block", padding: "20px 64px", borderRadius: 999, background: C.gold, color: "#0b1830", fontSize: 70, fontWeight: 900, transform: `scale(${0.7 + 0.3 * pill})`, opacity: Math.min(1, pill) }}>domo-ai.com</div>
         <div style={{ marginTop: 26, fontSize: 40, fontWeight: 900, color: C.text, opacity: useIn(30, 14) }}>{tr("登録不要 ・ 30枚まで無料")}</div>
-        <div style={{ marginTop: 12, fontSize: 32, fontWeight: 700, color: C.muted, opacity: useIn(36, 14) }}>{tr("小1〜高3 の算数・数学")}</div>
+        <div style={{ marginTop: 12, fontSize: 32, fontWeight: 700, color: C.muted, opacity: useIn(36, 14) }}>{IS_JA ? "小1〜高3 の算数・数学" : trk("", "origin:short")}</div>
       </div>
       <div style={{ position: "absolute", right: 30, bottom: 30, fontFamily: FONT, fontSize: 22, color: "rgba(200,210,230,0.6)" }}>{VOICE_CREDIT}</div>
       <Sfx at={2} src="hit" volume={0.45} />
