@@ -375,7 +375,7 @@ export function LadderScene({ sc }: { sc: Scene }) {
       <Backdrop tint={LADDER[step][1]} />
       <div style={{ position: "absolute", left: 110, top: 100 }}>
         <Kicker color={C.gold}>5 STEPS</Kicker>
-        <Slam parts={trParts(["色は、", "理解の段階。"])} start={4} size={74} style={{ marginTop: 18, maxWidth: 680 }} />
+        <Slam parts={trParts(["色は、", "理解の段階。"])} start={4} size={74} style={{ marginTop: 18, maxWidth: 780 }} />
       </div>
       <div style={{ position: "absolute", left: 960 - 160 - split * 300, top: 270, transform: `scale(${1 - split * 0.3})`, transformOrigin: "left top", opacity: 1 - split }}>
         <div style={{ transform: `scale(${morph})` }}>

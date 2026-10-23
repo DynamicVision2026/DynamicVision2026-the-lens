@@ -67,7 +67,7 @@ const en: Dict = {
   "復習ずみ": "Reviewed",
   "マスター": "Mastered",
   "定着": "Locked in",
-  "色は、|理解の段階。": ["Colors show ", "understanding."],
+  "色は、|理解の段階。": ["Color ", "= mastery."],
   "2週間後も ○": "○ again after 2 weeks",
   "🚩 赤い旗 ＝ まだ解き直していない✕": "🚩 Red flag = a ✕ not yet redone",
   "間違えた問題と写真に、すぐ戻れる": "Jump back to the problem and its photo",
