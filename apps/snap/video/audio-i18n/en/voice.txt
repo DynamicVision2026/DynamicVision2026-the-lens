@@ -1,0 +1,1 @@
+Google Cloud Text-to-Speech en-US-Neural2-F {"audioEncoding": "LINEAR16", "sampleRateHertz": 24000, "speakingRate": 1.04, "pitch": 0.0}

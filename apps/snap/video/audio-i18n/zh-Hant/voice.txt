@@ -1,0 +1,1 @@
+Google Cloud Text-to-Speech cmn-TW-Wavenet-A {"audioEncoding": "LINEAR16", "sampleRateHertz": 24000, "speakingRate": 1.04, "pitch": 0.0}
