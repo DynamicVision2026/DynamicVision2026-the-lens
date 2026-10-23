@@ -1,4 +1,5 @@
 import { AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame } from "remotion";
+import { lfile, tr } from "../vlang";
 import { C, FONT, clamp, ease } from "../v2/kit";
 
 /** Shared rules for the story-format Shorts (1080×1920). */
@@ -23,11 +24,11 @@ export function MapEndCard({ fadeAt, credit, fade = 0.3 }: { fadeAt: number; cre
   return (
     <AbsoluteFill style={{ background: "#000" }}>
       <AbsoluteFill style={{ opacity: mapIn, transform: `scale(${1.04 - 0.04 * mapIn})` }}>
-        <Img src={staticFile("shorts/map.png")} style={{ width: W, height: (W * 2532) / 1170, objectFit: "cover", marginTop: -200 }} />
+        <Img src={staticFile(lfile("shorts/map.png"))} style={{ width: W, height: (W * 2532) / 1170, objectFit: "cover", marginTop: -200 }} />
         <AbsoluteFill style={{ background: "linear-gradient(180deg, rgba(6,12,25,0.15) 0%, rgba(6,12,25,0.78) 38%, rgba(6,12,25,0.78) 62%, rgba(6,12,25,0.2) 100%)" }} />
       </AbsoluteFill>
       <div style={{ position: "absolute", left: 30, width: SAFE_RIGHT - 20, top: 790, textAlign: "center", fontFamily: FONT, opacity: word, transform: `translateY(${(1 - word) * 24}px)` }}>
-        <div style={{ fontSize: 118, fontWeight: 900, color: C.text, letterSpacing: "0.04em", textShadow: `0 0 60px ${C.cyan}55` }}>つまずきマップ</div>
+        <div style={{ fontSize: 118, fontWeight: 900, color: C.text, letterSpacing: "0.04em", textShadow: `0 0 60px ${C.cyan}55` }}>{tr("つまずきマップ")}</div>
         <div style={{ marginTop: 22, fontSize: 44, fontWeight: 800, color: C.muted, letterSpacing: "0.06em" }}>domo-ai.com</div>
       </div>
       {credit && <div style={{ position: "absolute", right: 28, bottom: 28, fontFamily: FONT, fontSize: 22, color: "rgba(200,210,230,0.65)" }}>{credit}</div>}

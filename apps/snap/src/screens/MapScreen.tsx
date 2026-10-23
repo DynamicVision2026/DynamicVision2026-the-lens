@@ -539,7 +539,7 @@ function YearSheet({ rows, onClose, onPick }: { rows: YearRow[]; onClose: () => 
               <span className="yr-year">{y.label(r.year)}</span>
               <span className="yr-zone">
                 <b>{zoneName(r.grade)}</b>
-                <small>{r.grade}</small>
+                <small>{gradeLabel(r.grade)}</small>
               </span>
               <span className="yr-bar" aria-hidden>
                 <i style={{ width: `${r.total ? (r.taken / r.total) * 100 : 0}%` }} />
@@ -626,7 +626,7 @@ export function Sheet(props: {
         />
         <div className="sheet-top">
           <div className="sheet-kicker">
-            <span className="sheet-grade">{unit.appGrade}</span>
+            <span className="sheet-grade">{gradeLabel(unit.appGrade)}</span>
             <span className="sheet-code">{codeOf(unit)}</span>
             <span className="sheet-zone" data-testid="sheet-zone">{zoneName(unit.appGrade)}</span>
           </div>
@@ -729,7 +729,7 @@ export function Sheet(props: {
               <li key={r.unit.id}>
                 <button type="button" className="root-btn" onClick={() => onPick(r.unit.id)} data-unit={r.unit.id}>
                   <TerrGlyph level={r.level} color={colorKeyOf(r.unit)} size={28} />
-                  <span className="root-grade">{r.unit.appGrade}</span>
+                  <span className="root-grade">{gradeLabel(r.unit.appGrade)}</span>
                   <span className="root-topic">{r.unit.topic}</span>
                   <span className="root-go" aria-hidden>›</span>
                 </button>
@@ -902,7 +902,7 @@ function Section(props: { section: MapSection; open: boolean; onToggle: (g: Grad
       data-grade={grade}
     >
       <summary>
-        <span className="sec-grade">{grade}</span>
+        <span className="sec-grade">{gradeLabel(grade)}</span>
         {own && <span className="sec-own">{app.map.own}</span>}
         <span className="sec-sum">
           {(["trying", "settled", "master", "reviewed"] as const).map((k) =>

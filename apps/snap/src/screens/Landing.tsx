@@ -1,4 +1,5 @@
 import { LangSwitch } from "../components/LangSwitch";
+import { LANG } from "../lib/lang";
 import { gradeLabel } from "../curriculum";
 import { type FormEvent, useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
@@ -8,6 +9,9 @@ import { fetchPilotGate } from "../lib/pilot";
 import { BUY_URL, LEGAL_URL, LENS_COURSES_URL, lp } from "../lp-copy";
 import { readPref, writePref } from "../state";
 import { WAITLIST_GRADES, WaitlistSchema } from "../lib/waitlist";
+
+/** The guide video in the page's language (narrated in English or Taiwan Mandarin; 简体中文 pages get the 繁體中文 one). */
+const VIDEO_SUFFIX = LANG === "ja" ? "" : LANG === "en" ? ".en" : ".zh-Hant";
 
 const FORM_ID = "waitlist";
 const img = (name: string) => `/lp/${name}.webp`;
@@ -121,8 +125,8 @@ export function Landing() {
           <video
             className="lp-video"
             data-testid="lp-video"
-            src="/lp/guide.mp4"
-            poster="/lp/guide-poster.jpg"
+            src={`/lp/guide${VIDEO_SUFFIX}.mp4`}
+            poster={`/lp/guide-poster${VIDEO_SUFFIX}.jpg`}
             controls
             preload="none"
             playsInline

@@ -1,6 +1,9 @@
 import { AbsoluteFill, Audio, Img, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
 import { HAND } from "../story/art";
 import { Backdrop, C, FONT, Hex, Sfx, clamp, ease, usePop } from "../v2/kit";
+import narrEn from "../../../narration.en.json";
+import narrZh from "../../../narration.zh-Hant.json";
+import { IS_JA, VLANG, VOICE_CREDIT, grade, lfile, tr } from "../vlang";
 import { MapEndCard, SAFE_RIGHT, s } from "./common";
 
 /**
@@ -18,6 +21,10 @@ export type TreeProps = {
   credit: string;
 };
 
+/** The narration line's caption in this language (the Japanese captions are in TREE_DEFAULT). */
+const NARR = ({ en: narrEn, "zh-Hant": narrZh } as Record<string, { lines: { id: string; text: string }[] }>)[VLANG];
+const said = (id: string, ja: string) => (IS_JA ? ja : NARR.lines.find((l) => l.id === id)?.text ?? ja);
+
 export const TREE_DEFAULT: TreeProps = {
   chain: [
     { grade: "中2", topic: "連立方程式" },
@@ -25,17 +32,17 @@ export const TREE_DEFAULT: TreeProps = {
     { grade: "小6", topic: "文字を用いた式" },
     { grade: "小5", topic: "数量の関係を表す式" },
   ],
-  problem: { head: "数学 2年　小テスト", q: "(3) 次の連立方程式を解きなさい。", lines: ["2x + y = 7", "x − y = 2"], answer: "x = 5,  y = 3" },
+  problem: { head: tr("数学 2年　小テスト"), q: tr("(3) 次の連立方程式を解きなさい。"), lines: ["2x + y = 7", "x − y = 2"], answer: "x = 5,  y = 3" },
   lines: [
-    { src: "shorts/a01.wav", text: "中2のまちがいは、\n小5で生まれていました。" },
-    { src: "shorts/a02.wav", text: "テスト前に解くのは、\n中2の問題じゃない。" },
+    { src: lfile("shorts/a01.wav"), text: said("a01", "中2のまちがいは、\n小5で生まれていました。") },
+    { src: lfile("shorts/a02.wav"), text: said("a02", "テスト前に解くのは、\n中2の問題じゃない。") },
   ],
-  credit: "VOICEVOX:No.7",
+  credit: VOICE_CREDIT,
 };
 
 const GRADES = ["小1", "小2", "小3", "小4", "小5", "小6", "中1", "中2", "中3", "高1", "高2", "高3"];
 const yearsBack = (from: string, to: string) => Math.max(0, GRADES.indexOf(from) - GRADES.indexOf(to));
-const yearsLabel = (y: number) => (y === 0 ? "いま" : `${y}年前`);
+const yearsLabel = (y: number) => (y === 0 ? tr("いま") : y === 1 ? tr("1年前") : tr("{y}年前").replace("{y}", String(y)));
 
 /** Timeline (s) from the chain length; 4 units → 26.8 s. */
 export function treeTimes(n: number) {
@@ -93,7 +100,7 @@ function Sheet({ p, stamp }: { p: TreeProps["problem"]; stamp: number }) {
         <div>x = 5</div>
       </div>
       <div style={{ position: "absolute", left: 420, top: 980, display: "flex", alignItems: "center", gap: 24, fontFamily: FONT, fontSize: 52, fontWeight: 800, color: "#2b3550" }}>
-        答え
+        {tr("答え")}
         <div style={{ padding: "14px 34px", border: "4px solid #2b3550", fontFamily: HAND, fontWeight: 600, fontSize: 64, color: "#4d5d8a" }}>{p.answer}</div>
       </div>
       {/* the stamp */}
@@ -121,6 +128,12 @@ function Node({ k, n, at, red, dim, pulse }: { k: number; n: number; at: number;
   );
 }
 
+/** 56 px, smaller when a translated unit name would run off the frame (Latin ≈ 0.56 em, CJK 1 em). */
+function topicSize(t: string, room: number) {
+  const em = [...t].reduce((a, ch) => a + (ch.charCodeAt(0) < 0x2000 ? 0.56 : 1), 0);
+  return Math.min(56, Math.floor(room / Math.max(1, em)));
+}
+
 function Label({ k, n, at, dim, text, years }: { k: number; n: number; at: number; dim: number; text: { grade: string; topic: string }; years: number }) {
   const f = useCurrentFrame();
   const o = interpolate(f, [at + 4, at + 14], [0, 1], clamp) * (1 - 0.6 * dim);
@@ -129,10 +142,10 @@ function Label({ k, n, at, dim, text, years }: { k: number; n: number; at: numbe
     <div style={{ position: "absolute", left: x + HEX / 2 + 40, top: y - 74, opacity: o, transform: `translateX(${(1 - Math.min(1, o / Math.max(0.01, 1 - 0.6 * dim))) * -20}px)` }}>
       <div style={{ fontFamily: FONT, lineHeight: 1.2, textShadow: "0 3px 14px rgba(0,0,0,0.7)" }}>
         <div style={{ fontSize: 42, fontWeight: 800, color: C.muted }}>
-          {text.grade}
+          {grade(text.grade)}
           <span style={{ marginLeft: 18, padding: "2px 16px", borderRadius: 999, background: years === 0 ? "rgba(239,97,82,0.25)" : "rgba(246,196,83,0.18)", color: years === 0 ? C.red : C.gold, fontSize: 36 }}>{yearsLabel(years)}</span>
         </div>
-        <div style={{ fontSize: 56, fontWeight: 900, color: C.text, whiteSpace: "nowrap" }}>{text.topic}</div>
+        <div style={{ fontSize: topicSize(tr(text.topic), 1080 - (x + HEX / 2 + 40) - 30), fontWeight: 900, color: C.text, whiteSpace: "nowrap" }}>{tr(text.topic)}</div>
       </div>
     </div>
   );
@@ -209,15 +222,15 @@ export function Tree(p: TreeProps) {
       {/* lands on the real app: the unit card and its root path, 85% of the frame width */}
       <div style={{ position: "absolute", left: 81, top: 190, width: 918, opacity: shot, transform: `scale(${(0.9 + 0.1 * shot) * shotPush})`, transformOrigin: "50% 45%" }}>
         <div style={{ borderRadius: 36, overflow: "hidden", boxShadow: "0 40px 120px rgba(0,0,0,0.65), 0 0 0 2px rgba(255,255,255,0.12)" }}>
-          <Img src={staticFile("shorts/roots-card.png")} style={{ width: 918, height: Math.round((918 * 1300) / 1170), display: "block" }} />
+          <Img src={staticFile(lfile("shorts/roots-card.png"))} style={{ width: 918, height: Math.round((918 * 1300) / 1170), display: "block" }} />
         </div>
       </div>
       {/* captions (end above y 1440, left of x 920) */}
-      <Caption text="ここで止まった。" from={first + 9} to={s(T.lineAt(1))} />
+      <Caption text={tr("ここで止まった。")} from={first + 9} to={s(T.lineAt(1))} />
       {p.chain.slice(1).map((_, i) => {
         const k = i + 1;
         const next = k + 1 < n ? s(T.lineAt(k + 1)) : s(T.reveal);
-        return <Caption key={k} text={k === n - 1 ? "その前に。" : "その前に、"} from={s(T.hexAt(k))} to={next} />;
+        return <Caption key={k} text={k === n - 1 ? tr("その前に。") : tr("その前に、")} from={s(T.hexAt(k))} to={next} />;
       })}
       <Caption text={yearsLabel(back)} from={s(T.reveal) + 6} to={s(T.say1) - 1} big />
       <Caption text={p.lines[0].text} from={s(T.say1)} to={s(T.hold)} />

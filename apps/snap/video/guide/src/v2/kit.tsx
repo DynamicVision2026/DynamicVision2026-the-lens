@@ -8,6 +8,23 @@ import portrait from "../clips2/portrait_ipad.json";
 import roots from "../clips2/roots_ipad.json";
 import sheet from "../clips2/sheet_ipad.json";
 import snap from "../clips2/snap_phone.json";
+import dailyEn from "../clips2/en/daily_phone.json";
+import examEn from "../clips2/en/exam_ipad.json";
+import mapEn from "../clips2/en/map_ipad.json";
+import planEn from "../clips2/en/plan_phone.json";
+import portraitEn from "../clips2/en/portrait_ipad.json";
+import rootsEn from "../clips2/en/roots_ipad.json";
+import sheetEn from "../clips2/en/sheet_ipad.json";
+import snapEn from "../clips2/en/snap_phone.json";
+import dailyZh from "../clips2/zh-Hant/daily_phone.json";
+import examZh from "../clips2/zh-Hant/exam_ipad.json";
+import mapZh from "../clips2/zh-Hant/map_ipad.json";
+import planZh from "../clips2/zh-Hant/plan_phone.json";
+import portraitZh from "../clips2/zh-Hant/portrait_ipad.json";
+import rootsZh from "../clips2/zh-Hant/roots_ipad.json";
+import sheetZh from "../clips2/zh-Hant/sheet_ipad.json";
+import snapZh from "../clips2/zh-Hant/snap_phone.json";
+import { VLANG, lfile } from "../vlang";
 
 export const FPS = 30;
 export const C = {
@@ -25,7 +42,7 @@ export const C = {
   cyan: "#5fd8ff",
   navy: "#16264a",
 };
-export const FONT = '"Noto Sans CJK JP", "Noto Sans JP", sans-serif';
+export const FONT = VLANG === "zh-Hant" ? '"Noto Sans CJK TC", "Noto Sans CJK JP", sans-serif' : '"Noto Sans CJK JP", "Noto Sans JP", sans-serif';
 export const ease = Easing.bezier(0.22, 1, 0.36, 1);
 export const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 
@@ -101,7 +118,7 @@ export function Backdrop({ tint = C.cyan, glints = true, w: W = 1920, h: H = 108
 
 type Ev = { t: number; kind: string; x?: number; y?: number; w?: number; h?: number };
 type ClipMeta = { w: number; h: number; dur: number; events: Ev[] };
-export const CLIPS: Record<string, ClipMeta> = {
+const CLIPS_JA = {
   snap_phone: snap,
   map_ipad: map,
   sheet_ipad: sheet,
@@ -111,6 +128,32 @@ export const CLIPS: Record<string, ClipMeta> = {
   portrait_ipad: portrait,
   plan_phone: plan,
 } as Record<string, ClipMeta>;
+const CLIPS_BY_LANG = {
+  ja: CLIPS_JA,
+  en: { snap_phone: snapEn, map_ipad: mapEn, sheet_ipad: sheetEn, roots_ipad: rootsEn, exam_ipad: examEn, daily_phone: dailyEn, portrait_ipad: portraitEn, plan_phone: planEn },
+  "zh-Hant": { snap_phone: snapZh, map_ipad: mapZh, sheet_ipad: sheetZh, roots_ipad: rootsZh, exam_ipad: examZh, daily_phone: dailyZh, portrait_ipad: portraitZh, plan_phone: planZh },
+} as Record<string, Record<string, ClipMeta>>;
+/** This language's recordings (same script and actions as the Japanese ones, in the app's language). */
+export const CLIPS: Record<string, ClipMeta> = CLIPS_BY_LANG[VLANG];
+
+/**
+ * Edits are written in Japanese-recording seconds; another language's recording has the same actions a little
+ * earlier or later, so a time maps piecewise-linearly between the matching actions (start, each event, end).
+ */
+export function clipTime(clip: string, t: number): number {
+  const a = CLIPS_JA[clip];
+  const b = CLIPS[clip];
+  if (a === b || a.events.length !== b.events.length) return t;
+  const xs = [0, ...a.events.map((e) => e.t), a.dur];
+  const ys = [0, ...b.events.map((e) => e.t), b.dur];
+  for (let i = 1; i < xs.length; i++) {
+    if (t <= xs[i] || i === xs.length - 1) {
+      const span = Math.max(0.001, xs[i] - xs[i - 1]);
+      return Math.min(b.dur, Math.max(0, ys[i - 1] + ((t - xs[i - 1]) / span) * (ys[i] - ys[i - 1])));
+    }
+  }
+  return t;
+}
 
 function rawCam(m: ClipMeta, tau: number, zmax: number) {
   const W = m.w;
@@ -190,7 +233,8 @@ export function Screen(props: {
   const dw = props.width;
   const d = dw / m.w;
   const dh = Math.round(m.h * d);
-  const seg = props.segs.find((s) => f >= s.from && f < s.to) ?? props.segs[props.segs.length - 1];
+  const segs = props.segs.map((x) => ({ ...x, a: clipTime(props.clip, x.a), b: clipTime(props.clip, x.b) }));
+  const seg = segs.find((s) => f >= s.from && f < s.to) ?? segs[segs.length - 1];
   const len = Math.max(1, seg.to - seg.from);
   const rate = Math.min(1.7, Math.max(0.55, (seg.b - seg.a) / (len / FPS)));
   const local = Math.min(f, seg.to - 1) - seg.from;
@@ -200,7 +244,7 @@ export function Screen(props: {
   const ty = dh / 2 - cam.cy * d * cam.z;
   const playFrames = ((seg.b - seg.a) * FPS) / rate;
   const video = (
-    <OffthreadVideo src={staticFile(`clips2/${props.clip}.mp4`)} startFrom={Math.round(seg.a * FPS)} playbackRate={rate} muted style={{ width: dw, height: dh, display: "block" }} />
+    <OffthreadVideo src={staticFile(lfile(`clips2/${props.clip}.mp4`))} startFrom={Math.round(seg.a * FPS)} playbackRate={rate} muted style={{ width: dw, height: dh, display: "block" }} />
   );
   return (
     <div
@@ -264,7 +308,7 @@ export function Slam({ parts, start = 0, size = 80, style, colors = [] }: { part
         const t = interpolate(f, [start + i * 5, start + i * 5 + 14], [0, 1], { ...clamp, easing: ease });
         return (
           <span key={i} style={{ display: "inline-block", color: colors[i] ?? C.text, opacity: t, filter: `blur(${(1 - t) * 10}px)`, transform: `translateY(${(1 - t) * 34}px) scale(${1.25 - 0.25 * t})` }}>
-            {p}
+            {p.replace(/ $/, "\u00a0")}
           </span>
         );
       })}
@@ -317,4 +361,21 @@ export function Fade({ dur, children, edge = 12 }: { dur: number; children: Reac
   const f = useCurrentFrame();
   const o = interpolate(f, [0, edge, dur - edge, dur], [0, 1, 1, 0], clamp);
   return <AbsoluteFill style={{ opacity: o }}>{children}</AbsoluteFill>;
+}
+
+/** A line with [highlighted] words (the translations move the highlight with the words). */
+export function Rich({ text, color = C.gold }: { text: string; color?: string }) {
+  return (
+    <>
+      {text.split(/(\[[^\]]*\])/).map((t, i) =>
+        t.startsWith("[") ? (
+          <span key={i} style={{ color }}>
+            {t.slice(1, -1)}
+          </span>
+        ) : (
+          t
+        ),
+      )}
+    </>
+  );
 }

@@ -7,6 +7,7 @@ Writes map.png (小5 map, end-card background), plan.png (B: tonight's plan for 
 roots.png (A: 中2 連立二元一次方程式 with its root path drawn on the map).
 """
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -15,6 +16,9 @@ from playwright.sync_api import expect, sync_playwright
 BASE, OUT = sys.argv[1], Path(sys.argv[2])
 OUT.mkdir(parents=True, exist_ok=True)
 PHONE = {"width": 390, "height": 844}
+VLANG = os.environ.get("VLANG", "ja")  # the app's display language (ja | en | zh-Hant)
+LOCALE = {"ja": "ja-JP", "en": "en-US", "zh-Hant": "zh-TW"}[VLANG]
+LIST_TAB = {"ja": "テスト前", "en": "Pre-Test", "zh-Hant": "考前"}[VLANG]
 
 SEED = """async (pages) => {
   await new Promise((res, rej) => {
@@ -52,10 +56,10 @@ KID8 = [page("m0", "2026-10-20T09:00:00.000Z", "中2", [("j2-A2", "✕", 0, "連
 
 
 def ctx_for(b, grade, pages):
-    ctx = b.new_context(viewport=PHONE, device_scale_factor=3, locale="ja-JP", is_mobile=True, has_touch=True)
+    ctx = b.new_context(viewport=PHONE, device_scale_factor=3, locale=LOCALE, is_mobile=True, has_touch=True)
     pg = ctx.new_page()
     pg.goto(BASE + "/app")
-    pg.evaluate(f"localStorage.setItem('lens-snap:grade', '{grade}'); localStorage.setItem('lens-snap:install-tip', 'closed');")
+    pg.evaluate(f"localStorage.setItem('lens-snap:grade', '{grade}'); localStorage.setItem('lens-snap:install-tip', 'closed'); localStorage.setItem('lens-snap:lang', '{VLANG}');")
     pg.evaluate(SEED, pages)
     pg.goto(BASE + "/app/map")
     expect(pg.locator("button.terr-unit")).to_have_count(110)
@@ -67,7 +71,7 @@ with sync_playwright() as p:
     b = p.chromium.launch()
     ctx, pg = ctx_for(b, "小5", KID5)
     pg.screenshot(path=str(OUT / "map.png"))
-    pg.locator("nav.tabbar a.tab", has_text="テスト前").tap()
+    pg.locator("nav.tabbar a.tab", has_text=LIST_TAB).tap()
     pg.wait_for_timeout(1200)
     pg.get_by_test_id("exam-tomorrow").tap()
     pg.wait_for_timeout(1500)
