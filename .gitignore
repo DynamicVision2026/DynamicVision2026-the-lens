@@ -9,3 +9,4 @@ dist/
 i18n/content/strings.json
 i18n/content/chunks/
 apps/snap/video/audio-i18n/
+apps/snap/video/audio-lens/
