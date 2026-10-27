@@ -133,7 +133,7 @@ export function EndCard({ line, w = 1920, scale = 1 }: { line: string; w?: numbe
 // ---------------------------------------------------------------- the three example figures
 
 /** 中学受験 和差一定: father and child age bars grow together; the gap (30) stays the same; 45 = 3 × 15. */
-export function AgeBars({ start, grow, done, w = 900 }: { start: number; grow: number; done: number; w?: number }) {
+export function AgeBars({ start, grow, done, w = 900, note = "差 30\nずっと同じ" }: { start: number; grow: number; done: number; w?: number; note?: string }) {
   const f = useCurrentFrame();
   const k = interpolate(f, [grow, grow + 60], [0, 7], { ...clamp, easing: ease });
   const unit = w / 50;
@@ -152,7 +152,7 @@ export function AgeBars({ start, grow, done, w = 900 }: { start: number; grow: n
       {bar(38 + k, P.pencil, "お父さん", 20)}
       {bar(8 + k, P.gold, "子ども", 130)}
       <div style={{ position: "absolute", left: 168 + (8 + k) * unit, top: 96, width: 30 * unit, borderTop: `5px solid ${P.red}`, opacity: gap }}>
-        <div style={{ position: "absolute", left: 0, top: -50, fontFamily: FONT, fontWeight: 900, fontSize: 34, color: P.red, whiteSpace: "nowrap" }}>差 30（ずっと同じ）</div>
+        <div style={{ position: "absolute", right: 0, top: 12, textAlign: "right", fontFamily: FONT, fontWeight: 900, fontSize: 30, lineHeight: 1.15, color: P.red, whiteSpace: "pre" }}>{note}</div>
       </div>
       <div style={{ position: "absolute", left: 0, top: 230, fontFamily: FONT, fontWeight: 900, fontSize: 40, color: P.goldInk, opacity: fin }}>45 ＝ 15 × 3 → 7年後</div>
     </div>

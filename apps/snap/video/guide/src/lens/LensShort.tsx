@@ -33,7 +33,11 @@ const STAGES: Record<LensShortProps["stage"], Stage> = {
     trapNote: "表が、終わらない。",
     lens: "和差一定",
     clip: "lens_drill",
-    fig: (at, d1, d2) => <AgeBars start={at} grow={at + s(d1 * 0.6)} done={at + s(d1 + 0.4 + d2 * 0.4)} w={520} />,
+    fig: (at, d1, d2) => (
+      <div style={{ transform: "scale(1.2)", transformOrigin: "0 0" }}>
+        <AgeBars start={at} grow={at + s(d1 * 0.6)} done={at + s(d1 + 0.4 + d2 * 0.4)} w={420} note="差 30" />
+      </div>
+    ),
   },
   cb: {
     tag: "高校受験",
