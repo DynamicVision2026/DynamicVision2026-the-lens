@@ -3,13 +3,13 @@
 engine (http://127.0.0.1:50021). Run by .github/workflows/guide-voice.yml on GitHub's runner (the engine runs
 there as a service), or locally with the VOICEVOX app open. Standard library only.
 Writes apps/snap/video/audio/<id>.wav and audio/durations.json ({id: seconds})."""
-import json, sys, urllib.parse, urllib.request, wave
+import json, os, sys, urllib.parse, urllib.request, wave
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 ENGINE = "http://127.0.0.1:50021"
-cfg = json.loads((HERE / "narration.json").read_text(encoding="utf-8"))
-out = HERE / "audio"
+cfg = json.loads((HERE / os.environ.get("NARRATION", "narration.json")).read_text(encoding="utf-8"))
+out = HERE / os.environ.get("AUDIO_OUT", "audio")  # NARRATION=lens-narration.json AUDIO_OUT=audio-lens for the 視点レンズ videos
 out.mkdir(exist_ok=True)
 
 

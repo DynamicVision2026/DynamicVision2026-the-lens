@@ -1,0 +1,44 @@
+name: 視点レンズ video narration
+
+# 視点レンズ promo videos (guide + 3 Shorts): VOICEVOX narration (the same voice as the つまずきマップ guide) made on
+# GitHub's runner from apps/snap/video/lens-narration.json, pushed to the branch lens/voice-out (nothing deployed).
+# Runs when the narration file changes on a lens/* branch.
+
+on:
+  push:
+    branches: ["lens/**"]
+    paths: ["apps/snap/video/lens-narration.json", ".github/workflows/lens-voice.yml"]
+
+permissions:
+  contents: write
+
+jobs:
+  voice:
+    runs-on: ubuntu-latest
+    services:
+      voicevox:
+        image: voicevox/voicevox_engine:cpu-latest
+        ports:
+          - 50021:50021
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for the VOICEVOX engine
+        run: |
+          for _ in $(seq 1 90); do
+            curl -sf http://127.0.0.1:50021/version && exit 0
+            sleep 2
+          done
+          echo "VOICEVOX engine did not start" && exit 1
+      - name: Narration
+        env:
+          NARRATION: lens-narration.json
+          AUDIO_OUT: audio-lens
+        run: python3 apps/snap/video/make_narration.py
+      - name: Push to lens/voice-out
+        run: |
+          git config user.name "lens-voice-bot"
+          git config user.email "lens-voice-bot@users.noreply.github.com"
+          git checkout -B lens/voice-out
+          git add -f apps/snap/video/audio-lens
+          git commit -m "視点レンズ video narration (VOICEVOX)"
+          git push -f origin lens/voice-out
