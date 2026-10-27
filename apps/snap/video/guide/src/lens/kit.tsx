@@ -253,3 +253,102 @@ export function FreezeFig({ start, spin, lock, size = 620 }: { start: number; sp
 }
 
 const L = (a: number, b: number, k: number) => a + (b - a) * k;
+
+// ---------------------------------------------------------------- the three Short figures (new problems)
+
+const lbl = (x: number, y: number, t: string, c: string = P.ink, size = 34, anchor: "start" | "middle" | "end" = "middle") => (
+  <text x={x} y={y} textAnchor={anchor} fontFamily={FONT} fontWeight={900} fontSize={size} fill={c}>{t}</text>
+);
+
+/** 中学受験 面積図: 18台, 52本. All bicycles → 2×18 = 36; the missing 16 is the cars' extra 2 each → 8台. */
+export function AreaFig({ start, step, done, w = 760 }: { start: number; step: number; done: number; w?: number }) {
+  const f = useCurrentFrame();
+  const v = interpolate(f, [start, start + 12], [0, 1], clamp);
+  const a = interpolate(f, [step, step + 20], [0, 1], { ...clamp, easing: ease });
+  const b = interpolate(f, [done, done + 20], [0, 1], { ...clamp, easing: ease });
+  const ux = (w - 60) / 18, uy = 70, x0 = 60, base = 330;
+  return (
+    <svg width={w} height={460} style={{ overflow: "visible", opacity: v }}>
+      <line x1={x0} y1={base} x2={x0 + 18 * ux + 10} y2={base} stroke={P.ink} strokeWidth={4} />
+      <line x1={x0} y1={base} x2={x0} y2={base - 4 * uy - 20} stroke={P.ink} strokeWidth={4} />
+      {lbl(x0 - 16, base - 2 * uy + 12, "2", P.ink, 32, "end")}
+      {lbl(x0 - 16, base - 4 * uy + 12, "4", P.ink, 32, "end")}
+      <rect x={x0} y={base - 2 * uy} width={18 * ux * a} height={2 * uy} fill="rgba(77,93,138,0.85)" />
+      {a > 0.6 && lbl(x0 + 9 * ux, base - uy + 12, "2 × 18 ＝ 36本", "#fff", 38)}
+      {lbl(x0 + 9 * ux, base + 50, "18台", P.ink, 34)}
+      {/* the missing strip: 8台 × 2 */}
+      <rect x={x0} y={base - 4 * uy} width={8 * ux} height={2 * uy} fill="rgba(227,165,28,0.55)" stroke={P.gold} strokeWidth={5} strokeDasharray="12 8" opacity={b} />
+      {b > 0.3 && <g opacity={b}>{lbl(x0 + 4 * ux, base - 3 * uy + 12, "16本", P.goldInk, 40)}{lbl(x0 + 8 * ux + 20, base - 3 * uy - 10, "52 − 36 ＝ 16", P.goldInk, 34, "start")}{lbl(x0 + 8 * ux + 20, base - 3 * uy + 36, "16 ÷ 2 ＝ 8台", P.red, 40, "start")}</g>}
+      {b > 0.3 && <g opacity={b}>{lbl(x0 + 4 * ux, base + 100, "自動車", P.goldInk, 30)}{lbl(x0 + 13 * ux, base + 100, "自転車", P.pencil, 30)}</g>}
+    </svg>
+  );
+}
+
+/** 高校受験 展開: box 4×8×9, A → (edge BF) → G. Open faces ABFE + BCGF flat; the straight line meets BF at BP = 3. */
+export function UnfoldFig({ start, open, join, w = 760 }: { start: number; open: number; join: number; w?: number }) {
+  const f = useCurrentFrame();
+  const v = interpolate(f, [start, start + 12], [0, 1], clamp);
+  const o = interpolate(f, [open, open + 26], [0, 1], { ...clamp, easing: ease });
+  const j = interpolate(f, [join, join + 22], [0, 1], { ...clamp, easing: ease });
+  const u = (w - 120) / 12, x0 = 60, y0 = 40;
+  const X = (x: number) => x0 + x * u, Y = (y: number) => y0 + y * u;
+  // second face swings open around BF (x = 4): drawn width 8·o, slight skew while folded
+  const w2 = 8 * o;
+  return (
+    <svg width={w} height={9 * u + 120} style={{ overflow: "visible", opacity: v }}>
+      <rect x={X(0)} y={Y(0)} width={4 * u} height={9 * u} fill={P.sheet} stroke={P.ink} strokeWidth={4} />
+      <polygon points={`${X(4)},${Y(0)} ${X(4 + w2)},${Y(0) + (1 - o) * 60} ${X(4 + w2)},${Y(9) - (1 - o) * 60} ${X(4)},${Y(9)}`} fill={o < 1 ? "#eef1f8" : P.sheet} stroke={P.ink} strokeWidth={4} />
+      {lbl(X(0) - 14, Y(0) - 12, "A", P.ink, 36)}
+      {lbl(X(4), Y(0) - 14, "B", P.ink, 36)}
+      {o > 0.9 && lbl(X(12) + 14, Y(0) - 12, "C", P.ink, 36)}
+      {lbl(X(0) - 14, Y(9) + 40, "E", P.ink, 36)}
+      {lbl(X(4), Y(9) + 42, "F", P.ink, 36)}
+      {o > 0.9 && lbl(X(12) + 14, Y(9) + 40, "G", P.ink, 36)}
+      {lbl(X(2), Y(9) + 84, "4", P.muted, 30)}
+      {o > 0.9 && lbl(X(8), Y(9) + 84, "8", P.muted, 30)}
+      {lbl(X(0) - 40, Y(4.5) + 10, "9", P.muted, 30)}
+      {j > 0 && <line x1={X(0)} y1={Y(0)} x2={X(12 * j)} y2={Y(9 * j)} stroke={P.gold} strokeWidth={8} strokeLinecap="round" />}
+      {j > 0.4 && (
+        <g opacity={Math.min(1, (j - 0.4) * 3)}>
+          <line x1={X(4) + 16} y1={Y(0)} x2={X(4) + 16} y2={Y(3)} stroke={P.red} strokeWidth={5} />
+          <circle cx={X(4)} cy={Y(3)} r={12} fill={P.red} />
+          {lbl(X(4) + 30, Y(3) + 12, "P", P.red, 38, "start")}
+          {lbl(X(4) + 30, Y(1.6) + 12, "3", P.red, 40, "start")}
+        </g>
+      )}
+      {j > 0.9 && lbl(X(6), Y(9) + 138, "BP ＝ 9 × 4/12 ＝ 3cm", P.goldInk, 40)}
+    </svg>
+  );
+}
+
+/** 大学受験 等積変形: y = x², A(−1,1), B(3,9). Keep AB as the base; the farthest P has a tangent parallel to AB (slope 2) → x = 1. */
+export function SlideFig({ start, slide, lock, size = 640 }: { start: number; slide: number; lock: number; size?: number }) {
+  const f = useCurrentFrame();
+  const X0 = -2, X1 = 4, Y0 = -1.5, Y1 = 10;
+  const sx = size / (X1 - X0), sy = 72, H = (Y1 - Y0) * sy;
+  const px = (x: number) => (x - X0) * sx, py = (y: number) => (Y1 - y) * sy;
+  const v = interpolate(f, [start, start + 12], [0, 1], clamp);
+  const lk = interpolate(f, [lock, lock + 18], [0, 1], { ...clamp, easing: ease });
+  const t = Math.max(0, f - slide) / 30;
+  const wander = 1 + 1.5 * Math.sin(t * 2.2);
+  const xp = f < slide ? 2.4 : L(wander, 1, lk);
+  const curve = Array.from({ length: 61 }, (_, i) => { const x = -1.6 + (i / 60) * 4.9; return `${px(x)},${py(x * x)}`; }).join(" ");
+  const tan = (x: number) => 2 * x - 1;
+  return (
+    <svg width={size} height={H} style={{ overflow: "visible", opacity: v }}>
+      <line x1={0} y1={py(0)} x2={size} y2={py(0)} stroke={P.ink} strokeWidth={3} />
+      <line x1={px(0)} y1={0} x2={px(0)} y2={H} stroke={P.ink} strokeWidth={3} />
+      <polyline points={curve} fill="none" stroke={P.pencil} strokeWidth={5} />
+      <polygon points={`${px(-1)},${py(1)} ${px(3)},${py(9)} ${px(xp)},${py(xp * xp)}`} fill={lk > 0.5 ? "rgba(227,165,28,0.35)" : "rgba(138,144,163,0.22)"} stroke={lk > 0.5 ? P.gold : P.trap} strokeWidth={4} />
+      <line x1={px(-1)} y1={py(1)} x2={px(3)} y2={py(9)} stroke={P.ink} strokeWidth={7} strokeLinecap="round" />
+      {lk > 0 && <line x1={px(-1.2)} y1={py(tan(-1.2))} x2={px(3.6)} y2={py(tan(3.6))} stroke={P.gold} strokeWidth={5} strokeDasharray="16 10" opacity={lk} />}
+      <circle cx={px(-1)} cy={py(1)} r={11} fill={P.ink} />
+      <circle cx={px(3)} cy={py(9)} r={11} fill={P.ink} />
+      {lbl(px(-1) - 22, py(1) - 18, "A", P.ink, 36)}
+      {lbl(px(3) - 30, py(9) - 6, "B", P.ink, 36)}
+      <circle cx={px(xp)} cy={py(xp * xp)} r={13} fill={lk > 0.5 ? P.red : P.pencil} />
+      {lbl(px(xp) + 26, py(xp * xp) + 44, "P", lk > 0.5 ? P.red : P.pencil, 36, "start")}
+      {lk > 0.5 && <g opacity={lk}><text x={size / 2} y={py(-1.05)} textAnchor="middle" fontFamily={FONT} fontWeight={900} fontSize={36} fill={P.goldInk}>ABと平行 → 2x ＝ 2 → <tspan fill={P.red} fontSize={46}>x ＝ 1</tspan></text></g>}
+    </svg>
+  );
+}

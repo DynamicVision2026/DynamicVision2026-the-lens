@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import { AbsoluteFill, Audio, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
 import { FONT, Screen, Sfx, clamp, ease } from "../v2/kit";
-import { AgeBars, Clock, EndCard, FreezeFig, MirrorFig, P, PaperBg, Scribble, Sheet } from "./kit";
+import { AreaFig, Clock, EndCard, P, PaperBg, Scribble, Sheet, SlideFig, UnfoldFig } from "./kit";
 import durations from "./durations.json";
 
 /**
@@ -28,36 +28,32 @@ const STAGES: Record<LensShortProps["stage"], Stage> = {
   ca: {
     tag: "中学受験",
     head: "算数　入試演習",
-    text: "いま、お父さんは38才、子どもは8才です。お父さんの年れいが子どもの年れいの3倍になるのは何年後ですか。",
-    trap: ["1年後 39・9 → ×", "2年後 40・10 → ×", "3年後 41・11 → ×", "4年後 42・12 → ×", "5年後 …"],
+    text: "自動車と自転車が合わせて18台あり、タイヤの数は合わせて52本です。自動車は何台ありますか。",
+    trap: ["1台 → 4＋17×2＝38 ×", "2台 → 8＋16×2＝40 ×", "3台 → 12＋15×2＝42 ×", "4台 → 16＋14×2＝44 ×", "5台 …"],
     trapNote: "表が、終わらない。",
-    lens: "和差一定",
+    lens: "面積図",
     clip: "lens_drill",
-    fig: (at, d1, d2) => (
-      <div style={{ transform: "scale(1.2)", transformOrigin: "0 0" }}>
-        <AgeBars start={at} grow={at + s(d1 * 0.6)} done={at + s(d1 + 0.4 + d2 * 0.4)} w={420} note="差 30" />
-      </div>
-    ),
+    fig: (at, d1, d2) => <AreaFig start={at} step={at + 6} done={at + s(d1 + 0.4 + d2 * 0.3)} w={920} />,
   },
   cb: {
     tag: "高校受験",
     head: "数学　入試演習",
-    text: "2点A(−2, 3)、B(6, 5)。x軸上の点Pで AP＋PB が最短のとき、△ABPの面積は？",
-    trap: ["P(p, 0) とおく", "√((p+2)²+9)＋√((p−6)²+25)", "これを最小に…？"],
+    text: "直方体ABCD-EFGHで、AB＝4cm、BC＝8cm、AE＝9cm。Aから辺BF上の点Pを通ってGまで、表面に糸をかけます。糸がいちばん短いとき、BPは何cm？",
+    trap: ["BP＝x とおく", "AP＝√(16＋x²)", "PG＝√(64＋(9−x)²)", "足して最小…？"],
     trapNote: "ルートが2つ。止まる。",
-    lens: "折り返す → 囲む",
-    clip: "lens_discover_mirror",
-    fig: (at, d1, d2) => <MirrorFig start={at} reflect={at + 6} joinAt={at + s(d1 + 0.2)} enclose={at + s(d1 + 0.4 + d2 * 0.55)} size={700} />,
+    lens: "展開",
+    clip: "lens_3d_unfold",
+    fig: (at, d1, d2) => <UnfoldFig start={at} open={at + 8} join={at + s(d1 + 0.4)} w={820} />,
   },
   cc: {
     tag: "大学受験",
-    head: "数学II　演習",
-    text: "直線 (a＋1)x＋(a−1)y−2a＝0 が、aの値にかかわらず通る定点は？",
-    trap: ["a＝0 → x−y＝0", "a＝1 → 2x−2＝0", "交点…？ 本当に全部？"],
-    trapNote: "代入して、また確かめる。",
-    lens: "止める",
-    clip: "lens_master_freeze",
-    fig: (at, d1, d2) => <FreezeFig start={at} spin={at + 2} lock={at + s(d1 + 0.4 + d2 * 0.5)} size={700} />,
+    head: "数学　入試演習",
+    text: "放物線 y＝x² 上に A(−1, 1)、B(3, 9)。点Pが放物線上をAからBまで動くとき、△ABPの面積が最大になるPのx座標は？",
+    trap: ["P(t, t²) とおく", "面積＝½|(3+1)(t²−1)−(9−1)(t+1)|", "tの2次式… 微分？"],
+    trapNote: "式が、長くなる。",
+    lens: "等積変形",
+    clip: "lens_timed",
+    fig: (at, d1, d2) => <SlideFig start={at} slide={at + 6} lock={at + s(d1 + 0.4 + d2 * 0.4)} size={700} />,
   },
 };
 
@@ -137,7 +133,7 @@ export function LensShort({ stage }: LensShortProps) {
       {Array.from({ length: Math.ceil(T.lens) }).map((_, i) => <Sfx key={i} at={s(i) + 4} src="tick" volume={0.2} />)}
       <Sfx at={s(T.lens)} src="chime" volume={0.35} />
       {(["1", "2", "3"] as const).map((n) => (
-        <Sequence key={n} from={s(n === "1" ? T.v1 : n === "2" ? T.v2 : T.v3)} durationInFrames={s(6)}>
+        <Sequence key={n} from={s(n === "1" ? T.v1 : n === "2" ? T.v2 : T.v3)} durationInFrames={s(9)}>
           <Audio src={staticFile(`lens/${stage}${n}.wav`)} />
         </Sequence>
       ))}
@@ -150,4 +146,13 @@ export function LensShort({ stage }: LensShortProps) {
 
 import narr from "../../../lens-narration.json";
 const TEXT = Object.fromEntries((narr as { lines: { id: string; text: string }[] }).lines.map((l) => [l.id, l.text]));
-const tx = (id: string) => TEXT[id] ?? "";
+// caption line breaks (the narration file holds the plain text)
+const CAP: Record<string, string> = {
+  ca1: "全部、自転車だとしたら、\n36本。",
+  ca2: "足りない16本は、\n自動車の分。\n16÷2で、8台。",
+  ca3: "解き方より先に、\n見る場所を選ぶ。",
+  cb3: "立体は、\n3Dで回して確かめる。",
+  cb2: "AとGを、まっすぐ結ぶ。\nBPは、3cm。",
+  cc2: "高さが最大なのは、\nABと平行な接線。xは、1。",
+};
+const tx = (id: string) => CAP[id] ?? TEXT[id] ?? "";
