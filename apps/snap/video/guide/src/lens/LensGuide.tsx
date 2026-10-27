@@ -1,5 +1,5 @@
 import type { ReactElement } from "react";
-import { AbsoluteFill, Audio, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Audio, Img, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
 import { FONT, Screen, Sfx, clamp, ease, useIn, usePop } from "../v2/kit";
 import { AgeBars, Chip, Clock, EndCard, FreezeFig, HAND, LensRing, MirrorFig, P, PaperBg, Scribble, Sheet } from "./kit";
 import timeline from "./timeline.json";
@@ -195,7 +195,17 @@ const STEPS: [string, string, string][] = [
 function Steps({ sc }: { sc: Scene }) {
   const f = useCurrentFrame();
   const active = [1, 2, 3, 4].filter((i) => f >= L(sc, i) - 6).length - 1;
-  const clip = active <= 0 ? "lens_master_constant" : active === 1 ? (f < L(sc, 2) + Math.round(sc.lines[2].dur * 0.55) ? "lens_discover_mirror" : "lens_3d_unfold") : active === 2 ? "lens_practice" : "lens_timed";
+  const mid = L(sc, 2) + Math.round(sc.lines[2].dur * 0.55);
+  // each recording starts playing when it appears (clip seconds a → b laid on scene frames from → to)
+  const CL: [string, number, number, number][] = [
+    ["lens_master_constant", L(sc, 1) - 10, L(sc, 2) - 6, 16.5],
+    ["lens_discover_mirror", L(sc, 2) - 6, mid, 21.5],
+    ["lens_3d_unfold", mid, L(sc, 3) - 6, 17],
+    ["lens_practice", L(sc, 3) - 6, L(sc, 4) - 6, 24.5],
+    ["lens_timed", L(sc, 4) - 6, sc.dur + 12, 14.5],
+  ];
+  const cur = CL.find(([, a0, b0]) => f >= a0 && f < b0) ?? CL[CL.length - 1];
+  const clip = cur[0];
   const startOf = (k: number) => L(sc, Math.min(4, k + 1));
   return (
     <Fade dur={sc.dur + 12}>
@@ -219,7 +229,7 @@ function Steps({ sc }: { sc: Scene }) {
         })}
       </div>
       {f >= L(sc, 1) - 10 && (
-        <Screen key={clip} clip={clip} segs={[{ from: 0, to: sc.dur + 12, a: 0.5, b: 18 }]} width={1100} style={{ left: 720, top: 150 }} glow="rgba(227,165,28,0.25)" />
+        <Screen key={clip} clip={clip} segs={[{ from: cur[1], to: cur[2], a: 0.3, b: cur[3] }]} width={1100} style={{ left: 720, top: 150 }} glow="rgba(227,165,28,0.25)" />
       )}
     </Fade>
   );
@@ -229,7 +239,7 @@ function Finish({ sc }: { sc: Scene }) {
   const f = useCurrentFrame();
   const second = f >= L(sc, 1) - 6;
   const third = f >= L(sc, 1) + Math.round(sc.lines[1].dur * 0.45);
-  const clip = !second ? "lens_drill" : !third ? "lens_pass" : "lens_report";
+  const planO = interpolate(f, [L(sc, 1) - 6, L(sc, 1) + 8, L(sc, 1) + Math.round(sc.lines[1].dur * 0.45) - 6, L(sc, 1) + Math.round(sc.lines[1].dur * 0.45) + 4], [0, 1, 1, 0], clamp);
   return (
     <Fade dur={sc.dur + 12}>
       <PaperBg />
@@ -254,7 +264,9 @@ function Finish({ sc }: { sc: Scene }) {
         </Big>
         {third && <div style={{ marginTop: 30, fontFamily: FONT, fontSize: 24, color: P.muted }}>画面の数字は例です。点数の約束ではありません。</div>}
       </div>
-      <Screen key={clip} clip={clip} segs={[{ from: 0, to: sc.dur + 12, a: 0.5, b: 16 }]} width={1100} style={{ left: 720, top: 150 }} glow="rgba(227,165,28,0.25)" />
+      {!second && <Screen key="drill" clip="lens_drill" segs={[{ from: 0, to: L(sc, 1), a: 0.3, b: 15.5 }]} width={1100} style={{ left: 720, top: 150 }} glow="rgba(227,165,28,0.25)" />}
+      {third && <Screen key="report" clip="lens_report" segs={[{ from: L(sc, 1) + Math.round(sc.lines[1].dur * 0.45), to: sc.dur + 12, a: 0.3, b: 10.5 }]} width={1100} style={{ left: 720, top: 150 }} glow="rgba(227,165,28,0.25)" />}
+      {planO > 0 && <Img src={staticFile("lens/plan-1.png")} style={{ position: "absolute", left: 700, top: 130, width: 1150, borderRadius: 10, boxShadow: "0 30px 70px rgba(31,42,68,0.25)", opacity: planO, transform: `rotate(1deg) scale(${0.96 + 0.04 * planO})` }} />}
     </Fade>
   );
 }

@@ -24,6 +24,16 @@ import portraitZh from "../clips2/zh-Hant/portrait_ipad.json";
 import rootsZh from "../clips2/zh-Hant/roots_ipad.json";
 import sheetZh from "../clips2/zh-Hant/sheet_ipad.json";
 import snapZh from "../clips2/zh-Hant/snap_phone.json";
+import lens_master_constant from "../clips2/lens_master_constant.json";
+import lens_discover_mirror from "../clips2/lens_discover_mirror.json";
+import lens_3d_unfold from "../clips2/lens_3d_unfold.json";
+import lens_practice from "../clips2/lens_practice.json";
+import lens_timed from "../clips2/lens_timed.json";
+import lens_drill from "../clips2/lens_drill.json";
+import lens_report from "../clips2/lens_report.json";
+import lens_pass from "../clips2/lens_pass.json";
+import lens_check from "../clips2/lens_check.json";
+import lens_master_freeze from "../clips2/lens_master_freeze.json";
 import { VLANG, lfile } from "../vlang";
 
 export const FPS = 30;
@@ -127,6 +137,17 @@ const CLIPS_JA = {
   daily_phone: daily,
   portrait_ipad: portrait,
   plan_phone: plan,
+  // 視点レンズ course recordings (Japanese only)
+  lens_master_constant,
+  lens_discover_mirror,
+  lens_3d_unfold,
+  lens_practice,
+  lens_timed,
+  lens_drill,
+  lens_report,
+  lens_pass,
+  lens_check,
+  lens_master_freeze,
 } as Record<string, ClipMeta>;
 const CLIPS_BY_LANG = {
   ja: CLIPS_JA,
@@ -134,7 +155,7 @@ const CLIPS_BY_LANG = {
   "zh-Hant": { snap_phone: snapZh, map_ipad: mapZh, sheet_ipad: sheetZh, roots_ipad: rootsZh, exam_ipad: examZh, daily_phone: dailyZh, portrait_ipad: portraitZh, plan_phone: planZh },
 } as Record<string, Record<string, ClipMeta>>;
 /** This language's recordings (same script and actions as the Japanese ones, in the app's language). */
-export const CLIPS: Record<string, ClipMeta> = CLIPS_BY_LANG[VLANG];
+export const CLIPS: Record<string, ClipMeta> = { ...CLIPS_JA, ...CLIPS_BY_LANG[VLANG] };
 
 /**
  * Edits are written in Japanese-recording seconds; another language's recording has the same actions a little
