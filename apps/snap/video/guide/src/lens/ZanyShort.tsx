@@ -15,10 +15,10 @@ export type ZanyProps = { stage: "ca" | "cb" | "cc" };
 const D = durations as Record<string, number>;
 const TEXT = Object.fromEntries((narr as { lines: { id: string; text: string }[] }).lines.map((l) => [l.id, l.text]));
 const s = (sec: number) => Math.round(sec * 30);
-const EMOJI = '"Noto Color Emoji"';
+export const EMOJI = '"Noto Color Emoji"';
 
-type Cue = { id: string; text: string; from: number; dur: number };
-function plan(seq: [string, number][]) {
+export type Cue = { id: string; text: string; from: number; dur: number };
+export function plan(seq: [string, number][]) {
   let t = 0;
   const cues: Record<string, Cue> = {};
   for (const [id, gap] of seq) {
@@ -40,10 +40,10 @@ export const zanyFrames = (p: ZanyProps) => plan(SEQ[p.stage]).end + s(1.2) + EN
 
 /** frames since `at` (negative before) */
 const since = (f: number, at: number) => f - at;
-function pop(f: number, at: number, damping = 9) {
+export function pop(f: number, at: number, damping = 9) {
   return f < at ? 0 : spring({ frame: f - at, fps: 30, config: { damping, stiffness: 180 } });
 }
-function E({ c, x, y, size = 160, at, anim = "pop", style }: { c: string; x: number; y: number; size?: number; at: number; anim?: "pop" | "bounce" | "float" | "spin" | "shake" | "drop"; style?: CSSProperties }) {
+export function E({ c, x, y, size = 160, at, anim = "pop", style }: { c: string; x: number; y: number; size?: number; at: number; anim?: "pop" | "bounce" | "float" | "spin" | "shake" | "drop"; style?: CSSProperties }) {
   const f = useCurrentFrame();
   if (f < at) return null;
   const t = since(f, at);
@@ -56,7 +56,7 @@ function E({ c, x, y, size = 160, at, anim = "pop", style }: { c: string; x: num
   if (anim === "drop") tf = `translateY(${Math.min(0, -900 + t * 70)}px) rotate(${Math.min(0, -40 + t * 4)}deg)`;
   return <div style={{ position: "absolute", left: x - size / 2, top: y - size / 2, width: size, height: size, fontSize: size * 0.82, lineHeight: `${size}px`, textAlign: "center", fontFamily: EMOJI, transform: tf, ...style }}>{c}</div>;
 }
-function Stamp({ text, at, x = 120, y = 260, color = P.red, size = 96, rot = -8 }: { text: string; at: number; x?: number; y?: number; color?: string; size?: number; rot?: number }) {
+export function Stamp({ text, at, x = 120, y = 260, color = P.red, size = 96, rot = -8 }: { text: string; at: number; x?: number; y?: number; color?: string; size?: number; rot?: number }) {
   const f = useCurrentFrame();
   if (f < at) return null;
   const p = interpolate(f, [at, at + 6], [2.2, 1], { ...clamp, easing: ease });
@@ -64,7 +64,7 @@ function Stamp({ text, at, x = 120, y = 260, color = P.red, size = 96, rot = -8 
     <div style={{ position: "absolute", left: x, top: y, transform: `rotate(${rot}deg) scale(${p})`, transformOrigin: "0 0", border: `10px solid ${color}`, color, borderRadius: 18, padding: "4px 28px", fontFamily: FONT, fontWeight: 900, fontSize: size, background: "rgba(255,255,255,0.75)", opacity: interpolate(f, [at, at + 3], [0, 1], clamp) }}>{text}</div>
   );
 }
-function Caption({ cue, dark }: { cue: Cue; dark?: boolean }) {
+export function Caption({ cue, dark }: { cue: Cue; dark?: boolean }) {
   const f = useCurrentFrame();
   const o = interpolate(f, [cue.from, cue.from + 4, cue.from + cue.dur + 4, cue.from + cue.dur + 10], [0, 1, 1, 0], clamp);
   if (o <= 0) return null;
@@ -73,7 +73,7 @@ function Caption({ cue, dark }: { cue: Cue; dark?: boolean }) {
   );
 }
 /** news-style lower ribbon so the deadpan reads as a broadcast */
-function Ribbon({ text, until }: { text: string; until: number }) {
+export function Ribbon({ text, until }: { text: string; until: number }) {
   const f = useCurrentFrame();
   if (f > until) return null;
   return (
@@ -85,7 +85,7 @@ function Ribbon({ text, until }: { text: string; until: number }) {
 }
 /** zany background: a new flat colour on every beat until the freeze, then calm paper */
 const BG = ["#ffe066", "#8ce99a", "#74c0fc", "#ffa8a8", "#d0bfff", "#ffd8a8", "#99e9f2", "#fcc2d7"];
-function Backdrop({ cues, freeze }: { cues: Cue[]; freeze: number }) {
+export function Backdrop({ cues, freeze }: { cues: Cue[]; freeze: number }) {
   const f = useCurrentFrame();
   if (f >= freeze) {
     const g = interpolate(f, [freeze, freeze + 8], [0, 1], clamp);
@@ -98,7 +98,7 @@ function Backdrop({ cues, freeze }: { cues: Cue[]; freeze: number }) {
     </AbsoluteFill>
   );
 }
-function Shake({ on, children }: { on: boolean; children: ReactNode }) {
+export function Shake({ on, children }: { on: boolean; children: ReactNode }) {
   const f = useCurrentFrame();
   return <AbsoluteFill style={{ transform: on ? `translate(${Math.sin(f * 2.1) * 8}px, ${Math.cos(f * 1.7) * 6}px)` : undefined }}>{children}</AbsoluteFill>;
 }
@@ -112,10 +112,10 @@ function Lens({ at }: { at: number }) {
     </AbsoluteFill>
   );
 }
-function draw(f: number, at: number, d = 18) {
+export function draw(f: number, at: number, d = 18) {
   return interpolate(f, [at, at + d], [0, 1], { ...clamp, easing: ease });
 }
-const Tx = ({ x, y, children, size = 46, color = P.ink, anchor = "middle" }: { x: number; y: number; children: ReactNode; size?: number; color?: string; anchor?: "start" | "middle" | "end" }) => (
+export const Tx = ({ x, y, children, size = 46, color = P.ink, anchor = "middle" }: { x: number; y: number; children: ReactNode; size?: number; color?: string; anchor?: "start" | "middle" | "end" }) => (
   <text x={x} y={y} textAnchor={anchor} fontFamily={FONT} fontWeight={900} fontSize={size} fill={color}>{children}</text>
 );
 

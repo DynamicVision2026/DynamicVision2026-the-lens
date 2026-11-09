@@ -114,7 +114,7 @@ export function Chip({ children, on, style }: { children: ReactNode; on?: boolea
 }
 
 /** Navy end card: ring, 視点レンズ, a line, domo-ai.com. */
-export function EndCard({ line, w = 1920, scale = 1 }: { line: string; w?: number; scale?: number }) {
+export function EndCard({ line, w = 1920, scale = 1, brand = "視点レンズ", url = "domo-ai.com" }: { line: string; w?: number; scale?: number; brand?: string; url?: string }) {
   const f = useCurrentFrame();
   const a = interpolate(f, [0, 14], [0, 1], { ...clamp, easing: ease });
   const b = usePop(16, 12);
@@ -122,9 +122,9 @@ export function EndCard({ line, w = 1920, scale = 1 }: { line: string; w?: numbe
     <AbsoluteFill style={{ background: P.navy, display: "grid", placeItems: "center", textAlign: "center", fontFamily: FONT, color: "#fff" }}>
       <div style={{ opacity: a, transform: `translateY(${(1 - a) * 20}px)`, width: w * 0.86 }}>
         <div style={{ width: 150 * scale, height: 150 * scale, margin: "0 auto", borderRadius: "50%", border: `${12 * scale}px solid ${P.gold}`, boxShadow: `0 0 ${60 * scale}px rgba(227,165,28,0.65)` }} />
-        <div style={{ marginTop: 34 * scale, fontSize: 120 * scale, fontWeight: 900, letterSpacing: "0.06em" }}>視点レンズ</div>
+        <div style={{ marginTop: 34 * scale, fontSize: 120 * scale, fontWeight: 900, letterSpacing: "0.06em" }}>{brand}</div>
         <div style={{ marginTop: 18 * scale, fontSize: 42 * scale, fontWeight: 700, color: "#cfd6ea" }}>{line}</div>
-        <div style={{ marginTop: 50 * scale, display: "inline-block", background: P.gold, color: P.navy, fontWeight: 900, fontSize: 70 * scale, borderRadius: 999, padding: `${12 * scale}px ${60 * scale}px`, transform: `scale(${0.75 + 0.25 * Math.min(1, b)})`, opacity: Math.min(1, b) }}>domo-ai.com</div>
+        <div style={{ marginTop: 50 * scale, display: "inline-block", background: P.gold, color: P.navy, fontWeight: 900, fontSize: 70 * scale, borderRadius: 999, padding: `${12 * scale}px ${60 * scale}px`, transform: `scale(${0.75 + 0.25 * Math.min(1, b)})`, opacity: Math.min(1, b) }}>{url}</div>
       </div>
     </AbsoluteFill>
   );
