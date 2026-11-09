@@ -7,6 +7,7 @@ import { STORY_SHORT_TOTAL, StoryShort } from "./story/StoryShort";
 import { Guide2, TL } from "./v2/Guide2";
 import { LENS_GUIDE_TOTAL, LensGuide } from "./lens/LensGuide";
 import { LensShort, lensShortFrames, type LensShortProps } from "./lens/LensShort";
+import { TEST_A_FRAMES, TEST_B_FRAMES, TestA, TestB } from "./lens/TestVideos";
 
 export function Root() {
   return (
@@ -18,6 +19,8 @@ export function Root() {
       <Composition id="ShortB-Chat" component={Chat} defaultProps={CHAT_DEFAULT} calculateMetadata={({ props }: { props: ChatProps }) => ({ durationInFrames: chatFrames(props) })} durationInFrames={chatFrames(CHAT_DEFAULT)} fps={30} width={1080} height={1920} />
       <Composition id="ShortA-Tree" component={Tree} defaultProps={TREE_DEFAULT} calculateMetadata={({ props }: { props: TreeProps }) => ({ durationInFrames: treeFrames(props) })} durationInFrames={treeFrames(TREE_DEFAULT)} fps={30} width={1080} height={1920} />
       <Composition id="LensGuide" component={LensGuide} durationInFrames={LENS_GUIDE_TOTAL} fps={30} width={1920} height={1080} />
+      <Composition id="LensTestA" component={TestA} durationInFrames={TEST_A_FRAMES} fps={30} width={1920} height={1080} />
+      <Composition id="LensTestB" component={TestB} durationInFrames={TEST_B_FRAMES} fps={30} width={1920} height={1080} />
       <Composition id="LensShort" component={LensShort} defaultProps={{ stage: "ca" } as LensShortProps} calculateMetadata={({ props }: { props: LensShortProps }) => ({ durationInFrames: lensShortFrames(props) })} durationInFrames={lensShortFrames({ stage: "ca" })} fps={30} width={1080} height={1920} />
     </>
   );

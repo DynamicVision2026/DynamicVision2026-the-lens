@@ -339,7 +339,7 @@ function End({ sc }: { sc: Scene }) {
 
 const VIEW: Record<string, (p: { sc: Scene }) => ReactElement> = { hook: Hook, thesis: Thesis, lenses: Lenses, ex1: Ex1, ex2: Ex2, ex3: Ex3, steps: Steps, finish: Finish, benefits: Benefits, offer: Offer, end: End };
 
-function Subtitle({ line, dark }: { line: Line; dark: boolean }) {
+export function Subtitle({ line, dark }: { line: Line; dark: boolean }) {
   const f = useCurrentFrame();
   const o = interpolate(f, [0, 5, line.dur + 3, line.dur + 10], [0, 1, 1, 0], clamp);
   return (
