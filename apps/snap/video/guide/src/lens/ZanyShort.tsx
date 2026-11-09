@@ -29,9 +29,9 @@ function plan(seq: [string, number][]) {
   return { cues, end: s(t) };
 }
 const SEQ: Record<ZanyProps["stage"], [string, number][]> = {
-  ca: [["z101", 0.4], ["z102", 0.5], ["z103", 0.3], ["z104", 0.3], ["z105", 0.3], ["z106", 0.3], ["z107", 0.3], ["z108", 0.9], ["z109", 1.0], ["z110", 0.4], ["z111", 0.7], ["z112", 0.6], ["zp1", 1.0], ["zp2", 0.4], ["zp3", 0.5], ["zp4", 0.5], ["zend", 0.8]],
-  cb: [["z201", 0.4], ["z202", 0.4], ["z203", 0.3], ["z204", 0.3], ["z205", 0.3], ["z206", 0.3], ["z207", 0.3], ["z208", 1.0], ["z209", 0.5], ["z210", 0.5], ["z211", 0.6], ["zp1", 1.0], ["zp2", 0.4], ["zp3", 0.5], ["zp4", 0.5], ["zend", 0.8]],
-  cc: [["z301", 0.4], ["z302", 0.4], ["z303", 0.3], ["z304", 0.3], ["z305", 0.3], ["z306", 0.3], ["z307", 0.4], ["z308", 0.9], ["z309", 1.0], ["z310", 0.5], ["z311", 0.6], ["zp1", 1.0], ["zp2", 0.4], ["zp3", 0.5], ["zp4", 0.5], ["zend", 0.8]],
+  ca: [["z101", 0.4], ["z102", 0.5], ["z103", 0.3], ["z104", 0.3], ["z105", 0.3], ["z106", 0.3], ["z107", 0.3], ["z113", 0.3], ["z114", 0.3], ["z108", 0.9], ["z109", 1.0], ["z110", 0.4], ["z111", 0.7], ["z112", 0.6], ["zp1", 1.0], ["zp2", 0.4], ["zp3", 0.5], ["zr1", 0.6], ["zr2", 0.4], ["zr3", 0.6], ["zp4", 0.6], ["zend", 0.8]],
+  cb: [["z201", 0.4], ["z202", 0.4], ["z203", 0.3], ["z204", 0.3], ["z205", 0.3], ["z206", 0.3], ["z207", 0.3], ["z212", 0.3], ["z213", 0.3], ["z208", 1.0], ["z209", 0.5], ["z210", 0.5], ["z211", 0.6], ["zp1", 1.0], ["zp2", 0.4], ["zp3", 0.5], ["zr1", 0.6], ["zr2", 0.4], ["zr3", 0.6], ["zp4", 0.6], ["zend", 0.8]],
+  cc: [["z301", 0.4], ["z302", 0.4], ["z303", 0.3], ["z304", 0.3], ["z305", 0.3], ["z306", 0.3], ["z307", 0.4], ["z312", 0.3], ["z313", 0.3], ["z308", 0.9], ["z309", 1.0], ["z310", 0.5], ["z311", 0.6], ["zp1", 1.0], ["zp2", 0.4], ["zp3", 0.5], ["zr1", 0.6], ["zr2", 0.4], ["zr3", 0.6], ["zp4", 0.6], ["zend", 0.8]],
 };
 const END_CARD = s(3.4);
 export const zanyFrames = (p: ZanyProps) => plan(SEQ[p.stage]).end + s(1.2) + END_CARD;
@@ -180,6 +180,11 @@ function RiverShort({ c, freeze }: { c: Record<string, Cue>; freeze: number }) {
             <E c="😭" x={780} y={880} size={260} at={c.z106.from + 4} anim="shake" />
             <E c="🧳" x={900} y={1020} size={170} at={c.z107.from + 6} anim="bounce" />
             <E c="🌊" x={700} y={1020} size={150} at={c.z107.from} anim="shake" />
+            {f >= c.z113.from && f < c.z114.from && <E c="🌍" x={540} y={700} size={520} at={c.z113.from} anim="spin" />}
+            {f >= c.z113.from && f < c.z114.from && <div style={{ position: "absolute", left: 540 + 330 * Math.cos((f - c.z113.from) / 7) - 70, top: 700 + 330 * Math.sin((f - c.z113.from) / 7) - 70, fontSize: 120, fontFamily: EMOJI }}>🧒</div>}
+            {f >= c.z114.from && <div style={{ position: "absolute", left: Math.max(560, 1150 - (f - c.z114.from) * 16), top: 520 + Math.abs(Math.sin((f - c.z114.from) / 3)) * -50, fontSize: 330, fontFamily: EMOJI }}>🏫</div>}
+            {f >= c.z114.from && <E c="🦵" x={Math.max(560, 1150 - (f - c.z114.from) * 16) + 120} y={930} size={150} at={c.z114.from} anim="shake" />}
+            {f >= c.z114.from && <E c="😳" x={260} y={780} size={220} at={c.z114.from + 14} />}
           </>
         )}
         {!calm && (
@@ -189,6 +194,8 @@ function RiverShort({ c, freeze }: { c: Record<string, Cue>; freeze: number }) {
             <Stamp text="3日目" at={c.z105.from} x={120} y={300} rot={-4} />
             <Stamp text="4日目" at={c.z106.from} x={180} y={330} rot={7} />
             <Stamp text="5日目" at={c.z107.from} x={130} y={290} rot={-9} />
+            <Stamp text="6日目　地球一周" at={c.z113.from} x={90} y={330} rot={5} />
+            <Stamp text="7日目" at={c.z114.from} x={150} y={300} rot={-7} size={120} />
           </>
         )}
       </Shake>
@@ -253,6 +260,7 @@ function Committee({ c, freeze }: { c: Record<string, Cue>; freeze: number }) {
       <E c="🏢" x={1600} y={700} size={600} at={c.z206.from + 6} />
       <E c="🛸" x={540} y={-300} size={700} at={c.z207.from} anim="bounce" />
       <E c="👽" x={540} y={150} size={300} at={c.z207.from + 14} anim="shake" />
+
     </AbsoluteFill>
   );
 }
@@ -265,6 +273,16 @@ function CommitteeShort({ c, freeze }: { c: Record<string, Cue>; freeze: number 
         <Committee c={c} freeze={freeze} />
         {!calm && <Stamp text="緊急会議" at={c.z201.from + 6} x={300} y={200} rot={-5} size={84} />}
       </Shake>
+      {!calm && (
+        <>
+      {f >= c.z212.from && Array.from({ length: 100 }, (_, i) => (
+        <E key={i} c="🧮" x={-300 + (i % 10) * 190} y={-200 + Math.floor(i / 10) * 190} size={150} at={c.z212.from + Math.floor(i / 3)} anim={f >= c.z213.from ? "shake" : "pop"} />
+      ))}
+      {f >= c.z213.from && ["スト決行", "計算お断り", "√反対"].map((t, i) => (
+        <div key={t} style={{ position: "absolute", left: [40, 560, 240][i], top: [300, 420, 640][i], transform: `rotate(${(i - 1) * 8 + Math.sin((f - c.z213.from) / 3 + i) * 6}deg) scale(${pop(f, c.z213.from + i * 5)})`, background: "#fff", border: `12px solid ${P.red}`, borderRadius: 12, padding: "12px 28px", fontFamily: FONT, fontWeight: 900, fontSize: 90, color: P.red, whiteSpace: "nowrap" }}>{t}</div>
+      ))}
+        </>
+      )}
       {calm && f < c.z209.from && <E c="🧑" x={880} y={440} size={170} at={c.z208.from + 4} anim="bounce" />}
       {calm && f < c.z209.from && <div style={{ position: "absolute", left: 800, top: 540, fontFamily: FONT, fontWeight: 900, fontSize: 40, color: P.ink }}>新人</div>}
       {f >= c.z211.from && (
@@ -321,18 +339,24 @@ function SearchShort({ c, freeze }: { c: Record<string, Cue>; freeze: number }) 
             <E c="📄" x={500} y={1100} size={130} at={c.z303.from + 8} anim="spin" />
             <E c="🛩️" x={260 + Math.sin((f - c.z304.from) / 6) * 200} y={300} size={170} at={c.z304.from} />
             <E c="🐕‍🦺" x={800} y={1120} size={200} at={c.z305.from} anim="bounce" />
-            <E c="🌀" x={300} y={700} size={220} at={c.z306.from} anim="spin" />
-            <E c="🌀" x={800} y={420} size={220} at={c.z306.from + 4} anim="spin" />
+            {f < c.z312.from && <E c="🌀" x={300} y={700} size={220} at={c.z306.from} anim="spin" />}
+            {f < c.z312.from && <E c="🌀" x={800} y={420} size={220} at={c.z306.from + 4} anim="spin" />}
             <E c="🚁" x={250} y={260} size={200} at={c.z307.from} anim="shake" />
             <E c="🚁" x={830} y={300} size={200} at={c.z307.from + 4} anim="shake" style={{ transform: "scaleX(-1)" }} />
             <E c="❓" x={540} y={240} size={160} at={c.z307.from + 10} anim="bounce" />
+            {f >= c.z312.from && <E c="🌕" x={600} y={620} size={560} at={c.z312.from} />}
+            {f >= c.z312.from && <div style={{ position: "absolute", left: 160, top: 1150 - (f - c.z312.from) * 9, fontSize: 240, fontFamily: EMOJI, transform: "rotate(-45deg)" }}>🚀</div>}
+            {f >= c.z313.from && <E c="🐕‍🦺" x={640} y={420} size={170} at={c.z313.from} anim="bounce" />}
+            {f >= c.z313.from && <E c="🤷" x={330} y={700} size={300} at={c.z313.from + 8} anim="shake" />}
           </>
         )}
-        {!calm && <Stamp text="捜索隊　出動" at={c.z302.from + 4} x={120} y={210} rot={-6} size={80} />}
-        {!calm && <Stamp text="連立方程式班" at={c.z303.from} x={60} y={940} rot={5} size={70} color="#1971c2" />}
-        {!calm && <Stamp text="ドローン班" at={c.z304.from} x={560} y={350} rot={-4} size={70} color="#2f9e44" />}
-        {!calm && <Stamp text="警察犬班" at={c.z305.from} x={500} y={1080} rot={6} size={70} color="#f08c00" />}
-        {!calm && <Stamp text="全員　迷子" at={c.z306.from} x={200} y={560} rot={-8} size={96} />}
+        {!calm && f < c.z312.from && <Stamp text="捜索隊　出動" at={c.z302.from + 4} x={120} y={210} rot={-6} size={80} />}
+        {!calm && f < c.z312.from && <Stamp text="連立方程式班" at={c.z303.from} x={60} y={940} rot={5} size={70} color="#1971c2" />}
+        {!calm && f < c.z312.from && <Stamp text="ドローン班" at={c.z304.from} x={560} y={350} rot={-4} size={70} color="#2f9e44" />}
+        {!calm && f < c.z312.from && <Stamp text="警察犬班" at={c.z305.from} x={500} y={1080} rot={6} size={70} color="#f08c00" />}
+        {!calm && f < c.z312.from && <Stamp text="全員　迷子" at={c.z306.from} x={200} y={560} rot={-8} size={96} />}
+        {!calm && <Stamp text="月面捜索" at={c.z312.from} x={140} y={900} rot={-5} size={110} color="#7048e8" />}
+        {!calm && <Stamp text="月にも　ない" at={c.z313.from} x={180} y={1050} rot={7} size={100} />}
       </Shake>
       {calm && f >= c.z311.from && <E c="🐕‍🦺" x={HX(-1) - 10} y={HY(-2) - 110} size={180} at={c.z311.from + 4} anim="bounce" />}
     </>
@@ -344,7 +368,7 @@ function SearchShort({ c, freeze }: { c: Record<string, Cue>; freeze: number }) 
 const STEPS = ["講義", "手で動かす", "ひっかけ問題", "タイム計測"];
 function Product({ c }: { c: Record<string, Cue> }) {
   const f = useCurrentFrame();
-  const a = c.zp1.from, b = c.zp2.from, d3 = c.zp3.from, d4 = c.zp4.from;
+  const a = c.zp1.from, b = c.zp2.from, d3 = c.zp3.from, d4 = c.zp4.from, r1 = c.zr1.from, r2 = c.zr2.from, r3 = c.zr3.from;
   const mid = b + Math.round(c.zp2.dur * 0.55);
   const o = interpolate(f, [a, a + 10], [0, 1], clamp);
   const box = (at: number) => interpolate(f, [at, at + 10], [0, 1], { ...clamp, easing: ease });
@@ -352,10 +376,12 @@ function Product({ c }: { c: Record<string, Cue> }) {
     <AbsoluteFill style={{ background: P.paper, opacity: o }}>
       <div style={{ position: "absolute", left: 50, top: 150, fontFamily: FONT, fontWeight: 900, fontSize: 64, color: P.ink }}>
         <span style={{ display: "inline-block", width: 54, height: 54, borderRadius: "50%", border: `9px solid ${P.gold}`, boxShadow: "0 0 24px rgba(227,165,28,0.6)", verticalAlign: "-8px", marginRight: 18 }} />
-        {f < mid ? <>視点レンズ「<span style={{ color: P.goldInk }}>折り返す</span>」</> : <>視点レンズ　<span style={{ color: P.goldInk }}>8つのレンズ</span></>}
+        {f < mid ? <>視点レンズ「<span style={{ color: P.goldInk }}>折り返す</span>」</> : f < r1 ? <>視点レンズ　<span style={{ color: P.goldInk }}>8つのレンズ</span></> : <>続けると、<span style={{ color: P.goldInk }}>変わること</span></>}
       </div>
       <Screen clip="lens_discover_mirror" segs={[{ from: a, to: mid, a: 0.5, b: 21 }]} width={980} camera={false} sfx={false} style={{ left: 50, top: 290, opacity: f < mid ? 1 : 0 }} glow="rgba(227,165,28,0.25)" />
-      {f >= mid - 2 && <Screen clip="lens_timed" segs={[{ from: mid, to: d4 + s(4), a: 0.5, b: 15 }]} width={980} camera={false} sfx={false} style={{ left: 50, top: 290 }} glow="rgba(227,165,28,0.25)" />}
+      {f >= mid - 2 && f < r2 + 2 && <Screen clip="lens_timed" segs={[{ from: mid, to: r2 + 4, a: 0.5, b: 15 }]} width={980} camera={false} sfx={false} style={{ left: 50, top: 290 }} glow="rgba(227,165,28,0.25)" />}
+      {f >= r2 && <Screen clip="lens_report" segs={[{ from: r2, to: d4 + s(6), a: 0.3, b: 14 }]} width={980} camera={false} sfx={false} style={{ left: 50, top: 290 }} glow="rgba(227,165,28,0.25)" />}
+      {f >= r2 && <div style={{ position: "absolute", left: 60, top: 1010, fontFamily: FONT, fontWeight: 800, fontSize: 30, color: P.muted }}>画面の数字は例です</div>}
       {f < d3 && (
         <div style={{ position: "absolute", left: 50, width: 980, top: 1080, display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 14 }}>
           {STEPS.map((t, i) => {
@@ -364,7 +390,10 @@ function Product({ c }: { c: Record<string, Cue> }) {
           })}
         </div>
       )}
-      {f >= d3 && f < d4 && <div style={{ position: "absolute", left: 50, width: 980, top: 1075, textAlign: "center", fontFamily: FONT, fontWeight: 900, fontSize: 70, color: P.ink, opacity: box(d3) }}>1日 15〜20分 × <span style={{ color: P.goldInk }}>4週間</span></div>}
+      {f >= r1 && f < r2 && <div style={{ position: "absolute", left: 50, width: 980, top: 1065, textAlign: "center", fontFamily: FONT, fontWeight: 900, fontSize: 58, lineHeight: 1.3, color: P.ink, opacity: box(r1) }}>変わるのは<br /><span style={{ color: P.goldInk }}>最初の一手を決めるまでの時間</span></div>}
+      {f >= r2 && f < r3 && <div style={{ position: "absolute", left: 50, width: 980, top: 1070, textAlign: "center", fontFamily: FONT, fontWeight: 900, fontSize: 56, color: P.ink, opacity: box(r2) }}>例：1問の判断 <span style={{ color: P.trap }}>25.0秒</span> → <span style={{ color: P.goldInk }}>11.0秒</span></div>}
+      {f >= r3 && f < d4 && <div style={{ position: "absolute", left: 50, width: 980, top: 1060, textAlign: "center", fontFamily: FONT, fontWeight: 900, fontSize: 54, lineHeight: 1.35, color: P.ink, opacity: box(r3) }}>点数は約束しません。<br /><span style={{ color: P.goldInk }}>時間は、測ってお見せします。</span></div>}
+      {f >= d3 && f < r1 && <div style={{ position: "absolute", left: 50, width: 980, top: 1075, textAlign: "center", fontFamily: FONT, fontWeight: 900, fontSize: 70, color: P.ink, opacity: box(d3) }}>1日 15〜20分 × <span style={{ color: P.goldInk }}>4週間</span></div>}
       {f >= d4 && (
         <div style={{ position: "absolute", left: 50, width: 980, top: 1060, textAlign: "center", opacity: box(d4) }}>
           <span style={{ fontFamily: FONT, fontWeight: 900, fontSize: 60, color: P.ink }}>1つのレンズ <span style={{ color: P.red }}>3日間無料</span></span>
