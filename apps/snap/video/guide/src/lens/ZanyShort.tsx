@@ -170,7 +170,8 @@ function RiverShort({ c, freeze }: { c: Record<string, Cue>; freeze: number }) {
         <RiverMap c={c} freeze={freeze} />
         {!calm && (
           <>
-            <E c="🧒" x={f < c.z104.from ? 300 : 740} y={760} size={170} at={c.z102.from} anim={f < c.z104.from ? "bounce" : "float"} />
+            {f < c.z104.from && <E c="🧒" x={300} y={760} size={170} at={c.z102.from} anim="bounce" />}
+            <E c="🧒" x={740} y={740} size={150} at={c.z104.from} anim="float" />
             {f >= c.z104.from && <E c="🎈" x={740} y={600} size={190} at={c.z104.from} anim="float" />}
             <E c="👷" x={640} y={1150} size={150} at={c.z105.from} anim={f >= c.z106.from ? "shake" : "bounce"} />
             <E c="👷" x={780} y={1100} size={150} at={c.z105.from + 5} anim={f >= c.z106.from ? "shake" : "bounce"} />
