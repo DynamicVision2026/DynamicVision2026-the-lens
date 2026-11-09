@@ -8,6 +8,7 @@ import { Guide2, TL } from "./v2/Guide2";
 import { LENS_GUIDE_TOTAL, LensGuide } from "./lens/LensGuide";
 import { LensShort, lensShortFrames, type LensShortProps } from "./lens/LensShort";
 import { TEST_A_FRAMES, TEST_B_FRAMES, TestA, TestB } from "./lens/TestVideos";
+import { ZanyShort, zanyFrames, type ZanyProps } from "./lens/ZanyShort";
 
 export function Root() {
   return (
@@ -21,6 +22,7 @@ export function Root() {
       <Composition id="LensGuide" component={LensGuide} durationInFrames={LENS_GUIDE_TOTAL} fps={30} width={1920} height={1080} />
       <Composition id="LensTestA" component={TestA} durationInFrames={TEST_A_FRAMES} fps={30} width={1920} height={1080} />
       <Composition id="LensTestB" component={TestB} durationInFrames={TEST_B_FRAMES} fps={30} width={1920} height={1080} />
+      <Composition id="LensZany" component={ZanyShort} defaultProps={{ stage: "ca" } as ZanyProps} calculateMetadata={({ props }: { props: ZanyProps }) => ({ durationInFrames: zanyFrames(props) })} durationInFrames={zanyFrames({ stage: "ca" })} fps={30} width={1080} height={1920} />
       <Composition id="LensShort" component={LensShort} defaultProps={{ stage: "ca" } as LensShortProps} calculateMetadata={({ props }: { props: LensShortProps }) => ({ durationInFrames: lensShortFrames(props) })} durationInFrames={lensShortFrames({ stage: "ca" })} fps={30} width={1080} height={1920} />
     </>
   );
