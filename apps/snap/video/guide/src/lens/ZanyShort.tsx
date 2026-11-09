@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { AbsoluteFill, Audio, Sequence, interpolate, spring, staticFile, useCurrentFrame } from "remotion";
-import { FONT, Sfx, clamp, ease } from "../v2/kit";
+import { FONT, Screen, Sfx, clamp, ease } from "../v2/kit";
 import { EndCard, P } from "./kit";
 import durations from "./durations.json";
 import narr from "../../../lens-narration.json";
@@ -29,9 +29,9 @@ function plan(seq: [string, number][]) {
   return { cues, end: s(t) };
 }
 const SEQ: Record<ZanyProps["stage"], [string, number][]> = {
-  ca: [["z101", 0.4], ["z102", 0.5], ["z103", 0.3], ["z104", 0.3], ["z105", 0.3], ["z106", 0.3], ["z107", 0.3], ["z108", 0.9], ["z109", 1.0], ["z110", 0.4], ["z111", 0.7], ["z112", 0.6], ["zend", 0.8]],
-  cb: [["z201", 0.4], ["z202", 0.4], ["z203", 0.3], ["z204", 0.3], ["z205", 0.3], ["z206", 0.3], ["z207", 0.3], ["z208", 1.0], ["z209", 0.5], ["z210", 0.5], ["z211", 0.6], ["zend", 0.8]],
-  cc: [["z301", 0.4], ["z302", 0.4], ["z303", 0.3], ["z304", 0.3], ["z305", 0.3], ["z306", 0.3], ["z307", 0.4], ["z308", 0.9], ["z309", 1.0], ["z310", 0.5], ["z311", 0.6], ["zend", 0.8]],
+  ca: [["z101", 0.4], ["z102", 0.5], ["z103", 0.3], ["z104", 0.3], ["z105", 0.3], ["z106", 0.3], ["z107", 0.3], ["z108", 0.9], ["z109", 1.0], ["z110", 0.4], ["z111", 0.7], ["z112", 0.6], ["zp1", 1.0], ["zp2", 0.4], ["zp3", 0.5], ["zp4", 0.5], ["zend", 0.8]],
+  cb: [["z201", 0.4], ["z202", 0.4], ["z203", 0.3], ["z204", 0.3], ["z205", 0.3], ["z206", 0.3], ["z207", 0.3], ["z208", 1.0], ["z209", 0.5], ["z210", 0.5], ["z211", 0.6], ["zp1", 1.0], ["zp2", 0.4], ["zp3", 0.5], ["zp4", 0.5], ["zend", 0.8]],
+  cc: [["z301", 0.4], ["z302", 0.4], ["z303", 0.3], ["z304", 0.3], ["z305", 0.3], ["z306", 0.3], ["z307", 0.4], ["z308", 0.9], ["z309", 1.0], ["z310", 0.5], ["z311", 0.6], ["zp1", 1.0], ["zp2", 0.4], ["zp3", 0.5], ["zp4", 0.5], ["zend", 0.8]],
 };
 const END_CARD = s(3.4);
 export const zanyFrames = (p: ZanyProps) => plan(SEQ[p.stage]).end + s(1.2) + END_CARD;
@@ -339,6 +339,42 @@ function SearchShort({ c, freeze }: { c: Record<string, Cue>; freeze: number }) 
   );
 }
 
+// ---------------------------------------------------------------- why the course solves it (real app)
+
+const STEPS = ["講義", "手で動かす", "ひっかけ問題", "タイム計測"];
+function Product({ c }: { c: Record<string, Cue> }) {
+  const f = useCurrentFrame();
+  const a = c.zp1.from, b = c.zp2.from, d3 = c.zp3.from, d4 = c.zp4.from;
+  const mid = b + Math.round(c.zp2.dur * 0.55);
+  const o = interpolate(f, [a, a + 10], [0, 1], clamp);
+  const box = (at: number) => interpolate(f, [at, at + 10], [0, 1], { ...clamp, easing: ease });
+  return (
+    <AbsoluteFill style={{ background: P.paper, opacity: o }}>
+      <div style={{ position: "absolute", left: 50, top: 150, fontFamily: FONT, fontWeight: 900, fontSize: 64, color: P.ink }}>
+        <span style={{ display: "inline-block", width: 54, height: 54, borderRadius: "50%", border: `9px solid ${P.gold}`, boxShadow: "0 0 24px rgba(227,165,28,0.6)", verticalAlign: "-8px", marginRight: 18 }} />
+        {f < mid ? <>視点レンズ「<span style={{ color: P.goldInk }}>折り返す</span>」</> : <>視点レンズ　<span style={{ color: P.goldInk }}>8つのレンズ</span></>}
+      </div>
+      <Screen clip="lens_discover_mirror" segs={[{ from: a, to: mid, a: 0.5, b: 21 }]} width={980} camera={false} sfx={false} style={{ left: 50, top: 290, opacity: f < mid ? 1 : 0 }} glow="rgba(227,165,28,0.25)" />
+      {f >= mid - 2 && <Screen clip="lens_timed" segs={[{ from: mid, to: d4 + s(4), a: 0.5, b: 15 }]} width={980} camera={false} sfx={false} style={{ left: 50, top: 290 }} glow="rgba(227,165,28,0.25)" />}
+      {f < d3 && (
+        <div style={{ position: "absolute", left: 50, width: 980, top: 1080, display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 14 }}>
+          {STEPS.map((t, i) => {
+            const v = box(b + s(1.0 + i * 0.75));
+            return <div key={t} style={{ opacity: v, transform: `translateY(${(1 - v) * 20}px)`, background: P.goldSoft, border: `4px solid ${P.gold}`, borderRadius: 16, textAlign: "center", padding: "14px 0", fontFamily: FONT, fontWeight: 900, fontSize: 31, whiteSpace: "nowrap", color: P.ink }}><span style={{ color: P.goldInk }}>{i + 1}</span> {t}</div>;
+          })}
+        </div>
+      )}
+      {f >= d3 && f < d4 && <div style={{ position: "absolute", left: 50, width: 980, top: 1075, textAlign: "center", fontFamily: FONT, fontWeight: 900, fontSize: 70, color: P.ink, opacity: box(d3) }}>1日 15〜20分 × <span style={{ color: P.goldInk }}>4週間</span></div>}
+      {f >= d4 && (
+        <div style={{ position: "absolute", left: 50, width: 980, top: 1060, textAlign: "center", opacity: box(d4) }}>
+          <span style={{ fontFamily: FONT, fontWeight: 900, fontSize: 60, color: P.ink }}>1つのレンズ <span style={{ color: P.red }}>3日間無料</span></span>
+          <div style={{ marginTop: 8, display: "inline-block", background: P.ink, color: "#fff", borderRadius: 999, padding: "6px 40px", fontFamily: FONT, fontWeight: 900, fontSize: 48 }}>lens.domo-ai.com</div>
+        </div>
+      )}
+    </AbsoluteFill>
+  );
+}
+
 // ---------------------------------------------------------------- the Short
 
 export function ZanyShort({ stage }: ZanyProps) {
@@ -353,9 +389,10 @@ export function ZanyShort({ stage }: ZanyProps) {
   return (
     <AbsoluteFill style={{ background: P.paper, overflow: "hidden" }}>
       <Backdrop cues={list} freeze={freeze} />
-      {stage === "ca" && <RiverShort c={cues} freeze={freeze} />}
-      {stage === "cb" && <CommitteeShort c={cues} freeze={freeze} />}
-      {stage === "cc" && <SearchShort c={cues} freeze={freeze} />}
+      {f < cues.zp1.from + 12 && stage === "ca" && <RiverShort c={cues} freeze={freeze} />}
+      {f < cues.zp1.from + 12 && stage === "cb" && <CommitteeShort c={cues} freeze={freeze} />}
+      {f < cues.zp1.from + 12 && stage === "cc" && <SearchShort c={cues} freeze={freeze} />}
+      {f >= cues.zp1.from && <Product c={cues} />}
       <Ribbon text={ribbon} until={freeze - 1} />
       <Lens at={freeze + 6} />
       {f >= tag.from && (
