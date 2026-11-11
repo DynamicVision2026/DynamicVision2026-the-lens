@@ -6,17 +6,22 @@
   "scripts": {
     "dev": "remotion studio src/index.ts",
     "typecheck": "tsc --noEmit",
-    "render": "node scripts/render-short.mjs"
+    "render": "node scripts/render-shorts.mjs",
+    "test": "vitest run",
+    "voice:lines": "UPDATE_VOICE_LINES=1 vitest run src/voiceLines.test.ts"
   },
   "dependencies": {
     "@lens/scenes": "workspace:*",
+    "@remotion/bundler": "4.0.535",
     "@remotion/cli": "4.0.535",
+    "@remotion/renderer": "4.0.535",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "remotion": "4.0.535"
   },
   "devDependencies": {
     "@types/react": "^19.2.0",
-    "typescript": "~5.9.3"
+    "typescript": "~5.9.3",
+    "vitest": "4.1.11"
   }
 }

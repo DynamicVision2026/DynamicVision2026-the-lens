@@ -16,3 +16,4 @@ export { afterEquals, allAfterEquals, ratioIn, expressionIn, answerNumber, WORD_
 export { stageSteps } from './chain';
 export { unfoldP } from './unfold';
 export { coordFrame, coordText, crossXAxis, parallelAtYAxis, type CoordFrame } from './coord';
+export { lensShortPlan, shortScript, shortSegmentAt, shortLines, shortOptions, speechText, estimateSpeechMs, canShort, SHORT_MS, type ShortPlan, type ShortSegment, type ShortLine, type ShortSegmentKind, type ShortScript, type VoiceMs } from './motion/lensShort';
