@@ -1,5 +1,7 @@
-import { readFile } from "node:fs/promises";
+import { createReadStream } from "node:fs";
+import { readFile, stat } from "node:fs/promises";
 import { join } from "node:path";
+import { Readable } from "node:stream";
 import { serve } from "@hono/node-server";
 import { serveStatic } from "@hono/node-server/serve-static";
 import { Hono } from "hono";
@@ -72,6 +74,42 @@ app.use("/manifest.webmanifest", async (c, next) => {
 app.use("/sw.js", async (c, next) => {
   await next();
   if (c.res.ok) c.res.headers.set("Cache-Control", "no-cache");
+});
+// Landing videos (/lp/*.mp4) are 45–57 MB, but Cloud Run refuses a single response over 32 MiB (it answers 500).
+// Browsers open a video with "Range: bytes=0-", i.e. the whole file, so every .mp4 request is answered as a 206 slice
+// of at most 8 MiB; players fetch the next slice by themselves.
+const VIDEO_CHUNK = 8 * 1024 * 1024;
+app.get("/lp/:file", async (c, next) => {
+  const name = c.req.param("file");
+  if (!name.endsWith(".mp4") || name.includes("..")) return next();
+  const path = join("./dist/lp", name);
+  let size: number;
+  try {
+    size = (await stat(path)).size;
+  } catch {
+    return c.notFound();
+  }
+  const m = /^bytes=(\d*)-(\d*)$/.exec(c.req.header("range") ?? "");
+  let start = 0;
+  let end = size - 1;
+  if (m && (m[1] || m[2])) {
+    if (m[1]) {
+      start = Number(m[1]);
+      if (m[2]) end = Math.min(Number(m[2]), size - 1);
+    } else {
+      start = Math.max(0, size - Number(m[2])); // suffix range: the last N bytes
+    }
+  }
+  if (start >= size || start > end) return c.body(null, 416, { "Content-Range": `bytes */${size}` });
+  end = Math.min(end, start + VIDEO_CHUNK - 1);
+  const body = Readable.toWeb(createReadStream(path, { start, end })) as unknown as ReadableStream;
+  return c.body(body, 206, {
+    "Content-Type": "video/mp4",
+    "Content-Length": String(end - start + 1),
+    "Content-Range": `bytes ${start}-${end}/${size}`,
+    "Accept-Ranges": "bytes",
+    "Cache-Control": "public, max-age=3600",
+  });
 });
 app.use("/*", serveStatic({ root: "./dist" }));
 // SPA fallback: every non-API route gets index.html.
